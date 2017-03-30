@@ -1,0 +1,31 @@
+{
+  "name": "nodejs-express-react-redux-chat-app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "webpack -p",
+    "build": "webpack -p",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.0",
+    "express": "~4.14.1",
+    "jade": "~1.11.0",
+    "morgan": "~1.7.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.8.2",
+    "redux-promise-middleware": "^4.2.0",
+    "redux-thunk": "^2.2.0",
+    "serve-favicon": "~2.3.2",
+    "webpack": "^2.2.1"
+  }
+}
