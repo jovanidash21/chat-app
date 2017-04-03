@@ -33,6 +33,7 @@
     "passport-twitter": "^1.0.4",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-materialize": "^0.18.1",
     "react-redux": "^5.0.3",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.2",
