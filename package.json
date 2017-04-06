@@ -25,6 +25,7 @@
     "mongoose": "^4.9.2",
     "mongoose-timestamp": "^0.6.0",
     "morgan": "~1.7.0",
+    "muicss": "^0.9.13",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-google-plus": "^0.5.1",
