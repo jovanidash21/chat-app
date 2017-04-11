@@ -6,7 +6,9 @@ import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 
 
+const LoginForm = ()=> {
     return (
+        <Form>
             <h2>Welcome Back!</h2>
             <Input label="Email" name="email" id="email" type="email" floatingLabel={true}  required={true} />
             <Input label="Password" name="password" id="password" type="password" floatingLabel={true} />
