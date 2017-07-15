@@ -37,6 +37,7 @@
     "react-chat-ui": "0.0.26",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",
+    "react-redux-loading-bar": "^2.9.2",
     "react-spinkit": "^2.1.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.2",
