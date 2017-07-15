@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-express-react-redux-chat-app",
+  "name": "express-react-redux-chat-app",
   "version": "0.0.0",
   "private": true,
   "scripts": {
