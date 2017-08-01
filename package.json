@@ -12,7 +12,6 @@
     "body-parser": "~1.16.0",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
-    "css-loader": "^0.28.0",
     "debug": "~2.6.0",
     "express": "~4.14.1",
     "express-session": "^1.15.2",
@@ -49,6 +48,6 @@
     "redux-logger": "^2.8.2",
     "redux-promise-middleware": "^4.2.0",
     "redux-thunk": "^2.2.0",
-    "webpack": "^2.2.1"
+    "webpack": "^3.4.1"
   }
 }
