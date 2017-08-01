@@ -8,10 +8,6 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "babel-core": "^6.22.1",
-    "babel-loader": "^6.2.10",
-    "babel-preset-latest": "^6.22.0",
-    "babel-preset-react": "^6.22.0",
     "bluebird": "^3.5.0",
     "body-parser": "~1.16.0",
     "connect-flash": "^0.1.1",
@@ -33,6 +29,16 @@
     "passport-local-mongoose": "^4.0.0",
     "passport-twitter": "^1.0.4",
     "pug": "^2.0.0-beta11",
+    "serve-favicon": "~2.3.2",
+    "socket.io": "^1.7.3",
+    "socket.io-client": "^1.7.3",
+    "style-loader": "^0.16.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
     "react": "^15.4.2",
     "react-chat-ui": "0.0.26",
     "react-dom": "^15.4.2",
@@ -43,10 +49,6 @@
     "redux-logger": "^2.8.2",
     "redux-promise-middleware": "^4.2.0",
     "redux-thunk": "^2.2.0",
-    "serve-favicon": "~2.3.2",
-    "socket.io": "^1.7.3",
-    "socket.io-client": "^1.7.3",
-    "style-loader": "^0.16.1",
     "webpack": "^2.2.1"
   }
 }
