@@ -40,6 +40,7 @@
     "babel-preset-react": "^6.22.0",
     "browser-sync": "^2.18.13",
     "css-loader": "^0.28.0",
+    "nodemon": "^1.11.0",
     "react": "^15.4.2",
     "react-chat-ui": "0.0.26",
     "react-dom": "^15.4.2",
