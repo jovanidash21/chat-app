@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "postinstall": "webpack -p",
-    "build": "webpack -p",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "build": "concurrently \"npm run build:client\" \"npm run build:server\"",
+    "build:client": "webpack -p",
+    "build:server": "cross-env NODE_ENV=production node ./bin/www",
+    "dev": "concurrently -k \"webpack --watch\" \"nodemon ./bin/www --watch build\""
   },
   "dependencies": {
     "bluebird": "^3.5.0",
