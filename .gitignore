@@ -6,6 +6,9 @@ npm-debug.log*
 # Dependency directory
 node_modules/
 
+# Dotenv file
+.env
+
 # Webpack build
 public/build/
 
