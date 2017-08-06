@@ -12,7 +12,6 @@ var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
-var browserSync = require('browser-sync');
 
 var options = {
   server: {
@@ -36,6 +35,7 @@ var app = express();
 
 // browserSync setup
 if ( process.env.NODE_ENV != 'production' ) {
+  var browserSync = require('browser-sync');
   browserSync({
     files: ['./**/*'],
     online: false,
