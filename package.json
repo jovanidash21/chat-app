@@ -38,7 +38,8 @@
     "pug": "^2.0.0-rc.3",
     "serve-favicon": "~2.4.3",
     "socket.io": "^2.0.3",
-    "socket.io-client": "^2.0.3"
+    "socket.io-client": "^2.0.3",
+    "xoauth2": "^1.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
