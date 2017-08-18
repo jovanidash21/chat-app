@@ -5,8 +5,8 @@ import promise from 'redux-promise-middleware';
 import reducers from '../reducers/index';
 
 const store = createStore(
-    reducers,
-    applyMiddleware(createLogger(), thunk, promise())
+  reducers,
+  applyMiddleware(createLogger(), thunk, promise())
 );
 
 export default store;
