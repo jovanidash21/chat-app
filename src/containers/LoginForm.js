@@ -28,4 +28,4 @@ const LoginForm = ()=> {
   );
 };
 
-export default LoginForm;
+export default connect()(LoginForm);
