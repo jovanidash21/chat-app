@@ -1,0 +1,39 @@
+.login-form {
+  .button {
+    color: #fff;
+    padding: 0;
+    width: 100%;
+    position: relative;
+    display: block;
+    &.button-facebook {
+      background-color: #3b5998;
+    }
+    &.button-google {
+      background-color: #db3236;
+    }
+    &.button-twitter {
+      background-color: #00aced;
+    }
+    &.button-instagram {
+      background-color: #8a3ab9;
+    }
+    &.button-linkedin {
+      background-color: #0077b5;
+    }
+    &.button-github {
+      background-color: #333;
+    }
+  }
+  .icon {
+    border-right: 1px solid #999;
+    display: inline-table;
+    float: left;
+    height: 100%;
+    width: 45px;
+    span {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+}
