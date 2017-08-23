@@ -18,7 +18,7 @@ class LoginForm extends Component {
             <Col md="4" md-offset="4" sm="8" sm-offset="2">
               <Row>
                 <Col md="12">
-                  <h2>Chat App!</h2>
+                  <h1 className="mui--text-center">Chat App</h1>
                 </Col>
                 <Col md="12">  
                   <Form>
