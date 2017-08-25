@@ -33,10 +33,6 @@ if ( process.env.NODE_ENV != 'production' ) {
   });
 }
 
-passport.use(new LocalStrategy(usersData.authenticate()));
-passport.serializeUser(usersData.serializeUser());
-passport.deserializeUser(usersData.deserializeUser());
-
 // mongoose configuration
 var mongooseOptions = {
   useMongoClient: true
