@@ -1,7 +1,7 @@
 var express = require('express');
-var router = express.Router();
+var router = express.Router({mergeParams: true});
 
-router.get('/user', function(req, res, next) {
+router.get('/', function(req, res, next) {
   if (req.user === undefined) {
     res.json([{}]);
   }
