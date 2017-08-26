@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
 var passport = require('passport');
+var Strategy = require('passport-local').Strategy;
 var usersData = require('../../../models/users-data-schema');
 
-passport.use(
-  usersData.createStrategy()
-);
+passport.use(new Strategy(
+  usersData.authenticate()
+));
 
 passport.serializeUser(
   usersData.serializeUser()
