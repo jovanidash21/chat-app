@@ -3,9 +3,17 @@ var router = express.Router({mergeParams: true});
 var passport = require('passport');
 var usersData = require('../../../models/users-data-schema');
 
-passport.use(usersData.createStrategy());
-passport.serializeUser(usersData.serializeUser());
-passport.deserializeUser(usersData.deserializeUser())
+passport.use(
+  usersData.createStrategy()
+);
+
+passport.serializeUser(
+  usersData.serializeUser()
+);
+
+passport.deserializeUser(
+  usersData.deserializeUser()
+);
 
 router.post('/', function(req, res, next) {
   passport.authenticate('local', function(err, user) {
@@ -34,7 +42,10 @@ router.post('/', function(req, res, next) {
       }
     }
     else {
-      res.end(err);
+      res.status(402).send({
+        success: false, 
+        message: 'Error! Please try again.'
+      });
     }
   })(req, res, next);
 });
