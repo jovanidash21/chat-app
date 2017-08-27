@@ -7,17 +7,9 @@ passport.use(new Strategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: '/api/login/facebook/callback'
-}, function(accessToken, refreshToken, profile, callback) {
-  return callback(null, profile);
+}, function(accessToken, refreshToken, profile, done) {
+  return done(null, profile);
 }));
-
-passport.serializeUser(function(user, callback) {
-  callback(null, user);
-});
-
-passport.deserializeUser(function(object, callback) {
-  callback(null, object);
-});
 
 router.get('/', passport.authenticate('facebook', { scope : 'email' }));
 
