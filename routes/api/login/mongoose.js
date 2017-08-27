@@ -8,18 +8,10 @@ passport.use(new Strategy(
   usersData.authenticate()
 ));
 
-passport.serializeUser(
-  usersData.serializeUser()
-);
-
-passport.deserializeUser(
-  usersData.deserializeUser()
-);
-
 router.post('/', function(req, res, next) {
   passport.authenticate('local', function(err, user) {
-    if ( !err ) {
-      if ( !user ) {
+    if (!err) {
+      if (!user) {
         res.status(401).send({
           success: false, 
           message: 'Login failed! Invalid username or password.'
@@ -27,11 +19,11 @@ router.post('/', function(req, res, next) {
       }
       else {
         req.logIn(user, function(err) {
-          if ( !err ) {
-            res.json({
+          if (!err) {
+            res.status(200).send({
               success: true, 
               message: 'Login Successful.'
-            })
+            });
           }
           else {
             res.status(402).send({
@@ -43,9 +35,9 @@ router.post('/', function(req, res, next) {
       }
     }
     else {
-      res.status(402).send({
+      res.status(500).send({
         success: false, 
-        message: 'Error! Please try again.'
+        message: 'Server Error!'
       });
     }
   })(req, res, next);
