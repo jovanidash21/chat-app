@@ -18,5 +18,6 @@ passport.deserializeUser(function(id, done) {
 router.use('/mongoose', require('./mongoose'));
 router.use('/facebook', require('./facebook'));
 router.use('/google', require('./google'));
+router.use('/twitter', require('./twitter'));
 
 module.exports = router;
