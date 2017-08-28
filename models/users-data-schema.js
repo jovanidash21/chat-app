@@ -10,9 +10,9 @@ var usersDataSchema = new Schema
 (
   {
     profileID: Number,
-    profileToken: String,
     firstName: String,
     lastName: String,
+    email: String
   },
   {
     collection: 'usersData'
