@@ -9,10 +9,9 @@ mongoose.Promise = Promise;
 var usersDataSchema = new Schema
 (
   {
-    profileID: Number,
-    firstName: String,
-    lastName: String,
-    email: String
+    name: String,
+    email: String,
+    profilePicture: String
   },
   {
     collection: 'usersData'
