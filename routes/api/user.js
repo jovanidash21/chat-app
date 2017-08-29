@@ -3,10 +3,13 @@ var router = express.Router({mergeParams: true});
 
 router.get('/', function(req, res, next) {
   if (req.user === undefined) {
-    res.json([{}]);
+    res.status(401).send({
+      success: false, 
+      message: 'Unauthorized'
+    });
   }
   else {
-    res.json([req.user]);
+    res.status(200).json([req.user]);
   }
 });
 
