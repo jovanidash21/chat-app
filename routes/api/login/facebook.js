@@ -8,17 +8,37 @@ passport.use(new Strategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: '/api/login/facebook/callback',
-  profileFields: ['id', 'name', 'emails']
+  profileFields: ['id', 'displayName', 'emails', 'photos']
 }, function(req, accessToken, refreshToken, profile, done) {
-  usersData.findOne({profileID: profile.id}, function(err, user) {
+  var username = 'facebook/' + profile.id;
+  var name = profile.displayName;
+  var email;
+  var profilePicture;
+
+  if (profile.emails[0].value) {
+    email = profile.emails[0].value;
+  }
+  else {
+    email = '';
+  }
+
+  if (profile.photos[0].value) {
+    profilePicture = profile.photos[0].value;
+  }
+  else {
+    profilePicture = '';
+  }
+
+  usersData.findOne({username: username}, function(err, user) {
     if (!err) {
       if (user === null) {
         var newUser = new usersData({
-          profileID: profile.id,
-          firstName: profile.name.givenName,
-          lastName: profile.name.familyName,
-          email: (profile.emails[0].value || '')
+          username: username,
+          name: name,
+          email: email,
+          profilePicture: profilePicture
         });
+
         newUser.save(function(err) {
           if (!err) {
             return done(null, newUser);
