@@ -8,35 +8,41 @@ passport.use(new Strategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: '/api/login/google/callback'
-}, function(req, accessToken, refreshToken, profile, done) {
+}, function(accessToken, refreshToken, profile, done) {
   var username = 'google/' + profile.id;
   var name = profile.displayName;
-  var email;
+  var email = profile.email;
   var profilePicture;
 
-  if (profile.emails[0].value) {
-    email = profile.emails[0].value;
-  }
-  else {
-    email = '';
-  }
-
-  if (profile.photos[0].value) {
+  if (profile.photos !== undefined) {
     profilePicture = profile.photos[0].value;
+    profilePicture = profilePicture.replace('sz=50', 'sz=200');
   }
   else {
     profilePicture = '';
   }
+  
+  var userData = {
+    username: username,
+    name: name,
+    email: email,
+    profilePicture: profilePicture
+  }
 
   usersData.findOne({username: username}, function(err, user) {
     if (!err) {
-      if (user === null) {
-        var newUser = new usersData({
-          username: username,
-          name: name,
-          email: email,
-          profilePicture: profilePicture
+      if (user !== null) {
+        user.update(userData, function(err) {
+          if (!err) {
+            return done(null, user);
+          }
+          else {
+            return done(err);
+          }
         });
+      }
+      else {
+        var newUser = new usersData(userData);
 
         newUser.save(function(err) {
           if (!err) {
@@ -46,9 +52,6 @@ passport.use(new Strategy({
             return done(err);
           }
         });
-      }
-      else {
-        return done(null, user);
       }
     }
     else {
