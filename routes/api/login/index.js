@@ -19,5 +19,6 @@ router.use('/mongoose', require('./mongoose'));
 router.use('/facebook', require('./facebook'));
 router.use('/google', require('./google'));
 router.use('/twitter', require('./twitter'));
+router.use('/instagram', require('./instagram'));
 
 module.exports = router;
