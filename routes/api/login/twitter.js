@@ -11,33 +11,46 @@ passport.use(new Strategy({
   includeEmail: true
 }, function(token, tokenSecret, profile, done) {
   var username = 'twitter/' + profile.id;
-  var name = profile.displayName;
+  var name = profile.name;
   var email;
   var profilePicture;
 
-  if (profile.emails[0].value) {
+  if (profile.emails !== undefined) {
     email = profile.emails[0].value;
   }
   else {
     email = '';
   }
 
-  if (profile.photos[0].value) {
+  if (profile.photos !== undefined) {
     profilePicture = profile.photos[0].value;
+    profilePicture = profilePicture.replace('_normal', '_200x200');
   }
   else {
     profilePicture = '';
   }
+  
+  var userData = {
+    username: username,
+    name: name,
+    email: email,
+    profilePicture: profilePicture
+  }
 
   usersData.findOne({username: username}, function(err, user) {
     if (!err) {
-      if (user === null) {
-        var newUser = new usersData({
-          username: username,
-          name: name,
-          email: email,
-          profilePicture: profilePicture
+      if (user !== null) {
+        user.update(userData, function(err) {
+          if (!err) {
+            return done(null, user);
+          }
+          else {
+            return done(err);
+          }
         });
+      }
+      else {
+        var newUser = new usersData(userData);
 
         newUser.save(function(err) {
           if (!err) {
@@ -47,9 +60,6 @@ passport.use(new Strategy({
             return done(err);
           }
         });
-      }
-      else {
-        return done(null, user);
       }
     }
     else {
