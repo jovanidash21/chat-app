@@ -20,5 +20,6 @@ router.use('/facebook', require('./facebook'));
 router.use('/google', require('./google'));
 router.use('/twitter', require('./twitter'));
 router.use('/instagram', require('./instagram'));
+router.use('/linkedin', require('./linkedin'));
 
 module.exports = router;
