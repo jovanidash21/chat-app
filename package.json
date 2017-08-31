@@ -42,7 +42,6 @@
     "passport-github": "^1.1.0",
     "passport-google-oauth2": "^0.1.6",
     "passport-instagram": "^1.0.0",
-    "passport-linkedin": "^1.0.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^4.0.0",
     "passport-twitter": "^1.0.4",
