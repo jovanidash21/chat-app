@@ -15,7 +15,7 @@ passport.deserializeUser(function(id, done) {
   }
 });
 
-router.use('/mongoose', require('./mongoose'));
+router.use('/local', require('./local'));
 router.use('/facebook', require('./facebook'));
 router.use('/google', require('./google'));
 router.use('/twitter', require('./twitter'));
