@@ -21,5 +21,6 @@ router.use('/google', require('./google'));
 router.use('/twitter', require('./twitter'));
 router.use('/instagram', require('./instagram'));
 router.use('/linkedin', require('./linkedin'));
+router.use('/github', require('./github'));
 
 module.exports = router;
