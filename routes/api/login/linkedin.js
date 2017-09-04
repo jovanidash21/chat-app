@@ -18,15 +18,13 @@ passport.use(new Strategy({
 
   if (profile.emails !== undefined) {
     email = profile.emails[0].value;
-  }
-  else {
+  } else {
     email = '';
   }
 
   if (profile._json.pictureUrls.values !== undefined) {
     profilePicture = profile._json.pictureUrls.values[0];
-  }
-  else {
+  } else {
     profilePicture = '';
   }
   
@@ -43,26 +41,22 @@ passport.use(new Strategy({
         user.update(userData, function(err) {
           if (!err) {
             return done(null, user);
-          }
-          else {
+          } else {
             return done(err);
           }
         });
-      }
-      else {
+      } else {
         var newUser = new usersData(userData);
 
         newUser.save(function(err) {
           if (!err) {
             return done(null, newUser);
-          } 
-          else {
+          } else {
             return done(err);
           }
         });
       }
-    }
-    else {
+    } else {
       return done(err);
     }
   });

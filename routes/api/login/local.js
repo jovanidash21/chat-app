@@ -16,16 +16,14 @@ router.post('/', function(req, res, next) {
           success: false, 
           message: 'Login failed! Invalid username or password.'
         });
-      }
-      else {
+      } else {
         req.logIn(user, function(err) {
           if (!err) {
             res.status(200).send({
               success: true, 
               message: 'Login Successful.'
             });
-          }
-          else {
+          } else {
             res.status(402).send({
               success: false, 
               message: 'Error! Please try again.'
@@ -33,8 +31,7 @@ router.post('/', function(req, res, next) {
           }
         })
       }
-    }
-    else {
+    } else {
       res.status(500).send({
         success: false, 
         message: 'Server Error!'

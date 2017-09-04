@@ -25,26 +25,22 @@ passport.use(new Strategy({
         user.update(userData, function(err) {
           if (!err) {
             return done(null, user);
-          }
-          else {
+          } else {
             return done(err);
           }
         });
-      }
-      else {
+      } else {
         var newUser = new usersData(userData);
 
         newUser.save(function(err) {
           if (!err) {
             return done(null, newUser);
-          } 
-          else {
+          } else {
             return done(err);
           }
         });
       }
-    }
-    else {
+    } else {
       return done(err);
     }
   });

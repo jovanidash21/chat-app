@@ -17,8 +17,7 @@ passport.use(new Strategy({
   if (profile.photos !== undefined) {
     profilePicture = profile.photos[0].value;
     profilePicture = profilePicture.replace('sz=50', 'sz=200');
-  }
-  else {
+  } else {
     profilePicture = '';
   }
   
@@ -35,26 +34,22 @@ passport.use(new Strategy({
         user.update(userData, function(err) {
           if (!err) {
             return done(null, user);
-          }
-          else {
+          } else {
             return done(err);
           }
         });
-      }
-      else {
+      } else {
         var newUser = new usersData(userData);
 
         newUser.save(function(err) {
           if (!err) {
             return done(null, newUser);
-          } 
-          else {
+          } else {
             return done(err);
           }
         });
       }
-    }
-    else {
+    } else {
       return done(err);
     }
   });

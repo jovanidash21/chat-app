@@ -19,8 +19,7 @@ router.post('/', function(req, res, next) {
               success: true, 
               message: 'Login Successful.'
             });
-          }
-          else {
+          } else {
              res.status(500).send({
               success: false, 
               message: 'Server Error!'
@@ -28,8 +27,7 @@ router.post('/', function(req, res, next) {
           }
         })
       })(req, res, next);
-    }
-    else {
+    } else {
       res.status(401).send({
         success: false, 
         message: 'Username already exist.'

@@ -7,8 +7,7 @@ router.get('/', function(req, res, next) {
       success: false, 
       message: 'Unauthorized'
     });
-  }
-  else {
+  } else {
     res.status(200).json([req.user]);
   }
 });
