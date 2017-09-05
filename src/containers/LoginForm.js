@@ -22,8 +22,21 @@ class LoginForm extends Component {
                 </Col>
                 <Col md="12">  
                   <Form>
-                    <Input label="Email" name="email" id="email" type="email" floatingLabel={true}  required={true} />
-                    <Input label="Password" name="password" id="password" type="password" floatingLabel={true} />
+                    <Input 
+                      label="Username"
+                      name="username"
+                      type="text"
+                      floatingLabel={true}
+                      required={true}
+                      ref="username"
+                    />
+                    <Input 
+                      label="Password"
+                      name="password"
+                      type="password"
+                      floatingLabel={true}
+                      ref="password"
+                    />
                       <Button
                         className="button button-login"
                         color="primary" 
