@@ -1,6 +1,5 @@
-export const selectName = (name) => {
-  return {
-    type: 'NAME_SELECTED',
-    payload: name
-  }
-};
+export {
+  localLogin,
+  localRegister,
+  localLogout
+} from './passport/local';
