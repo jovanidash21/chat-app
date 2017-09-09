@@ -11,56 +11,56 @@ import {
   LOCAL_LOGOUT_ERROR,
 } from '../../constants/index';
 
-function loginUser() {
+function localLoginUser() {
   return {
     type: LOCAL_LOGIN_USER
   }
 }
 
-function loginSuccess(data) {
+function localLoginSuccess(data) {
   return {
     type: LOCAL_LOGIN_SUCCESS,
     data
   }
 }
 
-function loginError() {
+function localLoginError() {
   return {
     type: LOCAL_LOGIN_ERROR
   }
 }
 
-function registerUser() {
+function localRegisterUser() {
   return {
     type: LOCAL_REGISTER_USER
   }
 }
 
-function registerSuccess() {
+function localRegisterSuccess() {
   return {
     type: LOCAL_REGISTER_SUCCESS
   }
 }
 
-function registerError() {
+function localRegisterError() {
   return {
     type: LOCAL_REGISTER_ERROR
   }
 }
 
-function logoutUser() {
+function localLogoutUser() {
   return {
     type: LOCAL_LOGOUT_USER
   }
 }
 
-function logoutSuccess() {
+function localLogoutSuccess() {
   return {
     type: LOCAL_LOGOUT_SUCCESS
   }
 }
 
-function logoutError() {
+function localLogoutError() {
   return {
     type: LOCAL_LOGOUT_ERROR
   }
@@ -76,14 +76,15 @@ function makeRequest(method, data, api) {
 
 export function localLogin(data) { 
   return dispatch => {
-    dispatch(loginUser());
+    dispatch(localLoginUser());
 
     return makeRequest('POST', data, '/api/login/local')  
       .then(response => {
         if (response.data.success) {          
-          dispatch(loginSuccess(data));
+          dispatch(localLoginSuccess(data));
         } else {          
-          dispatch(loginError());        }
+          dispatch(localLoginError());        
+        }
       })
       .catch(function (response) {
         if (response instanceof Error) {
@@ -95,14 +96,14 @@ export function localLogin(data) {
 
 export function localRegister(data) {  
   return dispatch => {
-    dispatch(registerUser());
+    dispatch(localRegisterUser());
 
     return makeRequest('POST', data, '/api/register') 
       .then(response => {
         if (response.data.success) {          
-          dispatch(registerSuccess());
+          dispatch(localRegisterSuccess());
         } else {          
-          dispatch(registerError());
+          dispatch(localRegisterError());
         }
       })
       .catch(response => {
@@ -116,14 +117,14 @@ export function localRegister(data) {
 
 export function localLogout() {
   return dispatch => {
-    dispatch(logoutUser());
+    dispatch(localLogoutUser());
 
     return makeRequest('POST', data, '/api/logout') 
       .then(response => {
         if (response.data.success) {
-          dispatch(logoutSuccess());
+          dispatch(localLogoutSuccess());
         } else {
-          dispatch(logoutError());
+          dispatch(localLogoutError());
         }
       })
       .catch(response => {
