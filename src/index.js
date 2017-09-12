@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import Login from './containers/Login/';
+import App from './containers/App';
 import store from './store/index';
 
 render(
   <Provider store={store}>
-    <Login />
+    <App />
   </Provider>
   , document.getElementById('root'));
