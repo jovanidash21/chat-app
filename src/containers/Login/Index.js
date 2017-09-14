@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  localLogin,
+  localRegister,
+  localLogout
+} from "../../actions"; 
 import Container from 'muicss/lib/react/container';
 import Form from 'muicss/lib/react/form';
 import Row from 'muicss/lib/react/row';
@@ -13,7 +18,29 @@ import LinkedInLogin from '../../components/Login/LinkedInLogin';
 import GitHubLogin from '../../components/Login/GitHubLogin';
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleLocalLogin = this.handleLocalLogin.bind(this);
+    this.handleLocalRegister = this.handleLocalRegister.bind(this);
+    this.handleLocalLogout = this.handleLocalLogout.bind(this);
+  }
+  handleLocalLogin(data) {
+    this.props.dispatch(localLogin(data));
+  }
+  handleLocalRegister() {    
+    this.props.dispatch(localRegister());
+  }
+  handleLocalLogout() {    
+    this.props.dispatch(localLogout());
+  }
   render() {
+    const { 
+      handleLocalLogin,
+      handleLocalRegister,
+      handleLocalLogout 
+    } = this;
+
     return (
       <div className="login-form">
         <Container fluid={true}>
@@ -24,7 +51,11 @@ class Login extends Component {
                   <h1 className="mui--text-center">Chat App</h1>
                 </Col>
                 <Col md="12">  
-                  <LocalLogin />
+                  <LocalLogin 
+                    handleLocalLogin={handleLocalLogin}
+                    handleLocalRegister={handleLocalRegister}
+                    handleLocalLogout={handleLocalLogout}
+                  />
                 </Col>  
                 <Col md="12">
                   <FacebookLogin />
@@ -53,4 +84,12 @@ class Login extends Component {
   }
 }
 
-export default connect()(Login);
+const mapStateToProps = (state) => {  
+  return {
+    local: state.local
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(Login);
