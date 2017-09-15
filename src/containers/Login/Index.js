@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  localLogin,
-  localRegister,
-  localLogout
-} from "../../actions"; 
+  localLogin
+} from "../../actions";
 import Container from 'muicss/lib/react/container';
 import Form from 'muicss/lib/react/form';
 import Row from 'muicss/lib/react/row';
@@ -22,23 +20,13 @@ class Login extends Component {
     super(props);
 
     this.handleLocalLogin = this.handleLocalLogin.bind(this);
-    this.handleLocalRegister = this.handleLocalRegister.bind(this);
-    this.handleLocalLogout = this.handleLocalLogout.bind(this);
   }
   handleLocalLogin(data) {
     this.props.dispatch(localLogin(data));
   }
-  handleLocalRegister() {    
-    this.props.dispatch(localRegister());
-  }
-  handleLocalLogout() {    
-    this.props.dispatch(localLogout());
-  }
   render() {
-    const { 
-      handleLocalLogin,
-      handleLocalRegister,
-      handleLocalLogout 
+    const {
+      handleLocalLogin
     } = this;
 
     return (
@@ -53,8 +41,6 @@ class Login extends Component {
                 <Col md="12">  
                   <LocalLogin 
                     handleLocalLogin={handleLocalLogin}
-                    handleLocalRegister={handleLocalRegister}
-                    handleLocalLogout={handleLocalLogout}
                   />
                 </Col>  
                 <Col md="12">
