@@ -66,7 +66,7 @@ function localLogoutError() {
   }
 }
 
-function makeRequest(method, data, api) {
+function makeRequest(method, api, data) {
   return axios({
     method: method,
     url: api,
@@ -78,17 +78,17 @@ export function localLogin(data) {
   return dispatch => {
     dispatch(localLoginUser());
 
-    return makeRequest('POST', data, '/api/login/local')  
+    return makeRequest('POST', '/api/login/local', data)  
       .then(response => {
-        if (response.data.success) {          
+        if (response.status === 200) {
           dispatch(localLoginSuccess(data));
-        } else {          
-          dispatch(localLoginError());        
+        } else {
+          dispatch(localLoginError());
         }
       })
-      .catch(function (response) {
-        if (response instanceof Error) {
-          console.log('Error', response.message);
+      .catch(function (error) {
+        if (error instanceof Error) {
+          dispatch(localLoginError());
         }
       });
   }
@@ -98,17 +98,17 @@ export function localRegister(data) {
   return dispatch => {
     dispatch(localRegisterUser());
 
-    return makeRequest('POST', data, '/api/register') 
+    return makeRequest('POST', '/api/register', data)
       .then(response => {
-        if (response.data.success) {          
+        if (response.status === 200) {        
           dispatch(localRegisterSuccess());
         } else {          
           dispatch(localRegisterError());
         }
       })
-      .catch(response => {
-        if (response instanceof Error) {
-          console.log('Error', response.message);
+      .catch(error => {
+        if (error instanceof Error) {
+          dispatch(localRegisterError());
         }
       });
   }
@@ -119,7 +119,7 @@ export function localLogout() {
   return dispatch => {
     dispatch(localLogoutUser());
 
-    return makeRequest('POST', data, '/api/logout') 
+    return makeRequest('POST', '/api/logout') 
       .then(response => {
         if (response.data.success) {
           dispatch(localLogoutSuccess());
@@ -127,10 +127,10 @@ export function localLogout() {
           dispatch(localLogoutError());
         }
       })
-      .catch(response => {
-        if (response instanceof Error) {
-          console.log('Error', response.message);
+      .catch(error => {
+        if (error instanceof Error) {
+          dispatch(localLogoutError());
         }
-      })
+      });
   }     
 }
