@@ -11,63 +11,63 @@ import {
 } from '../../constants/index';
 
 const initialState = {
-  isWaiting: false,
-  authenticated: false
+  isLoading: false,
+  isAuthenticated: false
 };
 
-const local = (state = initialState, action) => {
+const local = (state=initialState, action) => {
   switch(action.type) {
     case LOCAL_LOGIN_USER:
       return {
         ...state,
-        isWaiting: true
+        isLoading: true
       };
     case LOCAL_LOGIN_SUCCESS:
       return {
         ...state,
-        isWaiting: false,
-        authenticated: true
+        isLoading: false,
+        isAuthenticated: true
       };
     case LOCAL_LOGIN_ERROR:
       return {
         ...state,
-        isWaiting: false,
-        authenticated: false
+        isLoading: false,
+        isAuthenticated: false
       };
     case LOCAL_REGISTER_USER:
       return {
         ...state,
-        isWaiting: true
+        isLoading: true
       };
     case LOCAL_REGISTER_SUCCESS:
       return {
         ...state,
-        isWaiting: false,
-        authenticated: true
+        isLoading: false,
+        isAuthenticated: true
       }
     case LOCAL_REGISTER_ERROR:
       return {
         ...state,
-        isWaiting: false,
-        authenticated: false
+        isLoading: false,
+        isAuthenticated: false
       }
     case LOCAL_LOGOUT_USER:
       return {
         ...state,
-        isWaiting: true
+        isLoading: true
       };
     case LOCAL_LOGOUT_SUCCESS:
       return {
         ...state,
-        isWaiting: false,
-        authenticated: false
+        isLoading: false,
+        isAuthenticated: false
       };
     case LOCAL_LOGOUT_ERROR:
       return {
         ...state,
-        isWaiting: false,
-        authenticated: true
-      }
+        isLoading: false,
+        isAuthenticated: true
+      };
     default:
       return state;
   }
