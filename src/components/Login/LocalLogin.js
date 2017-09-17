@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Form from 'muicss/lib/react/form';
 import Input from 'muicss/lib/react/input';
 import Button from 'muicss/lib/react/button';
@@ -76,6 +77,10 @@ class LocalLogin extends Component {
       </Form>  
     ) 
   }
+}
+
+LocalLogin.propTypes={
+  handleLocalLogin: PropTypes.func.isRequired
 }
 
 export default LocalLogin;
