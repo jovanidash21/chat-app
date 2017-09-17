@@ -1,68 +1,68 @@
 import axios from 'axios';
 import { 
-  LOCAL_LOGIN_USER,
-  LOCAL_LOGIN_SUCCESS,
-  LOCAL_LOGIN_ERROR,
-  LOCAL_REGISTER_USER,
-  LOCAL_REGISTER_SUCCESS,
-  LOCAL_REGISTER_ERROR,
-  LOCAL_LOGOUT_USER,
-  LOCAL_LOGOUT_SUCCESS,
-  LOCAL_LOGOUT_ERROR,
+  LOCAL_LOGIN_PENDING,
+  LOCAL_LOGIN_FULFILLED,
+  LOCAL_LOGIN_REJECTED,
+  LOCAL_REGISTER_PENDING,
+  LOCAL_REGISTER_FULFILLED,
+  LOCAL_REGISTER_REJECTED,
+  LOCAL_LOGOUT_PENDING,
+  LOCAL_LOGOUT_FULFILLED,
+  LOCAL_LOGOUT_REJECTED,
 } from '../../constants/index';
 
-function localLoginUser() {
+function localLoginPending() {
   return {
-    type: LOCAL_LOGIN_USER
+    type: LOCAL_LOGIN_PENDING
   }
 }
 
-function localLoginSuccess(data) {
+function localLoginFulfilled(data) {
   return {
-    type: LOCAL_LOGIN_SUCCESS,
+    type: LOCAL_LOGIN_FULFILLED,
     data
   }
 }
 
-function localLoginError() {
+function localLoginRejected() {
   return {
-    type: LOCAL_LOGIN_ERROR
+    type: LOCAL_LOGIN_REJECTED
   }
 }
 
-function localRegisterUser() {
+function localRegisterPending() {
   return {
-    type: LOCAL_REGISTER_USER
+    type: LOCAL_REGISTER_PENDING
   }
 }
 
-function localRegisterSuccess() {
+function localRegisterFulfilled() {
   return {
-    type: LOCAL_REGISTER_SUCCESS
+    type: LOCAL_REGISTER_FULFILLED
   }
 }
 
-function localRegisterError() {
+function localRegisterRejected() {
   return {
-    type: LOCAL_REGISTER_ERROR
+    type: LOCAL_REGISTER_REJECTED
   }
 }
 
-function localLogoutUser() {
+function localLogoutPending() {
   return {
-    type: LOCAL_LOGOUT_USER
+    type: LOCAL_LOGOUT_PENDING
   }
 }
 
-function localLogoutSuccess() {
+function localLogoutFulfilled() {
   return {
-    type: LOCAL_LOGOUT_SUCCESS
+    type: LOCAL_LOGOUT_FULFILLED
   }
 }
 
-function localLogoutError() {
+function localLogoutRejected() {
   return {
-    type: LOCAL_LOGOUT_ERROR
+    type: LOCAL_LOGOUT_REJECTED
   }
 }
 
@@ -76,19 +76,19 @@ function makeRequest(method, api, data) {
 
 export function localLogin(data) { 
   return dispatch => {
-    dispatch(localLoginUser());
+    dispatch(localLoginPending());
 
     return makeRequest('POST', '/api/login/local', data)  
       .then(response => {
         if (response.status === 200) {
-          dispatch(localLoginSuccess(data));
+          dispatch(localLoginFulfilled(data));
         } else {
-          dispatch(localLoginError());
+          dispatch(localLoginRejected());
         }
       })
       .catch(function (error) {
         if (error instanceof Error) {
-          dispatch(localLoginError());
+          dispatch(localLoginRejected());
         }
       });
   }
@@ -96,19 +96,19 @@ export function localLogin(data) {
 
 export function localRegister(data) {  
   return dispatch => {
-    dispatch(localRegisterUser());
+    dispatch(localRegisterPending());
 
     return makeRequest('POST', '/api/register', data)
       .then(response => {
         if (response.status === 200) {        
-          dispatch(localRegisterSuccess());
+          dispatch(localRegisterFulfilled());
         } else {          
-          dispatch(localRegisterError());
+          dispatch(localRegisterRejected());
         }
       })
       .catch(error => {
         if (error instanceof Error) {
-          dispatch(localRegisterError());
+          dispatch(localRegisterRejected());
         }
       });
   }
@@ -117,19 +117,19 @@ export function localRegister(data) {
 
 export function localLogout() {
   return dispatch => {
-    dispatch(localLogoutUser());
+    dispatch(localLogoutPending());
 
     return makeRequest('POST', '/api/logout') 
       .then(response => {
         if (response.data.success) {
-          dispatch(localLogoutSuccess());
+          dispatch(localLogoutFulfilled());
         } else {
-          dispatch(localLogoutError());
+          dispatch(localLogoutRejected());
         }
       })
       .catch(error => {
         if (error instanceof Error) {
-          dispatch(localLogoutError());
+          dispatch(localLogoutRejected());
         }
       });
   }     

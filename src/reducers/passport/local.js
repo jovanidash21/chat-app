@@ -1,13 +1,13 @@
 import { 
-  LOCAL_LOGIN_USER,
-  LOCAL_LOGIN_SUCCESS,
-  LOCAL_LOGIN_ERROR,
-  LOCAL_REGISTER_USER,
-  LOCAL_REGISTER_SUCCESS,
-  LOCAL_REGISTER_ERROR,
-  LOCAL_LOGOUT_USER,
-  LOCAL_LOGOUT_SUCCESS,
-  LOCAL_LOGOUT_ERROR,
+  LOCAL_LOGIN_PENDING,
+  LOCAL_LOGIN_FULFILLED,
+  LOCAL_LOGIN_REJECTED,
+  LOCAL_REGISTER_PENDING,
+  LOCAL_REGISTER_FULFILLED,
+  LOCAL_REGISTER_REJECTED,
+  LOCAL_LOGOUT_PENDING,
+  LOCAL_LOGOUT_FULFILLED,
+  LOCAL_LOGOUT_REJECTED,
 } from '../../constants/index';
 
 const initialState = {
@@ -17,52 +17,52 @@ const initialState = {
 
 const local = (state=initialState, action) => {
   switch(action.type) {
-    case LOCAL_LOGIN_USER:
+    case LOCAL_LOGIN_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case LOCAL_LOGIN_SUCCESS:
+    case LOCAL_LOGIN_FULFILLED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true
       };
-    case LOCAL_LOGIN_ERROR:
+    case LOCAL_LOGIN_REJECTED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: false
       };
-    case LOCAL_REGISTER_USER:
+    case LOCAL_REGISTER_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case LOCAL_REGISTER_SUCCESS:
+    case LOCAL_REGISTER_FULFILLED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true
       }
-    case LOCAL_REGISTER_ERROR:
+    case LOCAL_REGISTER_REJECTED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: false
       }
-    case LOCAL_LOGOUT_USER:
+    case LOCAL_LOGOUT_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case LOCAL_LOGOUT_SUCCESS:
+    case LOCAL_LOGOUT_FULFILLED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: false
       };
-    case LOCAL_LOGOUT_ERROR:
+    case LOCAL_LOGOUT_REJECTED:
       return {
         ...state,
         isLoading: false,
