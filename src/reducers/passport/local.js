@@ -8,7 +8,7 @@ import {
   LOCAL_LOGOUT_PENDING,
   LOCAL_LOGOUT_FULFILLED,
   LOCAL_LOGOUT_REJECTED,
-} from '../../constants/index';
+} from '../../constants';
 
 const initialState = {
   isLoading: false,

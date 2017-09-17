@@ -9,7 +9,7 @@ import {
   LOCAL_LOGOUT_PENDING,
   LOCAL_LOGOUT_FULFILLED,
   LOCAL_LOGOUT_REJECTED,
-} from '../../constants/index';
+} from '../../constants';
 
 function localLoginPending() {
   return {
@@ -66,19 +66,15 @@ function localLogoutRejected() {
   }
 }
 
-function makeRequest(method, api, data) {
-  return axios({
-    method: method,
-    url: api,
-    data: data
-  })
-}
-
 export function localLogin(data) { 
   return dispatch => {
     dispatch(localLoginPending());
 
-    return makeRequest('POST', '/api/login/local', data)  
+    return axios({
+        method: 'POST',
+        url: 'api/login/local',
+        data: data
+      }) 
       .then(response => {
         if (response.status === 200) {
           dispatch(localLoginFulfilled(data));
@@ -98,7 +94,11 @@ export function localRegister(data) {
   return dispatch => {
     dispatch(localRegisterPending());
 
-    return makeRequest('POST', '/api/register', data)
+    return axios({
+        method: 'POST',
+        url: 'api/register',
+        data: data
+      })
       .then(response => {
         if (response.status === 200) {        
           dispatch(localRegisterFulfilled());
@@ -119,7 +119,10 @@ export function localLogout() {
   return dispatch => {
     dispatch(localLogoutPending());
 
-    return makeRequest('POST', '/api/logout') 
+    return axios({
+        method: 'POST',
+        url: 'api/logout'
+      })
       .then(response => {
         if (response.data.success) {
           dispatch(localLogoutFulfilled());
