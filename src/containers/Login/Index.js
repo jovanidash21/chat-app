@@ -39,9 +39,7 @@ class Login extends Component {
                   <h1 className="mui--text-center">Chat App</h1>
                 </Col>
                 <Col md="12">  
-                  <LocalLogin 
-                    handleLocalLogin={handleLocalLogin}
-                  />
+                  <LocalLogin handleLocalLogin={handleLocalLogin} />
                 </Col>  
                 <Col md="12">
                   <FacebookLogin />
@@ -72,7 +70,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {  
   return {
-    local: state.local
+    localLogin: state.localLogin
   }
 }
 

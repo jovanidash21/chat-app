@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { loadingBarReducer } from 'react-redux-loading-bar';
-import local from './passport/local';
+import localLogin from './login/localLogin';
 
 const reducers = combineReducers({
   loadingBar: loadingBarReducer,
-  local
+  localLogin
 });
 
 export default reducers;
