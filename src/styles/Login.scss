@@ -1,4 +1,9 @@
 .login-form {
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
   .button {
     color: #fff;
     padding: 0;
