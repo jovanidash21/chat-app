@@ -44,7 +44,7 @@ class Register extends Component {
       username,
       password
     } = this.state;
-    let data = {username, password};
+    let data = {email, username, password};
 
     handleRegister(data);
   }
