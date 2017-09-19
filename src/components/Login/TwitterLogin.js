@@ -6,19 +6,21 @@ require('../../styles/Login.scss');
 class TwitterLogin extends Component {
   render() {
     return (
-      <Button
-        className="button button-twitter"
-        size="large"
-        variant="raised"
-      >
-        <div className="icon">
-          <FontAwesome
-            name="twitter"
-            size="2x"
-          />
-        </div>
-        Login with Twitter
-      </Button>    
+      <a href="/api/login/twitter">
+        <Button
+          className="button button-twitter"
+          size="large"
+          variant="raised"
+        >
+          <div className="icon">
+            <FontAwesome
+              name="twitter"
+              size="2x"
+            />
+          </div>
+          Login with Twitter
+        </Button>
+      </a>   
     ) 
   }
 }

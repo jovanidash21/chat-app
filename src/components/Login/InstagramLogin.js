@@ -6,19 +6,21 @@ require('../../styles/Login.scss');
 class InstagramLogin extends Component {
   render() {
     return (
-      <Button
-        className="button button-instagram"
-        size="large"
-        variant="raised"
-      >
-        <div className="icon">
-          <FontAwesome
-            name="instagram"
-            size="2x"
-          />
-        </div>
-        Login with Instagram
-      </Button> 
+      <a href="/api/login/instagram">
+        <Button
+          className="button button-instagram"
+          size="large"
+          variant="raised"
+        >
+          <div className="icon">
+            <FontAwesome
+              name="instagram"
+              size="2x"
+            />
+          </div>
+          Login with Instagram
+        </Button> 
+      </a>  
     ) 
   }
 }

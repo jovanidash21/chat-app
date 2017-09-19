@@ -6,19 +6,21 @@ require('../../styles/Login.scss');
 class GoogleLogin extends Component {
   render() {
     return (
-      <Button
-        className="button button-google"
-        size="large"
-        variant="raised"
-      >
-        <div className="icon">
-          <FontAwesome
-            name="google"
-            size="2x"
-          />
-        </div>
-        Login with Google
-      </Button>
+      <a href="/api/login/google">
+        <Button
+          className="button button-google"
+          size="large"
+          variant="raised"
+        >
+          <div className="icon">
+            <FontAwesome
+              name="google"
+              size="2x"
+            />
+          </div>
+          Login with Google
+        </Button>
+      </a>  
     ) 
   }
 }
