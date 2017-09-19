@@ -69,6 +69,7 @@
     "react-redux": "^5.0.5",
     "react-redux-loading-bar": "^2.9.2",
     "react-router": "^4.1.2",
+    "react-router-redux": "^5.0.0-alpha.6",
     "react-spinkit": "^3.0.0",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
