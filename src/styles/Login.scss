@@ -10,6 +10,9 @@
     width: 100%;
     position: relative;
     display: block;
+    &.button-login {
+      background-color: #4bb06b;
+    }
     &.button-facebook {
       background-color: #3b5998;
     }
@@ -40,5 +43,8 @@
       text-align: center;
       vertical-align: middle;
     }
+  }
+  .line {
+    margin: 15px 0;
   }
 }

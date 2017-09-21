@@ -9,7 +9,7 @@ const routes = (
     <LoadingBar />
     <Switch>
       <Route exact path="/" component={Login} />
-      <Route path="/register" component={Register} />
+      <Route exact path="/register" component={Register} />
     </Switch>
   </div>
 );

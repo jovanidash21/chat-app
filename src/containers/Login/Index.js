@@ -7,6 +7,8 @@ import Container from 'muicss/lib/react/container';
 import Form from 'muicss/lib/react/form';
 import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
+import Divider from 'muicss/lib/react/divider';
+import Button from 'muicss/lib/react/button';
 import LocalLogin from '../../components/Login/LocalLogin';
 import FacebookLogin from '../../components/Login/FacebookLogin';
 import GoogleLogin from '../../components/Login/GoogleLogin';
@@ -58,6 +60,17 @@ class Login extends Component {
                 </Col>
                 <Col md="12">
                   <GitHubLogin />
+                </Col>
+                <Divider className="line" />
+                <Col md="12">
+                  <Button
+                    className="button"
+                    color="primary"
+                    size="large"
+                    variant="raised"
+                  >
+                    Register
+                  </Button>
                 </Col>
               </Row>
             </Col>

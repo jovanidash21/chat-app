@@ -67,9 +67,8 @@ class LocalLogin extends Component {
         />
         <Button
           className="button button-login"
-          color="primary" 
-          size="large" 
-          type="submit" 
+          size="large"
+          type="submit"
           variant="raised"
         >
           Login
