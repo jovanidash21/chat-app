@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
   localLogin
 } from "../../actions";
+import { Link } from 'react-router-dom';
 import Container from 'muicss/lib/react/container';
 import Form from 'muicss/lib/react/form';
 import Row from 'muicss/lib/react/row';
@@ -61,16 +62,20 @@ class Login extends Component {
                 <Col md="12">
                   <GitHubLogin />
                 </Col>
-                <Divider className="line" />
                 <Col md="12">
-                  <Button
-                    className="button"
-                    color="primary"
-                    size="large"
-                    variant="raised"
-                  >
-                    Register
-                  </Button>
+                  <Divider className="line" />
+                </Col>
+                <Col md="12">
+                  <Link to="/register">
+                    <Button
+                      className="button"
+                      color="primary"
+                      size="large"
+                      variant="raised"
+                    >
+                      Register
+                    </Button>
+                  </Link>  
                 </Col>
               </Row>
             </Col>
