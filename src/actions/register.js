@@ -4,6 +4,7 @@ import {
   REGISTER_FULFILLED,
   REGISTER_REJECTED
 } from '../constants';
+import { push } from 'react-router-redux';
 
 function registerPending() {
   return {
@@ -11,10 +12,9 @@ function registerPending() {
   }
 }
 
-function registerFulfilled(data) {
+function registerFulfilled() {
   return {
-    type: REGISTER_FULFILLED,
-    data
+    type: REGISTER_FULFILLED
   }
 }
 
@@ -35,7 +35,8 @@ export function register(data) {
       }) 
       .then(response => {
         if (response.status === 200) {
-          dispatch(registerFulfilled(data));
+          dispatch(registerFulfilled());
+          dispatch(push('/login'));
         } else {
           dispatch(registerRejected());
         }

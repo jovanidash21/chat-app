@@ -4,6 +4,7 @@ import {
   LOCAL_LOGIN_FULFILLED,
   LOCAL_LOGIN_REJECTED
 } from '../../constants';
+import { push } from 'react-router-redux';
 
 function localLoginPending() {
   return {
@@ -11,10 +12,9 @@ function localLoginPending() {
   }
 }
 
-function localLoginFulfilled(data) {
+function localLoginFulfilled() {
   return {
-    type: LOCAL_LOGIN_FULFILLED,
-    data
+    type: LOCAL_LOGIN_FULFILLED
   }
 }
 
@@ -35,7 +35,8 @@ export function localLogin(data) {
       }) 
       .then(response => {
         if (response.status === 200) {
-          dispatch(localLoginFulfilled(data));
+          dispatch(localLoginFulfilled());
+          dispatch(push('/chat'));
         } else {
           dispatch(localLoginRejected());
         }
