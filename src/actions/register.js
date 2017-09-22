@@ -36,7 +36,7 @@ export function register(data) {
       .then(response => {
         if (response.status === 200) {
           dispatch(registerFulfilled());
-          dispatch(push('/login'));
+          dispatch(push('/'));
         } else {
           dispatch(registerRejected());
         }
