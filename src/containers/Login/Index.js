@@ -10,13 +10,15 @@ import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 import Divider from 'muicss/lib/react/divider';
 import Button from 'muicss/lib/react/button';
-import LocalLogin from '../../components/Login/LocalLogin';
-import FacebookLogin from '../../components/Login/FacebookLogin';
-import GoogleLogin from '../../components/Login/GoogleLogin';
-import TwitterLogin from '../../components/Login/TwitterLogin';
-import InstagramLogin from '../../components/Login/InstagramLogin';
-import LinkedInLogin from '../../components/Login/LinkedInLogin';
-import GitHubLogin from '../../components/Login/GitHubLogin';
+import {
+  LocalLogin,
+  FacebookLogin,
+  GoogleLogin,
+  TwitterLogin,
+  InstagramLogin,
+  LinkedInLogin,
+  GitHubLogin
+} from '../../components';
 
 class Login extends Component {
   constructor(props) {

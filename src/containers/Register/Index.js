@@ -10,7 +10,9 @@ import Row from 'muicss/lib/react/row';
 import Col from 'muicss/lib/react/col';
 import Divider from 'muicss/lib/react/divider';
 import Button from 'muicss/lib/react/button';
-import Register from '../../components/Register';
+import {
+  Register
+} from '../../components';
 
 class RegisterContainer extends Component {
   constructor(props) {
