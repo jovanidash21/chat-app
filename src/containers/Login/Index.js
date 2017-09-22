@@ -68,7 +68,7 @@ class Login extends Component {
                 <Col md="12">
                   <Link to="/register">
                     <Button
-                      className="button"
+                      className="button button-register"
                       color="primary"
                       size="large"
                       variant="raised"

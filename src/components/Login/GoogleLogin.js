@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'muicss/lib/react/button';
 import FontAwesome from 'react-fontawesome';
-require('../../styles/Login.scss');
+require('../../styles/Form.scss');
 
 class GoogleLogin extends Component {
   render() {

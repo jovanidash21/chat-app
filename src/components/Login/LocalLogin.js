@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Form from 'muicss/lib/react/form';
 import Input from 'muicss/lib/react/input';
 import Button from 'muicss/lib/react/button';
-require('../../styles/Login.scss');
+require('../../styles/Form.scss');
 
 class LocalLogin extends Component {
   constructor(props) {

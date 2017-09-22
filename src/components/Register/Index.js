@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Form from 'muicss/lib/react/form';
 import Input from 'muicss/lib/react/input';
 import Button from 'muicss/lib/react/button';
+require('../../styles/Form.scss');
 
 class Register extends Component {
   constructor(props) {
@@ -83,9 +84,8 @@ class Register extends Component {
         />
         <Button
           className="button button-register"
-          color="primary" 
-          size="large" 
-          type="submit" 
+          size="large"
+          type="submit"
           variant="raised"
         >
           Register
