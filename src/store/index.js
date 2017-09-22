@@ -5,7 +5,7 @@ import promise from 'redux-promise-middleware';
 import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
 import { loadingBarMiddleware } from 'react-redux-loading-bar';
-import reducers from '../reducers/index';
+import reducers from '../reducers';
 
 const history = createHistory();
 const reactRouterMiddleware = routerMiddleware(history);

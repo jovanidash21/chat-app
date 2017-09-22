@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
-import routes from './routes/index';
 
 const history = createHistory();
+import routes from './routes';
 
 render(
   <Provider store={store}>
