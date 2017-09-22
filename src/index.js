@@ -3,9 +3,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import { ConnectedRouter } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory';
-
-const history = createHistory();
+import history from './history';
 import routes from './routes';
 
 render(
