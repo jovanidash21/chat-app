@@ -9,3 +9,6 @@ export { default as GitHubLogin } from './Login/GitHubLogin';
 
 // Register
 export { default as Register } from './Register';
+
+// Chat
+export { default as LogoutButton } from './Chat/LogoutButton'; 
