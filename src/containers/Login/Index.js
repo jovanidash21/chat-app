@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  localLogin
+  localLogin,
+  facebookLogin
 } from "../../actions";
 import { Link } from 'react-router-dom';
 import Container from 'muicss/lib/react/container';
@@ -25,13 +26,18 @@ class Login extends Component {
     super(props);
 
     this.handleLocalLogin = this.handleLocalLogin.bind(this);
+    this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
   }
   handleLocalLogin(data) {
     this.props.dispatch(localLogin(data));
   }
+  handleFacebookLogin(data) {
+    this.props.dispatch(facebookLogin());
+  }
   render() {
     const {
-      handleLocalLogin
+      handleLocalLogin,
+      handleFacebookLogin
     } = this;
 
     return (
@@ -47,7 +53,7 @@ class Login extends Component {
                   <LocalLogin handleLocalLogin={handleLocalLogin} />
                 </Col>  
                 <Col md="12">
-                  <FacebookLogin />
+                  <FacebookLogin handleFacebookLogin={handleFacebookLogin} />
                 </Col>  
                 <Col md="12">
                   <GoogleLogin />
@@ -90,7 +96,8 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {  
   return {
-    localLogin: state.localLogin
+    localLogin: state.localLogin,
+    facebookLogin: state.facebookLogin
   }
 }
 
