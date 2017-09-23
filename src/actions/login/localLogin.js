@@ -29,22 +29,22 @@ export function localLogin(data) {
     dispatch(localLoginPending());
 
     return axios({
-        method: 'POST',
-        url: 'api/login/local',
-        data: data
-      }) 
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(localLoginFulfilled());
-          dispatch(push('/chat'));
-        } else {
-          dispatch(localLoginRejected());
-        }
-      })
-      .catch(function (error) {
-        if (error instanceof Error) {
-          dispatch(localLoginRejected());
-        }
-      });
+      method: 'POST',
+      url: 'api/login/local',
+      data: data
+    }) 
+    .then(response => {
+      if (response.status === 200) {
+        dispatch(localLoginFulfilled());
+        dispatch(push('/chat'));
+      } else {
+        dispatch(localLoginRejected());
+      }
+    })
+    .catch(function (error) {
+      if (error instanceof Error) {
+        dispatch(localLoginRejected());
+      }
+    });
   }
 }

@@ -29,22 +29,22 @@ export function register(data) {
     dispatch(registerPending());
 
     return axios({
-        method: 'POST',
-        url: 'api/register',
-        data: data
-      }) 
-      .then(response => {
-        if (response.status === 200) {
-          dispatch(registerFulfilled());
-          dispatch(push('/'));
-        } else {
-          dispatch(registerRejected());
-        }
-      })
-      .catch(function (error) {
-        if (error instanceof Error) {
-          dispatch(registerRejected());
-        }
-      });
+      method: 'POST',
+      url: 'api/register',
+      data: data
+    }) 
+    .then(response => {
+      if (response.status === 200) {
+        dispatch(registerFulfilled());
+        dispatch(push('/'));
+      } else {
+        dispatch(registerRejected());
+      }
+    })
+    .catch(function (error) {
+      if (error instanceof Error) {
+        dispatch(registerRejected());
+      }
+    });
   }
 }
