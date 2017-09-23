@@ -10,7 +10,9 @@ class FacebookLogin extends Component {
 
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
   }
-  handleFacebookLogin() {
+  handleFacebookLogin(event) {
+    event.preventDefault();
+
     const { 
       handleFacebookLogin
     } = this.props;

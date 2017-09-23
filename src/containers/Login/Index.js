@@ -31,7 +31,7 @@ class Login extends Component {
   handleLocalLogin(data) {
     this.props.dispatch(localLogin(data));
   }
-  handleFacebookLogin(data) {
+  handleFacebookLogin() {
     this.props.dispatch(facebookLogin());
   }
   render() {
