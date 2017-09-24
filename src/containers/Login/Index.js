@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import {
   localLogin,
   facebookLogin,
-  googleLogin
+  googleLogin,
+  twitterLogin
 } from "../../actions";
 import { Link } from 'react-router-dom';
 import Container from 'muicss/lib/react/container';
@@ -29,6 +30,7 @@ class Login extends Component {
     this.handleLocalLogin = this.handleLocalLogin.bind(this);
     this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
     this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
+    this.handleTwitterLogin = this.handleTwitterLogin.bind(this);
   }
   handleLocalLogin(data) {
     this.props.dispatch(localLogin(data));
@@ -39,11 +41,15 @@ class Login extends Component {
   handleGoogleLogin() {
     this.props.dispatch(googleLogin());
   }
+  handleTwitterLogin() {
+    this.props.dispatch(twitterLogin());
+  }
   render() {
     const {
       handleLocalLogin,
       handleFacebookLogin,
-      handleGoogleLogin
+      handleGoogleLogin,
+      handleTwitterLogin
     } = this;
 
     return (
@@ -65,7 +71,7 @@ class Login extends Component {
                   <GoogleLogin handleGoogleLogin={handleGoogleLogin} />
                 </Col>  
                 <Col md="12">
-                  <TwitterLogin /> 
+                  <TwitterLogin handleTwitterLogin={handleTwitterLogin} /> 
                 </Col>
                 <Col md="12">
                   <InstagramLogin />

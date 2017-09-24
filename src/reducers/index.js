@@ -4,6 +4,7 @@ import { loadingBarReducer } from 'react-redux-loading-bar';
 import localLogin from './login/localLogin';
 import facebookLogin from './login/facebookLogin';
 import googleLogin from './login/googleLogin';
+import twitterLogin from './login/twitterLogin';
 import register from './register';
 import logout from './logout';
 
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   localLogin,
   facebookLogin,
   googleLogin,
+  twitterLogin,
   register,
   logout
 });
