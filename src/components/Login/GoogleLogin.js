@@ -25,22 +25,20 @@ class GoogleLogin extends Component {
     } = this;
 
     return (
-      <a href="/api/login/google">
-        <Button
-          className="button button-google"
-          size="large"
-          variant="raised"
-          onClick={handleGoogleLogin}
-        >
-          <div className="icon">
-            <FontAwesome
-              name="google"
-              size="2x"
-            />
-          </div>
-          Login with Google
-        </Button>
-      </a>  
+      <Button
+        className="button button-google"
+        size="large"
+        variant="raised"
+        onClick={handleGoogleLogin}
+      >
+        <div className="icon">
+          <FontAwesome
+            name="google"
+            size="2x"
+          />
+        </div>
+        Login with Google
+      </Button>
     ) 
   }
 }
