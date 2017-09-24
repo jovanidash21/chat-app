@@ -5,6 +5,7 @@ import localLogin from './login/localLogin';
 import facebookLogin from './login/facebookLogin';
 import googleLogin from './login/googleLogin';
 import twitterLogin from './login/twitterLogin';
+import instagramLogin from './login/instagramLogin';
 import register from './register';
 import logout from './logout';
 
@@ -15,6 +16,7 @@ const reducers = combineReducers({
   facebookLogin,
   googleLogin,
   twitterLogin,
+  instagramLogin,
   register,
   logout
 });
