@@ -110,7 +110,8 @@ const mapStateToProps = (state) => {
   return {
     localLogin: state.localLogin,
     facebookLogin: state.facebookLogin,
-    googleLogin: state.googleLogin
+    googleLogin: state.googleLogin,
+    twitterLogin: state.twitterLogin
   }
 }
 

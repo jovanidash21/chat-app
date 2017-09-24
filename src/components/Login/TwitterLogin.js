@@ -25,22 +25,20 @@ class TwitterLogin extends Component {
     } = this;
 
     return (
-      <a href="/api/login/twitter">
-        <Button
-          className="button button-twitter"
-          size="large"
-          variant="raised"
-          onClick={handleTwitterLogin}
-        >
-          <div className="icon">
-            <FontAwesome
-              name="twitter"
-              size="2x"
-            />
-          </div>
-          Login with Twitter
-        </Button>
-      </a>   
+      <Button
+        className="button button-twitter"
+        size="large"
+        variant="raised"
+        onClick={handleTwitterLogin}
+      >
+        <div className="icon">
+          <FontAwesome
+            name="twitter"
+            size="2x"
+          />
+        </div>
+        Login with Twitter
+      </Button>
     ) 
   }
 }
