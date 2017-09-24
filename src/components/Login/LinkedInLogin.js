@@ -1,28 +1,50 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from 'muicss/lib/react/button';
 import FontAwesome from 'react-fontawesome';
 require('../../styles/Form.scss');
 
 class LinkedInLogin extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleLinkedInLogin = this.handleLinkedInLogin.bind(this);
+  }
+  handleLinkedInLogin(event) {
+    event.preventDefault();
+
+    const { 
+      handleLinkedInLogin
+    } = this.props;
+
+    handleLinkedInLogin();
+  }
   render() {
+    const {
+      handleLinkedInLogin
+    } = this;
+
     return (
-      <a href="/api/login/linkedin">
-        <Button
-          className="button button-linkedin"
-          size="large"
-          variant="raised"
-        >
-          <div className="icon">
-            <FontAwesome
-              name="linkedin"
-              size="2x"
-            />
-          </div> 
-          Login with LinkedIn
-        </Button> 
-      </a>    
+      <Button
+        className="button button-linkedin"
+        size="large"
+        variant="raised"
+        onClick={handleLinkedInLogin}
+      >
+        <div className="icon">
+          <FontAwesome
+            name="linkedin"
+            size="2x"
+          />
+        </div> 
+        Login with LinkedIn
+      </Button> 
     ) 
   }
+}
+
+LinkedInLogin.propTypes={
+  handleLinkedInLogin: PropTypes.func.isRequired
 }
 
 export default LinkedInLogin;
