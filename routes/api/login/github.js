@@ -3,6 +3,7 @@ var router = express.Router({mergeParams: true});
 var passport = require('passport');
 var Strategy = require('passport-github').Strategy;
 var usersData = require('../../../models/users-data-schema');
+var popupTools = require('popup-tools');
 
 passport.use(new Strategy({
   clientID: process.env.GITHUB_CLIENT_ID,
@@ -63,13 +64,8 @@ passport.use(new Strategy({
 
 router.get('/', passport.authenticate('github'));
 
-router.get('/callback', passport.authenticate('github', { 
-  failureRedirect: '/' 
-}), function(req, res) {
-  res.status(200).send({
-    success: true, 
-    user: 'Login Successful.'
-  });
+router.get('/callback', passport.authenticate('github'), function(req, res) {
+  res.end(popupTools.popupResponse(req.user));
 });
 
 module.exports = router;

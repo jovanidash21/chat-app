@@ -6,7 +6,8 @@ import {
   googleLogin,
   twitterLogin,
   instagramLogin,
-  linkedinLogin
+  linkedinLogin,
+  githubLogin
 } from "../../actions";
 import { Link } from 'react-router-dom';
 import Container from 'muicss/lib/react/container';
@@ -35,6 +36,7 @@ class Login extends Component {
     this.handleTwitterLogin = this.handleTwitterLogin.bind(this);
     this.handleInstagramLogin = this.handleInstagramLogin.bind(this);
     this.handleLinkedInLogin = this.handleLinkedInLogin.bind(this);
+    this.handleGitHubLogin = this.handleGitHubLogin.bind(this);
   }
   handleLocalLogin(data) {
     this.props.dispatch(localLogin(data));
@@ -54,6 +56,9 @@ class Login extends Component {
   handleLinkedInLogin() {
     this.props.dispatch(linkedinLogin());
   }
+  handleGitHubLogin() {
+    this.props.dispatch(githubLogin());
+  }
   render() {
     const {
       handleLocalLogin,
@@ -61,7 +66,8 @@ class Login extends Component {
       handleGoogleLogin,
       handleTwitterLogin,
       handleInstagramLogin,
-      handleLinkedInLogin
+      handleLinkedInLogin,
+      handleGitHubLogin
     } = this;
 
     return (
@@ -92,7 +98,7 @@ class Login extends Component {
                   <LinkedInLogin handleLinkedInLogin={handleLinkedInLogin} />
                 </Col>
                 <Col md="12">
-                  <GitHubLogin />
+                  <GitHubLogin handleGitHubLogin={handleGitHubLogin} />
                 </Col>
                 <Col md="12">
                   <Divider className="line" />
@@ -125,7 +131,8 @@ const mapStateToProps = (state) => {
     googleLogin: state.googleLogin,
     twitterLogin: state.twitterLogin,
     instagramLogin: state.instagramLogin,
-    linkedinLogin: state.linkedinLogin
+    linkedinLogin: state.linkedinLogin,
+    githubLogin: state.githubLogin
   }
 }
 

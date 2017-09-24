@@ -4,5 +4,6 @@ export { googleLogin } from './login/googleLogin';
 export { twitterLogin } from './login/twitterLogin';
 export { instagramLogin } from './login/instagramLogin';
 export { linkedinLogin } from './login/linkedinLogin';
+export { githubLogin } from './login/githubLogin';
 export { register } from './register';
 export { logout } from './logout';

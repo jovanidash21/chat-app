@@ -7,6 +7,7 @@ import googleLogin from './login/googleLogin';
 import twitterLogin from './login/twitterLogin';
 import instagramLogin from './login/instagramLogin';
 import linkedinLogin from './login/linkedinLogin';
+import githubLogin from './login/githubLogin';
 import register from './register';
 import logout from './logout';
 
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   twitterLogin,
   instagramLogin,
   linkedinLogin,
+  githubLogin,
   register,
   logout
 });
