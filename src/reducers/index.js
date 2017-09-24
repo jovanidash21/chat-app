@@ -3,6 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import { loadingBarReducer } from 'react-redux-loading-bar';
 import localLogin from './login/localLogin';
 import facebookLogin from './login/facebookLogin';
+import googleLogin from './login/googleLogin';
 import register from './register';
 import logout from './logout';
 
@@ -11,6 +12,7 @@ const reducers = combineReducers({
   loadingBar: loadingBarReducer,
   localLogin,
   facebookLogin,
+  googleLogin,
   register,
   logout
 });

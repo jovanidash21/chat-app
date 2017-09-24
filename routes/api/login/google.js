@@ -3,6 +3,7 @@ var router = express.Router({mergeParams: true});
 var passport = require('passport');
 var Strategy = require('passport-google-oauth2').Strategy;
 var usersData = require('../../../models/users-data-schema');
+var popupTools = require('popup-tools');
 
 passport.use(new Strategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
@@ -62,13 +63,8 @@ router.get('/', passport.authenticate('google', {
   ] 
 }));
 
-router.get('/callback', passport.authenticate('google', { 
-  failureRedirect: '/' 
-}), function(req, res) {
-  res.status(200).send({
-    success: true, 
-    user: 'Login Successful.'
-  });
+router.get('/callback', passport.authenticate('google'), function(req, res) {
+  res.end(popupTools.popupResponse(req.user));
 });
 
 module.exports = router;
