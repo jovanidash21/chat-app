@@ -11,10 +11,12 @@
   },
   "scripts": {
     "start": "node bin/www",
-    "build": "concurrently \"npm run build:client\" \"npm run build:server\"",
-    "build:client": "webpack -p",
-    "build:server": "cross-env NODE_ENV=production node bin/www",
-    "dev": "concurrently -k \"webpack --watch\" \"nodemon bin/www --watch build\""
+    "build": "run-s webpack:prod node:prod",
+    "dev": "run-p webpack:dev node:dev",
+    "webpack:prod": "webpack -p",
+    "webpack:dev": "webpack --watch",
+    "node:prod": "cross-env NODE_ENV=production node bin/www",
+    "node:dev": "nodemon bin/www --watch build"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
