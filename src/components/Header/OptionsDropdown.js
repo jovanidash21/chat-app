@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 require('../../styles/Header.scss');
 
-class Header extends Component {
+class OptionsDropdown extends Component {
   constructor(props) {
     super(props);
 
@@ -40,8 +40,8 @@ class Header extends Component {
   }
 }
 
-Header.propTypes={
+OptionsDropdown.propTypes={
   handleLogout: PropTypes.func.isRequired
 }
 
-export default Header;
+export default OptionsDropdown;

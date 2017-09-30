@@ -29,6 +29,9 @@ class Header extends Component {
           <table width="100%">
             <tbody>
               <tr style={{verticalAlign: 'middle'}}>
+                <td className="mui--appbar-height">
+                  <h1>Chat App</h1>
+                </td>
                 <td className="mui--appbar-height mui--text-right">
                   <OptionsDropdown handleLogout={handleLogout} />
                 </td>
