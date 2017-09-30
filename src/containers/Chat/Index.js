@@ -3,13 +3,21 @@ import { connect } from 'react-redux';
 import {
   logout
 } from "../../actions";
+import Container from 'muicss/lib/react/container';
 import Header from '../Header';
+import {
+  ChatBox
+} from '../../components';
+
 
 class Chat extends Component {
   render() {
     return (
       <div>
-        <Header/>
+        <Header />
+        <Container fluid={true}>
+          <ChatBox />
+        </Container>
       </div>
     )
   }

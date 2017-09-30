@@ -12,3 +12,6 @@ export { default as Register } from './Register';
 
 // Header
 export { default as OptionsDropdown } from './Header/OptionsDropdown';
+
+// Chat
+export { default as ChatBox } from './Chat/ChatBox';
