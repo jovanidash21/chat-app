@@ -64,8 +64,6 @@
     "cross-env": "^5.0.3",
     "css-loader": "^0.28.4",
     "history": "^4.7.2",
-    "material-ui": "^1.0.0-beta.12",
-    "material-ui-icons": "^1.0.0-beta.10",
     "muicss": "^0.9.20",
     "nodemon": "^1.11.0",
     "react": "^15.6.1",
