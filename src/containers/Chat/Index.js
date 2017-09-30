@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   logout
 } from "../../actions";
-import Header from './Header';
+import Header from '../Header';
 
 class Chat extends Component {
   render() {

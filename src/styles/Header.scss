@@ -1,5 +1,8 @@
 .header {
   .options-dropdown {
+    a {
+      cursor: pointer;
+    }
     button {
       background-color: transparent;
       box-shadow: none;
