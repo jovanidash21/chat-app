@@ -29,6 +29,11 @@ class OptionsDropdown extends Component {
           <FontAwesome className="icon" name="ellipsis-v" size="2x" />
         </button>
         <ul className="mui-dropdown__menu mui-dropdown__menu--right">
+         <li>
+            <a href="#">
+              My Profile
+            </a>
+          </li>
           <li>
             <a onClick={handleLogout}>
               Logout
