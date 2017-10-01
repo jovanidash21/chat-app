@@ -6,9 +6,9 @@ import {
 import Container from 'muicss/lib/react/container';
 import Header from '../Header';
 import {
-  ChatBox
+  ChatBox,
+  ChatInput
 } from '../../components';
-
 
 class Chat extends Component {
   render() {
@@ -16,7 +16,10 @@ class Chat extends Component {
       <div>
         <Header />
         <Container fluid={true}>
-          <ChatBox />
+          <div className="chat">
+            <ChatBox />
+            <ChatInput />
+          </div>
         </Container>
       </div>
     )
