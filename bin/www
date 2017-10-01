@@ -7,7 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('nodejs-express-react-redux:server');
 var http = require('http');
-var socket = require('socket.io'); 
 
 /**
  * Get port from environment and store in Express.
@@ -34,7 +33,7 @@ server.on('listening', onListening);
  * Attach socket.io on the server.
  */
 
-var io = socket(server);
+var io = require('socket.io')(server);
 
 /**
  * Listen on connections to server.
