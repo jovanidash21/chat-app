@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware} from 'redux';
-import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
-import promise from 'redux-promise-middleware';
+import promiseMiddleware from 'redux-promise-middleware';
+import { createLogger } from 'redux-logger';
 import history from '../history';
 import { routerMiddleware } from 'react-router-redux';
 import { loadingBarMiddleware } from 'react-redux-loading-bar';
@@ -13,7 +13,7 @@ const store = createStore(
   reducers,
   applyMiddleware(
     thunk,
-    promise(),
+    promiseMiddleware(),
     reactRouterMiddleware,
     loadingBarMiddleware(),
     createLogger()
