@@ -16,10 +16,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['latest', 'react']
-        }
+        loader: 'babel-loader'
       },
       {
         test: /\.css$/,
