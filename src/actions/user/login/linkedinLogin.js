@@ -3,7 +3,7 @@ import {
   LINKEDIN_LOGIN_PENDING,
   LINKEDIN_LOGIN_FULFILLED,
   LINKEDIN_LOGIN_REJECTED
-} from '../../constants';
+} from '../../../constants';
 import { push } from 'react-router-redux';
 
 function linkedinLoginPending() {

@@ -3,7 +3,7 @@ import {
   INSTAGRAM_LOGIN_PENDING,
   INSTAGRAM_LOGIN_FULFILLED,
   INSTAGRAM_LOGIN_REJECTED
-} from '../../constants';
+} from '../../../constants';
 import { push } from 'react-router-redux';
 
 function instagramLoginPending() {

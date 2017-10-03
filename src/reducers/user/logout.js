@@ -1,7 +1,7 @@
 import { 
-  LOCAL_LOGIN_PENDING,
-  LOCAL_LOGIN_FULFILLED,
-  LOCAL_LOGIN_REJECTED
+  LOGOUT_PENDING,
+  LOGOUT_FULFILLED,
+  LOGOUT_REJECTED
 } from '../../constants';
 
 const initialState = {
@@ -9,20 +9,20 @@ const initialState = {
   isAuthenticated: false
 };
 
-const localLogin = (state=initialState, action) => {
+const logout = (state=initialState, action) => {
   switch(action.type) {
-    case LOCAL_LOGIN_PENDING:
+    case LOGOUT_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case LOCAL_LOGIN_FULFILLED:
+    case LOGOUT_FULFILLED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true
       };
-    case LOCAL_LOGIN_REJECTED:
+    case LOGOUT_REJECTED:
       return {
         ...state,
         isLoading: false,
@@ -33,4 +33,4 @@ const localLogin = (state=initialState, action) => {
   }
 }
 
-export default localLogin;
+export default logout;

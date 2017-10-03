@@ -1,28 +1,28 @@
 import { 
-  LOGOUT_PENDING,
-  LOGOUT_FULFILLED,
-  LOGOUT_REJECTED
-} from '../constants';
+  LINKEDIN_LOGIN_PENDING,
+  LINKEDIN_LOGIN_FULFILLED,
+  LINKEDIN_LOGIN_REJECTED
+} from '../../../constants';
 
 const initialState = {
   isLoading: false,
   isAuthenticated: false
 };
 
-const logout = (state=initialState, action) => {
+const linkedinLogin = (state=initialState, action) => {
   switch(action.type) {
-    case LOGOUT_PENDING:
+    case LINKEDIN_LOGIN_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case LOGOUT_FULFILLED:
+    case LINKEDIN_LOGIN_FULFILLED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true
       };
-    case LOGOUT_REJECTED:
+    case LINKEDIN_LOGIN_REJECTED:
       return {
         ...state,
         isLoading: false,
@@ -33,4 +33,4 @@ const logout = (state=initialState, action) => {
   }
 }
 
-export default logout;
+export default linkedinLogin;

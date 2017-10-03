@@ -3,7 +3,7 @@ import {
   GOOGLE_LOGIN_PENDING,
   GOOGLE_LOGIN_FULFILLED,
   GOOGLE_LOGIN_REJECTED
-} from '../../constants';
+} from '../../../constants';
 import { push } from 'react-router-redux';
 
 function googleLoginPending() {

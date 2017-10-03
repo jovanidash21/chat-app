@@ -3,7 +3,7 @@ import {
   GITHUB_LOGIN_PENDING,
   GITHUB_LOGIN_FULFILLED,
   GITHUB_LOGIN_REJECTED
-} from '../../constants';
+} from '../../../constants';
 import { push } from 'react-router-redux';
 
 function githubLoginPending() {

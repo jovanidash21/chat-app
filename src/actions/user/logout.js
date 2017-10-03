@@ -3,7 +3,7 @@ import {
   LOGOUT_PENDING,
   LOGOUT_FULFILLED,
   LOGOUT_REJECTED
-} from '../constants';
+} from '../../constants';
 import { push } from 'react-router-redux';
 
 function logoutPending() {

@@ -3,7 +3,7 @@ import {
   FACEBOOK_LOGIN_PENDING,
   FACEBOOK_LOGIN_FULFILLED,
   FACEBOOK_LOGIN_REJECTED
-} from '../../constants';
+} from '../../../constants';
 import { push } from 'react-router-redux';
 
 function facebookLoginPending() {

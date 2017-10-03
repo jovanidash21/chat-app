@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  logout
-} from "../../actions";
+import io from 'socket.io-client';
 import Container from 'muicss/lib/react/container';
 import Header from '../Header';
 import {

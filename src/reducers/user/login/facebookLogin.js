@@ -1,28 +1,28 @@
 import { 
-  GOOGLE_LOGIN_PENDING,
-  GOOGLE_LOGIN_FULFILLED,
-  GOOGLE_LOGIN_REJECTED
-} from '../../constants';
+  FACEBOOK_LOGIN_PENDING,
+  FACEBOOK_LOGIN_FULFILLED,
+  FACEBOOK_LOGIN_REJECTED
+} from '../../../constants';
 
 const initialState = {
   isLoading: false,
   isAuthenticated: false
 };
 
-const googleLogin = (state=initialState, action) => {
+const facebookLogin = (state=initialState, action) => {
   switch(action.type) {
-    case GOOGLE_LOGIN_PENDING:
+    case FACEBOOK_LOGIN_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case GOOGLE_LOGIN_FULFILLED:
+    case FACEBOOK_LOGIN_FULFILLED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true
       };
-    case GOOGLE_LOGIN_REJECTED:
+    case FACEBOOK_LOGIN_REJECTED:
       return {
         ...state,
         isLoading: false,
@@ -33,4 +33,4 @@ const googleLogin = (state=initialState, action) => {
   }
 }
 
-export default googleLogin;
+export default facebookLogin;

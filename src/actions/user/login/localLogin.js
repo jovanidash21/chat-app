@@ -3,7 +3,7 @@ import {
   LOCAL_LOGIN_PENDING,
   LOCAL_LOGIN_FULFILLED,
   LOCAL_LOGIN_REJECTED
-} from '../../constants';
+} from '../../../constants';
 import { push } from 'react-router-redux';
 
 function localLoginPending() {

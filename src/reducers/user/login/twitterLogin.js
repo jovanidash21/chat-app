@@ -1,28 +1,28 @@
 import { 
-  INSTAGRAM_LOGIN_PENDING,
-  INSTAGRAM_LOGIN_FULFILLED,
-  INSTAGRAM_LOGIN_REJECTED
-} from '../../constants';
+  TWITTER_LOGIN_PENDING,
+  TWITTER_LOGIN_FULFILLED,
+  TWITTER_LOGIN_REJECTED
+} from '../../../constants';
 
 const initialState = {
   isLoading: false,
   isAuthenticated: false
 };
 
-const instagramLogin = (state=initialState, action) => {
+const twitterLogin = (state=initialState, action) => {
   switch(action.type) {
-    case INSTAGRAM_LOGIN_PENDING:
+    case TWITTER_LOGIN_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case INSTAGRAM_LOGIN_FULFILLED:
+    case TWITTER_LOGIN_FULFILLED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true
       };
-    case INSTAGRAM_LOGIN_REJECTED:
+    case TWITTER_LOGIN_REJECTED:
       return {
         ...state,
         isLoading: false,
@@ -33,4 +33,4 @@ const instagramLogin = (state=initialState, action) => {
   }
 }
 
-export default instagramLogin;
+export default twitterLogin;

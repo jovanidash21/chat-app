@@ -1,28 +1,28 @@
 import { 
-  GITHUB_LOGIN_PENDING,
-  GITHUB_LOGIN_FULFILLED,
-  GITHUB_LOGIN_REJECTED
-} from '../../constants';
+  INSTAGRAM_LOGIN_PENDING,
+  INSTAGRAM_LOGIN_FULFILLED,
+  INSTAGRAM_LOGIN_REJECTED
+} from '../../../constants';
 
 const initialState = {
   isLoading: false,
   isAuthenticated: false
 };
 
-const githubLogin = (state=initialState, action) => {
+const instagramLogin = (state=initialState, action) => {
   switch(action.type) {
-    case GITHUB_LOGIN_PENDING:
+    case INSTAGRAM_LOGIN_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case GITHUB_LOGIN_FULFILLED:
+    case INSTAGRAM_LOGIN_FULFILLED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true
       };
-    case GITHUB_LOGIN_REJECTED:
+    case INSTAGRAM_LOGIN_REJECTED:
       return {
         ...state,
         isLoading: false,
@@ -33,4 +33,4 @@ const githubLogin = (state=initialState, action) => {
   }
 }
 
-export default githubLogin;
+export default instagramLogin;

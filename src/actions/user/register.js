@@ -3,7 +3,7 @@ import {
   REGISTER_PENDING,
   REGISTER_FULFILLED,
   REGISTER_REJECTED
-} from '../constants';
+} from '../../constants';
 import { push } from 'react-router-redux';
 
 function registerPending() {

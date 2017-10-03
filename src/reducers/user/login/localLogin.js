@@ -1,28 +1,28 @@
 import { 
-  TWITTER_LOGIN_PENDING,
-  TWITTER_LOGIN_FULFILLED,
-  TWITTER_LOGIN_REJECTED
-} from '../../constants';
+  LOCAL_LOGIN_PENDING,
+  LOCAL_LOGIN_FULFILLED,
+  LOCAL_LOGIN_REJECTED
+} from '../../../constants';
 
 const initialState = {
   isLoading: false,
   isAuthenticated: false
 };
 
-const twitterLogin = (state=initialState, action) => {
+const localLogin = (state=initialState, action) => {
   switch(action.type) {
-    case TWITTER_LOGIN_PENDING:
+    case LOCAL_LOGIN_PENDING:
       return {
         ...state,
         isLoading: true
       };
-    case TWITTER_LOGIN_FULFILLED:
+    case LOCAL_LOGIN_FULFILLED:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true
       };
-    case TWITTER_LOGIN_REJECTED:
+    case LOCAL_LOGIN_REJECTED:
       return {
         ...state,
         isLoading: false,
@@ -33,4 +33,4 @@ const twitterLogin = (state=initialState, action) => {
   }
 }
 
-export default twitterLogin;
+export default localLogin;

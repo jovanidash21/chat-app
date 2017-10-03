@@ -3,7 +3,7 @@ import {
   TWITTER_LOGIN_PENDING,
   TWITTER_LOGIN_FULFILLED,
   TWITTER_LOGIN_REJECTED
-} from '../../constants';
+} from '../../../constants';
 import { push } from 'react-router-redux';
 
 function twitterLoginPending() {

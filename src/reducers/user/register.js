@@ -2,7 +2,7 @@ import {
   REGISTER_PENDING,
   REGISTER_FULFILLED,
   REGISTER_REJECTED
-} from '../constants';
+} from '../../constants';
 
 const initialState = {
   isLoading: false,
