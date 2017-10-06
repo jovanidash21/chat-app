@@ -41,7 +41,7 @@ export function facebookLogin() {
 
 export function googleLogin() { 
   return dispatch => {
-    return popupTools.popup('/api/login/google', 'Google Login', {}, function (err, user) {
+    return popupTools.popup('/api/login/google', 'Google Login', {}, function (err) {
       dispatch({type: `${LOGIN}_PENDING`});
       
       if (!err) {
@@ -56,7 +56,7 @@ export function googleLogin() {
 
 export function twitterLogin() { 
   return dispatch => {
-    return popupTools.popup('/api/login/twitter', 'Twitter Login', {}, function (err, user) {
+    return popupTools.popup('/api/login/twitter', 'Twitter Login', {}, function (err) {
       dispatch({type: `${LOGIN}_PENDING`});
       
       if (!err) {
@@ -71,7 +71,7 @@ export function twitterLogin() {
 
 export function instagramLogin() {
   return dispatch => {
-    return popupTools.popup('/api/login/instagram', 'Instagram Login', {}, function (err, user) {
+    return popupTools.popup('/api/login/instagram', 'Instagram Login', {}, function (err) {
       dispatch({type: `${LOGIN}_PENDING`});
       
       if (!err) {
@@ -86,7 +86,7 @@ export function instagramLogin() {
 
 export function linkedinLogin() {
   return dispatch => {
-    return popupTools.popup('/api/login/linkedin', 'LinkedIn Login', {}, function (err, user) {
+    return popupTools.popup('/api/login/linkedin', 'LinkedIn Login', {}, function (err) {
       dispatch({type: `${LOGIN}_PENDING`});
       
       if (!err) {
@@ -101,7 +101,7 @@ export function linkedinLogin() {
 
 export function githubLogin() {
   return dispatch => {
-    return popupTools.popup('/api/login/github', 'GitHub Login', {}, function (err, user) {
+    return popupTools.popup('/api/login/github', 'GitHub Login', {}, function (err) {
       dispatch({type: `${GITHUB_LOGIN}_PENDING`});
       
       if (!err) {
@@ -115,12 +115,10 @@ export function githubLogin() {
 }
 
 export function register(data) {
-  const promise = axios.post('/api/register', data);
-
   return dispatch => {
     return dispatch({
       type: REGISTER,
-      payload: promise
+      payload: axios.post('/api/register', data)
     })
     .then(() => {
       dispatch(push('/'));
@@ -134,12 +132,10 @@ export function register(data) {
 }
 
 export function logout() {
-  const promise = axios.post('/api/logout');
-
   return dispatch => {
     return dispatch({
       type: LOGOUT,
-      payload: promise
+      payload: axios.post('/api/logout')
     })
     .then(() => {
       dispatch(push('/'));
