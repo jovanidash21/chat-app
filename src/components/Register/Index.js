@@ -56,6 +56,7 @@ class Register extends Component {
       onPasswordChange,
       handleRegister
     } = this;
+    const { isLoading } = this.props;
 
     return (
       <Form onSubmit={handleRegister}>
@@ -87,6 +88,7 @@ class Register extends Component {
           size="large"
           type="submit"
           variant="raised"
+          disabled={isLoading}
         >
           Register
         </Button>
@@ -96,7 +98,8 @@ class Register extends Component {
 }
 
 Register.propTypes={
-  handleRegister: PropTypes.func.isRequired
+  handleRegister: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 }
 
 export default Register;

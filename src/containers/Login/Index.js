@@ -133,6 +133,7 @@ class Login extends Component {
                         className="button button-register"
                         size="large"
                         variant="raised"
+                        disabled={isLoading}
                       >
                         Register
                       </Button>
