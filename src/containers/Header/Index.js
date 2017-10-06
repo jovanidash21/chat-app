@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  logout
-} from "../../actions";
 import Appbar from 'muicss/lib/react/appbar';
 import Container from 'muicss/lib/react/container';
 import {
   OptionsDropdown
 } from '../../components';
+import { logout } from "../../actions/user";
 
 class Header extends Component {
   constructor(props) {

@@ -1,14 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  localLogin,
-  facebookLogin,
-  googleLogin,
-  twitterLogin,
-  instagramLogin,
-  linkedinLogin,
-  githubLogin
-} from "../../actions";
 import { Link } from 'react-router-dom';
 import Container from 'muicss/lib/react/container';
 import Form from 'muicss/lib/react/form';
@@ -17,6 +8,15 @@ import Col from 'muicss/lib/react/col';
 import Panel from 'muicss/lib/react/panel';
 import Divider from 'muicss/lib/react/divider';
 import Button from 'muicss/lib/react/button';
+import {
+  localLogin,
+  facebookLogin,
+  googleLogin,
+  twitterLogin,
+  instagramLogin,
+  linkedinLogin,
+  githubLogin
+} from "../../actions/user";
 import {
   LocalLogin,
   FacebookLogin,
@@ -128,13 +128,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {  
   return {
-    localLogin: state.localLogin,
-    facebookLogin: state.facebookLogin,
-    googleLogin: state.googleLogin,
-    twitterLogin: state.twitterLogin,
-    instagramLogin: state.instagramLogin,
-    linkedinLogin: state.linkedinLogin,
-    githubLogin: state.githubLogin
+    user: state.user
   }
 }
 

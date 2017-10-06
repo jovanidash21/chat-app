@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  register
-} from "../../actions";
 import { Link } from 'react-router-dom';
 import Container from 'muicss/lib/react/container';
 import Form from 'muicss/lib/react/form';
@@ -14,6 +11,7 @@ import Button from 'muicss/lib/react/button';
 import {
   Register
 } from '../../components';
+import { register } from "../../actions/user";
 
 class RegisterContainer extends Component {
   constructor(props) {
