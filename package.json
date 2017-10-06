@@ -66,6 +66,7 @@
     "history": "^4.7.2",
     "muicss": "^0.9.20",
     "nodemon": "^1.11.0",
+    "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-chat-ui": "^0.2.1",
     "react-dom": "^15.6.1",
