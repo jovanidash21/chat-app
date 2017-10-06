@@ -20,9 +20,8 @@ class InstagramLogin extends Component {
     handleInstagramLogin();
   }
   render() {
-    const {
-      handleInstagramLogin
-    } = this;
+    const { handleInstagramLogin } = this;
+    const { isLoading } = this.props;
 
     return (
       <Button
@@ -30,6 +29,7 @@ class InstagramLogin extends Component {
         size="large"
         variant="raised"
         onClick={handleInstagramLogin}
+        disabled={isLoading}
       >
         <div className="icon">
           <FontAwesome
@@ -44,7 +44,8 @@ class InstagramLogin extends Component {
 }
 
 InstagramLogin.propTypes={
-  handleInstagramLogin: PropTypes.func.isRequired
+  handleInstagramLogin: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 }
 
 export default InstagramLogin;

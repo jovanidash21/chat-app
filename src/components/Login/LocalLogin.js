@@ -47,6 +47,7 @@ class LocalLogin extends Component {
       onPasswordChange,
       handleLocalLogin
     } = this;
+    const { isLoading } = this.props;
 
     return (
       <Form onSubmit={handleLocalLogin}>
@@ -70,6 +71,7 @@ class LocalLogin extends Component {
           size="large"
           type="submit"
           variant="raised"
+          disabled={isLoading}
         >
           Login
         </Button>
@@ -79,7 +81,8 @@ class LocalLogin extends Component {
 }
 
 LocalLogin.propTypes={
-  handleLocalLogin: PropTypes.func.isRequired
+  handleLocalLogin: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 }
 
 export default LocalLogin;

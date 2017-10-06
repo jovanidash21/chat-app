@@ -20,9 +20,8 @@ class GitHubLogin extends Component {
     handleGitHubLogin();
   }
   render() {
-    const {
-      handleGitHubLogin
-    } = this;
+    const { handleGitHubLogin } = this;
+    const { isLoading } = this.props;
 
     return (
       <Button
@@ -30,6 +29,7 @@ class GitHubLogin extends Component {
         size="large"
         variant="raised"
         onClick={handleGitHubLogin}
+        disabled={isLoading}
       >
         <div className="icon">
           <FontAwesome
@@ -44,7 +44,8 @@ class GitHubLogin extends Component {
 }
 
 GitHubLogin.propTypes={
-  handleGitHubLogin: PropTypes.func.isRequired
+  handleGitHubLogin: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 }
 
 export default GitHubLogin;

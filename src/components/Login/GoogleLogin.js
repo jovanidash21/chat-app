@@ -20,9 +20,8 @@ class GoogleLogin extends Component {
     handleGoogleLogin();
   }
   render() {
-    const {
-      handleGoogleLogin
-    } = this;
+    const { handleGoogleLogin } = this;
+    const { isLoading } = this.props;
 
     return (
       <Button
@@ -30,6 +29,7 @@ class GoogleLogin extends Component {
         size="large"
         variant="raised"
         onClick={handleGoogleLogin}
+        disabled={isLoading}
       >
         <div className="icon">
           <FontAwesome
@@ -44,7 +44,8 @@ class GoogleLogin extends Component {
 }
 
 GoogleLogin.propTypes={
-  handleGoogleLogin: PropTypes.func.isRequired
+  handleGoogleLogin: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 }
 
 export default GoogleLogin;

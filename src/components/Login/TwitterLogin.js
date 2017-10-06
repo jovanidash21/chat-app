@@ -20,9 +20,8 @@ class TwitterLogin extends Component {
     handleTwitterLogin();
   }
   render() {
-    const {
-      handleTwitterLogin
-    } = this;
+    const { handleTwitterLogin } = this;
+    const { isLoading } = this.props;
 
     return (
       <Button
@@ -30,6 +29,7 @@ class TwitterLogin extends Component {
         size="large"
         variant="raised"
         onClick={handleTwitterLogin}
+        disabled={isLoading}
       >
         <div className="icon">
           <FontAwesome
@@ -44,7 +44,8 @@ class TwitterLogin extends Component {
 }
 
 TwitterLogin.propTypes={
-  handleTwitterLogin: PropTypes.func.isRequired
+  handleTwitterLogin: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 }
 
 export default TwitterLogin;

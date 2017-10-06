@@ -20,9 +20,8 @@ class FacebookLogin extends Component {
     handleFacebookLogin();
   }
   render() {
-    const {
-      handleFacebookLogin
-    } = this;
+    const { handleFacebookLogin } = this;
+    const { isLoading } = this.props;
 
     return (
       <Button
@@ -30,6 +29,7 @@ class FacebookLogin extends Component {
         size="large"
         variant="raised"
         onClick={handleFacebookLogin}
+        disabled={isLoading}
       >
         <div className="icon">
           <FontAwesome
@@ -44,7 +44,8 @@ class FacebookLogin extends Component {
 }
 
 FacebookLogin.propTypes={
-  handleFacebookLogin: PropTypes.func.isRequired
+  handleFacebookLogin: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 }
 
 export default FacebookLogin;

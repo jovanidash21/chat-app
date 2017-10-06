@@ -70,6 +70,7 @@ class Login extends Component {
       handleLinkedInLogin,
       handleGitHubLogin
     } = this;
+    const { isLoading  } = this.props.user;
 
     return (
       <div className="login-form">
@@ -82,25 +83,46 @@ class Login extends Component {
                     <h1 className="mui--text-center">Chat App</h1>
                   </Col> 
                   <Col md="12">
-                    <LocalLogin handleLocalLogin={handleLocalLogin} />
+                    <LocalLogin 
+                      handleLocalLogin={handleLocalLogin}
+                      isLoading={isLoading}
+                    />
                   </Col>
                   <Col md="12">
-                    <FacebookLogin handleFacebookLogin={handleFacebookLogin} />
+                    <FacebookLogin 
+                      handleFacebookLogin={handleFacebookLogin}
+                      isLoading={isLoading}
+                    />
                   </Col>  
                   <Col md="12">
-                    <GoogleLogin handleGoogleLogin={handleGoogleLogin} />
+                    <GoogleLogin 
+                      handleGoogleLogin={handleGoogleLogin}
+                      isLoading={isLoading}
+                    />
                   </Col>  
                   <Col md="12">
-                    <TwitterLogin handleTwitterLogin={handleTwitterLogin} /> 
+                    <TwitterLogin
+                      handleTwitterLogin={handleTwitterLogin}
+                      isLoading={isLoading}
+                    /> 
                   </Col>
                   <Col md="12">
-                    <InstagramLogin handleInstagramLogin={handleInstagramLogin} />
+                    <InstagramLogin 
+                      handleInstagramLogin={handleInstagramLogin}
+                      isLoading={isLoading}
+                    />
                   </Col>
                   <Col md="12">
-                    <LinkedInLogin handleLinkedInLogin={handleLinkedInLogin} />
+                    <LinkedInLogin 
+                      handleLinkedInLogin={handleLinkedInLogin}
+                      isLoading={isLoading}
+                    />
                   </Col>
                   <Col md="12">
-                    <GitHubLogin handleGitHubLogin={handleGitHubLogin} />
+                    <GitHubLogin 
+                      handleGitHubLogin={handleGitHubLogin}
+                      isLoading={isLoading}
+                    />
                   </Col>
                   <Col md="12">
                     <Divider className="line" />

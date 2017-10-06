@@ -20,9 +20,8 @@ class LinkedInLogin extends Component {
     handleLinkedInLogin();
   }
   render() {
-    const {
-      handleLinkedInLogin
-    } = this;
+    const { handleLinkedInLogin } = this;
+    const { isLoading } = this.props;
 
     return (
       <Button
@@ -30,6 +29,7 @@ class LinkedInLogin extends Component {
         size="large"
         variant="raised"
         onClick={handleLinkedInLogin}
+        disabled={isLoading}
       >
         <div className="icon">
           <FontAwesome
@@ -44,7 +44,8 @@ class LinkedInLogin extends Component {
 }
 
 LinkedInLogin.propTypes={
-  handleLinkedInLogin: PropTypes.func.isRequired
+  handleLinkedInLogin: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool
 }
 
 export default LinkedInLogin;
