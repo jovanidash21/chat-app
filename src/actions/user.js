@@ -147,7 +147,7 @@ export function register(data) {
     })
     .then(() => {
       dispatch(hideLoading());
-      dispatch(push('/'));
+      dispatch(push('/chat'));
     })
     .catch((error) => {
       if (error instanceof Error) {

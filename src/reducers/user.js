@@ -30,8 +30,7 @@ const user = (state=initialState, action) => {
     case `${LOGIN}_ERROR`:
       return {
         ...state,
-        isLoading: false,
-        isAuthenticated: false
+        isLoading: false
       };
     case `${REGISTER}_LOADING`:
       return {
@@ -47,8 +46,7 @@ const user = (state=initialState, action) => {
     case `${REGISTER}_ERROR`:
       return {
         ...state,
-        isLoading: false,
-        isAuthenticated: false
+        isLoading: false
       };
     case `${LOGOUT}_LOADING`:
       return {
