@@ -6,7 +6,7 @@ import {
   LOGIN,
   REGISTER,
   LOGOUT
-} from '../constants/user';
+} from '../constants/auth';
 
 
 export function localLogin(data) {

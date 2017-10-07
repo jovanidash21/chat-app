@@ -2,19 +2,14 @@ import {
   LOGIN,
   REGISTER,
   LOGOUT
-} from '../constants/user';
+} from '../constants/auth';
 
 const initialState = {
   isLoading: false,
-  isAuthenticated: false,
-  user: {
-    name: null,
-    email: null, 
-    profilePicture: null
-  }
+  isAuthenticated: false
 };
 
-const user = (state=initialState, action) => {
+const auth = (state=initialState, action) => {
   switch(action.type) {
     case `${LOGIN}_LOADING`:
       return {
@@ -57,12 +52,7 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isAuthenticated: false,
-        user: {
-          name: null,
-          email: null, 
-          profilePicture: null
-        }
+        isAuthenticated: false
       };
     case `${LOGOUT}_ERROR`:
       return {
@@ -74,4 +64,4 @@ const user = (state=initialState, action) => {
   }
 }
 
-export default user;
+export default auth;

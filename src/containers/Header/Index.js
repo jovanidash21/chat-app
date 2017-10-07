@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Appbar from 'muicss/lib/react/appbar';
 import Container from 'muicss/lib/react/container';
-import {
-  OptionsDropdown
-} from '../../components';
-import { logout } from "../../actions/user";
+import { logout } from "../../actions/auth";
+import { OptionsDropdown } from '../../components';
 
 class Header extends Component {
   constructor(props) {
@@ -17,9 +15,7 @@ class Header extends Component {
     this.props.dispatch(logout());
   }
   render() {
-    const {
-      handleLogout
-    } = this
+    const { handleLogout } = this;
 
     return (
       <Appbar className="header">
@@ -44,7 +40,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {  
   return {
-    logout: state.logout
+    auth: state.auth
   }
 }
 

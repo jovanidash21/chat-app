@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { loadingBarReducer } from 'react-redux-loading-bar';
-import user from './user';
+import auth from './auth';
 
 const reducers = combineReducers({
   router: routerReducer,
   loadingBar: loadingBarReducer,
-  user
+  auth
 });
 
 export default reducers;

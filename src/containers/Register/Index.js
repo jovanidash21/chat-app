@@ -8,7 +8,7 @@ import Col from 'muicss/lib/react/col';
 import Panel from 'muicss/lib/react/panel';
 import Divider from 'muicss/lib/react/divider';
 import Button from 'muicss/lib/react/button';
-import { register } from "../../actions/user";
+import { register } from "../../actions/auth";
 import { Register } from '../../components';
 
 class RegisterContainer extends Component {
@@ -22,7 +22,7 @@ class RegisterContainer extends Component {
   }
   render() {
     const { handleRegister } = this;
-    const { isLoading  } = this.props.user;
+    const { isLoading  } = this.props.auth;
 
     return (
       <div className="register-form">
@@ -68,7 +68,7 @@ class RegisterContainer extends Component {
 
 const mapStateToProps = (state) => {  
   return {
-    user: state.user
+    auth: state.auth
   }
 }
 

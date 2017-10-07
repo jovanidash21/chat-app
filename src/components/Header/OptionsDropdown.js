@@ -12,16 +12,12 @@ class OptionsDropdown extends Component {
   handleLogout(event) {
     event.preventDefault();
 
-    const { 
-      handleLogout 
-    } = this.props;
+    const { handleLogout } = this.props;
 
     handleLogout();
   }
   render() {
-    const {
-      handleLogout
-    } = this;
+    const { handleLogout } = this;
 
     return (
       <div className="mui-dropdown options-dropdown">

@@ -16,7 +16,7 @@ import {
   instagramLogin,
   linkedinLogin,
   githubLogin
-} from "../../actions/user";
+} from "../../actions/auth";
 import {
   LocalLogin,
   FacebookLogin,
@@ -70,7 +70,7 @@ class Login extends Component {
       handleLinkedInLogin,
       handleGitHubLogin
     } = this;
-    const { isLoading  } = this.props.user;
+    const { isLoading  } = this.props.auth;
 
     return (
       <div className="login-form">
@@ -151,7 +151,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {  
   return {
-    user: state.user
+    auth: state.auth
   }
 }
 
