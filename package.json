@@ -80,6 +80,7 @@
     "react-spinkit": "^3.0.0",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
+    "redux-persist": "^4.10.1",
     "redux-promise-middleware": "^4.3.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
