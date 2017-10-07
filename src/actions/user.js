@@ -1,5 +1,6 @@
 import axios from 'axios';
 import popupTools from 'popup-tools';
+import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { push } from 'react-router-redux';
 import {
   LOGIN,
@@ -7,18 +8,22 @@ import {
   LOGOUT
 } from '../constants/user';
 
+
 export function localLogin(data) {
   return dispatch => {
+    dispatch(showLoading());
+
     return dispatch({
       type: LOGIN,
       payload: axios.post('/api/login/local', data)
     })
     .then(() => {
+      dispatch(hideLoading());
       dispatch(push('/chat'));
     })
     .catch((error) => {
       if (error instanceof Error) {
-        console.log(error);
+        dispatch(hideLoading());
       }
     });
   }
@@ -26,14 +31,17 @@ export function localLogin(data) {
 
 export function facebookLogin() {
   return dispatch => {
-    return popupTools.popup('/api/login/facebook', 'Facebook Login', {}, function (err) {
-      dispatch({type: `${LOGIN}_PENDING`});
+    dispatch(showLoading());
+    dispatch({type: `${LOGIN}_LOADING`});
 
+    return popupTools.popup('/api/login/facebook', 'Facebook Login', {}, function (err) {
       if (!err) {
-        dispatch({type: `${LOGIN}_FULFILLED`});
+        dispatch({type: `${LOGIN}_SUCCESS`});
+        dispatch(hideLoading());
         dispatch(push('/chat'));
       } else {
-        dispatch({type: `${LOGIN}_REJECTED`});
+        dispatch({type: `${LOGIN}_ERROR`});
+        dispatch(hideLoading());
       }
     });
   }
@@ -41,14 +49,17 @@ export function facebookLogin() {
 
 export function googleLogin() { 
   return dispatch => {
-    return popupTools.popup('/api/login/google', 'Google Login', {}, function (err) {
-      dispatch({type: `${LOGIN}_PENDING`});
-      
+    dispatch(showLoading());
+    dispatch({type: `${LOGIN}_LOADING`});
+
+    return popupTools.popup('/api/login/google', 'Google Login', {}, function (err) {      
       if (!err) {
-        dispatch({type: `${LOGIN}_FULFILLED`});
+        dispatch({type: `${LOGIN}_SUCCESS`});
+        dispatch(hideLoading());
         dispatch(push('/chat'));
       } else {
-        dispatch({type: `${LOGIN}_REJECTED`});
+        dispatch({type: `${LOGIN}_ERROR`});
+        dispatch(hideLoading());
       }
     });
   }
@@ -56,14 +67,17 @@ export function googleLogin() {
 
 export function twitterLogin() { 
   return dispatch => {
-    return popupTools.popup('/api/login/twitter', 'Twitter Login', {}, function (err) {
-      dispatch({type: `${LOGIN}_PENDING`});
-      
+    dispatch(showLoading());
+    dispatch({type: `${LOGIN}_LOADING`});
+
+    return popupTools.popup('/api/login/twitter', 'Twitter Login', {}, function (err) {      
       if (!err) {
-        dispatch({type: `${LOGIN}_FULFILLED`});
+        dispatch({type: `${LOGIN}_SUCCESS`});
+        dispatch(hideLoading());
         dispatch(push('/chat'));
       } else {
-        dispatch({type: `${LOGIN}_REJECTED`});
+        dispatch({type: `${LOGIN}_ERROR`});
+        dispatch(hideLoading());
       }
     });
   }
@@ -71,14 +85,17 @@ export function twitterLogin() {
 
 export function instagramLogin() {
   return dispatch => {
-    return popupTools.popup('/api/login/instagram', 'Instagram Login', {}, function (err) {
-      dispatch({type: `${LOGIN}_PENDING`});
-      
+    dispatch(showLoading());
+    dispatch({type: `${LOGIN}_LOADING`});
+
+    return popupTools.popup('/api/login/instagram', 'Instagram Login', {}, function (err) {   
       if (!err) {
-        dispatch({type: `${LOGIN}_FULFILLED`});
+        dispatch({type: `${LOGIN}_SUCCESS`});
+        dispatch(hideLoading());
         dispatch(push('/chat'));
       } else {
-        dispatch({type: `${LOGIN}_REJECTED`});
+        dispatch({type: `${LOGIN}_ERROR`});
+        dispatch(hideLoading());
       }
     });
   } 
@@ -86,14 +103,17 @@ export function instagramLogin() {
 
 export function linkedinLogin() {
   return dispatch => {
-    return popupTools.popup('/api/login/linkedin', 'LinkedIn Login', {}, function (err) {
-      dispatch({type: `${LOGIN}_PENDING`});
-      
+    dispatch(showLoading());
+    dispatch({type: `${LOGIN}_LOADING`});
+
+    return popupTools.popup('/api/login/linkedin', 'LinkedIn Login', {}, function (err) {      
       if (!err) {
-        dispatch({type: `${LOGIN}_FULFILLED`});
+        dispatch({type: `${LOGIN}_SUCCESS`});
+        dispatch(hideLoading());
         dispatch(push('/chat'));
       } else {
-        dispatch({type: `${LOGIN}_REJECTED`});
+        dispatch({type: `${LOGIN}_ERROR`});
+        dispatch(hideLoading());
       }
     });
   }
@@ -101,14 +121,17 @@ export function linkedinLogin() {
 
 export function githubLogin() {
   return dispatch => {
+    dispatch(showLoading());
+    dispatch({type: `${LOGIN}_LOADING`});
+
     return popupTools.popup('/api/login/github', 'GitHub Login', {}, function (err) {
-      dispatch({type: `${GITHUB_LOGIN}_PENDING`});
-      
       if (!err) {
-        dispatch({type: `${LOGIN}_FULFILLED`});
+        dispatch({type: `${LOGIN}_SUCCESS`});
+        dispatch(hideLoading());
         dispatch(push('/chat'));
       } else {
-        dispatch({type: `${LOGIN}_REJECTED`});
+        dispatch({type: `${LOGIN}_ERROR`});
+        dispatch(hideLoading());
       }
     });
   }
@@ -116,16 +139,19 @@ export function githubLogin() {
 
 export function register(data) {
   return dispatch => {
+    dispatch(showLoading());
+
     return dispatch({
       type: REGISTER,
       payload: axios.post('/api/register', data)
     })
     .then(() => {
+      dispatch(hideLoading());
       dispatch(push('/'));
     })
     .catch((error) => {
       if (error instanceof Error) {
-        console.log(error);
+        dispatch(hideLoading());
       }
     });
   }
@@ -133,16 +159,19 @@ export function register(data) {
 
 export function logout() {
   return dispatch => {
+    dispatch(showLoading());
+
     return dispatch({
       type: LOGOUT,
       payload: axios.post('/api/logout')
     })
     .then(() => {
+      dispatch(hideLoading());
       dispatch(push('/'));
     })
     .catch((error) => {
       if (error instanceof Error) {
-        console.log(error);
+        dispatch(hideLoading());
       }
     });
   }

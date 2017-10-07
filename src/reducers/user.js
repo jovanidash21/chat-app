@@ -6,61 +6,70 @@ import {
 
 const initialState = {
   isLoading: false,
-  isAuthenticated: false
+  isAuthenticated: false,
+  user: {
+    name: null,
+    email: null, 
+    profilePicture: null
+  }
 };
 
 const user = (state=initialState, action) => {
   switch(action.type) {
-    case `${LOGIN}_PENDING`:
+    case `${LOGIN}_LOADING`:
       return {
         ...state,
         isLoading: true
       };
-    case `${LOGIN}_FULFILLED`:
+    case `${LOGIN}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true
       };
-    case `${LOGIN}_REJECTED`:
+    case `${LOGIN}_ERROR`:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: false
       };
-    case `${REGISTER}_PENDING`:
+    case `${REGISTER}_LOADING`:
       return {
         ...state,
         isLoading: true
       };
-    case `${REGISTER}_FULFILLED`:
+    case `${REGISTER}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true
       };
-    case `${REGISTER}_REJECTED`:
+    case `${REGISTER}_ERROR`:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: false
       };
-    case `${LOGOUT}_PENDING`:
+    case `${LOGOUT}_LOADING`:
       return {
         ...state,
         isLoading: true
       };
-    case `${LOGOUT}_FULFILLED`:
+    case `${LOGOUT}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
-        isAuthenticated: true
+        isAuthenticated: false,
+        user: {
+          name: null,
+          email: null, 
+          profilePicture: null
+        }
       };
-    case `${LOGOUT}_REJECTED`:
+    case `${LOGOUT}_ERROR`:
       return {
         ...state,
-        isLoading: false,
-        isAuthenticated: false
+        isLoading: false
       };
     default:
       return state;

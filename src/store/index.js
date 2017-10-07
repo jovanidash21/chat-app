@@ -14,7 +14,9 @@ const store = createStore(
   reducers,
   applyMiddleware(
     thunk,
-    promiseMiddleware(),
+    promiseMiddleware({
+      promiseTypeSuffixes: ['LOADING', 'SUCCESS', 'ERROR']
+    }),
     reactRouterMiddleware,
     loadingBarMiddleware(),
     createLogger()
