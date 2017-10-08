@@ -2,6 +2,7 @@ import axios from 'axios';
 import popupTools from 'popup-tools';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { push } from 'react-router-redux';
+import { sendEmail } from './email';
 import {
   LOGIN,
   REGISTER,
@@ -147,6 +148,7 @@ export function register(data) {
     })
     .then(() => {
       dispatch(hideLoading());
+      dispatch(sendEmail(data));
       dispatch(push('/chat'));
     })
     .catch((error) => {
