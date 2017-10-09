@@ -9,7 +9,10 @@ import Panel from 'muicss/lib/react/panel';
 import Divider from 'muicss/lib/react/divider';
 import Button from 'muicss/lib/react/button';
 import { register } from "../../actions/auth";
-import { Register } from '../../components';
+import { 
+  Head,
+  Register 
+} from '../../components';
 
 class RegisterContainer extends Component {
   constructor(props) {
@@ -26,6 +29,7 @@ class RegisterContainer extends Component {
 
     return (
       <div className="register-form">
+        <Head title="Chat App | Register" />
         <Container fluid={true}>
           <Row>
             <Col md="4" md-offset="4" sm="8" sm-offset="2">

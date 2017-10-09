@@ -18,6 +18,7 @@ import {
   githubLogin
 } from "../../actions/auth";
 import {
+  Head,
   LocalLogin,
   FacebookLogin,
   GoogleLogin,
@@ -74,6 +75,7 @@ class Login extends Component {
 
     return (
       <div className="login-form">
+        <Head title="Chat App | Login" />
         <Container fluid={true}>
           <Row>
             <Col md="4" md-offset="4" sm="8" sm-offset="2">

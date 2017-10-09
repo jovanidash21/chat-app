@@ -1,9 +1,17 @@
 var express = require('express');
 var router = express.Router();
 
-router.get(['/', '/register'], function(req, res, next) {
+router.get('/', function(req, res, next) {
   if (!req.user) { 
-    res.render('index', { title: 'Chat App' });
+    res.render('index', { title: 'Chat App | Login' });
+  } else {
+    res.redirect('/chat');
+  }
+});
+
+router.get('/register', function(req, res, next) {
+  if (!req.user) { 
+    res.render('index', { title: 'Chat App | Register' });
   } else {
     res.redirect('/chat');
   }

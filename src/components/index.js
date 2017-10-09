@@ -1,3 +1,6 @@
+// Head
+export { default as Head } from './Head';
+
 // Login
 export { default as LocalLogin } from './Login/LocalLogin';
 export { default as FacebookLogin } from './Login/FacebookLogin';
