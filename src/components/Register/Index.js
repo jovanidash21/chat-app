@@ -11,10 +11,12 @@ class Register extends Component {
 
     this.state = {
       email: '',
+      name: '',
       username: '',
       password: ''
     };
     this.onEmailChange = this.onEmailChange.bind(this);
+    this.onNameChange = this.onNameChange.bind(this);
     this.onUsernameChange = this.onUsernameChange.bind(this);
     this.onPasswordChange = this.onPasswordChange.bind(this);
     this.handleRegister = this.handleRegister.bind(this);
@@ -23,6 +25,11 @@ class Register extends Component {
     event.preventDefault();
 
     this.setState({email: event.target.value});
+  }
+  onNameChange(event) {
+    event.preventDefault();
+
+    this.setState({name: event.target.value});
   }
   onUsernameChange(event) {
     event.preventDefault();
@@ -42,16 +49,18 @@ class Register extends Component {
     } = this.props;
     const { 
       email,
+      name,
       username,
       password
     } = this.state;
-    let data = {email, username, password};
+    let data = {email, name, username, password};
 
     handleRegister(data);
   }
   render() {
     const {
       onEmailChange,
+      onNameChange,
       onUsernameChange,
       onPasswordChange,
       handleRegister
@@ -68,6 +77,14 @@ class Register extends Component {
           required={true}
           onChange={onEmailChange}
         /> 
+        <Input 
+          label="Name"
+          name="name"
+          type="text"
+          floatingLabel={true}
+          required={true}
+          onChange={onNameChange}
+        />  
         <Input 
           label="Username"
           name="username"
