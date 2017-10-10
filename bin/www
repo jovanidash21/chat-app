@@ -39,11 +39,8 @@ var io = require('socket.io')(server);
  * Listen on connections to server.
  */
 
-io.on('connection', function(socket) {  
-  socket.on('message', function(message) { 
-    console.log('Message received', message);
-  });
-});
+var sockets = require('../sockets');
+io.on('connection', sockets);
 
 /**
  * Normalize a port into a number, string, or false.
