@@ -2,6 +2,7 @@ import axios from 'axios';
 import popupTools from 'popup-tools';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { push } from 'react-router-redux';
+import { getUserData } from './user';
 import { sendEmail } from './email';
 import {
   LOGIN,
@@ -20,6 +21,7 @@ export function localLogin(data) {
     })
     .then(() => {
       dispatch(hideLoading());
+      dispatch(getUserData());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -39,6 +41,7 @@ export function facebookLogin() {
       if (!err) {
         dispatch({type: `${LOGIN}_SUCCESS`});
         dispatch(hideLoading());
+        dispatch(getUserData());
         dispatch(push('/chat'));
       } else {
         dispatch({type: `${LOGIN}_ERROR`});
@@ -57,6 +60,7 @@ export function googleLogin() {
       if (!err) {
         dispatch({type: `${LOGIN}_SUCCESS`});
         dispatch(hideLoading());
+        dispatch(getUserData());
         dispatch(push('/chat'));
       } else {
         dispatch({type: `${LOGIN}_ERROR`});
@@ -75,6 +79,7 @@ export function twitterLogin() {
       if (!err) {
         dispatch({type: `${LOGIN}_SUCCESS`});
         dispatch(hideLoading());
+        dispatch(getUserData());
         dispatch(push('/chat'));
       } else {
         dispatch({type: `${LOGIN}_ERROR`});
@@ -93,6 +98,7 @@ export function instagramLogin() {
       if (!err) {
         dispatch({type: `${LOGIN}_SUCCESS`});
         dispatch(hideLoading());
+        dispatch(getUserData());
         dispatch(push('/chat'));
       } else {
         dispatch({type: `${LOGIN}_ERROR`});
@@ -111,6 +117,7 @@ export function linkedinLogin() {
       if (!err) {
         dispatch({type: `${LOGIN}_SUCCESS`});
         dispatch(hideLoading());
+        dispatch(getUserData());
         dispatch(push('/chat'));
       } else {
         dispatch({type: `${LOGIN}_ERROR`});
@@ -129,6 +136,7 @@ export function githubLogin() {
       if (!err) {
         dispatch({type: `${LOGIN}_SUCCESS`});
         dispatch(hideLoading());
+        dispatch(getUserData());
         dispatch(push('/chat'));
       } else {
         dispatch({type: `${LOGIN}_ERROR`});
@@ -149,6 +157,7 @@ export function register(data) {
     .then(() => {
       dispatch(hideLoading());
       dispatch(sendEmail(data));
+      dispatch(getUserData());
       dispatch(push('/chat'));
     })
     .catch((error) => {

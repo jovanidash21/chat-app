@@ -16,6 +16,7 @@ class Header extends Component {
   }
   render() {
     const { handleLogout } = this;
+    const { userData } = this.props.user;
 
     return (
       <Appbar className="header">
@@ -27,7 +28,10 @@ class Header extends Component {
                   <h1>Chat App</h1>
                 </td>
                 <td className="mui--appbar-height mui--text-right">
-                  <OptionsDropdown handleLogout={handleLogout} />
+                  <OptionsDropdown 
+                    userData={userData}
+                    handleLogout={handleLogout} 
+                  />
                 </td>
               </tr>
             </tbody>
@@ -40,7 +44,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {  
   return {
-    auth: state.auth
+    user: state.user
   }
 }
 

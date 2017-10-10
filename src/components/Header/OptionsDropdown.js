@@ -18,9 +18,11 @@ class OptionsDropdown extends Component {
   }
   render() {
     const { handleLogout } = this;
+    const { userData } = this.props;
 
     return (
       <div className="mui-dropdown options-dropdown">
+        {userData.name}
         <button className="mui-btn mui-btn--small mui-btn--fab" data-mui-toggle="dropdown">
           <FontAwesome className="icon" name="ellipsis-v" size="2x" />
         </button>
@@ -42,6 +44,7 @@ class OptionsDropdown extends Component {
 }
 
 OptionsDropdown.propTypes={
+  userData: PropTypes.object.isRequired,
   handleLogout: PropTypes.func.isRequired
 }
 
