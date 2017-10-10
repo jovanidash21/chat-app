@@ -50,8 +50,7 @@
     "popup-tools": "^1.0.2",
     "pug": "^2.0.0-rc.3",
     "serve-favicon": "~2.4.3",
-    "socket.io": "^2.0.3",
-    "socket.io-client": "^2.0.3"
+    "socket.io": "^2.0.3"
   },
   "devDependencies": {
     "axios": "^0.16.2",
@@ -84,6 +83,7 @@
     "redux-promise-middleware": "^4.3.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
+    "socket.io-client": "^2.0.3",
     "style-loader": "^0.18.2",
     "uuid": "^3.1.0",
     "webpack": "^3.4.1"
