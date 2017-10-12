@@ -34,18 +34,25 @@ export function localLogin(data) {
 
 export function facebookLogin() {
   return dispatch => {
-    dispatch(showLoading());
-    dispatch({type: `${LOGIN}_LOADING`});
-
-    return popupTools.popup('/api/login/facebook', 'Facebook Login', {}, function (err) {
-      if (!err) {
-        dispatch({type: `${LOGIN}_SUCCESS`});
-        dispatch(hideLoading());
-        dispatch(getUserData());
-        dispatch(push('/chat'));
-      } else {
-        dispatch({type: `${LOGIN}_ERROR`});
-        dispatch(hideLoading());
+    return dispatch({
+      type: LOGIN,
+      payload: new Promise(resolve => {
+        popupTools.popup('/api/login/facebook', 'Facebook Login', {}, function (err) {
+          if (!err) {
+            resolve();
+          } else {
+            throw new Error();
+          }
+        });
+      })
+    })
+    .then(() => {
+      dispatch(getUserData());
+      dispatch(push('/chat'));
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -53,18 +60,25 @@ export function facebookLogin() {
 
 export function googleLogin() { 
   return dispatch => {
-    dispatch(showLoading());
-    dispatch({type: `${LOGIN}_LOADING`});
-
-    return popupTools.popup('/api/login/google', 'Google Login', {}, function (err) {      
-      if (!err) {
-        dispatch({type: `${LOGIN}_SUCCESS`});
-        dispatch(hideLoading());
-        dispatch(getUserData());
-        dispatch(push('/chat'));
-      } else {
-        dispatch({type: `${LOGIN}_ERROR`});
-        dispatch(hideLoading());
+    return dispatch({
+      type: LOGIN,
+      payload: new Promise(resolve => {
+        popupTools.popup('/api/login/google', 'Google Login', {}, function (err) {
+          if (!err) {
+            resolve();
+          } else {
+            throw new Error();
+          }
+        });
+      })
+    })
+    .then(() => {
+      dispatch(getUserData());
+      dispatch(push('/chat'));
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -72,18 +86,25 @@ export function googleLogin() {
 
 export function twitterLogin() { 
   return dispatch => {
-    dispatch(showLoading());
-    dispatch({type: `${LOGIN}_LOADING`});
-
-    return popupTools.popup('/api/login/twitter', 'Twitter Login', {}, function (err) {      
-      if (!err) {
-        dispatch({type: `${LOGIN}_SUCCESS`});
-        dispatch(hideLoading());
-        dispatch(getUserData());
-        dispatch(push('/chat'));
-      } else {
-        dispatch({type: `${LOGIN}_ERROR`});
-        dispatch(hideLoading());
+    return dispatch({
+      type: LOGIN,
+      payload: new Promise(resolve => {
+        popupTools.popup('/api/login/twitter', 'Twitter Login', {}, function (err) {
+          if (!err) {
+            resolve();
+          } else {
+            throw new Error();
+          }
+        });
+      })
+    })
+    .then(() => {
+      dispatch(getUserData());
+      dispatch(push('/chat'));
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -91,18 +112,25 @@ export function twitterLogin() {
 
 export function instagramLogin() {
   return dispatch => {
-    dispatch(showLoading());
-    dispatch({type: `${LOGIN}_LOADING`});
-
-    return popupTools.popup('/api/login/instagram', 'Instagram Login', {}, function (err) {   
-      if (!err) {
-        dispatch({type: `${LOGIN}_SUCCESS`});
-        dispatch(hideLoading());
-        dispatch(getUserData());
-        dispatch(push('/chat'));
-      } else {
-        dispatch({type: `${LOGIN}_ERROR`});
-        dispatch(hideLoading());
+    return dispatch({
+      type: LOGIN,
+      payload: new Promise(resolve => {
+        popupTools.popup('/api/login/instagram', 'Instagram Login', {}, function (err) {   
+          if (!err) {
+            resolve();
+          } else {
+            throw new Error();
+          }
+        });
+      })
+    })
+    .then(() => {
+      dispatch(getUserData());
+      dispatch(push('/chat'));
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   } 
@@ -110,40 +138,54 @@ export function instagramLogin() {
 
 export function linkedinLogin() {
   return dispatch => {
-    dispatch(showLoading());
-    dispatch({type: `${LOGIN}_LOADING`});
-
-    return popupTools.popup('/api/login/linkedin', 'LinkedIn Login', {}, function (err) {      
-      if (!err) {
-        dispatch({type: `${LOGIN}_SUCCESS`});
-        dispatch(hideLoading());
-        dispatch(getUserData());
-        dispatch(push('/chat'));
-      } else {
-        dispatch({type: `${LOGIN}_ERROR`});
-        dispatch(hideLoading());
+    return dispatch({
+      type: LOGIN,
+      payload: new Promise(resolve => {
+        popupTools.popup('/api/login/linkedin', 'LinkedIn Login', {}, function (err) {
+          if (!err) {
+            resolve();
+          } else {
+            throw new Error();
+          }
+        });
+      })
+    })
+    .then(() => {
+      dispatch(getUserData());
+      dispatch(push('/chat'));
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
-  }
+  } 
 }
 
 export function githubLogin() {
   return dispatch => {
-    dispatch(showLoading());
-    dispatch({type: `${LOGIN}_LOADING`});
-
-    return popupTools.popup('/api/login/github', 'GitHub Login', {}, function (err) {
-      if (!err) {
-        dispatch({type: `${LOGIN}_SUCCESS`});
-        dispatch(hideLoading());
-        dispatch(getUserData());
-        dispatch(push('/chat'));
-      } else {
-        dispatch({type: `${LOGIN}_ERROR`});
-        dispatch(hideLoading());
+    return dispatch({
+      type: LOGIN,
+      payload: new Promise(resolve => {
+        popupTools.popup('/api/login/github', 'GitHub Login', {}, function (err) {
+          if (!err) {
+            resolve();
+          } else {
+            throw new Error();
+          }
+        });
+      })
+    })
+    .then(() => {
+      dispatch(getUserData());
+      dispatch(push('/chat'));
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
-  }
+  } 
 }
 
 export function register(data) {
