@@ -4,6 +4,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   userData: {
+    username: null,
     name: null,
     email: null,
     profilePicture: null
@@ -22,6 +23,7 @@ const user = (state=initialState, action) => {
         ...state,
         isLoading: false,
         userData: {
+          name: action.userData.username,
           name: action.userData.name,
           email: action.userData.email,
           profilePicture: action.userData.profilePicture
