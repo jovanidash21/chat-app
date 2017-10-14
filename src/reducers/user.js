@@ -23,10 +23,10 @@ const user = (state=initialState, action) => {
         ...state,
         isLoading: false,
         userData: {
-          name: action.userData.username,
-          name: action.userData.name,
-          email: action.userData.email,
-          profilePicture: action.userData.profilePicture
+          name: action.payload.data.username,
+          name: action.payload.data.name,
+          email: action.payload.data.email,
+          profilePicture: action.payload.data.profilePicture
         }
       };
     case `${GET_USER_DATA}_ERROR`:
