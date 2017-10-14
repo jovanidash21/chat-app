@@ -8,14 +8,11 @@ import { OptionsDropdown } from '../../components';
 class Header extends Component {
   constructor(props) {
     super(props);
-
-    this.handleLogout = this.handleLogout.bind(this);
   }
   handleLogout() {
     this.props.dispatch(logout());
   }
   render() {
-    const { handleLogout } = this;
     const { userData } = this.props.user;
 
     return (
@@ -30,7 +27,7 @@ class Header extends Component {
                 <td className="mui--appbar-height mui--text-right">
                   <OptionsDropdown 
                     userData={userData}
-                    handleLogout={handleLogout} 
+                    handleLogout={::this.handleLogout} 
                   />
                 </td>
               </tr>

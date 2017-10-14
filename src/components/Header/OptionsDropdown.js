@@ -6,8 +6,6 @@ require('../../styles/Header.scss');
 class OptionsDropdown extends Component {
   constructor(props) {
     super(props);
-
-    this.handleLogout = this.handleLogout.bind(this);
   }
   handleLogout(event) {
     event.preventDefault();
@@ -17,7 +15,6 @@ class OptionsDropdown extends Component {
     handleLogout();
   }
   render() {
-    const { handleLogout } = this;
     const { userData } = this.props;
 
     return (
@@ -33,7 +30,7 @@ class OptionsDropdown extends Component {
             </a>
           </li>
           <li>
-            <a onClick={handleLogout}>
+            <a onClick={::this.handleLogout}>
               Logout
             </a>
           </li>

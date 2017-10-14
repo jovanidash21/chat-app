@@ -13,9 +13,6 @@ class LocalLogin extends Component {
       username: '',
       password: ''
     };
-    this.onUsernameChange = this.onUsernameChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.handleLocalLogin = this.handleLocalLogin.bind(this);
   }
   onUsernameChange(event) {
     event.preventDefault();
@@ -42,29 +39,24 @@ class LocalLogin extends Component {
     handleLocalLogin(data);
   }
   render() {
-    const {
-      onUsernameChange,
-      onPasswordChange,
-      handleLocalLogin
-    } = this;
     const { isLoading } = this.props;
 
     return (
-      <Form onSubmit={handleLocalLogin}>
+      <Form onSubmit={::this.handleLocalLogin}>
         <Input 
           label="Username"
           name="username"
           type="text"
           floatingLabel={true}
           required={true}
-          onChange={onUsernameChange}
+          onChange={::this.onUsernameChange}
         />  
         <Input 
           label="Password"
           name="password"
           type="password"
           floatingLabel={true}
-          onChange={onPasswordChange}
+          onChange={::this.onPasswordChange}
         />
         <Button
           className="button button-login"

@@ -7,8 +7,6 @@ require('../../styles/Form.scss');
 class LinkedInLogin extends Component {
   constructor(props) {
     super(props);
-
-    this.handleLinkedInLogin = this.handleLinkedInLogin.bind(this);
   }
   handleLinkedInLogin(event) {
     event.preventDefault();
@@ -20,7 +18,6 @@ class LinkedInLogin extends Component {
     handleLinkedInLogin();
   }
   render() {
-    const { handleLinkedInLogin } = this;
     const { isLoading } = this.props;
 
     return (
@@ -28,7 +25,7 @@ class LinkedInLogin extends Component {
         className="button button-linkedin"
         size="large"
         variant="raised"
-        onClick={handleLinkedInLogin}
+        onClick={::this.handleLinkedInLogin}
         disabled={isLoading}
       >
         <div className="icon">

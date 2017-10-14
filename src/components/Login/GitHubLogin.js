@@ -7,8 +7,6 @@ require('../../styles/Form.scss');
 class GitHubLogin extends Component {
   constructor(props) {
     super(props);
-
-    this.handleGitHubLogin = this.handleGitHubLogin.bind(this);
   }
   handleGitHubLogin(event) {
     event.preventDefault();
@@ -20,7 +18,6 @@ class GitHubLogin extends Component {
     handleGitHubLogin();
   }
   render() {
-    const { handleGitHubLogin } = this;
     const { isLoading } = this.props;
 
     return (
@@ -28,7 +25,7 @@ class GitHubLogin extends Component {
         className="button button-github"
         size="large"
         variant="raised"
-        onClick={handleGitHubLogin}
+        onClick={::this.handleGitHubLogin}
         disabled={isLoading}
       >
         <div className="icon">

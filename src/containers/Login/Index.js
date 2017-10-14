@@ -31,14 +31,6 @@ import {
 class Login extends Component {
   constructor(props) {
     super(props);
-
-    this.handleLocalLogin = this.handleLocalLogin.bind(this);
-    this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
-    this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
-    this.handleTwitterLogin = this.handleTwitterLogin.bind(this);
-    this.handleInstagramLogin = this.handleInstagramLogin.bind(this);
-    this.handleLinkedInLogin = this.handleLinkedInLogin.bind(this);
-    this.handleGitHubLogin = this.handleGitHubLogin.bind(this);
   }
   handleLocalLogin(data) {
     this.props.dispatch(localLogin(data));
@@ -62,15 +54,6 @@ class Login extends Component {
     this.props.dispatch(githubLogin());
   }
   render() {
-    const {
-      handleLocalLogin,
-      handleFacebookLogin,
-      handleGoogleLogin,
-      handleTwitterLogin,
-      handleInstagramLogin,
-      handleLinkedInLogin,
-      handleGitHubLogin
-    } = this;
     const { isLoading  } = this.props.auth;
 
     return (
@@ -86,43 +69,43 @@ class Login extends Component {
                   </Col> 
                   <Col md="12">
                     <LocalLogin 
-                      handleLocalLogin={handleLocalLogin}
+                      handleLocalLogin={::this.handleLocalLogin}
                       isLoading={isLoading}
                     />
                   </Col>
                   <Col md="12">
                     <FacebookLogin 
-                      handleFacebookLogin={handleFacebookLogin}
+                      handleFacebookLogin={::this.handleFacebookLogin}
                       isLoading={isLoading}
                     />
                   </Col>  
                   <Col md="12">
                     <GoogleLogin 
-                      handleGoogleLogin={handleGoogleLogin}
+                      handleGoogleLogin={::this.handleGoogleLogin}
                       isLoading={isLoading}
                     />
                   </Col>  
                   <Col md="12">
                     <TwitterLogin
-                      handleTwitterLogin={handleTwitterLogin}
+                      handleTwitterLogin={::this.handleTwitterLogin}
                       isLoading={isLoading}
                     /> 
                   </Col>
                   <Col md="12">
                     <InstagramLogin 
-                      handleInstagramLogin={handleInstagramLogin}
+                      handleInstagramLogin={::this.handleInstagramLogin}
                       isLoading={isLoading}
                     />
                   </Col>
                   <Col md="12">
                     <LinkedInLogin 
-                      handleLinkedInLogin={handleLinkedInLogin}
+                      handleLinkedInLogin={::this.handleLinkedInLogin}
                       isLoading={isLoading}
                     />
                   </Col>
                   <Col md="12">
                     <GitHubLogin 
-                      handleGitHubLogin={handleGitHubLogin}
+                      handleGitHubLogin={::this.handleGitHubLogin}
                       isLoading={isLoading}
                     />
                   </Col>

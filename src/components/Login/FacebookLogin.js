@@ -7,8 +7,6 @@ require('../../styles/Form.scss');
 class FacebookLogin extends Component {
   constructor(props) {
     super(props);
-
-    this.handleFacebookLogin = this.handleFacebookLogin.bind(this);
   }
   handleFacebookLogin(event) {
     event.preventDefault();
@@ -20,7 +18,6 @@ class FacebookLogin extends Component {
     handleFacebookLogin();
   }
   render() {
-    const { handleFacebookLogin } = this;
     const { isLoading } = this.props;
 
     return (
@@ -28,7 +25,7 @@ class FacebookLogin extends Component {
         className="button button-facebook"
         size="large"
         variant="raised"
-        onClick={handleFacebookLogin}
+        onClick={::this.handleFacebookLogin}
         disabled={isLoading}
       >
         <div className="icon">

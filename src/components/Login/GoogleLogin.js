@@ -7,8 +7,6 @@ require('../../styles/Form.scss');
 class GoogleLogin extends Component {
   constructor(props) {
     super(props);
-
-    this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
   }
   handleGoogleLogin(event) {
     event.preventDefault();
@@ -20,7 +18,6 @@ class GoogleLogin extends Component {
     handleGoogleLogin();
   }
   render() {
-    const { handleGoogleLogin } = this;
     const { isLoading } = this.props;
 
     return (
@@ -28,7 +25,7 @@ class GoogleLogin extends Component {
         className="button button-google"
         size="large"
         variant="raised"
-        onClick={handleGoogleLogin}
+        onClick={::this.handleGoogleLogin}
         disabled={isLoading}
       >
         <div className="icon">

@@ -15,11 +15,6 @@ class Register extends Component {
       username: '',
       password: ''
     };
-    this.onEmailChange = this.onEmailChange.bind(this);
-    this.onNameChange = this.onNameChange.bind(this);
-    this.onUsernameChange = this.onUsernameChange.bind(this);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.handleRegister = this.handleRegister.bind(this);
   }
   onEmailChange(event) {
     event.preventDefault();
@@ -58,24 +53,17 @@ class Register extends Component {
     handleRegister(data);
   }
   render() {
-    const {
-      onEmailChange,
-      onNameChange,
-      onUsernameChange,
-      onPasswordChange,
-      handleRegister
-    } = this;
     const { isLoading } = this.props;
 
     return (
-      <Form onSubmit={handleRegister}>
+      <Form onSubmit={::this.handleRegister}>
         <Input 
           label="Email"
           name="email"
           type="email"
           floatingLabel={true}
           required={true}
-          onChange={onEmailChange}
+          onChange={::this.onEmailChange}
         /> 
         <Input 
           label="Name"
@@ -83,7 +71,7 @@ class Register extends Component {
           type="text"
           floatingLabel={true}
           required={true}
-          onChange={onNameChange}
+          onChange={::this.onNameChange}
         />  
         <Input 
           label="Username"
@@ -91,14 +79,14 @@ class Register extends Component {
           type="text"
           floatingLabel={true}
           required={true}
-          onChange={onUsernameChange}
+          onChange={::this.onUsernameChange}
         />  
         <Input 
           label="Password"
           name="password"
           type="password"
           floatingLabel={true}
-          onChange={onPasswordChange}
+          onChange={::this.onPasswordChange}
         />
         <Button
           className="button button-register"

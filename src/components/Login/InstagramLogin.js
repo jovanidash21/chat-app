@@ -7,8 +7,6 @@ require('../../styles/Form.scss');
 class InstagramLogin extends Component {
   constructor(props) {
     super(props);
-
-    this.handleInstagramLogin = this.handleInstagramLogin.bind(this);
   }
   handleInstagramLogin(event) {
     event.preventDefault();
@@ -20,7 +18,6 @@ class InstagramLogin extends Component {
     handleInstagramLogin();
   }
   render() {
-    const { handleInstagramLogin } = this;
     const { isLoading } = this.props;
 
     return (
@@ -28,7 +25,7 @@ class InstagramLogin extends Component {
         className="button button-instagram"
         size="large"
         variant="raised"
-        onClick={handleInstagramLogin}
+        onClick={::this.handleInstagramLogin}
         disabled={isLoading}
       >
         <div className="icon">

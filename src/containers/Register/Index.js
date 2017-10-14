@@ -17,14 +17,11 @@ import {
 class RegisterContainer extends Component {
   constructor(props) {
     super(props);
-
-    this.handleRegister = this.handleRegister.bind(this);
   }
   handleRegister(data) {
     this.props.dispatch(register(data));
   }
   render() {
-    const { handleRegister } = this;
     const { isLoading  } = this.props.auth;
 
     return (
@@ -40,7 +37,7 @@ class RegisterContainer extends Component {
                   </Col>
                   <Col md="12">  
                     <Register 
-                      handleRegister={handleRegister}
+                      handleRegister={::this.handleRegister}
                       isLoading={isLoading}
                     />
                   </Col>

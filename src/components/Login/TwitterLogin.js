@@ -7,8 +7,6 @@ require('../../styles/Form.scss');
 class TwitterLogin extends Component {
   constructor(props) {
     super(props);
-
-    this.handleTwitterLogin = this.handleTwitterLogin.bind(this);
   }
   handleTwitterLogin(event) {
     event.preventDefault();
@@ -20,7 +18,6 @@ class TwitterLogin extends Component {
     handleTwitterLogin();
   }
   render() {
-    const { handleTwitterLogin } = this;
     const { isLoading } = this.props;
 
     return (
@@ -28,7 +25,7 @@ class TwitterLogin extends Component {
         className="button button-twitter"
         size="large"
         variant="raised"
-        onClick={handleTwitterLogin}
+        onClick={::this.handleTwitterLogin}
         disabled={isLoading}
       >
         <div className="icon">
