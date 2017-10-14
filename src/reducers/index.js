@@ -4,6 +4,7 @@ import { loadingBarReducer } from 'react-redux-loading-bar';
 import auth from './auth';
 import user from './user';
 import email from './email';
+import typer from './typer';
 import { LOGOUT } from '../constants/auth';
 
 const appReducer = combineReducers({
@@ -11,7 +12,8 @@ const appReducer = combineReducers({
   loadingBar: loadingBarReducer,
   auth,
   user,
-  email
+  email,
+  typer
 });
 
 const rootReducer = (state, action) => {
