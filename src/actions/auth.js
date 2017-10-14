@@ -10,7 +10,6 @@ import {
   LOGOUT
 } from '../constants/auth';
 
-
 export function localLogin(data) {
   return dispatch => {
     dispatch(showLoading());
@@ -36,12 +35,12 @@ export function facebookLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(resolve => {
+      payload: new Promise((resolve, reject) => {
         popupTools.popup('/api/login/facebook', 'Facebook Login', {}, function (err) {
           if (!err) {
             resolve();
           } else {
-            throw new Error();
+            reject(err);
           }
         });
       })
@@ -62,12 +61,12 @@ export function googleLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(resolve => {
+      payload: new Promise((resolve, reject) => {
         popupTools.popup('/api/login/google', 'Google Login', {}, function (err) {
           if (!err) {
             resolve();
           } else {
-            throw new Error();
+            reject(err);
           }
         });
       })
@@ -88,12 +87,12 @@ export function twitterLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(resolve => {
+      payload: new Promise((resolve, reject) => {
         popupTools.popup('/api/login/twitter', 'Twitter Login', {}, function (err) {
           if (!err) {
             resolve();
           } else {
-            throw new Error();
+            reject(err);
           }
         });
       })
@@ -114,12 +113,12 @@ export function instagramLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(resolve => {
-        popupTools.popup('/api/login/instagram', 'Instagram Login', {}, function (err) {   
+      payload: new Promise((resolve, reject) => {
+        popupTools.popup('/api/login/instagram', 'Instagram Login', {}, function (err) {
           if (!err) {
             resolve();
           } else {
-            throw new Error();
+            reject(err);
           }
         });
       })
@@ -140,12 +139,12 @@ export function linkedinLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(resolve => {
+      payload: new Promise((resolve, reject) => {
         popupTools.popup('/api/login/linkedin', 'LinkedIn Login', {}, function (err) {
           if (!err) {
             resolve();
           } else {
-            throw new Error();
+            reject(err);
           }
         });
       })
@@ -166,12 +165,12 @@ export function githubLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(resolve => {
+      payload: new Promise((resolve, reject) => {
         popupTools.popup('/api/login/github', 'GitHub Login', {}, function (err) {
           if (!err) {
             resolve();
           } else {
-            throw new Error();
+            reject(err);
           }
         });
       })
