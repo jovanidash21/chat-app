@@ -42,7 +42,8 @@ class FacebookLogin extends Component {
 
 FacebookLogin.propTypes={
   handleFacebookLogin: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool
 }
 
 export default FacebookLogin;

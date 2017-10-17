@@ -104,7 +104,8 @@ class Register extends Component {
 
 Register.propTypes={
   handleRegister: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool
 }
 
 export default Register;

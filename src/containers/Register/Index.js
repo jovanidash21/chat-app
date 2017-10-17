@@ -22,7 +22,7 @@ class RegisterContainer extends Component {
     this.props.dispatch(register(data));
   }
   render() {
-    const { isLoading  } = this.props.auth;
+    const { auth  } = this.props;
 
     return (
       <div className="register-form">
@@ -38,7 +38,8 @@ class RegisterContainer extends Component {
                   <Col md="12">  
                     <Register 
                       handleRegister={::this.handleRegister}
-                      isLoading={isLoading}
+                      isLoading={auth.isLoading}
+                      isError={auth.isError}
                     />
                   </Col>
                   <Col md="12">
@@ -51,7 +52,7 @@ class RegisterContainer extends Component {
                         size="large"
                         type="submit"
                         variant="raised"
-                        disabled={isLoading}
+                        disabled={auth.isLoading}
                       >
                         Login
                       </Button>

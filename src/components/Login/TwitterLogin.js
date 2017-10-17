@@ -42,7 +42,8 @@ class TwitterLogin extends Component {
 
 TwitterLogin.propTypes={
   handleTwitterLogin: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool
 }
 
 export default TwitterLogin;

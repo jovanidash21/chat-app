@@ -42,7 +42,8 @@ class InstagramLogin extends Component {
 
 InstagramLogin.propTypes={
   handleInstagramLogin: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool
 }
 
 export default InstagramLogin;

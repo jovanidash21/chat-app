@@ -6,7 +6,8 @@ import {
 
 const initialState = {
   isLoading: false,
-  isAuthenticated: false
+  isAuthenticated: false,
+  isError: false
 };
 
 const auth = (state=initialState, action) => {
@@ -16,27 +17,33 @@ const auth = (state=initialState, action) => {
     case `${LOGOUT}_LOADING`:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        isAuthenticated: false,
+        isError: false
       };
     case `${LOGIN}_SUCCESS`:
     case `${REGISTER}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
-        isAuthenticated: true
+        isAuthenticated: true,
+        isError: false
+      };
+    
+    case `${LOGOUT}_SUCCESS`:
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: false,
+        isError: false
       };
     case `${LOGIN}_ERROR`:
     case `${REGISTER}_ERROR`:
     case `${LOGOUT}_ERROR`:
       return {
         ...state,
-        isLoading: false
-      };
-    case `${LOGOUT}_SUCCESS`:
-      return {
-        ...state,
         isLoading: false,
-        isAuthenticated: false
+        isError: true
       };
     default:
       return state;

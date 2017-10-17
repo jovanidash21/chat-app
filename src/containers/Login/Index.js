@@ -54,7 +54,7 @@ class Login extends Component {
     this.props.dispatch(githubLogin());
   }
   render() {
-    const { isLoading  } = this.props.auth;
+    const { auth  } = this.props;
 
     return (
       <div className="login-form">
@@ -70,43 +70,50 @@ class Login extends Component {
                   <Col md="12">
                     <LocalLogin 
                       handleLocalLogin={::this.handleLocalLogin}
-                      isLoading={isLoading}
+                      isLoading={auth.isLoading}
+                      isError={auth.isError}
                     />
                   </Col>
                   <Col md="12">
                     <FacebookLogin 
                       handleFacebookLogin={::this.handleFacebookLogin}
-                      isLoading={isLoading}
+                      isLoading={auth.isLoading}
+                      isError={auth.isError}
                     />
                   </Col>  
                   <Col md="12">
                     <GoogleLogin 
                       handleGoogleLogin={::this.handleGoogleLogin}
-                      isLoading={isLoading}
+                      isLoading={auth.isLoading}
+                      isError={auth.isError}
                     />
                   </Col>  
                   <Col md="12">
                     <TwitterLogin
                       handleTwitterLogin={::this.handleTwitterLogin}
-                      isLoading={isLoading}
+                      isLoading={auth.isLoading}
+                      isError={auth.isError}
                     /> 
                   </Col>
                   <Col md="12">
                     <InstagramLogin 
                       handleInstagramLogin={::this.handleInstagramLogin}
-                      isLoading={isLoading}
+                      isLoading={auth.isLoading}
+                      isError={auth.isError}
                     />
                   </Col>
                   <Col md="12">
                     <LinkedInLogin 
                       handleLinkedInLogin={::this.handleLinkedInLogin}
-                      isLoading={isLoading}
+                      isLoading={auth.isLoading}
+                      isError={auth.isError}
                     />
                   </Col>
                   <Col md="12">
                     <GitHubLogin 
                       handleGitHubLogin={::this.handleGitHubLogin}
-                      isLoading={isLoading}
+                      isLoading={auth.isLoading}
+                      isError={auth.isError}
                     />
                   </Col>
                   <Col md="12">
@@ -118,7 +125,7 @@ class Login extends Component {
                         className="button button-register"
                         size="large"
                         variant="raised"
-                        disabled={isLoading}
+                        disabled={auth.isLoading}
                       >
                         Register
                       </Button>

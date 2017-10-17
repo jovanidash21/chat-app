@@ -42,7 +42,8 @@ class GitHubLogin extends Component {
 
 GitHubLogin.propTypes={
   handleGitHubLogin: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool
 }
 
 export default GitHubLogin;

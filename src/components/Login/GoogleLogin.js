@@ -42,7 +42,8 @@ class GoogleLogin extends Component {
 
 GoogleLogin.propTypes={
   handleGoogleLogin: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool
 }
 
 export default GoogleLogin;

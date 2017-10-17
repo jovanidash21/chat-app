@@ -74,7 +74,8 @@ class LocalLogin extends Component {
 
 LocalLogin.propTypes={
   handleLocalLogin: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool
 }
 
 export default LocalLogin;
