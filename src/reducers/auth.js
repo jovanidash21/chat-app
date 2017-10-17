@@ -12,52 +12,31 @@ const initialState = {
 const auth = (state=initialState, action) => {
   switch(action.type) {
     case `${LOGIN}_LOADING`:
+    case `${REGISTER}_LOADING`:
+    case `${LOGOUT}_LOADING`:
       return {
         ...state,
         isLoading: true
       };
     case `${LOGIN}_SUCCESS`:
-      return {
-        ...state,
-        isLoading: false,
-        isAuthenticated: true
-      };
-    case `${LOGIN}_ERROR`:
-      return {
-        ...state,
-        isLoading: false
-      };
-    case `${REGISTER}_LOADING`:
-      return {
-        ...state,
-        isLoading: true
-      };
     case `${REGISTER}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: true
       };
+    case `${LOGIN}_ERROR`:
     case `${REGISTER}_ERROR`:
+    case `${LOGOUT}_ERROR`:
       return {
         ...state,
         isLoading: false
-      };
-    case `${LOGOUT}_LOADING`:
-      return {
-        ...state,
-        isLoading: true
       };
     case `${LOGOUT}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: false
-      };
-    case `${LOGOUT}_ERROR`:
-      return {
-        ...state,
-        isLoading: false
       };
     default:
       return state;
