@@ -7,7 +7,8 @@ import {
 const initialState = {
   isLoading: false,
   isAuthenticated: false,
-  isError: false
+  isLoginError: false,
+  isRegisterError: false
 };
 
 const auth = (state=initialState, action) => {
@@ -18,32 +19,37 @@ const auth = (state=initialState, action) => {
       return {
         ...state,
         isLoading: true,
-        isAuthenticated: false,
-        isError: false
+        isAuthenticated: false
       };
     case `${LOGIN}_SUCCESS`:
     case `${REGISTER}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
-        isAuthenticated: true,
-        isError: false
+        isAuthenticated: true
       };
-    
     case `${LOGOUT}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
         isAuthenticated: false,
-        isError: false
       };
     case `${LOGIN}_ERROR`:
-    case `${REGISTER}_ERROR`:
-    case `${LOGOUT}_ERROR`:
       return {
         ...state,
         isLoading: false,
-        isError: true
+        isLoginError: true
+      };
+    case `${REGISTER}_ERROR`:
+      return {
+        ...state,
+        isLoading: false,
+        isRegisterError: true
+      };
+    case `${LOGOUT}_ERROR`:
+      return {
+        ...state,
+        isLoading: false
       };
     default:
       return state;
