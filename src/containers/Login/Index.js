@@ -73,49 +73,42 @@ class Login extends Component {
                     <LocalLogin 
                       handleLocalLogin={::this.handleLocalLogin}
                       isLoading={auth.isLoading}
-                      isError={auth.isError}
                     />
                   </Col>
                   <Col md="12">
                     <FacebookLogin 
                       handleFacebookLogin={::this.handleFacebookLogin}
                       isLoading={auth.isLoading}
-                      isError={auth.isError}
                     />
                   </Col>  
                   <Col md="12">
                     <GoogleLogin 
                       handleGoogleLogin={::this.handleGoogleLogin}
                       isLoading={auth.isLoading}
-                      isError={auth.isError}
                     />
                   </Col>  
                   <Col md="12">
                     <TwitterLogin
                       handleTwitterLogin={::this.handleTwitterLogin}
                       isLoading={auth.isLoading}
-                      isError={auth.isError}
                     /> 
                   </Col>
                   <Col md="12">
                     <InstagramLogin 
                       handleInstagramLogin={::this.handleInstagramLogin}
                       isLoading={auth.isLoading}
-                      isError={auth.isError}
                     />
                   </Col>
                   <Col md="12">
                     <LinkedInLogin 
                       handleLinkedInLogin={::this.handleLinkedInLogin}
                       isLoading={auth.isLoading}
-                      isError={auth.isError}
                     />
                   </Col>
                   <Col md="12">
                     <GitHubLogin 
                       handleGitHubLogin={::this.handleGitHubLogin}
                       isLoading={auth.isLoading}
-                      isError={auth.isError}
                     />
                   </Col>
                   <Col md="12">

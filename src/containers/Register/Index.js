@@ -40,8 +40,7 @@ class RegisterContainer extends Component {
                   <Col md="12">  
                     <Register 
                       handleRegister={::this.handleRegister}
-                      isLoading={auth.isLoading}
-                      isError={auth.isError}
+                      isLoading={auth.isLoading)
                     />
                   </Col>
                   <Col md="12">

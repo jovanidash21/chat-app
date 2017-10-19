@@ -6,9 +6,7 @@ import {
 
 const initialState = {
   isLoading: false,
-  isAuthenticated: false,
-  isLoginError: false,
-  isRegisterError: false
+  isAuthenticated: false
 };
 
 const auth = (state=initialState, action) => {
