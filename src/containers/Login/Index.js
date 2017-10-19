@@ -56,7 +56,7 @@ class Login extends Component {
     this.props.dispatch(githubLogin());
   }
   render() {
-    const { auth  } = this.props;
+    const { auth } = this.props;
 
     return (
       <div className="login-form">
@@ -68,7 +68,15 @@ class Login extends Component {
                 <Row>
                   <Col md="12">
                     <h1 className="mui--text-center">Chat App</h1>
-                  </Col> 
+                  </Col>
+                  {
+                    auth.isLoginError
+                      ? 
+                      <Col md="12">
+                        <p className="mui--text-center mui--text-danger">Invalid username or password!</p>
+                      </Col> 
+                      : ''
+                  }
                   <Col md="12">
                     <LocalLogin 
                       handleLocalLogin={::this.handleLocalLogin}

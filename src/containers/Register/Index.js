@@ -37,10 +37,18 @@ class RegisterContainer extends Component {
                   <Col md="12">
                     <h1 className="mui--text-center">Create an Account</h1>
                   </Col>
+                  {
+                    auth.isRegisterError
+                      ? 
+                      <Col md="12">
+                        <p className="mui--text-center mui--text-danger">Sorry! Username already taken.</p>
+                      </Col> 
+                      : ''
+                  }
                   <Col md="12">  
                     <Register 
                       handleRegister={::this.handleRegister}
-                      isLoading={auth.isLoading)
+                      isLoading={auth.isLoading}
                     />
                   </Col>
                   <Col md="12">
