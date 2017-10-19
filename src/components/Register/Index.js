@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Form from 'muicss/lib/react/form';
-import Input from 'muicss/lib/react/input';
-import Button from 'muicss/lib/react/button';
+import {
+  Form,
+  Input,
+  Button
+} from 'muicss/react';
 require('../../styles/Form.scss');
 
 class Register extends Component {

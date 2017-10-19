@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Button from 'muicss/lib/react/button';
+import { Button } from 'muicss/react';
 import FontAwesome from 'react-fontawesome';
 require('../../styles/Form.scss');
 

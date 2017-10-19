@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Textarea from 'muicss/lib/react/textarea';
+import { Textarea } from 'muicss/react';
 require('../../styles/Chat.scss');
 
 class ChatInput extends Component {

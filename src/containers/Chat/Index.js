@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import Container from 'muicss/lib/react/container';
+import { Container } from 'muicss/react';
 import Header from '../Header';
 import {
   Head,

@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Container from 'muicss/lib/react/container';
-import Form from 'muicss/lib/react/form';
-import Row from 'muicss/lib/react/row';
-import Col from 'muicss/lib/react/col';
-import Panel from 'muicss/lib/react/panel';
-import Divider from 'muicss/lib/react/divider';
-import Button from 'muicss/lib/react/button';
-import { register } from "../../actions/auth";
-import { 
+import {
+  Form,
+  Row,
+  Col,
+  Panel,
+  Divider,
+  Button,
+} from 'muicss/react'
+import { register } from '../../actions/auth';
+import {
   Head,
   Register 
 } from '../../components';

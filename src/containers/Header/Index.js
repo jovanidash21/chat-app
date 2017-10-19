@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Appbar from 'muicss/lib/react/appbar';
-import Container from 'muicss/lib/react/container';
+import {
+  Appbar,
+  Container
+} from 'muicss/react/';
 import { logout } from "../../actions/auth";
 import { OptionsDropdown } from '../../components';
 
