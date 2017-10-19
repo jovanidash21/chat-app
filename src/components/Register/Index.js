@@ -55,13 +55,15 @@ class Register extends Component {
     handleRegister(data);
   }
   render() {
-    const { isLoading } = this.props;
+    const { 
+      isLoading,
+      isError
+    } = this.props;
 
     return (
       <Form onSubmit={::this.handleRegister}>
         <Input 
           label="Email"
-          name="email"
           type="email"
           floatingLabel={true}
           required={true}
@@ -69,15 +71,14 @@ class Register extends Component {
         /> 
         <Input 
           label="Name"
-          name="name"
           type="text"
           floatingLabel={true}
           required={true}
           onChange={::this.onNameChange}
         />  
-        <Input 
+        <Input
+          className={isError ? 'error' : ''}
           label="Username"
-          name="username"
           type="text"
           floatingLabel={true}
           required={true}
@@ -85,7 +86,6 @@ class Register extends Component {
         />  
         <Input 
           label="Password"
-          name="password"
           type="password"
           floatingLabel={true}
           onChange={::this.onPasswordChange}
@@ -106,7 +106,8 @@ class Register extends Component {
 
 Register.propTypes={
   handleRegister: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  isError: PropTypes.bool
 }
 
 export default Register;

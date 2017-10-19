@@ -81,6 +81,7 @@ class Login extends Component {
                     <LocalLogin 
                       handleLocalLogin={::this.handleLocalLogin}
                       isLoading={auth.isLoading}
+                      isError={auth.isLoginError}
                     />
                   </Col>
                   <Col md="12">
