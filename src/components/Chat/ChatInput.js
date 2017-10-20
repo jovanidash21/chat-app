@@ -43,6 +43,7 @@ class ChatInput extends Component {
       <Textarea 
         className="chat-input"
         hint="Type here"
+        autoComplete="off"
         value={message}
         onChange={::this.onMessageChange} 
       />

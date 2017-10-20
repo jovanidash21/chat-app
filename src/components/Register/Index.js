@@ -65,6 +65,7 @@ class Register extends Component {
         <Input 
           label="Email"
           type="email"
+          autoComplete="off"
           floatingLabel={true}
           required={true}
           onChange={::this.onEmailChange}
@@ -72,6 +73,7 @@ class Register extends Component {
         <Input 
           label="Name"
           type="text"
+          autoComplete="off"
           floatingLabel={true}
           required={true}
           onChange={::this.onNameChange}
@@ -80,6 +82,7 @@ class Register extends Component {
           className={isError ? 'error' : ''}
           label="Username"
           type="text"
+          autoComplete="off"
           floatingLabel={true}
           required={true}
           onChange={::this.onUsernameChange}
@@ -87,6 +90,7 @@ class Register extends Component {
         <Input 
           label="Password"
           type="password"
+          autoComplete="off"
           floatingLabel={true}
           onChange={::this.onPasswordChange}
         />

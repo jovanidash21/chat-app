@@ -52,6 +52,7 @@ class LocalLogin extends Component {
           className={isError ? 'error' : ''}
           label="Username"
           type="text"
+          autoComplete="off"
           floatingLabel={true}
           required={true}
           onChange={::this.onUsernameChange}
@@ -60,6 +61,7 @@ class LocalLogin extends Component {
           className={isError ? 'error' : ''}
           label="Password"
           type="password"
+          autoComplete="off"
           floatingLabel={true}
           onChange={::this.onPasswordChange}
         />
