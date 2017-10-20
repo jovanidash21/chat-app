@@ -41,15 +41,11 @@ class LocalLogin extends Component {
     handleLocalLogin(data);
   }
   render() {
-    const { 
-      isLoading,
-      isError
-    } = this.props;
+    const { isLoading } = this.props;
 
     return (
       <Form onSubmit={::this.handleLocalLogin}>
-        <Input 
-          className={isError ? 'error' : ''}
+        <Input
           label="Username"
           type="text"
           autoComplete="off"
@@ -58,7 +54,6 @@ class LocalLogin extends Component {
           onChange={::this.onUsernameChange}
         />  
         <Input
-          className={isError ? 'error' : ''}
           label="Password"
           type="password"
           autoComplete="off"
@@ -81,8 +76,7 @@ class LocalLogin extends Component {
 
 LocalLogin.propTypes={
   handleLocalLogin: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool,
-  isError: PropTypes.bool
+  isLoading: PropTypes.bool
 }
 
 export default LocalLogin;

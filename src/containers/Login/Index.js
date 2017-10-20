@@ -73,15 +73,16 @@ class Login extends Component {
                     auth.isLoginError
                       ? 
                       <Col md="12">
-                        <p className="mui--text-center mui--text-danger">Invalid username or password!</p>
-                      </Col> 
+                        <Panel className="error-card mui--bg-danger">
+                          <p className="mui--text-center">Invalid username or password!</p>
+                        </Panel>
+                      </Col>
                       : ''
                   }
                   <Col md="12">
                     <LocalLogin 
                       handleLocalLogin={::this.handleLocalLogin}
                       isLoading={auth.isLoading}
-                      isError={auth.isLoginError}
                     />
                   </Col>
                   <Col md="12">

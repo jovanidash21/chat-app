@@ -41,8 +41,10 @@ class RegisterContainer extends Component {
                     auth.isRegisterError
                       ? 
                       <Col md="12">
-                        <p className="mui--text-center mui--text-danger">Sorry! Username already taken.</p>
-                      </Col> 
+                        <Panel className="error-card mui--bg-danger">
+                          <p className="mui--text-center">Sorry! Username already taken.</p>
+                        </Panel>
+                      </Col>
                       : ''
                   }
                   <Col md="12">  

@@ -9,6 +9,12 @@
     margin-top: 20px;
     padding: 35px;
   }
+  .error-card {
+    p {
+      color: #fff;
+      margin-bottom: 0;
+    }
+  }
   .button {
     color: #fff;
     padding: 0;
@@ -54,13 +60,5 @@
   }
   .line {
     margin: 15px 0;
-  }
-  .error {
-    input {
-      border-bottom-color: #f44336;
-    }
-    label {
-    color: #f44336 !important;
-    }
   }
 }
