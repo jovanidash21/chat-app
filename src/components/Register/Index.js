@@ -79,7 +79,7 @@ class Register extends Component {
           onChange={::this.onNameChange}
         />  
         <Input
-          className={isError ? 'error' : ''}
+          className={isError ? 'error-input' : ''}
           label="Username"
           type="text"
           autoComplete="off"
@@ -92,6 +92,7 @@ class Register extends Component {
           type="password"
           autoComplete="off"
           floatingLabel={true}
+          required={true}
           onChange={::this.onPasswordChange}
         />
         <Button

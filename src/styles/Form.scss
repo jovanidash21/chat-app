@@ -61,4 +61,12 @@
   .line {
     margin: 15px 0;
   }
+  .error-input {
+    input {
+      border-bottom-color: #f44336;
+    }
+    label {
+    color: #f44336 !important;
+    }
+  }
 }

@@ -58,6 +58,7 @@ class LocalLogin extends Component {
           type="password"
           autoComplete="off"
           floatingLabel={true}
+          required={true}
           onChange={::this.onPasswordChange}
         />
         <Button
