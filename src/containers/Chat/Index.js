@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
-import { Container } from 'muicss/react';
 import Header from '../Header';
 import {
   Head,
@@ -13,6 +12,7 @@ import {
   isTyping,
   isNotTyping
 } from '../../actions/typer';
+require('../../styles/Chat.scss');
 
 const socket = io('');
 
@@ -32,18 +32,14 @@ class Chat extends Component {
     const { userData } = this.props.user;
 
     return (
-      <div>
+      <div className="chat-page">
         <Head title="Chat App" />
         <Header />
-        <Container fluid={true}>
-          <div className="chat">
-            <ChatBox />
-            <ChatInput
-              userData={userData}
-              socket={socket}
-            />
-          </div>
-        </Container>
+        <ChatBox />
+        <ChatInput
+          userData={userData}
+          socket={socket}
+        />
       </div>
     )
   }

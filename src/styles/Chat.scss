@@ -1,7 +1,28 @@
-.chat {
+.chat-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column; 
+  .header {
+    flex-shrink: 0;
+  }
+  .chat-box {
+    flex: 1;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #333;
+      border-radius: 5px;
+    }
+  }
   .chat-input {
-    textarea {
-      resize: none;
+    flex-shrink: 0;
+    input {
+      margin-bottom: 2px;
     }
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Textarea } from 'muicss/react';
-require('../../styles/Chat.scss');
+import { Container } from 'muicss/react';
+import { Input } from 'muicss/react';
 
 class ChatInput extends Component {
   constructor(props) {
@@ -40,13 +40,11 @@ class ChatInput extends Component {
     } = this.state
 
     return (
-      <Textarea 
-        className="chat-input"
-        hint="Type here"
-        autoComplete="off"
-        value={message}
-        onChange={::this.onMessageChange} 
-      />
+      <div className="chat-input">
+        <Container fluid={true}>
+          <Input hint="Type here" />
+        </Container>
+      </div>
     )
   }
 }
