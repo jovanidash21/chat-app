@@ -10,3 +10,14 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+body::-webkit-scrollbar {
+  width: 12px;
+}
+body::-webkit-scrollbar-track {
+  background-color: rgba(21, 21, 21, 0.2);
+  border-radius: 5px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #0b6621;
+  border-radius: 5px;
+}
