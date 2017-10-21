@@ -20,7 +20,7 @@ router.post('/', function(req, res, next) {
               message: 'Login Successful.'
             });
           } else {
-             res.status(500).send({
+            res.status(500).send({
               success: false, 
               message: 'Server Error!'
             });

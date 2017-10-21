@@ -48,23 +48,23 @@ router.post('/:userID', function(req, res, next) {
         var chatRoomID = chatRoom._id;
 
         usersData.findByIdAndUpdate(
-            userID,
-            { $push: { chatRooms: chatRoomID }},
-            { safe: true, upsert: true, new: true },
-            function(err, results) {
-              if (!err) {
-                res.status(200).send({
-                  success: true, 
-                  message: 'Chat Room Created.'
-                });
-              } else {
-                res.status(500).send({
-                  success: false, 
-                  message: 'Server Error!'
-                });
-              }
+          userID,
+          { $push: { chatRooms: chatRoomID }},
+          { safe: true, upsert: true, new: true },
+          function(err, results) {
+            if (!err) {
+              res.status(200).send({
+                success: true, 
+                message: 'Chat Room Created.'
+              });
+            } else {
+              res.status(500).send({
+                success: false, 
+                message: 'Server Error!'
+              });
             }
-          );
+          }
+        );
       } else {
         res.status(500).send({
           success: false, 
