@@ -8,7 +8,7 @@ mongoose.Promise = Promise;
 var chatRoomsDataSchema = new Schema
 (
   {
-    text: String,
+    name: String,
     private: Boolean,
     members: [{
       type: Schema.Types.ObjectId,

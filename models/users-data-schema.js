@@ -11,7 +11,11 @@ var usersDataSchema = new Schema
   {
     name: String,
     email: String,
-    profilePicture: String
+    profilePicture: String,
+    chatRooms: [{
+      type: Schema.Types.ObjectId,
+      ref: 'chatRoomsData'
+    }]
   },
   {
     collection: 'usersData'
