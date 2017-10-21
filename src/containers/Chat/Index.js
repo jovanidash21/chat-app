@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Container } from 'muicss/react';
 import io from 'socket.io-client';
 import Header from '../Header';
 import {
   Head,
-  ChatBox,
+  ChatBubble,
   ChatInput
 } from '../../components';
 import { getUserData } from '../../actions/user';
@@ -35,7 +36,11 @@ class Chat extends Component {
       <div className="chat-page">
         <Head title="Chat App" />
         <Header />
-        <ChatBox />
+        <div className="chat-box">
+          <Container fluid={true}>
+            <ChatBubble />
+          </Container>
+        </div>
         <ChatInput
           userData={userData}
           socket={socket}

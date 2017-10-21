@@ -17,5 +17,5 @@ export { default as Register } from './Register';
 export { default as OptionsDropdown } from './Header/OptionsDropdown';
 
 // Chat
-export { default as ChatBox } from './Chat/ChatBox';
+export { default as ChatBubble } from './Chat/ChatBubble';
 export { default as ChatInput } from './Chat/ChatInput';
