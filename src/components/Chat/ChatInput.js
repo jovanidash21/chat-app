@@ -16,6 +16,7 @@ class ChatInput extends Component {
     event.preventDefault();
     const { 
       userData,
+      activeChatRoom,
       socket
     } = this.props;
     const { typing } = this.state;
@@ -24,12 +25,12 @@ class ChatInput extends Component {
     this.setState({message: messageValue});
 
     if ( (messageValue.length > 0) && (!typing) ) {
-      socket.emit('typing', userData.username);
+      socket.emit('typing', userData.username, activeChatRoom);
       this.setState({typing: true});
     }
 
     if ( (messageValue.length === 0) && (typing) ) {
-      socket.emit('not typing', userData.username);
+      socket.emit('not typing', userData.username, activeChatRoom);
       this.setState({typing: false});
     }
   }
@@ -51,6 +52,7 @@ class ChatInput extends Component {
 
 ChatInput.propTypes={
   userData: PropTypes.object.isRequired,
+  activeChatRoom: PropTypes.bool.isRequired,
   socket: PropTypes.object.isRequired
 }
 
