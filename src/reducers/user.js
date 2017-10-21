@@ -23,7 +23,7 @@ const user = (state=initialState, action) => {
         ...state,
         isLoading: false,
         userData: {
-          name: action.payload.data.username,
+          username: action.payload.data.username,
           name: action.payload.data.name,
           email: action.payload.data.email,
           profilePicture: action.payload.data.profilePicture
