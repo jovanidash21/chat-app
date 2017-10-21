@@ -2,6 +2,29 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var messagesData = require('../../models/messages-data-schema');
 
+router.get('/:chatRoomID/:userID', function(req, res, next) {
+  var chatRoomID = req.params.chatRoomID;
+  var userID = req.params.userID;
+
+  if ((req.user === undefined) || (req.user._id !== userID)) {
+    res.status(401).send({
+      success: false, 
+      message: 'Unauthorized'
+    });
+  } else {
+    messagesData.find({chatRoom: chatRoomID}, function(err, results) {
+      if (!err) {
+        res.status(200).send(results);
+      } else {
+        res.status(500).send({
+          success: false, 
+          message: 'Server Error!'
+        });
+      }
+    });
+  }
+});
+
 router.post('/:chatRoomID/:userID', function(req, res, next) {
   var chatRoomID = req.params.chatRoomID;
   var userID = req.params.userID;
