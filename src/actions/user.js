@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { GET_USER_DATA } from '../constants/user';
+import { FECTH_USER } from '../constants/user';
 
 export function getUserData(data) {
   return dispatch => {
     return dispatch({
-      type: GET_USER_DATA,
+      type: FECTH_USER,
       payload: axios.get('api/user')
     })
     .catch((error) => {

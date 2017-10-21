@@ -1,4 +1,4 @@
-import { GET_USER_DATA } from '../constants/user';
+import { FECTH_USER } from '../constants/user';
 
 const initialState = {
   isLoading: false,
@@ -13,12 +13,12 @@ const initialState = {
 
 const user = (state=initialState, action) => {
   switch(action.type) {
-    case `${GET_USER_DATA}_LOADING`:
+    case `${FECTH_USER}_LOADING`:
       return {
         ...state,
         isLoading: true
       };
-    case `${GET_USER_DATA}_SUCCESS`:
+    case `${FECTH_USER}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
@@ -29,7 +29,7 @@ const user = (state=initialState, action) => {
           profilePicture: action.payload.data.profilePicture
         }
       };
-    case `${GET_USER_DATA}_ERROR`:
+    case `${FECTH_USER}_ERROR`:
       return {
         ...state,
         isLoading: false,
