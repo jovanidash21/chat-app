@@ -6,7 +6,7 @@ router.get('/:chatRoomID/:userID', function(req, res, next) {
   var chatRoomID = req.params.chatRoomID;
   var userID = req.params.userID;
 
-  if ((req.user === undefined) || (req.user._id !== userID)) {
+  if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
       success: false, 
       message: 'Unauthorized'
@@ -29,7 +29,7 @@ router.post('/:chatRoomID/:userID', function(req, res, next) {
   var chatRoomID = req.params.chatRoomID;
   var userID = req.params.userID;
 
-  if ((req.user === undefined) || (req.user._id !== userID)) {
+  if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
       success: false, 
       message: 'Unauthorized'

@@ -6,7 +6,7 @@ var chatRoomsData = require('../../models/chat-rooms-data-schema');
 router.get('/:userID', function(req, res, next) {
   var userID = req.params.userID;
 
-  if ((req.user === undefined) || (req.user._id !== userID)) {
+  if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
       success: false, 
       message: 'Unauthorized'
@@ -30,7 +30,7 @@ router.get('/:userID', function(req, res, next) {
 router.post('/:userID', function(req, res, next) {
   var userID = req.params.userID;
 
-  if ((req.user === undefined) || (req.user._id !== userID)) {
+  if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
       success: false, 
       message: 'Unauthorized'
