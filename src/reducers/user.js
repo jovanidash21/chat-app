@@ -22,12 +22,7 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        userData: {
-          username: action.payload.data.username,
-          name: action.payload.data.name,
-          email: action.payload.data.email,
-          profilePicture: action.payload.data.profilePicture
-        }
+        userData: action.payload.data
       };
     case `${FETCH_USER}_ERROR`:
       return {
