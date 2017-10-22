@@ -1,0 +1,2 @@
+export const FETCH_CHAT_ROOMS = 'FETCH_CHAT_ROOMS';
+export const CREATE_CHAT_ROOM = 'CREATE_CHAT_ROOM';
