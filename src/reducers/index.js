@@ -5,6 +5,7 @@ import auth from './auth';
 import user from './user';
 import email from './email';
 import typer from './typer';
+import message from './message';
 import { LOGOUT } from '../constants/auth';
 
 const appReducer = combineReducers({
@@ -13,7 +14,8 @@ const appReducer = combineReducers({
   auth,
   user,
   email,
-  typer
+  typer,
+  message
 });
 
 const rootReducer = (state, action) => {
