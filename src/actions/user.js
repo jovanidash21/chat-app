@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FECTH_USER } from '../constants/user';
 
-export function getUserData(data) {
+export function fetchUser(data) {
   return dispatch => {
     return dispatch({
       type: FECTH_USER,

@@ -2,7 +2,7 @@ import axios from 'axios';
 import popupTools from 'popup-tools';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { push } from 'react-router-redux';
-import { getUserData } from './user';
+import { fetchUser } from './user';
 import { sendEmail } from './email';
 import {
   LOGIN,
@@ -20,7 +20,7 @@ export function localLogin(data) {
     })
     .then(() => {
       dispatch(hideLoading());
-      dispatch(getUserData());
+      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -46,7 +46,7 @@ export function facebookLogin() {
       })
     })
     .then(() => {
-      dispatch(getUserData());
+      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -72,7 +72,7 @@ export function googleLogin() {
       })
     })
     .then(() => {
-      dispatch(getUserData());
+      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -98,7 +98,7 @@ export function twitterLogin() {
       })
     })
     .then(() => {
-      dispatch(getUserData());
+      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -124,7 +124,7 @@ export function instagramLogin() {
       })
     })
     .then(() => {
-      dispatch(getUserData());
+      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -150,7 +150,7 @@ export function linkedinLogin() {
       })
     })
     .then(() => {
-      dispatch(getUserData());
+      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -176,7 +176,7 @@ export function githubLogin() {
       })
     })
     .then(() => {
-      dispatch(getUserData());
+      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -198,7 +198,7 @@ export function register(data) {
     .then(() => {
       dispatch(hideLoading());
       dispatch(sendEmail(data));
-      dispatch(getUserData());
+      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
