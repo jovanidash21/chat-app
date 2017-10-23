@@ -6,7 +6,7 @@ import {
 const initialState = {
   isLoading: false,
   isError: false,
-  chatRoomData: null
+  chatRoomData: {}
 };
 
 const chatRoom = (state=initialState, action) => {

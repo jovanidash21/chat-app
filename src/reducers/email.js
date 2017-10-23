@@ -1,4 +1,4 @@
-import { SEND_EMAIL} from '../constants/email';
+import { SEND_EMAIL } from '../constants/email';
 
 const initialState = {
   isLoading: false,

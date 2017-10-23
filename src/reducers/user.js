@@ -3,7 +3,7 @@ import { FETCH_USER } from '../constants/user';
 const initialState = {
   isLoading: false,
   isError: false,
-  userData: null
+  userData: {}
 };
 
 const user = (state=initialState, action) => {

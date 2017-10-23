@@ -6,7 +6,7 @@ import {
 const initialState = {
   isLoading: false,
   isError: false,
-  messageData: null
+  messageData: {}
 };
 
 const message = (state=initialState, action) => {
