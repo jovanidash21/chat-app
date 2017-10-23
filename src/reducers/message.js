@@ -1,11 +1,12 @@
-import { 
+import {
   FETCH_MESSAGES,
   SEND_MESSAGE
 } from '../constants/message';
 
 const initialState = {
   isLoading: false,
-  isError: false
+  isError: false,
+  messageData: null
 };
 
 const message = (state=initialState, action) => {
@@ -22,7 +23,8 @@ const message = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isError: false
+        isError: false,
+        messageData: action.payload.data
       };
     case `${FETCH_MESSAGES}_ERROR`:
     case `${SEND_MESSAGE}_ERROR`:

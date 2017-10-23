@@ -3,12 +3,7 @@ import { FETCH_USER } from '../constants/user';
 const initialState = {
   isLoading: false,
   isError: false,
-  userData: {
-    username: null,
-    name: null,
-    email: null,
-    profilePicture: null
-  }
+  userData: null
 };
 
 const user = (state=initialState, action) => {

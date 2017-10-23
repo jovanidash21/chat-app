@@ -1,14 +1,15 @@
-import { 
+import {
   FETCH_CHAT_ROOMS,
   CREATE_CHAT_ROOM
 } from '../constants/chat-room';
 
 const initialState = {
   isLoading: false,
-  isError: false
+  isError: false,
+  chatRoomData: null
 };
 
-const message = (state=initialState, action) => {
+const chatRoom = (state=initialState, action) => {
   switch(action.type) {
     case `${FETCH_CHAT_ROOMS}_LOADING`:
     case `${CREATE_CHAT_ROOM}_LOADING`:
@@ -22,7 +23,8 @@ const message = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isError: false
+        isError: false,
+        chatRoomData: action.payload.data
       };
     case `${FETCH_CHAT_ROOMS}_ERROR`:
     case `${CREATE_CHAT_ROOM}_ERROR`:
@@ -36,4 +38,4 @@ const message = (state=initialState, action) => {
   }
 }
 
-export default message;
+export default chatRoom;
