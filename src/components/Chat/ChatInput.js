@@ -14,6 +14,7 @@ class ChatInput extends Component {
   }
   onMessageChange(event) {
     event.preventDefault();
+
     const { 
       userData,
       activeChatRoom,
@@ -34,6 +35,29 @@ class ChatInput extends Component {
       this.setState({typing: false});
     }
   }
+  handleSendMessage(event) {
+    const { 
+      userData,
+      activeChatRoom,
+      socket,
+      handleSendMessage
+    } = this.props;
+    const { message } = this.state
+    const data = {
+      text: message.trim(),
+      userID: userData._id,
+      chatRoomID: activeChatRoom._id
+    };
+
+    if ( event.key === 'Enter' ) {
+      handleSendMessage(data);
+      socket.emit('not typing', userData.username, activeChatRoom);
+      this.setState({
+        message: '',
+        typing: false
+      });
+    }
+  }
   render() {
     const { 
       message,
@@ -43,7 +67,12 @@ class ChatInput extends Component {
     return (
       <div className="chat-input">
         <Container fluid={true}>
-          <Input hint="Type here" />
+          <Input 
+            hint="Type here"
+            value={message}
+            onChange={::this.onMessageChange}
+            onKeyDown={::this.handleSendMessage}
+          />
         </Container>
       </div>
     )
@@ -53,7 +82,8 @@ class ChatInput extends Component {
 ChatInput.propTypes={
   userData: PropTypes.object.isRequired,
   activeChatRoom: PropTypes.bool.isRequired,
-  socket: PropTypes.object.isRequired
+  socket: PropTypes.object.isRequired,
+  handleSendMessage: PropTypes.func.isRequired
 }
 
 export default ChatInput;

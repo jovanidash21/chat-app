@@ -13,6 +13,10 @@ import {
   isTyping,
   isNotTyping
 } from '../../actions/typer';
+import {
+  fetchMessages,
+  sendMessage
+} from '../../actions/message';
 require('../../styles/Chat.scss');
 
 const socket = io('');
@@ -29,6 +33,9 @@ class Chat extends Component {
       this.props.dispatch(isNotTyping(username))
     );
   }
+  handleSendMessage(data) {
+    this.props.dispatch(sendMessage(data));
+  }
   render() {
     const { user } = this.props;
 
@@ -44,6 +51,7 @@ class Chat extends Component {
         <ChatInput
           userData={user.userData}
           socket={socket}
+          handleSendMessage={::this.handleSendMessage}
         />
       </div>
     )
