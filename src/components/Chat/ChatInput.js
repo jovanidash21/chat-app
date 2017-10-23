@@ -51,6 +51,7 @@ class ChatInput extends Component {
 
     if ( event.key === 'Enter' ) {
       handleSendMessage(data);
+      socket.emit('new message', data, activeChatRoom);
       socket.emit('not typing', userData.username, activeChatRoom);
       this.setState({
         message: '',
