@@ -15,7 +15,7 @@ class Header extends Component {
     this.props.dispatch(logout());
   }
   render() {
-    const { userData } = this.props.user;
+    const { user } = this.props;
 
     return (
       <Appbar className="header">
@@ -28,7 +28,7 @@ class Header extends Component {
                 </td>
                 <td className="mui--appbar-height mui--text-right">
                   <OptionsDropdown 
-                    userData={userData}
+                    userData={user.userData}
                     handleLogout={::this.handleLogout} 
                   />
                 </td>

@@ -30,7 +30,7 @@ class Chat extends Component {
     );
   }
   render() {
-    const { userData } = this.props.user;
+    const { user } = this.props;
 
     return (
       <div className="chat-page">
@@ -42,7 +42,7 @@ class Chat extends Component {
           </Container>
         </div>
         <ChatInput
-          userData={userData}
+          userData={user.userData}
           socket={socket}
         />
       </div>
