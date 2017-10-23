@@ -26,11 +26,13 @@ class Chat extends Component {
     super(props);
   }
   componentDidMount() {
+    const { dispatch } = this.props
+
     socket.on('typing broadcast', username =>
-      this.props.dispatch(isTyping(username))
+      dispatch(isTyping(username))
     );
     socket.on('not typing broadcast', username =>
-      this.props.dispatch(isNotTyping(username))
+      dispatch(isNotTyping(username))
     );
   }
   handleSendMessage(data) {
