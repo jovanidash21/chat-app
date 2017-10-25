@@ -6,18 +6,29 @@ class ChatBubble extends Component {
     super(props);
   }
   render() {
-    const { message } = this.props;
+    const { 
+      userData,
+      message,
+      isSender
+    } = this.props;
 
     return (
-      <div className="chat-bubble">
-      
+      <div className={"chat-bubble-wrapper " + (isSender ? 'reverse' : '')} >
+        <div className="chat-image" style={{backgroundImage: `url(${userData.profilePicture})`}} />
+        <div className={"chat-bubble " + (isSender ? 'right' : '')}>
+          <div className="chat-text">
+            {message}
+          </div>
+        </div>
       </div>
     )
   }
 }
 
 ChatBubble.propTypes={
-  message: PropTypes.string.isRequired
+  userData: PropTypes.object.isRequired,
+  message: PropTypes.string.isRequired,
+  isSender: PropTypes.bool.isRequired
 }
 
 export default ChatBubble;

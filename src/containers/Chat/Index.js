@@ -47,7 +47,16 @@ class Chat extends Component {
         <Header />
         <div className="chat-box">
           <Container fluid={true}>
-            <ChatBubble />
+            <ChatBubble
+              userData={user.userData}
+              message="Hello World"
+              isSender={false}
+            />
+            <ChatBubble 
+              userData={user.userData}
+              message="Hi World" 
+              isSender={true}
+            />
           </Container>
         </div>
         <ChatInput
