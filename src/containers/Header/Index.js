@@ -5,7 +5,10 @@ import {
   Container
 } from 'muicss/react/';
 import { logout } from "../../actions/auth";
-import { OptionsDropdown } from '../../components';
+import { 
+  SideBarToggler,
+  OptionsDropdown 
+} from '../../components';
 
 class Header extends Component {
   constructor(props) {
@@ -24,7 +27,7 @@ class Header extends Component {
             <tbody>
               <tr style={{verticalAlign: 'middle'}}>
                 <td className="mui--appbar-height">
-                  <h1>Chat App</h1>
+                  <SideBarToggler />
                 </td>
                 <td className="mui--appbar-height mui--text-right">
                   <OptionsDropdown 

@@ -14,6 +14,7 @@ export { default as GitHubLogin } from './Login/GitHubLogin';
 export { default as Register } from './Register';
 
 // Header
+export { default as SideBarToggler } from './Header/SideBarToggler';
 export { default as OptionsDropdown } from './Header/OptionsDropdown';
 
 // Chat

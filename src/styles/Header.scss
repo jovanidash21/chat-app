@@ -1,4 +1,13 @@
 .header {
+  .side-bar-toggler {
+    h1 {
+      display: inline;
+    }
+    .icon {
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  }
   .options-dropdown {
     a {
       cursor: pointer;
