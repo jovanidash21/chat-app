@@ -19,22 +19,27 @@ class OptionsDropdown extends Component {
 
     return (
       <div className="mui-dropdown options-dropdown">
-        {userData.name}
-        <button className="mui-btn mui-btn--small mui-btn--fab" data-mui-toggle="dropdown">
-          <FontAwesome className="icon" name="ellipsis-v" size="2x" />
-        </button>
-        <ul className="mui-dropdown__menu mui-dropdown__menu--right">
-         <li>
-            <a href="#">
-              My Profile
-            </a>
-          </li>
-          <li>
-            <a onClick={::this.handleLogout}>
-              Logout
-            </a>
-          </li>
-        </ul>
+        <div className="user-picture" style={{backgroundImage: `url(${userData.profilePicture})`}}></div>
+        <div className="user-name">
+          {userData.name}
+        </div>
+        <div>
+          <button className="mui-btn mui-btn--small mui-btn--fab" data-mui-toggle="dropdown">
+            <FontAwesome className="icon" name="ellipsis-v" size="2x" />
+          </button>
+          <ul className="mui-dropdown__menu mui-dropdown__menu--right">
+           <li>
+              <a href="#">
+                My Profile
+              </a>
+            </li>
+            <li>
+              <a onClick={::this.handleLogout}>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     ) 
   }

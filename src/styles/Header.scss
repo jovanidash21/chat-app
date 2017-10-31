@@ -9,6 +9,12 @@
     }
   }
   .options-dropdown {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    & > div {
+      margin: 0 5px;
+    }
     a {
       cursor: pointer;
     }
@@ -16,10 +22,16 @@
       background-color: transparent;
       box-shadow: none;
       color: #fff;
-      margin-left: 10px;
     }
     .icon {
       vertical-align: middle;
+    }
+    .user-picture {
+      $image-size: 25px;
+      background-size: $image-size;
+      border-radius: 50%;
+      height: $image-size;
+      width: $image-size;
     }
   }
 }
