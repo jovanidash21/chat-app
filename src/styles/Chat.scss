@@ -22,7 +22,11 @@
   .chat-input {
     flex-shrink: 0;
     input {
-      margin-bottom: 2px;
+      border: 1px solid #999;
+      border-radius: 11px;
+      height: 45px;
+      margin-bottom: 0;
+      padding: 17px;
     }
   }
   .chat-bubble-wrapper {
