@@ -20,7 +20,7 @@ class SideBarToggler extends Component {
     return (
       <div className="mui-dropdown side-bar-toggler">
         <FontAwesome className="icon" name="bars" size="2x" />
-        <h1>Chat App</h1>
+        <h2 className="chat-name">Chat App</h2>
       </div>
     ) 
   }

@@ -1,7 +1,8 @@
 .header {
   .side-bar-toggler {
-    h1 {
+    .chat-name {
       display: inline;
+      margin: 0 0 0 10px;
     }
     .icon {
       cursor: pointer;
