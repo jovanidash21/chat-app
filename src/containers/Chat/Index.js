@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Container } from 'muicss/react';
 import io from 'socket.io-client';
 import Header from '../Header';
+import SideDrawer from '../SideDrawer';
 import {
   Head,
   ChatBubble,
@@ -45,6 +46,7 @@ class Chat extends Component {
       <div className="chat-page">
         <Head title="Chat App" />
         <Header />
+        <SideDrawer />
         <div className="chat-box">
           <Container fluid={true}>
             <ChatBubble

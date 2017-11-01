@@ -1,7 +1,12 @@
 .chat-page {
   height: 100vh;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
+  .header,
+  .chat-box,
+  .chat-input {
+    padding-left: 250px;
+  }
   .header {
     flex-shrink: 0;
   }
