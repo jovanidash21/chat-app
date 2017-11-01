@@ -20,13 +20,13 @@
       background: transparent;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: #333;
+      background-color: $color-mine-shaft;
       border-radius: 5px;
     }
   }
   .chat-input {
     align-items: center;
-    background: #eee;
+    background-color: $color-gallery;
     display: flex;
     flex-shrink: 0;
     .mui-textfield {
@@ -41,7 +41,7 @@
       }
     }
     .send-button {
-      background-color: #663399;
+      background-color: $color-royal-purple;
       border-radius: 0;
       color: #fff;
       flex: 1;
@@ -63,7 +63,7 @@
       flex-direction: row-reverse;
     }
     .chat-bubble {
-      $bg-color: #999;
+      $bg-color: $color-dusty-gray;
       background-color: $bg-color;
       border-radius: 21px;
       margin-left: 25px;
@@ -83,7 +83,7 @@
         top: 11px;
       }
       &.right {
-        $bg-color: #2196f3;
+        $bg-color: $color-dodger-blue;
         background-color: $bg-color;
         margin-left: 0;
         margin-right: 25px;
