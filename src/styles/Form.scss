@@ -22,32 +22,32 @@
     position: relative;
     display: block;
     &.button-login {
-      background-color: #4bb06b;
+      background-color: $color-chateau-green;
     }
     &.button-facebook {
-      background-color: #3b5998;
+      background-color: $color-chambray;
     }
     &.button-google {
-      background-color: #db3236;
+      background-color: $color-punch;
     }
     &.button-twitter {
-      background-color: #00aced;
+      background-color: $color-cerulean;
     }
     &.button-instagram {
-      background-color: #8a3ab9;
+      background-color: $color-studio;
     }
     &.button-linkedin {
-      background-color: #0077b5;
+      background-color: $color-deep-cerulean;
     }
     &.button-github {
-      background-color: #333;
+      background-color: $color-mine-shaft;
     }
     &.button-register {
-      background-color: #ffa726;
+      background-color: $color-sunshade;
     }
   }
   .icon {
-    border-right: 1px solid #999;
+    border-right: 1px solid $color-dusty-gray;
     display: inline-table;
     float: left;
     height: 100%;
@@ -63,10 +63,10 @@
   }
   .error-input {
     input {
-      border-bottom-color: #f44336;
+      border-bottom-color: $color-pomegranate;
     }
     label {
-    color: #f44336 !important;
+      color: $color-pomegranate !important;
     }
   }
 }
