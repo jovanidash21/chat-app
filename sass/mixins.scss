@@ -10,3 +10,9 @@
   -khtml-#{$property}: #{$value};
   -webkit-#{$property}: #{$value};
 }
+/* Transform
+ * @param {none|transform-functions|initial|inherit} $value - Value
+ */
+@mixin transform($value) {
+  @include css3-prefix('transform', $value);
+}
