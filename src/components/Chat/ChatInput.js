@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container } from 'muicss/react';
 import { Input } from 'muicss/react';
+import FontAwesome from 'react-fontawesome';
 
 class ChatInput extends Component {
   constructor(props) {
@@ -67,14 +67,18 @@ class ChatInput extends Component {
 
     return (
       <div className="chat-input">
-        <Container fluid={true}>
-          <Input 
-            hint="Type here"
-            value={message}
-            onChange={::this.onMessageChange}
-            onKeyDown={::this.handleSendMessage}
+        <Input 
+          hint="Type here"
+          value={message}
+          onChange={::this.onMessageChange}
+          onKeyDown={::this.handleSendMessage}
+        />
+        <div className="send-button" onClick={::this.handleSendMessage}>
+          <FontAwesome
+            name="paper-plane"
+            size="2x"
           />
-        </Container>
+        </div>
       </div>
     )
   }

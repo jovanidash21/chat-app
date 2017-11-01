@@ -25,13 +25,34 @@
     }
   }
   .chat-input {
+    align-items: center;
+    background: #eee;
+    display: flex;
     flex-shrink: 0;
-    input {
-      border: 1px solid #999;
-      border-radius: 11px;
-      height: 45px;
-      margin-bottom: 0;
-      padding: 17px;
+    .mui-textfield {
+      flex: 9;
+      margin: 0;
+      padding: 10px;
+      input {
+        border: 0;
+        height: 45px;
+        margin-bottom: 0;
+        padding: 17px;
+      }
+    }
+    .send-button {
+      background-color: #663399;
+      color: #fff;
+      cursor: pointer;
+      flex: 1;
+      height: 65px;
+      position: relative;
+      span {
+        @include transform(translate(-50%, -50%))
+        left: 50%;
+        position: absolute;
+        top: 50%;
+      }
     }
   }
   .chat-bubble-wrapper {
