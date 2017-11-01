@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Input } from 'muicss/react';
+import { 
+  Input,
+  Button
+} from 'muicss/react';
 import FontAwesome from 'react-fontawesome';
 
 class ChatInput extends Component {
@@ -73,12 +76,12 @@ class ChatInput extends Component {
           onChange={::this.onMessageChange}
           onKeyDown={::this.handleSendMessage}
         />
-        <div className="send-button" onClick={::this.handleSendMessage}>
+        <Button className="send-button" onClick={::this.handleSendMessage} disabled={!typing}>
           <FontAwesome
             name="paper-plane"
             size="2x"
           />
-        </div>
+        </Button>
       </div>
     )
   }

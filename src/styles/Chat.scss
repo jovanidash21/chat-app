@@ -30,7 +30,7 @@
     display: flex;
     flex-shrink: 0;
     .mui-textfield {
-      flex: 9;
+      flex: 19;
       margin: 0;
       padding: 10px;
       input {
@@ -42,10 +42,11 @@
     }
     .send-button {
       background-color: #663399;
+      border-radius: 0;
       color: #fff;
-      cursor: pointer;
       flex: 1;
       height: 65px;
+      margin: 0;
       position: relative;
       span {
         @include transform(translate(-50%, -50%))
