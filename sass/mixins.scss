@@ -1,0 +1,12 @@
+/* CSS3 Prefixes
+ * @param {*} $property - Property
+ * @param {*} $value - Value
+ */
+@mixin css3-prefix($property, $value) {
+  #{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -khtml-#{$property}: #{$value};
+  -webkit-#{$property}: #{$value};
+}
