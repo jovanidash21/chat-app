@@ -59,6 +59,56 @@ class Chat extends Component {
               message="Hi World" 
               isSender={true}
             />
+            <ChatBubble
+              userData={user.userData}
+              message="Hello World"
+              isSender={false}
+            />
+            <ChatBubble 
+              userData={user.userData}
+              message="Hi World" 
+              isSender={true}
+            />
+            <ChatBubble
+              userData={user.userData}
+              message="Hello World"
+              isSender={false}
+            />
+            <ChatBubble
+              userData={user.userData}
+              message="Hello World"
+              isSender={false}
+            />
+            <ChatBubble 
+              userData={user.userData}
+              message="Hi World" 
+              isSender={true}
+            />
+            <ChatBubble 
+              userData={user.userData}
+              message="Hi World" 
+              isSender={true}
+            />
+            <ChatBubble
+              userData={user.userData}
+              message="Hello World"
+              isSender={false}
+            />
+            <ChatBubble 
+              userData={user.userData}
+              message="Hi World" 
+              isSender={true}
+            />
+            <ChatBubble
+              userData={user.userData}
+              message="Hello World"
+              isSender={false}
+            />
+            <ChatBubble 
+              userData={user.userData}
+              message="Hi World" 
+              isSender={true}
+            />
           </Container>
         </div>
         <ChatInput
