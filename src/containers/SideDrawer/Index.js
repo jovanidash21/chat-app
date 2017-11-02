@@ -9,7 +9,7 @@ class SideDrawer extends Component {
   render() {
     return (
       <div className="side-drawer">
-        
+        <h2 className="title">Chat App</h2>
       </div>
     );
   }

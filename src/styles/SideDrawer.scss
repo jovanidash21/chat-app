@@ -1,6 +1,11 @@
 .side-drawer {
   background-color: $color-chateau-green;
+  color: #fff;
   height: 100%;
   position: fixed;
   width: 250px;
+  .title {
+    margin: 0;
+    padding: 20px;
+  }
 }
