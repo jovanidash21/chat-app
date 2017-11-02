@@ -34,29 +34,17 @@ class Login extends Component {
   constructor(props) {
     super(props);
   }
-  handleLocalLogin(data) {
-    this.props.dispatch(localLogin(data));
-  }
-  handleFacebookLogin() {
-    this.props.dispatch(facebookLogin());
-  }
-  handleGoogleLogin() {
-    this.props.dispatch(googleLogin());
-  }
-  handleTwitterLogin() {
-    this.props.dispatch(twitterLogin());
-  }
-  handleInstagramLogin() {
-    this.props.dispatch(instagramLogin());
-  }
-  handleLinkedInLogin() {
-    this.props.dispatch(linkedinLogin());
-  }
-  handleGitHubLogin() {
-    this.props.dispatch(githubLogin());
-  }
   render() {
-    const { auth } = this.props;
+    const { 
+      localLogin,
+      facebookLogin,
+      googleLogin,
+      twitterLogin,
+      instagramLogin,
+      linkedinLogin,
+      githubLogin,
+      auth 
+    } = this.props;
 
     return (
       <div className="login-form">
@@ -81,43 +69,43 @@ class Login extends Component {
                   }
                   <Col md="12">
                     <LocalLogin 
-                      handleLocalLogin={::this.handleLocalLogin}
+                      handleLocalLogin={localLogin}
                       isLoading={auth.isLoading}
                     />
                   </Col>
                   <Col md="12">
                     <FacebookLogin 
-                      handleFacebookLogin={::this.handleFacebookLogin}
+                      handleFacebookLogin={facebookLogin}
                       isLoading={auth.isLoading}
                     />
                   </Col>  
                   <Col md="12">
                     <GoogleLogin 
-                      handleGoogleLogin={::this.handleGoogleLogin}
+                      handleGoogleLogin={googleLogin}
                       isLoading={auth.isLoading}
                     />
                   </Col>  
                   <Col md="12">
                     <TwitterLogin
-                      handleTwitterLogin={::this.handleTwitterLogin}
+                      handleTwitterLogin={twitterLogin}
                       isLoading={auth.isLoading}
                     /> 
                   </Col>
                   <Col md="12">
                     <InstagramLogin 
-                      handleInstagramLogin={::this.handleInstagramLogin}
+                      handleInstagramLogin={instagramLogin}
                       isLoading={auth.isLoading}
                     />
                   </Col>
                   <Col md="12">
                     <LinkedInLogin 
-                      handleLinkedInLogin={::this.handleLinkedInLogin}
+                      handleLinkedInLogin={linkedinLogin}
                       isLoading={auth.isLoading}
                     />
                   </Col>
                   <Col md="12">
                     <GitHubLogin 
-                      handleGitHubLogin={::this.handleGitHubLogin}
+                      handleGitHubLogin={githubLogin}
                       isLoading={auth.isLoading}
                     />
                   </Col>
@@ -152,6 +140,19 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {  
+  return {
+    localLogin: (data) => {dispatch(localLogin(data))},
+    facebookLogin: () => {dispatch(facebookLogin())},
+    googleLogin: () => {dispatch(googleLogin())},
+    twitterLogin: () => {dispatch(twitterLogin())},
+    instagramLogin: () => {dispatch(instagramLogin())},
+    linkedinLogin: () => {dispatch(linkedinLogin())},
+    githubLogin: () => {dispatch(githubLogin())},
+  }
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Login);
