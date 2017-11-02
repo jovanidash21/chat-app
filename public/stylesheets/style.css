@@ -21,3 +21,9 @@ body::-webkit-scrollbar-thumb {
   background-color: #0b6621;
   border-radius: 5px;
 }
+.loading-bar {
+  height: 3px;
+  background-color: red;
+  position: absolute;
+  z-index: 9999;
+}

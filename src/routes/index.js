@@ -9,7 +9,7 @@ import {
 
 const routes = (
   <div>
-    <LoadingBar />
+    <LoadingBar className="loading-bar" />
     <Switch>
       <Route exact path="/" component={Login} />
       <Route exact path="/register" component={Register} />
