@@ -20,11 +20,11 @@ class RegisterContainer extends Component {
   constructor(props) {
     super(props);
   }
-  handleRegister(data) {
-    this.props.dispatch(register(data));
-  }
   render() {
-    const { auth  } = this.props;
+    const {
+      auth,
+      register
+    } = this.props;
 
     return (
       <div className="register-form">
@@ -49,7 +49,7 @@ class RegisterContainer extends Component {
                   }
                   <Col md="12">  
                     <Register 
-                      handleRegister={::this.handleRegister}
+                      handleRegister={register}
                       isLoading={auth.isLoading}
                       isError={auth.isRegisterError}
                     />
@@ -86,6 +86,13 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {  
+  return {
+    register: (data) => {dispatch(register(data))}
+  }
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(RegisterContainer);
