@@ -1,11 +1,28 @@
 .side-drawer {
   background-color: $color-chateau-green;
   color: #fff;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   position: fixed;
   width: 250px;
   .title {
+    flex-shrink: 1;
     margin: 0;
     padding: 15px;
+  }
+  .chat-room-list {
+    flex: 1;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-mine-shaft;
+      border-radius: 5px;
+    }
   }
 }

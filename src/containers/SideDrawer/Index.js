@@ -10,6 +10,8 @@ class SideDrawer extends Component {
     return (
       <div className="side-drawer">
         <h1 className="title">Chat App</h1>
+        <div className="chat-room-list">
+        </div>
       </div>
     );
   }
