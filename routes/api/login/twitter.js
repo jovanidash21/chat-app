@@ -12,7 +12,7 @@ passport.use(new Strategy({
   includeEmail: true
 }, function(token, tokenSecret, profile, done) {
   var username = 'twitter/' + profile.id;
-  var name = profile.name;
+  var name = profile.displayName;
   var email;
   var profilePicture;
 
