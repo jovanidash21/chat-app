@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   Appbar,
   Container
 } from 'muicss/react/';
-import { logout } from "../../actions/auth";
+import { logout } from '../../actions/auth';
 import { 
   SideBarToggler,
   OptionsDropdown 
@@ -14,11 +15,11 @@ class Header extends Component {
   constructor(props) {
     super(props);
   }
-  handleLogout() {
-    this.props.dispatch(logout());
-  }
   render() {
-    const { user } = this.props;
+    const { 
+      user,
+      logout
+    } = this.props;
 
     return (
       <Appbar className="header">
@@ -32,7 +33,7 @@ class Header extends Component {
                 <td className="mui--appbar-height mui--text-right">
                   <OptionsDropdown 
                     userData={user.userData}
-                    handleLogout={::this.handleLogout} 
+                    handleLogout={logout} 
                   />
                 </td>
               </tr>
@@ -50,6 +51,13 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    logout
+  }, dispatch);
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Header);
