@@ -35,6 +35,14 @@ class Chat extends Component {
     socket.on('not typing broadcast', username =>
       dispatch(isNotTyping(username))
     );
+
+    ::this.handleScrollToBottom();
+  }
+  componentDidUpdate() {
+    ::this.handleScrollToBottom();
+  }
+  handleScrollToBottom() {
+    this.messagesBottom.scrollIntoView();
   }
   handleSendMessage(data) {
     this.props.dispatch(sendMessage(data));
@@ -109,6 +117,9 @@ class Chat extends Component {
               message="Hi World" 
               isSender={true}
             />
+            <div style={{ float:"left", clear: "both" }}
+              ref={(element) => { this.messagesBottom = element; }}>
+            </div>
           </Container>
         </div>
         <ChatInput
