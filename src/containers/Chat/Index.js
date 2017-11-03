@@ -48,7 +48,11 @@ class Chat extends Component {
     this.props.dispatch(sendMessage(data));
   }
   render() {
-    const { user } = this.props;
+    const { 
+      user,
+      typer,
+      message
+    } = this.props;
 
     return (
       <div className="chat-page">
@@ -134,7 +138,9 @@ class Chat extends Component {
 
 const mapStateToProps = (state) => {  
   return {
-    user: state.user
+    user: state.user,
+    typer: state.typer,
+    message: state.message
   }
 }
 

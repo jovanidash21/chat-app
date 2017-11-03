@@ -13,6 +13,8 @@
   .chat-box {
     flex: 1;
     overflow-y: scroll;
+    padding-bottom: 15px;
+    padding-top: 15px;
     &::-webkit-scrollbar {
       width: 6px;
     }
@@ -58,7 +60,7 @@
   }
   .chat-bubble-wrapper {
     display: flex;
-    padding: 7px;
+    padding: 2px;
     &.reverse {
       flex-direction: row-reverse;
     }
