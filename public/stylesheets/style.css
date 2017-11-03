@@ -23,7 +23,7 @@ body::-webkit-scrollbar-thumb {
 }
 .loading-bar {
   height: 3px;
-  background-color: red;
+  background-color: #fe9c43;
   position: absolute;
   z-index: 9999;
 }
