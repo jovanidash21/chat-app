@@ -11,6 +11,18 @@
     margin: 0;
     padding: 15px;
   }
+  .chat-rooms-options {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px 10px;
+    h3 {
+      margin: 0;
+    }
+    .add-chat-room-icon {
+      cursor: pointer;
+    }
+  }
   .chat-room-list {
     flex: 1;
     overflow-y: scroll;
@@ -25,4 +37,15 @@
       border-radius: 5px;
     }
   }
+  .chat-room {
+    @include transition(all 0.2s ease);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 5px 15px;
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: $color-goblin;
+    }
+  } 
 }

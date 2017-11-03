@@ -16,3 +16,9 @@
 @mixin transform($value) {
   @include css3-prefix('transform', $value);
 }
+/* Transition
+ * @param {css-property duration timing-function|none|initial|inherit} $value - Value
+ */
+@mixin transition($value) {
+  @include css3-prefix('transition', $value);
+}
