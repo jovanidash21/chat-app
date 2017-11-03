@@ -6,17 +6,24 @@ class ChatRoom extends Component {
     super(props);
   }
   render() {
-    const { name } = this.props;
+    const { 
+      userData,
+      name
+    } = this.props;
 
     return (
       <div className="chat-room">
-        {name}
+        <div className="chat-room-icon" style={{backgroundImage: `url(${userData.profilePicture})`}}></div>
+        <div className="chat-room-name">
+          {name}
+        </div>
       </div>
     )
   }
 }
 
 ChatRoom.propTypes={
+  userData: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired
 }
 

@@ -9,6 +9,11 @@ class SideDrawer extends Component {
     super(props);
   }
   render() {
+    const { 
+      user,
+      chatRoom
+    } = this.props;
+
     return (
       <div className="side-drawer">
         <h1 className="title">Chat App</h1>
@@ -20,30 +25,67 @@ class SideDrawer extends Component {
         </div>
         
         <div className="chat-room-list">
-          <ChatRoom name="Hello World" />
-          <ChatRoom name="Hi World" />
-          <ChatRoom name="Hello World" />
-          <ChatRoom name="Hi World" />
-          <ChatRoom name="Hello World" />
-          <ChatRoom name="Hi World" />
-          <ChatRoom name="Hello World" />
-          <ChatRoom name="Hi World" />
-          <ChatRoom name="Hello World" />
-          <ChatRoom name="Hi World" />
-          <ChatRoom name="Hello World" />
-          <ChatRoom name="Hi World" />
-          <ChatRoom name="Hello World" />
-          <ChatRoom name="Hi World" />
-          <ChatRoom name="Hello World" />
-          <ChatRoom name="Hi World" />
-          <ChatRoom name="Hello World" />
-          <ChatRoom name="Hi World" />
-          <ChatRoom name="Hello World" />
-          <ChatRoom name="Hi World" />
+          <ChatRoom
+            userData={user.userData}
+            name="Hello World"
+          />
+          <ChatRoom
+            userData={user.userData}
+            name="Hi World"
+          />
+          <ChatRoom
+            userData={user.userData}
+            name="Hello World"
+          />
+          <ChatRoom
+            userData={user.userData}
+            name="Hi World"
+          />
+          <ChatRoom
+            userData={user.userData}
+            name="Hello World"
+          />
+          <ChatRoom
+            userData={user.userData}
+            name="Hi World"
+          />
+          <ChatRoom
+            userData={user.userData}
+            name="Hello World"
+          />
+          <ChatRoom
+            userData={user.userData}
+            name="Hi World"
+          />
+          <ChatRoom
+            userData={user.userData}
+            name="Hello World"
+          />
+          <ChatRoom
+            userData={user.userData}
+            name="Hi World"
+          />
+          <ChatRoom
+            userData={user.userData}
+            name="Hello World"
+          />
+          <ChatRoom
+            userData={user.userData}
+            name="Hi World"
+          />
         </div>
       </div>
     );
   }
 }
 
-export default connect()(SideDrawer);
+const mapStateToProps = (state) => {  
+  return {
+    user: state.user,
+    chatRoom: state.chatRoom
+  }
+}
+
+export default connect(
+  mapStateToProps
+)(SideDrawer);
