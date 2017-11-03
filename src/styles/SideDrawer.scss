@@ -59,5 +59,11 @@
       margin-right: 10px;
       width: $image-size;
     }
+    .chat-room-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 180px;
+    }
   } 
 }
