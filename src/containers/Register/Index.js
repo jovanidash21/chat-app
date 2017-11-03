@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Container from 'muicss/lib/react/container';
@@ -86,10 +87,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {  
-  return {
-    register: (data) => {dispatch(register(data))}
-  }
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    register
+  }, dispatch);
 }
 
 export default connect(
