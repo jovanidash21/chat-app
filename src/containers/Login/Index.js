@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Container from 'muicss/lib/react/container';
@@ -18,7 +19,7 @@ import {
   instagramLogin,
   linkedinLogin,
   githubLogin
-} from "../../actions/auth";
+} from '../../actions/auth';
 import {
   Head,
   LocalLogin,
@@ -140,16 +141,16 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {  
-  return {
-    localLogin: (data) => {dispatch(localLogin(data))},
-    facebookLogin: () => {dispatch(facebookLogin())},
-    googleLogin: () => {dispatch(googleLogin())},
-    twitterLogin: () => {dispatch(twitterLogin())},
-    instagramLogin: () => {dispatch(instagramLogin())},
-    linkedinLogin: () => {dispatch(linkedinLogin())},
-    githubLogin: () => {dispatch(githubLogin())},
-  }
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    localLogin,
+    facebookLogin,
+    googleLogin,
+    twitterLogin,
+    instagramLogin,
+    linkedinLogin,
+    githubLogin
+  }, dispatch);
 }
 
 export default connect(
