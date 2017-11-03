@@ -30,54 +30,48 @@ class RegisterContainer extends Component {
     return (
       <div className="register-form">
         <Head title="Chat App | Register" />
-        <Container fluid={true}>
+        <Panel className="form-card">
           <Row>
-            <Col md="4" md-offset="4" sm="8" sm-offset="2">
-              <Panel className="form-card">
-                <Row>
-                  <Col md="12">
-                    <h1 className="mui--text-center">Create an Account</h1>
-                  </Col>
-                  {
-                    auth.isRegisterError
-                      ? 
-                      <Col md="12">
-                        <Panel className="error-card mui--bg-danger">
-                          <p className="mui--text-center">Sorry! Username already taken.</p>
-                        </Panel>
-                      </Col>
-                      : ''
-                  }
-                  <Col md="12">  
-                    <Register 
-                      handleRegister={register}
-                      isLoading={auth.isLoading}
-                      isError={auth.isRegisterError}
-                    />
-                  </Col>
-                  <Col md="12">
-                    <Divider className="line" />
-                  </Col>
-                  <Col md="12">
-                    <Link to="/">
-                      <Button
-                        className="button button-login"
-                        size="large"
-                        type="submit"
-                        variant="raised"
-                        disabled={auth.isLoading}
-                      >
-                        Login
-                      </Button>
-                    </Link>
-                  </Col>
-                </Row>
-              </Panel>
+            <Col md="12">
+              <h1 className="mui--text-center">Create an Account</h1>
+            </Col>
+            {
+              auth.isRegisterError
+                ?
+                <Col md="12">
+                  <Panel className="error-card mui--bg-danger">
+                    <p className="mui--text-center">Sorry! Username already taken.</p>
+                  </Panel>
+                </Col>
+                : ''
+            }
+            <Col md="12">
+              <Register
+                handleRegister={register}
+                isLoading={auth.isLoading}
+                isError={auth.isRegisterError}
+              />
+            </Col>
+            <Col md="12">
+              <Divider className="line" />
+            </Col>
+            <Col md="12">
+              <Link to="/">
+                <Button
+                  className="button button-login"
+                  size="large"
+                  type="submit"
+                  variant="raised"
+                  disabled={auth.isLoading}
+                >
+                  Login
+                </Button>
+              </Link>
             </Col>
           </Row>
-        </Container>
-      </div>  
-    ) 
+        </Panel>
+      </div>
+    )
   }
 }
 

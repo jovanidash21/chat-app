@@ -50,88 +50,82 @@ class Login extends Component {
     return (
       <div className="login-form">
         <Head title="Chat App | Login" />
-        <Container fluid={true}>
+        <Panel className="form-card">
           <Row>
-            <Col md="4" md-offset="4" sm="8" sm-offset="2">
-              <Panel className="form-card">
-                <Row>
-                  <Col md="12">
-                    <h1 className="mui--text-center">Chat App</h1>
-                  </Col>
-                  {
-                    auth.isLoginError
-                      ? 
-                      <Col md="12">
-                        <Panel className="error-card mui--bg-danger">
-                          <p className="mui--text-center">Invalid username or password!</p>
-                        </Panel>
-                      </Col>
-                      : ''
-                  }
-                  <Col md="12">
-                    <LocalLogin 
-                      handleLocalLogin={localLogin}
-                      isLoading={auth.isLoading}
-                    />
-                  </Col>
-                  <Col md="12">
-                    <FacebookLogin 
-                      handleFacebookLogin={facebookLogin}
-                      isLoading={auth.isLoading}
-                    />
-                  </Col>  
-                  <Col md="12">
-                    <GoogleLogin 
-                      handleGoogleLogin={googleLogin}
-                      isLoading={auth.isLoading}
-                    />
-                  </Col>  
-                  <Col md="12">
-                    <TwitterLogin
-                      handleTwitterLogin={twitterLogin}
-                      isLoading={auth.isLoading}
-                    /> 
-                  </Col>
-                  <Col md="12">
-                    <InstagramLogin 
-                      handleInstagramLogin={instagramLogin}
-                      isLoading={auth.isLoading}
-                    />
-                  </Col>
-                  <Col md="12">
-                    <LinkedInLogin 
-                      handleLinkedInLogin={linkedinLogin}
-                      isLoading={auth.isLoading}
-                    />
-                  </Col>
-                  <Col md="12">
-                    <GitHubLogin 
-                      handleGitHubLogin={githubLogin}
-                      isLoading={auth.isLoading}
-                    />
-                  </Col>
-                  <Col md="12">
-                    <Divider className="line" />
-                  </Col>
-                  <Col md="12">
-                    <Link to="/register">
-                      <Button
-                        className="button button-register"
-                        size="large"
-                        variant="raised"
-                        disabled={auth.isLoading}
-                      >
-                        Register
-                      </Button>
-                    </Link>  
-                  </Col>
-                </Row>
-              </Panel>
+            <Col md="12">
+              <h1 className="mui--text-center">Chat App</h1>
+            </Col>
+            {
+              auth.isLoginError
+                ?
+                <Col md="12">
+                  <Panel className="error-card mui--bg-danger">
+                    <p className="mui--text-center">Invalid username or password!</p>
+                  </Panel>
+                </Col>
+                : ''
+            }
+            <Col md="12">
+              <LocalLogin
+                handleLocalLogin={localLogin}
+                isLoading={auth.isLoading}
+              />
+            </Col>
+            <Col md="12">
+              <FacebookLogin
+                handleFacebookLogin={facebookLogin}
+                isLoading={auth.isLoading}
+              />
+            </Col>
+            <Col md="12">
+              <GoogleLogin
+                handleGoogleLogin={googleLogin}
+                isLoading={auth.isLoading}
+              />
+            </Col>
+            <Col md="12">
+              <TwitterLogin
+                handleTwitterLogin={twitterLogin}
+                isLoading={auth.isLoading}
+              />
+            </Col>
+            <Col md="12">
+              <InstagramLogin
+                handleInstagramLogin={instagramLogin}
+                isLoading={auth.isLoading}
+              />
+            </Col>
+            <Col md="12">
+              <LinkedInLogin
+                handleLinkedInLogin={linkedinLogin}
+                isLoading={auth.isLoading}
+              />
+            </Col>
+            <Col md="12">
+              <GitHubLogin
+                handleGitHubLogin={githubLogin}
+                isLoading={auth.isLoading}
+              />
+            </Col>
+            <Col md="12">
+              <Divider className="line" />
+            </Col>
+            <Col md="12">
+              <Link to="/register">
+                <Button
+                  className="button button-register"
+                  size="large"
+                  variant="raised"
+                  disabled={auth.isLoading}
+                >
+                  Register
+                </Button>
+              </Link>
             </Col>
           </Row>
-        </Container>
-      </div>  
-    ) 
+        </Panel>
+      </div>
+    )
   }
 }
 

@@ -1,12 +1,13 @@
 .login-form,
 .register-form {
+  margin: 20px auto;
+  max-width: 400px;
   a {
     &:hover {
       text-decoration: none;
     }
   }
   .form-card {
-    margin-top: 20px;
     padding: 35px;
   }
   .error-card {
