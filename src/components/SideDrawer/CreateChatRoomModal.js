@@ -30,8 +30,9 @@ class CreateChatRoomModal extends Component {
     event.preventDefault();
 
     const {
-      userData, 
-      handleAddChatRoom
+      handleDeactivateModal,
+      handleAddChatRoom,
+      userData
     } = this.props;
     const { 
       chatRoomName,
@@ -43,6 +44,7 @@ class CreateChatRoomModal extends Component {
       userID: userData._id
     }
 
+    handleDeactivateModal();
     handleAddChatRoom(data);
   }
   render() {
