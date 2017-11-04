@@ -1,8 +1,14 @@
 .header {
   .side-bar-toggler {
+    align-items: center;
+    display: flex;
     .chat-room-name {
       display: inline;
       margin: 0 0 0 10px;
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .icon {
       cursor: pointer;
