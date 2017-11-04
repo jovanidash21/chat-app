@@ -1,79 +1,111 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import { ChatRoom }  from '../../components';
+import {
+  fetchChatRooms,
+  createChatRoom
+} from '../../actions/chat-room';
+import { 
+  ChatRoom,
+  CreateChatRoomModal
+}  from '../../components';
 require('../../styles/SideDrawer.scss');
 
 class SideDrawer extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      showModal: false
+    }
+  }
+  handleActivateModal() {
+    this.setState({showModal: true});
+  }
+  handleDeactivateModal() {
+    this.setState({showModal: false}); 
   }
   render() {
     const { 
       user,
-      chatRoom
+      chatRoom,
+      fetchChatRooms,
+      createChatRoom
     } = this.props;
+    const { showModal } = this.state;
 
     return (
-      <div className="side-drawer">
-        <h1 className="title">Chat App</h1>
-        <div className="chat-rooms-options">
-          <h3>Chat Rooms</h3>
-          <div className="add-chat-room-icon">
-            <FontAwesome name="plus" />
+      <div>
+        <div className="side-drawer">
+          <h1 className="title">Chat App</h1>
+          <div className="chat-rooms-options">
+            <h3>Chat Rooms</h3>
+            <div className="add-chat-room-icon" onClick={::this.handleActivateModal}>
+              <FontAwesome name="plus" />
+            </div>
+          </div>
+          
+          <div className="chat-room-list">
+            <ChatRoom
+              userData={user.userData}
+              name="Hello Worldm zbnzsb dlkjzsd kasadh ksjdask jd akjd lh"
+            />
+            <ChatRoom
+              userData={user.userData}
+              name="Hi World"
+            />
+            <ChatRoom
+              userData={user.userData}
+              name="Hello World"
+            />
+            <ChatRoom
+              userData={user.userData}
+              name="Hi World"
+            />
+            <ChatRoom
+              userData={user.userData}
+              name="Hello World"
+            />
+            <ChatRoom
+              userData={user.userData}
+              name="Hi World"
+            />
+            <ChatRoom
+              userData={user.userData}
+              name="Hello World"
+            />
+            <ChatRoom
+              userData={user.userData}
+              name="Hi World"
+            />
+            <ChatRoom
+              userData={user.userData}
+              name="Hello World"
+            />
+            <ChatRoom
+              userData={user.userData}
+              name="Hi World"
+            />
+            <ChatRoom
+              userData={user.userData}
+              name="Hello World"
+            />
+            <ChatRoom
+              userData={user.userData}
+              name="Hi World"
+            />
           </div>
         </div>
-        
-        <div className="chat-room-list">
-          <ChatRoom
+        {
+          showModal && 
+          <CreateChatRoomModal
+            handleDeactivateModal={::this.handleDeactivateModal}
+            handleAddChatRoom={createChatRoom}
             userData={user.userData}
-            name="Hello World"
+            isLoading={chatRoom.isLoading}
           />
-          <ChatRoom
-            userData={user.userData}
-            name="Hi World"
-          />
-          <ChatRoom
-            userData={user.userData}
-            name="Hello World"
-          />
-          <ChatRoom
-            userData={user.userData}
-            name="Hi World"
-          />
-          <ChatRoom
-            userData={user.userData}
-            name="Hello World"
-          />
-          <ChatRoom
-            userData={user.userData}
-            name="Hi World"
-          />
-          <ChatRoom
-            userData={user.userData}
-            name="Hello World"
-          />
-          <ChatRoom
-            userData={user.userData}
-            name="Hi World"
-          />
-          <ChatRoom
-            userData={user.userData}
-            name="Hello World"
-          />
-          <ChatRoom
-            userData={user.userData}
-            name="Hi World"
-          />
-          <ChatRoom
-            userData={user.userData}
-            name="Hello World"
-          />
-          <ChatRoom
-            userData={user.userData}
-            name="Hi World"
-          />
-        </div>
+        }
       </div>
     );
   }
@@ -86,6 +118,14 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    fetchChatRooms,
+    createChatRoom
+  }, dispatch);
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(SideDrawer);

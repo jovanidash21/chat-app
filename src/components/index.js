@@ -19,6 +19,7 @@ export { default as OptionsDropdown } from './Header/OptionsDropdown';
 
 // Side Drawer
 export { default as ChatRoom } from './SideDrawer/ChatRoom';
+export { default as CreateChatRoomModal } from './SideDrawer/CreateChatRoomModal';
 
 // Chat
 export { default as ChatBubble } from './Chat/ChatBubble';
