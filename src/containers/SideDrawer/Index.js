@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
-import ChatRoom from '../../components/SideDrawer/ChatRoom';
+import { ChatRoom }  from '../../components';
 require('../../styles/SideDrawer.scss');
 
 class SideDrawer extends Component {

@@ -17,6 +17,9 @@ export { default as Register } from './Register';
 export { default as SideBarToggler } from './Header/SideBarToggler';
 export { default as OptionsDropdown } from './Header/OptionsDropdown';
 
+// Side Drawer
+export { default as ChatRoom } from './SideDrawer/ChatRoom';
+
 // Chat
 export { default as ChatBubble } from './Chat/ChatBubble';
 export { default as ChatInput } from './Chat/ChatInput';
