@@ -67,6 +67,7 @@
     "nodemon": "^1.11.0",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
+    "react-autosuggest": "^9.3.2",
     "react-avatar-cropper": "^0.1.3",
     "react-color": "^2.13.8",
     "react-dom": "^15.6.1",
