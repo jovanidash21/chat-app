@@ -20,6 +20,9 @@ class ChatBubble extends Component {
             {message}
           </div>
         </div>
+        <div className="chat-time">
+          9 minutes ago
+        </div>
       </div>
     )
   }
