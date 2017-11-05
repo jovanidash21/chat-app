@@ -47,54 +47,17 @@ class SideDrawer extends Component {
           </div>
           
           <div className="chat-room-list">
-            <ChatRoom
-              userData={user.userData}
-              name="Hello Worldm zbnzsb dlkjzsd kasadh ksjdask jd akjd lh"
-            />
-            <ChatRoom
-              userData={user.userData}
-              name="Hi World"
-            />
-            <ChatRoom
-              userData={user.userData}
-              name="Hello World"
-            />
-            <ChatRoom
-              userData={user.userData}
-              name="Hi World"
-            />
-            <ChatRoom
-              userData={user.userData}
-              name="Hello World"
-            />
-            <ChatRoom
-              userData={user.userData}
-              name="Hi World"
-            />
-            <ChatRoom
-              userData={user.userData}
-              name="Hello World"
-            />
-            <ChatRoom
-              userData={user.userData}
-              name="Hi World"
-            />
-            <ChatRoom
-              userData={user.userData}
-              name="Hello World"
-            />
-            <ChatRoom
-              userData={user.userData}
-              name="Hi World"
-            />
-            <ChatRoom
-              userData={user.userData}
-              name="Hello World"
-            />
-            <ChatRoom
-              userData={user.userData}
-              name="Hi World"
-            />
+            {
+              chatRoom.chatRooms !== undefined
+                ?
+                chatRoom.chatRooms.map((chatRoomData, i) =>
+                  <ChatRoom
+                    key={i}
+                    chatRoomData={chatRoomData}
+                  />
+                )
+                : ''
+            }
           </div>
         </div>
         {
