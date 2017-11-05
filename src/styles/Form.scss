@@ -18,10 +18,10 @@
   }
   .button {
     color: #fff;
+    display: block;
     padding: 0;
     width: 100%;
     position: relative;
-    display: block;
     &.button-login {
       background-color: $color-chateau-green;
     }
