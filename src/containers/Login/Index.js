@@ -19,15 +19,15 @@ import {
   instagramLogin,
   linkedinLogin,
   githubLogin
-} from '../actions/auth';
-import Head from '../components/Head';
-import LocalLoginForm from '../components/Login/LocalLoginForm';
-import FacebookLoginForm from '../components/Login/FacebookLoginForm';
-import GoogleLoginForm from '../components/Login/GoogleLoginForm';
-import TwitterLoginForm from '../components/Login/TwitterLoginForm';
-import InstagramLoginForm from '../components/Login/InstagramLoginForm';
-import LinkedInLoginForm from '../components/Login/LinkedInLoginForm';
-import GitHubLoginForm from '../components/Login/GitHubLoginForm';
+} from '../../actions/auth';
+import Head from '../../components/Head';
+import LocalLoginForm from '../../components/Login/LocalLoginForm';
+import FacebookLoginForm from '../../components/Login/FacebookLoginForm';
+import GoogleLoginForm from '../../components/Login/GoogleLoginForm';
+import TwitterLoginForm from '../../components/Login/TwitterLoginForm';
+import InstagramLoginForm from '../../components/Login/InstagramLoginForm';
+import LinkedInLoginForm from '../../components/Login/LinkedInLoginForm';
+import GitHubLoginForm from '../../components/Login/GitHubLoginForm';
 
 
 class Login extends Component {
@@ -47,7 +47,7 @@ class Login extends Component {
     } = this.props;
 
     return (
-      <div className="login-form">
+      <div>
         <Head title="Chat App | Login" />
         <Panel className="form-card">
           <Row>

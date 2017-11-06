@@ -11,9 +11,9 @@ import {
   Divider,
   Button,
 } from 'muicss/react'
-import { register } from '../actions/auth';
-import Head from '../components/Head';
-import RegisterForm from '../components/Register/RegisterForm';
+import { register } from '../../actions/auth';
+import Head from '../../components/Head';
+import RegisterForm from '../../components/Register/RegisterForm';
 
 class Register extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class Register extends Component {
     } = this.props;
 
     return (
-      <div className="register-form">
+      <div>
         <Head title="Chat App | Register" />
         <Panel className="form-card">
           <Row>
