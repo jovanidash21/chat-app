@@ -11,7 +11,7 @@ import {
   fetchMessages,
   sendMessage
 } from '../actions/message';
-import Header from './Header';
+import Header from './Common/Header';
 import SideDrawer from './SideDrawer';
 import Head from '../components/Head';
 import ChatBubble from '../components/Chat/ChatBubble';
