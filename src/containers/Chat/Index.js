@@ -29,11 +29,11 @@ class Chat extends Component {
   componentDidMount() {
     const { dispatch } = this.props
 
-    socket.on('typing broadcast', username =>
-      dispatch(isTyping(username))
+    socket.on('typing broadcast', name =>
+      dispatch(isTyping(name))
     );
-    socket.on('not typing broadcast', username =>
-      dispatch(isNotTyping(username))
+    socket.on('not typing broadcast', name =>
+      dispatch(isNotTyping(name))
     );
 
     ::this.handleScrollToBottom();

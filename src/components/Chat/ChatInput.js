@@ -29,12 +29,12 @@ class ChatInput extends Component {
     this.setState({message: messageValue});
 
     if ( (messageValue.length > 0) && (!typing) ) {
-      socket.emit('typing', userData.username, activeChatRoom);
+      socket.emit('typing', userData.name, activeChatRoom);
       this.setState({typing: true});
     }
 
     if ( (messageValue.length === 0) && (typing) ) {
-      socket.emit('not typing', userData.username, activeChatRoom);
+      socket.emit('not typing', userData.name, activeChatRoom);
       this.setState({typing: false});
     }
   }
