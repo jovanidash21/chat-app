@@ -11,13 +11,11 @@ import {
   Divider,
   Button,
 } from 'muicss/react'
-import { register } from '../../actions/auth';
-import {
-  Head,
-  Register 
-} from '../../components';
+import { register } from '../actions/auth';
+import Head from '../components/Head';
+import RegisterForm from '../components/Register/RegisterForm';
 
-class RegisterContainer extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
   }
@@ -46,7 +44,7 @@ class RegisterContainer extends Component {
                 : ''
             }
             <Col md="12">
-              <Register
+              <RegisterForm
                 handleRegister={register}
                 isLoading={auth.isLoading}
                 isError={auth.isRegisterError}
@@ -90,4 +88,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RegisterContainer);
+)(Register);

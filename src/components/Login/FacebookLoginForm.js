@@ -4,45 +4,45 @@ import { Button } from 'muicss/react';
 import FontAwesome from 'react-fontawesome';
 require('../../styles/Form.scss');
 
-class GoogleLogin extends Component {
+class FacebookLoginForm extends Component {
   constructor(props) {
     super(props);
   }
-  handleGoogleLogin(event) {
+  handleFacebookLogin(event) {
     event.preventDefault();
 
     const { 
-      handleGoogleLogin
+      handleFacebookLogin
     } = this.props;
 
-    handleGoogleLogin();
+    handleFacebookLogin();
   }
   render() {
     const { isLoading } = this.props;
 
     return (
       <Button
-        className="button button-google"
+        className="button button-facebook"
         size="large"
         variant="raised"
-        onClick={::this.handleGoogleLogin}
+        onClick={::this.handleFacebookLogin}
         disabled={isLoading}
       >
         <div className="icon">
           <FontAwesome
-            name="google"
+            name="facebook"
             size="2x"
           />
-        </div>
-        Login with Google
+        </div>  
+        Login with Facebook
       </Button>
     ) 
   }
 }
 
-GoogleLogin.propTypes={
-  handleGoogleLogin: PropTypes.func.isRequired,
+FacebookLoginForm.propTypes={
+  handleFacebookLogin: PropTypes.func.isRequired,
   isLoading: PropTypes.bool
 }
 
-export default GoogleLogin;
+export default FacebookLoginForm;

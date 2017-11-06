@@ -4,45 +4,45 @@ import { Button } from 'muicss/react';
 import FontAwesome from 'react-fontawesome';
 require('../../styles/Form.scss');
 
-class FacebookLogin extends Component {
+class TwitterLoginForm extends Component {
   constructor(props) {
     super(props);
   }
-  handleFacebookLogin(event) {
+  handleTwitterLogin(event) {
     event.preventDefault();
 
     const { 
-      handleFacebookLogin
+      handleTwitterLogin
     } = this.props;
 
-    handleFacebookLogin();
+    handleTwitterLogin();
   }
   render() {
     const { isLoading } = this.props;
 
     return (
       <Button
-        className="button button-facebook"
+        className="button button-twitter"
         size="large"
         variant="raised"
-        onClick={::this.handleFacebookLogin}
+        onClick={::this.handleTwitterLogin}
         disabled={isLoading}
       >
         <div className="icon">
           <FontAwesome
-            name="facebook"
+            name="twitter"
             size="2x"
           />
-        </div>  
-        Login with Facebook
+        </div>
+        Login with Twitter
       </Button>
     ) 
   }
 }
 
-FacebookLogin.propTypes={
-  handleFacebookLogin: PropTypes.func.isRequired,
+TwitterLoginForm.propTypes={
+  handleTwitterLogin: PropTypes.func.isRequired,
   isLoading: PropTypes.bool
 }
 
-export default FacebookLogin;
+export default TwitterLoginForm;

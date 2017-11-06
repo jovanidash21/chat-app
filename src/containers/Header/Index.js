@@ -6,10 +6,8 @@ import {
   Container
 } from 'muicss/react/';
 import { logout } from '../../actions/auth';
-import { 
-  SideBarToggler,
-  OptionsDropdown 
-} from '../../components';
+import SideBarToggler from '../../components/Header/SideBarToggler';
+import OptionsDropdown from '../../components/Header/OptionsDropdown';
 
 class Header extends Component {
   constructor(props) {

@@ -4,45 +4,45 @@ import { Button } from 'muicss/react';
 import FontAwesome from 'react-fontawesome';
 require('../../styles/Form.scss');
 
-class LinkedInLogin extends Component {
+class GoogleLoginForm extends Component {
   constructor(props) {
     super(props);
   }
-  handleLinkedInLogin(event) {
+  handleGoogleLogin(event) {
     event.preventDefault();
 
     const { 
-      handleLinkedInLogin
+      handleGoogleLogin
     } = this.props;
 
-    handleLinkedInLogin();
+    handleGoogleLogin();
   }
   render() {
     const { isLoading } = this.props;
 
     return (
       <Button
-        className="button button-linkedin"
+        className="button button-google"
         size="large"
         variant="raised"
-        onClick={::this.handleLinkedInLogin}
+        onClick={::this.handleGoogleLogin}
         disabled={isLoading}
       >
         <div className="icon">
           <FontAwesome
-            name="linkedin"
+            name="google"
             size="2x"
           />
-        </div> 
-        Login with LinkedIn
-      </Button> 
+        </div>
+        Login with Google
+      </Button>
     ) 
   }
 }
 
-LinkedInLogin.propTypes={
-  handleLinkedInLogin: PropTypes.func.isRequired,
+GoogleLoginForm.propTypes={
+  handleGoogleLogin: PropTypes.func.isRequired,
   isLoading: PropTypes.bool
 }
 
-export default LinkedInLogin;
+export default GoogleLoginForm;

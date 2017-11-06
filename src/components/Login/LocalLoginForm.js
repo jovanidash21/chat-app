@@ -7,7 +7,7 @@ import {
 } from 'muicss/react';
 require('../../styles/Form.scss');
 
-class LocalLogin extends Component {
+class LocalLoginForm extends Component {
   constructor(props) {
     super(props);
 
@@ -75,9 +75,9 @@ class LocalLogin extends Component {
   }
 }
 
-LocalLogin.propTypes={
+LocalLoginForm.propTypes={
   handleLocalLogin: PropTypes.func.isRequired,
   isLoading: PropTypes.bool
 }
 
-export default LocalLogin;
+export default LocalLoginForm;

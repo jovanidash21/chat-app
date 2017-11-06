@@ -26,5 +26,4 @@ class SideBarToggler extends Component {
   }
 }
 
-
 export default SideBarToggler;

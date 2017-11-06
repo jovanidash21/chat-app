@@ -2,23 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'muicss/react';
 import io from 'socket.io-client';
-import Header from '../Header';
-import SideDrawer from '../SideDrawer';
-import {
-  Head,
-  ChatBubble,
-  ChatInput
-} from '../../components';
-import { getUserData } from '../../actions/user';
+import { getUserData } from '../actions/user';
 import {
   isTyping,
   isNotTyping
-} from '../../actions/typer';
+} from '../actions/typer';
 import {
   fetchMessages,
   sendMessage
-} from '../../actions/message';
-require('../../styles/Chat.scss');
+} from '../actions/message';
+import Header from './Header';
+import SideDrawer from './SideDrawer';
+import Head from '../components/Head';
+import ChatBubble from '../components/Chat/ChatBubble';
+import ChatInput from '../components/Chat/ChatInput';
+require('../styles/Chat.scss');
 
 const socket = io('');
 

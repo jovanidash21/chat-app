@@ -4,45 +4,45 @@ import { Button } from 'muicss/react';
 import FontAwesome from 'react-fontawesome';
 require('../../styles/Form.scss');
 
-class InstagramLogin extends Component {
+class GitHubLoginForm extends Component {
   constructor(props) {
     super(props);
   }
-  handleInstagramLogin(event) {
+  handleGitHubLogin(event) {
     event.preventDefault();
 
     const { 
-      handleInstagramLogin
+      handleGitHubLogin
     } = this.props;
 
-    handleInstagramLogin();
+    handleGitHubLogin();
   }
   render() {
     const { isLoading } = this.props;
 
     return (
       <Button
-        className="button button-instagram"
+        className="button button-github"
         size="large"
         variant="raised"
-        onClick={::this.handleInstagramLogin}
+        onClick={::this.handleGitHubLogin}
         disabled={isLoading}
       >
         <div className="icon">
           <FontAwesome
-            name="instagram"
+            name="github"
             size="2x"
           />
         </div>
-        Login with Instagram
+        Login with Github
       </Button>
     ) 
   }
 }
 
-InstagramLogin.propTypes={
-  handleInstagramLogin: PropTypes.func.isRequired,
+GitHubLoginForm.propTypes={
+  handleGitHubLogin: PropTypes.func.isRequired,
   isLoading: PropTypes.bool
 }
 
-export default InstagramLogin;
+export default GitHubLoginForm;

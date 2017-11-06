@@ -19,17 +19,16 @@ import {
   instagramLogin,
   linkedinLogin,
   githubLogin
-} from '../../actions/auth';
-import {
-  Head,
-  LocalLogin,
-  FacebookLogin,
-  GoogleLogin,
-  TwitterLogin,
-  InstagramLogin,
-  LinkedInLogin,
-  GitHubLogin
-} from '../../components';
+} from '../actions/auth';
+import Head from '../components/Head';
+import LocalLoginForm from '../components/Login/LocalLoginForm';
+import FacebookLoginForm from '../components/Login/FacebookLoginForm';
+import GoogleLoginForm from '../components/Login/GoogleLoginForm';
+import TwitterLoginForm from '../components/Login/TwitterLoginForm';
+import InstagramLoginForm from '../components/Login/InstagramLoginForm';
+import LinkedInLoginForm from '../components/Login/LinkedInLoginForm';
+import GitHubLoginForm from '../components/Login/GitHubLoginForm';
+
 
 class Login extends Component {
   constructor(props) {
@@ -66,43 +65,43 @@ class Login extends Component {
                 : ''
             }
             <Col md="12">
-              <LocalLogin
+              <LocalLoginForm
                 handleLocalLogin={localLogin}
                 isLoading={auth.isLoading}
               />
             </Col>
             <Col md="12">
-              <FacebookLogin
+              <FacebookLoginForm
                 handleFacebookLogin={facebookLogin}
                 isLoading={auth.isLoading}
               />
             </Col>
             <Col md="12">
-              <GoogleLogin
+              <GoogleLoginForm
                 handleGoogleLogin={googleLogin}
                 isLoading={auth.isLoading}
               />
             </Col>
             <Col md="12">
-              <TwitterLogin
+              <TwitterLoginForm
                 handleTwitterLogin={twitterLogin}
                 isLoading={auth.isLoading}
               />
             </Col>
             <Col md="12">
-              <InstagramLogin
+              <InstagramLoginForm
                 handleInstagramLogin={instagramLogin}
                 isLoading={auth.isLoading}
               />
             </Col>
             <Col md="12">
-              <LinkedInLogin
+              <LinkedInLoginForm
                 handleLinkedInLogin={linkedinLogin}
                 isLoading={auth.isLoading}
               />
             </Col>
             <Col md="12">
-              <GitHubLogin
+              <GitHubLoginForm
                 handleGitHubLogin={githubLogin}
                 isLoading={auth.isLoading}
               />

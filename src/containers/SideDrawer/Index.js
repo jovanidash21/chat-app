@@ -6,10 +6,8 @@ import {
   fetchChatRooms,
   createChatRoom
 } from '../../actions/chat-room';
-import { 
-  ChatRoom,
-  CreateChatRoomModal
-}  from '../../components';
+import ChatRoom from '../../components/SideDrawer/ChatRoom';
+import CreateChatRoomModal from '../../components/SideDrawer/CreateChatRoomModal';
 require('../../styles/SideDrawer.scss');
 
 class SideDrawer extends Component {

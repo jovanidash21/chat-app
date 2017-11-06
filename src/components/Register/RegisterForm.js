@@ -7,7 +7,7 @@ import {
 } from 'muicss/react';
 require('../../styles/Form.scss');
 
-class Register extends Component {
+class RegisterForm extends Component {
   constructor(props) {
     super(props);
 
@@ -109,10 +109,10 @@ class Register extends Component {
   }
 }
 
-Register.propTypes={
+RegisterForm.propTypes={
   handleRegister: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   isError: PropTypes.bool
 }
 
-export default Register;
+export default RegisterForm;
