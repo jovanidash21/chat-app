@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router';
 
-class Layout extends Component {
+class Auth extends Component {
   constructor(props) {
     super(props);
   }
@@ -24,8 +24,8 @@ class Layout extends Component {
   }
 }
 
-Layout.propTypes={
+Auth.propTypes={
   component: PropTypes.func
 }
 
-export default Layout;
+export default Auth;
