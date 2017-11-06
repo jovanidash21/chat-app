@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'muicss/react';
 import io from 'socket.io-client';
-import { getUserData } from '../actions/user';
+import { fetchUser } from '../actions/user';
 import {
   isTyping,
   isNotTyping
@@ -23,6 +23,9 @@ const socket = io('');
 class Chat extends Component {
   constructor(props) {
     super(props);
+  }
+  componentWillMount() {
+    this.props.dispatch(fetchUser());
   }
   componentDidMount() {
     const { dispatch } = this.props
