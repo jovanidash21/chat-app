@@ -2,7 +2,6 @@ import axios from 'axios';
 import popupTools from 'popup-tools';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
 import { push } from 'react-router-redux';
-import { fetchUser } from './user';
 import { sendEmail } from './email';
 import {
   LOGIN,
@@ -20,7 +19,6 @@ export function localLogin(data) {
     })
     .then(() => {
       dispatch(hideLoading());
-      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -46,7 +44,6 @@ export function facebookLogin() {
       })
     })
     .then(() => {
-      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -72,7 +69,6 @@ export function googleLogin() {
       })
     })
     .then(() => {
-      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -98,7 +94,6 @@ export function twitterLogin() {
       })
     })
     .then(() => {
-      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -124,7 +119,6 @@ export function instagramLogin() {
       })
     })
     .then(() => {
-      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -150,7 +144,6 @@ export function linkedinLogin() {
       })
     })
     .then(() => {
-      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -176,7 +169,6 @@ export function githubLogin() {
       })
     })
     .then(() => {
-      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -198,7 +190,6 @@ export function register(data) {
     .then(() => {
       dispatch(hideLoading());
       dispatch(sendEmail(data));
-      dispatch(fetchUser());
       dispatch(push('/chat'));
     })
     .catch((error) => {
