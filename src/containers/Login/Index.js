@@ -34,6 +34,13 @@ class Login extends Component {
   constructor(props) {
     super(props);
   }
+  handleHeadData(headTitle) {
+    const title = `Chat App | ${headTitle}`;
+
+    return (
+      <Head title={title} />
+    )
+  }
   render() {
     const { 
       localLogin,
@@ -48,7 +55,7 @@ class Login extends Component {
 
     return (
       <div>
-        <Head title="Chat App | Login" />
+        {::this.handleHeadData('Login')}
         <Panel className="form-card">
           <Row>
             <Col md="12">
