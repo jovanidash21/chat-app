@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Container } from 'muicss/react';
 import io from 'socket.io-client';
@@ -7,6 +8,10 @@ import {
   isTyping,
   isNotTyping
 } from '../actions/typer';
+import {
+  fetchChatRooms,
+  createChatRoom
+} from '../actions/chat-room';
 import {
   fetchMessages,
   sendMessage
@@ -25,16 +30,21 @@ class Chat extends Component {
     super(props);
   }
   componentWillMount() {
-    this.props.dispatch(fetchUser());
+    const { fetchUser } = this.props;
+
+    fetchUser();
   }
   componentDidMount() {
-    const { dispatch } = this.props
+    const {
+      isTyping,
+      isNotTyping
+    } = this.props;
 
     socket.on('typing broadcast', name =>
-      dispatch(isTyping(name))
+      isTyping(name)
     );
     socket.on('not typing broadcast', name =>
-      dispatch(isNotTyping(name))
+      isNotTyping(name)
     );
 
     ::this.handleScrollToBottom();
@@ -145,6 +155,19 @@ const mapStateToProps = (state) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    fetchUser,
+    isTyping,
+    isNotTyping,
+    fetchChatRooms,
+    createChatRoom,
+    fetchMessages,
+    sendMessage
+  }, dispatch);
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Chat);
