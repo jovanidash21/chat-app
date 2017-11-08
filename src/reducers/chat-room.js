@@ -5,7 +5,6 @@ import {
 
 const initialState = {
   isLoading: false,
-  isError: false,
   chatRoomData: {}
 };
 
@@ -15,21 +14,20 @@ const chatRoom = (state=initialState, action) => {
     case `${CREATE_CHAT_ROOM}_LOADING`:
       return {
         ...state,
-        isLoading: true,
-        isError: false
+        isLoading: true
       };
     case `${FETCH_CHAT_ROOMS}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
-        isError: false,
+        isSuccess: true,
         chatRooms: action.payload.data.chatRooms
       };
     case `${CREATE_CHAT_ROOM}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
-        isError: false,
+        isSuccess: true,
         chatRoomData: action.payload.data
       };
     case `${FETCH_CHAT_ROOMS}_ERROR`:
