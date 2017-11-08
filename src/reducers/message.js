@@ -5,7 +5,6 @@ import {
 
 const initialState = {
   isLoading: false,
-  isError: false,
   messageData: {}
 };
 
@@ -15,15 +14,14 @@ const message = (state=initialState, action) => {
     case `${SEND_MESSAGE}_LOADING`:
       return {
         ...state,
-        isLoading: true,
-        isError: false
+        isLoading: true
       };
     case `${FETCH_MESSAGES}_SUCCESS`:
     case `${SEND_MESSAGE}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
-        isError: false,
+        isSuccess: true,
         messageData: action.payload.data
       };
     case `${FETCH_MESSAGES}_ERROR`:
