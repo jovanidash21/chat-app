@@ -2,7 +2,6 @@ import { FETCH_USER } from '../constants/user';
 
 const initialState = {
   isLoading: false,
-  isError: false,
   userData: {}
 };
 
@@ -17,6 +16,7 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        isSuccess: true,
         userData: action.payload.data
       };
     case `${FETCH_USER}_ERROR`:
