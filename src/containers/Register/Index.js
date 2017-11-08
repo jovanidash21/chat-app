@@ -19,8 +19,8 @@ class Register extends Component {
   constructor(props) {
     super(props);
   }
-  handleHeadData(headTitle) {
-    const title = `Chat App | ${headTitle}`;
+  handleHeadData() {
+    const title = 'Chat App | Register';
 
     return (
       <Head title={title} />
@@ -34,7 +34,7 @@ class Register extends Component {
 
     return (
       <div>
-        {::this.handleHeadData('Register')}
+        {::this.handleHeadData()}
         <Panel className="form-card">
           <Row>
             <Col md="12">

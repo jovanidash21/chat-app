@@ -34,8 +34,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
   }
-  handleHeadData(headTitle) {
-    const title = `Chat App | ${headTitle}`;
+  handleHeadData() {
+    const title = 'Chat App | Login';
 
     return (
       <Head title={title} />
@@ -55,7 +55,7 @@ class Login extends Component {
 
     return (
       <div>
-        {::this.handleHeadData('Login')}
+        {::this.handleHeadData()}
         <Panel className="form-card">
           <Row>
             <Col md="12">
