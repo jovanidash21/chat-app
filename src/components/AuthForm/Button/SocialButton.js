@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'muicss/react';
 import FontAwesome from 'react-fontawesome';
+require('./Button.scss');
 
 class SocialButton extends Component {
   constructor(props) {

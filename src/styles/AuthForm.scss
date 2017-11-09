@@ -15,49 +15,6 @@
       margin-bottom: 0;
     }
   }
-  .button {
-    color: #fff;
-    display: block;
-    padding: 0;
-    width: 100%;
-    position: relative;
-    &.button-login {
-      background-color: $color-chateau-green;
-    }
-    &.button-facebook {
-      background-color: $color-chambray;
-    }
-    &.button-google {
-      background-color: $color-punch;
-    }
-    &.button-twitter {
-      background-color: $color-cerulean;
-    }
-    &.button-instagram {
-      background-color: $color-studio;
-    }
-    &.button-linkedin {
-      background-color: $color-deep-cerulean;
-    }
-    &.button-github {
-      background-color: $color-mine-shaft;
-    }
-    &.button-register {
-      background-color: $color-sunshade;
-    }
-  }
-  .icon {
-    border-right: 1px solid $color-dusty-gray;
-    display: inline-table;
-    float: left;
-    height: 100%;
-    width: 45px;
-    span {
-      display: table-cell;
-      text-align: center;
-      vertical-align: middle;
-    }
-  }
   .line {
     margin: 15px 0;
   }

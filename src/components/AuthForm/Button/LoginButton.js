@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'muicss/react';
+require('./Button.scss');
 
 class LoginButton extends Component {
   constructor(props) {
