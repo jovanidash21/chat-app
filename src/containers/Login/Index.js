@@ -8,8 +8,7 @@ import {
   Row,
   Col,
   Panel,
-  Divider,
-  Button
+  Divider
 } from 'muicss/react';
 import {
   localLogin,
@@ -26,6 +25,7 @@ import PasswordInput from '../../components/AuthForm/Input/PasswordInput';
 import LoginButton from '../../components/AuthForm/Button/LoginButton';
 import RegisterButton from '../../components/AuthForm/Button/RegisterButton';
 import SocialButton from '../../components/AuthForm/Button/SocialButton';
+import ErrorCard from '../../components/AuthForm/Card/ErrorCard';
 
 
 class Login extends Component {
@@ -89,9 +89,7 @@ class Login extends Component {
               auth.isLoginError
                 ?
                 <Col md="12">
-                  <Panel className="error-card mui--bg-danger">
-                    <p className="mui--text-center">Invalid username or password!</p>
-                  </Panel>
+                  <ErrorCard label="Invalid username or password!" />
                 </Col>
                 : ''
             }

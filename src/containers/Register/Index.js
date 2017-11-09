@@ -18,6 +18,7 @@ import UsernameInput from '../../components/AuthForm/Input/UsernameInput';
 import PasswordInput from '../../components/AuthForm/Input/PasswordInput';
 import RegisterButton from '../../components/AuthForm/Button/RegisterButton';
 import LoginButton from '../../components/AuthForm/Button/LoginButton';
+import ErrorCard from '../../components/AuthForm/Card/ErrorCard';
 
 class Register extends Component {
   constructor(props) {
@@ -89,9 +90,7 @@ class Register extends Component {
               auth.isRegisterError
                 ?
                 <Col md="12">
-                  <Panel className="error-card mui--bg-danger">
-                    <p className="mui--text-center">Sorry! Username already taken.</p>
-                  </Panel>
+                  <ErrorCard label="Sorry! Username already taken." />
                 </Col>
                 : ''
             }
