@@ -3,36 +3,30 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Container } from 'muicss/react';
 import io from 'socket.io-client';
-import { fetchUser } from '../actions/user';
 import {
   isTyping,
   isNotTyping
-} from '../actions/typer';
+} from '../../actions/typer';
 import {
   fetchChatRooms,
   createChatRoom
-} from '../actions/chat-room';
+} from '../../actions/chat-room';
 import {
   fetchMessages,
   sendMessage
-} from '../actions/message';
-import Header from './Common/Header';
-import SideDrawer from './Part/SideDrawer';
-import Head from '../components/Head';
-import ChatBubble from '../components/Chat/ChatBubble';
-import ChatInput from '../components/Chat/ChatInput';
-require('../styles/Chat.scss');
+} from '../../actions/message';
+import Header from '../Common/Header';
+import SideDrawer from '../Part/SideDrawer';
+import Head from '../../components/Head';
+import ChatBubble from '../../components/Chat/ChatBubble';
+import ChatInput from '../../components/Chat/ChatInput';
+require('../../styles/Chat.scss');
 
 const socket = io('');
 
 class Chat extends Component {
   constructor(props) {
     super(props);
-  }
-  componentWillMount() {
-    const { fetchUser } = this.props;
-
-    fetchUser();
   }
   componentDidMount() {
     const {
@@ -59,7 +53,7 @@ class Chat extends Component {
     this.props.dispatch(sendMessage(data));
   }
   render() {
-    const { 
+    const {
       user,
       typer,
       message
@@ -77,19 +71,9 @@ class Chat extends Component {
               message="Hello World"
               isSender={false}
             />
-            <ChatBubble 
-              userData={user.userData}
-              message="Hi World" 
-              isSender={true}
-            />
             <ChatBubble
               userData={user.userData}
-              message="Hello World"
-              isSender={false}
-            />
-            <ChatBubble 
-              userData={user.userData}
-              message="Hi World" 
+              message="Hi World"
               isSender={true}
             />
             <ChatBubble
@@ -99,17 +83,7 @@ class Chat extends Component {
             />
             <ChatBubble
               userData={user.userData}
-              message="Hello World"
-              isSender={false}
-            />
-            <ChatBubble 
-              userData={user.userData}
-              message="Hi World" 
-              isSender={true}
-            />
-            <ChatBubble 
-              userData={user.userData}
-              message="Hi World" 
+              message="Hi World"
               isSender={true}
             />
             <ChatBubble
@@ -117,9 +91,19 @@ class Chat extends Component {
               message="Hello World"
               isSender={false}
             />
-            <ChatBubble 
+            <ChatBubble
               userData={user.userData}
-              message="Hi World" 
+              message="Hello World"
+              isSender={false}
+            />
+            <ChatBubble
+              userData={user.userData}
+              message="Hi World"
+              isSender={true}
+            />
+            <ChatBubble
+              userData={user.userData}
+              message="Hi World"
               isSender={true}
             />
             <ChatBubble
@@ -127,9 +111,19 @@ class Chat extends Component {
               message="Hello World"
               isSender={false}
             />
-            <ChatBubble 
+            <ChatBubble
               userData={user.userData}
-              message="Hi World" 
+              message="Hi World"
+              isSender={true}
+            />
+            <ChatBubble
+              userData={user.userData}
+              message="Hello World"
+              isSender={false}
+            />
+            <ChatBubble
+              userData={user.userData}
+              message="Hi World"
               isSender={true}
             />
             <div style={{ float:"left", clear: "both" }}
@@ -147,7 +141,7 @@ class Chat extends Component {
   }
 }
 
-const mapStateToProps = (state) => {  
+const mapStateToProps = (state) => {
   return {
     user: state.user,
     typer: state.typer,
@@ -157,7 +151,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    fetchUser,
     isTyping,
     isNotTyping,
     fetchChatRooms,
