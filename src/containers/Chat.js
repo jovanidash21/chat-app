@@ -17,7 +17,7 @@ import {
   sendMessage
 } from '../actions/message';
 import Header from './Common/Header';
-import SideDrawer from './SideDrawer';
+import SideDrawer from './Part/SideDrawer';
 import Head from '../components/Head';
 import ChatBubble from '../components/Chat/ChatBubble';
 import ChatInput from '../components/Chat/ChatInput';
