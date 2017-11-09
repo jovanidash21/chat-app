@@ -21,18 +21,31 @@ import {
   githubLogin
 } from '../../actions/auth';
 import Head from '../../components/Head';
-import LocalLoginForm from '../../components/Login/LocalLoginForm';
-import FacebookLoginForm from '../../components/Login/FacebookLoginForm';
-import GoogleLoginForm from '../../components/Login/GoogleLoginForm';
-import TwitterLoginForm from '../../components/Login/TwitterLoginForm';
-import InstagramLoginForm from '../../components/Login/InstagramLoginForm';
-import LinkedInLoginForm from '../../components/Login/LinkedInLoginForm';
-import GitHubLoginForm from '../../components/Login/GitHubLoginForm';
+import UsernameInput from '../../components/AuthForm/Input/UsernameInput';
+import PasswordInput from '../../components/AuthForm/Input/PasswordInput';
+import LoginButton from '../../components/AuthForm/Button/LoginButton';
+import RegisterButton from '../../components/AuthForm/Button/RegisterButton';
+import SocialButton from '../../components/AuthForm/Button/SocialButton';
 
 
 class Login extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      username: '',
+      password: ''
+    };
+  }
+  onUsernameChange(event) {
+    event.preventDefault();
+
+    this.setState({username: event.target.value});
+  }
+  onPasswordChange(event) {
+    event.preventDefault();
+
+    this.setState({password: event.target.value});
   }
   handleHeadData() {
     const title = 'Chat App | Login';
@@ -41,16 +54,27 @@ class Login extends Component {
       <Head title={title} />
     )
   }
+  handleLocalLogin(event) {
+    event.preventDefault();
+
+    const { localLogin } = this.props;
+    const {
+      username,
+      password
+    } = this.state;
+    let data = {username, password};
+
+    localLogin(data);
+  }
   render() {
-    const { 
-      localLogin,
+    const {
       facebookLogin,
       googleLogin,
       twitterLogin,
       instagramLogin,
       linkedinLogin,
       githubLogin,
-      auth 
+      auth
     } = this.props;
 
     return (
@@ -72,45 +96,61 @@ class Login extends Component {
                 : ''
             }
             <Col md="12">
-              <LocalLoginForm
-                handleLocalLogin={localLogin}
-                isLoading={auth.isLoading}
+              <Form onSubmit={::this.handleLocalLogin}>
+                <UsernameInput onUsernameChange={::this.onUsernameChange} />
+                <PasswordInput onPasswordChange={::this.onPasswordChange} />
+                <LoginButton
+                  type="submit"
+                  isDisabled={auth.isLoading}
+                />
+              </Form>
+            </Col>
+            <Col md="12">
+              <SocialButton
+                socialMedia="facebook"
+                label="Login with Facebook"
+                handleSocialLogin={facebookLogin}
+                isDisabled={auth.isLoading}
               />
             </Col>
             <Col md="12">
-              <FacebookLoginForm
-                handleFacebookLogin={facebookLogin}
-                isLoading={auth.isLoading}
+              <SocialButton
+                socialMedia="google"
+                label="Login with Google"
+                handleSocialLogin={googleLogin}
+                isDisabled={auth.isLoading}
               />
             </Col>
             <Col md="12">
-              <GoogleLoginForm
-                handleGoogleLogin={googleLogin}
-                isLoading={auth.isLoading}
+              <SocialButton
+                socialMedia="twitter"
+                label="Login with Twitter"
+                handleSocialLogin={twitterLogin}
+                isDisabled={auth.isLoading}
               />
             </Col>
             <Col md="12">
-              <TwitterLoginForm
-                handleTwitterLogin={twitterLogin}
-                isLoading={auth.isLoading}
+              <SocialButton
+                socialMedia="instagram"
+                label="Login with Instagram"
+                handleSocialLogin={instagramLogin}
+                isDisabled={auth.isLoading}
               />
             </Col>
             <Col md="12">
-              <InstagramLoginForm
-                handleInstagramLogin={instagramLogin}
-                isLoading={auth.isLoading}
+              <SocialButton
+                socialMedia="linkedin"
+                label="Login with LinkedIn"
+                handleSocialLogin={linkedinLogin}
+                isDisabled={auth.isLoading}
               />
             </Col>
             <Col md="12">
-              <LinkedInLoginForm
-                handleLinkedInLogin={linkedinLogin}
-                isLoading={auth.isLoading}
-              />
-            </Col>
-            <Col md="12">
-              <GitHubLoginForm
-                handleGitHubLogin={githubLogin}
-                isLoading={auth.isLoading}
+              <SocialButton
+                socialMedia="github"
+                label="Login with GitHub"
+                handleSocialLogin={githubLogin}
+                isDisabled={auth.isLoading}
               />
             </Col>
             <Col md="12">
@@ -118,14 +158,7 @@ class Login extends Component {
             </Col>
             <Col md="12">
               <Link to="/register">
-                <Button
-                  className="button button-register"
-                  size="large"
-                  variant="raised"
-                  disabled={auth.isLoading}
-                >
-                  Register
-                </Button>
+                <RegisterButton isDisabled={auth.isLoading} />
               </Link>
             </Col>
           </Row>
@@ -135,7 +168,7 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = (state) => {  
+const mapStateToProps = (state) => {
   return {
     auth: state.auth
   }

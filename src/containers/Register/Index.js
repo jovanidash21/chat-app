@@ -8,16 +8,47 @@ import {
   Row,
   Col,
   Panel,
-  Divider,
-  Button,
+  Divider
 } from 'muicss/react'
 import { register } from '../../actions/auth';
 import Head from '../../components/Head';
-import RegisterForm from '../../components/Register/RegisterForm';
+import EmailInput from '../../components/AuthForm/Input/EmailInput';
+import NameInput from '../../components/AuthForm/Input/NameInput';
+import UsernameInput from '../../components/AuthForm/Input/UsernameInput';
+import PasswordInput from '../../components/AuthForm/Input/PasswordInput';
+import RegisterButton from '../../components/AuthForm/Button/RegisterButton';
+import LoginButton from '../../components/AuthForm/Button/LoginButton';
 
 class Register extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      email: '',
+      name: '',
+      username: '',
+      password: ''
+    };
+  }
+  onEmailChange(event) {
+    event.preventDefault();
+
+    this.setState({email: event.target.value});
+  }
+  onNameChange(event) {
+    event.preventDefault();
+
+    this.setState({name: event.target.value});
+  }
+  onUsernameChange(event) {
+    event.preventDefault();
+
+    this.setState({username: event.target.value});
+  }
+  onPasswordChange(event) {
+    event.preventDefault();
+
+    this.setState({password: event.target.value});
   }
   handleHeadData() {
     const title = 'Chat App | Register';
@@ -25,6 +56,20 @@ class Register extends Component {
     return (
       <Head title={title} />
     )
+  }
+  handleRegister(event) {
+    event.preventDefault();
+
+    const { register } = this.props;
+    const {
+      email,
+      name,
+      username,
+      password
+    } = this.state;
+    let data = {email, name, username, password};
+
+    register(data);
   }
   render() {
     const {
@@ -51,26 +96,23 @@ class Register extends Component {
                 : ''
             }
             <Col md="12">
-              <RegisterForm
-                handleRegister={register}
-                isLoading={auth.isLoading}
-                isError={auth.isRegisterError}
-              />
+              <Form onSubmit={::this.handleRegister}>
+                <EmailInput onEmailChange={::this.onEmailChange} />
+                <NameInput onNameChange={::this.onNameChange} />
+                <UsernameInput onUsernameChange={::this.onUsernameChange} />
+                <PasswordInput onPasswordChange={::this.onPasswordChange} />
+                <RegisterButton
+                  type="submit"
+                  isDisabled={auth.isLoading}
+                />
+              </Form>
             </Col>
             <Col md="12">
               <Divider className="line" />
             </Col>
             <Col md="12">
               <Link to="/">
-                <Button
-                  className="button button-login"
-                  size="large"
-                  type="submit"
-                  variant="raised"
-                  disabled={auth.isLoading}
-                >
-                  Login
-                </Button>
+                <LoginButton isDisabled={auth.isLoading} />
               </Link>
             </Col>
           </Row>
@@ -80,7 +122,7 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = (state) => {  
+const mapStateToProps = (state) => {
   return {
     auth: state.auth
   }
