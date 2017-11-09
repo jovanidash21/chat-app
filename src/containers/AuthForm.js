@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router';
 
-class Auth extends Component {
+class AuthForm extends Component {
   constructor(props) {
     super(props);
   }
@@ -24,8 +24,8 @@ class Auth extends Component {
   }
 }
 
-Auth.propTypes={
+AuthForm.propTypes={
   component: PropTypes.func
 }
 
-export default Auth;
+export default AuthForm;
