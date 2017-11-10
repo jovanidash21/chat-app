@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { 
+import {
   FETCH_CHAT_ROOMS,
   CREATE_CHAT_ROOM
 } from '../constants/chat-room';
@@ -23,6 +23,9 @@ export function createChatRoom(data) {
     return dispatch({
       type: CREATE_CHAT_ROOM,
       payload: axios.post(`/api/chat-room/${data.userID}`, data)
+    })
+    .then(() => {
+      dispatch(fetchChatRooms(data.userID));
     })
     .catch((error) => {
       if (error instanceof Error) {
