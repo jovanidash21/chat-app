@@ -16,6 +16,30 @@
 @mixin transform($value) {
   @include css3-prefix('transform', $value);
 }
+/* Transform Rotate
+ * @param {number} $value - Value
+ */
+@mixin transform-rotate($value...) {
+  @include css3-prefix('transform', rotate($value));
+}
+/* Transform Translate
+ * @param {number} $value - Value
+ */
+@mixin transform-translate($value...) {
+  @include css3-prefix('transform', translate($value));
+}
+/* Transform Translate X
+ * @param {number} $value - Value
+ */
+@mixin transform-translateX($value) {
+  @include css3-prefix('transform', translateX($value));
+}
+/* Transform Translate Y
+ * @param {number} $value - Value
+ */
+@mixin transform-translateX($value) {
+  @include css3-prefix('transform', translateY($value));
+}
 /* Transition
  * @param {css-property duration timing-function|none|initial|inherit} $value - Value
  */

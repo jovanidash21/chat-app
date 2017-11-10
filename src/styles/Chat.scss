@@ -51,7 +51,7 @@
       margin: 0;
       position: relative;
       span {
-        @include transform(translate(-50%, -50%))
+        @include transform-translate(-50%, -50%);
         left: 50%;
         position: absolute;
         top: 50%;
@@ -94,7 +94,7 @@
           border-color: transparent $bg-color;
           left: auto;
           right: -17px;
-          transform: rotate(180deg);
+          @include transform-rotate(180deg);
         }
       }
       .chat-text {
@@ -117,5 +117,5 @@
       font-size: 11px;
       margin: 0 4px 2px;
     }
-  }  
+  }
 }
