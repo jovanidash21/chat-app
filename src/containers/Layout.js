@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router';
 import { fetchUser } from '../actions/user';
+import LoadingAnimation from '../components/LoadingAnimation';
 
 class Layout extends Component {
   constructor(props) {
@@ -20,11 +21,15 @@ class Layout extends Component {
       user
     } = this.props;
 
-    return (
-      <div>
+    if (!user.isLoading && user.isSuccess) {
+      return (
         <Content {...matchProps} />
-      </div>
-    )
+      )
+    } else {
+      return (
+        <LoadingAnimation name="pacman" color="#4bb06b" />
+      )
+    }
   }
   render() {
     const { component, ...rest } = this.props;

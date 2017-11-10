@@ -7,14 +7,6 @@ import {
   isTyping,
   isNotTyping
 } from '../../actions/typer';
-import {
-  fetchChatRooms,
-  createChatRoom
-} from '../../actions/chat-room';
-import {
-  fetchMessages,
-  sendMessage
-} from '../../actions/message';
 import Header from '../Common/Header';
 import SideDrawer from '../Part/SideDrawer';
 import Head from '../../components/Head';
@@ -152,11 +144,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     isTyping,
-    isNotTyping,
-    fetchChatRooms,
-    createChatRoom,
-    fetchMessages,
-    sendMessage
+    isNotTyping
   }, dispatch);
 }
 
