@@ -6,6 +6,7 @@ import {
   fetchChatRooms,
   createChatRoom
 } from '../../actions/chat-room';
+import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatRoom from '../../components/SideDrawer/ChatRoom';
 import CreateChatRoomModal from '../../components/SideDrawer/CreateChatRoomModal';
 import '../../styles/SideDrawer.scss';
@@ -16,6 +17,45 @@ class SideDrawer extends Component {
 
     this.state = {
       showModal: false
+    }
+  }
+  componentWillMount() {
+    const {
+      user,
+      fetchChatRooms
+    } = this.props;
+
+    fetchChatRooms(user.userData._id);
+  }
+  handleComponent() {
+    const { chatRoom } = this.props;
+
+    if (!chatRoom.isLoading && chatRoom.isSuccess) {
+      return (
+        <div>
+          <div className="chat-rooms-options">
+            <h3>Chat Rooms</h3>
+            <div className="add-chat-room-icon" onClick={::this.handleActivateModal}>
+              <FontAwesome name="plus" />
+            </div>
+          </div>
+
+          <div className="chat-room-list">
+            {
+              chatRoom.chatRooms.map((chatRoomData, i) =>
+                <ChatRoom
+                  key={i}
+                  chatRoomData={chatRoomData}
+                />
+              )
+            }
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <LoadingAnimation name="ball-clip-rotate" color="white" />
+      )
     }
   }
   handleActivateModal() {
@@ -37,26 +77,7 @@ class SideDrawer extends Component {
       <div>
         <div className="side-drawer">
           <h1 className="title">Chat App</h1>
-          <div className="chat-rooms-options">
-            <h3>Chat Rooms</h3>
-            <div className="add-chat-room-icon" onClick={::this.handleActivateModal}>
-              <FontAwesome name="plus" />
-            </div>
-          </div>
-
-          <div className="chat-room-list">
-            {
-              chatRoom.chatRooms !== undefined
-                ?
-                chatRoom.chatRooms.map((chatRoomData, i) =>
-                  <ChatRoom
-                    key={i}
-                    chatRoomData={chatRoomData}
-                  />
-                )
-                : ''
-            }
-          </div>
+          {::this.handleComponent()}
         </div>
         {
           showModal &&
