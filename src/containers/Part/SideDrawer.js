@@ -8,7 +8,7 @@ import {
 } from '../../actions/chat-room';
 import ChatRoom from '../../components/SideDrawer/ChatRoom';
 import CreateChatRoomModal from '../../components/SideDrawer/CreateChatRoomModal';
-require('../../styles/SideDrawer.scss');
+import '../../styles/SideDrawer.scss';
 
 class SideDrawer extends Component {
   constructor(props) {
@@ -22,10 +22,10 @@ class SideDrawer extends Component {
     this.setState({showModal: true});
   }
   handleDeactivateModal() {
-    this.setState({showModal: false}); 
+    this.setState({showModal: false});
   }
   render() {
-    const { 
+    const {
       user,
       chatRoom,
       fetchChatRooms,
@@ -43,7 +43,7 @@ class SideDrawer extends Component {
               <FontAwesome name="plus" />
             </div>
           </div>
-          
+
           <div className="chat-room-list">
             {
               chatRoom.chatRooms !== undefined
@@ -59,7 +59,7 @@ class SideDrawer extends Component {
           </div>
         </div>
         {
-          showModal && 
+          showModal &&
           <CreateChatRoomModal
             handleDeactivateModal={::this.handleDeactivateModal}
             handleAddChatRoom={createChatRoom}
@@ -72,7 +72,7 @@ class SideDrawer extends Component {
   }
 }
 
-const mapStateToProps = (state) => {  
+const mapStateToProps = (state) => {
   return {
     user: state.user,
     chatRoom: state.chatRoom

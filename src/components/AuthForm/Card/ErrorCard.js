@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Panel } from 'muicss/react';
-require('./Card.scss');
+import './styles.scss';
 
 class ErrorCard extends Component {
   constructor(props) {

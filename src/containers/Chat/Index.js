@@ -20,7 +20,7 @@ import SideDrawer from '../Part/SideDrawer';
 import Head from '../../components/Head';
 import ChatBubble from '../../components/Chat/ChatBubble';
 import ChatInput from '../../components/Chat/ChatInput';
-require('../../styles/Chat.scss');
+import '../../styles/Chat.scss';
 
 const socket = io('');
 
