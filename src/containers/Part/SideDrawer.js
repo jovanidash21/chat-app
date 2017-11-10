@@ -30,7 +30,7 @@ class SideDrawer extends Component {
   handleComponent() {
     const { chatRoom } = this.props;
 
-    if (!chatRoom.isLoading && chatRoom.isSuccess) {
+    if (!chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess) {
       return (
         <div>
           <div className="chat-rooms-options">

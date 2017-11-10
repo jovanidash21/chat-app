@@ -20,14 +20,14 @@ const chatRoom = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isSuccess: true,
+        isFetchChatRoomsSuccess: true,
         chatRooms: action.payload.data.chatRooms
       };
     case `${CREATE_CHAT_ROOM}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
-        isSuccess: true,
+        isCreateChatRoomSuccess: true,
         chatRoomData: action.payload.data
       };
     case `${FETCH_CHAT_ROOMS}_ERROR`:
