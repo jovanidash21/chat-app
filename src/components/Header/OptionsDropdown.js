@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-require('../../styles/Header.scss');
+import '../../styles/Header.scss';
 
 class OptionsDropdown extends Component {
   constructor(props) {

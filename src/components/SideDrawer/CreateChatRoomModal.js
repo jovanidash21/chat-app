@@ -7,7 +7,7 @@ import {
   Checkbox,
   Button
 } from 'muicss/react';
-require('../../styles/Modal.scss');
+import '../../styles/Modal.scss';
 
 class CreateChatRoomModal extends Component {
   constructor(props) {
