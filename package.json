@@ -85,7 +85,6 @@
     "react-timeago": "^3.4.3",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "redux-persist": "^4.10.1",
     "redux-persist-transform-filter": "0.0.15",
     "redux-promise-middleware": "^4.3.0",
     "redux-thunk": "^2.2.0",
