@@ -19,7 +19,7 @@ class ChatRoom extends Component {
   }
 }
 
-ChatRoom.propTypes={
+ChatRoom.propTypes = {
   chatRoomData: PropTypes.object.isRequired
 }
 

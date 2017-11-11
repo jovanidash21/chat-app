@@ -87,7 +87,7 @@ class ChatInput extends Component {
   }
 }
 
-ChatInput.propTypes={
+ChatInput.propTypes = {
   userData: PropTypes.object.isRequired,
   activeChatRoom: PropTypes.bool.isRequired,
   socket: PropTypes.object.isRequired,

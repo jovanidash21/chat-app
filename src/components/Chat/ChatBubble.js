@@ -28,7 +28,7 @@ class ChatBubble extends Component {
   }
 }
 
-ChatBubble.propTypes={
+ChatBubble.propTypes = {
   userData: PropTypes.object.isRequired,
   message: PropTypes.string.isRequired,
   isSender: PropTypes.bool.isRequired

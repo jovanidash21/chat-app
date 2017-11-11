@@ -45,7 +45,7 @@ class OptionsDropdown extends Component {
   }
 }
 
-OptionsDropdown.propTypes={
+OptionsDropdown.propTypes = {
   userData: PropTypes.object.isRequired,
   handleLogout: PropTypes.func.isRequired
 }

@@ -92,7 +92,7 @@ class CreateChatRoomModal extends Component {
   }
 }
 
-CreateChatRoomModal.propTypes={
+CreateChatRoomModal.propTypes = {
   handleDeactivateModal: PropTypes.func.isRequired,
   handleAddChatRoom: PropTypes.func.isRequired,
   userData: PropTypes.object.isRequired,
