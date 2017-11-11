@@ -4,8 +4,6 @@ import promiseMiddleware from 'redux-promise-middleware';
 import { routerMiddleware } from 'react-router-redux';
 import { loadingBarMiddleware } from 'react-redux-loading-bar';
 import { createLogger } from 'redux-logger';
-import { persistStore, autoRehydrate } from 'redux-persist';
-import { createBlacklistFilter } from 'redux-persist-transform-filter';
 import history from '../history';
 import reducers from '../reducers';
 
@@ -21,18 +19,7 @@ const store = createStore(
     reactRouterMiddleware,
     loadingBarMiddleware(),
     createLogger()
-  ),
-  autoRehydrate()
+  )
 );
-
-const saveAuthSubsetBlacklistFilter = createBlacklistFilter(
-  'auth', ['isLoginError', 'isRegisterError']
-)
-
-persistStore(store, {
-  transforms: [
-    saveAuthSubsetBlacklistFilter
-  ]
-});
 
 export default store;
