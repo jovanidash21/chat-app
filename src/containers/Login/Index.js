@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Container from 'muicss/lib/react/container';
 import {
   Form,
@@ -155,9 +154,7 @@ class Login extends Component {
               <Divider className="line" />
             </Col>
             <Col md="12">
-              <Link to="/register">
-                <RegisterButton isDisabled={auth.isLoading} />
-              </Link>
+              <RegisterButton isDisabled={auth.isLoading} />
             </Col>
           </Row>
         </Panel>
