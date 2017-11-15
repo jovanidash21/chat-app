@@ -32,24 +32,15 @@ class SideDrawer extends Component {
 
     if (!chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess) {
       return (
-        <div>
-          <div className="chat-rooms-options">
-            <h3>Chat Rooms</h3>
-            <div className="add-chat-room-icon" onClick={::this.handleActivateModal}>
-              <FontAwesome name="plus" />
-            </div>
-          </div>
-
-          <div className="chat-room-list">
-            {
-              chatRoom.chatRooms.map((chatRoomData, i) =>
-                <ChatRoom
-                  key={i}
-                  chatRoomData={chatRoomData}
-                />
-              )
-            }
-          </div>
+        <div className="chat-room-list">
+          {
+            chatRoom.chatRooms.map((chatRoomData, i) =>
+              <ChatRoom
+                key={i}
+                chatRoomData={chatRoomData}
+              />
+            )
+          }
         </div>
       )
     } else {
@@ -77,6 +68,12 @@ class SideDrawer extends Component {
       <div>
         <div className="side-drawer">
           <h1 className="title">Chat App</h1>
+          <div className="chat-rooms-options">
+            <h3>Chat Rooms</h3>
+            <div className="add-chat-room-icon" onClick={::this.handleActivateModal}>
+              <FontAwesome name="plus" />
+            </div>
+          </div>
           {::this.handleComponent()}
         </div>
         {
