@@ -63,7 +63,7 @@
     "cross-env": "^5.0.3",
     "css-loader": "^0.28.4",
     "history": "^4.7.2",
-    "muicss": "^0.9.20",
+    "muicss": "^0.9.28",
     "nodemon": "^1.11.0",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
