@@ -36,7 +36,6 @@ class RegisterButton extends Component {
               type={type}
               variant="raised"
               disabled={isDisabled}
-              to="/register" tag={Link}
             >
               Register
             </Button>
