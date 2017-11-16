@@ -21,23 +21,21 @@ class Header extends Component {
 
     return (
       <Appbar className="header">
-        <Container>
-          <table width="100%">
-            <tbody>
-              <tr style={{verticalAlign: 'middle'}}>
-                <td className="mui--appbar-height">
-                  <SideBarToggler />
-                </td>
-                <td className="mui--appbar-height mui--text-right">
-                  <OptionsDropdown 
-                    userData={user.userData}
-                    handleLogout={logout} 
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </Container>
+        <table width="100%">
+          <tbody>
+            <tr style={{verticalAlign: 'middle'}}>
+              <td className="mui--appbar-height">
+                <SideBarToggler />
+              </td>
+              <td className="mui--appbar-height mui--text-right">
+                <OptionsDropdown
+                  userData={user.userData}
+                  handleLogout={logout}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </Appbar>
     )
   }
