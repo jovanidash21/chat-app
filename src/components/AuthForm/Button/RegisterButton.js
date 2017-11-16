@@ -17,30 +17,30 @@ class RegisterButton extends Component {
     return (
       <div>
         {
-          ((type === undefined) && (isDisabled))
+          ((type === undefined) && (!isDisabled))
             ?
-            <Button
-              className='button button-register'
-              size="large"
-              variant="raised"
-              disabled={true}
-            >
-              Register
-            </Button>
-            :
             <Link to="/register">
               <Button
                 className='button button-register'
                 size="large"
-                type={type}
                 variant="raised"
-                disabled={isDisabled}
-                to="/register" tag={Link}
+                disabled={false}
               >
                 Register
               </Button>
             </Link>
-        } 
+            :
+            <Button
+              className='button button-register'
+              size="large"
+              type={type}
+              variant="raised"
+              disabled={isDisabled}
+              to="/register" tag={Link}
+            >
+              Register
+            </Button>
+        }
       </div>
     )
   }
