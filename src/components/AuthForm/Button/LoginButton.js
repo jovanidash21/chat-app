@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Button } from 'muicss/react';
 import './styles.scss';
 
@@ -14,15 +15,33 @@ class LoginButton extends Component {
     } = this.props;
 
     return (
-      <Button
-        className='button button-login'
-        size="large"
-        type={type}
-        variant="raised"
-        disabled={isDisabled}
-      >
-        Login
-      </Button>
+      <div>
+        {
+          ((type === undefined) && (!isDisabled))
+            ?
+            <Link to="/">
+              <Button
+                className='button button-login'
+                size="large"
+                variant="raised"
+                disabled={false}
+              >
+                Login
+              </Button>
+            </Link>
+            :
+            <Button
+              className='button button-login'
+              size="large"
+              type={type}
+              variant="raised"
+              disabled={isDisabled}
+            >
+              Login
+            </Button>
+            
+        }
+      </div>
     )
   }
 }
