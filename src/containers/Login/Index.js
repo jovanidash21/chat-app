@@ -85,12 +85,10 @@ class Login extends Component {
               <h1 className="mui--text-center">Chat App</h1>
             </Col>
             {
-              auth.isLoginError
-                ?
-                <Col md="12">
-                  <ErrorCard label="Invalid username or password!" />
-                </Col>
-                : ''
+              auth.isLoginError &&
+              <Col md="12">
+                <ErrorCard label="Invalid username or password!" />
+              </Col>
             }
             <Col md="12">
               <Form onSubmit={::this.handleLocalLogin}>

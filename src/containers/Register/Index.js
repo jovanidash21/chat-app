@@ -86,12 +86,10 @@ class Register extends Component {
               <h1 className="mui--text-center">Create an Account</h1>
             </Col>
             {
-              auth.isRegisterError
-                ?
-                <Col md="12">
-                  <ErrorCard label="Sorry! Username already taken." />
-                </Col>
-                : ''
+              auth.isRegisterError &&
+              <Col md="12">
+                <ErrorCard label="Sorry! Username already taken." />
+              </Col>
             }
             <Col md="12">
               <Form onSubmit={::this.handleRegister}>
