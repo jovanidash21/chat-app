@@ -43,4 +43,9 @@ SocialButton.propTypes = {
   isDisabled: PropTypes.bool
 }
 
+SocialButton.defaultProps = {
+  handleSocialLogin: () => {},
+  isDisabled: false
+}
+
 export default SocialButton;

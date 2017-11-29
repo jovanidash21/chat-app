@@ -34,12 +34,12 @@ class CreateChatRoomModal extends Component {
       handleAddChatRoom,
       userData
     } = this.props;
-    const { 
+    const {
       chatRoomName,
       isPrivate
     } = this.state;
     let data = {
-      name: chatRoomName, 
+      name: chatRoomName,
       private: isPrivate,
       userID: userData._id
     }
@@ -48,7 +48,7 @@ class CreateChatRoomModal extends Component {
     handleAddChatRoom(data);
   }
   render() {
-    const { 
+    const {
       handleDeactivateModal,
       isLoading
     } = this.props;
@@ -56,7 +56,7 @@ class CreateChatRoomModal extends Component {
 
     return (
      <ModalContainer onClose={handleDeactivateModal}>
-        <ModalDialog 
+        <ModalDialog
           className="add-chat-room-modal"
           style={{width: '300px'}}
           onClose={handleDeactivateModal}
@@ -97,6 +97,10 @@ CreateChatRoomModal.propTypes = {
   handleAddChatRoom: PropTypes.func.isRequired,
   userData: PropTypes.object.isRequired,
   isLoading: PropTypes.bool
+}
+
+CreateChatRoomModal.defaultProps = {
+  isLoading: false
 }
 
 export default CreateChatRoomModal;

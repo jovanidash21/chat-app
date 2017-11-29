@@ -17,7 +17,7 @@ class RegisterButton extends Component {
     return (
       <div>
         {
-          ((type === undefined) && (!isDisabled))
+          ((type === '') && (!isDisabled))
             ?
             <Link to="/register">
               <Button
@@ -48,6 +48,11 @@ class RegisterButton extends Component {
 RegisterButton.propTypes = {
   type: PropTypes.string,
   isDisabled: PropTypes.bool
+}
+
+RegisterButton.defaultProps = {
+  type: '',
+  isDisabled: false
 }
 
 export default RegisterButton;

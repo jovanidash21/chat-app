@@ -17,7 +17,7 @@ class LoginButton extends Component {
     return (
       <div>
         {
-          ((type === undefined) && (!isDisabled))
+          ((type === '') && (!isDisabled))
             ?
             <Link to="/">
               <Button
@@ -39,7 +39,6 @@ class LoginButton extends Component {
             >
               Login
             </Button>
-            
         }
       </div>
     )
@@ -49,6 +48,11 @@ class LoginButton extends Component {
 LoginButton.propTypes = {
   type: PropTypes.string,
   isDisabled: PropTypes.bool
+}
+
+LoginButton.defaultProps = {
+  type: '',
+  isDisabled: false
 }
 
 export default LoginButton;
