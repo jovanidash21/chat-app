@@ -1,25 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'muicss/react';
 
-class PasswordInput extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const { onPasswordChange } = this.props;
-
-    return (
-      <Input
-        label="Password"
-        type="password"
-        autoComplete="off"
-        floatingLabel={true}
-        required={true}
-        onChange={onPasswordChange}
-      />
-    )
-  }
+const PasswordInput = (props) => {
+  return (
+    <Input
+      label="Password"
+      type="password"
+      autoComplete="off"
+      floatingLabel={true}
+      required={true}
+      onChange={props.onPasswordChange}
+    />
+  );
 }
 
 PasswordInput.propTypes = {

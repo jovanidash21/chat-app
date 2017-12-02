@@ -1,39 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'muicss/react';
 import FontAwesome from 'react-fontawesome';
 import './styles.scss';
 
-class SocialButton extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const {
-      socialMedia,
-      label,
-      handleSocialLogin,
-      isDisabled
-    } = this.props;
-
-    return (
-      <Button
-        className={`button button-${socialMedia}`}
-        size="large"
-        variant="raised"
-        onClick={handleSocialLogin}
-        disabled={isDisabled}
-      >
-        <div className="icon">
-          <FontAwesome
-            name={socialMedia}
-            size="2x"
-          />
-        </div>
-        {label}
-      </Button>
-    )
-  }
+const SocialButton = (props) => {
+  return (
+    <Button
+      className={`button button-${props.socialMedia}`}
+      size="large"
+      variant="raised"
+      onClick={props.handleSocialLogin}
+      disabled={props.isDisabled}
+    >
+      <div className="icon">
+        <FontAwesome
+          name={props.socialMedia}
+          size="2x"
+        />
+      </div>
+      {props.label}
+    </Button>
+  );
 }
 
 SocialButton.propTypes = {

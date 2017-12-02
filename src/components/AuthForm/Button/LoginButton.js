@@ -1,48 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button } from 'muicss/react';
 import './styles.scss';
 
-class LoginButton extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const {
-      type,
-      isDisabled
-    } = this.props;
-
-    return (
-      <div>
-        {
-          ((type === '') && (!isDisabled))
-            ?
-            <Link to="/">
-              <Button
-                className='button button-login'
-                size="large"
-                variant="raised"
-                disabled={false}
-              >
-                Login
-              </Button>
-            </Link>
-            :
+const LoginButton = (props) => {
+  return (
+    <div>
+      {
+        ((props.type === '') && (!props.isDisabled))
+          ?
+          <Link to="/">
             <Button
               className='button button-login'
               size="large"
-              type={type}
               variant="raised"
-              disabled={isDisabled}
+              disabled={false}
             >
               Login
             </Button>
-        }
-      </div>
-    )
-  }
+          </Link>
+          :
+          <Button
+            className='button button-login'
+            size="large"
+            type={props.type}
+            variant="raised"
+            disabled={props.isDisabled}
+          >
+            Login
+          </Button>
+      }
+    </div>
+  );
 }
 
 LoginButton.propTypes = {
