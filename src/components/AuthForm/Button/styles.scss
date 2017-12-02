@@ -5,6 +5,7 @@
   width: 100%;
   position: relative;
   &:active,
+  &:focus,
   &:hover {
     color: #fff;
   }
