@@ -71,7 +71,7 @@ class SideDrawer extends Component {
           <div className="chat-rooms-options">
             <h3>Chat Rooms</h3>
             <div className="add-chat-room-icon" onClick={::this.handleActivateModal}>
-              <FontAwesome name="plus" />
+              <FontAwesome name="plus-circle" />
             </div>
           </div>
           {::this.handleComponent()}
