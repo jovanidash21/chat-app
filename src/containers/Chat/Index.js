@@ -8,7 +8,7 @@ import {
   isNotTyping
 } from '../../actions/typer';
 import Header from '../Common/Header';
-import SideDrawer from '../Part/SideDrawer';
+import SideDrawer from '../Partial/SideDrawer';
 import Head from '../../components/Head';
 import ChatBubble from '../../components/Chat/ChatBubble';
 import ChatInput from '../../components/Chat/ChatInput';

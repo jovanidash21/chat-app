@@ -22,6 +22,12 @@
 @mixin transform-rotate($value...) {
   @include css3-prefix('transform', rotate($value));
 }
+/* Transform Scale
+ * @param {number} $value - Value
+ */
+@mixin transform-scale($value...) {
+  @include css3-prefix('transform', scale($value));
+}
 /* Transform Translate
  * @param {number} $value - Value
  */

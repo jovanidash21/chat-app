@@ -21,8 +21,13 @@
       margin: 0;
     }
     .add-chat-room-icon {
+      @include transition(all 0.3s ease-in-out);
       cursor: pointer;
       font-size: 25px;
+      &:hover {
+        @include transform-scale(1.1);
+        color: #000;
+      }
     }
   }
   .chat-room-list {
