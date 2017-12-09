@@ -1,12 +1,18 @@
 .side-drawer {
   background-color: $color-chateau-green;
   color: #fff;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   height: 100%;
   position: fixed;
   top: 0;
   width: 250px;
+  .bm-overlay {
+    z-index: 2 !important;
+  }
+  .bm-burger-button {
+    display: none;
+  }
   .title {
     flex-shrink: 1;
     margin: 0;
