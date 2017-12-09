@@ -1,7 +1,7 @@
 .side-drawer {
   background-color: $color-chateau-green;
   color: #fff;
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   height: 100%;
   position: fixed;
