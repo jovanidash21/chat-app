@@ -13,7 +13,11 @@ const LoadingAnimation = (props) => {
 
 LoadingAnimation.propTypes = {
   name: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired
+  color: PropTypes.string
+}
+
+LoadingAnimation.defaultProps = {
+  color: '#000'
 }
 
 export default LoadingAnimation;
