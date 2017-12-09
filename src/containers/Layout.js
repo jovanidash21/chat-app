@@ -53,7 +53,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 Layout.propTypes = {
-  component: PropTypes.func
+  component: PropTypes.func.isRequired
 }
 
 export default connect(
