@@ -19,6 +19,10 @@ const socket = io('');
 class Chat extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isOpen: false
+    };
   }
   componentDidMount() {
     const {
@@ -38,6 +42,9 @@ class Chat extends Component {
   componentDidUpdate() {
     ::this.handleScrollToBottom();
   }
+  handleSideDrawerToggle() {
+    this.setState({isOpen: !this.state.isOpen});
+  }
   handleScrollToBottom() {
     this.messagesBottom.scrollIntoView();
   }
@@ -50,12 +57,13 @@ class Chat extends Component {
       typer,
       message
     } = this.props;
+    const { isOpen } = this.state;
 
     return (
       <div className="chat-page">
         <Head title="Chat App" />
-        <Header />
-        <SideDrawer />
+        <SideDrawer isOpen={isOpen} />
+        <Header handleSideDrawerToggle={::this.handleSideDrawerToggle} />
         <div className="chat-box">
           <Container fluid={true}>
             <ChatBubble

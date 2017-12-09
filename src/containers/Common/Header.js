@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -14,9 +15,10 @@ class Header extends Component {
     super(props);
   }
   render() {
-    const { 
+    const {
       user,
-      logout
+      logout,
+      handleSideDrawerToggle
     } = this.props;
 
     return (
@@ -25,7 +27,7 @@ class Header extends Component {
           <tbody>
             <tr style={{verticalAlign: 'middle'}}>
               <td className="mui--appbar-height">
-                <SideBarToggler />
+                <SideBarToggler handleSideDrawerToggle={handleSideDrawerToggle} />
               </td>
               <td className="mui--appbar-height mui--text-right">
                 <OptionsDropdown
@@ -41,7 +43,7 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => {  
+const mapStateToProps = (state) => {
   return {
     user: state.user
   }
@@ -51,6 +53,14 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     logout
   }, dispatch);
+}
+
+Header.propTypes = {
+  handleSideDrawerToggle: PropTypes.func
+}
+
+Header.defaultProps = {
+  handleSideDrawerToggle: () => {}
 }
 
 export default connect(

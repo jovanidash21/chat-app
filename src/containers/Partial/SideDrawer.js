@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { slide as Menu } from 'react-burger-menu';
 import FontAwesome from 'react-fontawesome';
 import {
   fetchChatRooms,
@@ -60,12 +62,13 @@ class SideDrawer extends Component {
       user,
       chatRoom,
       fetchChatRooms,
-      createChatRoom
+      createChatRoom,
+      isOpen
     } = this.props;
     const { showModal } = this.state;
 
     return (
-      <div>
+      <Menu isOpen={isOpen}>
         <div className="side-drawer">
           <h1 className="title">Chat App</h1>
           <div className="chat-rooms-options">
@@ -85,7 +88,7 @@ class SideDrawer extends Component {
             isLoading={chatRoom.isLoading}
           />
         }
-      </div>
+      </Menu>
     );
   }
 }
@@ -102,6 +105,14 @@ const mapDispatchToProps = (dispatch) => {
     fetchChatRooms,
     createChatRoom
   }, dispatch);
+}
+
+SideDrawer.propTypes = {
+  isOpen: PropTypes.bool
+}
+
+SideDrawer.defaultProps = {
+  isOpen: false
 }
 
 export default connect(
