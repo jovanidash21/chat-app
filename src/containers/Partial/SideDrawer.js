@@ -68,7 +68,7 @@ class SideDrawer extends Component {
     const { showModal } = this.state;
 
     return (
-      <Menu isOpen={isOpen}>
+      <Menu isOpen={isOpen} noOverlay>
         <div className="side-drawer">
           <h1 className="title">Chat App</h1>
           <div className="chat-rooms-options">
