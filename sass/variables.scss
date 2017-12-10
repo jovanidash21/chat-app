@@ -8,8 +8,15 @@ $color-dusty-gray: #999;
 $color-gallery: #eee;
 $color-goblin: #377b4d;
 $color-mine-shaft: #333;
-$color-pomegranate: #f44336; 
+$color-pomegranate: #f44336;
 $color-punch: #db3236;
 $color-royal-purple: #663399;
 $color-studio: #8a3ab9;
 $color-sunshade: #ffa726;
+
+/* Screen sizes */
+$screen-mobile-min: 480px;
+$screen-tablet-min: 768px;
+$screen-desktop-min: 992px;
+$screen-mobile-max: $screen-tablet-min - 1;
+$screen-tablet-max: $screen-desktop-min - 1;
