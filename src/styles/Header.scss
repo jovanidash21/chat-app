@@ -16,7 +16,7 @@
     .icon {
       cursor: pointer;
       margin-right: 10px;
-      @media screen and (min-width: 720px) {
+      @media screen and (max-width: $screen-mobile-max) {
         display: none;
       }
     }
