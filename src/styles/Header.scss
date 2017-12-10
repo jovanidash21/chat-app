@@ -16,7 +16,8 @@
     .icon {
       cursor: pointer;
       margin-right: 10px;
-      @media screen and (max-width: $screen-mobile-max) {
+      display: block;
+      @media screen and (min-width: $screen-tablet-min) {
         display: none;
       }
     }
@@ -38,6 +39,13 @@
     }
     .icon {
       vertical-align: middle;
+    }
+    .user-picture,
+    .user-name {
+      display: none;
+      @media screen and (min-width: $screen-tablet-min) {
+        display: block;
+      }
     }
     .user-picture {
       $image-size: 25px;
