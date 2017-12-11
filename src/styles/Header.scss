@@ -8,7 +8,7 @@
     .chat-room-name {
       display: inline;
       margin: 0 0 0 10px;
-      max-width: 300px;
+      max-width: 150px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -16,19 +16,12 @@
     .icon {
       cursor: pointer;
       margin-right: 10px;
-      display: block;
-      @media screen and (min-width: $screen-tablet-min) {
-        display: none;
-      }
     }
   }
   .options-dropdown {
     align-items: center;
     display: flex;
     justify-content: flex-end;
-    & > div {
-      margin: 0 5px;
-    }
     a {
       cursor: pointer;
     }
@@ -40,11 +33,13 @@
     .icon {
       vertical-align: middle;
     }
-    .user-picture,
-    .user-name {
-      display: none;
-      @media screen and (min-width: $screen-tablet-min) {
-        display: block;
+    .user-details {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 5px;
+      & > div {
+        margin: 0 5px;
       }
     }
     .user-picture {

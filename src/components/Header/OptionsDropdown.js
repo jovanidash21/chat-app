@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import MediaQuery from 'react-responsive';
 import FontAwesome from 'react-fontawesome';
 import '../../styles/Header.scss';
 
@@ -19,10 +20,14 @@ class OptionsDropdown extends Component {
 
     return (
       <div className="mui-dropdown options-dropdown">
-        <div className="user-picture" style={{backgroundImage: `url(${userData.profilePicture})`}}></div>
-        <div className="user-name">
-          {userData.name}
-        </div>
+        <MediaQuery query="(min-width: 768px)">
+          <div className="user-details">
+            <div className="user-picture" style={{backgroundImage: `url(${userData.profilePicture})`}}></div>
+            <div className="user-name">
+              {userData.name}
+            </div>
+          </div>
+        </MediaQuery>
         <div>
           <button className="mui-btn mui-btn--small mui-btn--fab" data-mui-toggle="dropdown">
             <FontAwesome className="icon" name="ellipsis-v" size="2x" />
@@ -41,7 +46,7 @@ class OptionsDropdown extends Component {
           </ul>
         </div>
       </div>
-    ) 
+    )
   }
 }
 
