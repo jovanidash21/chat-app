@@ -25,8 +25,8 @@ class AuthForm extends Component {
   }
 }
 
-AuthForm.propTypes={
-  component: PropTypes.func
+AuthForm.propTypes = {
+  component: PropTypes.func.isRequired
 }
 
 export default AuthForm;
