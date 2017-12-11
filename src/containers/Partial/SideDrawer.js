@@ -63,12 +63,13 @@ class SideDrawer extends Component {
       chatRoom,
       fetchChatRooms,
       createChatRoom,
-      isOpen
+      isOpen,
+      noOverlay
     } = this.props;
     const { showModal } = this.state;
 
     return (
-      <Menu isOpen={isOpen} noOverlay>
+      <Menu width="250px" isOpen={isOpen} noOverlay={noOverlay}>
         <div className="side-drawer">
           <h1 className="title">Chat App</h1>
           <div className="chat-rooms-options">
@@ -108,11 +109,13 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 SideDrawer.propTypes = {
-  isOpen: PropTypes.bool
+  isOpen: PropTypes.bool,
+  noOverlay: PropTypes.bool
 }
 
 SideDrawer.defaultProps = {
-  isOpen: false
+  isOpen: false,
+  noOverlay: false
 }
 
 export default connect(

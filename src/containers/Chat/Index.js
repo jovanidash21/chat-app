@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
 import io from 'socket.io-client';
 import {
@@ -21,7 +22,7 @@ class Chat extends Component {
     super(props);
 
     this.state = {
-      isOpen: true
+      isOpen: false
     };
   }
   componentDidMount() {
@@ -42,6 +43,21 @@ class Chat extends Component {
   componentDidUpdate() {
     ::this.handleScrollToBottom();
   }
+  handleSideDrawerRender() {
+    const { isOpen } = this.state;
+
+    return (
+      <MediaQuery query="(max-width: 767px)">
+        {(matches) => {
+          if (matches) {
+            return <SideDrawer isOpen={isOpen} />;
+          } else {
+            return <SideDrawer isOpen noOverlay />;
+          }
+        }}
+      </MediaQuery>
+    )
+  }
   handleSideDrawerToggle() {
     this.setState({isOpen: !this.state.isOpen});
   }
@@ -57,12 +73,11 @@ class Chat extends Component {
       typer,
       message
     } = this.props;
-    const { isOpen } = this.state;
 
     return (
       <div className="chat-page">
         <Head title="Chat App" />
-        <SideDrawer isOpen={isOpen} />
+        {::this.handleSideDrawerRender()}
         <Header handleSideDrawerToggle={::this.handleSideDrawerToggle} />
         <div className="chat-box">
           <Container fluid={true}>
