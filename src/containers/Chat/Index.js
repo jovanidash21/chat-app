@@ -66,6 +66,12 @@ class Chat extends Component {
   handleScrollToBottom() {
     this.messagesBottom.scrollIntoView();
   }
+  handleChangeActiveChatRoom(chatRoom) {
+    const { activeChatRoom } = this.props;
+
+    socket.emit('leave chat room', activeChatRoom);
+    socket.emit('join chat room', chatRoom);
+  }
   handleSendMessage(data) {
     this.props.dispatch(sendMessage(data));
   }
