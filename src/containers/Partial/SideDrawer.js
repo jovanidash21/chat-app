@@ -63,6 +63,7 @@ class SideDrawer extends Component {
       chatRoom,
       fetchChatRooms,
       createChatRoom,
+      socket,
       isOpen,
       noOverlay
     } = this.props;
@@ -84,6 +85,7 @@ class SideDrawer extends Component {
           showModal &&
           <CreateChatRoomModal
             handleDeactivateModal={::this.handleDeactivateModal}
+            socket={socket}
             handleAddChatRoom={createChatRoom}
             userData={user.userData}
             isLoading={chatRoom.isLoading}
@@ -109,6 +111,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 SideDrawer.propTypes = {
+  socket: PropTypes.object.isRequired,
   isOpen: PropTypes.bool,
   noOverlay: PropTypes.bool
 }

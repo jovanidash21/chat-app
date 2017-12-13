@@ -31,6 +31,7 @@ class CreateChatRoomModal extends Component {
 
     const {
       handleDeactivateModal,
+      socket,
       handleAddChatRoom,
       userData
     } = this.props;
@@ -94,6 +95,7 @@ class CreateChatRoomModal extends Component {
 
 CreateChatRoomModal.propTypes = {
   handleDeactivateModal: PropTypes.func.isRequired,
+  socket: PropTypes.object.isRequired,
   handleAddChatRoom: PropTypes.func.isRequired,
   userData: PropTypes.object.isRequired,
   isLoading: PropTypes.bool

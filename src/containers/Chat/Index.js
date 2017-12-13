@@ -49,11 +49,13 @@ class Chat extends Component {
     return (
       <MediaQuery query="(max-width: 767px)">
         {(matches) => {
-          if (matches) {
-            return <SideDrawer isOpen={isOpen} />;
-          } else {
-            return <SideDrawer isOpen noOverlay />;
-          }
+          return (
+            <SideDrawer
+              socket={socket}
+              isOpen={matches ? isOpen : true}
+              noOverlay={matches ? false : true }
+            />
+          )
         }}
       </MediaQuery>
     )
