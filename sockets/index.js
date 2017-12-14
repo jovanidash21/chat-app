@@ -1,6 +1,4 @@
-var sockets = function(socket) {  
-  console.log('User has connected');
-
+var sockets = function(socket) {
   socket.on('typing', function (name, chatRoom) {
     socket.broadcast.to(chatRoom).emit('typing broadcast', name);
   });
