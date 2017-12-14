@@ -8,6 +8,7 @@ import {
   isTyping,
   isNotTyping
 } from '../../actions/typer';
+import { receiveChatRoom } from '../../actions/chat-room';
 import Header from '../Common/Header';
 import SideDrawer from '../Partial/SideDrawer';
 import Head from '../../components/Head';
@@ -28,7 +29,8 @@ class Chat extends Component {
   componentDidMount() {
     const {
       isTyping,
-      isNotTyping
+      isNotTyping,
+      receiveChatRoom
     } = this.props;
 
     socket.on('typing broadcast', name =>
@@ -36,6 +38,9 @@ class Chat extends Component {
     );
     socket.on('not typing broadcast', name =>
       isNotTyping(name)
+    );
+    socket.on('new chat room broadcast', chatRoom =>
+      receiveChatRoom(chatRoom)
     );
 
     ::this.handleScrollToBottom();
@@ -175,7 +180,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     isTyping,
-    isNotTyping
+    isNotTyping,
+    receiveChatRoom
   }, dispatch);
 }
 

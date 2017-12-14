@@ -46,6 +46,7 @@ class CreateChatRoomModal extends Component {
     }
 
     handleDeactivateModal();
+    socket.emit('new chat room', data)
     handleAddChatRoom(data);
   }
   render() {

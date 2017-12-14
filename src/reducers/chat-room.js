@@ -1,6 +1,7 @@
 import {
   FETCH_CHAT_ROOMS,
-  CREATE_CHAT_ROOM
+  CREATE_CHAT_ROOM,
+  RECEIVE_CHAT_ROOM
 } from '../constants/chat-room';
 
 const initialState = {
@@ -29,6 +30,13 @@ const chatRoom = (state=initialState, action) => {
         isLoading: false,
         isCreateChatRoomSuccess: true,
         chatRoomData: action.payload.data
+      };
+    case RECEIVE_CHAT_ROOM:
+      return {
+        ...state,
+        isLoading: false,
+        isReceiveChatRoom: true,
+        chatRoomData: action.payload
       };
     case `${FETCH_CHAT_ROOMS}_ERROR`:
     case `${CREATE_CHAT_ROOM}_ERROR`:
