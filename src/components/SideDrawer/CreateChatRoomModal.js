@@ -7,6 +7,8 @@ import {
   Checkbox,
   Button
 } from 'muicss/react';
+import Toggle from 'react-toggle';
+import 'react-toggle/style.css';
 import '../../styles/Modal.scss';
 
 class CreateChatRoomModal extends Component {
@@ -73,11 +75,15 @@ class CreateChatRoomModal extends Component {
               required={true}
               onChange={::this.onChatRoomNameChange}
             />
-            <Checkbox
-              label="Private"
-              checked={isPrivate}
-              onChange={::this.onIsPrivateChange}
-            />
+            <div className="modal-toggle">
+              <label>
+                <Toggle
+                  defaultChecked={isPrivate}
+                  onChange={::this.onIsPrivateChange}
+                />
+                <span>Private</span>
+              </label>
+            </div>
             <Button
               className="modal-button"
               size="large"

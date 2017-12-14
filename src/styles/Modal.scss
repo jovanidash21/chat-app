@@ -3,6 +3,13 @@
   .modal-title {
     margin-top: 0;
   }
+  .modal-toggle {
+    margin-bottom: 20px;
+    .react-toggle {
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+  }
   .modal-button {
     background-color: $color-chateau-green;
     color: #fff;
