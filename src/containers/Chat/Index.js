@@ -28,10 +28,13 @@ class Chat extends Component {
   }
   componentDidMount() {
     const {
+      user,
       isTyping,
       isNotTyping,
       receiveChatRoom
     } = this.props;
+
+    socket.emit('user logged in', user);
 
     socket.on('typing broadcast', name =>
       isTyping(name)

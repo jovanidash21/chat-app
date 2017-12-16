@@ -1,4 +1,8 @@
 var sockets = function(socket) {
+  socket.on('user logged in', function (user) {
+    socket.broadcast.emit('user logged in broadcast', user);
+  });
+
   socket.on('typing', function (name, chatRoom) {
     socket.broadcast.to(chatRoom).emit('typing broadcast', name);
   });
