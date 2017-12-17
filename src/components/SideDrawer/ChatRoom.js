@@ -5,11 +5,21 @@ class ChatRoom extends Component {
   constructor(props) {
     super(props);
   }
+  handleChangeChatRoom(event) {
+    event.preventDefault();
+
+    const {
+      chatRoomData,
+      handleChangeChatRoom
+    } = this.props;
+
+    handleChangeChatRoom(chatRoomData);
+  }
   render() {
     const { chatRoomData } = this.props;
 
     return (
-      <div className="chat-room">
+      <div className="chat-room" onClick={::this.handleChangeChatRoom}>
         <div className="chat-room-icon" style={{backgroundImage: `url(${chatRoomData.chatIcon})`}}></div>
         <div className="chat-room-name">
           {chatRoomData.name}
@@ -20,7 +30,8 @@ class ChatRoom extends Component {
 }
 
 ChatRoom.propTypes = {
-  chatRoomData: PropTypes.object.isRequired
+  chatRoomData: PropTypes.object.isRequired,
+  handleChangeChatRoom: PropTypes.func.isRequired
 }
 
 export default ChatRoom;

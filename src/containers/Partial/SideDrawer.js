@@ -8,6 +8,7 @@ import {
   fetchChatRooms,
   createChatRoom
 } from '../../actions/chat-room';
+import { changeChatRoom } from '../../actions/active-chat-room';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatRoom from '../../components/SideDrawer/ChatRoom';
 import CreateChatRoomModal from '../../components/SideDrawer/CreateChatRoomModal';
@@ -30,7 +31,10 @@ class SideDrawer extends Component {
     fetchChatRooms(user.userData._id);
   }
   handleComponent() {
-    const { chatRoom } = this.props;
+    const {
+      chatRoom,
+      changeChatRoom
+    } = this.props;
 
     if (!chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess) {
       return (
@@ -40,6 +44,7 @@ class SideDrawer extends Component {
               <ChatRoom
                 key={i}
                 chatRoomData={chatRoomData}
+                handleChangeChatRoom={changeChatRoom}
               />
             )
           }
@@ -106,7 +111,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchChatRooms,
-    createChatRoom
+    createChatRoom,
+    changeChatRoom
   }, dispatch);
 }
 
