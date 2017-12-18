@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { 
+import {
   Input,
   Button
 } from 'muicss/react';
@@ -18,7 +18,7 @@ class ChatInput extends Component {
   onMessageChange(event) {
     event.preventDefault();
 
-    const { 
+    const {
       userData,
       activeChatRoom,
       socket
@@ -39,9 +39,9 @@ class ChatInput extends Component {
     }
   }
   handleSendMessage(event) {
-    const { 
+    const {
       userData,
-      activeChatRoom,
+      activeChatRoomData,
       socket,
       handleSendMessage
     } = this.props;
@@ -49,13 +49,13 @@ class ChatInput extends Component {
     const data = {
       text: message.trim(),
       userID: userData._id,
-      chatRoomID: activeChatRoom._id
+      chatRoomID: activeChatRoomData._id
     };
 
     if ( event.key === 'Enter' ) {
       handleSendMessage(data);
-      socket.emit('new message', data, activeChatRoom);
-      socket.emit('not typing', userData.username, activeChatRoom);
+      socket.emit('new message', data, activeChatRoomData._id);
+      socket.emit('not typing', userData.username, activeChatRoomData._id);
       this.setState({
         message: '',
         typing: false
@@ -63,14 +63,14 @@ class ChatInput extends Component {
     }
   }
   render() {
-    const { 
+    const {
       message,
       typing
     } = this.state
 
     return (
       <div className="chat-input">
-        <Input 
+        <Input
           hint="Type here"
           value={message}
           onChange={::this.onMessageChange}
@@ -89,7 +89,7 @@ class ChatInput extends Component {
 
 ChatInput.propTypes = {
   userData: PropTypes.object.isRequired,
-  activeChatRoom: PropTypes.bool.isRequired,
+  activeChatRoomData: PropTypes.object.isRequired,
   socket: PropTypes.object.isRequired,
   handleSendMessage: PropTypes.func.isRequired
 }

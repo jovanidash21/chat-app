@@ -9,6 +9,10 @@ import {
   isNotTyping
 } from '../../actions/typer';
 import { receiveChatRoom } from '../../actions/chat-room';
+import {
+  fetchMessages,
+  sendMessage
+} from '../../actions/message';
 import Header from '../Common/Header';
 import SideDrawer from '../Partial/SideDrawer';
 import Head from '../../components/Head';
@@ -81,12 +85,15 @@ class Chat extends Component {
     socket.emit('join chat room', chatRoom);
   }
   handleSendMessage(data) {
-    this.props.dispatch(sendMessage(data));
+    const { sendMessage } = this.props;
+
+    sendMessage(data);
   }
   render() {
     const {
       user,
       typer,
+      activeChatRoom,
       message
     } = this.props;
 
@@ -164,6 +171,7 @@ class Chat extends Component {
         </div>
         <ChatInput
           userData={user.userData}
+          activeChatRoomData={activeChatRoom.chatRoomData}
           socket={socket}
           handleSendMessage={::this.handleSendMessage}
         />
@@ -176,6 +184,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     typer: state.typer,
+    activeChatRoom: state.activeChatRoom,
     message: state.message
   }
 }
@@ -184,7 +193,9 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     isTyping,
     isNotTyping,
-    receiveChatRoom
+    receiveChatRoom,
+    fetchMessages,
+    sendMessage
   }, dispatch);
 }
 
