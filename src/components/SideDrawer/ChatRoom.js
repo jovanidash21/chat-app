@@ -10,6 +10,8 @@ class ChatRoom extends Component {
 
     const {
       chatRoomData,
+      activeChatRoomData,
+      socket,
       handleChangeChatRoom
     } = this.props;
 
@@ -31,6 +33,8 @@ class ChatRoom extends Component {
 
 ChatRoom.propTypes = {
   chatRoomData: PropTypes.object.isRequired,
+  activeChatRoomData: PropTypes.object.isRequired,
+  socket: PropTypes.object.isRequired,
   handleChangeChatRoom: PropTypes.func.isRequired
 }
 

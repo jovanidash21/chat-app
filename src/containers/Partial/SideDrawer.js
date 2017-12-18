@@ -33,6 +33,8 @@ class SideDrawer extends Component {
   handleComponent() {
     const {
       chatRoom,
+      activeChatRoom,
+      socket,
       changeChatRoom
     } = this.props;
 
@@ -44,6 +46,8 @@ class SideDrawer extends Component {
               <ChatRoom
                 key={i}
                 chatRoomData={chatRoomData}
+                activeChatRoomData={activeChatRoom.chatRoomData}
+                socket={socket}
                 handleChangeChatRoom={changeChatRoom}
               />
             )
@@ -104,7 +108,8 @@ class SideDrawer extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
+    activeChatRoom: state.activeChatRoom
   }
 }
 
