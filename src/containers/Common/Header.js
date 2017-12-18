@@ -17,6 +17,7 @@ class Header extends Component {
   render() {
     const {
       user,
+      activeChatRoom,
       logout,
       handleSideDrawerToggle
     } = this.props;
@@ -27,7 +28,10 @@ class Header extends Component {
           <tbody>
             <tr style={{verticalAlign: 'middle'}}>
               <td className="mui--appbar-height">
-                <SideBarToggler handleSideDrawerToggle={handleSideDrawerToggle} />
+                <SideBarToggler
+                  activeChatRoomData={activeChatRoom.chatRoomData}
+                  handleSideDrawerToggle={handleSideDrawerToggle}
+                />
               </td>
               <td className="mui--appbar-height mui--text-right">
                 <OptionsDropdown
@@ -45,7 +49,8 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    activeChatRoom: state.activeChatRoom
   }
 }
 
