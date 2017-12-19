@@ -7,7 +7,7 @@
   .chat-input {
     padding-left: 0;
     @media screen and (min-width: $screen-tablet-min) {
-      padding-left: 250px;
+      margin-left: 250px;
     }
   }
   .bm-overlay {
@@ -24,6 +24,7 @@
     overflow-y: scroll;
     padding-bottom: 15px;
     padding-top: 15px;
+    position: relative;
     &::-webkit-scrollbar {
       width: 6px;
     }

@@ -16,6 +16,7 @@ import {
 import Header from '../Common/Header';
 import SideDrawer from '../Partial/SideDrawer';
 import Head from '../../components/Head';
+import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatBubble from '../../components/Chat/ChatBubble';
 import ChatInput from '../../components/Chat/ChatInput';
 import '../../styles/Chat.scss';
@@ -55,6 +56,83 @@ class Chat extends Component {
   componentDidUpdate() {
     ::this.handleScrollToBottom();
   }
+  handleComponent() {
+    const {
+      user,
+      message
+    } = this.props;
+
+    if (!message.isLoading && message.isSuccess) {
+      return (
+        <Container fluid={true}>
+          <ChatBubble
+            userData={user.userData}
+            message="Hello World"
+            isSender={false}
+          />
+          <ChatBubble
+            userData={user.userData}
+            message="Hi World"
+            isSender={true}
+          />
+          <ChatBubble
+            userData={user.userData}
+            message="Hello World"
+            isSender={false}
+          />
+          <ChatBubble
+            userData={user.userData}
+            message="Hi World"
+            isSender={true}
+          />
+          <ChatBubble
+            userData={user.userData}
+            message="Hello World"
+            isSender={false}
+          />
+          <ChatBubble
+            userData={user.userData}
+            message="Hello World"
+            isSender={false}
+          />
+          <ChatBubble
+            userData={user.userData}
+            message="Hi World"
+            isSender={true}
+          />
+          <ChatBubble
+            userData={user.userData}
+            message="Hi World"
+            isSender={true}
+          />
+          <ChatBubble
+            userData={user.userData}
+            message="Hello World"
+            isSender={false}
+          />
+          <ChatBubble
+            userData={user.userData}
+            message="Hi World"
+            isSender={true}
+          />
+          <ChatBubble
+            userData={user.userData}
+            message="Hello World"
+            isSender={false}
+          />
+          <ChatBubble
+            userData={user.userData}
+            message="Hi World"
+            isSender={true}
+          />
+        </Container>
+      )
+    } else {
+      return (
+        <LoadingAnimation name="ball-clip-rotate" color="black" />
+      )
+    }
+  }
   handleSideDrawerRender() {
     const { isOpen } = this.state;
 
@@ -78,12 +156,6 @@ class Chat extends Component {
   handleScrollToBottom() {
     this.messagesBottom.scrollIntoView();
   }
-  handleChangeActiveChatRoom(chatRoom) {
-    const { activeChatRoom } = this.props;
-
-    socket.emit('leave chat room', activeChatRoom);
-    socket.emit('join chat room', chatRoom);
-  }
   handleSendMessage(data) {
     const { sendMessage } = this.props;
 
@@ -103,71 +175,10 @@ class Chat extends Component {
         {::this.handleSideDrawerRender()}
         <Header handleSideDrawerToggle={::this.handleSideDrawerToggle} />
         <div className="chat-box">
-          <Container fluid={true}>
-            <ChatBubble
-              userData={user.userData}
-              message="Hello World"
-              isSender={false}
-            />
-            <ChatBubble
-              userData={user.userData}
-              message="Hi World"
-              isSender={true}
-            />
-            <ChatBubble
-              userData={user.userData}
-              message="Hello World"
-              isSender={false}
-            />
-            <ChatBubble
-              userData={user.userData}
-              message="Hi World"
-              isSender={true}
-            />
-            <ChatBubble
-              userData={user.userData}
-              message="Hello World"
-              isSender={false}
-            />
-            <ChatBubble
-              userData={user.userData}
-              message="Hello World"
-              isSender={false}
-            />
-            <ChatBubble
-              userData={user.userData}
-              message="Hi World"
-              isSender={true}
-            />
-            <ChatBubble
-              userData={user.userData}
-              message="Hi World"
-              isSender={true}
-            />
-            <ChatBubble
-              userData={user.userData}
-              message="Hello World"
-              isSender={false}
-            />
-            <ChatBubble
-              userData={user.userData}
-              message="Hi World"
-              isSender={true}
-            />
-            <ChatBubble
-              userData={user.userData}
-              message="Hello World"
-              isSender={false}
-            />
-            <ChatBubble
-              userData={user.userData}
-              message="Hi World"
-              isSender={true}
-            />
-            <div style={{ float:"left", clear: "both" }}
-              ref={(element) => { this.messagesBottom = element; }}>
-            </div>
-          </Container>
+          {::this.handleComponent()}
+          <div style={{ float:"left", clear: "both" }}
+            ref={(element) => { this.messagesBottom = element; }}>
+          </div>
         </div>
         <ChatInput
           userData={user.userData}
