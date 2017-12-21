@@ -9,14 +9,24 @@ class ChatRoom extends Component {
     event.preventDefault();
 
     const {
+      userData,
       chatRoomData,
       activeChatRoomData,
       handleChangeChatRoom,
+      handleFetchMessages,
       socket,
       handleSideDrawerToggle
     } = this.props;
 
+    const data = {
+      userID: userData._id,
+      chatRoomID: chatRoomData._id
+    };
+
+    socket.emit('leave chat room', activeChatRoomData._id);
+    socket.emit('join chat room', chatRoomData._id);
     handleChangeChatRoom(chatRoomData);
+    handleFetchMessages(data);
     handleSideDrawerToggle();
   }
   render() {
@@ -34,9 +44,11 @@ class ChatRoom extends Component {
 }
 
 ChatRoom.propTypes = {
+  userData: PropTypes.object.isRequired,
   chatRoomData: PropTypes.object.isRequired,
   activeChatRoomData: PropTypes.object.isRequired,
   handleChangeChatRoom: PropTypes.func.isRequired,
+  handleFetchMessages: PropTypes.func.isRequired,
   socket: PropTypes.object.isRequired,
   handleSideDrawerToggle: PropTypes.func.isRequired
 }

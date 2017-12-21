@@ -9,6 +9,7 @@ import {
   createChatRoom
 } from '../../actions/chat-room';
 import { changeChatRoom } from '../../actions/active-chat-room';
+import { fetchMessages } from '../../actions/message';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatRoom from '../../components/SideDrawer/ChatRoom';
 import CreateChatRoomModal from '../../components/SideDrawer/CreateChatRoomModal';
@@ -32,9 +33,11 @@ class SideDrawer extends Component {
   }
   handleComponent() {
     const {
+      user,
       chatRoom,
       activeChatRoom,
       changeChatRoom,
+      fetchMessages,
       socket,
       handleSideDrawerToggle
     } = this.props;
@@ -46,9 +49,11 @@ class SideDrawer extends Component {
             chatRoom.chatRooms.map((chatRoomData, i) =>
               <ChatRoom
                 key={i}
+                userData={user.userData}
                 chatRoomData={chatRoomData}
                 activeChatRoomData={activeChatRoom.chatRoomData}
                 handleChangeChatRoom={changeChatRoom}
+                handleFetchMessages={fetchMessages}
                 socket={socket}
                 handleSideDrawerToggle={handleSideDrawerToggle}
               />
@@ -119,7 +124,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchChatRooms,
     createChatRoom,
-    changeChatRoom
+    changeChatRoom,
+    fetchMessages
   }, dispatch);
 }
 

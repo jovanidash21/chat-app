@@ -65,66 +65,16 @@ class Chat extends Component {
     if (!message.isLoading && message.isFetchMessagesSuccess) {
       return (
         <Container fluid={true}>
-          <ChatBubble
-            userData={user.userData}
-            message="Hello World"
-            isSender={false}
-          />
-          <ChatBubble
-            userData={user.userData}
-            message="Hi World"
-            isSender={true}
-          />
-          <ChatBubble
-            userData={user.userData}
-            message="Hello World"
-            isSender={false}
-          />
-          <ChatBubble
-            userData={user.userData}
-            message="Hi World"
-            isSender={true}
-          />
-          <ChatBubble
-            userData={user.userData}
-            message="Hello World"
-            isSender={false}
-          />
-          <ChatBubble
-            userData={user.userData}
-            message="Hello World"
-            isSender={false}
-          />
-          <ChatBubble
-            userData={user.userData}
-            message="Hi World"
-            isSender={true}
-          />
-          <ChatBubble
-            userData={user.userData}
-            message="Hi World"
-            isSender={true}
-          />
-          <ChatBubble
-            userData={user.userData}
-            message="Hello World"
-            isSender={false}
-          />
-          <ChatBubble
-            userData={user.userData}
-            message="Hi World"
-            isSender={true}
-          />
-          <ChatBubble
-            userData={user.userData}
-            message="Hello World"
-            isSender={false}
-          />
-          <ChatBubble
-            userData={user.userData}
-            message="Hi World"
-            isSender={true}
-          />
+          {
+            message.messages.map((messageData, i) =>
+              <ChatBubble
+                key={i}
+                userData={messageData.user}
+                message={messageData.text}
+                isSender={(messageData.user._id === user.userData._id) ? true : false }
+              />
+            )
+          }
         </Container>
       )
     } else {
