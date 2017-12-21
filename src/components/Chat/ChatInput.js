@@ -20,7 +20,7 @@ class ChatInput extends Component {
 
     const {
       userData,
-      activeChatRoom,
+      activeChatRoomData,
       socket
     } = this.props;
     const { typing } = this.state;
@@ -29,12 +29,12 @@ class ChatInput extends Component {
     this.setState({message: messageValue});
 
     if ( (messageValue.length > 0) && (!typing) ) {
-      socket.emit('typing', userData.name, activeChatRoom);
+      socket.emit('typing', userData.name, activeChatRoomData._id);
       this.setState({typing: true});
     }
 
     if ( (messageValue.length === 0) && (typing) ) {
-      socket.emit('not typing', userData.name, activeChatRoom);
+      socket.emit('not typing', userData.name, activeChatRoomData._id);
       this.setState({typing: false});
     }
   }
