@@ -8,20 +8,22 @@ router.get('/:chatRoomID/:userID', function(req, res, next) {
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
-      success: false, 
+      success: false,
       message: 'Unauthorized'
     });
   } else {
-    messagesData.find({chatRoom: chatRoomID}, function(err, results) {
-      if (!err) {
-        res.status(200).send(results);
-      } else {
-        res.status(500).send({
-          success: false, 
-          message: 'Server Error!'
-        });
-      }
-    });
+    messagesData.find({chatRoom: chatRoomID})
+      .populate('user')
+      .exec(function(err, chatRoomMessages) {
+        if (!err) {
+          res.status(200).send(chatRoomMessages);
+        } else {
+          res.status(500).send({
+            success: false,
+            message: 'Server Error!'
+          });
+        }
+      });
   }
 });
 
@@ -31,7 +33,7 @@ router.post('/:chatRoomID/:userID', function(req, res, next) {
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
-      success: false, 
+      success: false,
       message: 'Unauthorized'
     });
   } else {
@@ -45,12 +47,12 @@ router.post('/:chatRoomID/:userID', function(req, res, next) {
     message.save(function(err) {
       if (!err) {
         res.status(200).send({
-          success: true, 
+          success: true,
           message: 'Message Sent.'
         });
       } else {
         res.status(500).send({
-          success: false, 
+          success: false,
           message: 'Server Error!'
         });
       }
