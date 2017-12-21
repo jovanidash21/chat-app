@@ -17,11 +17,17 @@ const message = (state=initialState, action) => {
         isLoading: true
       };
     case `${FETCH_MESSAGES}_SUCCESS`:
+      return {
+        ...state,
+        isLoading: false,
+        isFetchMessagesSuccess: true,
+        messages: action.payload.data
+      };
     case `${SEND_MESSAGE}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
-        isSuccess: true,
+        isSendMessageSuccess: true,
         messageData: action.payload.data
       };
     case `${FETCH_MESSAGES}_ERROR`:

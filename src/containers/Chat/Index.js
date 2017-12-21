@@ -62,7 +62,7 @@ class Chat extends Component {
       message
     } = this.props;
 
-    if (!message.isLoading && message.isSuccess) {
+    if (!message.isLoading && message.isFetchMessagesSuccess) {
       return (
         <Container fluid={true}>
           <ChatBubble
