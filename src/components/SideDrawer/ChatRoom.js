@@ -11,11 +11,13 @@ class ChatRoom extends Component {
     const {
       chatRoomData,
       activeChatRoomData,
+      handleChangeChatRoom,
       socket,
-      handleChangeChatRoom
+      handleSideDrawerToggle
     } = this.props;
 
     handleChangeChatRoom(chatRoomData);
+    handleSideDrawerToggle();
   }
   render() {
     const { chatRoomData } = this.props;
@@ -34,8 +36,9 @@ class ChatRoom extends Component {
 ChatRoom.propTypes = {
   chatRoomData: PropTypes.object.isRequired,
   activeChatRoomData: PropTypes.object.isRequired,
+  handleChangeChatRoom: PropTypes.func.isRequired,
   socket: PropTypes.object.isRequired,
-  handleChangeChatRoom: PropTypes.func.isRequired
+  handleSideDrawerToggle: PropTypes.func.isRequired
 }
 
 export default ChatRoom;

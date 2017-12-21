@@ -142,6 +142,7 @@ class Chat extends Component {
           return (
             <SideDrawer
               socket={socket}
+              handleSideDrawerToggle={::this.handleSideDrawerToggle}
               isOpen={matches ? isOpen : true}
               noOverlay={matches ? false : true }
             />
