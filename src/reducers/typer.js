@@ -10,14 +10,14 @@ const typer = (state=initialState, action) => {
     case IS_TYPING:
       if (state.indexOf(action.username) === -1) {
         return [
-          ...state, 
-          action.username
+          ...state,
+          action.typer
         ];
       }
       return state;
     case IS_NOT_TYPING:
-      return state.filter(user =>
-        user !== action.username
+      return state.filter(typer =>
+        typer.username !== action.typer.username
       );
     default:
       return state;

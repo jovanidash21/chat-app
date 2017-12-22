@@ -3,16 +3,16 @@ import {
   IS_NOT_TYPING
 } from '../constants/typer';
 
-export function isTyping(username) {
+export function isTyping(typer) {
   return {
     type: IS_TYPING,
-    username
+    typer
   };
 }
 
-export function isNotTyping(username) {
+export function isNotTyping(typer) {
   return {
     type: IS_NOT_TYPING,
-    username
+    typer
   };
 }
