@@ -87,26 +87,28 @@ class SideDrawer extends Component {
 
     return (
       <Menu width="250px" isOpen={isOpen} noOverlay={noOverlay}>
-        <div className="side-drawer">
-          <h1 className="title">Chat App</h1>
-          <div className="chat-rooms-options">
-            <h3>Chat Rooms</h3>
-            <div className="add-chat-room-icon" onClick={::this.handleActivateModal}>
-              <FontAwesome name="plus-circle" />
+        <div>
+          <div className="side-drawer">
+            <h1 className="title">Chat App</h1>
+            <div className="chat-rooms-options">
+              <h3>Chat Rooms</h3>
+              <div className="add-chat-room-icon" onClick={::this.handleActivateModal}>
+                <FontAwesome name="plus-circle" />
+              </div>
             </div>
+            {::this.handleComponent()}
           </div>
-          {::this.handleComponent()}
+          {
+            showModal &&
+            <CreateChatRoomModal
+              handleDeactivateModal={::this.handleDeactivateModal}
+              socket={socket}
+              handleAddChatRoom={createChatRoom}
+              userData={user.userData}
+              isLoading={chatRoom.isLoading}
+            />
+          }
         </div>
-        {
-          showModal &&
-          <CreateChatRoomModal
-            handleDeactivateModal={::this.handleDeactivateModal}
-            socket={socket}
-            handleAddChatRoom={createChatRoom}
-            userData={user.userData}
-            isLoading={chatRoom.isLoading}
-          />
-        }
       </Menu>
     );
   }

@@ -16,7 +16,6 @@ import {
 import Header from '../Common/Header';
 import SideDrawer from '../Partial/SideDrawer';
 import Head from '../../components/Head';
-import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatBubble from '../../components/Chat/ChatBubble';
 import ChatInput from '../../components/Chat/ChatInput';
 import '../../styles/Chat.scss';
@@ -55,33 +54,6 @@ class Chat extends Component {
   }
   componentDidUpdate() {
     ::this.handleScrollToBottom();
-  }
-  handleComponent() {
-    const {
-      user,
-      message
-    } = this.props;
-
-    if (!message.isLoading && message.isFetchMessagesSuccess) {
-      return (
-        <Container fluid={true}>
-          {
-            message.messages.map((messageData, i) =>
-              <ChatBubble
-                key={i}
-                userData={messageData.user}
-                message={messageData.text}
-                isSender={(messageData.user._id === user.userData._id) ? true : false }
-              />
-            )
-          }
-        </Container>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="black" />
-      )
-    }
   }
   handleSideDrawerRender() {
     const { isOpen } = this.state;
@@ -125,10 +97,28 @@ class Chat extends Component {
         <Head title="Chat App" />
         {::this.handleSideDrawerRender()}
         <Header handleSideDrawerToggle={::this.handleSideDrawerToggle} />
-        <div className="chat-box">
-          {::this.handleComponent()}
-          <div style={{ float:"left", clear: "both" }}
-            ref={(element) => { this.messagesBottom = element; }}>
+        <div
+          className="chat-box"
+          ref={(element) => { this.chatBox = element; }}
+        >
+            <Container fluid={true} >
+              {
+                message.messages &&
+                message.messages.map((messageData, i) =>
+                  <ChatBubble
+                    key={i}
+                    userData={messageData.user}
+                    message={messageData.text}
+                    isSender={(messageData.user._id === user.userData._id) ? true : false }
+                  />
+                )
+              }
+              <div
+                style={{float: "left", clear: "both"}}
+                ref={(element) => { this.messagesBottom = element; }}
+              >
+              </div>
+            </Container>
           </div>
         </div>
         <ChatInput
