@@ -10,6 +10,12 @@
   -khtml-#{$property}: #{$value};
   -webkit-#{$property}: #{$value};
 }
+/* Flex
+ * @param {flex-grow flex-shrink flex-basis|auto|initial|inherit} $value - Value
+ */
+@mixin flex($value) {
+  @include css3-prefix('flex', $value);
+}
 /* Transform
  * @param {none|transform-functions|initial|inherit} $value - Value
  */

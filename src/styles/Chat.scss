@@ -20,7 +20,7 @@
     flex-shrink: 0;
   }
   .chat-box {
-    flex: 1;
+    @include flex(1);
     overflow-y: scroll;
     padding-bottom: 15px;
     padding-top: 15px;
@@ -42,7 +42,7 @@
     display: flex;
     flex-shrink: 0;
     .mui-textfield {
-      flex: 19;
+      @include flex(19);
       margin: 0;
       padding: 10px;
       input {
@@ -53,10 +53,10 @@
       }
     }
     .send-button {
+      @include flex(1);
       background-color: $color-royal-purple;
       border-radius: 0;
       color: #fff;
-      flex: 1;
       height: 65px;
       margin: 0;
       position: relative;
