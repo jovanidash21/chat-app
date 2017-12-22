@@ -9,7 +9,7 @@ import {
 } from 'muicss/react';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
-import '../../styles/Modal.scss';
+import './styles.scss';
 
 class CreateChatRoomModal extends Component {
   constructor(props) {

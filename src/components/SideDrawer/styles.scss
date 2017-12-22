@@ -1,0 +1,49 @@
+.chat-room {
+  @include display-flex();
+  @include transition(all 0.2s ease);
+  align-items: center;
+  border-bottom: 1px solid $color-goblin;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 10px 15px;
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: $color-goblin;
+  }
+  .chat-room-icon {
+    $image-size: 25px;
+    background-size: $image-size;
+    border-radius: 50%;
+    height: $image-size;
+    margin-right: 10px;
+    width: $image-size;
+  }
+  .chat-room-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 180px;
+  }
+}
+.add-chat-room-modal {
+  border-radius: 0 !important;
+  .modal-title {
+    margin-top: 0;
+  }
+  .modal-toggle {
+    margin-bottom: 20px;
+    .react-toggle {
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+  }
+  .modal-button {
+    background-color: $color-chateau-green;
+    color: #fff;
+    display: block;
+    padding: 0;
+    width: 100%;
+    position: relative;
+  }
+}
