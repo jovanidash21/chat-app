@@ -9,6 +9,7 @@ import {
 import { logout } from '../../actions/auth';
 import SideBarToggler from '../../components/Header/SideBarToggler';
 import OptionsDropdown from '../../components/Header/OptionsDropdown';
+import '../../styles/Header.scss';
 
 class Header extends Component {
   constructor(props) {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
 import FontAwesome from 'react-fontawesome';
-import '../../styles/Header.scss';
+import './styles.scss';
 
 const SideBarToggler = (props) => {
   return (
