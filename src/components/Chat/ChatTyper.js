@@ -5,7 +5,11 @@ import './styles.scss';
 const ChatTyper = (props) => {
   return (
     <div className="chat-typer-wrapper">
-      <div className="chat-image" style={{backgroundImage: `url(${props.profilePicture})`}} />
+      <div
+        className="chat-image"
+        style={{backgroundImage: `url(${props.profilePicture})`}}
+        title={props.username}
+      />
       <div className="chat-typer">
         <span></span>
         <span></span>
@@ -16,6 +20,7 @@ const ChatTyper = (props) => {
 }
 
 ChatTyper.propTypes = {
+  username: PropTypes.string.isRequired,
   profilePicture: PropTypes.string.isRequired
 }
 

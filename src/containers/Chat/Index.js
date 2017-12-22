@@ -119,11 +119,12 @@ class Chat extends Component {
               <div className="chat-typers">
                 {
                   typer.map((typerData, i) =>
-                    <ChatTyper profilePicture={typerData} />
+                    <ChatTyper
+                      username={typerData.username}
+                      profilePicture={typerData.profilePicture}
+                    />
                   )
                 }
-                <ChatTyper profilePicture={user.userData.profilePicture} />
-                <ChatTyper profilePicture={user.userData.profilePicture} />
               </div>
               <div
                 style={{float: "left", clear: "both"}}
