@@ -40,5 +40,9 @@
         border-radius: 5px;
       }
     }
+    .chat-typers {
+      @include display-flex();
+      margin-top: 15px;
+    }
   }
 }

@@ -17,6 +17,7 @@ import Header from '../Common/Header';
 import SideDrawer from '../Partial/SideDrawer';
 import Head from '../../components/Head';
 import ChatBubble from '../../components/Chat/ChatBubble';
+import ChatTyper from '../../components/Chat/ChatTyper';
 import ChatInput from '../../components/Chat/ChatInput';
 import '../../styles/Chat.scss';
 
@@ -115,6 +116,15 @@ class Chat extends Component {
                   />
                 )
               }
+              <div className="chat-typers">
+                {
+                  typer.map((typerData, i) =>
+                    <ChatTyper profilePicture={typerData} />
+                  )
+                }
+                <ChatTyper profilePicture={user.userData.profilePicture} />
+                <ChatTyper profilePicture={user.userData.profilePicture} />
+              </div>
               <div
                 style={{float: "left", clear: "both"}}
                 ref={(element) => { this.messagesBottom = element; }}
