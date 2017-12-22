@@ -25,9 +25,6 @@ export function createChatRoom(data) {
       type: CREATE_CHAT_ROOM,
       payload: axios.post(`/api/chat-room/${data.userID}`, data)
     })
-    .then(() => {
-      dispatch(fetchChatRooms(data.userID));
-    })
     .catch((error) => {
       if (error instanceof Error) {
         console.log(error);

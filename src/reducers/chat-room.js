@@ -6,16 +6,20 @@ import {
 
 const initialState = {
   isLoading: false,
-  chatRoomData: {}
+  chatRoomData: {},
+  chatRooms: []
 };
 
 const chatRoom = (state=initialState, action) => {
   switch(action.type) {
     case `${FETCH_CHAT_ROOMS}_LOADING`:
-    case `${CREATE_CHAT_ROOM}_LOADING`:
       return {
         ...state,
         isLoading: true
+      };
+    case `${CREATE_CHAT_ROOM}_LOADING`:
+      return {
+        ...state
       };
     case `${FETCH_CHAT_ROOMS}_SUCCESS`:
       return {
@@ -29,7 +33,10 @@ const chatRoom = (state=initialState, action) => {
         ...state,
         isLoading: false,
         isCreateChatRoomSuccess: true,
-        chatRoomData: action.payload.data
+        chatRooms: [
+          ...state.chatRooms,
+          action.payload.data.chatRoomData
+        ]
       };
     case RECEIVE_CHAT_ROOM:
       return {
