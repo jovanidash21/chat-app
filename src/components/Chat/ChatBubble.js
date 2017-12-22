@@ -7,7 +7,11 @@ import './styles.scss';
 const ChatBubble = (props) => {
   return (
     <div className={"chat-bubble-wrapper " + (props.isSender ? 'reverse' : '')} >
-      <div className="chat-image" style={{backgroundImage: `url(${props.userData.profilePicture})`}} />
+      <div
+        className="chat-image"
+        style={{backgroundImage: `url(${props.userData.profilePicture})`}}
+        title={props.userData.username}
+      />
       <div className={"chat-bubble " + (props.isSender ? 'right' : '')}>
         <div className="chat-text">
           {props.message}
