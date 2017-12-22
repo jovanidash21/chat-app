@@ -5,6 +5,7 @@ import {
   Button
 } from 'muicss/react';
 import FontAwesome from 'react-fontawesome';
+import './styles.scss';
 
 class ChatInput extends Component {
   constructor(props) {

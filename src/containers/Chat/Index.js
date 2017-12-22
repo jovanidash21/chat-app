@@ -101,6 +101,7 @@ class Chat extends Component {
           className="chat-box"
           ref={(element) => { this.chatBox = element; }}
         >
+          <div className="chat-bubbles">
             <Container fluid={true} >
               {
                 message.messages &&
