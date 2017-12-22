@@ -26,16 +26,20 @@ class ChatInput extends Component {
     } = this.props;
     const { typing } = this.state;
     const messageValue = event.target.value;
+    const typerData = {
+      username: userData.username,
+      profilePicture: userData.profilePicture
+    };
 
     this.setState({message: messageValue});
 
     if ( (messageValue.length > 0) && (!typing) ) {
-      socket.emit('typing', userData.profilePicture, activeChatRoomData._id);
+      socket.emit('typing', typerData, activeChatRoomData._id);
       this.setState({typing: true});
     }
 
     if ( (messageValue.length === 0) && (typing) ) {
-      socket.emit('not typing', userData.profilePicture, activeChatRoomData._id);
+      socket.emit('not typing', typerData, activeChatRoomData._id);
       this.setState({typing: false});
     }
   }

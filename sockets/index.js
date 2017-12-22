@@ -3,12 +3,12 @@ var sockets = function(socket) {
     socket.broadcast.emit('user logged in broadcast', user);
   });
 
-  socket.on('typing', function (profilePicture, chatRoom) {
-    socket.broadcast.to(chatRoom).emit('typing broadcast', profilePicture);
+  socket.on('typing', function (typer, chatRoom) {
+    socket.broadcast.to(chatRoom).emit('typing broadcast', typer);
   });
 
-  socket.on('not typing', function (profilePicture, chatRoom) {
-    socket.broadcast.to(chatRoom).emit('not typing broadcast', profilePicture);
+  socket.on('not typing', function (typer, chatRoom) {
+    socket.broadcast.to(chatRoom).emit('not typing broadcast', utyper;
   });
 
   socket.on('join chat room', function(chatRoom) {
