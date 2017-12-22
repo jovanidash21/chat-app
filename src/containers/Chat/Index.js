@@ -120,7 +120,7 @@ class Chat extends Component {
                 {
                   typer.map((typerData, i) =>
                     <ChatTyper
-                      username={typerData.username}
+                      name={typerData.name}
                       profilePicture={typerData.profilePicture}
                     />
                   )

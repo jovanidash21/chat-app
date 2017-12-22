@@ -8,7 +8,7 @@ const ChatTyper = (props) => {
       <div
         className="chat-image"
         style={{backgroundImage: `url(${props.profilePicture})`}}
-        title={props.username}
+        title={props.name}
       />
       <div className="chat-typer">
         <span></span>
@@ -20,7 +20,7 @@ const ChatTyper = (props) => {
 }
 
 ChatTyper.propTypes = {
-  username: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   profilePicture: PropTypes.string.isRequired
 }
 

@@ -63,7 +63,7 @@
 .chat-typer-wrapper {
   @include display-flex();
   align-items: center;
-  margin: 4px;
+  padding: 4px;
   .chat-image {
     $image-size: 21px;
     background-repeat: no-repeat;
