@@ -15,8 +15,6 @@
  */
 @mixin flex($value) {
   @include css3-prefix('flex', $value);
-  -moz-box-flex: $value;
-  -webkit-box-flex: $value;
 }
 /* Display Flex
  * @param {true|false} $is_important - Is important
