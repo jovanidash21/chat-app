@@ -17,7 +17,7 @@ const typer = (state=initialState, action) => {
       return state;
     case IS_NOT_TYPING:
       return state.filter(typer =>
-        typer.username !== action.typer.username
+        typer._id !== action.typer._id
       );
     default:
       return state;

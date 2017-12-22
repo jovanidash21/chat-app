@@ -8,7 +8,7 @@ var sockets = function(socket) {
   });
 
   socket.on('not typing', function (typer, chatRoom) {
-    socket.broadcast.to(chatRoom).emit('not typing broadcast', utyper;
+    socket.broadcast.to(chatRoom).emit('not typing broadcast', typer);
   });
 
   socket.on('join chat room', function(chatRoom) {
