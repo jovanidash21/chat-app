@@ -44,11 +44,12 @@ router.post('/:chatRoomID/:userID', function(req, res, next) {
     };
     var message = new messagesData(messageData);
 
-    message.save(function(err) {
+    message.save(function(err, messageData) {
       if (!err) {
         res.status(200).send({
           success: true,
-          message: 'Message Sent.'
+          message: 'Message Sent.',
+          messageData: messageData
         });
       } else {
         res.status(500).send({
