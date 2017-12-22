@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import TimeAgo from 'react-timeago';
+import moment from 'moment';
 import './styles.scss';
 
 const ChatBubble = (props) => {
@@ -12,7 +14,10 @@ const ChatBubble = (props) => {
         </div>
       </div>
       <div className="chat-time">
-        9 minutes ago
+        <TimeAgo
+          date={moment(props.time).format("MMM D, YYYY h:mm a")}
+          minPeriod={60}
+        />
       </div>
     </div>
   );
@@ -21,6 +26,7 @@ const ChatBubble = (props) => {
 ChatBubble.propTypes = {
   userData: PropTypes.object.isRequired,
   message: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
   isSender: PropTypes.bool.isRequired
 }
 

@@ -102,7 +102,7 @@ class Chat extends Component {
           ref={(element) => { this.chatBox = element; }}
         >
           <div className="chat-bubbles">
-            <Container fluid={true} >
+            <Container fluid>
               {
                 message.messages &&
                 message.messages.map((messageData, i) =>
@@ -110,6 +110,7 @@ class Chat extends Component {
                     key={i}
                     userData={messageData.user}
                     message={messageData.text}
+                    time={messageData.createdAt}
                     isSender={(messageData.user._id === user.userData._id) ? true : false }
                   />
                 )
