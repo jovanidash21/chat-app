@@ -30,12 +30,12 @@ class ChatInput extends Component {
     this.setState({message: messageValue});
 
     if ( (messageValue.length > 0) && (!typing) ) {
-      socket.emit('typing', userData.name, activeChatRoomData._id);
+      socket.emit('typing', userData.profilePicture, activeChatRoomData._id);
       this.setState({typing: true});
     }
 
     if ( (messageValue.length === 0) && (typing) ) {
-      socket.emit('not typing', userData.name, activeChatRoomData._id);
+      socket.emit('not typing', userData.profilePicture, activeChatRoomData._id);
       this.setState({typing: false});
     }
   }
@@ -56,7 +56,7 @@ class ChatInput extends Component {
     if ( event.key === 'Enter' ) {
       handleSendMessage(data);
       socket.emit('new message', data, activeChatRoomData._id);
-      socket.emit('not typing', userData.username, activeChatRoomData._id);
+      socket.emit('not typing', userData.profilePicture, activeChatRoomData._id);
       this.setState({
         message: '',
         typing: false

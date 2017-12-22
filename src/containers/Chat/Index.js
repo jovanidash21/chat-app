@@ -40,11 +40,11 @@ class Chat extends Component {
 
     socket.emit('user logged in', user);
 
-    socket.on('typing broadcast', name =>
-      isTyping(name)
+    socket.on('typing broadcast', profilePicture =>
+      isTyping(profilePicture)
     );
-    socket.on('not typing broadcast', name =>
-      isNotTyping(name)
+    socket.on('not typing broadcast', profilePicture =>
+      isNotTyping(profilePicture)
     );
     socket.on('new chat room broadcast', chatRoom =>
       receiveChatRoom(chatRoom)
