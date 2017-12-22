@@ -1,7 +1,7 @@
 .side-drawer {
+  @include display-flex();
   background-color: $color-chateau-green;
   color: #fff;
-  display: flex !important;
   flex-direction: column;
   height: 100%;
   position: fixed;
@@ -13,8 +13,8 @@
     padding: 15px;
   }
   .chat-rooms-options {
+    @include display-flex();
     align-items: center;
-    display: flex;
     justify-content: space-between;
     padding: 0 15px 10px;
     h3 {
@@ -46,11 +46,11 @@
     }
   }
   .chat-room {
+    @include display-flex();
     @include transition(all 0.2s ease);
     align-items: center;
     border-bottom: 1px solid $color-goblin;
     cursor: pointer;
-    display: flex;
     font-size: 14px;
     padding: 10px 15px;
     &:active,

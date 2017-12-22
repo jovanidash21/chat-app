@@ -1,6 +1,6 @@
 .chat-page {
+  @include display-flex();
   height: 100vh;
-  display: flex;
   flex-direction: column;
   .header,
   .chat-box,
@@ -37,9 +37,9 @@
     }
   }
   .chat-input {
+    @include display-flex();
     align-items: center;
     background-color: $color-gallery;
-    display: flex;
     flex-shrink: 0;
     .mui-textfield {
       @include flex(19);
@@ -69,7 +69,7 @@
     }
   }
   .chat-bubble-wrapper {
-    display: flex;
+    @include display-flex();
     padding: 2px;
     &.reverse {
       flex-direction: row-reverse;

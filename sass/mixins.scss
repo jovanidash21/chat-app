@@ -18,6 +18,16 @@
   -moz-box-flex: $value;
   -webkit-box-flex: $value;
 }
+/* Display Flex
+ * @param {true|false} $is_important - Is important
+ */
+@mixin display-flex() {
+  display: flex;
+  display: -ms-flexbox;
+  display: -moz-box;
+  display: -khtml-flex;
+  display: -webkit-flex;
+}
 /* Transform
  * @param {none|transform-functions|initial|inherit} $value - Value
  */
