@@ -10,7 +10,7 @@ const ChatBubble = (props) => {
       <div
         className="chat-image"
         style={{backgroundImage: `url(${props.userData.profilePicture})`}}
-        title={props.userData.username}
+        title={props.userData.name}
       />
       <div className={"chat-bubble " + (props.isSender ? 'right' : '')}>
         <div className="chat-text">
