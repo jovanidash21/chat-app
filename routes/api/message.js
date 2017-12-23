@@ -46,7 +46,7 @@ router.post('/:chatRoomID/:userID', function(req, res, next) {
 
     message.save(function(err, messageData) {
       if (!err) {
-        messagesData.findOne({chatRoom: chatRoomID})
+        messagesData.findById(messageData._id)
           .populate('user')
           .exec(function(err, messageData) {
             if (!err) {
