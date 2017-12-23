@@ -23,8 +23,8 @@ var sockets = function(socket) {
     socket.broadcast.emit('new chat room broadcast', chatRoom)
   });
 
-  socket.on('new message', function(data, chatRoom) {
-    socket.broadcast.to(chatRoom).emit('new message broadcast', data);
+  socket.on('new message', function(message, chatRoom) {
+    socket.broadcast.to(chatRoom).emit('new message broadcast', message);
   });
 };
 
