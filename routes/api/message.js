@@ -46,11 +46,22 @@ router.post('/:chatRoomID/:userID', function(req, res, next) {
 
     message.save(function(err, messageData) {
       if (!err) {
-        res.status(200).send({
-          success: true,
-          message: 'Message Sent.',
-          messageData: messageData
-        });
+        messagesData.findOne({chatRoom: chatRoomID})
+          .populate('user')
+          .exec(function(err, messageData) {
+            if (!err) {
+              res.status(200).send({
+                success: true,
+                message: 'Message Sent.',
+                messageData: messageData
+              });
+            } else {
+              res.status(500).send({
+                success: false,
+                message: 'Server Error!'
+              });
+            }
+          });
       } else {
         res.status(500).send({
           success: false,
