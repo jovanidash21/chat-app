@@ -11,7 +11,7 @@ import reducers from '../reducers';
 
 const reactRouterMiddleware = routerMiddleware(history);
 let socket = io();
-let socketIoMiddleware = createSocketIoMiddleware(socket, 'SOCKET/');
+let socketIoMiddleware = createSocketIoMiddleware(socket, 'SOCKET_');
 
 const store = createStore(
   reducers,
