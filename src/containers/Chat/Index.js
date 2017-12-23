@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
-import io from 'socket.io-client';
 import {
   isTyping,
   isNotTyping
@@ -11,7 +10,8 @@ import {
 import { receiveChatRoom } from '../../actions/chat-room';
 import {
   fetchMessages,
-  sendMessage
+  sendMessage,
+  receiveMessage
 } from '../../actions/message';
 import Header from '../Common/Header';
 import SideDrawer from '../Partial/SideDrawer';
@@ -20,8 +20,6 @@ import ChatBubble from '../../components/Chat/ChatBubble';
 import ChatTyper from '../../components/Chat/ChatTyper';
 import ChatInput from '../../components/Chat/ChatInput';
 import '../../styles/Chat.scss';
-
-const socket = io('');
 
 class Chat extends Component {
   constructor(props) {
@@ -32,25 +30,6 @@ class Chat extends Component {
     };
   }
   componentDidMount() {
-    const {
-      user,
-      isTyping,
-      isNotTyping,
-      receiveChatRoom
-    } = this.props;
-
-    socket.emit('user logged in', user);
-
-    socket.on('typing broadcast', typer =>
-      isTyping(typer)
-    );
-    socket.on('not typing broadcast', typer =>
-      isNotTyping(typer)
-    );
-    socket.on('new chat room broadcast', chatRoom =>
-      receiveChatRoom(chatRoom)
-    );
-
     ::this.handleScrollToBottom();
   }
   componentDidUpdate() {
@@ -64,7 +43,6 @@ class Chat extends Component {
         {(matches) => {
           return (
             <SideDrawer
-              socket={socket}
               handleSideDrawerToggle={::this.handleSideDrawerToggle}
               isOpen={matches ? isOpen : true}
               noOverlay={matches ? false : true }
@@ -120,6 +98,7 @@ class Chat extends Component {
                 {
                   typer.map((typerData, i) =>
                     <ChatTyper
+                      key={i}
                       name={typerData.name}
                       profilePicture={typerData.profilePicture}
                     />
@@ -137,7 +116,6 @@ class Chat extends Component {
         <ChatInput
           userData={user.userData}
           activeChatRoomData={activeChatRoom.chatRoomData}
-          socket={socket}
           handleSendMessage={::this.handleSendMessage}
         />
       </div>
@@ -160,7 +138,8 @@ const mapDispatchToProps = (dispatch) => {
     isNotTyping,
     receiveChatRoom,
     fetchMessages,
-    sendMessage
+    sendMessage,
+    receiveMessage
   }, dispatch);
 }
 

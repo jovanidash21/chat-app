@@ -15,7 +15,6 @@ class ChatRoom extends Component {
       activeChatRoomData,
       handleChangeChatRoom,
       handleFetchMessages,
-      socket,
       handleSideDrawerToggle
     } = this.props;
 
@@ -24,8 +23,6 @@ class ChatRoom extends Component {
       chatRoomID: chatRoomData._id
     };
 
-    socket.emit('leave chat room', activeChatRoomData._id);
-    socket.emit('join chat room', chatRoomData._id);
     handleChangeChatRoom(chatRoomData);
     handleFetchMessages(data);
     handleSideDrawerToggle();
@@ -50,7 +47,6 @@ ChatRoom.propTypes = {
   activeChatRoomData: PropTypes.object.isRequired,
   handleChangeChatRoom: PropTypes.func.isRequired,
   handleFetchMessages: PropTypes.func.isRequired,
-  socket: PropTypes.object.isRequired,
   handleSideDrawerToggle: PropTypes.func.isRequired
 }
 

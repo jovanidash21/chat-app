@@ -19,23 +19,16 @@ class ChatInput extends Component {
   onMessageChange(event) {
     event.preventDefault();
 
-    const {
-      userData,
-      activeChatRoomData,
-      socket
-    } = this.props;
     const { typing } = this.state;
     const messageValue = event.target.value;
 
     this.setState({message: messageValue});
 
     if ( (messageValue.length > 0) && (!typing) ) {
-      socket.emit('typing', userData, activeChatRoomData._id);
       this.setState({typing: true});
     }
 
     if ( (messageValue.length === 0) && (typing) ) {
-      socket.emit('not typing', userData, activeChatRoomData._id);
       this.setState({typing: false});
     }
   }
@@ -43,20 +36,22 @@ class ChatInput extends Component {
     const {
       userData,
       activeChatRoomData,
-      socket,
       handleSendMessage
     } = this.props;
-    const { message } = this.state
+    const { message } = this.state;
     const data = {
       text: message.trim(),
       userID: userData._id,
       chatRoomID: activeChatRoomData._id
     };
+    const newMessage = {
+      text: message.trim(),
+      user: userData,
+      chatRoom: activeChatRoomData
+    };
 
     if ( event.key === 'Enter' ) {
       handleSendMessage(data);
-      socket.emit('new message', data, activeChatRoomData._id);
-      socket.emit('not typing', userData.profilePicture, activeChatRoomData._id);
       this.setState({
         message: '',
         typing: false
@@ -91,7 +86,6 @@ class ChatInput extends Component {
 ChatInput.propTypes = {
   userData: PropTypes.object.isRequired,
   activeChatRoomData: PropTypes.object.isRequired,
-  socket: PropTypes.object.isRequired,
   handleSendMessage: PropTypes.func.isRequired
 }
 
