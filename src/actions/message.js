@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { 
+import {
   FETCH_MESSAGES,
-  SEND_MESSAGE
+  SEND_MESSAGE,
+  RECEIVE_MESSAGE
 } from '../constants/message';
 
 export function fetchMessages(data) {
@@ -30,4 +31,11 @@ export function sendMessage(data) {
       }
     });
   }
+}
+
+export function receiveMessage(message) {
+  return {
+    type: RECEIVE_MESSAGE,
+    payload: message
+  };
 }

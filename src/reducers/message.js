@@ -1,20 +1,29 @@
 import {
   FETCH_MESSAGES,
-  SEND_MESSAGE
+  SEND_MESSAGE,
+  RECEIVE_MESSAGE
 } from '../constants/message';
 
 const initialState = {
   isLoading: false,
-  messageData: {}
+  messageData: {},
+  messages: []
 };
 
 const message = (state=initialState, action) => {
   switch(action.type) {
+    case 'message':
+      return {
+        ...state
+      };
     case `${FETCH_MESSAGES}_LOADING`:
-    case `${SEND_MESSAGE}_LOADING`:
       return {
         ...state,
         isLoading: true
+      };
+    case `${SEND_MESSAGE}_LOADING`:
+      return {
+        ...state
       };
     case `${FETCH_MESSAGES}_SUCCESS`:
       return {
@@ -28,7 +37,10 @@ const message = (state=initialState, action) => {
         ...state,
         isLoading: false,
         isSendMessageSuccess: true,
-        messageData: action.payload.data
+        messages: [
+          ...state.messages,
+          action.payload.data.messageData
+        ]
       };
     case `${FETCH_MESSAGES}_ERROR`:
     case `${SEND_MESSAGE}_ERROR`:
@@ -36,6 +48,14 @@ const message = (state=initialState, action) => {
         ...state,
         isLoading: false,
         isError: true
+      };
+    case RECEIVE_MESSAGE:
+      return {
+        ...state,
+        messages: [
+          ...state.messages,
+          action.payload
+        ]
       };
     default:
       return state;
