@@ -66,16 +66,21 @@ class Chat extends Component {
       return (
         <Container fluid>
           {
-            message.messages &&
-            message.messages.map((messageData, i) =>
-              <ChatBubble
-                key={i}
-                userData={messageData.user}
-                message={messageData.text}
-                time={messageData.createdAt}
-                isSender={(messageData.user._id === user.userData._id) ? true : false }
-              />
-            )
+            message.messages.length
+              ?
+              message.messages.map((messageData, i) =>
+                <ChatBubble
+                  key={i}
+                  userData={messageData.user}
+                  message={messageData.text}
+                  time={messageData.createdAt}
+                  isSender={(messageData.user._id === user.userData._id) ? true : false }
+                />
+              )
+              :
+              <div className="chat-no-messages">
+                No messages in this Chat Room
+              </div>
           }
           <div className="chat-typers">
             {

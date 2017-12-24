@@ -40,6 +40,11 @@
         border-radius: 5px;
       }
     }
+    .chat-no-messages {
+      font-size: 17px;
+      font-weight: 700;
+      text-align: center;
+    }
     .chat-typers {
       @include display-flex();
       margin-top: 15px;
