@@ -17,13 +17,16 @@ const ChatBubble = (props) => {
           {props.message}
         </div>
       </div>
-      <div className="chat-time">
-        <TimeAgo
-          date={moment(props.time).format("MMM D, YYYY h:mm A")}
-          title={moment(props.time).format("dddd - MMM D, YYYY - h:mm A")}
-          minPeriod={60}
-        />
-      </div>
+      {
+        props.time &&
+        <div className="chat-time">
+          <TimeAgo
+            date={moment(props.time).format("MMM D, YYYY h:mm A")}
+            title={moment(props.time).format("dddd - MMM D, YYYY - h:mm A")}
+            minPeriod={60}
+          />
+        </div>
+      }
     </div>
   );
 }
@@ -31,8 +34,12 @@ const ChatBubble = (props) => {
 ChatBubble.propTypes = {
   userData: PropTypes.object.isRequired,
   message: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
+  time: PropTypes.string,
   isSender: PropTypes.bool.isRequired
+}
+
+ChatBubble.defaultProps = {
+  time: ''
 }
 
 export default ChatBubble;
