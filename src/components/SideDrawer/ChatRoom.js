@@ -13,6 +13,8 @@ class ChatRoom extends Component {
       userData,
       chatRoomData,
       activeChatRoomData,
+      handleSocketJoinChatRoom,
+      handleSocketLeaveChatRoom,
       handleChangeChatRoom,
       handleFetchMessages,
       handleSideDrawerToggle
@@ -23,6 +25,8 @@ class ChatRoom extends Component {
       chatRoomID: chatRoomData._id
     };
 
+    handleSocketJoinChatRoom(chatRoomData._id);
+    handleSocketLeaveChatRoom(activeChatRoomData._id);
     handleChangeChatRoom(chatRoomData);
     handleFetchMessages(data);
     handleSideDrawerToggle();
@@ -45,6 +49,8 @@ ChatRoom.propTypes = {
   userData: PropTypes.object.isRequired,
   chatRoomData: PropTypes.object.isRequired,
   activeChatRoomData: PropTypes.object.isRequired,
+  handleSocketJoinChatRoom: PropTypes.func.isRequired,
+  handleSocketLeaveChatRoom: PropTypes.func.isRequired,
   handleChangeChatRoom: PropTypes.func.isRequired,
   handleFetchMessages: PropTypes.func.isRequired,
   handleSideDrawerToggle: PropTypes.func.isRequired

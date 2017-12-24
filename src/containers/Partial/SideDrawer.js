@@ -6,7 +6,9 @@ import { slide as Menu } from 'react-burger-menu';
 import FontAwesome from 'react-fontawesome';
 import {
   fetchChatRooms,
-  createChatRoom
+  createChatRoom,
+  socketJoinChatRoom,
+  socketLeaveChatRoom
 } from '../../actions/chat-room';
 import { changeChatRoom } from '../../actions/active-chat-room';
 import { fetchMessages } from '../../actions/message';
@@ -36,6 +38,8 @@ class SideDrawer extends Component {
       user,
       chatRoom,
       activeChatRoom,
+      socketJoinChatRoom,
+      socketLeaveChatRoom,
       changeChatRoom,
       fetchMessages,
       handleSideDrawerToggle
@@ -51,6 +55,8 @@ class SideDrawer extends Component {
                 userData={user.userData}
                 chatRoomData={chatRoomData}
                 activeChatRoomData={activeChatRoom.chatRoomData}
+                handleSocketJoinChatRoom={socketJoinChatRoom}
+                handleSocketLeaveChatRoom={socketLeaveChatRoom}
                 handleChangeChatRoom={changeChatRoom}
                 handleFetchMessages={fetchMessages}
                 handleSideDrawerToggle={handleSideDrawerToggle}
@@ -122,6 +128,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     fetchChatRooms,
     createChatRoom,
+    socketJoinChatRoom,
+    socketLeaveChatRoom,
     changeChatRoom,
     fetchMessages
   }, dispatch);

@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
   FETCH_CHAT_ROOMS,
   CREATE_CHAT_ROOM,
-  RECEIVE_CHAT_ROOM
+  SOCKET_JOIN_CHAT_ROOM,
+  SOCKET_LEAVE_CHAT_ROOM
 } from '../constants/chat-room';
 
 export function fetchChatRooms(userID) {
@@ -33,9 +34,16 @@ export function createChatRoom(data) {
   }
 }
 
-export function receiveChatRoom(chatRoom) {
+export function socketJoinChatRoom(chatRoom) {
   return {
-    type: RECEIVE_CHAT_ROOM,
-    payload: chatRoom
+    type: SOCKET_JOIN_CHAT_ROOM,
+    chatRoom: chatRoom
+  };
+}
+
+export function socketLeaveChatRoom(chatRoom) {
+  return {
+    type: SOCKET_LEAVE_CHAT_ROOM,
+    chatRoom: chatRoom
   };
 }
