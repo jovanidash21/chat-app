@@ -44,14 +44,10 @@ class ChatInput extends Component {
     const {
       userData,
       activeChatRoomData,
+      handleSocketIsNotTyping,
       handleSendMessage
     } = this.props;
     const { message } = this.state;
-    const data = {
-      text: message.trim(),
-      userID: userData._id,
-      chatRoomID: activeChatRoomData._id
-    };
     const newMessage = {
       text: message.trim(),
       user: userData,
@@ -59,7 +55,8 @@ class ChatInput extends Component {
     };
 
     if ( event.key === 'Enter' ) {
-      handleSendMessage(data);
+      handleSocketIsNotTyping(userData, activeChatRoomData._id);
+      handleSendMessage(newMessage);
       this.setState({
         message: '',
         typing: false

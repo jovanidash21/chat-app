@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   FETCH_MESSAGES,
   SEND_MESSAGE,
-  RECEIVE_MESSAGE
+  SOCKET_SEND_MESSAGE
 } from '../constants/message';
 
 export function fetchMessages(data) {
@@ -19,11 +19,18 @@ export function fetchMessages(data) {
   }
 }
 
-export function sendMessage(data) {
+export function sendMessage(message) {
   return dispatch => {
     return dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post(`/api/message/${data.chatRoomID}/${data.userID}`, data)
+      payload: axios.post(`/api/message/${message.chatRoom._id}/${message.user._id}`, message)
+    })
+    .then((response) => {
+      dispatch({
+        type: SOCKET_SEND_MESSAGE,
+        message: response.action.payload.data.messageData,
+        chatRoom: message.chatRoom._id
+      });
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -31,11 +38,4 @@ export function sendMessage(data) {
       }
     });
   }
-}
-
-export function receiveMessage(message) {
-  return {
-    type: RECEIVE_MESSAGE,
-    payload: message
-  };
 }

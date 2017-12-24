@@ -1,7 +1,7 @@
 import {
   FETCH_MESSAGES,
   SEND_MESSAGE,
-  RECEIVE_MESSAGE
+  SOCKET_BROADCAST_SEND_MESSAGE
 } from '../constants/message';
 
 const initialState = {
@@ -12,10 +12,6 @@ const initialState = {
 
 const message = (state=initialState, action) => {
   switch(action.type) {
-    case 'message':
-      return {
-        ...state
-      };
     case `${FETCH_MESSAGES}_LOADING`:
       return {
         ...state,
@@ -49,7 +45,7 @@ const message = (state=initialState, action) => {
         isLoading: false,
         isError: true
       };
-    case RECEIVE_MESSAGE:
+    case SOCKET_BROADCAST_SEND_MESSAGE:
       return {
         ...state,
         messages: [
