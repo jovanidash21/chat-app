@@ -10,12 +10,12 @@ import {
 import { receiveChatRoom } from '../../actions/chat-room';
 import {
   fetchMessages,
-  sendMessage,
-  receiveMessage
+  sendMessage
 } from '../../actions/message';
 import Header from '../Common/Header';
 import SideDrawer from '../Partial/SideDrawer';
 import Head from '../../components/Head';
+import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatBubble from '../../components/Chat/ChatBubble';
 import ChatTyper from '../../components/Chat/ChatTyper';
 import ChatInput from '../../components/Chat/ChatInput';
@@ -55,6 +55,47 @@ class Chat extends Component {
   handleSideDrawerToggle() {
     this.setState({isOpen: !this.state.isOpen});
   }
+  handleChatBoxRender() {
+    const {
+      user,
+      typer,
+      message
+    } = this.props;
+
+    if (!message.isLoading && message.isFetchMessagesSuccess) {
+      return (
+        <Container fluid>
+          {
+            message.messages &&
+            message.messages.map((messageData, i) =>
+              <ChatBubble
+                key={i}
+                userData={messageData.user}
+                message={messageData.text}
+                time={messageData.createdAt}
+                isSender={(messageData.user._id === user.userData._id) ? true : false }
+              />
+            )
+          }
+          <div className="chat-typers">
+            {
+              typer.map((typerData, i) =>
+                <ChatTyper
+                  key={i}
+                  name={typerData.name}
+                  profilePicture={typerData.profilePicture}
+                />
+              )
+            }
+          </div>
+        </Container>
+      )
+    } else {
+      return (
+        <LoadingAnimation name="ball-clip-rotate" color="black" />
+      )
+    }
+  }
   handleScrollToBottom() {
     this.messagesBottom.scrollIntoView();
   }
@@ -78,41 +119,14 @@ class Chat extends Component {
         <Head title="Chat App" />
         {::this.handleSideDrawerRender()}
         <Header handleSideDrawerToggle={::this.handleSideDrawerToggle} />
-        <div
-          className="chat-box"
-          ref={(element) => { this.chatBox = element; }}
-        >
+        <div className="chat-box">
           <div className="chat-bubbles">
-            <Container fluid>
-              {
-                message.messages &&
-                message.messages.map((messageData, i) =>
-                  <ChatBubble
-                    key={i}
-                    userData={messageData.user}
-                    message={messageData.text}
-                    time={messageData.createdAt}
-                    isSender={(messageData.user._id === user.userData._id) ? true : false }
-                  />
-                )
-              }
-              <div className="chat-typers">
-                {
-                  typer.map((typerData, i) =>
-                    <ChatTyper
-                      key={i}
-                      name={typerData.name}
-                      profilePicture={typerData.profilePicture}
-                    />
-                  )
-                }
-              </div>
-              <div
-                style={{float: "left", clear: "both"}}
-                ref={(element) => { this.messagesBottom = element; }}
-              >
-              </div>
-            </Container>
+            {::this.handleChatBoxRender()}
+            <div
+              style={{float: "left", clear: "both"}}
+              ref={(element) => { this.messagesBottom = element; }}
+            >
+            </div>
           </div>
         </div>
         <ChatInput
@@ -142,8 +156,7 @@ const mapDispatchToProps = (dispatch) => {
     socketIsNotTyping,
     receiveChatRoom,
     fetchMessages,
-    sendMessage,
-    receiveMessage
+    sendMessage
   }, dispatch);
 }
 
