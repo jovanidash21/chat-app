@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
 import {
-  isTyping,
-  isNotTyping
+  socketIsTyping,
+  socketIsNotTyping
 } from '../../actions/typer';
 import { receiveChatRoom } from '../../actions/chat-room';
 import {
@@ -68,7 +68,9 @@ class Chat extends Component {
       user,
       typer,
       activeChatRoom,
-      message
+      message,
+      socketIsTyping,
+      socketIsNotTyping
     } = this.props;
 
     return (
@@ -116,6 +118,8 @@ class Chat extends Component {
         <ChatInput
           userData={user.userData}
           activeChatRoomData={activeChatRoom.chatRoomData}
+          handleSocketIsTyping={socketIsTyping}
+          handleSocketIsNotTyping={socketIsNotTyping}
           handleSendMessage={::this.handleSendMessage}
         />
       </div>
@@ -134,8 +138,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    isTyping,
-    isNotTyping,
+    socketIsTyping,
+    socketIsNotTyping,
     receiveChatRoom,
     fetchMessages,
     sendMessage,

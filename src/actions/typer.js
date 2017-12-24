@@ -1,18 +1,20 @@
 import {
-  IS_TYPING,
-  IS_NOT_TYPING
+  SOCKET_IS_TYPING,
+  SOCKET_IS_NOT_TYPING
 } from '../constants/typer';
 
-export function isTyping(typer) {
+export function socketIsTyping(typer, chatRoom) {
   return {
-    type: IS_TYPING,
-    typer
+    type: SOCKET_IS_TYPING,
+    typer: typer,
+    chatRoom: chatRoom
   };
 }
 
-export function isNotTyping(typer) {
+export function socketIsNotTyping(typer, chatRoom) {
   return {
-    type: IS_NOT_TYPING,
-    typer
+    type: SOCKET_IS_NOT_TYPING,
+    typer: typer,
+    chatRoom: chatRoom
   };
 }

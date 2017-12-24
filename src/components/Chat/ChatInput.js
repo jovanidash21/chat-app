@@ -19,16 +19,24 @@ class ChatInput extends Component {
   onMessageChange(event) {
     event.preventDefault();
 
-    const { typing } = this.state;
     const messageValue = event.target.value;
+    const {
+      userData,
+      activeChatRoomData,
+      handleSocketIsTyping,
+      handleSocketIsNotTyping
+    } = this.props
+    const { typing } = this.state;
 
     this.setState({message: messageValue});
 
     if ( (messageValue.length > 0) && (!typing) ) {
+      handleSocketIsTyping(userData, activeChatRoomData._id);
       this.setState({typing: true});
     }
 
     if ( (messageValue.length === 0) && (typing) ) {
+      handleSocketIsNotTyping(userData, activeChatRoomData._id);
       this.setState({typing: false});
     }
   }
@@ -86,6 +94,8 @@ class ChatInput extends Component {
 ChatInput.propTypes = {
   userData: PropTypes.object.isRequired,
   activeChatRoomData: PropTypes.object.isRequired,
+  handleSocketIsTyping: PropTypes.func.isRequired,
+  handleSocketIsNotTyping: PropTypes.func.isRequired,
   handleSendMessage: PropTypes.func.isRequired
 }
 
