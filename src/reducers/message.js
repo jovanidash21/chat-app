@@ -1,6 +1,7 @@
 import {
   FETCH_MESSAGES,
   SEND_MESSAGE,
+  SOCKET_SEND_MESSAGE,
   SOCKET_BROADCAST_SEND_MESSAGE
 } from '../constants/message';
 
@@ -32,11 +33,7 @@ const message = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isSendMessageSuccess: true,
-        messages: [
-          ...state.messages,
-          action.payload.data.messageData
-        ]
+        isSendMessageSuccess: true
       };
     case `${FETCH_MESSAGES}_ERROR`:
     case `${SEND_MESSAGE}_ERROR`:
@@ -45,12 +42,21 @@ const message = (state=initialState, action) => {
         isLoading: false,
         isError: true
       };
+    case SOCKET_SEND_MESSAGE:
+      return {
+        ...state,
+        messages: [
+          ...state.messages.filter((messageData) => messageData.newMessageID !== action.newMessageID),
+          action.message
+        ]
+      };
+    case SEND_MESSAGE:
     case SOCKET_BROADCAST_SEND_MESSAGE:
       return {
         ...state,
         messages: [
           ...state.messages,
-          action.payload
+          action.message
         ]
       };
     default:

@@ -5,6 +5,7 @@ import {
   Button
 } from 'muicss/react';
 import FontAwesome from 'react-fontawesome';
+import uuidv4 from 'uuid/v4';
 import './styles.scss';
 
 class ChatInput extends Component {
@@ -48,7 +49,9 @@ class ChatInput extends Component {
       handleSendMessage
     } = this.props;
     const { message } = this.state;
+    const newMessageID = uuidv4();
     const newMessage = {
+      newMessageID: newMessageID,
       text: message.trim(),
       user: userData,
       chatRoom: activeChatRoomData
