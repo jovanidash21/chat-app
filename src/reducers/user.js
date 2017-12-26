@@ -1,8 +1,12 @@
-import { FETCH_USER } from '../constants/user';
+import {
+  FETCH_USER,
+  FETCH_USERS
+} from '../constants/user';
 
 const initialState = {
   isLoading: false,
-  userData: {}
+  userData: {},
+  users: []
 };
 
 const user = (state=initialState, action) => {
@@ -18,6 +22,12 @@ const user = (state=initialState, action) => {
         isLoading: false,
         isSuccess: true,
         userData: action.payload.data
+      };
+    case `${FETCH_USERS}_SUCCESS`:
+      return {
+        ...state,
+        isSuccess: true,
+        users: action.payload.data
       };
     case `${FETCH_USER}_ERROR`:
       return {
