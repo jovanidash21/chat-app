@@ -6,6 +6,27 @@ class ChatRoom extends Component {
   constructor(props) {
     super(props);
   }
+  componentWillMount() {
+    const {
+      index,
+      userData,
+      chatRoomData,
+      handleSocketJoinChatRoom,
+      handleChangeChatRoom,
+      handleFetchMessages
+    } = this.props;
+
+    if (index === 0) {
+      const data = {
+        userID: userData._id,
+        chatRoomID: chatRoomData._id
+      };
+
+      handleSocketJoinChatRoom(chatRoomData._id);
+      handleChangeChatRoom(chatRoomData);
+      handleFetchMessages(data);
+    }
+  }
   handleChangeChatRoom(event) {
     event.preventDefault();
 
@@ -46,6 +67,7 @@ class ChatRoom extends Component {
 }
 
 ChatRoom.propTypes = {
+  index: PropTypes.number.isRequired,
   userData: PropTypes.object.isRequired,
   chatRoomData: PropTypes.object.isRequired,
   activeChatRoomData: PropTypes.object.isRequired,

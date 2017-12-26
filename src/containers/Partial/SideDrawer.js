@@ -52,6 +52,7 @@ class SideDrawer extends Component {
             chatRoom.chatRooms.map((chatRoomData, i) =>
               <ChatRoom
                 key={i}
+                index={i}
                 userData={user.userData}
                 chatRoomData={chatRoomData}
                 activeChatRoomData={activeChatRoom.chatRoomData}
