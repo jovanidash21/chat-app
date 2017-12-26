@@ -24,8 +24,6 @@
     @include flex(1);
     flex-direction: column;
     justify-content: flex-end;
-    padding-bottom: 15px;
-    padding-top: 15px;
     position: relative;
     .chat-bubbles {
       overflow-y: auto;
@@ -39,6 +37,10 @@
         background-color: $color-mine-shaft;
         border-radius: 5px;
       }
+    }
+    .mui-container-fluid {
+      padding-bottom: 15px;
+      padding-top: 15px;
     }
     .chat-no-messages {
       font-size: 17px;
