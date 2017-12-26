@@ -19,6 +19,12 @@ var sockets = function(socket) {
           typer: action.typer
         });
         break;
+      case 'SOCKET_CREATE_CHAT_ROOM':
+        socket.broadcast.emit('action', {
+          type: 'SOCKET_BROADCAST_CREATE_CHAT_ROOM',
+          chatRoom: action.chatRoom
+        });
+        break;
       case 'SOCKET_SEND_MESSAGE':
         socket.broadcast.to(action.chatRoom).emit('action', {
           type: 'SOCKET_BROADCAST_SEND_MESSAGE',

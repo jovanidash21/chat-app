@@ -1,4 +1,4 @@
-import { 
+import {
   LOGIN,
   REGISTER,
   LOGOUT
