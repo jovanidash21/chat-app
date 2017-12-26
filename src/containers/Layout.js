@@ -3,7 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router';
-import { fetchUser } from '../actions/user';
+import {
+  fetchUser,
+  fetchUsers
+} from '../actions/user';
 import LoadingAnimation from '../components/LoadingAnimation';
 
 class Layout extends Component {
@@ -11,9 +14,13 @@ class Layout extends Component {
     super(props);
   }
   componentWillMount() {
-    const { fetchUser } = this.props;
+    const {
+      fetchUser,
+      fetchUsers
+    } = this.props;
 
     fetchUser();
+    fetchUsers();
   }
   handleComponent(matchProps) {
     const {
@@ -48,7 +55,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    fetchUser
+    fetchUser,
+    fetchUsers
   }, dispatch);
 }
 
