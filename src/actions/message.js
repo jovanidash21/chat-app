@@ -27,13 +27,13 @@ export function sendMessage(message) {
     });
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post(`/api/message/${message.chatRoom._id}/${message.user._id}`, message)
+      payload: axios.post(`/api/message/${message.chatRoom._id}/${message.user._id}`, message),
+      meta: message.newMessageID
     })
     .then((response) => {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
-        newMessageID: message.newMessageID,
         chatRoom: message.chatRoom._id
       });
     })
