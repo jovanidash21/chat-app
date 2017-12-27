@@ -7,6 +7,7 @@ import {
   Checkbox,
   Button
 } from 'muicss/react';
+import Autosuggest from 'react-autosuggest';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 import './styles.scss';
@@ -17,6 +18,8 @@ class CreateChatRoomModal extends Component {
 
     this.state = {
       chatRoomName: '',
+      member: '',
+      suggestions: [],
       isPrivate: false
     }
   }
@@ -25,6 +28,32 @@ class CreateChatRoomModal extends Component {
 
     this.setState({chatRoomName: event.target.value});
   }
+  onMemberChange(event, {newValue}) {
+    this.setState({member: newValue});
+  };
+  handleGetSuggestions(value) {
+    const { users } = this.props;
+    const inputValue = value.trim().toLowerCase();
+    const inputLength = inputValue.length;
+
+    return inputLength === 0 ? [] : users.filter(user =>
+      user.name && user.name.toLowerCase().slice(0, inputLength) === inputValue
+    );
+  };
+  handleGetSuggestionValue(suggestion) {
+    return suggestion.name;
+  }
+  handleRenderSuggestion(suggestion){
+    return (
+      <div>{suggestion.name}</div>
+    );
+  }
+  onSuggestionsFetchRequested({value}) {
+    this.setState({suggestions: ::this.handleGetSuggestions(value)});
+  };
+  onSuggestionsClearRequested() {
+    this.setState({suggestions: []});
+  };
   onIsPrivateChange(event) {
     this.setState({isPrivate: event.target.isPrivate});
   }
@@ -54,7 +83,16 @@ class CreateChatRoomModal extends Component {
       handleDeactivateModal,
       isLoading
     } = this.props;
-    const { isPrivate } = this.state;
+    const {
+      member,
+      suggestions,
+      isPrivate
+    } = this.state;
+    const inputProps = {
+      placeholder: 'Member',
+      value: member,
+      onChange: ::this.onMemberChange
+    };
 
     return (
      <ModalContainer onClose={handleDeactivateModal}>
@@ -72,6 +110,14 @@ class CreateChatRoomModal extends Component {
               floatingLabel={true}
               required={true}
               onChange={::this.onChatRoomNameChange}
+            />
+            <Autosuggest
+              suggestions={suggestions}
+              onSuggestionsFetchRequested={::this.onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={::this.onSuggestionsClearRequested}
+              getSuggestionValue={::this.handleGetSuggestionValue}
+              renderSuggestion={::this.handleRenderSuggestion}
+              inputProps={inputProps}
             />
             <div className="modal-toggle">
               <label>
