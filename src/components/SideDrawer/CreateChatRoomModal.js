@@ -102,6 +102,7 @@ CreateChatRoomModal.propTypes = {
   handleDeactivateModal: PropTypes.func.isRequired,
   handleAddChatRoom: PropTypes.func.isRequired,
   userData: PropTypes.object.isRequired,
+  users: PropTypes.array.isRequired,
   isLoading: PropTypes.bool
 }
 
