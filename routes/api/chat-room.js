@@ -49,9 +49,16 @@ router.post('/:userID', function(req, res, next) {
 
         chatRoomData.members.forEach(function (chatRoomMember) {
           usersData.findByIdAndUpdate(
-            chatRoomMember._id,
+            chatRoomMember,
             { $push: { chatRooms: chatRoomID }},
-            { safe: true, upsert: true, new: true }
+            { safe: true, upsert: true, new: true },
+            function(err) {
+              if (!err) {
+                res.end();
+              } else {
+                res.end(err);
+              }
+            }
           );
         });
 
