@@ -8,6 +8,8 @@ import {
   Button
 } from 'muicss/react';
 import Autosuggest from 'react-autosuggest';
+import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
+import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 import './styles.scss';
@@ -43,9 +45,27 @@ class CreateChatRoomModal extends Component {
   handleGetSuggestionValue(suggestion) {
     return suggestion.name;
   }
-  handleRenderSuggestion(suggestion){
+  handleRenderSuggestion(suggestion, {query}) {
+    const suggestionText = suggestion.name;
+    const matches = AutosuggestHighlightMatch(suggestionText, query);
+    const parts = AutosuggestHighlightParse(suggestionText, matches);
+
     return (
-      <div>{suggestion.name}</div>
+      <span className="suggestion-content">
+        <div className="user-image" style={{backgroundImage: `url(${suggestion.profilePicture})`}}></div>
+        {
+          parts.map((part, i) => {
+            return (
+              <span
+                key={i}
+                className={"user-name " + (part.highlight ? 'highlight' : '')}
+              >
+                {part.text}
+              </span>
+            );
+          })
+        }
+      </span>
     );
   }
   onSuggestionsFetchRequested({value}) {

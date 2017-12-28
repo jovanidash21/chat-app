@@ -31,6 +31,72 @@
   .modal-title {
     margin-top: 0;
   }
+  .react-autosuggest__container {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .react-autosuggest__input {
+    border: 1px solid $color-dusty-gray;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 100%;
+    &:focus {
+      outline: none;
+    }
+  }
+  .react-autosuggest__suggestions-container {
+    display: none;
+  }
+  .react-autosuggest__container--open .react-autosuggest__suggestions-container {
+    background-color: #fff;
+    border: 1px solid $color-dusty-gray;
+    box-sizing: border-box;
+    display: block;
+    font-size: 16px;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+  }
+  .react-autosuggest__suggestions-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  .react-autosuggest__suggestion {
+    cursor: pointer;
+    padding: 10px 20px;
+    &:not(:first-child) {
+      border-top: 1px solid $color-gallery;
+    }
+  }
+  .react-autosuggest__suggestion--highlighted {
+    background-color: $color-dodger-blue !important;
+    .suggestion-content {
+      .user-name.highlight {
+        color: #fff;
+      }
+    }
+  }
+  .suggestion-content {
+    @include display-flex();
+    align-items: center;
+    .user-image {
+      $image-size: 27px;
+      background-size: $image-size;
+      border-radius: 50%;
+      height: $image-size;
+      margin-right: 10px;
+      width: $image-size;
+    }
+    .user-name {
+      color: #000;
+      &.highlight {
+        color: $color-dodger-blue;
+        font-weight: bold;
+      }
+    }
+  }
   .modal-toggle {
     margin-bottom: 20px;
     .react-toggle {
