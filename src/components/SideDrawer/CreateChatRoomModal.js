@@ -163,9 +163,6 @@ class CreateChatRoomModal extends Component {
             />
             <div className="members-list">
               {
-                members.length === 0 && 'Members'
-              }
-              {
                 members.map((memberData, i) =>
                   <div key={i} className="member-wrapper">
                     <div className="member" title={memberData.name}>
