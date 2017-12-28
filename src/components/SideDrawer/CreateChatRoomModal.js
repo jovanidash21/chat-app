@@ -20,8 +20,9 @@ class CreateChatRoomModal extends Component {
 
     this.state = {
       chatRoomName: '',
-      member: '',
+      selectMember: '',
       suggestions: [],
+      members: [],
       isPrivate: false
     }
   }
@@ -30,8 +31,8 @@ class CreateChatRoomModal extends Component {
 
     this.setState({chatRoomName: event.target.value});
   }
-  onMemberChange(event, {newValue}) {
-    this.setState({member: newValue});
+  onSelectMemberChange(event, {newValue}) {
+    this.setState({selectMember: newValue});
   };
   handleGetSuggestions(value) {
     const { users } = this.props;
@@ -67,6 +68,27 @@ class CreateChatRoomModal extends Component {
         }
       </span>
     );
+  }
+  onSuggestionSelected(event, suggestion) {
+    const { members } = this.state;
+    const selectedMember = suggestion.suggestion;
+
+    if (members.some((memberData) => memberData._id === selectedMember._id)) {
+      this.setState({
+        members: [
+          ...members.filter((memberData) => memberData._id !== selectedMember._id)
+        ]
+      });
+    } else {
+      this.setState({
+        members: [
+          ...members.filter((memberData) => memberData._id !== selectedMember._id),
+          selectedMember
+        ]
+      });
+    }
+
+    this.setState({selectMember: ''});
   }
   onSuggestionsFetchRequested({value}) {
     this.setState({suggestions: ::this.handleGetSuggestions(value)});
@@ -104,14 +126,15 @@ class CreateChatRoomModal extends Component {
       isLoading
     } = this.props;
     const {
-      member,
+      selectMember,
       suggestions,
+      members,
       isPrivate
     } = this.state;
     const inputProps = {
-      placeholder: 'Member',
-      value: member,
-      onChange: ::this.onMemberChange
+      placeholder: 'Select a member',
+      value: selectMember,
+      onChange: ::this.onSelectMemberChange
     };
 
     return (
@@ -131,6 +154,27 @@ class CreateChatRoomModal extends Component {
               required={true}
               onChange={::this.onChatRoomNameChange}
             />
+            <div className="members-list">
+              {
+                members.length === 0 && 'Members'
+              }
+              {
+                members.map((memberData, i) =>
+                  <div key={i} className="member-wrapper">
+                    <div className="member">
+                      <div
+                        className="member-image"
+                        style={{backgroundImage: `url(${memberData.profilePicture})`}}
+                        title={memberData.name}
+                      />
+                      <div className="member-name">
+                        {memberData.name}
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
+            </div>
             <Autosuggest
               suggestions={suggestions}
               onSuggestionsFetchRequested={::this.onSuggestionsFetchRequested}
@@ -138,6 +182,8 @@ class CreateChatRoomModal extends Component {
               getSuggestionValue={::this.handleGetSuggestionValue}
               renderSuggestion={::this.handleRenderSuggestion}
               inputProps={inputProps}
+              onSuggestionSelected={::this.onSuggestionSelected}
+              highlightFirstSuggestion={true}
             />
             <div className="modal-toggle">
               <label>

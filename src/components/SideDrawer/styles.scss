@@ -31,6 +31,46 @@
   .modal-title {
     margin-top: 0;
   }
+  .members-list {
+    border: 1px solid $color-dusty-gray;
+    color: $color-dusty-gray;
+    font-size: 16px;
+    margin-bottom: 10px;
+    min-height: 20px;
+    padding: 4px;
+    .member-wrapper {
+      display: inline-block;
+      padding: 1px;
+    }
+    .member {
+      @include display-flex();
+      align-items: center;
+      background-color: $color-dusty-gray;
+      border-radius: 12px;
+      flex-shrink: 0;
+      font-size: 14px;
+      overflow: hidden;
+      padding: 3px;
+      width: 100px;
+    }
+    .member-image {
+      $image-size: 20px;
+      @include flex(0 0 $image-size);
+      background-size: $image-size;
+      border-radius: 50%;
+      margin-right: 5px;
+      height: $image-size;
+      width: $image-size;
+    }
+    .member-name {
+      color: #fff;
+      display: inline;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 70px;
+      white-space: nowrap;
+    }
+  }
   .react-autosuggest__container {
     margin-bottom: 20px;
     position: relative;
@@ -39,7 +79,7 @@
     border: 1px solid $color-dusty-gray;
     box-sizing: border-box;
     font-size: 16px;
-    padding: 10px 20px;
+    padding: 5px 4px;
     width: 100%;
     &:focus {
       outline: none;
