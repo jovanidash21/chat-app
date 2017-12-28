@@ -22,7 +22,7 @@ class CreateChatRoomModal extends Component {
       chatRoomName: '',
       selectMember: '',
       suggestions: [],
-      members: [],
+      members: [this.props.userData],
       isPrivate: false
     }
   }
@@ -35,12 +35,17 @@ class CreateChatRoomModal extends Component {
     this.setState({selectMember: newValue});
   };
   handleGetSuggestions(value) {
-    const { users } = this.props;
+    const {
+      userData,
+      users
+    } = this.props;
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
     return inputLength === 0 ? [] : users.filter(user =>
-      user.name && user.name.toLowerCase().slice(0, inputLength) === inputValue
+      userData._id !== user._id &&
+      user.name &&
+      user.name.toLowerCase().slice(0, inputLength) === inputValue
     );
   };
   handleGetSuggestionValue(suggestion) {
@@ -163,11 +168,10 @@ class CreateChatRoomModal extends Component {
               {
                 members.map((memberData, i) =>
                   <div key={i} className="member-wrapper">
-                    <div className="member">
+                    <div className="member" title={memberData.name}>
                       <div
                         className="member-image"
                         style={{backgroundImage: `url(${memberData.profilePicture})`}}
-                        title={memberData.name}
                       />
                       <div className="member-name">
                         {memberData.name}
