@@ -38,8 +38,8 @@ router.post('/:userID', function(req, res, next) {
   } else {
     var chatRoomData = {
       name: req.body.name,
-      private: req.body.private,
-      members: [userID]
+      members: req.body.members,
+      private: req.body.private
     };
     var chatRoom = new chatRoomsData(chatRoomData);
 
@@ -47,25 +47,19 @@ router.post('/:userID', function(req, res, next) {
       if (!err) {
         var chatRoomID = chatRoom._id;
 
-        usersData.findByIdAndUpdate(
-          userID,
-          { $push: { chatRooms: chatRoomID }},
-          { safe: true, upsert: true, new: true },
-          function(err, results) {
-            if (!err) {
-              res.status(200).send({
-                success: true,
-                message: 'Chat Room Created.',
-                chatRoomData: chatRoomData
-              });
-            } else {
-              res.status(500).send({
-                success: false,
-                message: 'Server Error!'
-              });
-            }
-          }
-        );
+        chatRoomData.members.forEach(function (chatRoomMember) {
+          usersData.findByIdAndUpdate(
+            chatRoomMember._id,
+            { $push: { chatRooms: chatRoomID }},
+            { safe: true, upsert: true, new: true }
+          );
+        });
+
+        res.status(200).send({
+          success: true,
+          message: 'Chat Room Created.',
+          chatRoomData: chatRoomData
+        });
       } else {
         res.status(500).send({
           success: false,

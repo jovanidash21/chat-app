@@ -109,10 +109,12 @@ class CreateChatRoomModal extends Component {
     } = this.props;
     const {
       chatRoomName,
+      members,
       isPrivate
     } = this.state;
     let data = {
       name: chatRoomName,
+      members: members,
       private: isPrivate,
       userID: userData._id
     }
