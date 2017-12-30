@@ -38,9 +38,15 @@ var sockets = function(socket) {
         });
         break;
       case 'SOCKET_CREATE_CHAT_ROOM':
-        socket.broadcast.emit('action', {
-          type: 'SOCKET_BROADCAST_CREATE_CHAT_ROOM',
-          chatRoom: action.chatRoom
+        action.members.forEach(function (chatRoomMember) {
+          usersData.findById(chatRoomMember, function(err, user) {
+            if (!err) {
+              socket.broadcast.to(user.socketID).emit('action', {
+                type: 'SOCKET_BROADCAST_CREATE_CHAT_ROOM',
+                chatRoom: action.chatRoom
+              });
+            }
+          });
         });
         break;
       case 'SOCKET_SEND_MESSAGE':

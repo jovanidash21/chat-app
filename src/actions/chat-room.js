@@ -30,7 +30,8 @@ export function createChatRoom(data) {
     .then((response) => {
       dispatch({
         type: SOCKET_CREATE_CHAT_ROOM,
-        chatRoom: response.action.payload.data.chatRoomData
+        chatRoom: response.action.payload.data.chatRoomData,
+        members: response.action.payload.data.chatRoomData.members
       });
     })
     .catch((error) => {
