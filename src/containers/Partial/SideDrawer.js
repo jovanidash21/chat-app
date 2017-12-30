@@ -14,7 +14,7 @@ import { changeChatRoom } from '../../actions/active-chat-room';
 import { fetchMessages } from '../../actions/message';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatRoom from '../../components/SideDrawer/ChatRoom';
-import CreateChatRoomModal from '../../components/SideDrawer/CreateChatRoomModal';
+import CreateChatRoomModal from './CreateChatRoomModal';
 import '../../styles/SideDrawer.scss';
 
 class SideDrawer extends Component {

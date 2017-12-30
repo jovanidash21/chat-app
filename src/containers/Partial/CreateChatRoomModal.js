@@ -12,7 +12,6 @@ import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
 import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
-import './styles.scss';
 
 class CreateChatRoomModal extends Component {
   constructor(props) {
