@@ -8,12 +8,16 @@ class OptionsDropdown extends Component {
   constructor(props) {
     super(props);
   }
+
   handleLogout(event) {
     event.preventDefault();
 
-    const { handleLogout } = this.props;
+    const {
+      userData,
+      handleLogout
+    } = this.props;
 
-    handleLogout();
+    handleLogout(userData._id);
   }
   render() {
     const { userData } = this.props;

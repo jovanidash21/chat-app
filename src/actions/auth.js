@@ -6,7 +6,9 @@ import { sendEmail } from './email';
 import {
   LOGIN,
   REGISTER,
-  LOGOUT
+  LOGOUT,
+  SOCKET_USER_LOGIN,
+  SOCKET_USER_LOGOUT
 } from '../constants/auth';
 
 export function localLogin(data) {
@@ -17,7 +19,11 @@ export function localLogin(data) {
       type: LOGIN,
       payload: axios.post('/api/login/local', data)
     })
-    .then(() => {
+    .then((response) => {
+      dispatch({
+        type: SOCKET_USER_LOGIN,
+        user: response.action.payload.data.userData._id,
+      });
       dispatch(hideLoading());
       dispatch(push('/chat'));
     })
@@ -34,16 +40,20 @@ export function facebookLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup('/api/login/facebook', 'Facebook Login', {}, function (err) {
+        popupTools.popup('/api/login/facebook', 'Facebook Login', {}, function (err, res) {
           if (!err) {
-            resolve();
+            resolve(res);
           } else {
             reject(err);
           }
         });
       })
     })
-    .then(() => {
+    .then((response) => {
+      dispatch({
+        type: SOCKET_USER_LOGIN,
+        user: response.action.payload.userData._id,
+      });
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -54,21 +64,25 @@ export function facebookLogin() {
   }
 }
 
-export function googleLogin() { 
+export function googleLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup('/api/login/google', 'Google Login', {}, function (err) {
+        popupTools.popup('/api/login/google', 'Google Login', {}, function (err, res) {
           if (!err) {
-            resolve();
+            resolve(res);
           } else {
             reject(err);
           }
         });
       })
     })
-    .then(() => {
+    .then((response) => {
+      dispatch({
+        type: SOCKET_USER_LOGIN,
+        user: response.action.payload.userData._id,
+      });
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -79,21 +93,25 @@ export function googleLogin() {
   }
 }
 
-export function twitterLogin() { 
+export function twitterLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup('/api/login/twitter', 'Twitter Login', {}, function (err) {
+        popupTools.popup('/api/login/twitter', 'Twitter Login', {}, function (err, res) {
           if (!err) {
-            resolve();
+            resolve(res);
           } else {
             reject(err);
           }
         });
       })
     })
-    .then(() => {
+    .then((response) => {
+      dispatch({
+        type: SOCKET_USER_LOGIN,
+        user: response.action.payload.userData._id,
+      });
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -109,16 +127,20 @@ export function instagramLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup('/api/login/instagram', 'Instagram Login', {}, function (err) {
+        popupTools.popup('/api/login/instagram', 'Instagram Login', {}, function (err, res) {
           if (!err) {
-            resolve();
+            resolve(res);
           } else {
             reject(err);
           }
         });
       })
     })
-    .then(() => {
+    .then((response) => {
+      dispatch({
+        type: SOCKET_USER_LOGIN,
+        user: response.action.payload.userData._id,
+      });
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -126,7 +148,7 @@ export function instagramLogin() {
         console.log(error);
       }
     });
-  } 
+  }
 }
 
 export function linkedinLogin() {
@@ -134,16 +156,20 @@ export function linkedinLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup('/api/login/linkedin', 'LinkedIn Login', {}, function (err) {
+        popupTools.popup('/api/login/linkedin', 'LinkedIn Login', {}, function (err, res) {
           if (!err) {
-            resolve();
+            resolve(res);
           } else {
             reject(err);
           }
         });
       })
     })
-    .then(() => {
+    .then((response) => {
+      dispatch({
+        type: SOCKET_USER_LOGIN,
+        user: response.action.payload.userData._id,
+      });
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -151,7 +177,7 @@ export function linkedinLogin() {
         console.log(error);
       }
     });
-  } 
+  }
 }
 
 export function githubLogin() {
@@ -159,16 +185,20 @@ export function githubLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup('/api/login/github', 'GitHub Login', {}, function (err) {
+        popupTools.popup('/api/login/github', 'GitHub Login', {}, function (err, res) {
           if (!err) {
-            resolve();
+            resolve(res);
           } else {
             reject(err);
           }
         });
       })
     })
-    .then(() => {
+    .then((response) => {
+      dispatch({
+        type: SOCKET_USER_LOGIN,
+        user: response.action.payload.userData._id,
+      });
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -176,7 +206,7 @@ export function githubLogin() {
         console.log(error);
       }
     });
-  } 
+  }
 }
 
 export function register(data) {
@@ -187,7 +217,11 @@ export function register(data) {
       type: REGISTER,
       payload: axios.post('/api/register', data)
     })
-    .then(() => {
+    .then((response) => {
+      dispatch({
+        type: SOCKET_USER_LOGIN,
+        user: response.action.payload.data.userData._id,
+      });
       dispatch(hideLoading());
       dispatch(sendEmail(data));
       dispatch(push('/chat'));
@@ -200,7 +234,7 @@ export function register(data) {
   }
 }
 
-export function logout() {
+export function logout(user) {
   return dispatch => {
     dispatch(showLoading());
 
@@ -209,6 +243,10 @@ export function logout() {
       payload: axios.post('/api/logout')
     })
     .then(() => {
+      dispatch({
+        type: SOCKET_USER_LOGOUT,
+        user: user,
+      });
       dispatch(hideLoading());
       dispatch(push('/'));
     })
