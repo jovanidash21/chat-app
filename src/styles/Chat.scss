@@ -38,6 +38,14 @@
         border-radius: 5px;
       }
     }
+    .user-no-chat-rooms {
+      @include transform-translate(-50%, -50%);
+      font-size: 21px;
+      left: 50%;
+      position: absolute;
+      text-align: center;
+      top: 50%;
+    }
     .mui-container-fluid {
       padding-bottom: 15px;
       padding-top: 15px;

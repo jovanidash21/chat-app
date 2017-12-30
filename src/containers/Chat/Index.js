@@ -68,10 +68,17 @@ class Chat extends Component {
     const {
       user,
       typer,
+      chatRoom,
       message
     } = this.props;
 
-    if (!message.isLoading && message.isFetchMessagesSuccess) {
+    if (chatRoom.chatRooms.length === 0) {
+      return (
+        <div className="user-no-chat-rooms">
+          Hi! Welcome, create your first Chat Room now.
+        </div>
+      )
+    } else if (!message.isLoading && message.isFetchMessagesSuccess) {
       return (
         <Container fluid>
           {
@@ -159,6 +166,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     typer: state.typer,
+    chatRoom: state.chatRoom,
     activeChatRoom: state.activeChatRoom,
     message: state.message
   }
