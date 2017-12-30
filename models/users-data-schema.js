@@ -12,13 +12,14 @@ var usersDataSchema = new Schema
     name: String,
     email: String,
     profilePicture: {
-      type:String,
+      type: String,
       default: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-profile-picture.jpg'
     },
     chatRooms: [{
       type: Schema.Types.ObjectId,
       ref: 'chatRoomsData'
-    }]
+    }],
+    socketID: String
   },
   {
     collection: 'usersData'
