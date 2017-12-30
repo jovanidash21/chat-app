@@ -21,13 +21,13 @@ passport.use(new Strategy({
   } else {
     email = '';
   }
-  
+
   if (profile.photos !== undefined) {
     profilePicture = profile.photos[0].value;
   } else {
     profilePicture = '';
   }
-  
+
   var userData = {
     username: username,
     name: name,
@@ -67,7 +67,7 @@ router.get('/', passport.authenticate('facebook', {
 }));
 
 router.get('/callback', passport.authenticate('facebook'), function(req, res) {
-  res.end(popupTools.popupResponse(req.user));
+  res.send(popupTools.popupResponse({userData: req.user}));
 });
 
 module.exports = router;

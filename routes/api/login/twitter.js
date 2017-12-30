@@ -28,7 +28,7 @@ passport.use(new Strategy({
   } else {
     profilePicture = '';
   }
-  
+
   var userData = {
     username: username,
     name: name,
@@ -66,7 +66,7 @@ passport.use(new Strategy({
 router.get('/', passport.authenticate('twitter'));
 
 router.get('/callback', passport.authenticate('twitter'), function(req, res) {
-  res.end(popupTools.popupResponse(req.user));
+  res.send(popupTools.popupResponse({userData: req.user}));
 });
 
 module.exports = router;

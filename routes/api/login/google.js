@@ -21,7 +21,7 @@ passport.use(new Strategy({
   } else {
     profilePicture = '';
   }
-  
+
   var userData = {
     username: username,
     name: name,
@@ -56,15 +56,15 @@ passport.use(new Strategy({
   });
 }));
 
-router.get('/', passport.authenticate('google', { 
-  scope: [ 
+router.get('/', passport.authenticate('google', {
+  scope: [
     'https://www.googleapis.com/auth/plus.login',
-    'https://www.googleapis.com/auth/plus.profile.emails.read' 
-  ] 
+    'https://www.googleapis.com/auth/plus.profile.emails.read'
+  ]
 }));
 
 router.get('/callback', passport.authenticate('google'), function(req, res) {
-  res.end(popupTools.popupResponse(req.user));
+  res.send(popupTools.popupResponse({userData: req.user}));
 });
 
 module.exports = router;
