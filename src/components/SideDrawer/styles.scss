@@ -26,30 +26,3 @@
     width: 180px;
   }
 }
-.add-chat-room-modal {
-  border-radius: 0 !important;
-  .modal-title {
-    margin-top: 0;
-  }
-  .members-list {
-    border: 1px solid $color-dusty-gray;
-    margin-bottom: 10px;
-    min-height: 20px;
-    padding: 4px;
-  }
-  .modal-toggle {
-    margin-bottom: 20px;
-    .react-toggle {
-      margin-right: 8px;
-      vertical-align: middle;
-    }
-  }
-  .modal-button {
-    background-color: $color-chateau-green;
-    color: #fff;
-    display: block;
-    padding: 0;
-    width: 100%;
-    position: relative;
-  }
-}

@@ -7,12 +7,11 @@ import {
   Form,
   Button
 } from 'muicss/react';
-import Toggle from 'react-toggle';
 import { createChatRoom } from '../../actions/chat-room';
 import ChatRoomNameInput from '../../components/CreateChatRoomModal/ChatRoomNameInput';
 import ChatMember from '../../components/CreateChatRoomModal/ChatMember';
 import ChatMemberSelect from '../../components/CreateChatRoomModal/ChatMemberSelect';
-import 'react-toggle/style.css';
+import '../../styles/CreateChatRoomModal.scss';
 
 class CreateChatRoomModal extends Component {
   constructor(props) {
@@ -20,8 +19,7 @@ class CreateChatRoomModal extends Component {
 
     this.state = {
       chatRoomName: '',
-      members: [this.props.user.userData],
-      isPrivate: false
+      members: [this.props.user.userData]
     }
   }
   onChatRoomNameChange(event) {
@@ -57,9 +55,6 @@ class CreateChatRoomModal extends Component {
       ]
     });
   }
-  onIsPrivateChange(event) {
-    this.setState({isPrivate: event.target.isPrivate});
-  }
   handleAddChatRoom(event) {
     event.preventDefault();
 
@@ -70,13 +65,11 @@ class CreateChatRoomModal extends Component {
     } = this.props;
     const {
       chatRoomName,
-      members,
-      isPrivate
+      members
     } = this.state;
     let data = {
       name: chatRoomName,
       members: members,
-      private: isPrivate,
       userID: user.userData._id
     }
 
@@ -89,10 +82,7 @@ class CreateChatRoomModal extends Component {
       handleDeactivateModal,
       isLoading
     } = this.props;
-    const {
-      members,
-      isPrivate
-    } = this.state;
+    const { members } = this.state;
 
     return (
      <ModalContainer onClose={handleDeactivateModal}>
@@ -121,15 +111,6 @@ class CreateChatRoomModal extends Component {
               users={user.users}
               onSuggestionSelected={::this.onSuggestionSelected}
             />
-            <div className="modal-toggle">
-              <label>
-                <Toggle
-                  defaultChecked={isPrivate}
-                  onChange={::this.onIsPrivateChange}
-                />
-                <span>Private</span>
-              </label>
-            </div>
             <Button
               className="modal-button"
               size="large"
