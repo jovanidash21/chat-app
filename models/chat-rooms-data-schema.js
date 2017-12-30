@@ -9,7 +9,6 @@ var chatRoomsDataSchema = new Schema
 (
   {
     name: String,
-    private: Boolean,
     chatIcon: {
       type: String,
       default: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg'
