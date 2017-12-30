@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
+import { socketUserLogin } from '../../actions/auth';
 import {
   socketIsTyping,
   socketIsNotTyping
@@ -29,6 +30,14 @@ class Chat extends Component {
       isOpen: false
     };
   }
+  componentWillMount() {
+    const {
+      user,
+      socketUserLogin
+    } = this.props;
+
+    socketUserLogin(user.userData._id);
+  }
   componentDidMount() {
     ::this.handleScrollToBottom();
   }
@@ -45,7 +54,7 @@ class Chat extends Component {
             <SideDrawer
               handleSideDrawerToggle={::this.handleSideDrawerToggle}
               isOpen={matches ? isOpen : true}
-              noOverlay={matches ? false : true }
+              noOverlay={matches ? false : true}
             />
           )
         }}
@@ -157,6 +166,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
+    socketUserLogin,
     socketIsTyping,
     socketIsNotTyping,
     receiveChatRoom,

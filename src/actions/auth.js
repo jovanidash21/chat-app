@@ -11,6 +11,13 @@ import {
   SOCKET_USER_LOGOUT
 } from '../constants/auth';
 
+export function socketUserLogin(user) {
+  return {
+    type: SOCKET_USER_LOGIN,
+    user: user,
+  }
+}
+
 export function localLogin(data) {
   return dispatch => {
     dispatch(showLoading());
@@ -20,10 +27,6 @@ export function localLogin(data) {
       payload: axios.post('/api/login/local', data)
     })
     .then((response) => {
-      dispatch({
-        type: SOCKET_USER_LOGIN,
-        user: response.action.payload.data.userData._id,
-      });
       dispatch(hideLoading());
       dispatch(push('/chat'));
     })
@@ -49,11 +52,7 @@ export function facebookLogin() {
         });
       })
     })
-    .then((response) => {
-      dispatch({
-        type: SOCKET_USER_LOGIN,
-        user: response.action.payload.userData._id,
-      });
+    .then(() => {
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -78,11 +77,7 @@ export function googleLogin() {
         });
       })
     })
-    .then((response) => {
-      dispatch({
-        type: SOCKET_USER_LOGIN,
-        user: response.action.payload.userData._id,
-      });
+    .then(() => {
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -107,11 +102,7 @@ export function twitterLogin() {
         });
       })
     })
-    .then((response) => {
-      dispatch({
-        type: SOCKET_USER_LOGIN,
-        user: response.action.payload.userData._id,
-      });
+    .then(() => {
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -136,11 +127,7 @@ export function instagramLogin() {
         });
       })
     })
-    .then((response) => {
-      dispatch({
-        type: SOCKET_USER_LOGIN,
-        user: response.action.payload.userData._id,
-      });
+    .then(() => {
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -165,11 +152,7 @@ export function linkedinLogin() {
         });
       })
     })
-    .then((response) => {
-      dispatch({
-        type: SOCKET_USER_LOGIN,
-        user: response.action.payload.userData._id,
-      });
+    .then(() => {
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -194,11 +177,7 @@ export function githubLogin() {
         });
       })
     })
-    .then((response) => {
-      dispatch({
-        type: SOCKET_USER_LOGIN,
-        user: response.action.payload.userData._id,
-      });
+    .then(() => {
       dispatch(push('/chat'));
     })
     .catch((error) => {
@@ -217,11 +196,7 @@ export function register(data) {
       type: REGISTER,
       payload: axios.post('/api/register', data)
     })
-    .then((response) => {
-      dispatch({
-        type: SOCKET_USER_LOGIN,
-        user: response.action.payload.data.userData._id,
-      });
+    .then(() => {
       dispatch(hideLoading());
       dispatch(sendEmail(data));
       dispatch(push('/chat'));
