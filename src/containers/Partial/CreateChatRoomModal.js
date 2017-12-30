@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { ModalContainer, ModalDialog } from 'react-modal-dialog';
 import {
   Form,
-  Input,
-  Checkbox,
   Button
 } from 'muicss/react';
-import Autosuggest from 'react-autosuggest';
-import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
-import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 import Toggle from 'react-toggle';
+import { createChatRoom } from '../../actions/chat-room';
+import ChatRoomNameInput from '../../components/CreateChatRoomModal/ChatRoomNameInput';
+import ChatMember from '../../components/CreateChatRoomModal/ChatMember';
+import ChatMemberSelect from '../../components/CreateChatRoomModal/ChatMemberSelect';
 import 'react-toggle/style.css';
 
 class CreateChatRoomModal extends Component {
@@ -19,9 +20,7 @@ class CreateChatRoomModal extends Component {
 
     this.state = {
       chatRoomName: '',
-      selectMember: '',
-      suggestions: [],
-      members: [this.props.userData],
+      members: [this.props.user.userData],
       isPrivate: false
     }
   }
@@ -29,49 +28,6 @@ class CreateChatRoomModal extends Component {
     event.preventDefault();
 
     this.setState({chatRoomName: event.target.value});
-  }
-  onSelectMemberChange(event, {newValue}) {
-    this.setState({selectMember: newValue});
-  };
-  handleGetSuggestions(value) {
-    const {
-      userData,
-      users
-    } = this.props;
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
-
-    return inputLength === 0 ? [] : users.filter(user =>
-      userData._id !== user._id &&
-      user.name &&
-      user.name.toLowerCase().slice(0, inputLength) === inputValue
-    );
-  };
-  handleGetSuggestionValue(suggestion) {
-    return suggestion.name;
-  }
-  handleRenderSuggestion(suggestion, {query}) {
-    const suggestionText = suggestion.name;
-    const matches = AutosuggestHighlightMatch(suggestionText, query);
-    const parts = AutosuggestHighlightParse(suggestionText, matches);
-
-    return (
-      <span className="suggestion-content">
-        <div className="user-image" style={{backgroundImage: `url(${suggestion.profilePicture})`}}></div>
-        {
-          parts.map((part, i) => {
-            return (
-              <span
-                key={i}
-                className={"user-name " + (part.highlight ? 'highlight' : '')}
-              >
-                {part.text}
-              </span>
-            );
-          })
-        }
-      </span>
-    );
   }
   onSuggestionSelected(event, suggestion) {
     const { members } = this.state;
@@ -91,15 +47,16 @@ class CreateChatRoomModal extends Component {
         ]
       });
     }
-
-    this.setState({selectMember: ''});
   }
-  onSuggestionsFetchRequested({value}) {
-    this.setState({suggestions: ::this.handleGetSuggestions(value)});
-  };
-  onSuggestionsClearRequested() {
-    this.setState({suggestions: []});
-  };
+  handleDeselectMember(member) {
+    const { members } = this.state;
+
+    this.setState({
+      members: [
+        ...members.filter((memberData) => memberData._id !== member._id)
+      ]
+    });
+  }
   onIsPrivateChange(event) {
     this.setState({isPrivate: event.target.isPrivate});
   }
@@ -107,9 +64,9 @@ class CreateChatRoomModal extends Component {
     event.preventDefault();
 
     const {
-      handleDeactivateModal,
-      handleAddChatRoom,
-      userData
+      user,
+      createChatRoom,
+      handleDeactivateModal
     } = this.props;
     const {
       chatRoomName,
@@ -120,28 +77,22 @@ class CreateChatRoomModal extends Component {
       name: chatRoomName,
       members: members,
       private: isPrivate,
-      userID: userData._id
+      userID: user.userData._id
     }
 
+    createChatRoom(data);
     handleDeactivateModal();
-    handleAddChatRoom(data);
   }
   render() {
     const {
+      user,
       handleDeactivateModal,
       isLoading
     } = this.props;
     const {
-      selectMember,
-      suggestions,
       members,
       isPrivate
     } = this.state;
-    const inputProps = {
-      placeholder: 'Select a member',
-      value: selectMember,
-      onChange: ::this.onSelectMemberChange
-    };
 
     return (
      <ModalContainer onClose={handleDeactivateModal}>
@@ -152,40 +103,23 @@ class CreateChatRoomModal extends Component {
         >
           <Form onSubmit={::this.handleAddChatRoom}>
             <h2 className="modal-title">Add Chat Room</h2>
-            <Input
-              label="Chat Room Name"
-              type="text"
-              autoComplete="off"
-              floatingLabel={true}
-              required={true}
-              onChange={::this.onChatRoomNameChange}
-            />
+            <ChatRoomNameInput  onChatRoomNameChange={::this.onChatRoomNameChange} />
             <div className="members-list">
               {
                 members.map((memberData, i) =>
-                  <div key={i} className="member-wrapper">
-                    <div className="member" title={memberData.name}>
-                      <div
-                        className="member-image"
-                        style={{backgroundImage: `url(${memberData.profilePicture})`}}
-                      />
-                      <div className="member-name">
-                        {memberData.name}
-                      </div>
-                    </div>
-                  </div>
+                  <ChatMember
+                    key={i}
+                    index={i}
+                    memberData={memberData}
+                    handleDeselectMember={::this.handleDeselectMember}
+                  />
                 )
               }
             </div>
-            <Autosuggest
-              suggestions={suggestions}
-              onSuggestionsFetchRequested={::this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={::this.onSuggestionsClearRequested}
-              getSuggestionValue={::this.handleGetSuggestionValue}
-              renderSuggestion={::this.handleRenderSuggestion}
-              inputProps={inputProps}
+            <ChatMemberSelect
+              userData={user.userData}
+              users={user.users}
               onSuggestionSelected={::this.onSuggestionSelected}
-              highlightFirstSuggestion={true}
             />
             <div className="modal-toggle">
               <label>
@@ -212,11 +146,20 @@ class CreateChatRoomModal extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    createChatRoom
+  }, dispatch);
+}
+
 CreateChatRoomModal.propTypes = {
   handleDeactivateModal: PropTypes.func.isRequired,
-  handleAddChatRoom: PropTypes.func.isRequired,
-  userData: PropTypes.object.isRequired,
-  users: PropTypes.array.isRequired,
   isLoading: PropTypes.bool
 }
 
@@ -224,4 +167,7 @@ CreateChatRoomModal.defaultProps = {
   isLoading: false
 }
 
-export default CreateChatRoomModal;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CreateChatRoomModal);

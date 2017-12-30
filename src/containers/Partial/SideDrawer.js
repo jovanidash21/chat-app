@@ -106,9 +106,6 @@ class SideDrawer extends Component {
             showModal &&
             <CreateChatRoomModal
               handleDeactivateModal={::this.handleDeactivateModal}
-              handleAddChatRoom={createChatRoom}
-              userData={user.userData}
-              users={user.users}
               isLoading={chatRoom.isLoading}
             />
           }
