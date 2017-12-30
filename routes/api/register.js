@@ -16,12 +16,13 @@ router.post('/', function(req, res, next) {
         req.logIn(user, function(err) {
           if (!err ) {
             res.status(200).send({
-              success: true, 
-              message: 'Login Successful.'
+              success: true,
+              message: 'Login Successful.',
+              userData: user
             });
           } else {
             res.status(500).send({
-              success: false, 
+              success: false,
               message: 'Server Error!'
             });
           }
@@ -29,7 +30,7 @@ router.post('/', function(req, res, next) {
       })(req, res, next);
     } else {
       res.status(401).send({
-        success: false, 
+        success: false,
         message: 'Username already exist.'
       });
     }
