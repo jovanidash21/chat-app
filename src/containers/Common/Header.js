@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
+import FontAwesome from 'react-fontawesome';
 import {
   Appbar,
   Container
 } from 'muicss/react/';
 import { logout } from '../../actions/auth';
-import SideBarToggler from '../../components/Header/SideBarToggler';
 import OptionsDropdown from '../../components/Header/OptionsDropdown';
 import '../../styles/Header.scss';
 
@@ -29,10 +30,32 @@ class Header extends Component {
           <tbody>
             <tr style={{verticalAlign: 'middle'}}>
               <td className="mui--appbar-height">
-                <SideBarToggler
-                  activeChatRoomData={activeChatRoom.chatRoomData}
-                  handleSideDrawerToggle={handleSideDrawerToggle}
-                />
+                <div className="side-bar-toggler" onClick={handleSideDrawerToggle}>
+                  <MediaQuery query="(max-width: 767px)">
+                    <FontAwesome className="icon" name="bars" size="2x" />
+                  </MediaQuery>
+                  <h2 className="chat-room-name" data-mui-toggle="dropdown">
+                    {activeChatRoom.chatRoomData.name}
+                  </h2>
+                  <ul className="mui-dropdown__menu">
+                    {
+                      activeChatRoom.chatRoomData.members &&
+                      activeChatRoom.chatRoomData.members.map((chatRoomMember, i) =>
+                        <li key={i} className="chat-room-member-wrapper">
+                          <div className="member" title={chatRoomMember.name}>
+                            <div
+                              className="member-image"
+                              style={{backgroundImage: `url(${chatRoomMember.profilePicture})`}}
+                            />
+                            <div className="member-name">
+                              {chatRoomMember.name}
+                            </div>
+                          </div>
+                        </li>
+                      )
+                    }
+                  </ul>
+                </div>
               </td>
               <td className="mui--appbar-height mui--text-right">
                 <OptionsDropdown
