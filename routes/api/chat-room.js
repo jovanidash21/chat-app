@@ -51,26 +51,36 @@ router.post('/:userID', function(req, res, next) {
       if (!err) {
         var chatRoomID = chatRoom._id;
 
-        chatRoomData.members.forEach(function (chatRoomMember) {
-          usersData.findByIdAndUpdate(
-            chatRoomMember,
-            { $push: { chatRooms: chatRoomID }},
-            { safe: true, upsert: true, new: true },
-            function(err) {
-              if (!err) {
-                res.end();
-              } else {
-                res.end(err);
-              }
+        chatRoomsData.findById(chatRoomID)
+          .populate('members')
+          .exec(function(err, chatRoomData) {
+            if (!err) {
+              chatRoomData.members.forEach(function (chatRoomMember) {
+                usersData.findByIdAndUpdate(
+                  chatRoomMember,
+                  { $push: { chatRooms: chatRoomID }},
+                  { safe: true, upsert: true, new: true },
+                  function(err) {
+                    if (!err) {
+                      res.end();
+                    } else {
+                      res.end(err);
+                    }
+                  }
+                );
+              });
+              res.status(200).send({
+                success: true,
+                message: 'Chat Room Created.',
+                chatRoomData: chatRoomData
+              });
+            } else {
+              res.status(500).send({
+                success: false,
+                message: 'Server Error!'
+              });
             }
-          );
-        });
-
-        res.status(200).send({
-          success: true,
-          message: 'Chat Room Created.',
-          chatRoomData: chatRoomData
-        });
+          });
       } else {
         res.status(500).send({
           success: false,
