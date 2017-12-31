@@ -9,6 +9,7 @@ import {
   Container
 } from 'muicss/react/';
 import { logout } from '../../actions/auth';
+import ActiveChatRoomMember from '../../components/Header/ActiveChatRoomMember';
 import OptionsDropdown from '../../components/Header/OptionsDropdown';
 import '../../styles/Header.scss';
 
@@ -41,17 +42,10 @@ class Header extends Component {
                     {
                       activeChatRoom.chatRoomData.members &&
                       activeChatRoom.chatRoomData.members.map((chatRoomMember, i) =>
-                        <li key={i} className="chat-room-member-wrapper">
-                          <div className="member" title={chatRoomMember.name}>
-                            <div
-                              className="member-image"
-                              style={{backgroundImage: `url(${chatRoomMember.profilePicture})`}}
-                            />
-                            <div className="member-name">
-                              {chatRoomMember.name}
-                            </div>
-                          </div>
-                        </li>
+                        <ActiveChatRoomMember
+                          key={i}
+                          chatRoomMember={chatRoomMember}
+                        />
                       )
                     }
                   </ul>
