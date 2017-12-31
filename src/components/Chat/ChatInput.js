@@ -41,7 +41,7 @@ class ChatInput extends Component {
       this.setState({typing: false});
     }
   }
-  handleSendMessage(event) {
+  handleSendMessageOnChange(event) {
     const {
       userData,
       activeChatRoomData,
@@ -66,6 +66,31 @@ class ChatInput extends Component {
       });
     }
   }
+  handleSendMessageOnClick(event) {
+    event.preventDefault();
+
+    const {
+      userData,
+      activeChatRoomData,
+      handleSocketIsNotTyping,
+      handleSendMessage
+    } = this.props;
+    const { message } = this.state;
+    const newMessageID = uuidv4();
+    const newMessage = {
+      newMessageID: newMessageID,
+      text: message.trim(),
+      user: userData,
+      chatRoom: activeChatRoomData
+    };
+
+    handleSocketIsNotTyping(userData, activeChatRoomData._id);
+    handleSendMessage(newMessage);
+    this.setState({
+      message: '',
+      typing: false
+    });
+  }
   render() {
     const {
       message,
@@ -78,9 +103,9 @@ class ChatInput extends Component {
           hint="Type here"
           value={message}
           onChange={::this.onMessageChange}
-          onKeyDown={::this.handleSendMessage}
+          onKeyDown={::this.handleSendMessageOnChange}
         />
-        <Button className="send-button" onClick={::this.handleSendMessage} disabled={!typing}>
+        <Button className="send-button" onClick={::this.handleSendMessageOnClick} disabled={!typing}>
           <FontAwesome
             name="paper-plane"
             size="2x"
