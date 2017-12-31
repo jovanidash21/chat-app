@@ -1,5 +1,10 @@
 .add-chat-room-modal {
   border-radius: 0 !important;
+  left: 50% !important;
+  max-width: 700px;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 65% !important;
   .modal-title {
     margin-top: 0;
   }
