@@ -75,7 +75,7 @@ class Chat extends Component {
     if (chatRoom.chatRooms.length === 0) {
       return (
         <div className="user-no-chat-rooms">
-          Hi! Welcome, create your first Chat Room now.
+          Hi! Welcome, create a Chat Room now.
         </div>
       )
     } else if (!message.isLoading && message.isFetchMessagesSuccess) {
