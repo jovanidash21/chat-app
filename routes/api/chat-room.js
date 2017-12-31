@@ -13,8 +13,12 @@ router.get('/:userID', function(req, res, next) {
     });
   } else {
     usersData.findById(userID, 'chatRooms')
-      .populate('chatRooms')
-      .exec(function(err, userChatRooms) {
+      .populate({
+        path: 'chatRooms',
+        populate: {
+          path: 'members'
+        }
+      }).exec(function(err, userChatRooms) {
         if (!err) {
           res.status(200).send(userChatRooms);
         } else {
