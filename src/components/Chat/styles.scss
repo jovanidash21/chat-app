@@ -44,6 +44,7 @@
   }
   .chat-image {
     $image-size: 35px;
+    @include flex(0 0 $image-size);
     background-repeat: no-repeat;
     background-size: $image-size;
     border-radius: 50%;
