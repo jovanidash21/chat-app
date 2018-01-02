@@ -26,7 +26,11 @@ class OptionsDropdown extends Component {
       <div className="mui-dropdown options-dropdown">
         <MediaQuery query="(min-width: 768px)">
           <div className="user-details">
-            <div className="user-picture" style={{backgroundImage: `url(${userData.profilePicture})`}}></div>
+            <div
+              className="user-picture"
+              style={{backgroundImage: `url(${userData.profilePicture})`}}
+              title={userData.name}
+            ></div>
             <div className="user-name">
               {userData.name}
             </div>

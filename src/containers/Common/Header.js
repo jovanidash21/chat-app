@@ -24,6 +24,7 @@ class Header extends Component {
       logout,
       handleSideDrawerToggle
     } = this.props;
+    const activeChatRoomData = activeChatRoom.chatRoomData;
 
     return (
       <Appbar className="header">
@@ -35,13 +36,17 @@ class Header extends Component {
                   <MediaQuery query="(max-width: 767px)">
                     <FontAwesome className="icon" name="bars" size="2x" />
                   </MediaQuery>
-                  <h2 className="chat-room-name" data-mui-toggle="dropdown">
-                    {activeChatRoom.chatRoomData.name}
+                  <h2
+                    className="chat-room-name"
+                    data-mui-toggle="dropdown"
+                    title={activeChatRoomData.name}
+                  >
+                    {activeChatRoomData.name}
                   </h2>
                   <ul className="mui-dropdown__menu">
                     {
-                      activeChatRoom.chatRoomData.members &&
-                      activeChatRoom.chatRoomData.members.map((chatRoomMember, i) =>
+                      activeChatRoomData.members &&
+                      activeChatRoomData.members.map((chatRoomMember, i) =>
                         <ActiveChatRoomMember
                           key={i}
                           chatRoomMember={chatRoomMember}
