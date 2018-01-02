@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var passport = require('passport');
 var usersData = require('../../models/users-data-schema');
+var chatRoomsData = require('../../models/chat-rooms-data-schema');
 
 router.post('/', function(req, res, next) {
   var userData = {
@@ -15,6 +16,37 @@ router.post('/', function(req, res, next) {
       passport.authenticate('local', function(err, user) {
         req.logIn(user, function(err) {
           if (!err ) {
+            var chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
+            var userID = user._id;
+
+            if (chatLoungeID) {
+              chatRoomsData.findByIdAndUpdate(
+                chatLoungeID,
+                { $push: { members: user._id }},
+                { safe: true, upsert: true, new: true },
+                function(err) {
+                  if (!err) {
+                    res.end();
+                  } else {
+                    res.end(err);
+                  }
+                }
+              );
+
+              usersData.findByIdAndUpdate(
+                userID,
+                { $push: { chatRooms: chatLoungeID }},
+                { safe: true, upsert: true, new: true },
+                function(err) {
+                  if (!err) {
+                    res.end();
+                  } else {
+                    res.end(err);
+                  }
+                }
+              );
+            }
+
             res.status(200).send({
               success: true,
               message: 'Login Successful.',
