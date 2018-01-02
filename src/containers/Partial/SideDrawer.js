@@ -46,6 +46,8 @@ class SideDrawer extends Component {
     } = this.props;
 
     if (!chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess) {
+      const activeChatRoomData = activeChatRoom.chatRoomData;
+
       return (
         <div className="chat-room-list">
           {
@@ -55,7 +57,8 @@ class SideDrawer extends Component {
                 index={i}
                 userData={user.userData}
                 chatRoomData={chatRoomData}
-                activeChatRoomData={activeChatRoom.chatRoomData}
+                activeChatRoomData={activeChatRoomData}
+                isActive={(activeChatRoomData._id === chatRoomData._id) ? true : false}
                 handleSocketJoinChatRoom={socketJoinChatRoom}
                 handleSocketLeaveChatRoom={socketLeaveChatRoom}
                 handleChangeChatRoom={changeChatRoom}

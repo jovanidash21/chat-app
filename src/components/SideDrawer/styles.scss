@@ -11,6 +11,9 @@
   &:hover {
     background-color: $color-goblin;
   }
+  &.active {
+    background-color: $color-royal-purple;
+  }
   .chat-room-icon {
     $image-size: 25px;
     background-size: $image-size;
@@ -23,6 +26,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 180px;
+    width: 170px;
   }
 }

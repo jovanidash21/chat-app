@@ -53,10 +53,17 @@ class ChatRoom extends Component {
     handleSideDrawerToggle();
   }
   render() {
-    const { chatRoomData } = this.props;
+    const {
+      chatRoomData,
+      isActive
+    } = this.props;
 
     return (
-      <div className="chat-room" onClick={::this.handleChangeChatRoom}>
+      <div
+        className={"chat-room " + (isActive ? 'active' : '')}
+        onClick={::this.handleChangeChatRoom}
+        title={chatRoomData.name}
+      >
         <div className="chat-room-icon" style={{backgroundImage: `url(${chatRoomData.chatIcon})`}}></div>
         <div className="chat-room-name">
           {chatRoomData.name}
@@ -71,11 +78,16 @@ ChatRoom.propTypes = {
   userData: PropTypes.object.isRequired,
   chatRoomData: PropTypes.object.isRequired,
   activeChatRoomData: PropTypes.object.isRequired,
+  isActive: PropTypes.bool,
   handleSocketJoinChatRoom: PropTypes.func.isRequired,
   handleSocketLeaveChatRoom: PropTypes.func.isRequired,
   handleChangeChatRoom: PropTypes.func.isRequired,
   handleFetchMessages: PropTypes.func.isRequired,
   handleSideDrawerToggle: PropTypes.func.isRequired
+}
+
+ChatRoom.defaultProps = {
+  isActive: false
 }
 
 export default ChatRoom;
