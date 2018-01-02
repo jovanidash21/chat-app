@@ -21,7 +21,7 @@ const ChatBubble = (props) => {
         props.time &&
         <div className="chat-time">
           <TimeAgo
-            date={moment(props.time).format("MMM D, YYYY h:mm A")}
+            date={moment(props.time).format("MMM D, YYYY h:mm:ss A")}
             title={moment(props.time).format("dddd - MMM D, YYYY - h:mm A")}
             minPeriod={60}
           />
