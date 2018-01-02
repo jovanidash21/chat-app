@@ -85,7 +85,6 @@
     "react-select": "^1.0.0-rc.10",
     "react-spinkit": "^3.0.0",
     "react-timeago": "^3.4.3",
-    "react-toggle": "^4.0.2",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^4.3.0",
