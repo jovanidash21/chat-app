@@ -8,13 +8,19 @@ const ChatBubble = (props) => {
   return (
     <div className={"chat-bubble-wrapper " + (props.isSender ? 'reverse' : '')} >
       <div
-        className="chat-image"
+        className={"chat-image " + (!props.isSender ? 'left' : '')}
         style={{backgroundImage: `url(${props.userData.profilePicture})`}}
         title={props.userData.name}
       />
-      <div className={"chat-bubble " + (props.isSender ? 'right' : '')}>
-        <div className="chat-text">
-          {props.message}
+      <div className="chat-message">
+        {
+          !props.isSender &&
+          <div className="chat-user-name">{props.userData.name}</div>
+        }
+        <div className={"chat-bubble " + (props.isSender ? 'right' : '')}>
+          <div className="chat-text">
+            {props.message}
+          </div>
         </div>
       </div>
       {
