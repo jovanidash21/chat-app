@@ -59,7 +59,7 @@
 /* Transform Translate Y
  * @param {number} $value - Value
  */
-@mixin transform-translateX($value) {
+@mixin transform-translateY($value) {
   @include css3-prefix('transform', translateY($value));
 }
 /* Transition
