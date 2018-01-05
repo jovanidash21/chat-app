@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { slide as Menu } from 'react-burger-menu';
 import FontAwesome from 'react-fontawesome';
