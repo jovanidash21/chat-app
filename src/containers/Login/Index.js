@@ -9,15 +9,7 @@ import {
   Panel,
   Divider
 } from 'muicss/react';
-import {
-  localLogin,
-  facebookLogin,
-  googleLogin,
-  twitterLogin,
-  instagramLogin,
-  linkedinLogin,
-  githubLogin
-} from '../../actions/auth';
+import mapDispatchToProps from '../../actions';
 import Head from '../../components/Head';
 import UsernameInput from '../../components/AuthForm/Input/UsernameInput';
 import PasswordInput from '../../components/AuthForm/Input/PasswordInput';
@@ -165,18 +157,6 @@ const mapStateToProps = (state) => {
   return {
     auth: state.auth
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    localLogin,
-    facebookLogin,
-    googleLogin,
-    twitterLogin,
-    instagramLogin,
-    linkedinLogin,
-    githubLogin
-  }, dispatch);
 }
 
 export default connect(

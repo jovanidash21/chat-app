@@ -9,7 +9,7 @@ import {
   Panel,
   Divider
 } from 'muicss/react'
-import { register } from '../../actions/auth';
+import mapDispatchToProps from '../../actions';
 import Head from '../../components/Head';
 import EmailInput from '../../components/AuthForm/Input/EmailInput';
 import NameInput from '../../components/AuthForm/Input/NameInput';
@@ -120,12 +120,6 @@ const mapStateToProps = (state) => {
   return {
     auth: state.auth
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    register
-  }, dispatch);
 }
 
 export default connect(

@@ -4,14 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { slide as Menu } from 'react-burger-menu';
 import FontAwesome from 'react-fontawesome';
-import {
-  fetchChatRooms,
-  createChatRoom,
-  socketJoinChatRoom,
-  socketLeaveChatRoom
-} from '../../actions/chat-room';
-import { changeChatRoom } from '../../actions/active-chat-room';
-import { fetchMessages } from '../../actions/message';
+import mapDispatchToProps from '../../actions';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatRoom from '../../components/SideDrawer/ChatRoom';
 import CreateChatRoomModal from './CreateChatRoomModal';
@@ -124,17 +117,6 @@ const mapStateToProps = (state) => {
     chatRoom: state.chatRoom,
     activeChatRoom: state.activeChatRoom
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    fetchChatRooms,
-    createChatRoom,
-    socketJoinChatRoom,
-    socketLeaveChatRoom,
-    changeChatRoom,
-    fetchMessages
-  }, dispatch);
 }
 
 SideDrawer.propTypes = {

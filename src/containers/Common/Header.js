@@ -8,7 +8,7 @@ import {
   Appbar,
   Container
 } from 'muicss/react/';
-import { logout } from '../../actions/auth';
+import mapDispatchToProps from '../../actions';
 import ActiveChatRoomMember from '../../components/Header/ActiveChatRoomMember';
 import OptionsDropdown from '../../components/Header/OptionsDropdown';
 import '../../styles/Header.scss';
@@ -75,12 +75,6 @@ const mapStateToProps = (state) => {
     user: state.user,
     activeChatRoom: state.activeChatRoom
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    logout
-  }, dispatch);
 }
 
 Header.propTypes = {

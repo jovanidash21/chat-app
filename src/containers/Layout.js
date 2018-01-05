@@ -3,10 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router';
-import {
-  fetchUser,
-  fetchUsers
-} from '../actions/user';
+import mapDispatchToProps from '../actions';
 import LoadingAnimation from '../components/LoadingAnimation';
 
 class Layout extends Component {
@@ -51,13 +48,6 @@ const mapStateToProps = (state) => {
   return {
     user: state.user
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    fetchUser,
-    fetchUsers
-  }, dispatch);
 }
 
 Layout.propTypes = {

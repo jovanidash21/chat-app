@@ -3,16 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
-import { socketUserLogin } from '../../actions/auth';
-import {
-  socketIsTyping,
-  socketIsNotTyping
-} from '../../actions/typer';
-import { receiveChatRoom } from '../../actions/chat-room';
-import {
-  fetchMessages,
-  sendMessage
-} from '../../actions/message';
+import mapDispatchToProps from '../../actions';
 import Header from '../Common/Header';
 import SideDrawer from '../Partial/SideDrawer';
 import Head from '../../components/Head';
@@ -170,17 +161,6 @@ const mapStateToProps = (state) => {
     activeChatRoom: state.activeChatRoom,
     message: state.message
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    socketUserLogin,
-    socketIsTyping,
-    socketIsNotTyping,
-    receiveChatRoom,
-    fetchMessages,
-    sendMessage
-  }, dispatch);
 }
 
 export default connect(

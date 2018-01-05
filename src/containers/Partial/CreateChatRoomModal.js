@@ -7,7 +7,7 @@ import {
   Form,
   Button
 } from 'muicss/react';
-import { createChatRoom } from '../../actions/chat-room';
+import mapDispatchToProps from '../../actions';
 import ChatRoomNameInput from '../../components/CreateChatRoomModal/ChatRoomNameInput';
 import ChatMember from '../../components/CreateChatRoomModal/ChatMember';
 import ChatMemberSelect from '../../components/CreateChatRoomModal/ChatMemberSelect';
@@ -131,12 +131,6 @@ const mapStateToProps = (state) => {
   return {
     user: state.user
   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    createChatRoom
-  }, dispatch);
 }
 
 CreateChatRoomModal.propTypes = {
