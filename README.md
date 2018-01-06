@@ -5,6 +5,12 @@
 * [Node.js](https://nodejs.org/en/) installed.
 * [Gmail API and OAuth 2.0 Credentials](http://masashi-k.blogspot.com/2013/06/sending-mail-with-gmail-using-xoauth2.html) registered. *Note: Follow Steps 2-4.
 * [MongoDB](https://www.mongodb.com/) installed.
+* [Facebook app](https://developers.facebook.com/) registered.
+* [Google app](https://console.developers.google.com/) registered.
+* [Twitter app](https://apps.twitter.com/) registered.
+* [Instagram app](https://www.instagram.com/developer/) registered.
+* [LinkedIn app](https://developer.linkedin.com/) registered.
+* [GitHub app](https://github.com/settings/applications/new) registered.
 
 ## Installation
 * Clone or download this repository.
