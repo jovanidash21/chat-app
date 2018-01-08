@@ -57,7 +57,7 @@ class ChatInput extends Component {
       chatRoom: activeChatRoomData
     };
 
-    if ( event.key === 'Enter' ) {
+    if ( (event.key === 'Enter') && message.length ) {
       handleSocketIsNotTyping(userData, activeChatRoomData._id);
       handleSendMessage(newMessage);
       this.setState({
