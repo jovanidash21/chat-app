@@ -3,6 +3,7 @@ var router = express.Router({mergeParams: true});
 var passport = require('passport');
 var Strategy = require('passport-twitter').Strategy;
 var usersData = require('../../../models/users-data-schema');
+var chatRoomsData = require('../../../models/chat-rooms-data-schema');
 var popupTools = require('popup-tools');
 
 passport.use(new Strategy({
@@ -51,6 +52,37 @@ passport.use(new Strategy({
 
         newUser.save(function(err) {
           if (!err) {
+            var chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
+            var userID = newUser._id;
+
+            if (chatLoungeID) {
+              chatRoomsData.findByIdAndUpdate(
+                chatLoungeID,
+                { $push: { members: userID }},
+                { safe: true, upsert: true, new: true },
+                function(err) {
+                  if (!err) {
+                    done();
+                  } else {
+                    done(err);
+                  }
+                }
+              );
+
+              usersData.findByIdAndUpdate(
+                userID,
+                { $push: { chatRooms: chatLoungeID }},
+                { safe: true, upsert: true, new: true },
+                function(err) {
+                  if (!err) {
+                    done();
+                  } else {
+                    done(err);
+                  }
+                }
+              );
+            }
+
             return done(null, newUser);
           } else {
             return done(err);

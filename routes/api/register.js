@@ -22,7 +22,7 @@ router.post('/', function(req, res, next) {
             if (chatLoungeID) {
               chatRoomsData.findByIdAndUpdate(
                 chatLoungeID,
-                { $push: { members: user._id }},
+                { $push: { members: userID }},
                 { safe: true, upsert: true, new: true },
                 function(err) {
                   if (!err) {
