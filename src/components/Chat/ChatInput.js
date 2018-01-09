@@ -57,7 +57,7 @@ class ChatInput extends Component {
       chatRoom: activeChatRoomData
     };
 
-    if ( (event.key === 'Enter') && message.length ) {
+    if ( (event.key === 'Enter') && message.trim().length ) {
       handleSocketIsNotTyping(userData, activeChatRoomData._id);
       handleSendMessage(newMessage);
       this.setState({
@@ -84,18 +84,17 @@ class ChatInput extends Component {
       chatRoom: activeChatRoomData
     };
 
-    handleSocketIsNotTyping(userData, activeChatRoomData._id);
-    handleSendMessage(newMessage);
-    this.setState({
-      message: '',
-      typing: false
-    });
+    if ( message.trim().length ) {
+      handleSocketIsNotTyping(userData, activeChatRoomData._id);
+      handleSendMessage(newMessage);
+      this.setState({
+        message: '',
+        typing: false
+      });
+    }
   }
   render() {
-    const {
-      message,
-      typing
-    } = this.state
+    const { message } = this.state
 
     return (
       <div className="chat-input">
@@ -105,7 +104,7 @@ class ChatInput extends Component {
           onChange={::this.onMessageChange}
           onKeyDown={::this.handleSendMessageOnChange}
         />
-        <Button className="send-button" onClick={::this.handleSendMessageOnClick} disabled={!typing}>
+        <Button className="send-button" onClick={::this.handleSendMessageOnClick} disabled={!message.trim().length}>
           <FontAwesome
             name="paper-plane"
             size="2x"
