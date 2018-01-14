@@ -104,6 +104,12 @@ class ChatInput extends Component {
           onChange={::this.onMessageChange}
           onKeyDown={::this.handleSendMessageOnChange}
         />
+        <Button className="emoji-button">
+          <FontAwesome
+            name="smile-o"
+            size="2x"
+          />
+        </Button>
         <Button className="send-button" onClick={::this.handleSendMessageOnClick} disabled={!message.trim().length}>
           <FontAwesome
             name="paper-plane"
