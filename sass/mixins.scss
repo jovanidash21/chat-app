@@ -10,6 +10,12 @@
   -khtml-#{$property}: #{$value};
   -webkit-#{$property}: #{$value};
 }
+/* Box Shadow
+ * @param {none|h-shadow v-shadow blur spread color |inset|initial|inherit} $value - Value
+ */
+@mixin box-shadow($value) {
+  @include css3-prefix('box-shadow', $value);
+}
 /* Flex
  * @param {flex-grow flex-shrink flex-basis|auto|initial|inherit} $value - Value
  */
