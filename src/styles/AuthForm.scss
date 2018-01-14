@@ -8,6 +8,9 @@
   }
   .form-card {
     padding: 35px;
+    @media screen and (max-width: $screen-mobile-max) {
+      @include box-shadow(none);
+    }
   }
   .line {
     margin: 15px 0;

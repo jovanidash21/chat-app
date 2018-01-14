@@ -136,6 +136,9 @@
     height: 65px;
     margin: 0;
     position: relative;
+    &:hover {
+      @include box-shadow(none);
+    }
     span {
       @include transform-translate(-50%, -50%);
       left: 50%;
