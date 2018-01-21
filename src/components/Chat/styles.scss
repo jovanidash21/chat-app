@@ -128,6 +128,11 @@
       padding: 17px;
     }
   }
+  .emoji-mart {
+    bottom: 70px;
+    position: absolute;
+    right: 20px;
+  }
   .emoji-button {
     @include flex(1);
     background-color: transparent;
@@ -138,6 +143,8 @@
     &:focus,
     &:hover {
       @include box-shadow(none);
+    }
+    &:hover {
       @include transform-scale(1.25);
       color: $color-royal-purple;
     }

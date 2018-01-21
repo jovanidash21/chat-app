@@ -4,8 +4,11 @@ import {
   Input,
   Button
 } from 'muicss/react';
+import { Picker } from 'emoji-mart';
+import { Emoji } from 'emoji-mart';
 import FontAwesome from 'react-fontawesome';
 import uuidv4 from 'uuid/v4';
+import 'emoji-mart/css/emoji-mart.css';
 import './styles.scss';
 
 class ChatInput extends Component {
@@ -14,7 +17,8 @@ class ChatInput extends Component {
 
     this.state = {
       message: '',
-      typing: false
+      typing: false,
+      emojiPicker: false
     };
   }
   onMessageChange(event) {
@@ -40,6 +44,13 @@ class ChatInput extends Component {
       handleSocketIsNotTyping(userData, activeChatRoomData._id);
       this.setState({typing: false});
     }
+  }
+  handleEmojiPickerToggle(event) {
+    event.preventDefault();
+
+    const { emojiPicker } = this.state;
+
+    this.setState({emojiPicker: !emojiPicker});
   }
   handleSendMessageOnChange(event) {
     const {
@@ -94,17 +105,24 @@ class ChatInput extends Component {
     }
   }
   render() {
-    const { message } = this.state
+    const {
+      message,
+      emojiPicker
+    } = this.state
 
     return (
       <div className="chat-input">
+        {
+          emojiPicker &&
+          <Picker set="emojione" />
+        }
         <Input
           hint="Type here"
           value={message}
           onChange={::this.onMessageChange}
           onKeyDown={::this.handleSendMessageOnChange}
         />
-        <Button className="emoji-button">
+        <Button className="emoji-button" onClick={::this.handleEmojiPickerToggle}>
           <FontAwesome
             name="smile-o"
             size="2x"
