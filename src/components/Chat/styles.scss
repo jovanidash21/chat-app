@@ -129,9 +129,17 @@
     }
   }
   .emoji-mart {
-    bottom: 70px;
+    @include box-shadow(0 5px 5px -5px #000);
+    border-radius: 0;
+    bottom: 65px;
     position: absolute;
-    right: 20px;
+    right: 0;
+    width: 100% !important;
+    @media screen and (min-width: $screen-tablet-min) {
+      bottom: 70px;
+      right: 20px;
+      width: 400px !important;
+    }
   }
   .emoji-button {
     @include flex(1);
