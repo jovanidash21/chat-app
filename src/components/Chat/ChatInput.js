@@ -52,6 +52,13 @@ class ChatInput extends Component {
 
     this.setState({emojiPicker: !emojiPicker});
   }
+  handleEmojiPickerSelect(emoji, event) {
+    event.preventDefault();
+
+    const { message } = this.state;
+
+    this.setState({message: message + emoji.native});
+  }
   handleSendMessageOnChange(event) {
     const {
       userData,
@@ -73,7 +80,8 @@ class ChatInput extends Component {
       handleSendMessage(newMessage);
       this.setState({
         message: '',
-        typing: false
+        typing: false,
+        emojiPicker: false
       });
     }
   }
@@ -100,7 +108,8 @@ class ChatInput extends Component {
       handleSendMessage(newMessage);
       this.setState({
         message: '',
-        typing: false
+        typing: false,
+        emojiPicker: false
       });
     }
   }
@@ -114,7 +123,13 @@ class ChatInput extends Component {
       <div className="chat-input">
         {
           emojiPicker &&
-          <Picker set="emojione" />
+          <Picker
+            color="#4bb06b"
+            emoji=""
+            set="emojione"
+            title="Emoji"
+            onClick={::this.handleEmojiPickerSelect}
+          />
         }
         <Input
           hint="Type here"
