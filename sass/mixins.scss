@@ -10,6 +10,12 @@
   -khtml-#{$property}: #{$value};
   -webkit-#{$property}: #{$value};
 }
+/* Appearance
+ * @param {none|appearance} $value - Value
+ */
+@mixin appearance($value) {
+  @include css3-prefix('appearance', $value);
+}
 /* Box Shadow
  * @param {none|h-shadow v-shadow blur spread color |inset|initial|inherit} $value - Value
  */
