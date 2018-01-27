@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
+import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
-import {
-  Input,
-  Button
-} from 'muicss/react';
-import { Picker } from 'emoji-mart';
-import { Emoji } from 'emoji-mart';
+import ContentEditable from 'react-simple-contenteditable';
+import { Button } from 'muicss/react';
+import { Picker, Emoji } from 'emoji-mart';
 import FontAwesome from 'react-fontawesome';
 import uuidv4 from 'uuid/v4';
 import 'emoji-mart/css/emoji-mart.css';
@@ -21,10 +19,10 @@ class ChatInput extends Component {
       emojiPicker: false
     };
   }
-  onMessageChange(event) {
+  onMessageChange(event, value) {
     event.preventDefault();
 
-    const messageValue = event.target.value;
+    const messageValue = value;
     const {
       userData,
       activeChatRoomData,
@@ -56,8 +54,9 @@ class ChatInput extends Component {
     event.preventDefault();
 
     const { message } = this.state;
+    var emojiSelect = ReactDOMServer.renderToStaticMarkup(<Emoji emoji={emoji} set="emojione" size={24} html={true} />);
 
-    this.setState({message: message + emoji.native});
+    this.setState({message: message + emojiSelect});
   }
   handleSendMessageOnChange(event) {
     const {
@@ -117,7 +116,7 @@ class ChatInput extends Component {
     const {
       message,
       emojiPicker
-    } = this.state
+    } = this.state;
 
     return (
       <div className="chat-input">
@@ -128,22 +127,32 @@ class ChatInput extends Component {
             emoji=""
             set="emojione"
             title="Emoji"
+            emojiTooltip={true}
             onClick={::this.handleEmojiPickerSelect}
           />
         }
-        <Input
-          hint="Type here"
-          value={message}
+        <ContentEditable
+          className="textfield"
+          placeholder="Type here"
+          autoComplete="off"
+          html={message}
           onChange={::this.onMessageChange}
-          onKeyDown={::this.handleSendMessageOnChange}
+          contentEditable="plaintext-only"
         />
-        <Button className="emoji-button" onClick={::this.handleEmojiPickerToggle}>
+        <Button
+          className="emoji-button"
+          onClick={::this.handleEmojiPickerToggle}
+        >
           <FontAwesome
             name="smile-o"
             size="2x"
           />
         </Button>
-        <Button className="send-button" onClick={::this.handleSendMessageOnClick} disabled={!message.trim().length}>
+        <Button
+          className="send-button"
+          onClick={::this.handleSendMessageOnClick}
+          disabled={!message.trim().length}
+        >
           <FontAwesome
             name="paper-plane"
             size="2x"

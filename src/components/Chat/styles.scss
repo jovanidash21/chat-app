@@ -117,15 +117,28 @@
   align-items: center;
   background-color: $color-gallery;
   flex-shrink: 0;
-  .mui-textfield {
+  .textfield[contenteditable=true] {
+    @include appearance(textfield);
     @include flex(19);
-    margin: 0;
-    padding: 10px;
-    input {
-      border: 0;
-      height: 45px;
-      margin-bottom: 0;
-      padding: 17px;
+    border: 0;
+    color: #000;
+    cursor: text;
+    font-size: 21px;
+    line-height: 24px;
+    padding: 10px 27px;
+    &:empty:before {
+      color: $color-dusty-gray;
+      content: attr(placeholder);
+      display: block;
+    }
+    &:focus {
+      outline: none;
+    }
+    .emoji-mart-emoji {
+      $emoji-size: 24px;
+      height: $emoji-size;
+      vertical-align: bottom;
+      width: $emoji-size;
     }
   }
   .emoji-mart {
