@@ -134,6 +134,12 @@
     &:focus {
       outline: none;
     }
+    &.single-line {
+      white-space: nowrap;
+      div, br {
+        display: none;
+      }
+    }
     .emoji-mart-emoji {
       $emoji-size: 24px;
       height: $emoji-size;

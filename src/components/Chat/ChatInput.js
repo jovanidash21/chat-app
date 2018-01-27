@@ -132,7 +132,7 @@ class ChatInput extends Component {
           />
         }
         <ContentEditable
-          className="textfield"
+          className="textfield single-line"
           placeholder="Type here"
           autoComplete="off"
           html={message}
