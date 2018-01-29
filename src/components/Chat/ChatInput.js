@@ -57,6 +57,36 @@ class ChatInput extends Component {
     var emojiSelect = ReactDOMServer.renderToStaticMarkup(<Emoji emoji={emoji} set="emojione" size={24} html={true} />);
 
     this.setState({message: message + emojiSelect});
+
+    document.getElementById('chat-input').focus();
+    ::this.handleInsertEmoji(emojiSelect);
+  }
+  handleInsertEmoji(emoji) {
+    var selection = window.getSelection();
+
+    if ( selection.getRangeAt && selection.rangeCount ) {
+      var range = selection.getRangeAt(0);
+      range.deleteContents();
+
+      var element = document.createElement("div");
+      element.innerHTML = emoji;
+
+      var fragment = document.createDocumentFragment(), node, lastNode;
+      while ( (node = element.firstChild) ) {
+        lastNode = fragment.appendChild(node);
+      }
+
+      var firstNode = fragment.firstChild;
+      range.insertNode(fragment);
+
+      if ( lastNode ) {
+        range = range.cloneRange();
+        range.setStartAfter(lastNode);
+        range.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    }
   }
   handleSendMessageOnChange(event) {
     const {
@@ -133,10 +163,12 @@ class ChatInput extends Component {
         }
         <ContentEditable
           className="textfield single-line"
+          id="chat-input"
           placeholder="Type here"
           autoComplete="off"
           html={message}
           onChange={::this.onMessageChange}
+          onKeyDown={::this.handleSendMessageOnChange}
           contentEditable="plaintext-only"
         />
         <Button
