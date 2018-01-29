@@ -112,6 +112,7 @@ class ChatInput extends Component {
         typing: false,
         emojiPicker: false
       });
+      document.getElementById('chat-input').innerHTML = '';
     }
   }
   handleSendMessageOnClick(event) {
@@ -140,6 +141,7 @@ class ChatInput extends Component {
         typing: false,
         emojiPicker: false
       });
+      document.getElementById('chat-input').innerHTML = '';
     }
   }
   render() {
