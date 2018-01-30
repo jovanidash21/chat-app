@@ -54,7 +54,6 @@ class ChatInput extends Component {
     event.preventDefault();
 
     const { message } = this.state;
-    var emojiSelect = ReactDOMServer.renderToStaticMarkup(<Emoji emoji={emoji} set="emojione" size={24} html={true} />);
 
     this.setState({message: message + emojiSelect});
 
@@ -67,6 +66,7 @@ class ChatInput extends Component {
     if ( selection.getRangeAt && selection.rangeCount ) {
       var range = selection.getRangeAt(0);
       range.deleteContents();
+    var emojiSelect = ReactDOMServer.renderToStaticMarkup(<Emoji emoji={emoji.colons} set="emojione" size={24} html={true} />);
 
       var element = document.createElement("div");
       element.innerHTML = emoji;
