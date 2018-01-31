@@ -14,6 +14,7 @@ class ChatInput extends Component {
     super(props);
 
     this.state = {
+      caretPosition: null,
       message: '',
       typing: false,
       emojiPicker: false
@@ -46,46 +47,67 @@ class ChatInput extends Component {
   handleEmojiPickerToggle(event) {
     event.preventDefault();
 
-    const { emojiPicker } = this.state;
+    const {
+      caretPosition,
+      emojiPicker
+    } = this.state;
 
     this.setState({emojiPicker: !emojiPicker});
+
+    if ( window.getSelection ) {
+      var selection = window.getSelection();
+      if ( selection.getRangeAt && selection.rangeCount ) {
+        this.setState({caretPosition: selection.getRangeAt(0)});
+      }
+    } else if ( document.selection && document.selection.createRange ) {
+      this.setState({caretPosition: document.selection.createRange()});
+    } else {
+      this.setState({caretPosition: null});
+    }
   }
   handleEmojiPickerSelect(emoji, event) {
     event.preventDefault();
 
-    const { message } = this.state;
+    const {
+      caretPosition,
+      message
+    } = this.state;
+    var emojiSelect = ReactDOMServer.renderToStaticMarkup(<Emoji emoji={emoji.colons} set="emojione" size={24} html={true} />);
 
-    this.setState({message: message + emojiSelect});
+    // this.setState({message: message + emojiSelect});
+
+    if ( caretPosition ) {
+      if ( window.getSelection ) {
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(caretPosition);
+      } else if ( document.selection && caretPosition.select ) {
+        caretPosition.select();
+      }
+    }
 
     document.getElementById('chat-input').focus();
     ::this.handleInsertEmoji(emojiSelect);
   }
   handleInsertEmoji(emoji) {
-    var selection = window.getSelection();
+    if ( window.getSelection ) {
+      var selection = window.getSelection();
+      if ( selection.getRangeAt && selection.rangeCount ) {
+        var range = selection.getRangeAt(0);
+        range.deleteContents();
 
-    if ( selection.getRangeAt && selection.rangeCount ) {
-      var range = selection.getRangeAt(0);
-      range.deleteContents();
-    var emojiSelect = ReactDOMServer.renderToStaticMarkup(<Emoji emoji={emoji.colons} set="emojione" size={24} html={true} />);
-
-      var element = document.createElement("div");
-      element.innerHTML = emoji;
-
-      var fragment = document.createDocumentFragment(), node, lastNode;
-      while ( (node = element.firstChild) ) {
-        lastNode = fragment.appendChild(node);
-      }
-
-      var firstNode = fragment.firstChild;
-      range.insertNode(fragment);
-
-      if ( lastNode ) {
-        range = range.cloneRange();
-        range.setStartAfter(lastNode);
-        range.collapse(true);
+        var text = document.createTextNode(emoji);
+        range.insertNode(text);
         selection.removeAllRanges();
+        range = range.cloneRange();
+        range.selectNode(text);
+        range.collapse(false);
         selection.addRange(range);
       }
+    } else if ( document.selection && document.selection.createRange ) {
+      var range = document.selection.createRange();
+      range.pasteHTML(emoji);
+      range.select();
     }
   }
   handleSendMessageOnChange(event) {
