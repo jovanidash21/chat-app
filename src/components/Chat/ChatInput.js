@@ -96,18 +96,33 @@ class ChatInput extends Component {
         var range = selection.getRangeAt(0);
         range.deleteContents();
 
-        var text = document.createTextNode(emoji);
-        range.insertNode(text);
-        selection.removeAllRanges();
-        range = range.cloneRange();
-        range.selectNode(text);
-        range.collapse(false);
-        selection.addRange(range);
+        var element = document.createElement("div");
+        element.innerHTML = emoji;
+
+        var fragment = document.createDocumentFragment(), node, lastNode;
+        while ( (node = element.firstChild) ) {
+          lastNode = fragment.appendChild(node);
+        }
+
+        var firstNode = fragment.firstChild;
+        range.insertNode(fragment);
+
+        if ( lastNode ) {
+          range = range.cloneRange();
+          range.setStartAfter(lastNode);
+          range.collapse(true);
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
+
+        this.setState({caretPosition: selection.getRangeAt(0)});
       }
     } else if ( document.selection && document.selection.createRange ) {
       var range = document.selection.createRange();
       range.pasteHTML(emoji);
       range.select();
+
+      this.setState({caretPosition: document.selection.createRange()});
     }
   }
   handleSendMessageOnChange(event) {
