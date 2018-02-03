@@ -44,15 +44,8 @@ class ChatInput extends Component {
       this.setState({typing: false});
     }
   }
-  handleEmojiPickerToggle(event) {
+  handleSaveCaretPosition(event) {
     event.preventDefault();
-
-    const {
-      caretPosition,
-      emojiPicker
-    } = this.state;
-
-    this.setState({emojiPicker: !emojiPicker});
 
     if ( window.getSelection ) {
       var selection = window.getSelection();
@@ -64,6 +57,17 @@ class ChatInput extends Component {
     } else {
       this.setState({caretPosition: null});
     }
+  }
+  handleEmojiPickerToggle(event) {
+    event.preventDefault();
+
+    const {
+      caretPosition,
+      emojiPicker
+    } = this.state;
+
+    ::this.handleSaveCaretPosition(event);
+    this.setState({emojiPicker: !emojiPicker});
   }
   handleEmojiPickerSelect(emoji, event) {
     event.preventDefault();
@@ -206,8 +210,10 @@ class ChatInput extends Component {
           placeholder="Type here"
           autoComplete="off"
           html={message}
+          onClick={::this.handleSaveCaretPosition}
           onChange={::this.onMessageChange}
           onKeyDown={::this.handleSendMessageOnChange}
+          onKeyUp={::this.handleSaveCaretPosition}
           contentEditable="plaintext-only"
         />
         <Button
