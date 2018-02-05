@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Emojione } from 'react-emoji-render';
 import TimeAgo from 'react-timeago';
 import moment from 'moment';
 import './styles.scss';
@@ -19,7 +20,7 @@ class ChatBubble extends Component {
     return (
       <div className={"chat-bubble-wrapper " + (isSender ? 'reverse' : '')} >
         <div
-          className={"chat-image " + (isSender ? 'left' : '')}
+          className={"chat-image " + (!isSender ? 'left' : '')}
           style={{backgroundImage: `url(${userData.profilePicture})`}}
           title={userData.name}
         />
@@ -30,7 +31,7 @@ class ChatBubble extends Component {
           }
           <div className={"chat-bubble " + (isSender ? 'right' : '')}>
             <div className="chat-text">
-              {message}
+              <Emojione text={message} />
             </div>
           </div>
         </div>
