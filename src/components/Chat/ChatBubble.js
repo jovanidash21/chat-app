@@ -20,7 +20,7 @@ const ChatBubble = (props) => {
         }
         <div className={"chat-bubble " + (props.isSender ? 'right' : '')}>
           <div className="chat-text">
-            <Emojione text={props.message} />
+            <Emojione text={props.message} onlyEmojiClassName="emoji-large" />
           </div>
         </div>
       </div>
