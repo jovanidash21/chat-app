@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import ContentEditable from 'react-simple-contenteditable';
+import { Emojione } from 'react-emoji-render';
 import { Button } from 'muicss/react';
 import { Picker, Emoji } from 'emoji-mart';
 import FontAwesome from 'react-fontawesome';
@@ -76,9 +77,8 @@ class ChatInput extends Component {
       caretPosition,
       message
     } = this.state;
-    var emojiSelect = ReactDOMServer.renderToStaticMarkup(<Emoji emoji={emoji.colons} set="emojione" size={24} html={true} />);
 
-    // this.setState({message: message + emojiSelect});
+    var emojiSelect = ReactDOMServer.renderToStaticMarkup(<Emojione text={emoji.colons} />);
 
     if ( caretPosition ) {
       if ( window.getSelection ) {
