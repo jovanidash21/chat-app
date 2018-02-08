@@ -64,6 +64,7 @@
     "cross-env": "^5.0.3",
     "css-loader": "^0.28.4",
     "emoji-mart": "^2.4.2",
+    "emojione": "2.2.7",
     "history": "^4.7.2",
     "muicss": "^0.9.28",
     "nodemon": "^1.11.0",
