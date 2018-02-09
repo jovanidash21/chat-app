@@ -126,8 +126,9 @@
     border: 0;
     color: #000;
     cursor: text;
-    font-size: 21px;
+    font-size: 15px;
     line-height: 24px;
+    overflow-x: auto;
     padding: 10px 27px;
     &:empty:before {
       color: $color-dusty-gray;
@@ -143,8 +144,8 @@
         display: none;
       }
     }
-    .emoji-mart-emoji {
-      $emoji-size: 24px;
+    .emojione {
+      $emoji-size: 25px;
       height: $emoji-size;
       vertical-align: bottom;
       width: $emoji-size;
@@ -186,7 +187,7 @@
     }
   }
   .send-button {
-    @include flex(1);
+    @include flex(0 0 90px);
     background-color: $color-royal-purple;
     border-radius: 0;
     color: #fff;
