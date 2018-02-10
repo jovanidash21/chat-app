@@ -146,9 +146,14 @@
       outline: none;
     }
     &.single-line {
+      overflow: hidden;
       white-space: nowrap;
-      div, br {
+      br {
         display: none;
+      }
+      * {
+        display: inline;
+        white-space: nowrap;
       }
     }
     .emojione {
