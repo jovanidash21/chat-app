@@ -120,6 +120,13 @@
   align-items: center;
   background-color: $color-gallery;
   flex-shrink: 0;
+  position: relative;
+  .textfield[contenteditable=true],
+  .emoji-mart,
+  .emoji-button,
+  .send-button {
+    z-index: 2;
+  }
   .textfield[contenteditable=true] {
     @include appearance(textfield);
     @include flex(19);
@@ -154,15 +161,22 @@
   .emoji-mart {
     @include box-shadow(0 5px 5px -5px #000);
     border-radius: 0;
-    bottom: 65px;
+    bottom: 103%;
     position: absolute;
     right: 0;
     width: 100% !important;
     @media screen and (min-width: $screen-tablet-min) {
-      bottom: 70px;
       right: 20px;
       width: 400px !important;
     }
+  }
+  .emoji-picker-overlay {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
   }
   .emoji-button {
     @include flex(1);

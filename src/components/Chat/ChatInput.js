@@ -204,6 +204,10 @@ class ChatInput extends Component {
             onClick={::this.handleEmojiPickerSelect}
           />
         }
+        {
+          emojiPicker &&
+          <div className="emoji-picker-overlay" onClick={::this.handleEmojiPickerToggle} />
+        }
         <ContentEditable
           className="textfield single-line"
           id="chat-input"
