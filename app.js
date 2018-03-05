@@ -33,12 +33,8 @@ if ( process.env.NODE_ENV != 'production' ) {
   });
 }
 
-// mongoose configuration
-var mongooseOptions = {
-  useMongoClient: true
-};
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGODB_URI, mongooseOptions);
+mongoose.connect(process.env.MONGODB_URI);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
