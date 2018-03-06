@@ -29,7 +29,7 @@
     "express": "^4.15.3",
     "express-session": "^1.15.5",
     "lodash": "^4.17.4",
-    "moment": "^2.18.1",
+    "moment": "^2.21.0",
     "moment-timezone": "^0.5.13",
     "mongoose": "^5.0.8",
     "mongoose-timestamp": "^0.6.0",
