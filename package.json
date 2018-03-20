@@ -65,7 +65,7 @@
     "css-loader": "^0.28.4",
     "emoji-mart": "^2.4.0",
     "history": "^4.7.2",
-    "muicss": "^0.9.28",
+    "muicss": "^0.9.38",
     "nodemon": "^1.11.0",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
