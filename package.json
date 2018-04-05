@@ -68,6 +68,7 @@
     "history": "^4.7.2",
     "muicss": "^0.9.38",
     "nodemon": "^1.11.0",
+    "postcss-flexbugs-fixes": "^3.3.0",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-autosuggest": "^9.3.2",
