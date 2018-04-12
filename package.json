@@ -52,6 +52,7 @@
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
+    "autoprefixer": "^8.2.0",
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.16.2",
     "babel-core": "^6.25.0",
