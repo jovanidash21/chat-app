@@ -1,0 +1,21 @@
+.chat-room-member {
+  @include display-flex();
+  @include transition(all 0.2s ease);
+  align-items: center;
+  font-size: 14px;
+  padding: 3px 15px;
+  .member-icon {
+    $image-size: 20px;
+    background-size: $image-size;
+    border-radius: 50%;
+    height: $image-size;
+    margin-right: 10px;
+    width: $image-size;
+  }
+  .member-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 170px;
+  }
+}

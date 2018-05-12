@@ -80,22 +80,28 @@ class LeftSideDrawer extends Component {
       fetchChatRooms,
       createChatRoom,
       isLeftSideDrawerOpen,
-      handleLeftSideDrawerToggleState
+      handleLeftSideDrawerToggleState,
+      noOverlay
     } = this.props;
     const { showModal } = this.state;
 
     return (
       <Menu
+        overlayClassName={ "left-side-drawer-overlay" }
         width="250px"
         isOpen={isLeftSideDrawerOpen}
         onStateChange={handleLeftSideDrawerToggleState}
+        noOverlay={noOverlay}
       >
         <div>
-          <div className="side-drawer">
+          <div className="left-side-drawer">
             <h1 className="title">Chat App</h1>
             <div className="chat-rooms-options">
               <h3>Chat Rooms</h3>
-              <div className="add-chat-room-icon" onClick={::this.handleActivateModal}>
+              <div className="add-chat-room-icon"
+                onClick={::this.handleActivateModal}
+                title="Add Chat Room"
+              >
                 <FontAwesome name="plus-circle" />
               </div>
             </div>
@@ -125,11 +131,13 @@ const mapStateToProps = (state) => {
 LeftSideDrawer.propTypes = {
   handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
   handleLeftSideDrawerToggleState: PropTypes.func.isRequired,
-  isLeftSideDrawerOpen: PropTypes.bool
+  isLeftSideDrawerOpen: PropTypes.bool,
+  noOverlay: PropTypes.bool
 }
 
 LeftSideDrawer.defaultProps = {
-  isLeftSideDrawerOpen: false
+  isLeftSideDrawerOpen: false,
+  noOverlay: false
 }
 
 export default connect(

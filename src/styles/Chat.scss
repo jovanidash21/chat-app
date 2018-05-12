@@ -6,9 +6,15 @@
   .chat-box,
   .chat-input {
     padding-left: 0;
+    @media screen and (min-width: $screen-tablet-min) {
+      margin-right: 250px;
+    }
   }
-  .bm-overlay {
-    z-index: 2 !important;
+  .left-side-drawer-overlay {
+    &,
+    & + .bm-menu-wrap {
+      z-index: 3 !important;
+    }
   }
   .bm-burger-button {
     display: none;

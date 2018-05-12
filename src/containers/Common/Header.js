@@ -7,7 +7,6 @@ import {
   Container
 } from 'muicss/react/';
 import mapDispatchToProps from '../../actions';
-import ActiveChatRoomMember from '../../components/Header/ActiveChatRoomMember';
 import OptionsDropdown from '../../components/Header/OptionsDropdown';
 import '../../styles/Header.scss';
 
@@ -39,22 +38,10 @@ class Header extends Component {
                   />
                   <h2
                     className="chat-room-name"
-                    data-mui-toggle="dropdown"
                     title={activeChatRoomData.name}
                   >
                     {activeChatRoomData.name}
                   </h2>
-                  <ul className="mui-dropdown__menu">
-                    {
-                      activeChatRoomData.members &&
-                      activeChatRoomData.members.map((chatRoomMember, i) =>
-                        <ActiveChatRoomMember
-                          key={i}
-                          chatRoomMember={chatRoomMember}
-                        />
-                      )
-                    }
-                  </ul>
                 </div>
               </td>
               <td className="mui--appbar-height mui--text-right">

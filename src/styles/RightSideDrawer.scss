@@ -1,4 +1,4 @@
-.left-side-drawer {
+.right-side-drawer {
   @include display-flex();
   background-color: $color-chateau-green;
   color: #fff;
@@ -7,30 +7,21 @@
   position: fixed;
   top: 0;
   width: 250px;
-  .title {
+  .members-count {
+    @include display-flex();
+    align-items: center;
     flex-shrink: 1;
     margin: 0;
     padding: 15px;
-  }
-  .chat-rooms-options {
-    @include display-flex();
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 15px 10px;
-    h3 {
+    h2 {
       margin: 0;
     }
-    .add-chat-room-icon {
-      @include transition(all 0.3s ease-in-out);
-      cursor: pointer;
-      font-size: 25px;
-      &:hover {
-        @include transform-scale(1.1);
-        color: #000;
-      }
+    .user-icon {
+      margin-right: 5px;
+      margin-top: 1px;
     }
   }
-  .chat-room-list {
+  .member-list {
     @include flex(1);
     overflow-y: scroll;
     &::-webkit-scrollbar {

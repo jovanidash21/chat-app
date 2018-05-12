@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import Header from '../Common/Header';
 import LeftSideDrawer from '../Partial/LeftSideDrawer';
+import RightSideDrawer from '../Partial/RightSideDrawer';
 import Head from '../../components/Head';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatBubble from '../../components/Chat/ChatBubble';
@@ -34,6 +36,24 @@ class Chat extends Component {
   componentDidUpdate() {
     ::this.handleScrollToBottom();
   }
+  handleRightSideDrawerRender() {
+    const { isRightSideDrawerOpen } = this.state;
+
+    return (
+      <MediaQuery query="(max-width: 767px)">
+        {(matches) => {
+          return (
+            <RightSideDrawer
+              handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
+              handleRightSideDrawerToggleState={::this.handleRightSideDrawerToggleState}
+              isRightSideDrawerOpen={matches ? isRightSideDrawerOpen : true}
+              noOverlay={matches ? false : true}
+            />
+          )
+        }}
+      </MediaQuery>
+    )
+  }
   handleLeftSideDrawerToggleEvent(event) {
     event.preventDefault();
 
@@ -41,6 +61,14 @@ class Chat extends Component {
   }
   handleLeftSideDrawerToggleState(state) {
     this.setState({isLeftSideDrawerOpen: state.isOpen});
+  }
+  handleRightSideDrawerToggleEvent(event) {
+    event.preventDefault();
+
+    this.setState({isRightSideDrawerOpen: !this.state.isRightSideDrawerOpen});
+  }
+  handleRightSideDrawerToggleState(state) {
+    this.setState({isRightSideDrawerOpen: state.isOpen});
   }
   handleChatBoxRender() {
     const {
@@ -122,8 +150,8 @@ class Chat extends Component {
         <Head title="Chat App" />
         <LeftSideDrawer
           handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
-          isLeftSideDrawerOpen={isLeftSideDrawerOpen}
           handleLeftSideDrawerToggleState={::this.handleLeftSideDrawerToggleState}
+          isLeftSideDrawerOpen={isLeftSideDrawerOpen}
         />
         <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent} />
         <div className="chat-box">
@@ -143,6 +171,7 @@ class Chat extends Component {
           handleSocketIsNotTyping={socketIsNotTyping}
           handleSendMessage={::this.handleSendMessage}
         />
+        {::this.handleRightSideDrawerRender()}
       </div>
     )
   }
