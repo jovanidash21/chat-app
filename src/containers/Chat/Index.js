@@ -42,7 +42,7 @@ class Chat extends Component {
         {(matches) => {
           return (
             <SideDrawer
-              handleSideDrawerToggle={::this.handleSideDrawerToggle}
+              handleSideDrawerToggleEvent={::this.handleSideDrawerToggleEvent}
               isOpen={matches ? isOpen : true}
               noOverlay={matches ? false : true}
             />
@@ -51,8 +51,13 @@ class Chat extends Component {
       </MediaQuery>
     )
   }
-  handleSideDrawerToggle() {
+  handleSideDrawerToggleEvent(event) {
+    event.preventDefault();
+
     this.setState({isOpen: !this.state.isOpen});
+  }
+  handleSideDrawerToggleState(state) {
+    this.setState({isOpen: state.isOpen});
   }
   handleChatBoxRender() {
     const {
@@ -124,12 +129,17 @@ class Chat extends Component {
       socketIsTyping,
       socketIsNotTyping
     } = this.props;
+    const { isOpen } = this.state;
 
     return (
       <div className="chat-page">
         <Head title="Chat App" />
-        {::this.handleSideDrawerRender()}
-        <Header handleSideDrawerToggle={::this.handleSideDrawerToggle} />
+        <SideDrawer
+          handleSideDrawerToggleEvent={::this.handleSideDrawerToggleEvent}
+          isOpen={isOpen}
+          handleSideDrawerToggleState={::this.handleSideDrawerToggleState}
+        />
+        <Header handleSideDrawerToggleEvent={::this.handleSideDrawerToggleEvent} />
         <div className="chat-box">
           <div className="chat-bubbles">
             {::this.handleChatBoxRender()}

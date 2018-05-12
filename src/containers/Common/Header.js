@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import MediaQuery from 'react-responsive';
 import FontAwesome from 'react-fontawesome';
 import {
   Appbar,
@@ -21,7 +20,7 @@ class Header extends Component {
       user,
       activeChatRoom,
       logout,
-      handleSideDrawerToggle
+      handleSideDrawerToggleEvent
     } = this.props;
     const activeChatRoomData = activeChatRoom.chatRoomData;
 
@@ -31,10 +30,8 @@ class Header extends Component {
           <tbody>
             <tr style={{verticalAlign: 'middle'}}>
               <td className="mui--appbar-height">
-                <div className="side-bar-toggler" onClick={handleSideDrawerToggle}>
-                  <MediaQuery query="(max-width: 767px)">
-                    <FontAwesome className="icon" name="bars" size="2x" />
-                  </MediaQuery>
+                <div className="side-bar-toggler" onClick={handleSideDrawerToggleEvent}>
+                  <FontAwesome className="icon" name="bars" size="2x" />
                   <h2
                     className="chat-room-name"
                     data-mui-toggle="dropdown"
@@ -77,11 +74,7 @@ const mapStateToProps = (state) => {
 }
 
 Header.propTypes = {
-  handleSideDrawerToggle: PropTypes.func
-}
-
-Header.defaultProps = {
-  handleSideDrawerToggle: () => {}
+  handleSideDrawerToggleEvent: PropTypes.func.isRequired
 }
 
 export default connect(

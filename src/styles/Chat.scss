@@ -6,9 +6,6 @@
   .chat-box,
   .chat-input {
     padding-left: 0;
-    @media screen and (min-width: $screen-tablet-min) {
-      margin-left: 250px;
-    }
   }
   .bm-overlay {
     z-index: 2 !important;

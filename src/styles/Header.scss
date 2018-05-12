@@ -10,18 +10,18 @@
       cursor: pointer;
       display: inline;
       margin: 0 0 0 10px;
+      max-width: 150px;
       overflow: hidden;
       text-overflow: ellipsis;
-      width: 150px;
       white-space: nowrap;
       @media screen and (min-width: $screen-mobile-min) {
-        width: 280px;
+        max-width: 280px;
       }
       @media screen and (min-width: $screen-tablet-min) {
-        width: 300px;
+        max-width: 300px;
       }
       @media screen and (min-width: $screen-desktop-min) {
-        width: 400px;
+        max-width: 400px;
       }
     }
     .icon {

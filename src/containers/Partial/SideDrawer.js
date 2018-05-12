@@ -34,7 +34,7 @@ class SideDrawer extends Component {
       socketLeaveChatRoom,
       changeChatRoom,
       fetchMessages,
-      handleSideDrawerToggle
+      handleSideDrawerToggleEvent
     } = this.props;
 
     if (!chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess) {
@@ -55,7 +55,7 @@ class SideDrawer extends Component {
                 handleSocketLeaveChatRoom={socketLeaveChatRoom}
                 handleChangeChatRoom={changeChatRoom}
                 handleFetchMessages={fetchMessages}
-                handleSideDrawerToggle={handleSideDrawerToggle}
+                handleSideDrawerToggleEvent={handleSideDrawerToggleEvent}
               />
             )
           }
@@ -80,12 +80,18 @@ class SideDrawer extends Component {
       fetchChatRooms,
       createChatRoom,
       isOpen,
+      handleSideDrawerToggleState,
       noOverlay
     } = this.props;
     const { showModal } = this.state;
 
     return (
-      <Menu width="250px" isOpen={isOpen} noOverlay={noOverlay}>
+      <Menu
+        width="250px"
+        isOpen={isOpen}
+        onStateChange={handleSideDrawerToggleState}
+        noOverlay={noOverlay}
+      >
         <div>
           <div className="side-drawer">
             <h1 className="title">Chat App</h1>
@@ -119,7 +125,8 @@ const mapStateToProps = (state) => {
 }
 
 SideDrawer.propTypes = {
-  handleSideDrawerToggle: PropTypes.func.isRequired,
+  handleSideDrawerToggleEvent: PropTypes.func.isRequired,
+  handleSideDrawerToggleState: PropTypes.func.isRequired,
   isOpen: PropTypes.bool,
   noOverlay: PropTypes.bool
 }
