@@ -11,12 +11,18 @@ const EmailInput = (props) => {
       floatingLabel={true}
       required={true}
       onChange={props.onEmailChange}
+      disabled={props.isDisabled}
     />
   );
 }
 
 EmailInput.propTypes = {
-  onEmailChange: PropTypes.func.isRequired
+  onEmailChange: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool
+}
+
+EmailInput.defaultProps = {
+  isDisabled: false
 }
 
 export default EmailInput;

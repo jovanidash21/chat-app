@@ -83,8 +83,14 @@ class Login extends Component {
             }
             <Col md="12">
               <Form onSubmit={::this.handleLocalLogin}>
-                <UsernameInput onUsernameChange={::this.onUsernameChange} />
-                <PasswordInput onPasswordChange={::this.onPasswordChange} />
+                <UsernameInput
+                  onUsernameChange={::this.onUsernameChange}
+                  isDisabled={auth.isLoading}
+                />
+                <PasswordInput
+                  onPasswordChange={::this.onPasswordChange}
+                  isDisabled={auth.isLoading}
+                />
                 <LoginButton
                   type="submit"
                   isDisabled={auth.isLoading}
