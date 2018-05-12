@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import Header from '../Common/Header';
-import SideDrawer from '../Partial/SideDrawer';
+import LeftSideDrawer from '../Partial/LeftSideDrawer';
 import Head from '../../components/Head';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatBubble from '../../components/Chat/ChatBubble';
@@ -17,7 +16,8 @@ class Chat extends Component {
     super(props);
 
     this.state = {
-      isOpen: false
+      isLeftSideDrawerOpen: false,
+      isRightSideDrawerOpen: false,
     };
   }
   componentWillMount() {
@@ -34,30 +34,13 @@ class Chat extends Component {
   componentDidUpdate() {
     ::this.handleScrollToBottom();
   }
-  handleSideDrawerRender() {
-    const { isOpen } = this.state;
-
-    return (
-      <MediaQuery query="(max-width: 767px)">
-        {(matches) => {
-          return (
-            <SideDrawer
-              handleSideDrawerToggleEvent={::this.handleSideDrawerToggleEvent}
-              isOpen={matches ? isOpen : true}
-              noOverlay={matches ? false : true}
-            />
-          )
-        }}
-      </MediaQuery>
-    )
-  }
-  handleSideDrawerToggleEvent(event) {
+  handleLeftSideDrawerToggleEvent(event) {
     event.preventDefault();
 
-    this.setState({isOpen: !this.state.isOpen});
+    this.setState({isLeftSideDrawerOpen: !this.state.isLeftSideDrawerOpen});
   }
-  handleSideDrawerToggleState(state) {
-    this.setState({isOpen: state.isOpen});
+  handleLeftSideDrawerToggleState(state) {
+    this.setState({isLeftSideDrawerOpen: state.isOpen});
   }
   handleChatBoxRender() {
     const {
@@ -129,17 +112,20 @@ class Chat extends Component {
       socketIsTyping,
       socketIsNotTyping
     } = this.props;
-    const { isOpen } = this.state;
+    const {
+      isLeftSideDrawerOpen,
+      isRightSideDrawerOpen
+    } = this.state;
 
     return (
       <div className="chat-page">
         <Head title="Chat App" />
-        <SideDrawer
-          handleSideDrawerToggleEvent={::this.handleSideDrawerToggleEvent}
-          isOpen={isOpen}
-          handleSideDrawerToggleState={::this.handleSideDrawerToggleState}
+        <LeftSideDrawer
+          handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
+          isLeftSideDrawerOpen={isLeftSideDrawerOpen}
+          handleLeftSideDrawerToggleState={::this.handleLeftSideDrawerToggleState}
         />
-        <Header handleSideDrawerToggleEvent={::this.handleSideDrawerToggleEvent} />
+        <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent} />
         <div className="chat-box">
           <div className="chat-bubbles">
             {::this.handleChatBoxRender()}

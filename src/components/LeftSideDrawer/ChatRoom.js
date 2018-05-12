@@ -38,7 +38,7 @@ class ChatRoom extends Component {
       handleSocketLeaveChatRoom,
       handleChangeChatRoom,
       handleFetchMessages,
-      handleSideDrawerToggleEvent
+      handleLeftSideDrawerToggleEvent
     } = this.props;
 
     const data = {
@@ -50,7 +50,7 @@ class ChatRoom extends Component {
     handleSocketLeaveChatRoom(activeChatRoomData._id);
     handleChangeChatRoom(chatRoomData);
     handleFetchMessages(data);
-    handleSideDrawerToggleEvent(event);
+    handleLeftSideDrawerToggleEvent(event);
   }
   render() {
     const {
@@ -83,7 +83,7 @@ ChatRoom.propTypes = {
   handleSocketLeaveChatRoom: PropTypes.func.isRequired,
   handleChangeChatRoom: PropTypes.func.isRequired,
   handleFetchMessages: PropTypes.func.isRequired,
-  handleSideDrawerToggleEvent: PropTypes.func.isRequired
+  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired
 }
 
 ChatRoom.defaultProps = {

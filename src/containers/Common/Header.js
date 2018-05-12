@@ -20,7 +20,7 @@ class Header extends Component {
       user,
       activeChatRoom,
       logout,
-      handleSideDrawerToggleEvent
+      handleLeftSideDrawerToggleEvent
     } = this.props;
     const activeChatRoomData = activeChatRoom.chatRoomData;
 
@@ -30,8 +30,13 @@ class Header extends Component {
           <tbody>
             <tr style={{verticalAlign: 'middle'}}>
               <td className="mui--appbar-height">
-                <div className="side-bar-toggler" onClick={handleSideDrawerToggleEvent}>
-                  <FontAwesome className="icon" name="bars" size="2x" />
+                <div className="side-bar-toggler">
+                  <FontAwesome
+                    className="icon"
+                    name="bars"
+                    size="2x"
+                    onClick={handleLeftSideDrawerToggleEvent}
+                  />
                   <h2
                     className="chat-room-name"
                     data-mui-toggle="dropdown"
@@ -74,7 +79,7 @@ const mapStateToProps = (state) => {
 }
 
 Header.propTypes = {
-  handleSideDrawerToggleEvent: PropTypes.func.isRequired
+  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired
 }
 
 export default connect(

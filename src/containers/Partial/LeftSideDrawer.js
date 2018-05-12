@@ -5,11 +5,11 @@ import { slide as Menu } from 'react-burger-menu';
 import FontAwesome from 'react-fontawesome';
 import mapDispatchToProps from '../../actions';
 import LoadingAnimation from '../../components/LoadingAnimation';
-import ChatRoom from '../../components/SideDrawer/ChatRoom';
+import ChatRoom from '../../components/LeftSideDrawer/ChatRoom';
 import CreateChatRoomModal from './CreateChatRoomModal';
-import '../../styles/SideDrawer.scss';
+import '../../styles/LeftSideDrawer.scss';
 
-class SideDrawer extends Component {
+class LeftSideDrawer extends Component {
   constructor(props) {
     super(props);
 
@@ -34,7 +34,7 @@ class SideDrawer extends Component {
       socketLeaveChatRoom,
       changeChatRoom,
       fetchMessages,
-      handleSideDrawerToggleEvent
+      handleLeftSideDrawerToggleEvent
     } = this.props;
 
     if (!chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess) {
@@ -55,7 +55,7 @@ class SideDrawer extends Component {
                 handleSocketLeaveChatRoom={socketLeaveChatRoom}
                 handleChangeChatRoom={changeChatRoom}
                 handleFetchMessages={fetchMessages}
-                handleSideDrawerToggleEvent={handleSideDrawerToggleEvent}
+                handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
               />
             )
           }
@@ -79,18 +79,16 @@ class SideDrawer extends Component {
       chatRoom,
       fetchChatRooms,
       createChatRoom,
-      isOpen,
-      handleSideDrawerToggleState,
-      noOverlay
+      isLeftSideDrawerOpen,
+      handleLeftSideDrawerToggleState
     } = this.props;
     const { showModal } = this.state;
 
     return (
       <Menu
         width="250px"
-        isOpen={isOpen}
-        onStateChange={handleSideDrawerToggleState}
-        noOverlay={noOverlay}
+        isOpen={isLeftSideDrawerOpen}
+        onStateChange={handleLeftSideDrawerToggleState}
       >
         <div>
           <div className="side-drawer">
@@ -124,19 +122,17 @@ const mapStateToProps = (state) => {
   }
 }
 
-SideDrawer.propTypes = {
-  handleSideDrawerToggleEvent: PropTypes.func.isRequired,
-  handleSideDrawerToggleState: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool,
-  noOverlay: PropTypes.bool
+LeftSideDrawer.propTypes = {
+  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
+  handleLeftSideDrawerToggleState: PropTypes.func.isRequired,
+  isLeftSideDrawerOpen: PropTypes.bool
 }
 
-SideDrawer.defaultProps = {
-  isOpen: false,
-  noOverlay: false
+LeftSideDrawer.defaultProps = {
+  isLeftSideDrawerOpen: false
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SideDrawer);
+)(LeftSideDrawer);
