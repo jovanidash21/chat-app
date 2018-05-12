@@ -2,6 +2,7 @@
   @include display-flex();
   @include transition(all 0.2s ease);
   align-items: center;
+  border-bottom: 1px solid $color-goblin;
   font-size: 14px;
   padding: 3px 15px;
   .member-icon {

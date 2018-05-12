@@ -6,9 +6,12 @@
     @include display-flex();
     align-items: center;
     position: relative;
+    .hamburger-icon {
+      cursor: pointer;
+    }
     .chat-room-name {
       display: inline;
-      margin: 0 0 0 10px;
+      margin: 0 10px;
       max-width: 150px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -23,9 +26,11 @@
         max-width: 400px;
       }
     }
-    .icon {
+    .members-count {
       cursor: pointer;
-      margin-right: 10px;
+      .user-icon {
+        margin-right: 5px;
+      }
     }
   }
 }

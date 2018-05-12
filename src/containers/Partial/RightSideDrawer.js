@@ -28,12 +28,11 @@ class RightSideDrawer extends Component {
       return (
         <div className="right-side-drawer">
           <div className="members-count">
-            <div className="user-icon">
-              <FontAwesome
-                name="user"
-                size="2x"
-              />
-            </div>
+            <FontAwesome
+              className="user-icon"
+              name="user"
+              size="2x"
+            />
             <h2>
               {activeChatRoomData.members.length}&nbsp;
               {activeChatRoomData.members.length > 1 ? 'Members' : 'Member'}
@@ -61,7 +60,8 @@ class RightSideDrawer extends Component {
   render() {
     const {
       isRightSideDrawerOpen,
-      handleRightSideDrawerToggleState
+      handleRightSideDrawerToggleState,
+      noOverlay
     } = this.props;
     const { showModal } = this.state;
 
@@ -70,9 +70,12 @@ class RightSideDrawer extends Component {
         width="250px"
         isOpen={isRightSideDrawerOpen}
         onStateChange={handleRightSideDrawerToggleState}
+        noOverlay={noOverlay}
         right
       >
-        {::this.handleComponent()}
+        <div>
+          {::this.handleComponent()}
+        </div>
       </Menu>
     );
   }
@@ -88,11 +91,13 @@ const mapStateToProps = (state) => {
 RightSideDrawer.propTypes = {
   handleRightSideDrawerToggleEvent: PropTypes.func.isRequired,
   handleRightSideDrawerToggleState: PropTypes.func.isRequired,
-  isRightSideDrawerOpen: PropTypes.bool
+  isRightSideDrawerOpen: PropTypes.bool,
+  noOverlay: PropTypes.bool
 }
 
 RightSideDrawer.defaultProps = {
-  isRightSideDrawerOpen: false
+  isRightSideDrawerOpen: false,
+  noOverlay: false
 }
 
 export default connect(

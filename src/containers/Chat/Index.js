@@ -29,6 +29,7 @@ class Chat extends Component {
     } = this.props;
 
     socketUserLogin(user.userData._id);
+    document.body.classList.add('chat-page');
   }
   componentDidMount() {
     ::this.handleScrollToBottom();
@@ -66,6 +67,7 @@ class Chat extends Component {
     event.preventDefault();
 
     this.setState({isRightSideDrawerOpen: !this.state.isRightSideDrawerOpen});
+    console.log(this.state.isRightSideDrawerOpen);
   }
   handleRightSideDrawerToggleState(state) {
     this.setState({isRightSideDrawerOpen: state.isOpen});
@@ -153,7 +155,11 @@ class Chat extends Component {
           handleLeftSideDrawerToggleState={::this.handleLeftSideDrawerToggleState}
           isLeftSideDrawerOpen={isLeftSideDrawerOpen}
         />
-        <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent} />
+        {::this.handleRightSideDrawerRender()}
+        <Header
+          handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
+          handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
+        />
         <div className="chat-box">
           <div className="chat-bubbles">
             {::this.handleChatBoxRender()}
@@ -171,7 +177,6 @@ class Chat extends Component {
           handleSocketIsNotTyping={socketIsNotTyping}
           handleSendMessage={::this.handleSendMessage}
         />
-        {::this.handleRightSideDrawerRender()}
       </div>
     )
   }
