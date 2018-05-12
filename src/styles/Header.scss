@@ -12,18 +12,18 @@
     .chat-room-name {
       display: inline;
       margin: 0 10px;
-      max-width: 150px;
+      max-width: 120px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       @media screen and (min-width: $screen-mobile-min) {
-        max-width: 280px;
+        max-width: 250px;
       }
       @media screen and (min-width: $screen-tablet-min) {
-        max-width: 300px;
+        max-width: 270px;
       }
       @media screen and (min-width: $screen-desktop-min) {
-        max-width: 400px;
+        max-width: 370px;
       }
     }
     .members-count {
