@@ -87,7 +87,7 @@ class LeftSideDrawer extends Component {
 
     return (
       <Menu
-        overlayClassName={ "left-side-drawer-overlay" }
+        overlayClassName={"left-side-drawer-overlay"}
         width="250px"
         isOpen={isLeftSideDrawerOpen}
         onStateChange={handleLeftSideDrawerToggleState}

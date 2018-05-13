@@ -29,30 +29,30 @@ class Header extends Component {
 
       return (
         <div className="side-bar-toggler">
-          <FontAwesome
-            className="hamburger-icon"
-            name="bars"
-            size="2x"
-            onClick={handleLeftSideDrawerToggleEvent}
-          />
+          <MediaQuery query="(max-width: 767px)">
+            <FontAwesome
+              className="hamburger-icon"
+              name="bars"
+              size="2x"
+              onClick={handleLeftSideDrawerToggleEvent}
+            />
+          </MediaQuery>
           <h2
             className="chat-room-name"
             title={activeChatRoomData.name}
           >
             {activeChatRoomData.name}
           </h2>
-          <MediaQuery query="(max-width: 767px)">
-            <div
-              className="members-count"
-              onClick={handleRightSideDrawerToggleEvent}
-            >
-              <FontAwesome
-                className="user-icon"
-                name="user"
-              />
-              {activeChatRoomData.members.length}
-            </div>
-          </MediaQuery>
+          <div
+            className="members-count"
+            onClick={handleRightSideDrawerToggleEvent}
+          >
+            <FontAwesome
+              className="user-icon"
+              name="user"
+            />
+            {activeChatRoomData.members.length}
+          </div>
         </div>
       )
     } else {

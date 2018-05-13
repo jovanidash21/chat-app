@@ -7,10 +7,10 @@
   .chat-input {
     padding-left: 0;
     @media screen and (min-width: $screen-tablet-min) {
-      margin-right: 250px;
+      margin-left: 250px;
     }
   }
-  .left-side-drawer-overlay {
+  .right-side-drawer-overlay {
     &,
     & + .bm-menu-wrap {
       z-index: 3 !important;

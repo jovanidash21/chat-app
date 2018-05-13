@@ -2,16 +2,21 @@
   table {
     padding: 0 21px;
   }
+  .mui--appbar-height {
+    position: relative;
+    width: 10px;
+  }
   .side-bar-toggler {
     @include display-flex();
     align-items: center;
     position: relative;
     .hamburger-icon {
       cursor: pointer;
+      margin-right: 10px;
     }
     .chat-room-name {
       display: inline;
-      margin: 0 10px;
+      margin: 0 10px 0 0;
       max-width: 120px;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -28,6 +33,7 @@
     }
     .members-count {
       cursor: pointer;
+      margin-top: 3px;
       .user-icon {
         margin-right: 5px;
       }

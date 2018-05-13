@@ -37,17 +37,17 @@ class Chat extends Component {
   componentDidUpdate() {
     ::this.handleScrollToBottom();
   }
-  handleRightSideDrawerRender() {
-    const { isRightSideDrawerOpen } = this.state;
+  handleLeftSideDrawerRender() {
+    const { isLeftSideDrawerOpen } = this.state;
 
     return (
       <MediaQuery query="(max-width: 767px)">
         {(matches) => {
           return (
-            <RightSideDrawer
-              handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
-              handleRightSideDrawerToggleState={::this.handleRightSideDrawerToggleState}
-              isRightSideDrawerOpen={matches ? isRightSideDrawerOpen : true}
+            <LeftSideDrawer
+              handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
+              handleLeftSideDrawerToggleState={::this.handleLeftSideDrawerToggleState}
+              isLeftSideDrawerOpen={matches ? isLeftSideDrawerOpen : true}
               noOverlay={matches ? false : true}
             />
           )
@@ -142,20 +142,17 @@ class Chat extends Component {
       socketIsTyping,
       socketIsNotTyping
     } = this.props;
-    const {
-      isLeftSideDrawerOpen,
-      isRightSideDrawerOpen
-    } = this.state;
+    const { isRightSideDrawerOpen } = this.state;
 
     return (
       <div className="chat-page">
         <Head title="Chat App" />
-        <LeftSideDrawer
-          handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
-          handleLeftSideDrawerToggleState={::this.handleLeftSideDrawerToggleState}
-          isLeftSideDrawerOpen={isLeftSideDrawerOpen}
+        {::this.handleLeftSideDrawerRender()}
+        <RightSideDrawer
+          handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
+          handleRightSideDrawerToggleState={::this.handleRightSideDrawerToggleState}
+          isRightSideDrawerOpen={isRightSideDrawerOpen}
         />
-        {::this.handleRightSideDrawerRender()}
         <Header
           handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
           handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}

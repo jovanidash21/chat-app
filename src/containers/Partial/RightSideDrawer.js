@@ -33,10 +33,10 @@ class RightSideDrawer extends Component {
               name="user"
               size="2x"
             />
-            <h2>
+            <h3>
               {activeChatRoomData.members.length}&nbsp;
               {activeChatRoomData.members.length > 1 ? 'Members' : 'Member'}
-            </h2>
+            </h3>
           </div>
           <div className="member-list">
             {
@@ -67,6 +67,7 @@ class RightSideDrawer extends Component {
 
     return (
       <Menu
+        overlayClassName="right-side-drawer-overlay"
         width="250px"
         isOpen={isRightSideDrawerOpen}
         onStateChange={handleRightSideDrawerToggleState}
