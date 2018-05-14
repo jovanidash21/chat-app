@@ -1,6 +1,6 @@
 .options-dropdown {
-  @include display-flex();
   align-items: center;
+  display: flex;
   justify-content: flex-end;
   a {
     cursor: pointer;
@@ -19,8 +19,8 @@
     vertical-align: middle;
   }
   .user-details {
-    @include display-flex();
     align-items: center;
+    display: flex;
     justify-content: flex-end;
     margin-right: 5px;
     & > div {
@@ -29,10 +29,10 @@
   }
   .user-picture {
     $image-size: 25px;
-    @include flex(0 0 $image-size);
     background-repeat: no-repeat;
     background-size: $image-size;
     border-radius: 50%;
+    flex: 0 0 $image-size;
     height: $image-size;
     width: $image-size;
   }

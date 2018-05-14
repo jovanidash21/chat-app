@@ -1,5 +1,5 @@
 .chat-bubble-wrapper {
-  @include display-flex();
+  display: flex;
   padding: 2px;
   &.reverse {
     flex-direction: row-reverse;
@@ -35,7 +35,7 @@
         border-color: transparent $bg-color;
         left: auto;
         right: -17px;
-        @include transform-rotate(180deg);
+        transform: rotate(180deg);
       }
     }
     .chat-text {
@@ -51,10 +51,10 @@
   }
   .chat-image {
     $image-size: 35px;
-    @include flex(0 0 $image-size);
     background-repeat: no-repeat;
     background-size: $image-size;
     border-radius: 50%;
+    flex: 0 0 $image-size;
     height: $image-size;
     margin-top: 3px;
     width: $image-size;
@@ -71,8 +71,8 @@
 }
 
 .chat-typer-wrapper {
-  @include display-flex();
   align-items: center;
+  display: flex;
   padding: 4px;
   .chat-image {
     $image-size: 21px;
@@ -83,10 +83,10 @@
     width: $image-size;
   }
   .chat-typer {
-    @include display-flex();
     align-items: center;
     background-color: $color-dusty-gray;
     border-radius: 21px;
+    display: flex;
     margin-left: 3px;
     padding: 5px;
     position: relative;
@@ -113,12 +113,12 @@
 }
 
 .chat-input {
-  @include display-flex();
   align-items: center;
   background-color: $color-gallery;
+  display: flex;
   flex-shrink: 0;
   .mui-textfield {
-    @include flex(19);
+    flex: 19;
     margin: 0;
     padding: 10px;
     input {
@@ -129,21 +129,21 @@
     }
   }
   .send-button {
-    @include flex(1);
     background-color: $color-royal-purple;
     border-radius: 0;
     color: #fff;
+    flex: 1;
     height: 65px;
     margin: 0;
     position: relative;
     &:hover {
-      @include box-shadow(none);
+      box-shadow: none;
     }
     span {
-      @include transform-translate(-50%, -50%);
       left: 50%;
       position: absolute;
       top: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }

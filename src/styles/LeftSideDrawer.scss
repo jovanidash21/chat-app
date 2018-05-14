@@ -1,7 +1,7 @@
 .left-side-drawer {
-  @include display-flex();
   background-color: $color-chateau-green;
   color: #fff;
+  display: flex;
   flex-direction: column;
   height: 100%;
   position: fixed;
@@ -13,25 +13,24 @@
     padding: 15px;
   }
   .chat-rooms-options {
-    @include display-flex();
     align-items: center;
+    display: flex;
     justify-content: space-between;
     padding: 0 15px 10px;
     h3 {
       margin: 0;
     }
     .add-chat-room-icon {
-      @include transition(all 0.3s ease-in-out);
       cursor: pointer;
       font-size: 25px;
+      transition: all 0.2s ease;
       &:hover {
-        @include transform-scale(1.1);
         color: #000;
       }
     }
   }
   .chat-room-list {
-    @include flex(1);
+    flex: 1;
     overflow-y: scroll;
     &::-webkit-scrollbar {
       width: 6px;

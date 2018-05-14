@@ -7,8 +7,8 @@
     width: 10px;
   }
   .side-bar-toggler {
-    @include display-flex();
     align-items: center;
+    display: flex;
     position: relative;
     .hamburger-icon {
       cursor: pointer;

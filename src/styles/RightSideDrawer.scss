@@ -1,15 +1,15 @@
 .right-side-drawer {
-  @include display-flex();
   background-color: $color-chateau-green;
   color: #fff;
+  display: flex;
   flex-direction: column;
   height: 100%;
   position: fixed;
   top: 0;
   width: 250px;
   .members-count {
-    @include display-flex();
     align-items: center;
+    display: flex;
     flex-shrink: 1;
     margin: 0;
     padding: 15px;
@@ -22,7 +22,7 @@
     }
   }
   .member-list {
-    @include flex(1);
+    flex: 1;
     overflow-y: scroll;
     &::-webkit-scrollbar {
       width: 6px;

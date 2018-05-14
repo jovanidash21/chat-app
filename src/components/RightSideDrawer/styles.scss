@@ -1,10 +1,10 @@
 .chat-room-member {
-  @include display-flex();
-  @include transition(all 0.2s ease);
   align-items: center;
   border-bottom: 1px solid $color-goblin;
+  display: flex;
   font-size: 14px;
   padding: 3px 15px;
+  transition: all 0.2s ease;
   .member-icon {
     $image-size: 20px;
     background-size: $image-size;

@@ -1,5 +1,5 @@
 .chat-page {
-  @include display-flex();
+  display: flex;
   height: 100vh;
   flex-direction: column;
   .header,
@@ -23,8 +23,8 @@
     flex-shrink: 0;
   }
   .chat-box {
-    @include display-flex();
-    @include flex(1);
+    display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
@@ -42,12 +42,12 @@
       }
     }
     .user-no-chat-rooms {
-      @include transform-translate(-50%, -50%);
       font-size: 21px;
       left: 50%;
       position: absolute;
       text-align: center;
       top: 50%;
+      transform: translate(-50%, -50%);
     }
     .mui-container-fluid {
       padding-bottom: 15px;
@@ -59,7 +59,7 @@
       text-align: center;
     }
     .chat-typers {
-      @include display-flex();
+      display: flex;
       margin-top: 15px;
     }
   }

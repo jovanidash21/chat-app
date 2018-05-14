@@ -2,15 +2,15 @@
   display: inline-block;
   padding: 1px;
   .member {
-    @include display-flex();
-    @include transition(all 0.2s ease);
     align-items: center;
     background-color: $color-dusty-gray;
     border-radius: 12px;
+    display: flex;
     flex-shrink: 0;
     font-size: 14px;
     overflow: hidden;
     padding: 3px;
+    transition: all 0.2s ease;
     width: 100px;
     &:hover {
       background-color: $color-punch;
@@ -23,9 +23,9 @@
   }
   .member-image {
     $image-size: 20px;
-    @include flex(0 0 $image-size);
     background-size: $image-size;
     border-radius: 50%;
+    flex: 0 0 $image-size;
     margin-right: 5px;
     height: $image-size;
     width: $image-size;
@@ -88,8 +88,8 @@
     }
   }
   .suggestion-content {
-    @include display-flex();
     align-items: center;
+    display: flex;
     .user-image {
       $image-size: 27px;
       background-size: $image-size;
