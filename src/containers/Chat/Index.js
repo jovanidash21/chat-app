@@ -144,7 +144,7 @@ class Chat extends Component {
     const { isRightSideDrawerOpen } = this.state;
 
     return (
-      <div className="chat-page">
+      <div className="chat-section">
         <Head title="Chat App" />
         {::this.handleLeftSideDrawerRender()}
         <RightSideDrawer

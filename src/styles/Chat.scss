@@ -1,4 +1,4 @@
-.chat-page {
+.chat-section {
   display: flex;
   height: 100vh;
   flex-direction: column;
@@ -8,6 +8,12 @@
     padding-left: 0;
     @media screen and (min-width: $screen-tablet-min) {
       margin-left: 250px;
+    }
+  }
+  .left-side-drawer-overlay {
+    &,
+    & + .bm-menu-wrap {
+      z-index: 2 !important;
     }
   }
   .right-side-drawer-overlay {
@@ -27,7 +33,11 @@
     flex: 1;
     flex-direction: column;
     justify-content: flex-end;
+    max-height: calc(100vh - 127px);
     position: relative;
+    @media screen and (min-width: $screen-tablet-min) {
+      max-height: calc(100vh - 135px);
+    }
     .chat-bubbles {
       overflow-y: auto;
       &::-webkit-scrollbar {
