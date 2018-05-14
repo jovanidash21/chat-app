@@ -41,7 +41,9 @@ class RightSideDrawer extends Component {
           <div className="member-list">
             {
               activeChatRoomData.members.length > 0 &&
-              activeChatRoomData.members.map((chatRoomMember, i) =>
+              activeChatRoomData.members.sort((a, b) =>
+                a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+              ).map((chatRoomMember, i) =>
                 <ChatRoomMember
                   key={i}
                   chatRoomMember={chatRoomMember}

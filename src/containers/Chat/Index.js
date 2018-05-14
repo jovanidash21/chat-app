@@ -67,7 +67,6 @@ class Chat extends Component {
     event.preventDefault();
 
     this.setState({isRightSideDrawerOpen: !this.state.isRightSideDrawerOpen});
-    console.log(this.state.isRightSideDrawerOpen);
   }
   handleRightSideDrawerToggleState(state) {
     this.setState({isRightSideDrawerOpen: state.isOpen});
