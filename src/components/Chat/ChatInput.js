@@ -18,7 +18,8 @@ class ChatInput extends Component {
       caretPosition: null,
       message: '',
       typing: false,
-      emojiPicker: false
+      emojiPicker: false,
+      validMessage: false
     };
   }
   onMessageChange(event, value) {
@@ -44,6 +45,37 @@ class ChatInput extends Component {
       handleSocketIsNotTyping(userData, activeChatRoomData._id);
       this.setState({typing: false});
     }
+  }
+  onMessageKeyPress(event) {
+    if ( event.key === 'Enter' ) {
+      event.preventDefault();
+
+      document.getElementById('chat-input').innerHTML = '';
+    }
+  }
+  onMessageKeyUp(event) {
+    const {
+      message,
+      validMessage
+    } = this.state;
+
+    if ( message.trim().length ) {
+      this.setState({validMessage: true});
+    } else {
+      this.setState({validMessage: false});
+    }
+
+    if ( (event.key === 'Enter') && validMessage ) {
+      this.setState({
+        message: '',
+        typing: false,
+        emojiPicker: false,
+        validMessage: false
+      });
+
+      ::this.handleSendMessageOnChange(event);
+    }
+    ::this.handleSaveCaretPosition(event);
   }
   handleSaveCaretPosition(event) {
     event.preventDefault();
@@ -80,6 +112,7 @@ class ChatInput extends Component {
 
     var emojiSelect = emojione.toImage(emoji.colons);
 
+    console.log(emojiSelect);
     if ( caretPosition ) {
       if ( window.getSelection ) {
         var selection = window.getSelection();
@@ -92,6 +125,8 @@ class ChatInput extends Component {
 
     document.getElementById('chat-input').focus();
     ::this.handleInsertEmoji(emojiSelect);
+
+    this.setState({validMessage: true});
   }
   handleInsertEmoji(emoji) {
     if ( window.getSelection ) {
@@ -145,16 +180,8 @@ class ChatInput extends Component {
       chatRoom: activeChatRoomData
     };
 
-    if ( (event.key === 'Enter') && message.trim().length ) {
-      handleSocketIsNotTyping(userData, activeChatRoomData._id);
-      handleSendMessage(newMessage);
-      this.setState({
-        message: '',
-        typing: false,
-        emojiPicker: false
-      });
-      document.getElementById('chat-input').innerHTML = '';
-    }
+    handleSocketIsNotTyping(userData, activeChatRoomData._id);
+    handleSendMessage(newMessage);
   }
   handleSendMessageOnClick(event) {
     event.preventDefault();
@@ -165,7 +192,10 @@ class ChatInput extends Component {
       handleSocketIsNotTyping,
       handleSendMessage
     } = this.props;
-    const { message } = this.state;
+    const {
+      message,
+      validMessage
+    } = this.state;
     const newMessageID = uuidv4();
     const newMessage = {
       newMessageID: newMessageID,
@@ -174,21 +204,24 @@ class ChatInput extends Component {
       chatRoom: activeChatRoomData
     };
 
-    if ( message.trim().length ) {
+    if ( validMessage ) {
       handleSocketIsNotTyping(userData, activeChatRoomData._id);
       handleSendMessage(newMessage);
       this.setState({
         message: '',
         typing: false,
-        emojiPicker: false
+        emojiPicker: false,
+        validMessage: false
       });
+      document.getElementById('chat-input').focus();
       document.getElementById('chat-input').innerHTML = '';
     }
   }
   render() {
     const {
       message,
-      emojiPicker
+      emojiPicker,
+      validMessage
     } = this.state;
 
     return (
@@ -216,8 +249,8 @@ class ChatInput extends Component {
           html={message}
           onClick={::this.handleSaveCaretPosition}
           onChange={::this.onMessageChange}
-          onKeyDown={::this.handleSendMessageOnChange}
-          onKeyUp={::this.handleSaveCaretPosition}
+          onKeyPress={::this.onMessageKeyPress}
+          onKeyUp={::this.onMessageKeyUp}
           contentEditable="plaintext-only"
         />
         <Button
@@ -232,7 +265,7 @@ class ChatInput extends Component {
         <Button
           className="send-button"
           onClick={::this.handleSendMessageOnClick}
-          disabled={!message.trim().length}
+          disabled={!validMessage}
         >
           <FontAwesome
             name="paper-plane"
