@@ -11,12 +11,18 @@ const UsernameInput = (props) => {
       floatingLabel={true}
       required={true}
       onChange={props.onUsernameChange}
+      disabled={props.isDisabled}
     />
   );
 }
 
 UsernameInput.propTypes = {
-  onUsernameChange: PropTypes.func.isRequired
+  onUsernameChange: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool
+}
+
+UsernameInput.defaultProps = {
+  isDisabled: false
 }
 
 export default UsernameInput;

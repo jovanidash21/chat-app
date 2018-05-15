@@ -1,32 +1,6 @@
-.chat-room-member-wrapper {
-  padding: 3px 9px;
-  &:not(:last-child) {
-    border-bottom: 1px solid $color-gallery;
-  }
-  .member {
-    @include display-flex();
-    align-items: center;
-    color: #000;
-    flex-shrink: 0;
-    font-size: 14px;
-    overflow: hidden;
-  }
-  .member-image {
-    $image-size: 20px;
-    @include flex(0 0 $image-size);
-    background-size: $image-size;
-    border-radius: 50%;
-    margin-right: 5px;
-    height: $image-size;
-    width: $image-size;
-  }
-  .member-name {
-    white-space: nowrap;
-  }
-}
 .options-dropdown {
-  @include display-flex();
   align-items: center;
+  display: flex;
   justify-content: flex-end;
   a {
     cursor: pointer;
@@ -45,8 +19,8 @@
     vertical-align: middle;
   }
   .user-details {
-    @include display-flex();
     align-items: center;
+    display: flex;
     justify-content: flex-end;
     margin-right: 5px;
     & > div {
@@ -55,10 +29,10 @@
   }
   .user-picture {
     $image-size: 25px;
-    @include flex(0 0 $image-size);
     background-repeat: no-repeat;
     background-size: $image-size;
     border-radius: 50%;
+    flex: 0 0 $image-size;
     height: $image-size;
     width: $image-size;
   }

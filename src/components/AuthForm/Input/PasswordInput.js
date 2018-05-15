@@ -11,12 +11,18 @@ const PasswordInput = (props) => {
       floatingLabel={true}
       required={true}
       onChange={props.onPasswordChange}
+      disabled={props.isDisabled}
     />
   );
 }
 
 PasswordInput.propTypes = {
-  onPasswordChange: PropTypes.func.isRequired
+  onPasswordChange: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool
+}
+
+PasswordInput.defaultProps = {
+  isDisabled: false
 }
 
 export default PasswordInput;

@@ -1,28 +1,19 @@
-.chat-room {
-  @include display-flex();
-  @include transition(all 0.2s ease);
+.chat-room-member {
   align-items: center;
   border-bottom: 1px solid $color-goblin;
-  cursor: pointer;
+  display: flex;
   font-size: 14px;
-  padding: 10px 15px;
-  &:active,
-  &:focus,
-  &:hover {
-    background-color: $color-goblin;
-  }
-  &.active {
-    background-color: $color-royal-purple;
-  }
-  .chat-room-icon {
-    $image-size: 25px;
+  padding: 3px 15px;
+  transition: all 0.2s ease;
+  .member-icon {
+    $image-size: 20px;
     background-size: $image-size;
     border-radius: 50%;
     height: $image-size;
     margin-right: 10px;
     width: $image-size;
   }
-  .chat-room-name {
+  .member-name {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

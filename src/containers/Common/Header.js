@@ -8,7 +8,7 @@ import {
   Container
 } from 'muicss/react/';
 import mapDispatchToProps from '../../actions';
-import ActiveChatRoomMember from '../../components/Header/ActiveChatRoomMember';
+import LoadingAnimation from '../../components/LoadingAnimation';
 import OptionsDropdown from '../../components/Header/OptionsDropdown';
 import '../../styles/Header.scss';
 
@@ -16,14 +16,56 @@ class Header extends Component {
   constructor(props) {
     super(props);
   }
+  handleComponent() {
+    const {
+      chatRoom,
+      activeChatRoom,
+      handleLeftSideDrawerToggleEvent,
+      handleRightSideDrawerToggleEvent
+    } = this.props;
+
+    if (!chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess) {
+      const activeChatRoomData = activeChatRoom.chatRoomData;
+
+      return (
+        <div className="side-bar-toggler">
+          <MediaQuery query="(max-width: 767px)">
+            <FontAwesome
+              className="hamburger-icon"
+              name="bars"
+              size="2x"
+              onClick={handleLeftSideDrawerToggleEvent}
+            />
+          </MediaQuery>
+          <h2
+            className="chat-room-name"
+            title={activeChatRoomData.name}
+          >
+            {activeChatRoomData.name}
+          </h2>
+          <div
+            className="members-count"
+            onClick={handleRightSideDrawerToggleEvent}
+          >
+            <FontAwesome
+              className="user-icon"
+              name="user"
+            />
+            {activeChatRoomData.members.length}
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <LoadingAnimation name="ball-clip-rotate" color="white" />
+      )
+    }
+  }
   render() {
     const {
       user,
-      activeChatRoom,
-      logout,
-      handleSideDrawerToggle
+      logout
     } = this.props;
-    const activeChatRoomData = activeChatRoom.chatRoomData;
 
     return (
       <Appbar className="header">
@@ -31,29 +73,7 @@ class Header extends Component {
           <tbody>
             <tr style={{verticalAlign: 'middle'}}>
               <td className="mui--appbar-height">
-                <div className="side-bar-toggler" onClick={handleSideDrawerToggle}>
-                  <MediaQuery query="(max-width: 767px)">
-                    <FontAwesome className="icon" name="bars" size="2x" />
-                  </MediaQuery>
-                  <h2
-                    className="chat-room-name"
-                    data-mui-toggle="dropdown"
-                    title={activeChatRoomData.name}
-                  >
-                    {activeChatRoomData.name}
-                  </h2>
-                  <ul className="mui-dropdown__menu">
-                    {
-                      activeChatRoomData.members &&
-                      activeChatRoomData.members.map((chatRoomMember, i) =>
-                        <ActiveChatRoomMember
-                          key={i}
-                          chatRoomMember={chatRoomMember}
-                        />
-                      )
-                    }
-                  </ul>
-                </div>
+                {::this.handleComponent()}
               </td>
               <td className="mui--appbar-height mui--text-right">
                 <OptionsDropdown
@@ -72,16 +92,14 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    chatRoom: state.chatRoom,
     activeChatRoom: state.activeChatRoom
   }
 }
 
 Header.propTypes = {
-  handleSideDrawerToggle: PropTypes.func
-}
-
-Header.defaultProps = {
-  handleSideDrawerToggle: () => {}
+  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
+  handleRightSideDrawerToggleEvent: PropTypes.func.isRequired
 }
 
 export default connect(

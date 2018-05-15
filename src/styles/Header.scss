@@ -2,31 +2,41 @@
   table {
     padding: 0 21px;
   }
-  .side-bar-toggler {
-    @include display-flex();
-    align-items: center;
+  .mui--appbar-height {
     position: relative;
-    .chat-room-name {
-      cursor: pointer;
-      display: inline;
-      margin: 0 0 0 10px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 150px;
-      white-space: nowrap;
-      @media screen and (min-width: $screen-mobile-min) {
-        width: 280px;
-      }
-      @media screen and (min-width: $screen-tablet-min) {
-        width: 300px;
-      }
-      @media screen and (min-width: $screen-desktop-min) {
-        width: 400px;
-      }
-    }
-    .icon {
+    width: 10px;
+  }
+  .side-bar-toggler {
+    align-items: center;
+    display: flex;
+    position: relative;
+    .hamburger-icon {
       cursor: pointer;
       margin-right: 10px;
+    }
+    .chat-room-name {
+      display: inline;
+      margin: 0 10px 0 0;
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      @media screen and (min-width: $screen-mobile-min) {
+        max-width: 250px;
+      }
+      @media screen and (min-width: $screen-tablet-min) {
+        max-width: 270px;
+      }
+      @media screen and (min-width: $screen-desktop-min) {
+        max-width: 370px;
+      }
+    }
+    .members-count {
+      cursor: pointer;
+      margin-top: 3px;
+      .user-icon {
+        margin-right: 5px;
+      }
     }
   }
 }

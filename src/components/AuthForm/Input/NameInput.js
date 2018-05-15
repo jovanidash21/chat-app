@@ -11,12 +11,18 @@ const NameInput = (props) => {
       floatingLabel={true}
       required={true}
       onChange={props.onNameChange}
+      disabled={props.isDisabled}
     />
   );
 }
 
 NameInput.propTypes = {
-  onNameChange: PropTypes.func.isRequired
+  onNameChange: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool
+}
+
+NameInput.defaultProps = {
+  isDisabled: false
 }
 
 export default NameInput;

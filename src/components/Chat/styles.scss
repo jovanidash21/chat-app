@@ -1,5 +1,5 @@
 .chat-bubble-wrapper {
-  @include display-flex();
+  display: flex;
   padding: 2px;
   &.reverse {
     flex-direction: row-reverse;
@@ -35,7 +35,7 @@
         border-color: transparent $bg-color;
         left: auto;
         right: -17px;
-        @include transform-rotate(180deg);
+        transform: rotate(180deg);
       }
     }
     .chat-text {
@@ -54,10 +54,10 @@
   }
   .chat-image {
     $image-size: 35px;
-    @include flex(0 0 $image-size);
     background-repeat: no-repeat;
     background-size: $image-size;
     border-radius: 50%;
+    flex: 0 0 $image-size;
     height: $image-size;
     margin-top: 3px;
     width: $image-size;
@@ -74,8 +74,8 @@
 }
 
 .chat-typer-wrapper {
-  @include display-flex();
   align-items: center;
+  display: flex;
   padding: 4px;
   .chat-image {
     $image-size: 21px;
@@ -86,10 +86,10 @@
     width: $image-size;
   }
   .chat-typer {
-    @include display-flex();
     align-items: center;
     background-color: $color-dusty-gray;
     border-radius: 21px;
+    display: flex;
     margin-left: 3px;
     padding: 5px;
     position: relative;
@@ -116,9 +116,9 @@
 }
 
 .chat-input {
-  @include display-flex();
   align-items: center;
   background-color: $color-gallery;
+  display: flex;
   flex-shrink: 0;
   position: relative;
   .textfield[contenteditable=true],
@@ -128,11 +128,11 @@
     z-index: 2;
   }
   .textfield[contenteditable=true] {
-    @include appearance(textfield);
-    @include flex(19);
+    appearance: textfield;
     border: 0;
     color: #000;
     cursor: text;
+    flex: 19;
     font-size: 15px;
     line-height: 24px;
     overflow-x: auto;
@@ -164,9 +164,9 @@
     }
   }
   .emoji-mart {
-    @include box-shadow(0 5px 5px -5px #000);
     border-radius: 0;
     bottom: 103%;
+    box-shadow: 0 5px 5px -5px #000;
     position: absolute;
     right: 0;
     width: 100% !important;
@@ -184,45 +184,45 @@
     z-index: 1;
   }
   .emoji-button {
-    @include flex(1);
     background-color: transparent;
     color: #000;
+    flex: 1;
     margin: 0;
     padding: 15px;
     &:active,
     &:focus,
     &:hover {
-      @include box-shadow(none);
+      box-shadow: none;
     }
     &:hover {
-      @include transform-scale(1.25);
       color: $color-royal-purple;
+      transform: scale(1.25);
     }
     span {
-      @include transform-translate(-50%, -50%);
       left: 50%;
       position: absolute;
       top: 50%;
+      transform: translate(-50%, -50%);
     }
   }
   .send-button {
-    @include flex(0 0 90px);
     background-color: $color-royal-purple;
     border-radius: 0;
     color: #fff;
+    flex: 0 0 90px;
     height: 65px;
     margin: 0;
     position: relative;
     &:active,
     &:focus,
     &:hover {
-      @include box-shadow(none);
+      box-shadow: none;
     }
     span {
-      @include transform-translate(-50%, -50%);
       left: 50%;
       position: absolute;
       top: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }

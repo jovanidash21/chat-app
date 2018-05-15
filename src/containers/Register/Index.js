@@ -92,10 +92,22 @@ class Register extends Component {
             }
             <Col md="12">
               <Form onSubmit={::this.handleRegister}>
-                <EmailInput onEmailChange={::this.onEmailChange} />
-                <NameInput onNameChange={::this.onNameChange} />
-                <UsernameInput onUsernameChange={::this.onUsernameChange} />
-                <PasswordInput onPasswordChange={::this.onPasswordChange} />
+                <EmailInput
+                  onEmailChange={::this.onEmailChange}
+                  isDisabled={auth.isLoading}
+                />
+                <NameInput
+                  onNameChange={::this.onNameChange}
+                  isDisabled={auth.isLoading}
+                />
+                <UsernameInput
+                  onUsernameChange={::this.onUsernameChange}
+                  isDisabled={auth.isLoading}
+                />
+                <PasswordInput
+                  onPasswordChange={::this.onPasswordChange}
+                  isDisabled={auth.isLoading}
+                />
                 <RegisterButton
                   type="submit"
                   isDisabled={auth.isLoading}

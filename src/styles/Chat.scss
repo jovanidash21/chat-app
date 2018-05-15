@@ -1,5 +1,5 @@
-.chat-page {
-  @include display-flex();
+.chat-section {
+  display: flex;
   height: 100vh;
   flex-direction: column;
   .header,
@@ -10,8 +10,17 @@
       margin-left: 250px;
     }
   }
-  .bm-overlay {
-    z-index: 2 !important;
+  .left-side-drawer-overlay {
+    &,
+    & + .bm-menu-wrap {
+      z-index: 2 !important;
+    }
+  }
+  .right-side-drawer-overlay {
+    &,
+    & + .bm-menu-wrap {
+      z-index: 3 !important;
+    }
   }
   .bm-burger-button {
     display: none;
@@ -20,11 +29,15 @@
     flex-shrink: 0;
   }
   .chat-box {
-    @include display-flex();
-    @include flex(1);
+    display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: flex-end;
+    max-height: calc(100vh - 127px);
     position: relative;
+    @media screen and (min-width: $screen-tablet-min) {
+      max-height: calc(100vh - 135px);
+    }
     .chat-bubbles {
       overflow-y: auto;
       &::-webkit-scrollbar {
@@ -39,12 +52,12 @@
       }
     }
     .user-no-chat-rooms {
-      @include transform-translate(-50%, -50%);
       font-size: 21px;
       left: 50%;
       position: absolute;
       text-align: center;
       top: 50%;
+      transform: translate(-50%, -50%);
     }
     .mui-container-fluid {
       padding-bottom: 15px;
@@ -56,7 +69,7 @@
       text-align: center;
     }
     .chat-typers {
-      @include display-flex();
+      display: flex;
       margin-top: 15px;
     }
   }
