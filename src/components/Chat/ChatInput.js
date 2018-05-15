@@ -253,7 +253,7 @@ class ChatInput extends Component {
           onKeyUp={::this.onMessageKeyUp}
           contentEditable="plaintext-only"
         />
-        <Button
+        <div
           className="emoji-button"
           onClick={::this.handleEmojiPickerToggle}
         >
@@ -261,7 +261,7 @@ class ChatInput extends Component {
             name="smile-o"
             size="2x"
           />
-        </Button>
+        </div>
         <Button
           className="send-button"
           onClick={::this.handleSendMessageOnClick}

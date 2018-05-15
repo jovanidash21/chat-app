@@ -184,11 +184,14 @@
     z-index: 1;
   }
   .emoji-button {
-    background-color: transparent;
+    backface-visibility: hidden;
     color: #000;
-    flex: 1;
+    cursor: pointer;
+    flex: 0 0 50px;
     margin: 0;
     padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
     &:active,
     &:focus,
     &:hover {
@@ -197,12 +200,6 @@
     &:hover {
       color: $color-royal-purple;
       transform: scale(1.25);
-    }
-    span {
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
     }
   }
   .send-button {
