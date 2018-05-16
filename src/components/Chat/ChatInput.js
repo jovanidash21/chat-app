@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ContentEditable from 'react-simple-contenteditable';
-import { Emojione } from 'react-emoji-render';
 import { Button } from 'muicss/react';
-import { Picker, Emoji } from 'emoji-mart';
-import FontAwesome from 'react-fontawesome';
 import emojione from 'emojione';
+import EmojiPicker from 'emojione-picker';
+import FontAwesome from 'react-fontawesome';
 import uuidv4 from 'uuid/v4';
-import 'emoji-mart/css/emoji-mart.css';
+import 'emojione-picker/css/picker.css';
 import './styles.scss';
 
 class ChatInput extends Component {
@@ -49,8 +48,6 @@ class ChatInput extends Component {
   onMessageKeyPress(event) {
     if ( event.key === 'Enter' ) {
       event.preventDefault();
-
-      document.getElementById('chat-input').innerHTML = '';
     }
   }
   onMessageKeyUp(event) {
@@ -66,14 +63,14 @@ class ChatInput extends Component {
     }
 
     if ( (event.key === 'Enter') && validMessage ) {
+      ::this.handleSendMessageOnChange(event);
+
       this.setState({
         message: '',
         typing: false,
         emojiPicker: false,
         validMessage: false
       });
-
-      ::this.handleSendMessageOnChange(event);
     }
     ::this.handleSaveCaretPosition(event);
   }
@@ -99,20 +96,13 @@ class ChatInput extends Component {
       emojiPicker
     } = this.state;
 
-    ::this.handleSaveCaretPosition(event);
     this.setState({emojiPicker: !emojiPicker});
   }
-  handleEmojiPickerSelect(emoji, event) {
-    event.preventDefault();
+  handleEmojiPickerSelect(emoji) {
+    const { caretPosition } = this.state;
 
-    const {
-      caretPosition,
-      message
-    } = this.state;
+    var emojiSelect = emojione.toImage(emoji.shortname);
 
-    var emojiSelect = emojione.toImage(emoji.colons);
-
-    console.log(emojiSelect);
     if ( caretPosition ) {
       if ( window.getSelection ) {
         var selection = window.getSelection();
@@ -171,15 +161,16 @@ class ChatInput extends Component {
       handleSocketIsNotTyping,
       handleSendMessage
     } = this.props;
-    const { message } = this.state;
+    var messageText = document.getElementById('chat-input').innerHTML;
     const newMessageID = uuidv4();
     const newMessage = {
       newMessageID: newMessageID,
-      text: message.trim(),
+      text: messageText.trim(),
       user: userData,
       chatRoom: activeChatRoomData
     };
 
+    document.getElementById('chat-input').innerHTML = '';
     handleSocketIsNotTyping(userData, activeChatRoomData._id);
     handleSendMessage(newMessage);
   }
@@ -192,29 +183,28 @@ class ChatInput extends Component {
       handleSocketIsNotTyping,
       handleSendMessage
     } = this.props;
-    const {
-      message,
-      validMessage
-    } = this.state;
+    const { validMessage } = this.state;
+    const messageText = document.getElementById('chat-input').innerHTML;
     const newMessageID = uuidv4();
     const newMessage = {
       newMessageID: newMessageID,
-      text: message.trim(),
+      text: messageText.trim(),
       user: userData,
       chatRoom: activeChatRoomData
     };
 
     if ( validMessage ) {
+      document.getElementById('chat-input').innerHTML = '';
+      document.getElementById('chat-input').focus();
       handleSocketIsNotTyping(userData, activeChatRoomData._id);
       handleSendMessage(newMessage);
+
       this.setState({
         message: '',
         typing: false,
         emojiPicker: false,
         validMessage: false
       });
-      document.getElementById('chat-input').focus();
-      document.getElementById('chat-input').innerHTML = '';
     }
   }
   render() {
@@ -228,13 +218,9 @@ class ChatInput extends Component {
       <div className="chat-input">
         {
           emojiPicker &&
-          <Picker
-            color="#4bb06b"
-            emoji=""
-            set="emojione"
-            title="Emoji"
-            emojiTooltip={true}
-            onClick={::this.handleEmojiPickerSelect}
+          <EmojiPicker
+            onChange={::this.handleEmojiPickerSelect}
+            search={true}
           />
         }
         {
@@ -253,6 +239,7 @@ class ChatInput extends Component {
           onKeyUp={::this.onMessageKeyUp}
           contentEditable="plaintext-only"
         />
+        <input type="hidden" />
         <div
           className="emoji-button"
           onClick={::this.handleEmojiPickerToggle}

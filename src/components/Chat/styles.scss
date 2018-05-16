@@ -122,7 +122,7 @@
   flex-shrink: 0;
   position: relative;
   .textfield[contenteditable=true],
-  .emoji-mart,
+  .emoji-dialog,
   .emoji-button,
   .send-button {
     z-index: 2;
@@ -163,16 +163,24 @@
       width: $emoji-size;
     }
   }
-  .emoji-mart {
+  .emoji-dialog {
     border-radius: 0;
     bottom: 103%;
     box-shadow: 0 5px 5px -5px #000;
+    height: 300px !important;
     position: absolute;
     right: 0;
-    width: 100% !important;
+    width: auto !important;
     @media screen and (min-width: $screen-tablet-min) {
       right: 20px;
-      width: 400px !important;
+    }
+    .emoji {
+      outline: none !important;
+      .emojione {
+        $emoji-size: 22px;
+        height: $emoji-size;
+        width: $emoji-size;
+      }
     }
   }
   .emoji-picker-overlay {
