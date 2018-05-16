@@ -154,6 +154,19 @@ class ChatInput extends Component {
       this.setState({caretPosition: document.selection.createRange()});
     }
   }
+  handleConvertEmojiImageToText() {
+    var emojis = document.getElementById('chat-input').getElementsByClassName('emojione');
+    var messageText = document.getElementById('chat-input').innerHTML;
+    var nth = 0;
+
+    messageText = messageText.replace(/&nbsp;/g, "");
+    messageText = messageText.replace(/<img class="emojione" alt="(.*?)" title="(.*?)" src="(.*?)"[^>]*>/g, (match, i, original) => {
+      nth++;
+      return emojis[nth - 1].title;
+    });
+
+    return messageText;
+  }
   handleSendMessageOnChange(event) {
     const {
       userData,
@@ -161,7 +174,7 @@ class ChatInput extends Component {
       handleSocketIsNotTyping,
       handleSendMessage
     } = this.props;
-    var messageText = document.getElementById('chat-input').innerHTML;
+    var messageText = ::this.handleConvertEmojiImageToText();
     const newMessageID = uuidv4();
     const newMessage = {
       newMessageID: newMessageID,
