@@ -159,11 +159,13 @@ class ChatInput extends Component {
     var messageText = document.getElementById('chat-input').innerHTML;
     var nth = 0;
 
-    messageText = messageText.replace(/&nbsp;/g, "");
-    messageText = messageText.replace(/<img class="emojione" alt="(.*?)" title="(.*?)" src="(.*?)"[^>]*>/g, (match, i, original) => {
-      nth++;
-      return emojis[nth - 1].title;
-    });
+    messageText = messageText
+      .replace(/&nbsp;/g, " ")
+      .replace(/<img class="emojione" alt="(.*?)" title="(.*?)" src="(.*?)"[^>]*>/g, (match, i, original) => {
+        nth++;
+        return emojis[nth - 1].title;
+      })
+      .replace(/&amp;/g, "&");
 
     return messageText;
   }
