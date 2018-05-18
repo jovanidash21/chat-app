@@ -42,6 +42,9 @@
       color: #fff;
       font-size: 14px;
       padding: 11px 17px;
+      span {
+        margin-top: 3px !important;
+      }
     }
   }
   .chat-user-name {
@@ -117,25 +120,106 @@
   background-color: $color-gallery;
   display: flex;
   flex-shrink: 0;
-  .mui-textfield {
+  position: relative;
+  .textfield[contenteditable=true],
+  .emoji-dialog,
+  .emoji-button,
+  .send-button {
+    z-index: 2;
+  }
+  .textfield[contenteditable=true] {
+    appearance: textfield;
+    border: 0;
+    color: #000;
+    cursor: text;
     flex: 19;
+    font-size: 15px;
+    line-height: 24px;
+    overflow-x: auto;
+    padding: 10px 27px;
+    &:empty:before {
+      color: $color-dusty-gray;
+      content: attr(placeholder);
+      display: block;
+    }
+    &:focus {
+      outline: none;
+    }
+    &.single-line {
+      overflow: hidden;
+      white-space: nowrap;
+      br {
+        display: none;
+      }
+      * {
+        display: inline;
+        white-space: nowrap;
+      }
+    }
+    .emojione {
+      $emoji-size: 25px;
+      height: $emoji-size;
+      vertical-align: bottom;
+      width: $emoji-size;
+    }
+  }
+  .emoji-dialog {
+    border-radius: 0;
+    bottom: 103%;
+    box-shadow: 0 5px 5px -5px #000;
+    height: 300px !important;
+    position: absolute;
+    right: 0;
+    width: auto !important;
+    @media screen and (min-width: $screen-tablet-min) {
+      right: 20px;
+    }
+    .emoji {
+      outline: none !important;
+      .emojione {
+        $emoji-size: 22px;
+        height: $emoji-size;
+        width: $emoji-size;
+      }
+    }
+  }
+  .emoji-picker-overlay {
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+  .emoji-button {
+    backface-visibility: hidden;
+    color: #000;
+    cursor: pointer;
+    flex: 0 0 50px;
     margin: 0;
-    padding: 10px;
-    input {
-      border: 0;
-      height: 45px;
-      margin-bottom: 0;
-      padding: 17px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+    &:active,
+    &:focus,
+    &:hover {
+      box-shadow: none;
+    }
+    &:hover {
+      color: $color-royal-purple;
+      transform: scale(1.25);
     }
   }
   .send-button {
     background-color: $color-royal-purple;
     border-radius: 0;
     color: #fff;
-    flex: 1;
+    flex: 0 0 90px;
     height: 65px;
     margin: 0;
     position: relative;
+    &:active,
+    &:focus,
     &:hover {
       box-shadow: none;
     }
