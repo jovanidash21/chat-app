@@ -13,13 +13,13 @@
   .left-side-drawer-overlay {
     &,
     & + .bm-menu-wrap {
-      z-index: 2 !important;
+      z-index: 3 !important;
     }
   }
   .right-side-drawer-overlay {
     &,
     & + .bm-menu-wrap {
-      z-index: 3 !important;
+      z-index: 4 !important;
     }
   }
   .bm-burger-button {

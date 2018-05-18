@@ -46,6 +46,7 @@ class Header extends Component {
           <div
             className="members-count"
             onClick={handleRightSideDrawerToggleEvent}
+            title="View Members List"
           >
             <FontAwesome
               className="user-icon"

@@ -170,9 +170,20 @@
     height: 300px !important;
     position: absolute;
     right: 0;
-    width: auto !important;
-    @media screen and (min-width: $screen-tablet-min) {
+    width: 100% !important;
+    @media screen and (min-width: $screen-mobile-min) {
+      width: 350px !important;
       right: 20px;
+    }
+    .emoji-dialog-header {
+      ul {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .emoji-row {
+      display: flex;
+      justify-content: space-between;
     }
     .emoji {
       outline: none !important;

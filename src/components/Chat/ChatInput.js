@@ -256,7 +256,6 @@ class ChatInput extends Component {
           onKeyUp={::this.onMessageKeyUp}
           contentEditable="plaintext-only"
         />
-        <input type="hidden" />
         <div
           className="emoji-button"
           onClick={::this.handleEmojiPickerToggle}
