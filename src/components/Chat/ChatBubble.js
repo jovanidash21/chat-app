@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import emojione from 'emojione';
+import { emojify } from 'react-emojione';
 import ReactHtmlParser from 'react-html-parser';
 import TimeAgo from 'react-timeago';
 import moment from 'moment';
@@ -13,20 +14,17 @@ class ChatBubble extends Component {
   handleConvertEmojiTextToImage() {
     const { message } = this.props;
     var messageText = message;
-
-    messageText = messageText.replace(/:[^>]*:/g, (match, i, original) => {
-      return ',' + match + ',';
-    });
-
-    var messageArray = messageText.split(",");
-
-    for ( var i = 0; i < messageArray.length; i++ ) {
-      if ( /:[^>]*:/.test(messageArray[i]) ) {
-        messageArray[i] = ReactHtmlParser(emojione.toImage(messageArray[i]));
+    const options = {
+      style: {
+        height: 20,
+        width: 20
       }
-    }
+    };
 
-    return messageArray;
+    messageText = messageText.replace(/ /g, "\u00a0");
+    messageText = emojify(messageText, options);
+
+    return messageText;
   }
  render() {
     const {
@@ -57,9 +55,9 @@ class ChatBubble extends Component {
             time &&
             <div className="chat-time">
               <TimeAgo
-              date={moment(time).format("MMM D, YYYY h:mm:ss A")}
-              title={moment(time).format("dddd - MMM D, YYYY - h:mm A")}
-              minPeriod={60}
+                date={moment(time).format("MMM D, YYYY h:mm:ss A")}
+                title={moment(time).format("dddd - MMM D, YYYY - h:mm A")}
+                minPeriod={60}
               />
             </div>
           }
