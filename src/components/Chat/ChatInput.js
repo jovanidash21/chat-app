@@ -154,18 +154,20 @@ class ChatInput extends Component {
       this.setState({caretPosition: document.selection.createRange()});
     }
   }
-  handleConvertEmojiImageToText() {
+  handleMessageText() {
     var emojis = document.getElementById('chat-input').getElementsByClassName('emojione');
-    var messageText = document.getElementById('chat-input').innerHTML;
-    var nth = 0;
+    var chatInputText = document.getElementById('chat-input').innerHTML;
 
-    messageText = messageText
-      .replace(/&nbsp;/g, " ")
-      .replace(/<img class="emojione" alt="(.*?)" title="(.*?)" src="(.*?)"[^>]*>/g, (match, i, original) => {
+    var element = document.createElement('textarea');
+    element.innerHTML = chatInputText;
+
+    var messageText = element.value;
+
+    var nth = 0;
+    messageText = messageText.replace(/<img class="emojione" alt="(.*?)" title="(.*?)" src="(.*?)"[^>]*>/g, (match, i, original) => {
         nth++;
-        return emojis[nth - 1].title;
-      })
-      .replace(/&amp;/g, "&");
+        return emojis[nth - 1].alt;
+      });
 
     return messageText;
   }
@@ -176,7 +178,7 @@ class ChatInput extends Component {
       handleSocketIsNotTyping,
       handleSendMessage
     } = this.props;
-    var messageText = ::this.handleConvertEmojiImageToText();
+    var messageText = ::this.handleMessageText();
     const newMessageID = uuidv4();
     const newMessage = {
       newMessageID: newMessageID,

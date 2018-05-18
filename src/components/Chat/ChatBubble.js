@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import emojione from 'emojione';
 import { emojify } from 'react-emojione';
-import ReactHtmlParser from 'react-html-parser';
 import TimeAgo from 'react-timeago';
 import moment from 'moment';
 import './styles.scss';
@@ -11,13 +9,13 @@ class ChatBubble extends Component {
   constructor(props) {
     super(props);
   }
-  handleConvertEmojiTextToImage() {
+  handleMessageText() {
     const { message } = this.props;
     var messageText = message;
     const options = {
       style: {
-        height: 20,
-        width: 20
+        height: 25,
+        width: 25
       }
     };
 
@@ -47,7 +45,7 @@ class ChatBubble extends Component {
             }
             <div className={"chat-bubble " + (isSender ? 'right' : '')}>
               <div className="chat-text">
-                {::this.handleConvertEmojiTextToImage()}
+                {::this.handleMessageText()}
               </div>
             </div>
           </div>

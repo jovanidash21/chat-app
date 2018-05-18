@@ -42,11 +42,8 @@
       color: #fff;
       font-size: 14px;
       padding: 11px 17px;
-      .emojione {
-        $emoji-size: 20px;
-        height: $emoji-size;
-        vertical-align: bottom;
-        width: $emoji-size;
+      span {
+        margin-top: 3px !important;
       }
     }
   }
