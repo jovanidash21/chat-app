@@ -27,6 +27,10 @@ class Login extends Component {
       password: ''
     };
   }
+  componentWillMount() {
+    document.body.className = '';
+    document.body.classList.add('login-page');
+  }
   onUsernameChange(event) {
     event.preventDefault();
 

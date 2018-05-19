@@ -29,6 +29,7 @@ class Chat extends Component {
     } = this.props;
 
     socketUserLogin(user.userData._id);
+    document.body.className = '';
     document.body.classList.add('chat-page');
   }
   componentDidMount() {
