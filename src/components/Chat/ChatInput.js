@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import MediaQuery from 'react-responsive';
 import ContentEditable from 'react-simple-contenteditable';
 import { Button } from 'muicss/react';
 import emojione from 'emojione';
@@ -233,38 +234,45 @@ class ChatInput extends Component {
 
     return (
       <div className="chat-input">
-        {
-          emojiPicker &&
-          <EmojiPicker
-            onChange={::this.handleEmojiPickerSelect}
-            search={true}
-          />
-        }
-        {
-          emojiPicker &&
-          <div className="emoji-picker-overlay" onClick={::this.handleEmojiPickerToggle} />
-        }
+        <MediaQuery query="(min-width: 768px)">
+          <div>
+            {
+              emojiPicker &&
+              <EmojiPicker
+                onChange={::this.handleEmojiPickerSelect}
+                search={true}
+              />
+            }
+            {
+              emojiPicker &&
+              <div className="emoji-picker-overlay" onClick={::this.handleEmojiPickerToggle} />
+            }
+          </div>
+        </MediaQuery>
         <ContentEditable
           className="textfield single-line"
           id="chat-input"
           placeholder="Type here"
           autoComplete="off"
           html={message}
+          tagName="span"
           onClick={::this.handleSaveCaretPosition}
           onChange={::this.onMessageChange}
           onKeyPress={::this.onMessageKeyPress}
           onKeyUp={::this.onMessageKeyUp}
           contentEditable="plaintext-only"
         />
-        <div
-          className="emoji-button"
-          onClick={::this.handleEmojiPickerToggle}
-        >
-          <FontAwesome
-            name="smile-o"
-            size="2x"
-          />
-        </div>
+        <MediaQuery query="(min-width: 768px)">
+          <div
+            className="emoji-button"
+            onClick={::this.handleEmojiPickerToggle}
+          >
+            <FontAwesome
+              name="smile-o"
+              size="2x"
+            />
+          </div>
+        </MediaQuery>
         <Button
           className="send-button"
           onClick={::this.handleSendMessageOnClick}

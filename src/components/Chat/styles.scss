@@ -137,10 +137,11 @@
     line-height: 24px;
     overflow-x: auto;
     padding: 10px 27px;
+    user-select: text;
     &:empty:before {
       color: $color-dusty-gray;
       content: attr(placeholder);
-      display: block;
+      display: inline;
     }
     &:focus {
       outline: none;
@@ -157,7 +158,7 @@
       }
     }
     .emojione {
-      $emoji-size: 25px;
+      $emoji-size: 24px;
       height: $emoji-size;
       vertical-align: bottom;
       width: $emoji-size;
