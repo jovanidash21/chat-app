@@ -14,6 +14,7 @@ router.get('/:chatRoomID/:userID', function(req, res, next) {
   } else {
     messagesData.find({chatRoom: chatRoomID})
       .populate('user')
+      .sort('createdAt')
       .exec(function(err, chatRoomMessages) {
         if (!err) {
           res.status(200).send(chatRoomMessages);
