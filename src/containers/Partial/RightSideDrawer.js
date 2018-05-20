@@ -18,6 +18,7 @@ class RightSideDrawer extends Component {
   }
   handleComponent() {
     const {
+      user,
       chatRoom,
       activeChatRoom,
     } = this.props;
@@ -46,6 +47,7 @@ class RightSideDrawer extends Component {
               ).map((chatRoomMember, i) =>
                 <ChatRoomMember
                   key={i}
+                  userData={user.userData}
                   chatRoomMember={chatRoomMember}
                 />
               )
@@ -86,6 +88,7 @@ class RightSideDrawer extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    user: state.user,
     chatRoom: state.chatRoom,
     activeChatRoom: state.activeChatRoom
   }
