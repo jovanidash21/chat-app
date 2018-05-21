@@ -7,6 +7,16 @@ class ChatRoomMember extends Component {
   constructor(props) {
     super(props);
   }
+  handleAddDirectChatRoom(event) {
+    event.preventDefault();
+
+    const {
+      chatRoomMember,
+      handleAddDirectChatRoom
+    } = this.props;
+
+    handleAddDirectChatRoom(chatRoomMember._id);
+  }
   render() {
     const {
       userData,
@@ -33,8 +43,8 @@ class ChatRoomMember extends Component {
             </div>
             <ul className="mui-dropdown__menu mui-dropdown__menu--right">
               <li>
-                <a href="#">
-                  Create private chat room
+                <a onClick={::this.handleAddDirectChatRoom}>
+                  Direct messages
                 </a>
               </li>
             </ul>
@@ -47,7 +57,8 @@ class ChatRoomMember extends Component {
 
 ChatRoomMember.propTypes = {
   userData: PropTypes.object.isRequired,
-  chatRoomMember: PropTypes.object.isRequired
+  chatRoomMember: PropTypes.object.isRequired,
+  handleAddDirectChatRoom: PropTypes.func.isRequired
 }
 
 export default ChatRoomMember;

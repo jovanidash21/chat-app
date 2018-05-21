@@ -23,6 +23,7 @@ import {
 import {
   fetchChatRooms,
   createGroupChatRoom,
+  createDirectChatRoom,
   socketJoinChatRoom,
   socketLeaveChatRoom
 } from './chat-room';
@@ -50,6 +51,7 @@ const actions = (dispatch) => {
     socketIsNotTyping,
     fetchChatRooms,
     createGroupChatRoom,
+    createDirectChatRoom,
     socketJoinChatRoom,
     socketLeaveChatRoom,
     changeChatRoom,

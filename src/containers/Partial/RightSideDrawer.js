@@ -49,6 +49,7 @@ class RightSideDrawer extends Component {
                   key={i}
                   userData={user.userData}
                   chatRoomMember={chatRoomMember}
+                  handleAddDirectChatRoom={::this.handleAddDirectChatRoom}
                 />
               )
             }
@@ -60,6 +61,20 @@ class RightSideDrawer extends Component {
         <LoadingAnimation name="ball-clip-rotate" color="white" />
       )
     }
+  }
+  handleAddDirectChatRoom(memberID) {
+    const {
+      user,
+      createDirectChatRoom
+    } = this.props;
+    let data = {
+      name: '',
+      members: [user.userData._id, memberID],
+      chatType: 'direct',
+      userID: user.userData._id
+    };
+
+    createDirectChatRoom(data);
   }
   render() {
     const {
