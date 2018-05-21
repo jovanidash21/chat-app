@@ -54,7 +54,7 @@ class CreateChatRoomModal extends Component {
       ]
     });
   }
-  handleAddChatRoom(event) {
+  handleAddGroupChatRoom(event) {
     event.preventDefault();
 
     const {
@@ -69,6 +69,7 @@ class CreateChatRoomModal extends Component {
     let data = {
       name: chatRoomName,
       members: members,
+      chatType: 'group',
       userID: user.userData._id
     }
 
@@ -95,7 +96,7 @@ class CreateChatRoomModal extends Component {
           style={{width: '300px'}}
           onClose={handleDeactivateModal}
         >
-          <Form onSubmit={::this.handleAddChatRoom}>
+          <Form onSubmit={::this.handleAddGroupChatRoom}>
             <h2 className="modal-title">Add Chat Room</h2>
             <ChatRoomNameInput  onChatRoomNameChange={::this.onChatRoomNameChange} />
             <div class="members-list-label">
