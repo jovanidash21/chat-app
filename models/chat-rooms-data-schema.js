@@ -8,7 +8,10 @@ mongoose.Promise = Promise;
 var chatRoomsDataSchema = new Schema
 (
   {
-    name: String,
+    name: {
+      type: String,
+      default: ''
+    },
     chatIcon: {
       type: String,
       default: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg'
@@ -16,7 +19,16 @@ var chatRoomsDataSchema = new Schema
     members: [{
       type: Schema.Types.ObjectId,
       ref: 'usersData'
-    }]
+    }],
+    chatType: {
+      type: String,
+      enum: [
+        'private',
+        'direct',
+        'group'
+      ],
+      default: 'group'
+    },
   },
   {
     collection: 'chatRoomsData'
