@@ -4,7 +4,7 @@
   &.reverse {
     flex-direction: row-reverse;
   }
-  .chat-message {
+  .chat-details {
     max-width: 75%;
   }
   .chat-bubble {
@@ -47,11 +47,6 @@
       }
     }
   }
-  .chat-user-name {
-    color: $color-dusty-gray;
-    font-size: 11px;
-    margin-left: 45px;
-  }
   .chat-image {
     $image-size: 35px;
     background-repeat: no-repeat;
@@ -64,6 +59,15 @@
     &.left {
       margin-top: 19px;
     }
+  }
+  .chat-user-name {
+    color: $color-dusty-gray;
+    font-size: 11px;
+    margin-left: 40px;
+  }
+  .chat-message {
+    display: flex;
+    flex-direction: row;
   }
   .chat-time {
     align-self: flex-end;

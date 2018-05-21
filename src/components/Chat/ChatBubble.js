@@ -32,33 +32,36 @@ class ChatBubble extends Component {
     } = this.props;
 
     return (
-      <div className={"chat-bubble-wrapper " + (isSender ? 'reverse' : '')} >
+      <div className={"chat-bubble-wrapper " + (isSender ? 'reverse' : '')}>
         <div
         className={"chat-image " + (!isSender ? 'left' : '')}
         style={{backgroundImage: `url(${userData.profilePicture})`}}
         title={userData.name}
         />
+
+        <div className="chat-details">
+          {
+            !isSender &&
+            <div className="chat-user-name">{userData.name}</div>
+          }
           <div className="chat-message">
-            {
-              !isSender &&
-              <div className="chat-user-name">{userData.name}</div>
-            }
             <div className={"chat-bubble " + (isSender ? 'right' : '')}>
               <div className="chat-text">
                 {::this.handleMessageText()}
               </div>
             </div>
+            {
+              time &&
+              <div className="chat-time">
+                <TimeAgo
+                  date={moment(time).format("MMM D, YYYY h:mm:ss A")}
+                  title={moment(time).format("dddd - MMM D, YYYY - h:mm A")}
+                  minPeriod={60}
+                />
+              </div>
+            }
           </div>
-          {
-            time &&
-            <div className="chat-time">
-              <TimeAgo
-                date={moment(time).format("MMM D, YYYY h:mm:ss A")}
-                title={moment(time).format("dddd - MMM D, YYYY - h:mm A")}
-                minPeriod={60}
-              />
-            </div>
-          }
+        </div>
       </div>
     )
   }
