@@ -77,8 +77,6 @@ class LeftSideDrawer extends Component {
     const {
       user,
       chatRoom,
-      fetchChatRooms,
-      createChatRoom,
       isLeftSideDrawerOpen,
       handleLeftSideDrawerToggleState,
       noOverlay

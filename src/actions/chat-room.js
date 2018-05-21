@@ -21,7 +21,7 @@ export function fetchChatRooms(userID) {
   }
 }
 
-export function createChatRoom(data) {
+export function createGroupChatRoom(data) {
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,

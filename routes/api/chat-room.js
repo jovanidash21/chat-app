@@ -43,7 +43,7 @@ router.post('/:userID', function(req, res, next) {
     var chatRoomData = {
       name: req.body.name,
       members: req.body.members,
-      private: req.body.private
+      chatType: req.body.chatType
     };
     var chatRoom = new chatRoomsData(chatRoomData);
 

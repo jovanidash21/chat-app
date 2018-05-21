@@ -59,7 +59,7 @@ class CreateChatRoomModal extends Component {
 
     const {
       user,
-      createChatRoom,
+      createGroupChatRoom,
       handleDeactivateModal
     } = this.props;
     const {
@@ -72,8 +72,10 @@ class CreateChatRoomModal extends Component {
       userID: user.userData._id
     }
 
-    createChatRoom(data);
-    handleDeactivateModal();
+    if ( chatRoomName.length > 0 && members.length > 2 ) {
+      createGroupChatRoom(data);
+      handleDeactivateModal();
+    }
   }
   render() {
     const {
@@ -81,7 +83,10 @@ class CreateChatRoomModal extends Component {
       handleDeactivateModal,
       isLoading
     } = this.props;
-    const { members } = this.state;
+    const {
+      chatRoomName,
+      members
+    } = this.state;
 
     return (
      <ModalContainer onClose={handleDeactivateModal}>
@@ -93,6 +98,9 @@ class CreateChatRoomModal extends Component {
           <Form onSubmit={::this.handleAddChatRoom}>
             <h2 className="modal-title">Add Chat Room</h2>
             <ChatRoomNameInput  onChatRoomNameChange={::this.onChatRoomNameChange} />
+            <div class="members-list-label">
+              Select atleast 3 members
+            </div>
             <div className="members-list">
               {
                 members.map((memberData, i) =>
@@ -115,7 +123,7 @@ class CreateChatRoomModal extends Component {
               size="large"
               type="submit"
               variant="raised"
-              disabled={isLoading}
+              disabled={chatRoomName.length === 0 || members.length < 3 || isLoading}
             >
               Add
             </Button>
