@@ -47,6 +47,34 @@ router.post('/', function(req, res, next) {
               );
             }
 
+            var chatRoomData = {
+              name: user.name,
+              members: [userID],
+              chatType: 'private'
+            };
+            var chatRoom = new chatRoomsData(chatRoomData);
+
+            chatRoom.save(function(err, chatRoomData) {
+              if (!err) {
+                var chatRoomID = chatRoom._id;
+
+                usersData.findByIdAndUpdate(
+                  userID,
+                  { $push: { chatRooms: chatRoomID }},
+                  { safe: true, upsert: true, new: true },
+                  function(err) {
+                    if (!err) {
+                      res.end();
+                    } else {
+                      res.end(err);
+                    }
+                  }
+                );
+              } else {
+                res.end(err);
+              }
+            });
+
             res.status(200).send({
               success: true,
               message: 'Login Successful.',
