@@ -15,7 +15,7 @@ class ChatRoomMember extends Component {
       handleAddDirectChatRoom
     } = this.props;
 
-    handleAddDirectChatRoom(chatRoomMember._id);
+    handleAddDirectChatRoom(event, chatRoomMember._id);
   }
   render() {
     const {

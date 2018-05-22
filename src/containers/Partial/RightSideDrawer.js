@@ -62,19 +62,58 @@ class RightSideDrawer extends Component {
       )
     }
   }
-  handleAddDirectChatRoom(memberID) {
+  handleAddDirectChatRoom(event, memberID) {
     const {
       user,
-      createDirectChatRoom
+      chatRoom,
+      createDirectChatRoom,
+      socketJoinChatRoom,
+      changeChatRoom,
+      fetchMessages,
+      handleRightSideDrawerToggleEvent
     } = this.props;
-    let data = {
-      name: '',
-      members: [user.userData._id, memberID],
-      chatType: 'direct',
-      userID: user.userData._id
-    };
+    const userID = user.userData._id;
+    const chatRooms = chatRoom.chatRooms;
+    var directChatRoomExists = false;
+    var directChatRoomData = {};
 
-    createDirectChatRoom(data);
+
+    for ( var i = 0; i < chatRooms.length; i++ ) {
+      if ( chatRooms[i].chatType === 'direct' ) {
+        var isMembersMatch = chatRooms[i].members.some(member => member._id === memberID);
+
+        if ( isMembersMatch ) {
+          directChatRoomExists = true;
+          directChatRoomData = chatRooms[i];
+          break;
+        } else {
+          continue;
+        }
+      } else {
+        continue;
+      }
+    }
+
+    if ( ! directChatRoomExists ) {
+      let data = {
+        name: '',
+        members: [userID, memberID],
+        chatType: 'direct',
+        userID: userID
+      };
+
+      createDirectChatRoom(data);
+    } else {
+      let data = {
+        userID: userID,
+        chatRoomID: directChatRoomData._id
+      };
+
+      socketJoinChatRoom(directChatRoomData._id);
+      changeChatRoom(directChatRoomData);
+      fetchMessages(data);
+      handleRightSideDrawerToggleEvent(event);
+    }
   }
   render() {
     const {

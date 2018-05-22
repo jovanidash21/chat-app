@@ -25,7 +25,7 @@ export function createGroupChatRoom(data) {
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post(`/api/chat-room/${data.userID}`, data)
+      payload: axios.post(`/api/chat-room/group/${data.userID}`, data)
     })
     .then((response) => {
       dispatch({
@@ -46,7 +46,7 @@ export function createDirectChatRoom(data) {
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post(`/api/chat-room/${data.userID}`, data)
+      payload: axios.post(`/api/chat-room/direct/${data.userID}`, data)
     })
     .then((response) => {
       dispatch({

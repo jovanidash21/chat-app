@@ -69,7 +69,6 @@ class CreateChatRoomModal extends Component {
     let data = {
       name: chatRoomName,
       members: members,
-      chatType: 'group',
       userID: user.userData._id
     }
 
@@ -99,7 +98,7 @@ class CreateChatRoomModal extends Component {
           <Form onSubmit={::this.handleAddGroupChatRoom}>
             <h2 className="modal-title">Add Chat Room</h2>
             <ChatRoomNameInput  onChatRoomNameChange={::this.onChatRoomNameChange} />
-            <div class="members-list-label">
+            <div className="members-list-label">
               Select atleast 3 members
             </div>
             <div className="members-list">
