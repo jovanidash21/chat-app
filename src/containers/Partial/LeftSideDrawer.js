@@ -78,6 +78,7 @@ class LeftSideDrawer extends Component {
       user,
       chatRoom,
       isLeftSideDrawerOpen,
+      handleLeftSideDrawerToggleEvent,
       handleLeftSideDrawerToggleState,
       noOverlay
     } = this.props;
@@ -109,6 +110,7 @@ class LeftSideDrawer extends Component {
             showModal &&
             <CreateChatRoomModal
               handleDeactivateModal={::this.handleDeactivateModal}
+              handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
               isLoading={chatRoom.isLoading}
             />
           }

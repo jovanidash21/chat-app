@@ -103,6 +103,7 @@ class RightSideDrawer extends Component {
       };
 
       createDirectChatRoom(data);
+      handleRightSideDrawerToggleEvent(event);
     } else {
       let data = {
         userID: userID,

@@ -6,6 +6,8 @@ import {
   SOCKET_JOIN_CHAT_ROOM,
   SOCKET_LEAVE_CHAT_ROOM
 } from '../constants/chat-room';
+import { changeChatRoom } from './active-chat-room';
+import { fetchMessages } from './message';
 
 export function fetchChatRooms(userID) {
   return dispatch => {
@@ -28,11 +30,19 @@ export function createGroupChatRoom(data) {
       payload: axios.post(`/api/chat-room/group/${data.userID}`, data)
     })
     .then((response) => {
+      const chatRoomData = response.action.payload.data.chatRoomData;
+
       dispatch({
         type: SOCKET_CREATE_CHAT_ROOM,
-        chatRoom: response.action.payload.data.chatRoomData,
-        members: response.action.payload.data.chatRoomData.members
+        chatRoom: chatRoomData,
+        members: chatRoomData.members
       });
+      dispatch(socketJoinChatRoom(chatRoomData._id));
+      dispatch(changeChatRoom(chatRoomData));
+      dispatch(fetchMessages({
+        userID: data.userID,
+        chatRoomID: chatRoomData._id
+      }));
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -49,11 +59,19 @@ export function createDirectChatRoom(data) {
       payload: axios.post(`/api/chat-room/direct/${data.userID}`, data)
     })
     .then((response) => {
+      const chatRoomData = response.action.payload.data.chatRoomData;
+
       dispatch({
         type: SOCKET_CREATE_CHAT_ROOM,
-        chatRoom: response.action.payload.data.chatRoomData,
-        members: response.action.payload.data.chatRoomData.members
+        chatRoom: chatRoomData,
+        members: chatRoomData.members
       });
+      dispatch(socketJoinChatRoom(chatRoomData._id));
+      dispatch(changeChatRoom(chatRoomData));
+      dispatch(fetchMessages({
+        userID: data.userID,
+        chatRoomID: chatRoomData._id
+      }));
     })
     .catch((error) => {
       if (error instanceof Error) {
