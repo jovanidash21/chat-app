@@ -3,6 +3,9 @@
   padding: 2px;
   &.reverse {
     flex-direction: row-reverse;
+    .chat-message {
+      flex-direction: row-reverse;
+    }
   }
   .chat-details {
     max-width: 75%;
