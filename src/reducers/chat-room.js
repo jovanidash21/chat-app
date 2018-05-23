@@ -1,6 +1,7 @@
 import {
   FETCH_CHAT_ROOMS,
   CREATE_CHAT_ROOM,
+  SOCKET_CREATE_CHAT_ROOM,
   SOCKET_BROADCAST_CREATE_CHAT_ROOM
 } from '../constants/chat-room';
 
@@ -31,11 +32,7 @@ const chatRoom = (state=initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isCreateChatRoomSuccess: true,
-        chatRooms: [
-          ...state.chatRooms,
-          action.payload.data.chatRoomData
-        ]
+        isCreateChatRoomSuccess: true
       };
     case `${FETCH_CHAT_ROOMS}_ERROR`:
     case `${CREATE_CHAT_ROOM}_ERROR`:
@@ -44,6 +41,7 @@ const chatRoom = (state=initialState, action) => {
         isLoading: false,
         isError: true
       };
+    case SOCKET_CREATE_CHAT_ROOM:
     case SOCKET_BROADCAST_CREATE_CHAT_ROOM:
       return {
         ...state,

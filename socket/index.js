@@ -43,7 +43,7 @@ var sockets = function(socket) {
             if (!err) {
               socket.broadcast.to(user.socketID).emit('action', {
                 type: 'SOCKET_BROADCAST_CREATE_CHAT_ROOM',
-                chatRoom: action.chatRoom
+                chatRoom: action.chatRoomBroadcast
               });
             }
           });
