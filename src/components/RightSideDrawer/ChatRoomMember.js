@@ -43,7 +43,7 @@ class ChatRoomMember extends Component {
             </div>
             <ul className="mui-dropdown__menu mui-dropdown__menu--right">
               <li>
-                <a onClick={::this.handleAddDirectChatRoom}>
+                <a href="#" onClick={::this.handleAddDirectChatRoom}>
                   Direct messages
                 </a>
               </li>
