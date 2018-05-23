@@ -31,6 +31,7 @@
   }
   .chat-room-list {
     flex: 1;
+    overflow-x: hidden;
     overflow-y: scroll;
     &::-webkit-scrollbar {
       width: 6px;
