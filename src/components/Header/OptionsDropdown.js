@@ -42,7 +42,7 @@ class OptionsDropdown extends Component {
           </button>
           <ul className="mui-dropdown__menu mui-dropdown__menu--right">
             <li>
-              <a onClick={::this.handleLogout}>
+              <a href="#" onClick={::this.handleLogout}>
                 Logout
               </a>
             </li>

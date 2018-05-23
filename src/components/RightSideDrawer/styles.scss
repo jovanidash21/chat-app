@@ -4,7 +4,13 @@
   display: flex;
   font-size: 14px;
   padding: 3px 15px;
+  position: relative;
   transition: all 0.2s ease;
+  &:active,
+  &:focus,
+  &:hover {
+    background-color: $color-goblin;
+  }
   .member-icon {
     $image-size: 20px;
     background-size: $image-size;
@@ -17,6 +23,19 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 170px;
+    width: 160px;
+  }
+  .member-options-button {
+    cursor: pointer;
+    color: #000;
+    opacity: 0;
+    text-align: center;
+    transition: all 0.2s ease;
+    width: 30px;
+  }
+  &:hover {
+    .member-options-button {
+      opacity: 1;
+    }
   }
 }

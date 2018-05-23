@@ -67,6 +67,10 @@ class ChatRoom extends Component {
         <div className="chat-room-icon" style={{backgroundImage: `url(${chatRoomData.chatIcon})`}}></div>
         <div className="chat-room-name">
           {chatRoomData.name}
+          {
+            chatRoomData.chatType === 'private' &&
+            <span className="you-label">(you)</span>
+          }
         </div>
       </div>
     )
