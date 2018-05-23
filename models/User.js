@@ -19,6 +19,19 @@ var usersDataSchema = new Schema
       type: Schema.Types.ObjectId,
       ref: 'ChatRoom'
     }],
+    accountType: {
+      type: String,
+      enum: [
+        'local',
+        'facebook',
+        'google',
+        'twitter',
+        'instagram',
+        'linkedin',
+        'github'
+      ],
+      default: 'local'
+    },
     socketID: String
   },
   {
