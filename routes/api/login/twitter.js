@@ -85,6 +85,7 @@ passport.use(new Strategy({
 
             var chatRoomData = {
               name: newUser.name,
+              chatIcon: newUser.profilePicture,
               members: [userID],
               chatType: 'private'
             };

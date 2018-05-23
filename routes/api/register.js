@@ -49,6 +49,7 @@ router.post('/', function(req, res, next) {
 
             var chatRoomData = {
               name: user.name,
+              chatIcon: user.profilePicture,
               members: [userID],
               chatType: 'private'
             };
