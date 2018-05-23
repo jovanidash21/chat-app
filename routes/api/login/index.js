@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var usersData = require('../../../models/users-data-schema');
+var User = require('../../../models/User');
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -9,7 +9,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(function(id, done) {
   if (id.match(/^[0-9a-fA-F]{24}$/)) {
-    usersData.findById(id, function(err, user) {
+    User.findById(id, function(err, user) {
       done(err, user);
     });
   }

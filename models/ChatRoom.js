@@ -18,7 +18,7 @@ var chatRoomsDataSchema = new Schema
     },
     members: [{
       type: Schema.Types.ObjectId,
-      ref: 'usersData'
+      ref: 'User'
     }],
     chatType: {
       type: String,
@@ -31,10 +31,10 @@ var chatRoomsDataSchema = new Schema
     },
   },
   {
-    collection: 'chatRoomsData'
+    collection: 'ChatRoom'
   }
 );
 
 chatRoomsDataSchema.plugin(timestamps);
 
-module.exports = mongoose.model('chatRoomsData', chatRoomsDataSchema);
+module.exports = mongoose.model('ChatRoom', chatRoomsDataSchema);

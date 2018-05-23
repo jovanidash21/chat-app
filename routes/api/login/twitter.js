@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var passport = require('passport');
 var Strategy = require('passport-twitter').Strategy;
-var usersData = require('../../../models/users-data-schema');
-var chatRoomsData = require('../../../models/chat-rooms-data-schema');
+var User = require('../../../models/User');
+var ChatRoom = require('../../../models/ChatRoom');
 var popupTools = require('popup-tools');
 
 passport.use(new Strategy({
@@ -37,7 +37,7 @@ passport.use(new Strategy({
     profilePicture: profilePicture
   }
 
-  usersData.findOne({username: username}, function(err, user) {
+  User.findOne({username: username}, function(err, user) {
     if (!err) {
       if (user !== null) {
         user.update(userData, function(err) {
@@ -48,7 +48,7 @@ passport.use(new Strategy({
           }
         });
       } else {
-        var newUser = new usersData(userData);
+        var newUser = new User(userData);
 
         newUser.save(function(err) {
           if (!err) {
@@ -56,7 +56,7 @@ passport.use(new Strategy({
             var userID = newUser._id;
 
             if (chatLoungeID) {
-              chatRoomsData.findByIdAndUpdate(
+              ChatRoom.findByIdAndUpdate(
                 chatLoungeID,
                 { $push: { members: userID }},
                 { safe: true, upsert: true, new: true },
@@ -69,7 +69,7 @@ passport.use(new Strategy({
                 }
               );
 
-              usersData.findByIdAndUpdate(
+              User.findByIdAndUpdate(
                 userID,
                 { $push: { chatRooms: chatLoungeID }},
                 { safe: true, upsert: true, new: true },
@@ -82,6 +82,34 @@ passport.use(new Strategy({
                 }
               );
             }
+
+            var chatRoomData = {
+              name: newUser.name,
+              members: [userID],
+              chatType: 'private'
+            };
+            var chatRoom = new ChatRoom(chatRoomData);
+
+            chatRoom.save(function(err, chatRoomData) {
+              if (!err) {
+                var chatRoomID = chatRoom._id;
+
+                User.findByIdAndUpdate(
+                  userID,
+                  { $push: { chatRooms: chatRoomID }},
+                  { safe: true, upsert: true, new: true },
+                  function(err) {
+                    if (!err) {
+                      done();
+                    } else {
+                      done(err);
+                    }
+                  }
+                );
+              } else {
+                done(err);
+              }
+            });
 
             return done(null, newUser);
           } else {

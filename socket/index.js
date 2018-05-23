@@ -1,10 +1,10 @@
-var usersData = require('../models/users-data-schema');
+var User = require('../models/User');
 
 var sockets = function(socket) {
   socket.on('action', (action) => {
     switch(action.type) {
       case 'SOCKET_USER_LOGIN':
-        usersData.findByIdAndUpdate(
+        User.findByIdAndUpdate(
           action.user,
           { $set: { socketID: socket.id } },
           { safe: true, upsert: true, new: true },
@@ -12,7 +12,7 @@ var sockets = function(socket) {
         );
         break
       case 'SOCKET_USER_LOGOUT':
-        usersData.findByIdAndUpdate(
+        User.findByIdAndUpdate(
           action.user,
           { $unset: { socketID: '' } },
           { safe: true, upsert: true, new: true },
@@ -39,7 +39,7 @@ var sockets = function(socket) {
         break;
       case 'SOCKET_CREATE_CHAT_ROOM':
         action.members.forEach(function (chatRoomMember) {
-          usersData.findById(chatRoomMember, function(err, user) {
+          User.findById(chatRoomMember, function(err, user) {
             if (!err) {
               socket.broadcast.to(user.socketID).emit('action', {
                 type: 'SOCKET_BROADCAST_CREATE_CHAT_ROOM',

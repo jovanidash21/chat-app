@@ -11,18 +11,18 @@ var messagesDataSchema = new Schema
     text: String,
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'usersData'
+      ref: 'User'
     },
     chatRoom: {
       type: Schema.Types.ObjectId,
-      ref: 'chatRoomsData'
+      ref: 'ChatRoom'
     }
   },
   {
-    collection: 'messagesData'
+    collection: 'Message'
   }
 );
 
 messagesDataSchema.plugin(timestamps);
 
-module.exports = mongoose.model('messagesData', messagesDataSchema);
+module.exports = mongoose.model('Message', messagesDataSchema);

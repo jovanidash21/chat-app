@@ -17,16 +17,16 @@ var usersDataSchema = new Schema
     },
     chatRooms: [{
       type: Schema.Types.ObjectId,
-      ref: 'chatRoomsData'
+      ref: 'ChatRoom'
     }],
     socketID: String
   },
   {
-    collection: 'usersData'
+    collection: 'User'
   }
 );
 
 usersDataSchema.plugin(passportLocalMongoose);
 usersDataSchema.plugin(timestamps);
 
-module.exports = mongoose.model('usersData', usersDataSchema);
+module.exports = mongoose.model('User', usersDataSchema);

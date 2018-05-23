@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
 var passport = require('passport');
-var usersData = require('../../models/users-data-schema');
-var chatRoomsData = require('../../models/chat-rooms-data-schema');
+var User = require('../../models/User');
+var ChatRoom = require('../../models/ChatRoom');
 
 router.post('/', function(req, res, next) {
   var userData = {
@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
     email: req.body.email
   };
 
-  usersData.register(new usersData(userData), req.body.password, function(err) {
+  User.register(new User(userData), req.body.password, function(err) {
     if (!err) {
       passport.authenticate('local', function(err, user) {
         req.logIn(user, function(err) {
@@ -20,7 +20,7 @@ router.post('/', function(req, res, next) {
             var userID = user._id;
 
             if (chatLoungeID) {
-              chatRoomsData.findByIdAndUpdate(
+              ChatRoom.findByIdAndUpdate(
                 chatLoungeID,
                 { $push: { members: userID }},
                 { safe: true, upsert: true, new: true },
@@ -33,7 +33,7 @@ router.post('/', function(req, res, next) {
                 }
               );
 
-              usersData.findByIdAndUpdate(
+              User.findByIdAndUpdate(
                 userID,
                 { $push: { chatRooms: chatLoungeID }},
                 { safe: true, upsert: true, new: true },
@@ -52,13 +52,13 @@ router.post('/', function(req, res, next) {
               members: [userID],
               chatType: 'private'
             };
-            var chatRoom = new chatRoomsData(chatRoomData);
+            var chatRoom = new ChatRoom(chatRoomData);
 
             chatRoom.save(function(err, chatRoomData) {
               if (!err) {
                 var chatRoomID = chatRoom._id;
 
-                usersData.findByIdAndUpdate(
+                User.findByIdAndUpdate(
                   userID,
                   { $push: { chatRooms: chatRoomID }},
                   { safe: true, upsert: true, new: true },

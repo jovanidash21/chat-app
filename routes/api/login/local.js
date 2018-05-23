@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
-var usersData = require('../../../models/users-data-schema');
+var User = require('../../../models/User');
 
 passport.use(new Strategy(
-  usersData.authenticate()
+  User.authenticate()
 ));
 
 router.post('/', function(req, res, next) {

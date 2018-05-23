@@ -17,8 +17,6 @@ var Promise = require('bluebird');
 var index = require('./routes/index');
 var api = require('./routes/api');
 
-var usersData = require('./models/users-data-schema');
-
 var app = express();
 
 // browserSync setup

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
-var usersData = require('../../models/users-data-schema');
-var chatRoomsData = require('../../models/chat-rooms-data-schema');
+var User = require('../../models/User');
+var ChatRoom = require('../../models/ChatRoom');
 
 router.get('/:userID', function(req, res, next) {
   var userID = req.params.userID;
@@ -12,7 +12,7 @@ router.get('/:userID', function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
-    usersData.findById(userID, 'chatRooms')
+    User.findById(userID, 'chatRooms')
       .populate({
         path: 'chatRooms',
         populate: {
@@ -69,18 +69,18 @@ router.post('/group/:userID', function(req, res, next) {
         message: 'Please select at least 3 members.'
       });
     } else {
-      var chatRoom = new chatRoomsData(chatRoomData);
+      var chatRoom = new ChatRoom(chatRoomData);
 
       chatRoom.save(function(err, chatRoomData) {
         if (!err) {
           var chatRoomID = chatRoom._id;
 
-          chatRoomsData.findById(chatRoomID)
+          ChatRoom.findById(chatRoomID)
             .populate('members')
             .exec(function(err, chatRoomData) {
               if (!err) {
                 chatRoomData.members.forEach(function (chatRoomMember) {
-                  usersData.findByIdAndUpdate(
+                  User.findByIdAndUpdate(
                     chatRoomMember,
                     { $push: { chatRooms: chatRoomID }},
                     { safe: true, upsert: true, new: true },
@@ -136,7 +136,7 @@ router.post('/direct/:userID', function(req, res, next) {
       chatType: chatType
     };
 
-    chatRoomsData.findOne({members: members, chatType: 'direct'}, function(err, chatRoom) {
+    ChatRoom.findOne({members: members, chatType: 'direct'}, function(err, chatRoom) {
       if (!err) {
         if (chatRoom !== null) {
           res.status(401).send({
@@ -144,7 +144,7 @@ router.post('/direct/:userID', function(req, res, next) {
             message: 'Chat room already exist.'
           });
         } else {
-          chatRoomsData.findOne({members: members.reverse(), chatType: 'direct'}, function(err, chatRoom) {
+          ChatRoom.findOne({members: members.reverse(), chatType: 'direct'}, function(err, chatRoom) {
             if (!err) {
               if (chatRoom !== null) {
                 res.status(401).send({
@@ -152,18 +152,18 @@ router.post('/direct/:userID', function(req, res, next) {
                   message: 'Chat room already exist.'
                 });
               } else {
-                var chatRoom = new chatRoomsData(chatRoomData);
+                var chatRoom = new ChatRoom(chatRoomData);
 
                 chatRoom.save(function(err, chatRoomData) {
                   if (!err) {
                     var chatRoomID = chatRoom._id;
 
-                    chatRoomsData.findById(chatRoomID)
+                    ChatRoom.findById(chatRoomID)
                       .populate('members')
                       .exec(function(err, chatRoomData) {
                         if (!err) {
                           chatRoomData.members.forEach(function (chatRoomMember) {
-                            usersData.findByIdAndUpdate(
+                            User.findByIdAndUpdate(
                               chatRoomMember,
                               { $push: { chatRooms: chatRoomID }},
                               { safe: true, upsert: true, new: true },

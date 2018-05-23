@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
-var messagesData = require('../../models/messages-data-schema');
+var Message = require('../../models/Message');
 
 router.get('/:chatRoomID/:userID', function(req, res, next) {
   var chatRoomID = req.params.chatRoomID;
@@ -12,7 +12,7 @@ router.get('/:chatRoomID/:userID', function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
-    messagesData.find({chatRoom: chatRoomID})
+    Message.find({chatRoom: chatRoomID})
       .populate('user')
       .sort('createdAt')
       .exec(function(err, chatRoomMessages) {
@@ -43,11 +43,11 @@ router.post('/:chatRoomID/:userID', function(req, res, next) {
       user: userID,
       chatRoom: chatRoomID
     };
-    var message = new messagesData(messageData);
+    var message = new Message(messageData);
 
     message.save(function(err, messageData) {
       if (!err) {
-        messagesData.findById(messageData._id)
+        Message.findById(messageData._id)
           .populate('user')
           .exec(function(err, messageData) {
             if (!err) {

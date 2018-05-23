@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
-var usersData = require('../../models/users-data-schema');
+var User = require('../../models/User');
 
 router.get('/', function(req, res, next) {
   if (req.user === undefined) {
@@ -20,7 +20,7 @@ router.get('/all', function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
-    usersData.find({}, function(err, users) {
+    User.find({}, function(err, users) {
       if (!err) {
         res.status(200).send(users);
       } else {
