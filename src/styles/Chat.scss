@@ -10,6 +10,9 @@
       margin-left: 250px;
     }
   }
+  .bm-menu-wrap {
+    z-index: 3 !important;
+  }
   .left-side-drawer-overlay {
     &,
     & + .bm-menu-wrap {
