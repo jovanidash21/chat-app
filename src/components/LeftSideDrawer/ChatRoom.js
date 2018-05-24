@@ -34,28 +34,40 @@ class ChatRoom extends Component {
       chatRoomData
     } = this.props;
 
-    if (chatRoomData.chatType !== 'direct') {
-      return;
-    } else {
-      for ( var i = 0; i < chatRoomData.members.length; i++ ) {
-        var member = chatRoomData.members[i];
+    switch ( chatRoomData.chatType ) {
+      case 'private':
+        return (
+          <div className={`badge-logo ${userData.accountType}`}>
+            <FontAwesome
+              className="social-icon"
+              name={userData.accountType}
+            />
+          </div>
+        )
+        break;
+      case 'direct':
+        for ( var i = 0; i < chatRoomData.members.length; i++ ) {
+          var member = chatRoomData.members[i];
 
-        if ( member._id != userData._id ) {
-          if ( member.accountType !== 'local' ) {
-            return (
-              <div className={`badge-logo ${member.accountType}`}>
-                <FontAwesome
-                  className="social-icon"
-                  name={member.accountType}
-                />
-              </div>
-            )
+          if ( member._id != userData._id ) {
+            if ( member.accountType !== 'local' ) {
+              return (
+                <div className={`badge-logo ${member.accountType}`}>
+                  <FontAwesome
+                    className="social-icon"
+                    name={member.accountType}
+                  />
+                </div>
+              )
+            }
+            return;
+          } else {
+            continue;
           }
-          return;
-        } else {
-          continue;
         }
-      }
+        break;
+      case 'group':
+        return;
     }
   }
   handleChangeChatRoom(event) {
@@ -96,9 +108,7 @@ class ChatRoom extends Component {
         title={chatRoomData.name}
       >
         <div className="chat-room-icon" style={{backgroundImage: `url(${chatRoomData.chatIcon})`}}>
-          {
-            ::this.handleAccountTypeBadgeLogo()
-          }
+          {::this.handleAccountTypeBadgeLogo()}
         </div>
         <div className="chat-room-name">
           {chatRoomData.name}
