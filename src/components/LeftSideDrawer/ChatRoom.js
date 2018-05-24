@@ -28,7 +28,7 @@ class ChatRoom extends Component {
       handleFetchMessages(data);
     }
   }
-  handleSocialBadgeLogo() {
+  handleAccountTypeBadgeLogo() {
     const {
       userData,
       chatRoomData
@@ -97,7 +97,7 @@ class ChatRoom extends Component {
       >
         <div className="chat-room-icon" style={{backgroundImage: `url(${chatRoomData.chatIcon})`}}>
           {
-            ::this.handleSocialBadgeLogo()
+            ::this.handleAccountTypeBadgeLogo()
           }
         </div>
         <div className="chat-room-name">

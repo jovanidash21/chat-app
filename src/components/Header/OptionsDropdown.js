@@ -8,7 +8,7 @@ class OptionsDropdown extends Component {
   constructor(props) {
     super(props);
   }
-  handleSocialBadgeLogo() {
+  handleAccountTypeBadgeLogo() {
     const { userData } = this.props;
 
     return (
@@ -44,7 +44,7 @@ class OptionsDropdown extends Component {
             >
               {
                 userData.accountType !== 'local' &&
-                ::this.handleSocialBadgeLogo()
+                ::this.handleAccountTypeBadgeLogo()
               }
             </div>
             <div className="user-name">

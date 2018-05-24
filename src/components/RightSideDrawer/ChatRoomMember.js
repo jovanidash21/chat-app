@@ -7,7 +7,7 @@ class ChatRoomMember extends Component {
   constructor(props) {
     super(props);
   }
-  handleSocialBadgeLogo() {
+  handleAccountTypeBadgeLogo() {
     const { chatRoomMember } = this.props;
 
     return (
@@ -43,7 +43,7 @@ class ChatRoomMember extends Component {
         >
           {
             chatRoomMember.accountType !== 'local' &&
-            ::this.handleSocialBadgeLogo()
+            ::this.handleAccountTypeBadgeLogo()
           }
         </div>
         <div className="member-name">
