@@ -32,7 +32,14 @@ var usersDataSchema = new Schema
       ],
       default: 'local'
     },
-    socketID: String
+    isOnline: {
+      type: Boolean,
+      default: false
+    },
+    socketID: {
+      type: String,
+      default: ''
+    }
   },
   {
     collection: 'User'
