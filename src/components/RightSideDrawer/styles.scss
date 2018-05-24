@@ -3,13 +3,18 @@
   border-bottom: 1px solid $color-goblin;
   display: flex;
   font-size: 14px;
-  padding: 3px 15px;
+  padding: 3px 15px 3px 0;
   position: relative;
   transition: all 0.2s ease;
   &:active,
   &:focus,
   &:hover {
     background-color: $color-goblin;
+  }
+  .online-indicator {
+    color: #fff;
+    font-size: 10px;
+    margin: 0 5px;
   }
   .member-icon {
     $image-size: 23px;
@@ -22,10 +27,17 @@
     width: $image-size;
   }
   .member-name {
+    flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 150px;
+    .you-label {
+      color: $color-alto;
+      margin-left: 7px;
+    }
+  }
+  .member-options-button-wrapper {
+    width: 30px;
   }
   .member-options-button {
     cursor: pointer;
@@ -33,7 +45,6 @@
     opacity: 0;
     text-align: center;
     transition: all 0.2s ease;
-    width: 30px;
   }
   &:hover {
     .member-options-button {

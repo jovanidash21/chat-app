@@ -7,6 +7,18 @@ class ChatRoomMember extends Component {
   constructor(props) {
     super(props);
   }
+  handleOnlineIcon() {
+    const { chatRoomMember } = this.props;
+
+    return (
+      <div className="online-indicator">
+        <FontAwesome
+          className="circle-icon"
+          name={chatRoomMember.isOnline ? 'circle' : 'circle-thin'}
+        />
+      </div>
+    )
+  }
   handleAccountTypeBadgeLogo() {
     const { chatRoomMember } = this.props;
 
@@ -37,6 +49,7 @@ class ChatRoomMember extends Component {
 
     return (
       <div className="chat-room-member" title={chatRoomMember.name}>
+        {::this.handleOnlineIcon()}
         <div
           className="member-icon"
           style={{backgroundImage: `url(${chatRoomMember.profilePicture})`}}
@@ -48,25 +61,31 @@ class ChatRoomMember extends Component {
         </div>
         <div className="member-name">
           {chatRoomMember.name}
+          {
+            userData._id === chatRoomMember._id &&
+            <span className="you-label">(you)</span>
+          }
         </div>
-        {
-          userData._id !== chatRoomMember._id &&
-          <div>
-            <div className="member-options-button" data-mui-toggle="dropdown">
-              <FontAwesome
-                className="options-icon"
-                 name="ellipsis-v"
-              />
+        <div className="member-options-button-wrapper">
+          {
+            userData._id !== chatRoomMember._id &&
+            <div>
+              <div className="member-options-button" data-mui-toggle="dropdown">
+                <FontAwesome
+                  className="options-icon"
+                   name="ellipsis-v"
+                />
+              </div>
+              <ul className="mui-dropdown__menu mui-dropdown__menu--right">
+                <li>
+                  <a href="#" onClick={::this.handleAddDirectChatRoom}>
+                    Direct messages
+                  </a>
+                </li>
+              </ul>
             </div>
-            <ul className="mui-dropdown__menu mui-dropdown__menu--right">
-              <li>
-                <a href="#" onClick={::this.handleAddDirectChatRoom}>
-                  Direct messages
-                </a>
-              </li>
-            </ul>
-          </div>
-        }
+          }
+        </div>
       </div>
     )
   }
