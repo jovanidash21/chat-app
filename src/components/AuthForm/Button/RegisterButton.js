@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Button } from 'muicss/react';
-import './styles.scss';
 
 const RegisterButton = (props) => {
   return (

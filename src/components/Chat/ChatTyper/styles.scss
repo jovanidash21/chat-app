@@ -1,0 +1,41 @@
+.chat-typer-wrapper {
+  align-items: center;
+  display: flex;
+  padding: 4px;
+  .chat-image {
+    $image-size: 21px;
+    background-repeat: no-repeat;
+    background-size: $image-size;
+    border-radius: 50%;
+    height: $image-size;
+    width: $image-size;
+  }
+  .chat-typer {
+    align-items: center;
+    background-color: $color-dusty-gray;
+    border-radius: 21px;
+    display: flex;
+    margin-left: 3px;
+    padding: 5px;
+    position: relative;
+    span {
+      background-color: #fff;
+      border-radius: 50%;
+      display: block;
+      height: 5px;
+      margin: 0 1px;
+      opacity: 0.5;
+      width: 5px;
+      @for $i from 1 through 3 {
+        &:nth-of-type(#{$i}) {
+          animation: 1s blink infinite ($i * .3333s);
+        }
+      }
+      @keyframes blink {
+        50% {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

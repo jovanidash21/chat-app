@@ -1,0 +1,81 @@
+.chat-bubble-wrapper {
+  display: flex;
+  padding: 2px;
+  &.reverse {
+    flex-direction: row-reverse;
+    .chat-message {
+      flex-direction: row-reverse;
+    }
+  }
+  .chat-details {
+    max-width: 75%;
+  }
+  .chat-bubble {
+    $bg-color: $color-dusty-gray;
+    background-color: $bg-color;
+    border-radius: 21px;
+    margin-left: 25px;
+    position: relative;
+    word-wrap: break-word;
+    &:after {
+      border: 21px solid;
+      border-color: transparent $bg-color;
+      border-width: 10px 20px 10px 0;
+      bottom: auto;
+      content: '';
+      left: -17px;
+      position: absolute;
+      right: auto;
+      text-align: left;
+      top: 11px;
+    }
+    &.right {
+      $bg-color: $color-dodger-blue;
+      background-color: $bg-color;
+      margin-left: 0;
+      margin-right: 25px;
+      &:after {
+        border-color: transparent $bg-color;
+        left: auto;
+        right: -17px;
+        transform: rotate(180deg);
+      }
+    }
+    .chat-text {
+      color: #fff;
+      font-size: 14px;
+      padding: 11px 17px;
+      span {
+        margin-top: 3px !important;
+      }
+    }
+  }
+  .chat-image {
+    $image-size: 35px;
+    background-repeat: no-repeat;
+    background-size: $image-size;
+    border-radius: 50%;
+    flex: 0 0 $image-size;
+    height: $image-size;
+    margin-top: 3px;
+    width: $image-size;
+    &.left {
+      margin-top: 19px;
+    }
+  }
+  .chat-user-name {
+    color: $color-dusty-gray;
+    font-size: 11px;
+    margin-left: 40px;
+  }
+  .chat-message {
+    display: flex;
+    flex-direction: row;
+  }
+  .chat-time {
+    align-self: flex-end;
+    color: #000;
+    font-size: 11px;
+    margin: 0 4px 2px;
+  }
+}

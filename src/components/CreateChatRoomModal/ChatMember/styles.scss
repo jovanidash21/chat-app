@@ -1,0 +1,41 @@
+.member-wrapper {
+  display: inline-block;
+  padding: 1px;
+  .member {
+    align-items: center;
+    background-color: $color-dusty-gray;
+    border-radius: 12px;
+    display: flex;
+    flex-shrink: 0;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 3px;
+    transition: all 0.2s ease;
+    width: 100px;
+    &:hover {
+      background-color: $color-punch;
+    }
+  }
+  &:first-child {
+    .member:hover {
+      background-color: $color-dusty-gray;
+    }
+  }
+  .member-image {
+    $image-size: 20px;
+    background-size: $image-size;
+    border-radius: 50%;
+    flex: 0 0 $image-size;
+    margin-right: 5px;
+    height: $image-size;
+    width: $image-size;
+  }
+  .member-name {
+    color: #fff;
+    display: inline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 70px;
+    white-space: nowrap;
+  }
+}

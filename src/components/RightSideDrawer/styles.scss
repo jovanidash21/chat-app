@@ -20,38 +20,6 @@
     margin-right: 12px;
     position: relative;
     width: $image-size;
-    .badge-logo {
-      $badge-size: 12px;
-      align-items: center;
-      bottom: 0;
-      color: #fff;
-      display: flex;
-      font-size: 10px;
-      height: $badge-size;
-      justify-content: center;
-      position: absolute;
-      right: -7px;
-      width: $badge-size;
-      &.facebook {
-        background-color: $color-chambray;
-      }
-      &.google {
-        background-color: $color-punch;
-      }
-      &.twitter {
-        background-color: $color-cerulean;
-      }
-      &.instagram {
-        background-color: $color-studio;
-      }
-      &.linkedin {
-        background-color: $color-deep-cerulean;
-      }
-      &.github {
-        background-color: $color-mine-shaft;
-      }
-    }
-
   }
   .member-name {
     overflow: hidden;

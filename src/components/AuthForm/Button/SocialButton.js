@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'muicss/react';
 import FontAwesome from 'react-fontawesome';
-import './styles.scss';
 
 const SocialButton = (props) => {
   return (
