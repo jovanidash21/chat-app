@@ -1,6 +1,7 @@
 import {
   SOCKET_USER_LOGIN,
   SOCKET_BROADCAST_USER_LOGIN,
+  SOCKET_BROADCAST_USER_REGISTER,
   SOCKET_BROADCAST_USER_LOGOUT
 } from '../constants/auth';
 import {
@@ -65,6 +66,16 @@ const chatRoom = (state=initialState, action) => {
           }
         }
       }
+
+      return {
+        ...state,
+        chatRooms: [...chatRooms]
+      }
+    case SOCKET_BROADCAST_USER_REGISTER:
+      var user = action.user;
+      var chatRooms = [...state.chatRooms];
+
+      chatRooms[0].members.push(user);
 
       return {
         ...state,

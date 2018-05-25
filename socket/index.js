@@ -22,6 +22,11 @@ var sockets = function(socket) {
           }
         );
         break
+      case 'SOCKET_USER_REGISTER':
+        socket.broadcast.emit('action', {
+          type: 'SOCKET_BROADCAST_USER_REGISTER',
+          user: action.user
+        });
       case 'SOCKET_USER_LOGOUT':
         User.findByIdAndUpdate(
           action.user,
