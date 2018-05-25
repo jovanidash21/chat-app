@@ -27,6 +27,6 @@ body.chat-page {
 .loading-bar {
   height: 3px;
   background-color: #fe9c43;
-  position: absolute;
+  position: fixed;
   z-index: 9999;
 }
