@@ -33,10 +33,19 @@ class Chat extends Component {
     document.body.classList.add('chat-page');
   }
   componentDidMount() {
+    ::this.calculateViewportHeight();
+    window.addEventListener('onorientationchange', ::this.calculateViewportHeight, true);
+    window.addEventListener('resize', ::this.calculateViewportHeight, true);
+
     ::this.handleScrollToBottom();
   }
   componentDidUpdate() {
     ::this.handleScrollToBottom();
+  }
+  calculateViewportHeight() {
+    var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+    document.getElementById('chat-section').setAttribute('style', 'height:' + viewportHeight + 'px;');
   }
   handleLeftSideDrawerRender() {
     const { isLeftSideDrawerOpen } = this.state;
@@ -145,7 +154,7 @@ class Chat extends Component {
     const { isRightSideDrawerOpen } = this.state;
 
     return (
-      <div className="chat-section">
+      <div id="chat-section" className="chat-section">
         <Head title="Chat App" />
         {::this.handleLeftSideDrawerRender()}
         <RightSideDrawer
