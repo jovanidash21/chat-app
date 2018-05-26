@@ -8,7 +8,6 @@ import {
   REGISTER,
   LOGOUT,
   SOCKET_USER_LOGIN,
-  SOCKET_USER_REGISTER,
   SOCKET_USER_LOGOUT
 } from '../constants/auth';
 
@@ -197,11 +196,7 @@ export function register(data) {
       type: REGISTER,
       payload: axios.post('/api/register', data)
     })
-    .then((response) => {
-      dispatch({
-        type: SOCKET_USER_REGISTER,
-        user: response.action.payload.data.userData,
-      });
+    .then(() => {
       dispatch(hideLoading());
       dispatch(sendEmail(data));
       dispatch(push('/chat'));

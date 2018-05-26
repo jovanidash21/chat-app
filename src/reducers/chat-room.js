@@ -1,7 +1,5 @@
 import {
-  SOCKET_USER_LOGIN,
   SOCKET_BROADCAST_USER_LOGIN,
-  SOCKET_BROADCAST_USER_REGISTER,
   SOCKET_BROADCAST_USER_LOGOUT
 } from '../constants/auth';
 import {
@@ -47,19 +45,20 @@ const chatRoom = (state=initialState, action) => {
         isLoading: false,
         isError: true
       };
-    case SOCKET_USER_LOGIN:
     case SOCKET_BROADCAST_USER_LOGIN:
-      var userID = action.user;
+      var user = action.user;
+      var userID = action.user._id;
       var chatRooms = [...state.chatRooms];
+      var isUserExist = false;
 
-      for (var i = 0; i < chatRooms.length; i++) {
+      for (var i = 0; i < 1; i++) {
         var chatRoom = chatRooms[i];
 
         for (var j = 0; j < chatRoom.members.length; j++) {
           var member = chatRoom.members[j];
 
           if ( member._id === userID ) {
-            member.isOnline = true;
+            isUserExist = true;
             break;
           } else {
             continue
@@ -67,15 +66,25 @@ const chatRoom = (state=initialState, action) => {
         }
       }
 
-      return {
-        ...state,
-        chatRooms: [...chatRooms]
-      }
-    case SOCKET_BROADCAST_USER_REGISTER:
-      var user = action.user;
-      var chatRooms = [...state.chatRooms];
+      if ( ! isUserExist ) {
+        user.isOnline = true;
+        chatRooms[0].members.push(user);
+      } else {
+        for (var i = 0; i < chatRooms.length; i++) {
+          var chatRoom = chatRooms[i];
 
-      chatRooms[0].members.push(user);
+          for (var j = 0; j < chatRoom.members.length; j++) {
+            var member = chatRoom.members[j];
+
+            if ( member._id === userID ) {
+              member.isOnline = true;
+              break;
+            } else {
+              continue
+            }
+          }
+        }
+      }
 
       return {
         ...state,

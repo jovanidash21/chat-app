@@ -7,12 +7,12 @@ var sockets = function(socket) {
     switch(action.type) {
       case 'SOCKET_USER_LOGIN':
         User.findByIdAndUpdate(
-          action.user,
+          action.user._id,
           { $set: { isOnline: true, socketID: socket.id } },
           { safe: true, upsert: true, new: true },
           function(err) {
             if (!err) {
-              users[socket.id] = action.user;
+              users[socket.id] = action.user._id;
 
               socket.broadcast.emit('action', {
                 type: 'SOCKET_BROADCAST_USER_LOGIN',
@@ -22,11 +22,6 @@ var sockets = function(socket) {
           }
         );
         break
-      case 'SOCKET_USER_REGISTER':
-        socket.broadcast.emit('action', {
-          type: 'SOCKET_BROADCAST_USER_REGISTER',
-          user: action.user
-        });
       case 'SOCKET_USER_LOGOUT':
         User.findByIdAndUpdate(
           action.user,
