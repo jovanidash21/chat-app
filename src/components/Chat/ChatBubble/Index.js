@@ -46,16 +46,19 @@ class ChatBubble extends Component {
 
     return (
       <div className={"chat-bubble-wrapper " + (isSender ? 'reverse' : '')}>
-        <div
-          className={"chat-image " + (!isSender ? 'left' : '')}
-          style={{backgroundImage: `url(${userData.profilePicture})`}}
-          title={userData.name}
-        >
-          {
-            userData.accountType !== 'local' &&
-            ::this.handleAccountTypeBadgeLogo()
-          }
-        </div>
+        {
+          !isSender &&
+          <div
+            className={"chat-image " + (!isSender ? 'left' : '')}
+            style={{backgroundImage: `url(${userData.profilePicture})`}}
+            title={userData.name}
+          >
+            {
+              userData.accountType !== 'local' &&
+              ::this.handleAccountTypeBadgeLogo()
+            }
+          </div>
+        }
         <div className="chat-details">
           {
             !isSender &&

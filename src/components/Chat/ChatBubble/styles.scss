@@ -8,7 +8,10 @@
     }
   }
   .chat-details {
-    max-width: 75%;
+    max-width: 90%;
+    @media screen and (min-width: $screen-tablet-min) {
+      max-width: 75%;
+    }
   }
   .chat-bubble {
     $bg-color: $color-dusty-gray;
@@ -33,18 +36,16 @@
       $bg-color: $color-dodger-blue;
       background-color: $bg-color;
       margin-left: 0;
-      margin-right: 25px;
+      margin-right: 0;
       &:after {
-        border-color: transparent $bg-color;
-        left: auto;
-        right: -17px;
-        transform: rotate(180deg);
+        content: none;
       }
     }
     .chat-text {
       color: #fff;
       font-size: 14px;
       padding: 11px 17px;
+      word-break: break-all;
       span {
         margin-top: 3px !important;
       }
