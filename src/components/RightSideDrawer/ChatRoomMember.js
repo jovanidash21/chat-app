@@ -11,7 +11,7 @@ class ChatRoomMember extends Component {
     const { chatRoomMember } = this.props;
 
     return (
-      <div className="online-indicator">
+      <div className={"online-indicator " + (chatRoomMember.isOnline ? 'online' : '')}>
         <FontAwesome
           className="circle-icon"
           name={chatRoomMember.isOnline ? 'circle' : 'circle-thin'}
