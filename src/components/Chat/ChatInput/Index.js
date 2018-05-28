@@ -202,7 +202,7 @@ class ChatInput extends Component {
       handleSendMessage
     } = this.props;
     const { validMessage } = this.state;
-    const messageText = document.getElementById('chat-input').innerHTML;
+    const messageText = ::this.handleMessageText();
     const newMessageID = uuidv4();
     const newMessage = {
       newMessageID: newMessageID,
