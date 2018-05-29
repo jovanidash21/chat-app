@@ -5,24 +5,23 @@ var timestamps = require('mongoose-timestamp');
 
 mongoose.Promise = Promise;
 
-var messagesDataSchema = new Schema
-(
+var messageSchema = new Schema (
   {
     text: String,
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'User',
     },
     chatRoom: {
       type: Schema.Types.ObjectId,
-      ref: 'ChatRoom'
-    }
+      ref: 'ChatRoom',
+    },
   },
   {
-    collection: 'Message'
-  }
+    collection: 'Message',
+  },
 );
 
-messagesDataSchema.plugin(timestamps);
+messageSchema.plugin(timestamps);
 
-module.exports = mongoose.model('Message', messagesDataSchema);
+module.exports = mongoose.model('Message', messageSchema);

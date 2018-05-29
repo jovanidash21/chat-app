@@ -6,18 +6,17 @@ var timestamps = require('mongoose-timestamp');
 
 mongoose.Promise = Promise;
 
-var usersDataSchema = new Schema
-(
+var userSchema = new Schema (
   {
     name: String,
     email: String,
     profilePicture: {
       type: String,
-      default: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-profile-picture.jpg'
+      default: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-profile-picture.jpg',
     },
     chatRooms: [{
       type: Schema.Types.ObjectId,
-      ref: 'ChatRoom'
+      ref: 'ChatRoom',
     }],
     accountType: {
       type: String,
@@ -28,25 +27,25 @@ var usersDataSchema = new Schema
         'twitter',
         'instagram',
         'linkedin',
-        'github'
+        'github',
       ],
-      default: 'local'
+      default: 'local',
     },
     isOnline: {
       type: Boolean,
-      default: false
+      default: false,
     },
     socketID: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   {
-    collection: 'User'
-  }
+    collection: 'User',
+  },
 );
 
-usersDataSchema.plugin(passportLocalMongoose);
-usersDataSchema.plugin(timestamps);
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(timestamps);
 
-module.exports = mongoose.model('User', usersDataSchema);
+module.exports = mongoose.model('User', userSchema);

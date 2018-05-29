@@ -5,36 +5,35 @@ var timestamps = require('mongoose-timestamp');
 
 mongoose.Promise = Promise;
 
-var chatRoomsDataSchema = new Schema
-(
+var chatRoomSchema = new Schema (
   {
     name: {
       type: String,
-      default: ''
+      default: '',
     },
     chatIcon: {
       type: String,
-      default: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg'
+      default: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg',
     },
     members: [{
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'User',
     }],
     chatType: {
       type: String,
       enum: [
         'private',
         'direct',
-        'group'
+        'group',
       ],
-      default: 'group'
+      default: 'group',
     },
   },
   {
-    collection: 'ChatRoom'
-  }
+    collection: 'ChatRoom',
+  },
 );
 
-chatRoomsDataSchema.plugin(timestamps);
+chatRoomSchema.plugin(timestamps);
 
-module.exports = mongoose.model('ChatRoom', chatRoomsDataSchema);
+module.exports = mongoose.model('ChatRoom', chatRoomSchema);
