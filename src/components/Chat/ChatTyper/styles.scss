@@ -1,13 +1,14 @@
 .chat-typer-wrapper {
   align-items: center;
   display: flex;
-  padding: 4px;
+  margin: 5px;
   .chat-image {
     $image-size: 21px;
     background-repeat: no-repeat;
     background-size: $image-size;
     border-radius: 50%;
     height: $image-size;
+    position: relative;
     width: $image-size;
   }
   .chat-typer {
@@ -15,7 +16,7 @@
     background-color: $color-dusty-gray;
     border-radius: 21px;
     display: flex;
-    margin-left: 3px;
+    margin-left: 5px;
     padding: 5px;
     position: relative;
     span {

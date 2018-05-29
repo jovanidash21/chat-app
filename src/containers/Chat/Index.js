@@ -122,6 +122,7 @@ class Chat extends Component {
                   key={i}
                   name={typerData.name}
                   profilePicture={typerData.profilePicture}
+                  badge={typerData.accountType !== 'local' ? typerData.accountType : ''}
                 />
               )
             }
