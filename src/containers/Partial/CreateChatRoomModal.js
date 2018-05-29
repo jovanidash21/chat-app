@@ -27,6 +27,8 @@ class CreateChatRoomModal extends Component {
     this.setState({chatRoomName: event.target.value});
   }
   onSuggestionSelected(event, suggestion) {
+    event.preventDefault();
+
     const { members } = this.state;
     const selectedMember = suggestion.suggestion;
 
