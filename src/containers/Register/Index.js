@@ -31,7 +31,7 @@ class Register extends Component {
   }
   componentWillMount() {
     document.body.className = '';
-    document.body.classList.add('regiser-page');
+    document.body.classList.add('register-page');
   }
   onEmailChange(event) {
     event.preventDefault();
