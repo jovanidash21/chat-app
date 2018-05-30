@@ -55,7 +55,6 @@ const actions = (dispatch) => {
     createDirectChatRoom,
     socketJoinChatRoom,
     socketLeaveChatRoom,
-    changeChatRoom,
     fetchMessages,
     sendMessage
   }, dispatch);

@@ -86,10 +86,7 @@ function createChatRoom(userID, chatRoom) {
     });
     dispatch(socketJoinChatRoom(chatRoom._id));
     dispatch(changeChatRoom(chatRoom));
-    dispatch(fetchMessages({
-      userID: userID,
-      chatRoomID: chatRoom._id
-    }));
+    dispatch(fetchMessages(userID, chatRoom._id));
   }
 }
 

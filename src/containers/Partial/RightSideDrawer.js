@@ -112,14 +112,9 @@ class RightSideDrawer extends Component {
       createDirectChatRoom(userID, memberID);
       handleRightSideDrawerToggleEvent(event);
     } else {
-      let data = {
-        userID: userID,
-        chatRoomID: directChatRoomData._id
-      };
-
       socketJoinChatRoom(directChatRoomData._id);
       changeChatRoom(directChatRoomData);
-      fetchMessages(data);
+      fetchMessages(userID, directChatRoomData._id);
       handleRightSideDrawerToggleEvent(event);
     }
   }
