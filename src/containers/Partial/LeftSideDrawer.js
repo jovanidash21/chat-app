@@ -29,7 +29,6 @@ class LeftSideDrawer extends Component {
     const {
       user,
       chatRoom,
-      socketLeaveChatRoom,
       changeChatRoom,
       handleLeftSideDrawerToggleEvent
     } = this.props;
@@ -48,7 +47,6 @@ class LeftSideDrawer extends Component {
                 chatRoomData={chatRoomData}
                 activeChatRoom={activeChatRoom}
                 isActive={(activeChatRoom._id === chatRoomData._id) ? true : false}
-                handleSocketLeaveChatRoom={socketLeaveChatRoom}
                 handleChangeChatRoom={changeChatRoom}
                 handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
               />

@@ -61,6 +61,7 @@ class CreateChatRoomModal extends Component {
 
     const {
       user,
+      chatRoom,
       createGroupChatRoom,
       handleDeactivateModal,
       handleLeftSideDrawerToggleEvent
@@ -69,9 +70,10 @@ class CreateChatRoomModal extends Component {
       chatRoomName,
       members
     } = this.state;
+    const activeChatRoom = chatRoom.active;
 
     if ( chatRoomName.length > 0 && members.length > 2 ) {
-      createGroupChatRoom(chatRoomName, members, user.active._id);
+      createGroupChatRoom(chatRoomName, members, user.active._id, activeChatRoom._id);
       handleDeactivateModal();
       handleLeftSideDrawerToggleEvent(event);
     }
@@ -135,7 +137,8 @@ class CreateChatRoomModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    chatRoom: state.chatRoom
   }
 }
 
