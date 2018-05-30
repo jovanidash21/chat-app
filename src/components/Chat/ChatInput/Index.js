@@ -28,7 +28,7 @@ class ChatInput extends Component {
     const messageValue = value;
     const {
       userData,
-      activeChatRoomData,
+      activeChatRoom,
       handleSocketIsTyping,
       handleSocketIsNotTyping
     } = this.props
@@ -37,12 +37,12 @@ class ChatInput extends Component {
     this.setState({message: messageValue});
 
     if ( (messageValue.length > 0) && (!typing) ) {
-      handleSocketIsTyping(userData, activeChatRoomData._id);
+      handleSocketIsTyping(userData, activeChatRoom._id);
       this.setState({typing: true});
     }
 
     if ( (messageValue.length === 0) && (typing) ) {
-      handleSocketIsNotTyping(userData, activeChatRoomData._id);
+      handleSocketIsNotTyping(userData, activeChatRoom._id);
       this.setState({typing: false});
     }
   }
@@ -175,47 +175,35 @@ class ChatInput extends Component {
   handleSendMessageOnChange(event) {
     const {
       userData,
-      activeChatRoomData,
+      activeChatRoom,
       handleSocketIsNotTyping,
       handleSendMessage
     } = this.props;
-    var messageText = ::this.handleMessageText();
+    const messageText = ::this.handleMessageText().trim();
     const newMessageID = uuidv4();
-    const newMessage = {
-      newMessageID: newMessageID,
-      text: messageText.trim(),
-      user: userData,
-      chatRoom: activeChatRoomData
-    };
 
     document.getElementById('chat-input').innerHTML = '';
-    handleSocketIsNotTyping(userData, activeChatRoomData._id);
-    handleSendMessage(newMessage);
+    handleSocketIsNotTyping(userData, activeChatRoom._id);
+    handleSendMessage(newMessageID, messageText);
   }
   handleSendMessageOnClick(event) {
     event.preventDefault();
 
     const {
       userData,
-      activeChatRoomData,
+      activeChatRoom,
       handleSocketIsNotTyping,
       handleSendMessage
     } = this.props;
     const { validMessage } = this.state;
-    const messageText = ::this.handleMessageText();
+    const messageText = ::this.handleMessageText().trim();
     const newMessageID = uuidv4();
-    const newMessage = {
-      newMessageID: newMessageID,
-      text: messageText.trim(),
-      user: userData,
-      chatRoom: activeChatRoomData
-    };
 
     if ( validMessage ) {
       document.getElementById('chat-input').innerHTML = '';
       document.getElementById('chat-input').focus();
-      handleSocketIsNotTyping(userData, activeChatRoomData._id);
-      handleSendMessage(newMessage);
+      handleSocketIsNotTyping(userData, activeChatRoom._id);
+      handleSendMessage(newMessageID, messageText);
 
       this.setState({
         message: '',
@@ -290,7 +278,7 @@ class ChatInput extends Component {
 
 ChatInput.propTypes = {
   userData: PropTypes.object.isRequired,
-  activeChatRoomData: PropTypes.object.isRequired,
+  activeChatRoom: PropTypes.object.isRequired,
   handleSocketIsTyping: PropTypes.func.isRequired,
   handleSocketIsNotTyping: PropTypes.func.isRequired,
   handleSendMessage: PropTypes.func.isRequired

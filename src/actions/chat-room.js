@@ -1,14 +1,18 @@
 import axios from 'axios';
 import {
   FETCH_CHAT_ROOMS,
+  CHANGE_CHAT_ROOM,
   CREATE_CHAT_ROOM,
   SOCKET_CREATE_CHAT_ROOM,
   SOCKET_JOIN_CHAT_ROOM,
   SOCKET_LEAVE_CHAT_ROOM
 } from '../constants/chat-room';
-import { changeChatRoom } from './active-chat-room';
 import { fetchMessages } from './message';
 
+/**
+ * Fetch chat rooms
+ * @param {string} userID
+ */
 export function fetchChatRooms(userID) {
   return dispatch => {
     return dispatch({
@@ -23,6 +27,22 @@ export function fetchChatRooms(userID) {
   }
 }
 
+/**
+ * Change chat room
+ * @param {Object} chatRoom
+ */
+export function changeChatRoom(chatRoom) {
+  return {
+    type: CHANGE_CHAT_ROOM,
+    payload: chatRoom
+  };
+}
+
+/**
+ * Create chat room
+ * @param {string} userID
+ * @param {Object} chatRoom
+ */
 function createChatRoom(userID, chatRoom) {
   return dispatch => {
     var chatRoomBroadcast = {...chatRoom};
@@ -73,7 +93,19 @@ function createChatRoom(userID, chatRoom) {
   }
 }
 
-export function createGroupChatRoom(data) {
+/**
+ * Create group chat room
+ * @param {string} name
+ * @param {Array} members
+ * @param {string} userID
+ */
+export function createGroupChatRoom(name, members, userID) {
+  let data = {
+    name,
+    members,
+    userID,
+  };
+
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
@@ -90,7 +122,18 @@ export function createGroupChatRoom(data) {
   }
 }
 
-export function createDirectChatRoom(data) {
+/**
+ * Create direct chat room
+ * @param {string} userID
+ * @param {string} memberID
+ */
+export function createDirectChatRoom(userID, memberID) {
+  let data = {
+    name: '',
+    members: [userID, memberID],
+    userID: userID,
+  };
+
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
@@ -107,16 +150,24 @@ export function createDirectChatRoom(data) {
   }
 }
 
-export function socketJoinChatRoom(chatRoom) {
+/**
+ * Socket join chat room
+ * @param {string} chatRoomID
+ */
+export function socketJoinChatRoom(chatRoomID) {
   return {
     type: SOCKET_JOIN_CHAT_ROOM,
-    chatRoom: chatRoom
+    chatRoom: chatRoomID
   };
 }
 
-export function socketLeaveChatRoom(chatRoom) {
+/**
+ * Socket leave chat room
+ * @param {string} chatRoomID
+ */
+export function socketLeaveChatRoom(chatRoomID) {
   return {
     type: SOCKET_LEAVE_CHAT_ROOM,
-    chatRoom: chatRoom
+    chatRoom: chatRoomID
   };
 }

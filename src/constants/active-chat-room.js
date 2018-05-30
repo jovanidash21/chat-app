@@ -1,1 +1,0 @@
-export const CHANGE_CHAT_ROOM = 'CHANGE_CHAT_ROOM';

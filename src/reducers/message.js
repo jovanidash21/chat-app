@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   isLoading: false,
-  messages: []
+  all: []
 };
 
 const message = (state=initialState, action) => {
@@ -25,15 +25,15 @@ const message = (state=initialState, action) => {
         ...state,
         isLoading: false,
         isFetchMessagesSuccess: true,
-        messages: action.payload.data
+        all: action.payload.data
       };
     case `${SEND_MESSAGE}_SUCCESS`:
       return {
         ...state,
         isLoading: false,
         isSendMessageSuccess: true,
-        messages: [
-          ...state.messages.filter((messageData) => messageData.newMessageID !== action.meta),
+        all: [
+          ...state.all.filter((messageData) => messageData.newMessageID !== action.meta),
           action.payload.data.messageData
         ]
       };
@@ -48,8 +48,8 @@ const message = (state=initialState, action) => {
     case SOCKET_BROADCAST_SEND_MESSAGE:
       return {
         ...state,
-        messages: [
-          ...state.messages,
+        all: [
+          ...state.all,
           action.message
         ]
       };

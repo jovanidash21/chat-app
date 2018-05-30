@@ -22,12 +22,12 @@ import {
 } from './typer';
 import {
   fetchChatRooms,
+  changeChatRoom,
   createGroupChatRoom,
   createDirectChatRoom,
   socketJoinChatRoom,
   socketLeaveChatRoom
 } from './chat-room';
-import { changeChatRoom } from './active-chat-room';
 import {
   fetchMessages,
   sendMessage
@@ -50,6 +50,7 @@ const actions = (dispatch) => {
     socketIsTyping,
     socketIsNotTyping,
     fetchChatRooms,
+    changeChatRoom,
     createGroupChatRoom,
     createDirectChatRoom,
     socketJoinChatRoom,

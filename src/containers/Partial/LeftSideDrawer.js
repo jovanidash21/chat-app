@@ -23,13 +23,12 @@ class LeftSideDrawer extends Component {
       fetchChatRooms
     } = this.props;
 
-    fetchChatRooms(user.userData._id);
+    fetchChatRooms(user.active._id);
   }
   handleComponent() {
     const {
       user,
       chatRoom,
-      activeChatRoom,
       socketJoinChatRoom,
       socketLeaveChatRoom,
       changeChatRoom,
@@ -38,19 +37,19 @@ class LeftSideDrawer extends Component {
     } = this.props;
 
     if (!chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess) {
-      const activeChatRoomData = activeChatRoom.chatRoomData;
+      const activeChatRoom = chatRoom.active;
 
       return (
         <div className="chat-room-list">
           {
-            chatRoom.chatRooms.map((chatRoomData, i) =>
+            chatRoom.all.map((chatRoomData, i) =>
               <ChatRoom
                 key={i}
                 index={i}
-                userData={user.userData}
+                userData={user.active}
                 chatRoomData={chatRoomData}
-                activeChatRoomData={activeChatRoomData}
-                isActive={(activeChatRoomData._id === chatRoomData._id) ? true : false}
+                activeChatRoom={activeChatRoom}
+                isActive={(activeChatRoom._id === chatRoomData._id) ? true : false}
                 handleSocketJoinChatRoom={socketJoinChatRoom}
                 handleSocketLeaveChatRoom={socketLeaveChatRoom}
                 handleChangeChatRoom={changeChatRoom}
@@ -123,8 +122,7 @@ class LeftSideDrawer extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    chatRoom: state.chatRoom,
-    activeChatRoom: state.activeChatRoom
+    chatRoom: state.chatRoom
   }
 }
 

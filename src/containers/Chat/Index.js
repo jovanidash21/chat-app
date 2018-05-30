@@ -28,7 +28,7 @@ class Chat extends Component {
       socketUserLogin
     } = this.props;
 
-    socketUserLogin(user.userData);
+    socketUserLogin(user.active);
     document.body.className = '';
     document.body.classList.add('chat-page');
   }
@@ -89,7 +89,7 @@ class Chat extends Component {
       message
     } = this.props;
 
-    if (chatRoom.chatRooms.length === 0) {
+    if (chatRoom.all.length === 0) {
       return (
         <div className="user-no-chat-rooms">
           Hi! Welcome, create a Chat Room now.
@@ -99,15 +99,15 @@ class Chat extends Component {
       return (
         <Container fluid>
           {
-            message.messages.length
+            message.all.length > 0
               ?
-              message.messages.map((messageData, i) =>
+              message.all.map((messageData, i) =>
                 <ChatBubble
                   key={i}
                   userData={messageData.user}
                   message={messageData.text}
                   time={messageData.createdAt}
-                  isSender={(messageData.user._id === user.userData._id) ? true : false }
+                  isSender={(messageData.user._id === user.active._id) ? true : false }
                 />
               )
               :
@@ -138,16 +138,20 @@ class Chat extends Component {
   handleScrollToBottom() {
     this.messagesBottom.scrollIntoView();
   }
-  handleSendMessage(data) {
-    const { sendMessage } = this.props;
+  handleSendMessage(newMessageID, text) {
+    const {
+      user,
+      chatRoom,
+      sendMessage
+    } = this.props;
 
-    sendMessage(data);
+    sendMessage(newMessageID, text, user.active, chatRoom.active);
   }
   render() {
     const {
       user,
       typer,
-      activeChatRoom,
+      chatRoom,
       message,
       socketIsTyping,
       socketIsNotTyping
@@ -178,8 +182,8 @@ class Chat extends Component {
           </div>
         </div>
         <ChatInput
-          userData={user.userData}
-          activeChatRoomData={activeChatRoom.chatRoomData}
+          userData={user.active}
+          activeChatRoom={chatRoom.active}
           handleSocketIsTyping={socketIsTyping}
           handleSocketIsNotTyping={socketIsNotTyping}
           handleSendMessage={::this.handleSendMessage}
@@ -194,7 +198,6 @@ const mapStateToProps = (state) => {
     user: state.user,
     typer: state.typer,
     chatRoom: state.chatRoom,
-    activeChatRoom: state.activeChatRoom,
     message: state.message
   }
 }

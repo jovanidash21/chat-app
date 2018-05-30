@@ -1,7 +1,17 @@
 import axios from 'axios';
 import { SEND_EMAIL } from '../constants/email';
 
-export function sendEmail(data) {
+/**
+ * Send email
+ * @param {string} username
+ * @param {string} email
+ */
+export function sendEmail(email, name) {
+  let data = {
+    email,
+    name,
+  };
+
   return dispatch => {
     return dispatch({
       type: SEND_EMAIL,

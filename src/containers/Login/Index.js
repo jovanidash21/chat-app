@@ -56,9 +56,8 @@ class Login extends Component {
       username,
       password
     } = this.state;
-    let data = {username, password};
 
-    localLogin(data);
+    localLogin(username, password);
   }
   render() {
     const {

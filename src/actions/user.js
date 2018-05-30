@@ -4,6 +4,9 @@ import {
   FETCH_USERS
 } from '../constants/user';
 
+/**
+ * Fetch user
+ */
 export function fetchUser() {
   return dispatch => {
     return dispatch({
@@ -17,6 +20,10 @@ export function fetchUser() {
     });
   }
 }
+
+/**
+ * Fetch users
+ */
 export function fetchUsers() {
   return dispatch => {
     return dispatch({

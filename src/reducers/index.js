@@ -6,7 +6,6 @@ import user from './user';
 import email from './email';
 import typer from './typer';
 import chatRoom from './chat-room';
-import activeChatRoom from './active-chat-room';
 import message from './message';
 import { LOGOUT } from '../constants/auth';
 
@@ -18,7 +17,6 @@ const appReducer = combineReducers({
   email,
   typer,
   chatRoom,
-  activeChatRoom,
   message
 });
 

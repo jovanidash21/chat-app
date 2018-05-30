@@ -21,14 +21,13 @@ class RightSideDrawer extends Component {
   handleComponent() {
     const {
       user,
-      chatRoom,
-      activeChatRoom,
+      chatRoom
     } = this.props;
     const { memberName } = this.state;
 
     if ( !chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess ) {
-      const activeChatRoomData = activeChatRoom.chatRoomData;
-      var members = [...activeChatRoomData.members];
+      const activeChatRoom = chatRoom.active;
+      var members = [...activeChatRoom.members];
       var query = memberName.trim().toLowerCase();
 
       if ( query.length > 0 ) {
@@ -46,8 +45,8 @@ class RightSideDrawer extends Component {
               size="2x"
             />
             <h3>
-              {activeChatRoomData.members.length}&nbsp;
-              {activeChatRoomData.members.length > 1 ? 'Members' : 'Member'}
+              {activeChatRoom.members.length}&nbsp;
+              {activeChatRoom.members.length > 1 ? 'Members' : 'Member'}
             </h3>
           </div>
           <ChatRoomMemberFilter onMemberNameChange={::this.onMemberNameChange} />
@@ -59,7 +58,7 @@ class RightSideDrawer extends Component {
               ).map((chatRoomMember, i) =>
                 <ChatRoomMember
                   key={i}
-                  userData={user.userData}
+                  userData={user.active}
                   chatRoomMember={chatRoomMember}
                   handleAddDirectChatRoom={::this.handleAddDirectChatRoom}
                 />
@@ -87,8 +86,8 @@ class RightSideDrawer extends Component {
       fetchMessages,
       handleRightSideDrawerToggleEvent
     } = this.props;
-    const userID = user.userData._id;
-    const chatRooms = chatRoom.chatRooms;
+    const userID = user.active._id;
+    const chatRooms = chatRoom.all;
     var directChatRoomExists = false;
     var directChatRoomData = {};
 
@@ -110,14 +109,7 @@ class RightSideDrawer extends Component {
     }
 
     if ( ! directChatRoomExists ) {
-      let data = {
-        name: '',
-        members: [userID, memberID],
-        chatType: 'direct',
-        userID: userID
-      };
-
-      createDirectChatRoom(data);
+      createDirectChatRoom(userID, memberID);
       handleRightSideDrawerToggleEvent(event);
     } else {
       let data = {
@@ -159,8 +151,7 @@ class RightSideDrawer extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    chatRoom: state.chatRoom,
-    activeChatRoom: state.activeChatRoom
+    chatRoom: state.chatRoom
   }
 }
 

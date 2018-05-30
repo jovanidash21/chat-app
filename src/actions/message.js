@@ -5,11 +5,16 @@ import {
   SOCKET_SEND_MESSAGE
 } from '../constants/message';
 
-export function fetchMessages(data) {
+/**
+ * Fetch messages
+ * @param {string} userID
+ * @param {string} chatRoomID
+ */
+export function fetchMessages(userID, chatRoomID) {
   return dispatch => {
     return dispatch({
       type: FETCH_MESSAGES,
-      payload: axios.get(`/api/message/${data.chatRoomID}/${data.userID}`)
+      payload: axios.get(`/api/message/${chatRoomID}/${userID}`)
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -19,22 +24,36 @@ export function fetchMessages(data) {
   }
 }
 
-export function sendMessage(message) {
+/**
+ * Send message
+ * @param {string} newMessageID
+ * @param {string} text
+ * @param {Object} user
+ * @param {Object} chatRoom
+ */
+export function sendMessage(newMessageID, text, user, chatRoom) {
+  let data = {
+    newMessageID,
+    text,
+    user,
+    chatRoom,
+  };
+
   return dispatch => {
     dispatch({
       type: SEND_MESSAGE,
-      message: message
+      message: data
     });
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post(`/api/message/${message.chatRoom._id}/${message.user._id}`, message),
-      meta: message.newMessageID
+      payload: axios.post(`/api/message/${chatRoom._id}/${user._id}`, data),
+      meta: newMessageID
     })
     .then((response) => {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
-        chatRoom: message.chatRoom._id
+        chatRoom: chatRoom._id
       });
     })
     .catch((error) => {

@@ -18,14 +18,9 @@ class ChatRoom extends Component {
     } = this.props;
 
     if (index === 0) {
-      const data = {
-        userID: userData._id,
-        chatRoomID: chatRoomData._id
-      };
-
       handleSocketJoinChatRoom(chatRoomData._id);
       handleChangeChatRoom(chatRoomData);
-      handleFetchMessages(data);
+      handleFetchMessages(userData._id, chatRoomData._id);
     }
   }
   handleAccountTypeBadgeLogo() {
@@ -76,7 +71,7 @@ class ChatRoom extends Component {
     const {
       userData,
       chatRoomData,
-      activeChatRoomData,
+      activeChatRoom,
       handleSocketJoinChatRoom,
       handleSocketLeaveChatRoom,
       handleChangeChatRoom,
@@ -84,15 +79,10 @@ class ChatRoom extends Component {
       handleLeftSideDrawerToggleEvent
     } = this.props;
 
-    const data = {
-      userID: userData._id,
-      chatRoomID: chatRoomData._id
-    };
-
     handleSocketJoinChatRoom(chatRoomData._id);
-    handleSocketLeaveChatRoom(activeChatRoomData._id);
+    handleSocketLeaveChatRoom(activeChatRoom._id);
     handleChangeChatRoom(chatRoomData);
-    handleFetchMessages(data);
+    handleFetchMessages(userData._id, chatRoomData._id);
     handleLeftSideDrawerToggleEvent(event);
   }
   render() {
@@ -126,7 +116,7 @@ ChatRoom.propTypes = {
   index: PropTypes.number.isRequired,
   userData: PropTypes.object.isRequired,
   chatRoomData: PropTypes.object.isRequired,
-  activeChatRoomData: PropTypes.object.isRequired,
+  activeChatRoom: PropTypes.object.isRequired,
   isActive: PropTypes.bool,
   handleSocketJoinChatRoom: PropTypes.func.isRequired,
   handleSocketLeaveChatRoom: PropTypes.func.isRequired,
