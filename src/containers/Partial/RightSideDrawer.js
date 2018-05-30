@@ -21,13 +21,12 @@ class RightSideDrawer extends Component {
   handleComponent() {
     const {
       user,
-      chatRoom
+      member
     } = this.props;
     const { memberName } = this.state;
 
-    if ( !chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess ) {
-      const activeChatRoom = chatRoom.active;
-      var members = [...activeChatRoom.members];
+    if ( !member.isLoading && member.isFetchMembersSuccess ) {
+      var members = [...member.all];
       var query = memberName.trim().toLowerCase();
 
       if ( query.length > 0 ) {
@@ -45,8 +44,8 @@ class RightSideDrawer extends Component {
               size="2x"
             />
             <h3>
-              {activeChatRoom.members.length}&nbsp;
-              {activeChatRoom.members.length > 1 ? 'Members' : 'Member'}
+              {member.all.length}&nbsp;
+              {member.all.length > 1 ? 'Members' : 'Member'}
             </h3>
           </div>
           <ChatRoomMemberFilter onMemberNameChange={::this.onMemberNameChange} />
@@ -81,9 +80,8 @@ class RightSideDrawer extends Component {
       user,
       chatRoom,
       createDirectChatRoom,
-      socketJoinChatRoom,
       changeChatRoom,
-      fetchMessages,
+      socketLeaveChatRoom,
       handleRightSideDrawerToggleEvent
     } = this.props;
     const userID = user.active._id;
@@ -94,7 +92,7 @@ class RightSideDrawer extends Component {
 
     for ( var i = 0; i < chatRooms.length; i++ ) {
       if ( chatRooms[i].chatType === 'direct' ) {
-        var isMembersMatch = chatRooms[i].members.some(member => member._id === memberID);
+        var isMembersMatch = chatRooms[i].members.some(member => member === memberID);
 
         if ( isMembersMatch ) {
           directChatRoomExists = true;
@@ -112,9 +110,8 @@ class RightSideDrawer extends Component {
       createDirectChatRoom(userID, memberID);
       handleRightSideDrawerToggleEvent(event);
     } else {
-      socketJoinChatRoom(directChatRoomData._id);
-      changeChatRoom(directChatRoomData);
-      fetchMessages(userID, directChatRoomData._id);
+      socketLeaveChatRoom(chatRoom.active);
+      changeChatRoom(directChatRoomData, userID);
       handleRightSideDrawerToggleEvent(event);
     }
   }
@@ -136,7 +133,9 @@ class RightSideDrawer extends Component {
         right
       >
         <div>
-          {::this.handleComponent()}
+          <div className="right-side-drawer-wrapper">
+            {::this.handleComponent()}
+          </div>
         </div>
       </Menu>
     );
@@ -146,7 +145,8 @@ class RightSideDrawer extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
+    member: state.member
   }
 }
 

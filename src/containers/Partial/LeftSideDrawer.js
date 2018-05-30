@@ -29,14 +29,12 @@ class LeftSideDrawer extends Component {
     const {
       user,
       chatRoom,
-      socketJoinChatRoom,
       socketLeaveChatRoom,
       changeChatRoom,
-      fetchMessages,
       handleLeftSideDrawerToggleEvent
     } = this.props;
 
-    if (!chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess) {
+    if ( !chatRoom.isLoading && chatRoom.isFetchChatRoomsSuccess ) {
       const activeChatRoom = chatRoom.active;
 
       return (
@@ -50,10 +48,8 @@ class LeftSideDrawer extends Component {
                 chatRoomData={chatRoomData}
                 activeChatRoom={activeChatRoom}
                 isActive={(activeChatRoom._id === chatRoomData._id) ? true : false}
-                handleSocketJoinChatRoom={socketJoinChatRoom}
                 handleSocketLeaveChatRoom={socketLeaveChatRoom}
                 handleChangeChatRoom={changeChatRoom}
-                handleFetchMessages={fetchMessages}
                 handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
               />
             )

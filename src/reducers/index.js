@@ -7,6 +7,7 @@ import email from './email';
 import typer from './typer';
 import chatRoom from './chat-room';
 import message from './message';
+import member from './member';
 import { LOGOUT } from '../constants/auth';
 
 const appReducer = combineReducers({
@@ -17,7 +18,8 @@ const appReducer = combineReducers({
   email,
   typer,
   chatRoom,
-  message
+  message,
+  member
 });
 
 const rootReducer = (state, action) => {

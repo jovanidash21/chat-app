@@ -32,6 +32,7 @@ import {
   fetchMessages,
   sendMessage
 } from './message';
+import { fetchMembers } from './member';
 
 const actions = (dispatch) => {
   return bindActionCreators({
@@ -56,7 +57,8 @@ const actions = (dispatch) => {
     socketJoinChatRoom,
     socketLeaveChatRoom,
     fetchMessages,
-    sendMessage
+    sendMessage,
+    fetchMembers
   }, dispatch);
 }
 

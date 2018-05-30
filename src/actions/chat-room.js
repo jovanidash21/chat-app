@@ -8,6 +8,7 @@ import {
   SOCKET_LEAVE_CHAT_ROOM
 } from '../constants/chat-room';
 import { fetchMessages } from './message';
+import { fetchMembers } from './member';
 
 /**
  * Fetch chat rooms
@@ -30,12 +31,18 @@ export function fetchChatRooms(userID) {
 /**
  * Change chat room
  * @param {Object} chatRoom
+ * @param {string} userID
  */
-export function changeChatRoom(chatRoom) {
-  return {
-    type: CHANGE_CHAT_ROOM,
-    payload: chatRoom
-  };
+export function changeChatRoom(chatRoom, userID) {
+  return dispatch => {
+    dispatch({
+      type: CHANGE_CHAT_ROOM,
+      chatRoom: chatRoom
+    });
+    dispatch(socketJoinChatRoom(chatRoom._id));
+    dispatch(fetchMessages(chatRoom._id, userID));
+    dispatch(fetchMembers(chatRoom._id, userID));
+  }
 }
 
 /**
@@ -84,9 +91,7 @@ function createChatRoom(userID, chatRoom) {
       chatRoomBroadcast: chatRoomBroadcast,
       members: membersBroadcast
     });
-    dispatch(socketJoinChatRoom(chatRoom._id));
-    dispatch(changeChatRoom(chatRoom));
-    dispatch(fetchMessages(userID, chatRoom._id));
+    dispatch(changeChatRoom(chatRoom, userID));
   }
 }
 
@@ -134,7 +139,7 @@ export function createDirectChatRoom(userID, memberID) {
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post(`/api/chat-room/direct/${data.userID}`, data)
+      payload: axios.post(`/api/chat-room/direct/${userID}`, data)
     })
     .then((response) => {
       dispatch(createChatRoom(data.userID, response.action.payload.data.chatRoomData));

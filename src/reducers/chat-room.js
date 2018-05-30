@@ -50,7 +50,7 @@ const chatRoom = (state=initialState, action) => {
     case CHANGE_CHAT_ROOM:
       return {
         ...state,
-        active: action.payload
+        active: action.chatRoom
       };
     case SOCKET_BROADCAST_USER_LOGIN:
       var user = action.user;
