@@ -7,8 +7,8 @@ import {
 
 /**
  * Fetch messages
- * @param {string} userID
  * @param {string} chatRoomID
+ * @param {string} userID
  */
 export function fetchMessages(chatRoomID, userID) {
   return dispatch => {

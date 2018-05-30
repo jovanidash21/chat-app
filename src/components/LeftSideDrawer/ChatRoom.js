@@ -69,8 +69,6 @@ class ChatRoom extends Component {
       chatRoomData,
       activeChatRoom,
       handleChangeChatRoom,
-      handleFetchMessages,
-      handleFetchMembers,
       handleLeftSideDrawerToggleEvent
     } = this.props;
 

@@ -81,7 +81,6 @@ class RightSideDrawer extends Component {
       chatRoom,
       createDirectChatRoom,
       changeChatRoom,
-      socketLeaveChatRoom,
       handleRightSideDrawerToggleEvent
     } = this.props;
     const userID = user.active._id;
@@ -93,7 +92,7 @@ class RightSideDrawer extends Component {
 
     for ( var i = 0; i < chatRooms.length; i++ ) {
       if ( chatRooms[i].chatType === 'direct' ) {
-        var isMembersMatch = chatRooms[i].members.some(member => member === memberID);
+        var isMembersMatch = chatRooms[i].members.some(member => member._id === memberID);
 
         if ( isMembersMatch ) {
           directChatRoomExists = true;
@@ -111,7 +110,6 @@ class RightSideDrawer extends Component {
       createDirectChatRoom(userID, memberID, activeChatRoom._id);
       handleRightSideDrawerToggleEvent(event);
     } else {
-      socketLeaveChatRoom(chatRoom.active);
       changeChatRoom(directChatRoomData, userID, activeChatRoom._id);
       handleRightSideDrawerToggleEvent(event);
     }
