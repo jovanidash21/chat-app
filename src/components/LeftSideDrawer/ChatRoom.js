@@ -57,7 +57,7 @@ class ChatRoom extends Component {
           }
         }
         break;
-      case 'group':
+      default:
         return;
     }
   }

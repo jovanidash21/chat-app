@@ -53,7 +53,7 @@ export function sendMessage(newMessageID, text, user, chatRoom) {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
-        chatRoom: chatRoom._id
+        chatRoomID: chatRoom._id
       });
     })
     .catch((error) => {

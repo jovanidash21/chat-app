@@ -19,6 +19,7 @@ class Header extends Component {
   handleComponent() {
     const {
       chatRoom,
+      member,
       handleLeftSideDrawerToggleEvent,
       handleRightSideDrawerToggleEvent
     } = this.props;
@@ -42,17 +43,21 @@ class Header extends Component {
           >
             {activeChatRoom.name}
           </h2>
-          <div
-            className="members-count"
-            onClick={handleRightSideDrawerToggleEvent}
-            title="View Members List"
-          >
-            <FontAwesome
-              className="user-icon"
-              name="user"
-            />
-            {activeChatRoom.members.length}
-          </div>
+          {
+            !member.isLoading &&
+            member.isFetchMembersSuccess &&
+            <div
+              className="members-count"
+              onClick={handleRightSideDrawerToggleEvent}
+              title="View Members List"
+            >
+              <FontAwesome
+                className="user-icon"
+                name="user"
+              />
+              {member.all.length}
+            </div>
+          }
         </div>
       )
     } else {
@@ -100,7 +105,8 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
+    member: state.member
   }
 }
 

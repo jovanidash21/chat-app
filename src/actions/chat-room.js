@@ -164,7 +164,7 @@ export function createDirectChatRoom(userID, memberID, activeChatRoomID) {
 export function socketJoinChatRoom(chatRoomID) {
   return {
     type: SOCKET_JOIN_CHAT_ROOM,
-    chatRoom: chatRoomID
+    chatRoomID: chatRoomID
   };
 }
 
@@ -175,6 +175,6 @@ export function socketJoinChatRoom(chatRoomID) {
 export function socketLeaveChatRoom(chatRoomID) {
   return {
     type: SOCKET_LEAVE_CHAT_ROOM,
-    chatRoom: chatRoomID
+    chatRoomID: chatRoomID
   };
 }

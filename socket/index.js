@@ -24,33 +24,33 @@ var sockets = function(socket) {
         break
       case 'SOCKET_USER_LOGOUT':
         User.findByIdAndUpdate(
-          action.user,
+          action.userID,
           { $set: { isOnline: false, socketID: ''} },
           { safe: true, upsert: true, new: true },
           function(err) {
             if (!err) {
               socket.broadcast.emit('action', {
                 type: 'SOCKET_BROADCAST_USER_LOGOUT',
-                user: action.user
+                userID: action.userID
               });
             }
           }
         );
         break;
       case 'SOCKET_JOIN_CHAT_ROOM':
-        socket.join(action.chatRoom);
+        socket.join(action.chatRoomID);
         break;
       case 'SOCKET_LEAVE_CHAT_ROOM':
-        socket.leave(action.chatRoom);
+        socket.leave(action.chatRoomID);
         break;
       case 'SOCKET_IS_TYPING':
-        socket.broadcast.to(action.chatRoom).emit('action', {
+        socket.broadcast.to(action.chatRoomID).emit('action', {
           type: 'SOCKET_BROADCAST_IS_TYPING',
           typer: action.typer
         });
         break;
       case 'SOCKET_IS_NOT_TYPING':
-        socket.broadcast.to(action.chatRoom).emit('action', {
+        socket.broadcast.to(action.chatRoomID).emit('action', {
           type: 'SOCKET_BROADCAST_IS_NOT_TYPING',
           typer: action.typer
         });
@@ -68,7 +68,7 @@ var sockets = function(socket) {
         });
         break;
       case 'SOCKET_SEND_MESSAGE':
-        socket.broadcast.to(action.chatRoom).emit('action', {
+        socket.broadcast.to(action.chatRoomID).emit('action', {
           type: 'SOCKET_BROADCAST_SEND_MESSAGE',
           message: action.message
         });
@@ -85,7 +85,7 @@ var sockets = function(socket) {
           if (!err) {
             socket.broadcast.emit('action', {
               type: 'SOCKET_BROADCAST_USER_LOGOUT',
-              user: users[socket.id]
+              userID: users[socket.id]
             });
           }
         }

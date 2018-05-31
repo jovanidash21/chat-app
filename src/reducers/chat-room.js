@@ -1,14 +1,11 @@
 import {
-  SOCKET_BROADCAST_USER_LOGIN,
-  SOCKET_BROADCAST_USER_LOGOUT
-} from '../constants/auth';
-import {
   FETCH_CHAT_ROOMS,
   CHANGE_CHAT_ROOM,
   CREATE_CHAT_ROOM,
   SOCKET_CREATE_CHAT_ROOM,
   SOCKET_BROADCAST_CREATE_CHAT_ROOM
 } from '../constants/chat-room';
+import { SOCKET_BROADCAST_USER_LOGIN } from '../constants/auth';
 
 const initialState = {
   isLoading: false,
@@ -52,74 +49,6 @@ const chatRoom = (state=initialState, action) => {
         ...state,
         active: action.chatRoom
       };
-    case SOCKET_BROADCAST_USER_LOGIN:
-      var user = action.user;
-      var userID = action.user._id;
-      var chatRooms = [...state.all];
-      var isUserExist = false;
-
-      for (var i = 0; i < 1; i++) {
-        var chatRoom = chatRooms[i];
-
-        for (var j = 0; j < chatRoom.members.length; j++) {
-          var member = chatRoom.members[j];
-
-          if ( member._id === userID ) {
-            isUserExist = true;
-            break;
-          } else {
-            continue
-          }
-        }
-      }
-
-      if ( ! isUserExist ) {
-        user.isOnline = true;
-        chatRooms[0].members.push(user);
-      } else {
-        for (var i = 0; i < chatRooms.length; i++) {
-          var chatRoom = chatRooms[i];
-
-          for (var j = 0; j < chatRoom.members.length; j++) {
-            var member = chatRoom.members[j];
-
-            if ( member._id === userID ) {
-              member.isOnline = true;
-              break;
-            } else {
-              continue
-            }
-          }
-        }
-      }
-
-      return {
-        ...state,
-        all: [...chatRooms]
-      }
-    case SOCKET_BROADCAST_USER_LOGOUT:
-      var userID = action.user;
-      var chatRooms = [...state.all];
-
-      for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i];
-
-        for (var j = 0; j < chatRoom.members.length; j++) {
-          var member = chatRoom.members[j];
-
-          if ( member._id === userID ) {
-            member.isOnline = false;
-            break;
-          } else {
-            continue
-          }
-        }
-      }
-
-      return {
-        ...state,
-        all: [...chatRooms]
-      }
     case SOCKET_CREATE_CHAT_ROOM:
     case SOCKET_BROADCAST_CREATE_CHAT_ROOM:
       return {
@@ -129,6 +58,23 @@ const chatRoom = (state=initialState, action) => {
           action.chatRoom
         ]
       };
+    case SOCKET_BROADCAST_USER_LOGIN:
+      var user = action.user;
+      var userID = user._id;
+      var activeChatRoom = {...state.active};
+      var members = activeChatRoom.members;
+
+      if (
+        activeChatRoom.chatType === 'public' &&
+        members.indexOf(userID) == -1
+      ) {
+        members.push(userID);
+      }
+
+      return {
+        ...state,
+        active: {...activeChatRoom}
+      }
     default:
       return state;
   }

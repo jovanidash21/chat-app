@@ -31,7 +31,7 @@ router.get('/:userID', function(req, res, next) {
                   chatRoom.name = member.name;
                   chatRoom.chatIcon = member.profilePicture;
                 }
-              } else if (chatRoom.chatType === 'group') {
+              } else if ((chatRoom.chatType === 'group') || chatRoom.chatType === 'public') {
                 chatRoom.members[j] = member._id;
               }
             }

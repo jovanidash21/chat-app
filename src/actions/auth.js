@@ -270,7 +270,7 @@ export function logout(userID) {
     .then(() => {
       dispatch({
         type: SOCKET_USER_LOGOUT,
-        user: userID,
+        userID: userID
       });
       dispatch(hideLoading());
       dispatch(push('/'));

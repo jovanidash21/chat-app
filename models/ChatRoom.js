@@ -25,6 +25,7 @@ var chatRoomSchema = new Schema (
         'private',
         'direct',
         'group',
+        'public',
       ],
       default: 'group',
     },

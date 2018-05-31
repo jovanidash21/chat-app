@@ -12,7 +12,7 @@ export function socketIsTyping(typer, chatRoomID) {
   return {
     type: SOCKET_IS_TYPING,
     typer: typer,
-    chatRoom: chatRoomID
+    chatRoomID: chatRoomID
   };
 }
 
@@ -25,6 +25,6 @@ export function socketIsNotTyping(typer, chatRoomID) {
   return {
     type: SOCKET_IS_NOT_TYPING,
     typer: typer,
-    chatRoom: chatRoomID
+    chatRoomID: chatRoomID
   };
 }
