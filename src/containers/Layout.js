@@ -18,7 +18,7 @@ class Layout extends Component {
     fetchUser();
     fetchUsers();
   }
-  handleComponent(matchProps) {
+  handleComponentRender(matchProps) {
     const {
       component: Content,
       user
@@ -38,7 +38,7 @@ class Layout extends Component {
     const { component, ...rest } = this.props;
 
     return (
-      <Route {...rest} render={::this.handleComponent} />
+      <Route {...rest} render={::this.handleComponentRender} />
     )
   }
 }

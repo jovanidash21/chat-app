@@ -16,7 +16,7 @@ class Header extends Component {
   constructor(props) {
     super(props);
   }
-  handleComponent() {
+  handleLeftPartHeaderRender() {
     const {
       chatRoom,
       member,
@@ -86,7 +86,7 @@ class Header extends Component {
           <tbody>
             <tr style={{verticalAlign: 'middle'}}>
               <td className="mui--appbar-height">
-                {::this.handleComponent()}
+                {::this.handleLeftPartHeaderRender()}
               </td>
               <td className="mui--appbar-height mui--text-right">
                 <OptionsDropdown

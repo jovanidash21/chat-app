@@ -7,7 +7,7 @@ class AuthForm extends Component {
   constructor(props) {
     super(props);
   }
-  handleComponent(matchProps) {
+  handleComponentRender(matchProps) {
     const { component: Content } = this.props;
 
     return (
@@ -20,7 +20,7 @@ class AuthForm extends Component {
     const { component, ...rest } = this.props;
 
     return (
-      <Route {...rest} render={::this.handleComponent} />
+      <Route {...rest} render={::this.handleComponentRender} />
     )
   }
 }

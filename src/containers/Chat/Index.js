@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
-import Header from '../Common/Header';
+import Header from '../Partial/Header';
 import LeftSideDrawer from '../Partial/LeftSideDrawer';
 import RightSideDrawer from '../Partial/RightSideDrawer';
 import Head from '../../components/Head';

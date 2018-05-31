@@ -25,7 +25,7 @@ class LeftSideDrawer extends Component {
 
     fetchChatRooms(user.active._id);
   }
-  handleComponent() {
+  handleChatRoomsListRender() {
     const {
       user,
       chatRoom,
@@ -97,7 +97,7 @@ class LeftSideDrawer extends Component {
                 <FontAwesome name="plus-circle" />
               </div>
             </div>
-            {::this.handleComponent()}
+            {::this.handleChatRoomsListRender()}
           </div>
           {
             showModal &&
