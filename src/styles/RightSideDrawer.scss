@@ -31,11 +31,11 @@
         width: 6px;
       }
       &::-webkit-scrollbar-track {
-        background-color: rgba($color-mine-shaft, 0.2);
+        background-color: rgba($color-dusty-gray, 0.2);
         border-radius: 5px;
       }
       &::-webkit-scrollbar-thumb {
-        background-color: $color-mine-shaft;
+        background-color: $color-dusty-gray;
         border-radius: 5px;
       }
     }

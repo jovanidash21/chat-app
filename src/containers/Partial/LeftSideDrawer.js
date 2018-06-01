@@ -39,7 +39,15 @@ class LeftSideDrawer extends Component {
       return (
         <div className="chat-room-list">
           {
-            chatRoom.all.map((chatRoomData, i) =>
+            chatRoom.all.sort((a, b) =>  {
+              var n = a.priority - b.priority;
+
+              if (n !== 0) {
+                return n;
+              }
+
+              return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+            }).map((chatRoomData, i) =>
               <ChatRoom
                 key={i}
                 index={i}

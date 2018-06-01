@@ -36,7 +36,7 @@ router.get('/:userID', function(req, res, next) {
               }
             }
           }
-          res.status(200).send(userChatRooms);
+          res.status(200).send(userChatRooms.chatRooms);
         } else {
           res.status(500).send({
             success: false,

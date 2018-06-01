@@ -7,6 +7,24 @@ import {
 } from '../constants/chat-room';
 import { SOCKET_BROADCAST_USER_LOGIN } from '../constants/auth';
 
+const chatRoomPriority = (chatRoom) => {
+  var priority = -1;
+
+  switch (chatRoom.chatType) {
+    case 'public':
+      priority = 1;
+      break;
+    case 'private':
+      priority = 2;
+      break;
+    default:
+      priority = 3;
+      break;
+  }
+
+  return priority;
+}
+
 const initialState = {
   isLoading: false,
   active: {},
@@ -25,11 +43,19 @@ const chatRoom = (state=initialState, action) => {
         ...state
       };
     case `${FETCH_CHAT_ROOMS}_SUCCESS`:
+      var chatRooms = [...action.payload.data];
+
+      for (var i = 0; i < chatRooms.length; i++) {
+        var chatRoom = chatRooms[i];
+
+        chatRoom.priority = chatRoomPriority(chatRoom);
+      }
+
       return {
         ...state,
         isLoading: false,
         isFetchChatRoomsSuccess: true,
-        all: action.payload.data.chatRooms
+        all: [...chatRooms]
       };
     case `${CREATE_CHAT_ROOM}_SUCCESS`:
       return {
@@ -51,11 +77,15 @@ const chatRoom = (state=initialState, action) => {
       };
     case SOCKET_CREATE_CHAT_ROOM:
     case SOCKET_BROADCAST_CREATE_CHAT_ROOM:
+      var chatRoom = {...action.chatRoom};
+
+      chatRoom.priority = chatRoomPriority(chatRoom);
+
       return {
         ...state,
         all: [
           ...state.all,
-          action.chatRoom
+          {...chatRoom}
         ]
       };
     case SOCKET_BROADCAST_USER_LOGIN:
