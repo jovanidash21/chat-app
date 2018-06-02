@@ -45,7 +45,8 @@ class ChatMemberSelect extends Component {
         <Avatar
           image={suggestion.profilePicture}
           size="27px"
-          badgeIcon={(suggestion.accountType !== 'local' ? suggestion.accountType : '' )}
+          title={suggestionText}
+          accountType={suggestion.accountType}
           badgeCloser
         />
         {

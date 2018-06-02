@@ -7,10 +7,10 @@ const ChatTyper = (props) => {
   return (
     <div className="chat-typer-wrapper">
       <Avatar
-        image={props.profilePicture}
+        image={props.typer.profilePicture}
         size="21px"
-        title={props.name}
-        badgeIcon={props.badge}
+        title={props.typer.name}
+        accountType={props.typer.accountType}
         badgeCloser
       />
       <div className="chat-typer">
@@ -23,13 +23,7 @@ const ChatTyper = (props) => {
 }
 
 ChatTyper.propTypes = {
-  name: PropTypes.string.isRequired,
-  profilePicture: PropTypes.string.isRequired,
-  badge: PropTypes.string
-}
-
-ChatTyper.defaultProps = {
-  badge: ''
+  typer: PropTypes.object.isRequired
 }
 
 export default ChatTyper;

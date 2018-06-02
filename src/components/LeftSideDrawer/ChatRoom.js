@@ -19,25 +19,23 @@ class ChatRoom extends Component {
       handleChangeChatRoom(chatRoomData, userData._id, '');
     }
   }
-  handleBadgeIcon() {
+  handleAccountType() {
     const {
       userData,
       chatRoomData
     } = this.props;
-    var badgeIcon = '';
+    var accountType = '';
 
     switch ( chatRoomData.chatType ) {
       case 'private':
-        badgeIcon = userData.accountType;
+        accountType = userData.accountType;
         break;
       case 'direct':
         for ( var i = 0; i < chatRoomData.members.length; i++ ) {
           var member = chatRoomData.members[i];
 
           if ( member._id != userData._id ) {
-            if ( member.accountType !== 'local' ) {
-              badgeIcon = member.accountType;
-            }
+            accountType = member.accountType;
             break;
           } else {
             continue;
@@ -48,7 +46,7 @@ class ChatRoom extends Component {
         break;
     }
 
-    return badgeIcon;
+    return accountType;
   }
   handleChangeChatRoom(event) {
     event.preventDefault();
@@ -78,7 +76,7 @@ class ChatRoom extends Component {
       >
         <Avatar
           image={chatRoomData.chatIcon}
-          badgeIcon={::this.handleBadgeIcon()}
+          accountType={::this.handleAccountType()}
         />
         <div className="chat-room-name">
           {chatRoomData.name}

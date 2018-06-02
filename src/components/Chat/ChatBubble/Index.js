@@ -40,7 +40,7 @@ class ChatBubble extends Component {
             image={userData.profilePicture}
             size="35px"
             title={userData.name}
-            badgeIcon={(userData.accountType !== 'local' ? userData.accountType : '' )}
+            accountType={userData.accountType}
             badgeCloser
           />
         }

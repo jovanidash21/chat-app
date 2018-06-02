@@ -27,7 +27,8 @@ class ChatMember extends Component {
           <Avatar
             image={memberData.profilePicture}
             size="20px"
-            badgeIcon={(memberData.accountType !== 'local' ? memberData.accountType : '' )}
+            title={memberData.name}
+            accountType={memberData.accountType}
             badgeCloser
           />
           <div className="member-name">

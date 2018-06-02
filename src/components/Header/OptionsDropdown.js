@@ -26,7 +26,7 @@ class OptionsDropdown extends Component {
             <Avatar
               image={userData.profilePicture}
               title={userData.name}
-              badgeIcon={(userData.accountType !== 'local' ? userData.accountType : '' )}
+              accountType={userData.accountType}
             />
             <div className="user-name">
               {userData.name}

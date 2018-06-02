@@ -35,7 +35,7 @@ class ChatRoomMember extends Component {
         <Avatar
           image={chatRoomMember.profilePicture}
           size="23px"
-          badgeIcon={(chatRoomMember.accountType !== 'local' ? chatRoomMember.accountType : '' )}
+          accountType={chatRoomMember.accountType}
         />
         <div className="member-name">
           {chatRoomMember.name}
