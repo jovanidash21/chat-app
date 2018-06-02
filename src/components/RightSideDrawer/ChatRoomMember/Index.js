@@ -1,35 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import Avatar from '../../Avatar';
 import './styles.scss';
 
 class ChatRoomMember extends Component {
   constructor(props) {
     super(props);
-  }
-  handleOnlineIcon() {
-    const { chatRoomMember } = this.props;
-
-    return (
-      <div className={"online-indicator " + (chatRoomMember.isOnline ? 'online' : '')}>
-        <FontAwesome
-          className="circle-icon"
-          name={chatRoomMember.isOnline ? 'circle' : 'circle-thin'}
-        />
-      </div>
-    )
-  }
-  handleAccountTypeBadgeLogo() {
-    const { chatRoomMember } = this.props;
-
-    return (
-      <div className={`badge-logo ${chatRoomMember.accountType}`}>
-        <FontAwesome
-          className="social-icon"
-          name={chatRoomMember.accountType}
-        />
-      </div>
-    )
   }
   handleAddDirectChatRoom(event) {
     event.preventDefault();
@@ -49,16 +26,17 @@ class ChatRoomMember extends Component {
 
     return (
       <div className="chat-room-member" title={chatRoomMember.name}>
-        {::this.handleOnlineIcon()}
-        <div
-          className="member-icon"
-          style={{backgroundImage: `url(${chatRoomMember.profilePicture})`}}
-        >
-          {
-            chatRoomMember.accountType !== 'local' &&
-            ::this.handleAccountTypeBadgeLogo()
-          }
+        <div className={"online-indicator " + (chatRoomMember.isOnline ? 'online' : '')}>
+          <FontAwesome
+            className="circle-icon"
+            name={chatRoomMember.isOnline ? 'circle' : 'circle-thin'}
+          />
         </div>
+        <Avatar
+          image={chatRoomMember.profilePicture}
+          size="23px"
+          badgeIcon={(chatRoomMember.accountType !== 'local' ? chatRoomMember.accountType : '' )}
+        />
         <div className="member-name">
           {chatRoomMember.name}
           {

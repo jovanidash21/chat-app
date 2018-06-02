@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Autosuggest from 'react-autosuggest';
 import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
 import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
+import Avatar from '../../Avatar';
 import './styles.scss';
 
 class ChatMemberSelect extends Component {
@@ -41,7 +42,12 @@ class ChatMemberSelect extends Component {
 
     return (
       <span className="suggestion-content">
-        <div className="user-image" style={{backgroundImage: `url(${suggestion.profilePicture})`}}></div>
+        <Avatar
+          image={suggestion.profilePicture}
+          size="27px"
+          badgeIcon={(suggestion.accountType !== 'local' ? suggestion.accountType : '' )}
+          badgeCloser
+        />
         {
           parts.map((part, i) => {
             return (
@@ -49,7 +55,7 @@ class ChatMemberSelect extends Component {
                 key={i}
                 className={"user-name " + (part.highlight ? 'highlight' : '')}
               >
-                {part.text}
+                {part.text.replace(/ /g, "\u00a0")}
               </span>
             );
           })

@@ -49,13 +49,8 @@
   .suggestion-content {
     align-items: center;
     display: flex;
-    .user-image {
-      $image-size: 27px;
-      background-size: $image-size;
-      border-radius: 50%;
-      height: $image-size;
+    .avatar {
       margin-right: 10px;
-      width: $image-size;
     }
     .user-name {
       color: #000;

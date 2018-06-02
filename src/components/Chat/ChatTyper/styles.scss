@@ -2,15 +2,6 @@
   align-items: center;
   display: flex;
   margin: 5px;
-  .chat-image {
-    $image-size: 21px;
-    background-repeat: no-repeat;
-    background-size: $image-size;
-    border-radius: 50%;
-    height: $image-size;
-    position: relative;
-    width: $image-size;
-  }
   .chat-typer {
     align-items: center;
     background-color: $color-dusty-gray;

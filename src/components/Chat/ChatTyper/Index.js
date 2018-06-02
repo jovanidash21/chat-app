@@ -1,26 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import Avatar from '../../Avatar';
 import './styles.scss';
 
 const ChatTyper = (props) => {
   return (
     <div className="chat-typer-wrapper">
-      <div
-        className="chat-image"
-        style={{backgroundImage: `url(${props.profilePicture})`}}
+      <Avatar
+        image={props.profilePicture}
+        size="21px"
         title={props.name}
-      >
-        {
-          props.badge.length > 0 &&
-          <div className={`badge-logo closer ${props.badge}`}>
-            <FontAwesome
-              className="social-icon"
-              name={props.badge}
-            />
-          </div>
-        }
-      </div>
+        badgeIcon={props.badge}
+        badgeCloser
+      />
       <div className="chat-typer">
         <span></span>
         <span></span>

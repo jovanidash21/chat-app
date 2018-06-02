@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import Avatar from '../Avatar';
 import './styles.scss';
 
 class ChatRoom extends Component {
@@ -19,22 +19,16 @@ class ChatRoom extends Component {
       handleChangeChatRoom(chatRoomData, userData._id, '');
     }
   }
-  handleAccountTypeBadgeLogo() {
+  handleBadgeIcon() {
     const {
       userData,
       chatRoomData
     } = this.props;
+    var badgeIcon = '';
 
     switch ( chatRoomData.chatType ) {
       case 'private':
-        return (
-          <div className={`badge-logo ${userData.accountType}`}>
-            <FontAwesome
-              className="social-icon"
-              name={userData.accountType}
-            />
-          </div>
-        )
+        badgeIcon = userData.accountType;
         break;
       case 'direct':
         for ( var i = 0; i < chatRoomData.members.length; i++ ) {
@@ -42,24 +36,19 @@ class ChatRoom extends Component {
 
           if ( member._id != userData._id ) {
             if ( member.accountType !== 'local' ) {
-              return (
-                <div className={`badge-logo ${member.accountType}`}>
-                  <FontAwesome
-                    className="social-icon"
-                    name={member.accountType}
-                  />
-                </div>
-              )
+              badgeIcon = member.accountType;
             }
-            return;
+            break;
           } else {
             continue;
           }
         }
         break;
       default:
-        return;
+        break;
     }
+
+    return badgeIcon;
   }
   handleChangeChatRoom(event) {
     event.preventDefault();
@@ -87,9 +76,10 @@ class ChatRoom extends Component {
         onClick={::this.handleChangeChatRoom}
         title={chatRoomData.name}
       >
-        <div className="chat-room-icon" style={{backgroundImage: `url(${chatRoomData.chatIcon})`}}>
-          {::this.handleAccountTypeBadgeLogo()}
-        </div>
+        <Avatar
+          image={chatRoomData.chatIcon}
+          badgeIcon={::this.handleBadgeIcon()}
+        />
         <div className="chat-room-name">
           {chatRoomData.name}
           {

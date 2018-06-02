@@ -2,23 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
 import FontAwesome from 'react-fontawesome';
+import Avatar from '../Avatar';
 import './styles.scss';
 
 class OptionsDropdown extends Component {
   constructor(props) {
     super(props);
-  }
-  handleAccountTypeBadgeLogo() {
-    const { userData } = this.props;
-
-    return (
-      <div className={`badge-logo ${userData.accountType}`}>
-        <FontAwesome
-          className="social-icon"
-          name={userData.accountType}
-        />
-      </div>
-    )
   }
   handleLogout(event) {
     event.preventDefault();
@@ -34,16 +23,11 @@ class OptionsDropdown extends Component {
       <div className="mui-dropdown options-dropdown">
         <MediaQuery query="(min-width: 768px)">
           <div className="user-details">
-            <div
-              className="user-picture"
-              style={{backgroundImage: `url(${userData.profilePicture})`}}
+            <Avatar
+              image={userData.profilePicture}
               title={userData.name}
-            >
-              {
-                userData.accountType !== 'local' &&
-                ::this.handleAccountTypeBadgeLogo()
-              }
-            </div>
+              badgeIcon={(userData.accountType !== 'local' ? userData.accountType : '' )}
+            />
             <div className="user-name">
               {userData.name}
             </div>

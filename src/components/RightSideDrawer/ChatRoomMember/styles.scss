@@ -19,15 +19,8 @@
       color: $color-mantis;
     }
   }
-  .member-icon {
-    $image-size: 23px;
-    background-size: $image-size;
-    border-radius: 50%;
-    flex: 0 0 $image-size;
-    height: $image-size;
+  .avatar {
     margin-right: 12px;
-    position: relative;
-    width: $image-size;
   }
   .member-name {
     flex: 1;
