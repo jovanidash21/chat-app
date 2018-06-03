@@ -159,16 +159,16 @@ class ChatInput extends Component {
     var emojis = document.getElementById('chat-input').getElementsByClassName('emojione');
     var chatInputText = document.getElementById('chat-input').innerHTML;
 
-    var element = document.createElement('textarea');
+    var nth = 0;
+    chatInputText = chatInputText.replace(/<img class="emojione" alt="(.*?)" title="(.*?)" src="(.*?)"[^>]*>/g, (match, i, original) => {
+      nth++;
+      return emojis[nth - 1].alt;
+    });
+
+    var element = document.createElement('div');
     element.innerHTML = chatInputText;
 
-    var messageText = element.value;
-
-    var nth = 0;
-    messageText = messageText.replace(/<img class="emojione" alt="(.*?)" title="(.*?)" src="(.*?)"[^>]*>/g, (match, i, original) => {
-        nth++;
-        return emojis[nth - 1].alt;
-      });
+    var messageText = element.textContent || element.innerText || "";
 
     return messageText;
   }
