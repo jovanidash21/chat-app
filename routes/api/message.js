@@ -17,6 +17,24 @@ router.get('/:chatRoomID/:userID', function(req, res, next) {
       .sort('createdAt')
       .exec(function(err, chatRoomMessages) {
         if (!err) {
+          for (var i = 0; i < chatRoomMessages.length; i++) {
+            var message = chatRoomMessages[i];
+
+            if (message.readBy.indexOf(userID) === -1) {
+              Message.findByIdAndUpdate(
+                message._id,
+                { $push: { readBy: userID }},
+                { safe: true, upsert: true, new: true },
+                function(err) {
+                  if (!err) {
+                    res.end();
+                  } else {
+                    res.end(err);
+                  }
+                }
+              );
+            }
+          }
           res.status(200).send(chatRoomMessages);
         } else {
           res.status(500).send({
@@ -41,7 +59,8 @@ router.post('/:chatRoomID/:userID', function(req, res, next) {
     var messageData = {
       text: req.body.text,
       user: userID,
-      chatRoom: chatRoomID
+      chatRoom: chatRoomID,
+      readBy: [userID]
     };
     var message = new Message(messageData);
 
