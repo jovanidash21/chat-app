@@ -14,14 +14,14 @@ router.get('/:userID', function(req, res, next) {
   } else {
     User.findById(userID, 'chatRooms')
       .populate({
-        path: 'chatRooms',
+        path: 'chatRooms.chatRoom',
         populate: {
           path: 'members'
         }
       }).exec(function(err, userChatRooms) {
         if (!err) {
           for (var i = 0; i < userChatRooms.chatRooms.length; i++) {
-            var chatRoom = userChatRooms.chatRooms[i];
+            var chatRoom = userChatRooms.chatRooms[i].chatRoom;
 
             for (var j = 0; j < chatRoom.members.length; j++) {
               var member = chatRoom.members[j];
@@ -84,7 +84,7 @@ router.post('/group/:userID', function(req, res, next) {
                 chatRoomData.members.forEach(function (chatRoomMember) {
                   User.findByIdAndUpdate(
                     chatRoomMember,
-                    { $push: { chatRooms: chatRoomID }},
+                    { $push: { chatRooms: { chatRoom: chatRoomID, unReadMessages: 0 } } },
                     { safe: true, upsert: true, new: true },
                     function(err) {
                       if (!err) {
@@ -117,8 +117,6 @@ router.post('/group/:userID', function(req, res, next) {
     }
   }
 });
-
-module.exports = router;
 
 router.post('/direct/:userID', function(req, res, next) {
   var userID = req.params.userID;
@@ -167,7 +165,7 @@ router.post('/direct/:userID', function(req, res, next) {
                           chatRoomData.members.forEach(function (chatRoomMember) {
                             User.findByIdAndUpdate(
                               chatRoomMember,
-                              { $push: { chatRooms: chatRoomID }},
+                              { $push: { chatRooms: { chatRoom: chatRoomID, unReadMessages: 0 } } },
                               { safe: true, upsert: true, new: true },
                               function(err) {
                                 if (!err) {

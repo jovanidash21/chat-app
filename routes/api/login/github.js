@@ -70,7 +70,7 @@ passport.use(new Strategy({
 
               User.findByIdAndUpdate(
                 userID,
-                { $push: { chatRooms: chatLoungeID }},
+                { $push: { chatRooms: { chatRoom: chatLoungeID, unReadMessages: 0 } } },
                 { safe: true, upsert: true, new: true },
                 function(err) {
                   if (!err) {
