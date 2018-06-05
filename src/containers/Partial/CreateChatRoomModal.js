@@ -73,7 +73,7 @@ class CreateChatRoomModal extends Component {
     const activeChatRoom = chatRoom.active;
 
     if ( chatRoomName.length > 0 && members.length > 2 ) {
-      createGroupChatRoom(chatRoomName, members, user.active._id, activeChatRoom._id);
+      createGroupChatRoom(chatRoomName, members, user.active._id, activeChatRoom.data._id);
       handleDeactivateModal();
       handleLeftSideDrawerToggleEvent(event);
     }

@@ -39,9 +39,9 @@ class Header extends Component {
           </MediaQuery>
           <h2
             className="chat-room-name"
-            title={activeChatRoom.name}
+            title={activeChatRoom.data.name}
           >
-            {activeChatRoom.name}
+            {activeChatRoom.data.name}
           </h2>
           {
             !member.isLoading &&

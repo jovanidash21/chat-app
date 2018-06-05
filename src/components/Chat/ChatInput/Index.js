@@ -37,12 +37,12 @@ class ChatInput extends Component {
     this.setState({message: messageValue});
 
     if ( (messageValue.length > 0) && (!typing) ) {
-      handleSocketIsTyping(user, activeChatRoom._id);
+      handleSocketIsTyping(user, activeChatRoom.data._id);
       this.setState({typing: true});
     }
 
     if ( (messageValue.length === 0) && (typing) ) {
-      handleSocketIsNotTyping(user, activeChatRoom._id);
+      handleSocketIsNotTyping(user, activeChatRoom.data._id);
       this.setState({typing: false});
     }
   }
@@ -183,7 +183,7 @@ class ChatInput extends Component {
     const newMessageID = uuidv4();
 
     document.getElementById('chat-input').innerHTML = '';
-    handleSocketIsNotTyping(user, activeChatRoom._id);
+    handleSocketIsNotTyping(user, activeChatRoom.data._id);
     handleSendMessage(newMessageID, messageText);
   }
   handleSendMessageOnClick(event) {
@@ -202,7 +202,7 @@ class ChatInput extends Component {
     if ( validMessage ) {
       document.getElementById('chat-input').innerHTML = '';
       document.getElementById('chat-input').focus();
-      handleSocketIsNotTyping(user, activeChatRoom._id);
+      handleSocketIsNotTyping(user, activeChatRoom.data._id);
       handleSendMessage(newMessageID, messageText);
 
       this.setState({

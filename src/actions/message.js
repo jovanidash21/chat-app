@@ -46,14 +46,14 @@ export function sendMessage(newMessageID, text, user, chatRoom) {
     });
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post(`/api/message/${chatRoom._id}/${user._id}`, data),
+      payload: axios.post(`/api/message/${chatRoom.data._id}/${user._id}`, data),
       meta: newMessageID
     })
     .then((response) => {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
-        chatRoomID: chatRoom._id
+        chatRoomID: chatRoom.data._id
       });
     })
     .catch((error) => {

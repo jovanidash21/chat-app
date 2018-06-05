@@ -27,7 +27,9 @@ const chatRoomPriority = (chatRoom) => {
 
 const initialState = {
   isLoading: false,
-  active: {},
+  active: {
+    data: {}
+  },
   all: []
 };
 
@@ -46,9 +48,9 @@ const chatRoom = (state=initialState, action) => {
       var chatRooms = [...action.payload.data];
 
       for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i].data;
+        var chatRoom = chatRooms[i];
 
-        chatRoom.priority = chatRoomPriority(chatRoom);
+        chatRoom.priority = chatRoomPriority(chatRoom.data);
       }
 
       return {
@@ -92,10 +94,10 @@ const chatRoom = (state=initialState, action) => {
       var user = action.user;
       var userID = user._id;
       var activeChatRoom = {...state.active};
-      var members = activeChatRoom.members;
+      var members = activeChatRoom.data.members;
 
       if (
-        activeChatRoom.chatType === 'public' &&
+        activeChatRoom.data.chatType === 'public' &&
         members.indexOf(userID) == -1
       ) {
         members.push(userID);

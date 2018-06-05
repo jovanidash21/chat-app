@@ -26,13 +26,13 @@ class ChatRoom extends Component {
     } = this.props;
     var accountType = '';
 
-    switch ( chatRoom.chatType ) {
+    switch ( chatRoom.data.chatType ) {
       case 'private':
         accountType = user.accountType;
         break;
       case 'direct':
-        for ( var i = 0; i < chatRoom.members.length; i++ ) {
-          var member = chatRoom.members[i];
+        for ( var i = 0; i < chatRoom.data.members.length; i++ ) {
+          var member = chatRoom.data.members[i];
 
           if ( member._id != user._id ) {
             accountType = member.accountType;
@@ -59,7 +59,7 @@ class ChatRoom extends Component {
       handleLeftSideDrawerToggleEvent
     } = this.props;
 
-    handleChangeChatRoom(chatRoom, user._id, activeChatRoom._id);
+    handleChangeChatRoom(chatRoom, user._id, activeChatRoom.data._id);
     handleLeftSideDrawerToggleEvent(event);
   }
   render() {
@@ -72,16 +72,16 @@ class ChatRoom extends Component {
       <div
         className={"chat-room " + (isActive ? 'active' : '')}
         onClick={::this.handleChangeChatRoom}
-        title={chatRoom.name}
+        title={chatRoom.data.name}
       >
         <Avatar
-          image={chatRoom.chatIcon}
+          image={chatRoom.data.chatIcon}
           accountType={::this.handleAccountType()}
         />
         <div className="chat-room-name">
-          {chatRoom.name}
+          {chatRoom.data.name}
           {
-            chatRoom.chatType === 'private' &&
+            chatRoom.data.chatType === 'private' &&
             <span className="you-label">(you)</span>
           }
         </div>

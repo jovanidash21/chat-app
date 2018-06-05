@@ -52,9 +52,9 @@ class LeftSideDrawer extends Component {
                 key={i}
                 index={i}
                 user={user.active}
-                chatRoom={chatRoom.data}
+                chatRoom={chatRoom}
                 activeChatRoom={activeChatRoom}
-                isActive={(activeChatRoom._id === chatRoom.data._id) ? true : false}
+                isActive={(activeChatRoom.data._id === chatRoom.data._id) ? true : false}
                 handleChangeChatRoom={changeChatRoom}
                 handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
               />

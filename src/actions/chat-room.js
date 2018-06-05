@@ -41,9 +41,9 @@ export function changeChatRoom(chatRoom, userID, activeChatRoomID) {
       chatRoom: chatRoom
     });
     dispatch(socketLeaveChatRoom(activeChatRoomID));
-    dispatch(socketJoinChatRoom(chatRoom._id));
-    dispatch(fetchMessages(chatRoom._id, userID));
-    dispatch(fetchMembers(chatRoom._id, userID));
+    dispatch(socketJoinChatRoom(chatRoom.data._id));
+    dispatch(fetchMessages(chatRoom.data._id, userID));
+    dispatch(fetchMembers(chatRoom.data._id, userID));
   }
 }
 
@@ -56,7 +56,7 @@ export function changeChatRoom(chatRoom, userID, activeChatRoomID) {
 function createChatRoom(userID, chatRoom, activeChatRoomID) {
   return dispatch => {
     var chatRoomBroadcast = {...chatRoom};
-    var membersBroadcast = chatRoomBroadcast.members.slice();
+    var membersBroadcast = chatRoomBroadcast.data.members.slice();
     var index = -1;
 
     for (var i = 0; i < membersBroadcast.length; i++) {
@@ -74,19 +74,23 @@ function createChatRoom(userID, chatRoom, activeChatRoomID) {
     	membersBroadcast.splice(index, 1);
     }
 
-    if (chatRoom.chatType === 'direct') {
-      for (var j = 0; j < chatRoom.members.length; j++) {
-        var member = chatRoom.members[j];
+    var chatRoomData = {...chatRoom.data};
+
+    if (chatRoom.data.chatType === 'direct') {
+      for (var j = 0; j < chatRoom.data.members.length; j++) {
+        var member = chatRoom.data.members[j];
 
         if (member._id != userID) {
-          chatRoom.name = member.name;
-          chatRoom.chatIcon = member.profilePicture;
+          chatRoomData.name = member.name;
+          chatRoomData.chatIcon = member.profilePicture;
         } else {
-          chatRoomBroadcast.name = member.name;
-          chatRoomBroadcast.chatIcon = member.profilePicture;
+          chatRoomBroadcast.data.name = member.name;
+          chatRoomBroadcast.data.chatIcon = member.profilePicture;
         }
       }
     }
+
+    chatRoom.data = chatRoomData;
 
     dispatch({
       type: SOCKET_CREATE_CHAT_ROOM,
@@ -118,7 +122,7 @@ export function createGroupChatRoom(name, members, userID, activeChatRoomID) {
       payload: axios.post(`/api/chat-room/group/${userID}`, data)
     })
     .then((response) => {
-      dispatch(createChatRoom(userID, response.action.payload.data.chatRoomData, activeChatRoomID));
+      dispatch(createChatRoom(userID, response.action.payload.data.chatRoom, activeChatRoomID));
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -147,7 +151,7 @@ export function createDirectChatRoom(userID, memberID, activeChatRoomID) {
       payload: axios.post(`/api/chat-room/direct/${userID}`, data)
     })
     .then((response) => {
-      dispatch(createChatRoom(userID, response.action.payload.data.chatRoomData, activeChatRoomID));
+      dispatch(createChatRoom(userID, response.action.payload.data.chatRoom, activeChatRoomID));
     })
     .catch((error) => {
       if (error instanceof Error) {
