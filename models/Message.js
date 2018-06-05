@@ -16,10 +16,12 @@ var messageSchema = new Schema (
       type: Schema.Types.ObjectId,
       ref: 'ChatRoom',
     },
-    readBy: [{
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    }],
+    readBy: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     collection: 'Message',

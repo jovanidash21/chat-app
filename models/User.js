@@ -8,7 +8,7 @@ mongoose.Promise = Promise;
 
 var userChatRoomSchema = new Schema (
   {
-    chatRoom: {
+    data: {
       type: Schema.Types.ObjectId,
       ref: 'ChatRoom',
     },

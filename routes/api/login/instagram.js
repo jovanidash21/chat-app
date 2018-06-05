@@ -56,7 +56,7 @@ passport.use(new Strategy({
 
               User.findByIdAndUpdate(
                 userID,
-                { $push: { chatRooms: { chatRoom: chatLoungeID, unReadMessages: 0 } } },
+                { $push: { chatRooms: { data: chatLoungeID, unReadMessages: 0 } } },
                 { safe: true, upsert: true, new: true },
                 function(err) {
                   if (!err) {
@@ -82,7 +82,7 @@ passport.use(new Strategy({
 
                 User.findByIdAndUpdate(
                   userID,
-                  { $push: { chatRooms: { chatRoom: chatRoomID, unReadMessages: 0 } } },
+                  { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
                   { safe: true, upsert: true, new: true },
                   function(err) {
                     if (!err) {
