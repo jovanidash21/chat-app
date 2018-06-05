@@ -27,7 +27,7 @@ class ChatInput extends Component {
 
     const messageValue = value;
     const {
-      userData,
+      user,
       activeChatRoom,
       handleSocketIsTyping,
       handleSocketIsNotTyping
@@ -37,12 +37,12 @@ class ChatInput extends Component {
     this.setState({message: messageValue});
 
     if ( (messageValue.length > 0) && (!typing) ) {
-      handleSocketIsTyping(userData, activeChatRoom._id);
+      handleSocketIsTyping(user, activeChatRoom._id);
       this.setState({typing: true});
     }
 
     if ( (messageValue.length === 0) && (typing) ) {
-      handleSocketIsNotTyping(userData, activeChatRoom._id);
+      handleSocketIsNotTyping(user, activeChatRoom._id);
       this.setState({typing: false});
     }
   }
@@ -174,7 +174,7 @@ class ChatInput extends Component {
   }
   handleSendMessageOnChange(event) {
     const {
-      userData,
+      user,
       activeChatRoom,
       handleSocketIsNotTyping,
       handleSendMessage
@@ -183,14 +183,14 @@ class ChatInput extends Component {
     const newMessageID = uuidv4();
 
     document.getElementById('chat-input').innerHTML = '';
-    handleSocketIsNotTyping(userData, activeChatRoom._id);
+    handleSocketIsNotTyping(user, activeChatRoom._id);
     handleSendMessage(newMessageID, messageText);
   }
   handleSendMessageOnClick(event) {
     event.preventDefault();
 
     const {
-      userData,
+      user,
       activeChatRoom,
       handleSocketIsNotTyping,
       handleSendMessage
@@ -202,7 +202,7 @@ class ChatInput extends Component {
     if ( validMessage ) {
       document.getElementById('chat-input').innerHTML = '';
       document.getElementById('chat-input').focus();
-      handleSocketIsNotTyping(userData, activeChatRoom._id);
+      handleSocketIsNotTyping(user, activeChatRoom._id);
       handleSendMessage(newMessageID, messageText);
 
       this.setState({
@@ -277,7 +277,7 @@ class ChatInput extends Component {
 }
 
 ChatInput.propTypes = {
-  userData: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   activeChatRoom: PropTypes.object.isRequired,
   handleSocketIsTyping: PropTypes.func.isRequired,
   handleSocketIsNotTyping: PropTypes.func.isRequired,

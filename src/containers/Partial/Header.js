@@ -90,7 +90,7 @@ class Header extends Component {
               </td>
               <td className="mui--appbar-height mui--text-right">
                 <OptionsDropdown
-                  userData={user.active}
+                  user={user.active}
                   handleLogout={::this.handleLogout}
                 />
               </td>

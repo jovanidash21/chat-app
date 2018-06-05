@@ -57,7 +57,7 @@ class RightSideDrawer extends Component {
               ).map((chatRoomMember, i) =>
                 <ChatRoomMember
                   key={i}
-                  userData={user.active}
+                  user={user.active}
                   chatRoomMember={chatRoomMember}
                   handleAddDirectChatRoom={::this.handleAddDirectChatRoom}
                 />

@@ -10,31 +10,31 @@ class ChatRoom extends Component {
   componentWillMount() {
     const {
       index,
-      userData,
-      chatRoomData,
+      user,
+      chatRoom,
       handleChangeChatRoom,
     } = this.props;
 
     if (index === 0) {
-      handleChangeChatRoom(chatRoomData, userData._id, '');
+      handleChangeChatRoom(chatRoom, user._id, '');
     }
   }
   handleAccountType() {
     const {
-      userData,
-      chatRoomData
+      user,
+      chatRoom
     } = this.props;
     var accountType = '';
 
-    switch ( chatRoomData.chatType ) {
+    switch ( chatRoom.chatType ) {
       case 'private':
-        accountType = userData.accountType;
+        accountType = user.accountType;
         break;
       case 'direct':
-        for ( var i = 0; i < chatRoomData.members.length; i++ ) {
-          var member = chatRoomData.members[i];
+        for ( var i = 0; i < chatRoom.members.length; i++ ) {
+          var member = chatRoom.members[i];
 
-          if ( member._id != userData._id ) {
+          if ( member._id != user._id ) {
             accountType = member.accountType;
             break;
           } else {
@@ -52,19 +52,19 @@ class ChatRoom extends Component {
     event.preventDefault();
 
     const {
-      userData,
-      chatRoomData,
+      user,
+      chatRoom,
       activeChatRoom,
       handleChangeChatRoom,
       handleLeftSideDrawerToggleEvent
     } = this.props;
 
-    handleChangeChatRoom(chatRoomData, userData._id, activeChatRoom._id);
+    handleChangeChatRoom(chatRoom, user._id, activeChatRoom._id);
     handleLeftSideDrawerToggleEvent(event);
   }
   render() {
     const {
-      chatRoomData,
+      chatRoom,
       isActive
     } = this.props;
 
@@ -72,16 +72,16 @@ class ChatRoom extends Component {
       <div
         className={"chat-room " + (isActive ? 'active' : '')}
         onClick={::this.handleChangeChatRoom}
-        title={chatRoomData.name}
+        title={chatRoom.name}
       >
         <Avatar
-          image={chatRoomData.chatIcon}
+          image={chatRoom.chatIcon}
           accountType={::this.handleAccountType()}
         />
         <div className="chat-room-name">
-          {chatRoomData.name}
+          {chatRoom.name}
           {
-            chatRoomData.chatType === 'private' &&
+            chatRoom.chatType === 'private' &&
             <span className="you-label">(you)</span>
           }
         </div>
@@ -92,8 +92,8 @@ class ChatRoom extends Component {
 
 ChatRoom.propTypes = {
   index: PropTypes.number.isRequired,
-  userData: PropTypes.object.isRequired,
-  chatRoomData: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  chatRoom: PropTypes.object.isRequired,
   activeChatRoom: PropTypes.object.isRequired,
   isActive: PropTypes.bool,
   handleChangeChatRoom: PropTypes.func.isRequired,

@@ -46,7 +46,7 @@ const chatRoom = (state=initialState, action) => {
       var chatRooms = [...action.payload.data];
 
       for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i];
+        var chatRoom = chatRooms[i].data;
 
         chatRoom.priority = chatRoomPriority(chatRoom);
       }
@@ -79,7 +79,7 @@ const chatRoom = (state=initialState, action) => {
     case SOCKET_BROADCAST_CREATE_CHAT_ROOM:
       var chatRoom = {...action.chatRoom};
 
-      chatRoom.priority = chatRoomPriority(chatRoom);
+      chatRoom.priority = chatRoomPriority(chatRoom.data);
 
       return {
         ...state,

@@ -101,13 +101,13 @@ class Chat extends Component {
           {
             message.all.length > 0
               ?
-              message.all.map((messageData, i) =>
+              message.all.map((message, i) =>
                 <ChatBubble
                   key={i}
-                  userData={messageData.user}
-                  message={messageData.text}
-                  time={messageData.createdAt}
-                  isSender={(messageData.user._id === user.active._id) ? true : false }
+                  user={message.user}
+                  message={message.text}
+                  time={message.createdAt}
+                  isSender={(message.user._id === user.active._id) ? true : false }
                 />
               )
               :
@@ -180,7 +180,7 @@ class Chat extends Component {
           </div>
         </div>
         <ChatInput
-          userData={user.active}
+          user={user.active}
           activeChatRoom={chatRoom.active}
           handleSocketIsTyping={socketIsTyping}
           handleSocketIsNotTyping={socketIsNotTyping}

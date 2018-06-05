@@ -20,7 +20,7 @@ class ChatRoomMember extends Component {
   }
   render() {
     const {
-      userData,
+      user,
       chatRoomMember
     } = this.props;
 
@@ -40,13 +40,13 @@ class ChatRoomMember extends Component {
         <div className="member-name">
           {chatRoomMember.name}
           {
-            userData._id === chatRoomMember._id &&
+            user._id === chatRoomMember._id &&
             <span className="you-label">(you)</span>
           }
         </div>
         <div className="member-options-button-wrapper">
           {
-            userData._id !== chatRoomMember._id &&
+            user._id !== chatRoomMember._id &&
             <div>
               <div className="member-options-button" data-mui-toggle="dropdown">
                 <FontAwesome
@@ -70,7 +70,7 @@ class ChatRoomMember extends Component {
 }
 
 ChatRoomMember.propTypes = {
-  userData: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   chatRoomMember: PropTypes.object.isRequired,
   handleAddDirectChatRoom: PropTypes.func.isRequired
 }

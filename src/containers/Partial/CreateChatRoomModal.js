@@ -32,16 +32,16 @@ class CreateChatRoomModal extends Component {
     const { members } = this.state;
     const selectedMember = suggestion.suggestion;
 
-    if (members.some((memberData) => memberData._id === selectedMember._id)) {
+    if (members.some((member) => member._id === selectedMember._id)) {
       this.setState({
         members: [
-          ...members.filter((memberData) => memberData._id !== selectedMember._id)
+          ...members.filter((member) => member._id !== selectedMember._id)
         ]
       });
     } else {
       this.setState({
         members: [
-          ...members.filter((memberData) => memberData._id !== selectedMember._id),
+          ...members.filter((member) => member._id !== selectedMember._id),
           selectedMember
         ]
       });
@@ -52,7 +52,7 @@ class CreateChatRoomModal extends Component {
 
     this.setState({
       members: [
-        ...members.filter((memberData) => memberData._id !== member._id)
+        ...members.filter((member) => member._id !== member._id)
       ]
     });
   }
@@ -104,18 +104,18 @@ class CreateChatRoomModal extends Component {
             </div>
             <div className="members-list">
               {
-                members.map((memberData, i) =>
+                members.map((member, i) =>
                   <ChatMember
                     key={i}
                     index={i}
-                    memberData={memberData}
+                    member={member}
                     handleDeselectMember={::this.handleDeselectMember}
                   />
                 )
               }
             </div>
             <ChatMemberSelect
-              userData={user.active}
+              user={user.active}
               users={user.all}
               onSuggestionSelected={::this.onSuggestionSelected}
             />
