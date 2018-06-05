@@ -98,7 +98,10 @@ router.post('/group/:userID', function(req, res, next) {
                 res.status(200).send({
                   success: true,
                   message: 'Chat Room Created.',
-                  chatRoomData: chatRoomData
+                  chatRoom: {
+                    data: chatRoomData,
+                    unReadMessages: 0
+                  }
                 });
               } else {
                 res.status(500).send({
@@ -179,7 +182,10 @@ router.post('/direct/:userID', function(req, res, next) {
                           res.status(200).send({
                             success: true,
                             message: 'Chat Room Created.',
-                            chatRoomData: chatRoomData
+                            chatRoom: {
+                              data: chatRoomData,
+                              unReadMessages: 0
+                            }
                           });
                         } else {
                           res.status(500).send({

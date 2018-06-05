@@ -44,12 +44,14 @@ router.get('/:chatRoomID/:userID', function(req, res, next) {
             { safe: true, upsert: true, new: true },
             function(err) {
               if (!err) {
-                res.status(200).send(chatRoomMessages);
+                res.end();
               } else {
                 res.end(err);
               }
             }
           );
+
+          res.status(200).send(chatRoomMessages);
         } else {
           res.status(500).send({
             success: false,
