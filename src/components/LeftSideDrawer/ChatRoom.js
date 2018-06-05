@@ -85,6 +85,15 @@ class ChatRoom extends Component {
             <span className="you-label">(you)</span>
           }
         </div>
+        {
+          chatRoom.unReadMessages > 0 &&
+          <div
+            className="new-messages-count"
+            title={chatRoom.unReadMessages + " New " + (chatRoom.unReadMessages > 1 ? 'Messages' : 'Message')}
+          >
+            {chatRoom.unReadMessages}
+          </div>
+        }
       </div>
     )
   }

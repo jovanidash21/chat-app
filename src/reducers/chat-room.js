@@ -6,6 +6,10 @@ import {
   SOCKET_BROADCAST_CREATE_CHAT_ROOM
 } from '../constants/chat-room';
 import { SOCKET_BROADCAST_USER_LOGIN } from '../constants/auth';
+import {
+  FETCH_MESSAGES,
+  SOCKET_BROADCAST_SEND_MESSAGE
+} from '../constants/message';
 
 const chatRoomPriority = (chatRoom) => {
   var priority = -1;
@@ -106,6 +110,24 @@ const chatRoom = (state=initialState, action) => {
       return {
         ...state,
         active: {...activeChatRoom}
+      }
+    case `${FETCH_MESSAGES}_SUCCESS`:
+      var activeChatRoom = {...state.active};
+      var chatRooms = [...state.all];
+
+      for (var i = 0; i < chatRooms.length; i++) {
+        var chatRoom = chatRooms[i];
+
+        if ( chatRoom.data._id === activeChatRoom.data._id ) {
+          chatRoom.unReadMessages = 0;
+          break;
+        } else {
+          continue;
+        }
+      }
+      return {
+        ...state,
+        all: [...chatRooms]
       }
     default:
       return state;
