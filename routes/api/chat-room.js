@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var User = require('../../models/User');
 var ChatRoom = require('../../models/ChatRoom');
+var Message = require('../../models/Message');
 
 router.get('/:userID', function(req, res, next) {
   var userID = req.params.userID;
@@ -81,7 +82,9 @@ router.post('/group/:userID', function(req, res, next) {
             .populate('members')
             .exec(function(err, chatRoomData) {
               if (!err) {
-                chatRoomData.members.forEach(function (chatRoomMember) {
+                for (var i = 0; i < chatRoomData.members.length; i++) {
+                  var chatRoomMember = chatRoomData.members[i];
+
                   User.findByIdAndUpdate(
                     chatRoomMember,
                     { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
@@ -94,7 +97,7 @@ router.post('/group/:userID', function(req, res, next) {
                       }
                     }
                   );
-                });
+                }
                 res.status(200).send({
                   success: true,
                   message: 'Chat Room Created.',
@@ -165,7 +168,9 @@ router.post('/direct/:userID', function(req, res, next) {
                       .populate('members')
                       .exec(function(err, chatRoomData) {
                         if (!err) {
-                          chatRoomData.members.forEach(function (chatRoomMember) {
+                          for (var i = 0; i < chatRoomData.members.length; i++) {
+                            var chatRoomMember = chatRoomData.members[i];
+
                             User.findByIdAndUpdate(
                               chatRoomMember,
                               { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
@@ -178,7 +183,7 @@ router.post('/direct/:userID', function(req, res, next) {
                                 }
                               }
                             );
-                          });
+                          }
                           res.status(200).send({
                             success: true,
                             message: 'Chat Room Created.',

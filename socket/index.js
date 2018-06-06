@@ -1,4 +1,6 @@
 var User = require('../models/User');
+var ChatRoom = require('../models/ChatRoom');
+var Message = require('../models/Message');
 
 var users = {};
 
@@ -59,7 +61,9 @@ var sockets = function(io) {
           });
           break;
         case 'SOCKET_CREATE_CHAT_ROOM':
-          action.members.forEach(function (chatRoomMember) {
+          for (var i = 0; i < action.members.length; i++) {
+            var chatRoomMember = action.members[i];
+
             User.findById(chatRoomMember, function(err, user) {
               if (!err) {
                 socket.broadcast.to(user.socketID).emit('action', {
@@ -68,13 +72,60 @@ var sockets = function(io) {
                 });
               }
             });
-          });
+          }
           break;
         case 'SOCKET_SEND_MESSAGE':
-          socket.broadcast.to(action.chatRoomID).emit('action', {
-            type: 'SOCKET_BROADCAST_SEND_MESSAGE',
-            message: action.message
+          var chatRoomClients = [];
+
+          io.in(action.chatRoomID).clients((err, clients) => {
+            if (!err) {
+              chatRoomClients = clients;
+            }
           });
+
+          ChatRoom.findById(action.chatRoomID)
+            .populate('members')
+            .exec(function(err, chatRoom) {
+              if (!err) {
+                for (var i = 0; i < chatRoom.members.length; i++) {
+                  var chatRoomMember = chatRoom.members[i];
+
+                  User.findById(chatRoomMember, function(err, user) {
+                    if (!err) {
+                      if (chatRoomClients.indexOf(user.socketID) > -1) {
+                        Message.findByIdAndUpdate(
+                          action.message._id,
+                          { $push: { readBy: user._id }},
+                          { safe: true, upsert: true, new: true },
+                          function(err) {
+                            if (!err) {
+                              User.update(
+                                { _id: user._id, 'chatRooms.data': action.chatRoomID },
+                                { $set: { 'chatRooms.$.unReadMessages': 0 } },
+                                { safe: true, upsert: true, new: true },
+                                function(err) {
+                                  if (!err) {
+                                    socket.broadcast.to(user.socketID).emit('action', {
+                                      type: 'SOCKET_BROADCAST_SEND_MESSAGE',
+                                      message: action.message
+                                    });
+                                  }
+                                }
+                              );
+                            }
+                          }
+                        );
+                      } else {
+                        socket.broadcast.to(user.socketID).emit('action', {
+                          type: 'SOCKET_BROADCAST_NOTIFY_MESSAGE',
+                          chatRoomID: action.chatRoomID
+                        });
+                      }
+                    }
+                  });
+                }
+              }
+            });
           break;
         default:
           break;

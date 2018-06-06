@@ -91,7 +91,13 @@ class ChatRoom extends Component {
             className="new-messages-count"
             title={chatRoom.unReadMessages + " New " + (chatRoom.unReadMessages > 1 ? 'Messages' : 'Message')}
           >
-            {chatRoom.unReadMessages}
+            {
+              chatRoom.unReadMessages <= 100
+                ?
+                chatRoom.unReadMessages
+                :
+                '100 +'
+            }
           </div>
         }
       </div>

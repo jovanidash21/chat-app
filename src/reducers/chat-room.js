@@ -8,7 +8,7 @@ import {
 import { SOCKET_BROADCAST_USER_LOGIN } from '../constants/auth';
 import {
   FETCH_MESSAGES,
-  SOCKET_BROADCAST_SEND_MESSAGE
+  SOCKET_BROADCAST_NOTIFY_MESSAGE
 } from '../constants/message';
 
 const chatRoomPriority = (chatRoom) => {
@@ -125,6 +125,27 @@ const chatRoom = (state=initialState, action) => {
           continue;
         }
       }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      }
+    case SOCKET_BROADCAST_NOTIFY_MESSAGE:
+      var activeChatRoom = {...state.active};
+      var chatRooms = [...state.all];
+      var chatRoomID = action.chatRoomID;
+
+      for (var i = 0; i < chatRooms.length; i++) {
+        var chatRoom = chatRooms[i];
+
+        if ( chatRoom.data._id === chatRoomID ) {
+          chatRoom.unReadMessages++;
+          break;
+        } else {
+          continue;
+        }
+      }
+
       return {
         ...state,
         all: [...chatRooms]
