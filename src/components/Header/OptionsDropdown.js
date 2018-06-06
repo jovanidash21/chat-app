@@ -17,19 +17,19 @@ class OptionsDropdown extends Component {
     handleLogout();
   }
   render() {
-    const { userData } = this.props;
+    const { user } = this.props;
 
     return (
       <div className="mui-dropdown options-dropdown">
         <MediaQuery query="(min-width: 768px)">
           <div className="user-details">
             <Avatar
-              image={userData.profilePicture}
-              title={userData.name}
-              accountType={userData.accountType}
+              image={user.profilePicture}
+              title={user.name}
+              accountType={user.accountType}
             />
             <div className="user-name">
-              {userData.name}
+              {user.name}
             </div>
           </div>
         </MediaQuery>
@@ -51,7 +51,7 @@ class OptionsDropdown extends Component {
 }
 
 OptionsDropdown.propTypes = {
-  userData: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   handleLogout: PropTypes.func.isRequired
 }
 

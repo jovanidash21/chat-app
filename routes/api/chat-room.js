@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var User = require('../../models/User');
 var ChatRoom = require('../../models/ChatRoom');
+var Message = require('../../models/Message');
 
 router.get('/:userID', function(req, res, next) {
   var userID = req.params.userID;
@@ -14,14 +15,14 @@ router.get('/:userID', function(req, res, next) {
   } else {
     User.findById(userID, 'chatRooms')
       .populate({
-        path: 'chatRooms',
+        path: 'chatRooms.data',
         populate: {
           path: 'members'
         }
       }).exec(function(err, userChatRooms) {
         if (!err) {
           for (var i = 0; i < userChatRooms.chatRooms.length; i++) {
-            var chatRoom = userChatRooms.chatRooms[i];
+            var chatRoom = userChatRooms.chatRooms[i].data;
 
             for (var j = 0; j < chatRoom.members.length; j++) {
               var member = chatRoom.members[j];
@@ -81,10 +82,12 @@ router.post('/group/:userID', function(req, res, next) {
             .populate('members')
             .exec(function(err, chatRoomData) {
               if (!err) {
-                chatRoomData.members.forEach(function (chatRoomMember) {
+                for (var i = 0; i < chatRoomData.members.length; i++) {
+                  var chatRoomMember = chatRoomData.members[i];
+
                   User.findByIdAndUpdate(
                     chatRoomMember,
-                    { $push: { chatRooms: chatRoomID }},
+                    { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
                     { safe: true, upsert: true, new: true },
                     function(err) {
                       if (!err) {
@@ -94,11 +97,14 @@ router.post('/group/:userID', function(req, res, next) {
                       }
                     }
                   );
-                });
+                }
                 res.status(200).send({
                   success: true,
                   message: 'Chat Room Created.',
-                  chatRoomData: chatRoomData
+                  chatRoom: {
+                    data: chatRoomData,
+                    unReadMessages: 0
+                  }
                 });
               } else {
                 res.status(500).send({
@@ -117,8 +123,6 @@ router.post('/group/:userID', function(req, res, next) {
     }
   }
 });
-
-module.exports = router;
 
 router.post('/direct/:userID', function(req, res, next) {
   var userID = req.params.userID;
@@ -164,10 +168,12 @@ router.post('/direct/:userID', function(req, res, next) {
                       .populate('members')
                       .exec(function(err, chatRoomData) {
                         if (!err) {
-                          chatRoomData.members.forEach(function (chatRoomMember) {
+                          for (var i = 0; i < chatRoomData.members.length; i++) {
+                            var chatRoomMember = chatRoomData.members[i];
+
                             User.findByIdAndUpdate(
                               chatRoomMember,
-                              { $push: { chatRooms: chatRoomID }},
+                              { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
                               { safe: true, upsert: true, new: true },
                               function(err) {
                                 if (!err) {
@@ -177,11 +183,14 @@ router.post('/direct/:userID', function(req, res, next) {
                                 }
                               }
                             );
-                          });
+                          }
                           res.status(200).send({
                             success: true,
                             message: 'Chat Room Created.',
-                            chatRoomData: chatRoomData
+                            chatRoom: {
+                              data: chatRoomData,
+                              unReadMessages: 0
+                            }
                           });
                         } else {
                           res.status(500).send({

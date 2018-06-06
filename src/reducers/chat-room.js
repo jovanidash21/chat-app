@@ -6,6 +6,10 @@ import {
   SOCKET_BROADCAST_CREATE_CHAT_ROOM
 } from '../constants/chat-room';
 import { SOCKET_BROADCAST_USER_LOGIN } from '../constants/auth';
+import {
+  FETCH_MESSAGES,
+  SOCKET_BROADCAST_NOTIFY_MESSAGE
+} from '../constants/message';
 
 const chatRoomPriority = (chatRoom) => {
   var priority = -1;
@@ -27,7 +31,9 @@ const chatRoomPriority = (chatRoom) => {
 
 const initialState = {
   isLoading: false,
-  active: {},
+  active: {
+    data: {}
+  },
   all: []
 };
 
@@ -48,7 +54,7 @@ const chatRoom = (state=initialState, action) => {
       for (var i = 0; i < chatRooms.length; i++) {
         var chatRoom = chatRooms[i];
 
-        chatRoom.priority = chatRoomPriority(chatRoom);
+        chatRoom.priority = chatRoomPriority(chatRoom.data);
       }
 
       return {
@@ -79,7 +85,7 @@ const chatRoom = (state=initialState, action) => {
     case SOCKET_BROADCAST_CREATE_CHAT_ROOM:
       var chatRoom = {...action.chatRoom};
 
-      chatRoom.priority = chatRoomPriority(chatRoom);
+      chatRoom.priority = chatRoomPriority(chatRoom.data);
 
       return {
         ...state,
@@ -92,10 +98,10 @@ const chatRoom = (state=initialState, action) => {
       var user = action.user;
       var userID = user._id;
       var activeChatRoom = {...state.active};
-      var members = activeChatRoom.members;
+      var members = activeChatRoom.data.members;
 
       if (
-        activeChatRoom.chatType === 'public' &&
+        activeChatRoom.data.chatType === 'public' &&
         members.indexOf(userID) == -1
       ) {
         members.push(userID);
@@ -104,6 +110,45 @@ const chatRoom = (state=initialState, action) => {
       return {
         ...state,
         active: {...activeChatRoom}
+      }
+    case `${FETCH_MESSAGES}_SUCCESS`:
+      var activeChatRoom = {...state.active};
+      var chatRooms = [...state.all];
+
+      for (var i = 0; i < chatRooms.length; i++) {
+        var chatRoom = chatRooms[i];
+
+        if ( chatRoom.data._id === activeChatRoom.data._id ) {
+          chatRoom.unReadMessages = 0;
+          break;
+        } else {
+          continue;
+        }
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      }
+    case SOCKET_BROADCAST_NOTIFY_MESSAGE:
+      var activeChatRoom = {...state.active};
+      var chatRooms = [...state.all];
+      var chatRoomID = action.chatRoomID;
+
+      for (var i = 0; i < chatRooms.length; i++) {
+        var chatRoom = chatRooms[i];
+
+        if ( chatRoom.data._id === chatRoomID ) {
+          chatRoom.unReadMessages++;
+          break;
+        } else {
+          continue;
+        }
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
       }
     default:
       return state;

@@ -20,14 +20,14 @@ class ChatMemberSelect extends Component {
   };
   handleGetSuggestions(value) {
     const {
-      userData,
+      user,
       users
     } = this.props;
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
     return inputLength === 0 ? [] : users.filter(suggestion =>
-      userData._id !== suggestion._id &&
+      user._id !== suggestion._id &&
       suggestion.name &&
       suggestion.name.toLowerCase().slice(0, inputLength) === inputValue
     );
@@ -106,7 +106,7 @@ class ChatMemberSelect extends Component {
 }
 
 ChatMemberSelect.propTypes = {
-  userData: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   users: PropTypes.array.isRequired,
   onSuggestionSelected: PropTypes.func.isRequired
 }

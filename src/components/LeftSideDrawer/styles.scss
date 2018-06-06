@@ -1,6 +1,7 @@
 .chat-room {
   align-items: center;
   border-bottom: 1px solid $color-goblin;
+  color: $color-old-lace;
   cursor: pointer;
   display: flex;
   font-size: 14px;
@@ -14,10 +15,16 @@
   &.active {
     background-color: $color-royal-purple;
   }
+  &.new-message {
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+  }
   .avatar {
     margin-right: 14px;
   }
   .chat-room-name {
+    flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -26,5 +33,19 @@
       color: $color-alto;
       margin-left: 7px;
     }
+  }
+  .new-messages-count {
+    align-items: center;
+    background-color: $color-amaranth;
+    border-radius: 16px;
+    color: #fff;
+    display: flex;
+    font-size: 10px;
+    font-weight: bold;
+    height: 18px;
+    justify-content: center;
+    line-height: 18px;
+    margin-left: 3px;
+    padding: 0 9px;
   }
 }

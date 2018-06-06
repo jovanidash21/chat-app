@@ -40,7 +40,7 @@ var io = require('socket.io')(server);
  */
 
 var socket = require('../socket');
-io.on('connection', socket);
+socket(io);
 
 /**
  * Normalize a port into a number, string, or false.

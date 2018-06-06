@@ -57,7 +57,7 @@ class RightSideDrawer extends Component {
               ).map((chatRoomMember, i) =>
                 <ChatRoomMember
                   key={i}
-                  userData={user.active}
+                  user={user.active}
                   chatRoomMember={chatRoomMember}
                   handleAddDirectChatRoom={::this.handleAddDirectChatRoom}
                 />
@@ -91,8 +91,8 @@ class RightSideDrawer extends Component {
 
 
     for ( var i = 0; i < chatRooms.length; i++ ) {
-      if ( chatRooms[i].chatType === 'direct' ) {
-        var isMembersMatch = chatRooms[i].members.some(member => member._id === memberID);
+      if ( chatRooms[i].data.chatType === 'direct' ) {
+        var isMembersMatch = chatRooms[i].data.members.some(member => member._id === memberID);
 
         if ( isMembersMatch ) {
           directChatRoomExists = true;
@@ -107,10 +107,10 @@ class RightSideDrawer extends Component {
     }
 
     if ( ! directChatRoomExists ) {
-      createDirectChatRoom(userID, memberID, activeChatRoom._id);
+      createDirectChatRoom(userID, memberID, activeChatRoom.data._id);
       handleRightSideDrawerToggleEvent(event);
     } else {
-      changeChatRoom(directChatRoomData, userID, activeChatRoom._id);
+      changeChatRoom(directChatRoomData, userID, activeChatRoom.data._id);
       handleRightSideDrawerToggleEvent(event);
     }
   }

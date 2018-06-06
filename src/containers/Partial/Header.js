@@ -39,9 +39,9 @@ class Header extends Component {
           </MediaQuery>
           <h2
             className="chat-room-name"
-            title={activeChatRoom.name}
+            title={activeChatRoom.data.name}
           >
-            {activeChatRoom.name}
+            {activeChatRoom.data.name}
           </h2>
           {
             !member.isLoading &&
@@ -90,7 +90,7 @@ class Header extends Component {
               </td>
               <td className="mui--appbar-height mui--text-right">
                 <OptionsDropdown
-                  userData={user.active}
+                  user={user.active}
                   handleLogout={::this.handleLogout}
                 />
               </td>

@@ -27,7 +27,7 @@ class ChatBubble extends Component {
   }
  render() {
     const {
-      userData,
+      user,
       time,
       isSender
     } = this.props;
@@ -37,17 +37,17 @@ class ChatBubble extends Component {
         {
           !isSender &&
           <Avatar
-            image={userData.profilePicture}
+            image={user.profilePicture}
             size="35px"
-            title={userData.name}
-            accountType={userData.accountType}
+            title={user.name}
+            accountType={user.accountType}
             badgeCloser
           />
         }
         <div className="chat-details">
           {
             !isSender &&
-            <div className="chat-user-name">{userData.name}</div>
+            <div className="chat-user-name">{user.name}</div>
           }
           <div className="chat-message">
             <div className={"chat-bubble " + (isSender ? 'right' : '')}>
@@ -73,7 +73,7 @@ class ChatBubble extends Component {
 }
 
 ChatBubble.propTypes = {
-  userData: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   message: PropTypes.string.isRequired,
   time: PropTypes.string,
   isSender: PropTypes.bool.isRequired

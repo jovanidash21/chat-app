@@ -7,7 +7,9 @@ import {
 
 const initialState = {
   isLoading: false,
-  activeChatRoom: {},
+  activeChatRoom: {
+    data: {}
+  },
   all: []
 };
 
@@ -55,7 +57,7 @@ const member = (state=initialState, action) => {
         }
       }
 
-      if ( activeChatRoom.chatType === 'public' && !isUserExist ) {
+      if ( activeChatRoom.data.chatType === 'public' && !isUserExist ) {
         user.isOnline = true;
         members.push(user);
       }

@@ -46,15 +46,15 @@ class LeftSideDrawer extends Component {
                 return n;
               }
 
-              return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
-            }).map((chatRoomData, i) =>
+              return a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
+            }).map((chatRoom, i) =>
               <ChatRoom
                 key={i}
                 index={i}
-                userData={user.active}
-                chatRoomData={chatRoomData}
+                user={user.active}
+                chatRoom={chatRoom}
                 activeChatRoom={activeChatRoom}
-                isActive={(activeChatRoom._id === chatRoomData._id) ? true : false}
+                isActive={(activeChatRoom.data._id === chatRoom.data._id) ? true : false}
                 handleChangeChatRoom={changeChatRoom}
                 handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
               />

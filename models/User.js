@@ -6,6 +6,22 @@ var timestamps = require('mongoose-timestamp');
 
 mongoose.Promise = Promise;
 
+var userChatRoomSchema = new Schema (
+  {
+    data: {
+      type: Schema.Types.ObjectId,
+      ref: 'ChatRoom',
+    },
+    unReadMessages: {
+      type: Number,
+      default: 0,
+    },
+  },
+  {
+    _id : false,
+  },
+);
+
 var userSchema = new Schema (
   {
     name: String,
@@ -14,10 +30,7 @@ var userSchema = new Schema (
       type: String,
       default: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-profile-picture.jpg',
     },
-    chatRooms: [{
-      type: Schema.Types.ObjectId,
-      ref: 'ChatRoom',
-    }],
+    chatRooms: [userChatRoomSchema],
     accountType: {
       type: String,
       enum: [

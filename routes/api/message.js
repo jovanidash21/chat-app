@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
 var Message = require('../../models/Message');
+var ChatRoom = require('../../models/ChatRoom');
+var User = require('../../models/User');
 
 router.get('/:chatRoomID/:userID', function(req, res, next) {
   var chatRoomID = req.params.chatRoomID;
@@ -17,6 +19,38 @@ router.get('/:chatRoomID/:userID', function(req, res, next) {
       .sort('createdAt')
       .exec(function(err, chatRoomMessages) {
         if (!err) {
+          for (var i = 0; i < chatRoomMessages.length; i++) {
+            var message = chatRoomMessages[i];
+
+            if (message.readBy.indexOf(userID) === -1) {
+              Message.findByIdAndUpdate(
+                message._id,
+                { $push: { readBy: userID }},
+                { safe: true, upsert: true, new: true },
+                function(err) {
+                  if (!err) {
+                    res.end();
+                  } else {
+                    res.end(err);
+                  }
+                }
+              );
+            }
+          }
+
+          User.update(
+            { _id: userID, 'chatRooms.data': chatRoomID },
+            { $set: { 'chatRooms.$.unReadMessages': 0 } },
+            { safe: true, upsert: true, new: true },
+            function(err) {
+              if (!err) {
+                res.end();
+              } else {
+                res.end(err);
+              }
+            }
+          );
+
           res.status(200).send(chatRoomMessages);
         } else {
           res.status(500).send({
@@ -41,7 +75,8 @@ router.post('/:chatRoomID/:userID', function(req, res, next) {
     var messageData = {
       text: req.body.text,
       user: userID,
-      chatRoom: chatRoomID
+      chatRoom: chatRoomID,
+      readBy: [userID]
     };
     var message = new Message(messageData);
 
@@ -51,6 +86,37 @@ router.post('/:chatRoomID/:userID', function(req, res, next) {
           .populate('user')
           .exec(function(err, messageData) {
             if (!err) {
+              ChatRoom.findById(chatRoomID)
+                .exec(function(err, chatRoom) {
+                  if (!err) {
+                    for (var i = 0; i < chatRoom.members.length; i++) {
+                      var memberID = chatRoom.members[i];
+
+                      if (memberID != userID) {
+                        User.update(
+                          { _id: memberID, 'chatRooms.data': chatRoomID },
+                          { $inc: { 'chatRooms.$.unReadMessages': 1 } },
+                          { safe: true, upsert: true, new: true },
+                          function(err) {
+                            if (!err) {
+                              res.end();
+                            } else {
+                              res.end(err);
+                            }
+                          }
+                        );
+                      } else {
+                        continue;
+                      }
+                    }
+                  } else {
+                    res.status(500).send({
+                      success: false,
+                      message: 'Server Error!'
+                    });
+                  }
+                });
+
               res.status(200).send({
                 success: true,
                 message: 'Message Sent.',
