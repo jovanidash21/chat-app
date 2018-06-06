@@ -22,20 +22,18 @@ router.get('/:chatRoomID/:userID', function(req, res, next) {
           for (var i = 0; i < chatRoomMessages.length; i++) {
             var message = chatRoomMessages[i];
 
-            if (message.readBy.indexOf(userID) === -1) {
-              Message.findByIdAndUpdate(
-                message._id,
-                { $push: { readBy: userID }},
-                { safe: true, upsert: true, new: true },
-                function(err) {
-                  if (!err) {
-                    res.end();
-                  } else {
-                    res.end(err);
-                  }
+            Message.findOneAndUpdate(
+              { _id: message._id, readBy: { $ne: userID } },
+              { $addToSet: { readBy: userID } },
+              { safe: true, upsert: true, new: true },
+              function(err) {
+                if (!err) {
+                  res.end();
+                } else {
+                  res.end(err);
                 }
-              );
-            }
+              }
+            );
           }
 
           User.update(
