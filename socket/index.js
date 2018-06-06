@@ -93,9 +93,9 @@ var sockets = function(io) {
                   User.findById(chatRoomMember, function(err, user) {
                     if (!err) {
                       if (chatRoomClients.indexOf(user.socketID) > -1) {
-                        Message.findByIdAndUpdate(
-                          action.message._id,
-                          { $push: { readBy: user._id }},
+                        Message.findOneAndUpdate(
+                          { _id: action.message._id, readBy: { $ne: user._id } },
+                          { $addToSet: { readBy: user._id } },
                           { safe: true, upsert: true, new: true },
                           function(err) {
                             if (!err) {
