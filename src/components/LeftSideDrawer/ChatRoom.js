@@ -70,7 +70,11 @@ class ChatRoom extends Component {
 
     return (
       <div
-        className={"chat-room " + (isActive ? 'active' : '')}
+        className={
+          "chat-room " +
+          (isActive ? 'active ' : '') +
+          (chatRoom.unReadMessages > 0 ? 'new-message' : '')
+        }
         onClick={::this.handleChangeChatRoom}
         title={chatRoom.data.name}
       >

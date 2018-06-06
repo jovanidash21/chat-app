@@ -1,6 +1,7 @@
 .chat-room {
   align-items: center;
   border-bottom: 1px solid $color-goblin;
+  color: $color-old-lace;
   cursor: pointer;
   display: flex;
   font-size: 14px;
@@ -13,6 +14,11 @@
   }
   &.active {
     background-color: $color-royal-purple;
+  }
+  &.new-message {
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
   }
   .avatar {
     margin-right: 14px;
