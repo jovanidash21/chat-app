@@ -30,8 +30,8 @@ class RightSideDrawer extends Component {
       var query = memberName.trim().toLowerCase();
 
       if ( query.length > 0 ) {
-        members = members.filter((member) => {
-          return member.name.toLowerCase().match(query);
+        members = members.filter((singleMember) => {
+          return singleMember.name.toLowerCase().match(query);
         });
       }
 
