@@ -120,6 +120,7 @@ const chatRoom = (state=initialState, action) => {
 
         if ( chatRoom.data._id === activeChatRoom.data._id ) {
           chatRoom.unReadMessages = 0;
+          activeChatRoom.unReadMessages = 0;
           break;
         } else {
           continue;
@@ -131,7 +132,6 @@ const chatRoom = (state=initialState, action) => {
         all: [...chatRooms]
       }
     case SOCKET_BROADCAST_NOTIFY_MESSAGE:
-      var activeChatRoom = {...state.active};
       var chatRooms = [...state.all];
       var chatRoomID = action.chatRoomID;
 

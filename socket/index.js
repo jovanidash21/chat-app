@@ -118,7 +118,10 @@ var sockets = function(io) {
                       } else {
                         socket.broadcast.to(user.socketID).emit('action', {
                           type: 'SOCKET_BROADCAST_NOTIFY_MESSAGE',
-                          chatRoomID: action.chatRoomID
+                          chatRoom: {data: chatRoom, unReadMessages: 0},
+                          chatRoomID: action.chatRoomID,
+                          chatRoomName: chatRoom.name,
+                          senderName: action.message.user.name
                         });
                       }
                     }

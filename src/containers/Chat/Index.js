@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
+import NotificationSystem from 'react-notification-system';
+import { SOCKET_BROADCAST_NOTIFY_MESSAGE } from '../../constants/message';
+import socket from '../../socket';
 import mapDispatchToProps from '../../actions';
 import Header from '../Partial/Header';
 import LeftSideDrawer from '../Partial/LeftSideDrawer';
@@ -12,6 +15,8 @@ import ChatBubble from '../../components/Chat/ChatBubble';
 import ChatTyper from '../../components/Chat/ChatTyper';
 import ChatInput from '../../components/Chat/ChatInput';
 import '../../styles/Chat.scss';
+
+var notificationSystem = null;
 
 class Chat extends Component {
   constructor(props) {
@@ -33,11 +38,37 @@ class Chat extends Component {
     document.body.classList.add('chat-page');
   }
   componentDidMount() {
+    const {
+      user,
+      chatRoom,
+      changeChatRoom
+    } = this.props;
+
     ::this.calculateViewportHeight();
     window.addEventListener('onorientationchange', ::this.calculateViewportHeight, true);
     window.addEventListener('resize', ::this.calculateViewportHeight, true);
 
     ::this.handleScrollToBottom();
+
+    notificationSystem = this.refs.notificationSystem;
+
+    socket.on('action', (action) => {
+      if ( action.type === SOCKET_BROADCAST_NOTIFY_MESSAGE ) {
+        notificationSystem.addNotification({
+          title: 'New message from ' +
+            action.senderName +
+            (action.chatRoomName.length > 0 ? ` on ${action.chatRoomName}` : ''),
+          message: '',
+          level: 'success',
+          action: {
+            label: 'View Message',
+            callback: () => {
+              changeChatRoom(action.chatRoom, user.active._id, chatRoom.active.data._id);
+            }
+          }
+        });
+      }
+    });
   }
   componentDidUpdate() {
     ::this.handleScrollToBottom();
@@ -186,6 +217,7 @@ class Chat extends Component {
           handleSocketIsNotTyping={socketIsNotTyping}
           handleSendMessage={::this.handleSendMessage}
         />
+        <NotificationSystem ref="notificationSystem" />
       </div>
     )
   }
