@@ -17,11 +17,7 @@ class NotificationPopUp extends Component {
     ::this.handleNotifyMessage();
   }
   handleNotifyMessage() {
-    const {
-      user,
-      activeChatRoom,
-      handleChangeChatRoom
-    } = this.props;
+    const { handleViewMessage } = this.props;
 
     socket.on('action', (action) => {
       if ( action.type === SOCKET_BROADCAST_NOTIFY_MESSAGE ) {
@@ -35,7 +31,7 @@ class NotificationPopUp extends Component {
           action: {
             label: 'View Message',
             callback: function() {
-              handleChangeChatRoom(action.chatRoom, user._id, activeChatRoom.data._id);
+              handleViewMessage(action.chatRoom);
             }
           }
         });
@@ -50,9 +46,7 @@ class NotificationPopUp extends Component {
 }
 
 NotificationPopUp.propTypes = {
-  user: PropTypes.object.isRequired,
-  activeChatRoom: PropTypes.object.isRequired,
-  handleChangeChatRoom: PropTypes.func.isRequired
+  handleViewMessage: PropTypes.func.isRequired
 }
 
 export default NotificationPopUp;

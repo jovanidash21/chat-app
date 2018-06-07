@@ -87,8 +87,7 @@ class Chat extends Component {
       user,
       typer,
       chatRoom,
-      message,
-      changeChatRoom
+      message
     } = this.props;
 
     if (chatRoom.all.length === 0) {
@@ -127,11 +126,6 @@ class Chat extends Component {
               )
             }
           </div>
-          <NotificationPopUp
-            user={user.active}
-            activeChatRoom={chatRoom.active}
-            handleChangeChatRoom={changeChatRoom}
-          />
         </Container>
       )
     } else {
@@ -151,6 +145,15 @@ class Chat extends Component {
     } = this.props;
 
     sendMessage(newMessageID, text, user.active, chatRoom.active);
+  }
+  handleNotificationViewMessage(chatRoomObj) {
+    const {
+      user,
+      chatRoom,
+      changeChatRoom
+    } = this.props;
+
+    changeChatRoom(chatRoomObj, user.active._id, chatRoom.active.data._id);
   }
   render() {
     const {
@@ -193,6 +196,7 @@ class Chat extends Component {
           handleSocketIsNotTyping={socketIsNotTyping}
           handleSendMessage={::this.handleSendMessage}
         />
+        <NotificationPopUp handleViewMessage={::this.handleNotificationViewMessage} />
       </div>
     )
   }
