@@ -116,6 +116,10 @@ var sockets = function(io) {
                           }
                         );
                       } else {
+                        if (chatRoom.chatType === 'direct') {
+                          chatRoom.name = action.message.user.name;
+                        }
+
                         socket.broadcast.to(user.socketID).emit('action', {
                           type: 'SOCKET_BROADCAST_NOTIFY_MESSAGE',
                           chatRoom: {data: chatRoom, unReadMessages: 0},
