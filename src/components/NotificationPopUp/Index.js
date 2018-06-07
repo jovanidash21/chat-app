@@ -25,8 +25,6 @@ class NotificationPopUp extends Component {
           title: 'New message from ' +
             action.senderName +
             (action.chatRoom.data.chatType !== 'direct' ? ` on ${action.chatRoomName}` : ''),
-          message: '',
-          autoDismiss: 0,
           level: 'success',
           action: {
             label: 'View Message',
