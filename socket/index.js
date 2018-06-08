@@ -51,13 +51,15 @@ var sockets = function(io) {
         case 'SOCKET_IS_TYPING':
           socket.broadcast.to(action.chatRoomID).emit('action', {
             type: 'SOCKET_BROADCAST_IS_TYPING',
-            typer: action.typer
+            typer: action.typer,
+            chatRoomID: action.chatRoomID
           });
           break;
         case 'SOCKET_IS_NOT_TYPING':
           socket.broadcast.to(action.chatRoomID).emit('action', {
             type: 'SOCKET_BROADCAST_IS_NOT_TYPING',
-            typer: action.typer
+            typer: action.typer,
+            chatRoomID: action.chatRoomID
           });
           break;
         case 'SOCKET_CREATE_CHAT_ROOM':

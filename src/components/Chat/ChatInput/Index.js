@@ -26,25 +26,8 @@ class ChatInput extends Component {
     event.preventDefault();
 
     const messageValue = value;
-    const {
-      user,
-      activeChatRoom,
-      handleSocketIsTyping,
-      handleSocketIsNotTyping
-    } = this.props
-    const { typing } = this.state;
 
     this.setState({message: messageValue});
-
-    if ( (messageValue.length > 0) && (!typing) ) {
-      handleSocketIsTyping(user, activeChatRoom.data._id);
-      this.setState({typing: true});
-    }
-
-    if ( (messageValue.length === 0) && (typing) ) {
-      handleSocketIsNotTyping(user, activeChatRoom.data._id);
-      this.setState({typing: false});
-    }
   }
   onMessageKeyPress(event) {
     if ( event.key === 'Enter' ) {
@@ -53,14 +36,44 @@ class ChatInput extends Component {
   }
   onMessageKeyUp(event) {
     const {
+      user,
+      activeChatRoom,
+      handleSocketIsTyping,
+      handleSocketIsNotTyping
+    } = this.props;
+    const {
       message,
+      typing,
       validMessage
     } = this.state;
+    const chatInputText = document.getElementById('chat-input').innerHTML;
 
-    if ( message.trim().length ) {
-      this.setState({validMessage: true});
-    } else {
-      this.setState({validMessage: false});
+    if (
+      message.trim().length > 0 &&
+      !typing &&
+      !validMessage &&
+      chatInputText.trim().length > 0
+    ) {
+      this.setState({
+        typing: true,
+        validMessage: true
+      });
+
+      handleSocketIsTyping(user, activeChatRoom.data._id);
+    }
+
+    if (
+      message.trim().length === 0 &&
+      typing &&
+      validMessage &&
+      chatInputText.trim().length === 0
+    ) {
+      this.setState({
+        typing: false,
+        validMessage: false
+      });
+
+      handleSocketIsNotTyping(user, activeChatRoom.data._id);
     }
 
     if ( (event.key === 'Enter') && validMessage ) {
@@ -100,7 +113,16 @@ class ChatInput extends Component {
     this.setState({emojiPicker: !emojiPicker});
   }
   handleEmojiPickerSelect(emoji) {
-    const { caretPosition } = this.state;
+    const {
+      user,
+      activeChatRoom,
+      handleSocketIsTyping
+    } = this.props;
+    const {
+      caretPosition,
+      typing,
+      validMessage
+    } = this.state;
 
     var emojiSelect = emojione.toImage(emoji.shortname);
 
@@ -117,7 +139,14 @@ class ChatInput extends Component {
     document.getElementById('chat-input').focus();
     ::this.handleInsertEmoji(emojiSelect);
 
-    this.setState({validMessage: true});
+    if ( !typing && !validMessage ) {
+      this.setState({
+        typing: true,
+        validMessage: true
+      });
+
+      handleSocketIsTyping(user, activeChatRoom.data._id);
+    }
   }
   handleInsertEmoji(emoji) {
     if ( window.getSelection ) {

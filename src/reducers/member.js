@@ -43,21 +43,21 @@ const member = (state=initialState, action) => {
       var userID = user._id;
       var activeChatRoom = {...state.activeChatRoom};
       var members = [...state.all];
-      var isUserExist = false;
+      var isMemberExist = false;
 
       for (var i = 0; i < members.length; i++) {
         var member = members[i];
 
         if ( member._id === userID ) {
           member.isOnline = true;
-          isUserExist = true;
+          isMemberExist = true;
           break;
         } else {
           continue
         }
       }
 
-      if ( activeChatRoom.data.chatType === 'public' && !isUserExist ) {
+      if ( activeChatRoom.data.chatType === 'public' && !isMemberExist ) {
         user.isOnline = true;
         members.push(user);
       }

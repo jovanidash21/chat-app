@@ -3,9 +3,13 @@ import {
   SEND_MESSAGE,
   SOCKET_BROADCAST_SEND_MESSAGE
 } from '../constants/message';
+import { CHANGE_CHAT_ROOM } from '../constants/chat-room';
 
 const initialState = {
   isLoading: false,
+  activeChatRoom: {
+    data: {}
+  },
   all: []
 };
 
@@ -44,14 +48,24 @@ const message = (state=initialState, action) => {
         isLoading: false,
         isError: true
       };
-    case SEND_MESSAGE:
-    case SOCKET_BROADCAST_SEND_MESSAGE:
+    case CHANGE_CHAT_ROOM:
       return {
         ...state,
-        all: [
-          ...state.all,
-          action.message
-        ]
+        activeChatRoom: action.chatRoom
+      };
+    case SEND_MESSAGE:
+    case SOCKET_BROADCAST_SEND_MESSAGE:
+      var message = action.message;
+      var activeChatRoom = {...state.activeChatRoom};
+      var messages = [...state.all];
+
+      if ( activeChatRoom.data._id === message.chatRoom ) {
+        messages.push(message);
+      }
+
+      return {
+        ...state,
+        all: [...messages]
       };
     default:
       return state;

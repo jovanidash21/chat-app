@@ -118,10 +118,11 @@ class Chat extends Component {
           }
           <div className="chat-typers">
             {
-              typer.map((typerData, i) =>
+              typer.all.length > 0 &&
+              typer.all.map((singleTyper, i) =>
                 <ChatTyper
                   key={i}
-                  typer={typerData}
+                  typer={singleTyper}
                 />
               )
             }
