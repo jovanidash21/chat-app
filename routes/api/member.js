@@ -14,9 +14,9 @@ router.get('/:chatRoomID/:userID', function(req, res, next) {
   } else {
     ChatRoom.findById(chatRoomID)
       .populate('members')
-      .exec(function(err, chatRoomData) {
+      .exec(function(err, chatRoom) {
         if (!err) {
-          res.status(200).send(chatRoomData.members);
+          res.status(200).send(chatRoom.members);
         } else {
           res.status(500).send({
             success: false,
