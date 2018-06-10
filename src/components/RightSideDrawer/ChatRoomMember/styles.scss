@@ -11,14 +11,6 @@
   &:hover {
     background-color: $color-outer-space;
   }
-  .online-indicator {
-    color: $color-dusty-gray;
-    font-size: 10px;
-    margin: 0 5px;
-    &.online {
-      color: $color-mantis;
-    }
-  }
   .avatar {
     margin-right: 12px;
   }

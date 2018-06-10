@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import OnlineIndicator from '../../OnlineIndicator';
 import Avatar from '../../Avatar';
 import './styles.scss';
 
@@ -26,12 +27,7 @@ class ChatRoomMember extends Component {
 
     return (
       <div className="chat-room-member" title={chatRoomMember.name}>
-        <div className={"online-indicator " + (chatRoomMember.isOnline ? 'online' : '')}>
-          <FontAwesome
-            className="circle-icon"
-            name={chatRoomMember.isOnline ? 'circle' : 'circle-thin'}
-          />
-        </div>
+        <OnlineIndicator isOnline={chatRoomMember.isOnline} />
         <Avatar
           image={chatRoomMember.profilePicture}
           size="23px"
