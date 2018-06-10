@@ -9,6 +9,7 @@ import {
 } from 'muicss/react/';
 import mapDispatchToProps from '../../actions';
 import LoadingAnimation from '../../components/LoadingAnimation';
+import OnlineIndicator from '../../components/OnlineIndicator';
 import OptionsDropdown from '../../components/Header/OptionsDropdown';
 import '../../styles/Header.scss';
 
@@ -18,9 +19,9 @@ class Header extends Component {
   }
   handleLeftPartHeaderRender() {
     const {
+      user,
       chatRoom,
       member,
-      handleLeftSideDrawerToggleEvent,
       handleRightSideDrawerToggleEvent
     } = this.props;
 
@@ -28,36 +29,52 @@ class Header extends Component {
       const activeChatRoom = chatRoom.active;
 
       return (
-        <div className="side-bar-toggler">
-          <MediaQuery query="(max-width: 767px)">
-            <FontAwesome
-              className="hamburger-icon"
-              name="bars"
-              size="2x"
-              onClick={handleLeftSideDrawerToggleEvent}
-            />
-          </MediaQuery>
+        <div className="chat-room-detail">
           <h2
             className="chat-room-name"
             title={activeChatRoom.data.name}
           >
             {activeChatRoom.data.name}
           </h2>
-          {
-            !member.isLoading &&
-            member.isFetchMembersSuccess &&
-            <div
-              className="members-count"
-              onClick={handleRightSideDrawerToggleEvent}
-              title="View Members List"
-            >
-              <FontAwesome
-                className="user-icon"
-                name="user"
-              />
-              {member.all.length}
-            </div>
-          }
+          <div className="chat-room-info">
+            {
+              ( activeChatRoom.data.chatType === 'public' ||
+              activeChatRoom.data.chatType === 'group' ) &&
+              !member.isLoading &&
+              member.isFetchMembersSuccess &&
+              <div
+                className="members-count"
+                onClick={handleRightSideDrawerToggleEvent}
+                title="View Members List"
+              >
+                <FontAwesome
+                  className="user-icon"
+                  name="user"
+                />
+                {member.all.length}
+              </div>
+            }
+            {
+              activeChatRoom.data.chatType === 'direct' &&
+              !member.isLoading &&
+              member.isFetchMembersSuccess &&
+              member.all.filter(singleMember =>
+                singleMember._id !== user.active._id
+              ).map((singleMember, i) =>
+                <div key={i} className="online-indicator-wrapper">
+                  <OnlineIndicator isOnline={singleMember.isOnline} />
+                  {singleMember.isOnline ? 'online' : 'offline'}
+                </div>
+              )
+            }
+            {
+              activeChatRoom.data.chatType === 'private' &&
+              <div className="online-indicator-wrapper">
+                <OnlineIndicator isOnline={true} />
+                online
+              </div>
+            }
+          </div>
         </div>
       )
     } else {
@@ -77,7 +94,8 @@ class Header extends Component {
   render() {
     const {
       user,
-      logout
+      logout,
+      handleLeftSideDrawerToggleEvent
     } = this.props;
 
     return (
@@ -86,7 +104,17 @@ class Header extends Component {
           <tbody>
             <tr style={{verticalAlign: 'middle'}}>
               <td className="mui--appbar-height">
-                {::this.handleLeftPartHeaderRender()}
+                <div className="left-part-header">
+                  <MediaQuery query="(max-width: 767px)">
+                    <FontAwesome
+                      className="hamburger-icon"
+                      name="bars"
+                      size="2x"
+                      onClick={handleLeftSideDrawerToggleEvent}
+                    />
+                  </MediaQuery>
+                  {::this.handleLeftPartHeaderRender()}
+                </div>
               </td>
               <td className="mui--appbar-height mui--text-right">
                 <OptionsDropdown

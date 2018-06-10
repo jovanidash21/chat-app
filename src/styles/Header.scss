@@ -8,7 +8,7 @@
     position: relative;
     width: 10px;
   }
-  .side-bar-toggler {
+  .left-part-header {
     align-items: center;
     display: flex;
     position: relative;
@@ -16,28 +16,43 @@
       cursor: pointer;
       margin-right: 10px;
     }
-    .chat-room-name {
-      display: inline;
-      margin: 0 10px 0 0;
-      max-width: 120px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      @media screen and (min-width: $screen-mobile-min) {
-        max-width: 250px;
+    .chat-room-detail {
+      display: flex;
+      flex-direction: column;
+      .chat-room-name {
+        display: inline;
+        margin: 0 10px 0 0;
+        max-width: 120px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        @media screen and (min-width: $screen-mobile-min) {
+          max-width: 250px;
+        }
+        @media screen and (min-width: $screen-tablet-min) {
+          max-width: 270px;
+        }
+        @media screen and (min-width: $screen-desktop-min) {
+          max-width: 370px;
+        }
       }
-      @media screen and (min-width: $screen-tablet-min) {
-        max-width: 270px;
-      }
-      @media screen and (min-width: $screen-desktop-min) {
-        max-width: 370px;
-      }
-    }
-    .members-count {
-      cursor: pointer;
-      margin-top: 3px;
-      .user-icon {
-        margin-right: 5px;
+      .chat-room-info {
+        height: 20px;
+        .members-count {
+          cursor: pointer;
+          margin-top: 3px;
+          .user-icon {
+            margin-right: 5px;
+          }
+        }
+        .online-indicator-wrapper {
+          align-items: center;
+          display: flex;
+          .online-indicator {
+            color: #fff;
+            margin-left: 0;
+          }
+        }
       }
     }
   }
