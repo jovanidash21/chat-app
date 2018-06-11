@@ -26,7 +26,7 @@ class ChatRoomMember extends Component {
     } = this.props;
 
     return (
-      <div className="chat-room-member" title={chatRoomMember.name}>
+      <div className={"chat-room-member " + (chatRoomMember.isOnline ? 'online' : 'offline')} title={chatRoomMember.name}>
         <OnlineIndicator isOnline={chatRoomMember.isOnline} />
         <Avatar
           image={chatRoomMember.profilePicture}

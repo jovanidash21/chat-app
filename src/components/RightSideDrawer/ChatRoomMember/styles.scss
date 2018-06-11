@@ -11,6 +11,16 @@
   &:hover {
     background-color: $color-outer-space;
   }
+  &.online {
+    .member-name {
+      color: #fff;
+    }
+  }
+  &.offline {
+    .member-name {
+      color: $color-dusty-gray;
+    }
+  }
   .avatar {
     margin-right: 12px;
   }
