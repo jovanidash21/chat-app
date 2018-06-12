@@ -29,6 +29,7 @@
     "express": "^4.15.3",
     "express-fileupload": "^0.4.0",
     "express-session": "^1.15.5",
+    "formidable": "^1.2.1",
     "lodash": "^4.17.4",
     "moment": "^2.21.0",
     "moment-timezone": "^0.5.13",
