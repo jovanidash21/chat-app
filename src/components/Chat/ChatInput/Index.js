@@ -93,7 +93,14 @@ class ChatInput extends Component {
 
     var element = document.createElement("input");
     element.setAttribute("type", "file");
+    element.addEventListener("change", ::this.handleFileUploadSelect, false);
     element.click(event);
+  }
+  handleFileUploadSelect(event) {
+    const { handleSendFileMessage } = this.props;
+    const newMessageID = uuidv4();
+
+    handleSendFileMessage(newMessageID, event.target.files[0]);
   }
   handleSaveCaretPosition(event) {
     event.preventDefault();
@@ -330,7 +337,8 @@ ChatInput.propTypes = {
   activeChatRoom: PropTypes.object.isRequired,
   handleSocketIsTyping: PropTypes.func.isRequired,
   handleSocketIsNotTyping: PropTypes.func.isRequired,
-  handleSendTextMessage: PropTypes.func.isRequired
+  handleSendTextMessage: PropTypes.func.isRequired,
+  handleSendFileMessage: PropTypes.func.isRequired
 }
 
 export default ChatInput;

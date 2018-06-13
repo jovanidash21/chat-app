@@ -147,6 +147,15 @@ class Chat extends Component {
 
     sendTextMessage(newMessageID, text, user.active, chatRoom.active);
   }
+  handleSendFileMessage(newMessageID, file) {
+    const {
+      user,
+      chatRoom,
+      sendFileMessage
+    } = this.props;
+
+    sendFileMessage(newMessageID, file, user.active, chatRoom.active);
+  }
   handleNotificationViewMessage(chatRoomObj) {
     const {
       user,
@@ -196,6 +205,7 @@ class Chat extends Component {
           handleSocketIsTyping={socketIsTyping}
           handleSocketIsNotTyping={socketIsNotTyping}
           handleSendTextMessage={::this.handleSendTextMessage}
+          handleSendFileMessage={::this.handleSendFileMessage}
         />
         <NotificationPopUp handleViewMessage={::this.handleNotificationViewMessage} />
       </div>
