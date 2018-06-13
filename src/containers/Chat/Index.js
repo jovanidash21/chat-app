@@ -138,14 +138,14 @@ class Chat extends Component {
   handleScrollToBottom() {
     this.messagesBottom.scrollIntoView();
   }
-  handleSendMessage(newMessageID, text) {
+  handleSendTextMessage(newMessageID, text) {
     const {
       user,
       chatRoom,
-      sendMessage
+      sendTextMessage
     } = this.props;
 
-    sendMessage(newMessageID, text, user.active, chatRoom.active);
+    sendTextMessage(newMessageID, text, user.active, chatRoom.active);
   }
   handleNotificationViewMessage(chatRoomObj) {
     const {
@@ -195,7 +195,7 @@ class Chat extends Component {
           activeChatRoom={chatRoom.active}
           handleSocketIsTyping={socketIsTyping}
           handleSocketIsNotTyping={socketIsNotTyping}
-          handleSendMessage={::this.handleSendMessage}
+          handleSendTextMessage={::this.handleSendTextMessage}
         />
         <NotificationPopUp handleViewMessage={::this.handleNotificationViewMessage} />
       </div>

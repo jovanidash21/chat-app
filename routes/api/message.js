@@ -60,9 +60,9 @@ router.get('/:chatRoomID/:userID', function(req, res, next) {
   }
 });
 
-router.post('/:chatRoomID/:userID', function(req, res, next) {
-  var chatRoomID = req.params.chatRoomID;
-  var userID = req.params.userID;
+router.post('/text', function(req, res, next) {
+  var chatRoomID = req.body.chatRoomID;
+  var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({

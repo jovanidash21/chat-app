@@ -25,35 +25,39 @@ export function fetchMessages(chatRoomID, userID) {
 }
 
 /**
- * Send message
+ * Send text message
  * @param {string} newMessageID
  * @param {string} text
  * @param {Object} user
  * @param {Object} chatRoom
  */
-export function sendMessage(newMessageID, text, user, chatRoom) {
+export function sendTextMessage(newMessageID, text, user, chatRoom) {
   let data = {
-    newMessageID,
-    text,
-    user,
-    chatRoom,
+    text: text,
+    userID: user._id,
+    chatRoomID: chatRoom.data._id,
   };
 
   return dispatch => {
     dispatch({
       type: SEND_MESSAGE,
-      message: data
+      message: {
+        newMessageID,
+        text,
+        user,
+        chatRoom: chatRoom.data._id
+      }
     });
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post(`/api/message/${chatRoom.data._id}/${user._id}`, data),
+      payload: axios.post('/api/message/text', data),
       meta: newMessageID
     })
     .then((response) => {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
-        chatRoomID: chatRoom.data._id
+        chatRoomID: chatRoomID
       });
     })
     .catch((error) => {

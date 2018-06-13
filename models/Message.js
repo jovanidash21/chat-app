@@ -16,6 +16,14 @@ var messageSchema = new Schema (
       type: Schema.Types.ObjectId,
       ref: 'ChatRoom',
     },
+    messageType: {
+      type: String,
+      enum: [
+        'text',
+        'file',
+      ],
+      default: 'text',
+    },
     readBy: [
       {
         type: Schema.Types.ObjectId,

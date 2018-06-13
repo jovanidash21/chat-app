@@ -77,7 +77,7 @@ class ChatInput extends Component {
     }
 
     if ( (event.key === 'Enter') && validMessage ) {
-      ::this.handleSendMessageOnChange(event);
+      ::this.handleSendTextMessageOnChange(event);
 
       this.setState({
         message: '',
@@ -208,28 +208,28 @@ class ChatInput extends Component {
 
     return messageText;
   }
-  handleSendMessageOnChange(event) {
+  handleSendTextMessageOnChange(event) {
     const {
       user,
       activeChatRoom,
       handleSocketIsNotTyping,
-      handleSendMessage
+      handleSendTextMessage
     } = this.props;
     const messageText = ::this.handleMessageText().trim();
     const newMessageID = uuidv4();
 
     document.getElementById('chat-input').innerHTML = '';
     handleSocketIsNotTyping(user, activeChatRoom.data._id);
-    handleSendMessage(newMessageID, messageText);
+    handleSendTextMessage(newMessageID, messageText);
   }
-  handleSendMessageOnClick(event) {
+  handleSendTextMessageOnClick(event) {
     event.preventDefault();
 
     const {
       user,
       activeChatRoom,
       handleSocketIsNotTyping,
-      handleSendMessage
+      handleSendTextMessage
     } = this.props;
     const { validMessage } = this.state;
     const messageText = ::this.handleMessageText().trim();
@@ -239,7 +239,7 @@ class ChatInput extends Component {
       document.getElementById('chat-input').innerHTML = '';
       document.getElementById('chat-input').focus();
       handleSocketIsNotTyping(user, activeChatRoom.data._id);
-      handleSendMessage(newMessageID, messageText);
+      handleSendTextMessage(newMessageID, messageText);
 
       this.setState({
         message: '',
@@ -312,7 +312,7 @@ class ChatInput extends Component {
         </div>
         <Button
           className="send-button"
-          onClick={::this.handleSendMessageOnClick}
+          onClick={::this.handleSendTextMessageOnClick}
           disabled={!validMessage}
         >
           <FontAwesome
@@ -330,7 +330,7 @@ ChatInput.propTypes = {
   activeChatRoom: PropTypes.object.isRequired,
   handleSocketIsTyping: PropTypes.func.isRequired,
   handleSocketIsNotTyping: PropTypes.func.isRequired,
-  handleSendMessage: PropTypes.func.isRequired
+  handleSendTextMessage: PropTypes.func.isRequired
 }
 
 export default ChatInput;
