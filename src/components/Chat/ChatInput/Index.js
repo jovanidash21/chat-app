@@ -88,6 +88,13 @@ class ChatInput extends Component {
     }
     ::this.handleSaveCaretPosition(event);
   }
+  handleFileButtonClick(event) {
+    event.preventDefault();
+
+    var element = document.createElement("input");
+    element.setAttribute("type", "file");
+    element.click(event);
+  }
   handleSaveCaretPosition(event) {
     event.preventDefault();
 
@@ -279,17 +286,30 @@ class ChatInput extends Component {
           onKeyUp={::this.onMessageKeyUp}
           contentEditable="plaintext-only"
         />
-        <MediaQuery query="(min-width: 768px)">
+        <div className="extra-buttons">
           <div
-            className="emoji-button"
-            onClick={::this.handleEmojiPickerToggle}
+            className="file-button"
+            onClick={::this.handleFileButtonClick}
+            title="Add a File"
           >
             <FontAwesome
-              name="smile-o"
+              name="paperclip"
               size="2x"
             />
           </div>
-        </MediaQuery>
+          <MediaQuery query="(min-width: 768px)">
+            <div
+              className="emoji-button"
+              onClick={::this.handleEmojiPickerToggle}
+              title="Add Emoji"
+            >
+              <FontAwesome
+                name="smile-o"
+                size="2x"
+              />
+            </div>
+          </MediaQuery>
+        </div>
         <Button
           className="send-button"
           onClick={::this.handleSendMessageOnClick}

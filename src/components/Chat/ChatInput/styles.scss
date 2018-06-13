@@ -5,8 +5,8 @@
   flex-shrink: 0;
   position: relative;
   .textfield[contenteditable=true],
+  .extra-buttons,
   .emoji-dialog,
-  .emoji-button,
   .send-button {
     z-index: 2;
   }
@@ -86,43 +86,55 @@
     width: 100%;
     z-index: 1;
   }
-  .emoji-button {
-    backface-visibility: hidden;
-    color: #000;
-    cursor: pointer;
+  .extra-buttons {
+    display: flex;
     flex: 0 0 50px;
-    margin: 0;
-    padding: 15px;
-    text-align: center;
-    transition: all 0.3s ease;
-    &:active,
-    &:focus,
-    &:hover {
-      box-shadow: none;
+    margin-right: 10px;
+    .file-button,
+    .emoji-button {
+      backface-visibility: hidden;
+      color: #000;
+      cursor: pointer;
+      margin: 0;
+      padding: 10px;
+      text-align: center;
+      transition: all 0.3s ease;
+      &:active,
+      &:focus,
+      &:hover {
+        box-shadow: none;
+      }
+      &:hover {
+        color: $color-royal-purple;
+      }
     }
-    &:hover {
-      color: $color-royal-purple;
-      transform: scale(1.25);
+    .file-button {
+      transform: rotate(180deg) scaleX(-1);
+      &:hover {
+        transform: rotate(180deg) scaleX(-1) scale(1.25);
+      }
+    }
+    .emoji-button {
+      &:hover {
+        transform: scale(1.25);
+      }
     }
   }
   .send-button {
+    align-items: center;
     background-color: $color-royal-purple;
     border-radius: 0;
     color: #fff;
+    display: flex;
     flex: 0 0 90px;
     height: 65px;
+    justify-content: center;
     margin: 0;
     position: relative;
     &:active,
     &:focus,
     &:hover {
       box-shadow: none;
-    }
-    span {
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
     }
   }
 }
