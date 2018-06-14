@@ -30,7 +30,9 @@ import {
 } from './chat-room';
 import {
   fetchMessages,
-  sendMessage
+  sendTextMessage,
+  sendFileMessage,
+  sendImageMessage
 } from './message';
 import { fetchMembers } from './member';
 
@@ -57,7 +59,9 @@ const actions = (dispatch) => {
     socketJoinChatRoom,
     socketLeaveChatRoom,
     fetchMessages,
-    sendMessage,
+    sendTextMessage,
+    sendFileMessage,
+    sendImageMessage,
     fetchMembers
   }, dispatch);
 }

@@ -5,7 +5,6 @@ import store from './store';
 import { ConnectedRouter } from 'react-router-redux';
 import history from './history';
 import routes from './routes';
-import './styles/Common.scss';
 
 render(
   <Provider store={store}>

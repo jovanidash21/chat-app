@@ -13,6 +13,9 @@
       max-width: 75%;
     }
   }
+  .uploading-icon {
+    margin: 10px;
+  }
   .chat-bubble {
     $bg-color: $color-dusty-gray;
     background-color: $bg-color;
@@ -46,9 +49,30 @@
       font-size: 14px;
       padding: 11px 17px;
       word-break: break-all;
+      a {
+        color: #fff;
+      }
       span {
         margin-top: 3px !important;
       }
+      .file-icon {
+        display: inline;
+        margin-right: 5px;
+        vertical-align: middle;
+      }
+    }
+  }
+  .chat-image {
+    margin-left: 10px;
+    &.right {
+      margin-left: 0;
+    }
+    .image-message {
+      background-color: $color-gallery;
+      border: 1px solid $color-alto;
+      border-radius: 21px;
+      height: auto;
+      width: 100%;
     }
   }
   .avatar {

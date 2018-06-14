@@ -25,6 +25,10 @@ node_modules/
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
 
+# Uploads directory
+uploads/*
+!uploads/.gitkeep
+
 # Webpack build
 public/build/
 

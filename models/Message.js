@@ -16,6 +16,19 @@ var messageSchema = new Schema (
       type: Schema.Types.ObjectId,
       ref: 'ChatRoom',
     },
+    messageType: {
+      type: String,
+      enum: [
+        'text',
+        'file',
+        'image'
+      ],
+      default: 'text',
+    },
+    fileLink: {
+      type: String,
+      default: '',
+    },
     readBy: [
       {
         type: Schema.Types.ObjectId,

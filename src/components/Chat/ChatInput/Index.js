@@ -77,7 +77,7 @@ class ChatInput extends Component {
     }
 
     if ( (event.key === 'Enter') && validMessage ) {
-      ::this.handleSendMessageOnChange(event);
+      ::this.handleSendTextMessageOnChange(event);
 
       this.setState({
         message: '',
@@ -87,6 +87,37 @@ class ChatInput extends Component {
       });
     }
     ::this.handleSaveCaretPosition(event);
+  }
+  handleImageButtonClick(event) {
+    event.preventDefault();
+
+    var element = document.createElement("input");
+    element.setAttribute("type", "file");
+    element.setAttribute("accept", "image/*");
+    element.addEventListener("change", ::this.handleImageUploadSelect, false);
+    element.click(event);
+  }
+  handleImageUploadSelect(event) {
+    const { handleSendImageMessage } = this.props;
+    const newMessageID = uuidv4();
+    const imageName = event.target.value.split(/(\\|\/)/g).pop();
+
+    handleSendImageMessage(newMessageID, imageName, event.target.files[0]);
+  }
+  handleFileButtonClick(event) {
+    event.preventDefault();
+
+    var element = document.createElement("input");
+    element.setAttribute("type", "file");
+    element.addEventListener("change", ::this.handleFileUploadSelect, false);
+    element.click(event);
+  }
+  handleFileUploadSelect(event) {
+    const { handleSendFileMessage } = this.props;
+    const newMessageID = uuidv4();
+    const fileName = event.target.value.split(/(\\|\/)/g).pop();
+
+    handleSendFileMessage(newMessageID, fileName, event.target.files[0]);
   }
   handleSaveCaretPosition(event) {
     event.preventDefault();
@@ -201,28 +232,28 @@ class ChatInput extends Component {
 
     return messageText;
   }
-  handleSendMessageOnChange(event) {
+  handleSendTextMessageOnChange(event) {
     const {
       user,
       activeChatRoom,
       handleSocketIsNotTyping,
-      handleSendMessage
+      handleSendTextMessage
     } = this.props;
     const messageText = ::this.handleMessageText().trim();
     const newMessageID = uuidv4();
 
     document.getElementById('chat-input').innerHTML = '';
     handleSocketIsNotTyping(user, activeChatRoom.data._id);
-    handleSendMessage(newMessageID, messageText);
+    handleSendTextMessage(newMessageID, messageText);
   }
-  handleSendMessageOnClick(event) {
+  handleSendTextMessageOnClick(event) {
     event.preventDefault();
 
     const {
       user,
       activeChatRoom,
       handleSocketIsNotTyping,
-      handleSendMessage
+      handleSendTextMessage
     } = this.props;
     const { validMessage } = this.state;
     const messageText = ::this.handleMessageText().trim();
@@ -232,7 +263,7 @@ class ChatInput extends Component {
       document.getElementById('chat-input').innerHTML = '';
       document.getElementById('chat-input').focus();
       handleSocketIsNotTyping(user, activeChatRoom.data._id);
-      handleSendMessage(newMessageID, messageText);
+      handleSendTextMessage(newMessageID, messageText);
 
       this.setState({
         message: '',
@@ -279,20 +310,43 @@ class ChatInput extends Component {
           onKeyUp={::this.onMessageKeyUp}
           contentEditable="plaintext-only"
         />
-        <MediaQuery query="(min-width: 768px)">
+        <div className="extra-buttons">
           <div
-            className="emoji-button"
-            onClick={::this.handleEmojiPickerToggle}
+            className="image-button"
+            onClick={::this.handleImageButtonClick}
+            title="Add an image"
           >
             <FontAwesome
-              name="smile-o"
+              name="picture-o"
               size="2x"
             />
           </div>
-        </MediaQuery>
+          <div
+            className="file-button"
+            onClick={::this.handleFileButtonClick}
+            title="Add a File"
+          >
+            <FontAwesome
+              name="paperclip"
+              size="2x"
+            />
+          </div>
+          <MediaQuery query="(min-width: 768px)">
+            <div
+              className="emoji-button"
+              onClick={::this.handleEmojiPickerToggle}
+              title="Add Emoji"
+            >
+              <FontAwesome
+                name="smile-o"
+                size="2x"
+              />
+            </div>
+          </MediaQuery>
+        </div>
         <Button
           className="send-button"
-          onClick={::this.handleSendMessageOnClick}
+          onClick={::this.handleSendTextMessageOnClick}
           disabled={!validMessage}
         >
           <FontAwesome
@@ -310,7 +364,9 @@ ChatInput.propTypes = {
   activeChatRoom: PropTypes.object.isRequired,
   handleSocketIsTyping: PropTypes.func.isRequired,
   handleSocketIsNotTyping: PropTypes.func.isRequired,
-  handleSendMessage: PropTypes.func.isRequired
+  handleSendTextMessage: PropTypes.func.isRequired,
+  handleSendFileMessage: PropTypes.func.isRequired,
+  handleSendImageMessage: PropTypes.func.isRequired
 }
 
 export default ChatInput;

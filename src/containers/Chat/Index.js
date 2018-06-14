@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
+import Popup from 'react-popup';
 import mapDispatchToProps from '../../actions';
 import Header from '../Partial/Header';
 import LeftSideDrawer from '../Partial/LeftSideDrawer';
@@ -105,9 +106,7 @@ class Chat extends Component {
               message.all.map((singleMessage, i) =>
                 <ChatBubble
                   key={i}
-                  user={singleMessage.user}
-                  message={singleMessage.text}
-                  time={singleMessage.createdAt}
+                  message={singleMessage}
                   isSender={(singleMessage.user._id === user.active._id) ? true : false }
                 />
               )
@@ -138,14 +137,42 @@ class Chat extends Component {
   handleScrollToBottom() {
     this.messagesBottom.scrollIntoView();
   }
-  handleSendMessage(newMessageID, text) {
+  handleSendTextMessage(newMessageID, text) {
     const {
       user,
       chatRoom,
-      sendMessage
+      sendTextMessage
     } = this.props;
 
-    sendMessage(newMessageID, text, user.active, chatRoom.active);
+    sendTextMessage(newMessageID, text, user.active, chatRoom.active.data._id);
+  }
+  handleSendFileMessage(newMessageID, text, file) {
+    const {
+      user,
+      chatRoom,
+      sendFileMessage
+    } = this.props;
+
+    if ( file.size > 1024 * 1024 * 2 ) {
+      Popup.alert('Maximum upload file size is 2MB only');
+    } else {
+      sendFileMessage(newMessageID, text, file, user.active, chatRoom.active.data._id);
+    }
+  }
+  handleSendImageMessage(newMessageID, text, image) {
+    const {
+      user,
+      chatRoom,
+      sendImageMessage
+    } = this.props;
+
+    if ( image.type.indexOf('image/') === -1 ) {
+      Popup.alert('Please select an image file');
+    } else if ( image.size > 1024 * 1024 * 2 ) {
+      Popup.alert('Maximum upload file size is 2MB only');
+    } else {
+      sendImageMessage(newMessageID, text, image, user.active, chatRoom.active.data._id);
+    }
   }
   handleNotificationViewMessage(chatRoomObj) {
     const {
@@ -195,7 +222,9 @@ class Chat extends Component {
           activeChatRoom={chatRoom.active}
           handleSocketIsTyping={socketIsTyping}
           handleSocketIsNotTyping={socketIsNotTyping}
-          handleSendMessage={::this.handleSendMessage}
+          handleSendTextMessage={::this.handleSendTextMessage}
+          handleSendFileMessage={::this.handleSendFileMessage}
+          handleSendImageMessage={::this.handleSendImageMessage}
         />
         <NotificationPopUp handleViewMessage={::this.handleNotificationViewMessage} />
       </div>
