@@ -88,6 +88,15 @@ class ChatInput extends Component {
     }
     ::this.handleSaveCaretPosition(event);
   }
+  handleImageButtonClick(event) {
+    event.preventDefault();
+
+    var element = document.createElement("input");
+    element.setAttribute("type", "file");
+    element.setAttribute("accept", "image/*");
+    element.addEventListener("change", ::this.handleFileUploadSelect, false);
+    element.click(event);
+  }
   handleFileButtonClick(event) {
     event.preventDefault();
 
@@ -295,6 +304,16 @@ class ChatInput extends Component {
           contentEditable="plaintext-only"
         />
         <div className="extra-buttons">
+          <div
+            className="image-button"
+            onClick={::this.handleImageButtonClick}
+            title="Add an image"
+          >
+            <FontAwesome
+              name="picture-o"
+              size="2x"
+            />
+          </div>
           <div
             className="file-button"
             onClick={::this.handleFileButtonClick}

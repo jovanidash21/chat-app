@@ -12,22 +12,6 @@ class ChatBubble extends Component {
   constructor(props) {
     super(props);
   }
-  componentWillMount() {
-    const { message } = this.props;
-
-    if ( message.messageType === 'image' ) {
-      var height = '0';
-      var width = '0';
-      var element = document.createElement("img");
-      element.setAttribute("src", message.fileLink);
-      element.addEventListener("load", (event) => {
-        this.setState({
-          imageHeight: event.target.height + 'px',
-          imageWidth: event.target.width + 'px'
-        });
-      }, false);
-    }
-  }
   handleMessageText() {
     const { message } = this.props;
     var messageText = message.text;

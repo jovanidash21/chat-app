@@ -90,6 +90,7 @@
     display: flex;
     flex: 0 0 50px;
     margin-right: 10px;
+    .image-button,
     .file-button,
     .emoji-button {
       backface-visibility: hidden;
@@ -114,6 +115,7 @@
         transform: rotate(180deg) scaleX(-1) scale(1.25);
       }
     }
+    .image-button,
     .emoji-button {
       &:hover {
         transform: scale(1.25);
