@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
+import Popup from 'react-popup';
 import mapDispatchToProps from '../../actions';
 import Header from '../Partial/Header';
 import LeftSideDrawer from '../Partial/LeftSideDrawer';
@@ -152,7 +153,11 @@ class Chat extends Component {
       sendFileMessage
     } = this.props;
 
-    sendFileMessage(newMessageID, text, file, user.active, chatRoom.active.data._id);
+    if ( file.size > 1024 * 1024 * 2 ) {
+      Popup.alert('Maximum upload file size is 2MB only');
+    } else {
+      sendFileMessage(newMessageID, text, file, user.active, chatRoom.active.data._id);
+    }
   }
   handleSendImageMessage(newMessageID, text, image) {
     const {
@@ -161,7 +166,13 @@ class Chat extends Component {
       sendImageMessage
     } = this.props;
 
-    sendImageMessage(newMessageID, text, image, user.active, chatRoom.active.data._id);
+    if ( image.type.indexOf('image/') === -1 ) {
+      Popup.alert('Please select an image file');
+    } else if ( image.size > 1024 * 1024 * 2 ) {
+      Popup.alert('Maximum upload file size is 2MB only');
+    } else {
+      sendImageMessage(newMessageID, text, image, user.active, chatRoom.active.data._id);
+    }
   }
   handleNotificationViewMessage(chatRoomObj) {
     const {

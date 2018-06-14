@@ -15,7 +15,10 @@ var storage = multer.diskStorage({
 });
 
 var fileUpload = multer({
-  storage: storage
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 2
+  }
 });
 
 var imageFilter = (req, file, cb) => {
@@ -28,7 +31,10 @@ var imageFilter = (req, file, cb) => {
 
 var imageUpload = multer({
   storage: storage,
-  fileFilter: imageFilter
+  fileFilter: imageFilter,
+  limits: {
+    fileSize: 1024 * 1024 * 2
+  }
 });
 
 router.get('/:chatRoomID/:userID', function(req, res, next) {
