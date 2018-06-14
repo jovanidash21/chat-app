@@ -109,6 +109,11 @@
         color: $color-royal-purple;
       }
     }
+    .image-button {
+      align-items: center;
+      display: flex;
+      font-size: 12px;
+    }
     .file-button {
       transform: rotate(180deg) scaleX(-1);
       &:hover {
