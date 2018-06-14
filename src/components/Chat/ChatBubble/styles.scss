@@ -63,6 +63,10 @@
     }
   }
   .chat-image {
+    margin-left: 10px;
+    &.right {
+      margin-left: 0;
+    }
     .image-message {
       background-color: $color-gallery;
       border: 1px solid $color-alto;

@@ -94,8 +94,15 @@ class ChatInput extends Component {
     var element = document.createElement("input");
     element.setAttribute("type", "file");
     element.setAttribute("accept", "image/*");
-    element.addEventListener("change", ::this.handleFileUploadSelect, false);
+    element.addEventListener("change", ::this.handleImageUploadSelect, false);
     element.click(event);
+  }
+  handleImageUploadSelect(event) {
+    const { handleSendImageMessage } = this.props;
+    const newMessageID = uuidv4();
+    const imageName = event.target.value.split(/(\\|\/)/g).pop();
+
+    handleSendImageMessage(newMessageID, imageName, event.target.files[0]);
   }
   handleFileButtonClick(event) {
     event.preventDefault();
@@ -358,7 +365,8 @@ ChatInput.propTypes = {
   handleSocketIsTyping: PropTypes.func.isRequired,
   handleSocketIsNotTyping: PropTypes.func.isRequired,
   handleSendTextMessage: PropTypes.func.isRequired,
-  handleSendFileMessage: PropTypes.func.isRequired
+  handleSendFileMessage: PropTypes.func.isRequired,
+  handleSendImageMessage: PropTypes.func.isRequired
 }
 
 export default ChatInput;

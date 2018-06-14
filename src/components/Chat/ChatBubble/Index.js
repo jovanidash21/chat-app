@@ -13,7 +13,10 @@ class ChatBubble extends Component {
     super(props);
   }
   handleMessageText() {
-    const { message } = this.props;
+    const {
+      message,
+      isSender
+    } = this.props;
     var messageText = message.text;
 
     switch (message.messageType) {
@@ -58,8 +61,8 @@ class ChatBubble extends Component {
     } else {
       return (
         <div className="chat-message">
-          <div className={(message.messageType !== 'image' ? 'chat-bubble ' : '') + (isSender ? 'right' : '')}>
-            <div className={(message.messageType !== 'image' ? 'chat-text' : 'chat-image')}>
+          <div className={(message.messageType !== 'image' ? 'chat-bubble ' : 'chat-image ') + (isSender ? 'right' : '')}>
+            <div className="chat-text">
               {
                 message.messageType === 'file' &&
                 <div className="file-icon">

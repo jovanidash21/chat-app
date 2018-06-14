@@ -31,7 +31,8 @@ import {
 import {
   fetchMessages,
   sendTextMessage,
-  sendFileMessage
+  sendFileMessage,
+  sendImageMessage
 } from './message';
 import { fetchMembers } from './member';
 
@@ -60,6 +61,7 @@ const actions = (dispatch) => {
     fetchMessages,
     sendTextMessage,
     sendFileMessage,
+    sendImageMessage,
     fetchMembers
   }, dispatch);
 }

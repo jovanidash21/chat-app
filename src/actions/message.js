@@ -73,7 +73,7 @@ export function sendTextMessage(newMessageID, text, user, chatRoomID) {
  * Send file message
  * @param {string} newMessageID
  * @param {string} text
- * @param {string} file
+ * @param {Object} file
  * @param {Object} user
  * @param {string} chatRoomID
  */
@@ -112,6 +112,60 @@ export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
     dispatch({
       type: SEND_MESSAGE,
       payload: axios.post('/api/message/file', data, config),
+      meta: newMessageID
+    })
+    .then((response) => {
+      dispatch({
+        type: SOCKET_SEND_MESSAGE,
+        message: response.action.payload.data.messageData,
+        chatRoomID: chatRoomID
+      });
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Send image message
+ * @param {string} newMessageID
+ * @param {string} text
+ * @param {Object} image
+ * @param {Object} user
+ * @param {string} chatRoomID
+ */
+export function sendImageMessage(newMessageID, text, image, user, chatRoomID) {
+  let data = new FormData();
+  data.append('text', text);
+  data.append('image', image);
+  data.append('userID', user._id);
+  data.append('chatRoomID', chatRoomID);
+
+  let config = {
+    headers: {
+      'content-type': 'multipart/form-data',
+    }
+  };
+
+  return dispatch => {
+    dispatch({
+      type: SEND_MESSAGE,
+      message: {
+        newMessageID: newMessageID,
+        text: text,
+        user: user,
+        chatRoom: chatRoomID,
+        messageType: 'image',
+        fileLink: ''
+      }
+    });
+
+    dispatch({
+      type: SEND_MESSAGE,
+      payload: axios.post('/api/message/image', data, config),
       meta: newMessageID
     })
     .then((response) => {

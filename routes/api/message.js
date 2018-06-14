@@ -18,6 +18,19 @@ var fileUpload = multer({
   storage: storage
 });
 
+var imageFilter = (req, file, cb) => {
+  if ( file.mimetype.indexOf('image/') > -1 ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var imageUpload = multer({
+  storage: storage,
+  fileFilter: imageFilter
+});
+
 router.get('/:chatRoomID/:userID', function(req, res, next) {
   var chatRoomID = req.params.chatRoomID;
   var userID = req.params.userID;
@@ -175,6 +188,85 @@ router.post('/file', fileUpload.single('file'), function(req, res, next) {
       chatRoom: chatRoomID,
       readBy: [userID],
       messageType: messageType,
+      fileLink: req.file.path
+    };
+    var message = new Message(messageData);
+
+    message.save(function(err, messageData) {
+      if (!err) {
+        Message.findById(messageData._id)
+          .populate('user')
+          .exec(function(err, messageData) {
+            if (!err) {
+              ChatRoom.findById(chatRoomID)
+                .exec(function(err, chatRoom) {
+                  if (!err) {
+                    for (var i = 0; i < chatRoom.members.length; i++) {
+                      var memberID = chatRoom.members[i];
+
+                      if (memberID != userID) {
+                        User.update(
+                          { _id: memberID, 'chatRooms.data': chatRoomID },
+                          { $inc: { 'chatRooms.$.unReadMessages': 1 } },
+                          { safe: true, upsert: true, new: true },
+                          function(err) {
+                            if (!err) {
+                              res.end();
+                            } else {
+                              res.end(err);
+                            }
+                          }
+                        );
+                      } else {
+                        continue;
+                      }
+                    }
+                  } else {
+                    res.status(500).send({
+                      success: false,
+                      message: 'Server Error!'
+                    });
+                  }
+                });
+
+              res.status(200).send({
+                success: true,
+                message: 'Message Sent.',
+                messageData: messageData
+              });
+            } else {
+              res.status(500).send({
+                success: false,
+                message: 'Server Error!'
+              });
+            }
+          });
+      } else {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      }
+    });
+  }
+});
+
+router.post('/image', imageUpload.single('image'), function(req, res, next) {
+  var chatRoomID = req.body.chatRoomID;
+  var userID = req.body.userID;
+
+  if ((req.user === undefined) || (req.user._id != userID)) {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var messageData = {
+      text: req.file.originalname,
+      user: userID,
+      chatRoom: chatRoomID,
+      readBy: [userID],
+      messageType: 'image',
       fileLink: req.file.path
     };
     var message = new Message(messageData);
