@@ -29,23 +29,24 @@ export function fetchMessages(chatRoomID, userID) {
  * @param {string} newMessageID
  * @param {string} text
  * @param {Object} user
- * @param {Object} chatRoom
+ * @param {string} chatRoomID
  */
-export function sendTextMessage(newMessageID, text, user, chatRoom) {
+export function sendTextMessage(newMessageID, text, user, chatRoomID) {
   let data = {
     text: text,
     userID: user._id,
-    chatRoomID: chatRoom.data._id,
+    chatRoomID: chatRoomID,
   };
 
   return dispatch => {
     dispatch({
       type: SEND_MESSAGE,
       message: {
-        newMessageID,
-        text,
-        user,
-        chatRoom: chatRoom.data._id
+        newMessageID: newMessageID,
+        text: text,
+        user: user,
+        chatRoom: chatRoomID,
+        messageType: 'text'
       }
     });
     dispatch({
@@ -57,7 +58,7 @@ export function sendTextMessage(newMessageID, text, user, chatRoom) {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
-        chatRoomID: chatRoom.data._id
+        chatRoomID: chatRoomID
       });
     })
     .catch((error) => {
@@ -71,15 +72,17 @@ export function sendTextMessage(newMessageID, text, user, chatRoom) {
 /**
  * Send file message
  * @param {string} newMessageID
+ * @param {string} text
  * @param {string} file
  * @param {Object} user
- * @param {Object} chatRoom
+ * @param {string} chatRoomID
  */
-export function sendFileMessage(newMessageID, file, user, chatRoom) {
+export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
   let data = new FormData();
+  data.append('text', text);
   data.append('file', file);
   data.append('userID', user._id);
-  data.append('chatRoomID', chatRoom.data._id);
+  data.append('chatRoomID', chatRoomID);
 
   let config = {
     headers: {
@@ -87,14 +90,22 @@ export function sendFileMessage(newMessageID, file, user, chatRoom) {
     }
   };
 
+  var messageType = 'file';
+
+  if ( file.type.indexOf('image/') > -1 ) {
+    messageType = 'image';
+  }
+
   return dispatch => {
     dispatch({
       type: SEND_MESSAGE,
       message: {
-        newMessageID,
-        text: 'file',
-        user,
-        chatRoom: chatRoom.data._id
+        newMessageID: newMessageID,
+        text: text,
+        user: user,
+        chatRoom: chatRoomID,
+        messageType: messageType,
+        fileLink: ''
       }
     });
 
@@ -107,7 +118,7 @@ export function sendFileMessage(newMessageID, file, user, chatRoom) {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
-        chatRoomID: chatRoom.data._id
+        chatRoomID: chatRoomID
       });
     })
     .catch((error) => {

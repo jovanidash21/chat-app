@@ -105,9 +105,7 @@ class Chat extends Component {
               message.all.map((singleMessage, i) =>
                 <ChatBubble
                   key={i}
-                  user={singleMessage.user}
-                  message={singleMessage.text}
-                  time={singleMessage.createdAt}
+                  message={singleMessage}
                   isSender={(singleMessage.user._id === user.active._id) ? true : false }
                 />
               )
@@ -145,16 +143,16 @@ class Chat extends Component {
       sendTextMessage
     } = this.props;
 
-    sendTextMessage(newMessageID, text, user.active, chatRoom.active);
+    sendTextMessage(newMessageID, text, user.active, chatRoom.active.data._id);
   }
-  handleSendFileMessage(newMessageID, file) {
+  handleSendFileMessage(newMessageID, text, file) {
     const {
       user,
       chatRoom,
       sendFileMessage
     } = this.props;
 
-    sendFileMessage(newMessageID, file, user.active, chatRoom.active);
+    sendFileMessage(newMessageID, text, file, user.active, chatRoom.active.data._id);
   }
   handleNotificationViewMessage(chatRoomObj) {
     const {

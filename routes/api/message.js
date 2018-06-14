@@ -10,24 +10,12 @@ var storage = multer.diskStorage({
     cb(null, './uploads/');
   },
   filename: function(req, file, cb) {
-    cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+    cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
   }
 });
 
-var fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-    cb(null, false);
-  } else {
-    cb(null, true);
-  }
-};
-
-var upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 5
-  },
-  fileFilter: fileFilter
+var fileUpload = multer({
+  storage: storage
 });
 
 router.get('/:chatRoomID/:userID', function(req, res, next) {
@@ -164,7 +152,7 @@ router.post('/text', function(req, res, next) {
   }
 });
 
-router.post('/file', upload.single('file'), function(req, res, next) {
+router.post('/file', fileUpload.single('file'), function(req, res, next) {
   var chatRoomID = req.body.chatRoomID;
   var userID = req.body.userID;
 
@@ -174,12 +162,20 @@ router.post('/file', upload.single('file'), function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
+    var messageType = 'file';
+
+    if ( req.file.mimetype.indexOf('image/') > -1 ) {
+
+      messageType = 'image';
+    }
+
     var messageData = {
-      text: req.file.path,
+      text: req.file.originalname,
       user: userID,
       chatRoom: chatRoomID,
       readBy: [userID],
-      messageType: 'file'
+      messageType: messageType,
+      fileLink: req.file.path
     };
     var message = new Message(messageData);
 

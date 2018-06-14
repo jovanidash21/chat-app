@@ -99,8 +99,9 @@ class ChatInput extends Component {
   handleFileUploadSelect(event) {
     const { handleSendFileMessage } = this.props;
     const newMessageID = uuidv4();
+    const fileName = event.target.value.split(/(\\|\/)/g).pop();
 
-    handleSendFileMessage(newMessageID, event.target.files[0]);
+    handleSendFileMessage(newMessageID, fileName, event.target.files[0]);
   }
   handleSaveCaretPosition(event) {
     event.preventDefault();

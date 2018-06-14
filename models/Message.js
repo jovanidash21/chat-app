@@ -21,8 +21,13 @@ var messageSchema = new Schema (
       enum: [
         'text',
         'file',
+        'image'
       ],
       default: 'text',
+    },
+    fileLink: {
+      type: String,
+      default: '',
     },
     readBy: [
       {
