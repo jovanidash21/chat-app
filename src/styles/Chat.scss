@@ -65,8 +65,10 @@
       transform: translate(-50%, -50%);
     }
     .mui-container-fluid {
-      padding-bottom: 15px;
-      padding-top: 15px;
+      padding: 15px 5px;
+      @media screen and (min-width: $screen-tablet-min) {
+        padding: 15px;
+      }
     }
     .chat-no-messages {
       font-size: 17px;

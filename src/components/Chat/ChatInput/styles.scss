@@ -21,6 +21,9 @@
     overflow-x: auto;
     padding: 10px 27px;
     user-select: text;
+    @media screen and (max-width: $screen-mobile-max) {
+      padding: 10px;
+    }
     &:empty:before {
       color: $color-dusty-gray;
       content: attr(placeholder);
@@ -100,6 +103,9 @@
       padding: 10px;
       text-align: center;
       transition: all 0.3s ease;
+      @media screen and (max-width: $screen-mobile-max) {
+        padding: 5px;
+      }
       &:active,
       &:focus,
       &:hover {
@@ -138,6 +144,9 @@
     justify-content: center;
     margin: 0;
     position: relative;
+    @media screen and (max-width: $screen-mobile-max) {
+      flex: 0 0 70px;
+    }
     &:active,
     &:focus,
     &:hover {
