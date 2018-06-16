@@ -36,10 +36,7 @@ class ChatBubble extends Component {
         messageText = ReactHtmlParser(messageText);
         break;
       case 'image':
-        messageText =
-          '<a href="' + message.fileLink + '" target="_blank">' +
-            '<img class="image-message" src="' + message.fileLink + '" />' +
-          '</a>';
+        messageText = '<img class="image-message" src="' + message.fileLink + '" />';
         messageText = ReactHtmlParser(messageText);
         break;
     }
@@ -61,7 +58,10 @@ class ChatBubble extends Component {
     } else {
       return (
         <div className="chat-message">
-          <div className={(message.messageType !== 'image' ? 'chat-bubble ' : 'chat-image ') + (isSender ? 'right' : '')}>
+          <div
+            className={(message.messageType !== 'image' ? 'chat-bubble ' : 'chat-image ') + (isSender ? 'right' : '')}
+            onClick={message.messageType === 'image' ? ::this.handleImageClick : false}
+          >
             <div className="chat-text">
               {
                 message.messageType === 'file' &&
@@ -85,6 +85,16 @@ class ChatBubble extends Component {
         </div>
       )
     }
+  }
+  handleImageClick(event) {
+    event.preventDefault();
+
+    const {
+      message,
+      handleImageLightboxToggle
+    } = this.props;
+
+    handleImageLightboxToggle(message._id);
   }
   render() {
     const {
@@ -118,7 +128,8 @@ class ChatBubble extends Component {
 
 ChatBubble.propTypes = {
   message: PropTypes.object.isRequired,
-  isSender: PropTypes.bool.isRequired
+  isSender: PropTypes.bool.isRequired,
+  handleImageLightboxToggle: PropTypes.func.isRequired
 }
 
 export default ChatBubble;

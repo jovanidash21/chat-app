@@ -13,6 +13,7 @@ import ChatBubble from '../../components/Chat/ChatBubble';
 import ChatTyper from '../../components/Chat/ChatTyper';
 import ChatInput from '../../components/Chat/ChatInput';
 import NotificationPopUp from '../../components/NotificationPopUp';
+import ChatImageLightBox from '../../components/Chat/ChatImageLightBox';
 import '../../styles/Chat.scss';
 
 class Chat extends Component {
@@ -22,6 +23,9 @@ class Chat extends Component {
     this.state = {
       isLeftSideDrawerOpen: false,
       isRightSideDrawerOpen: false,
+      isImageLightboxOpen: false,
+      images: [],
+      imageIndex: 0
     };
   }
   componentWillMount() {
@@ -108,6 +112,7 @@ class Chat extends Component {
                   key={i}
                   message={singleMessage}
                   isSender={(singleMessage.user._id === user.active._id) ? true : false }
+                  handleImageLightboxToggle={::this.handleImageLightboxToggle}
                 />
               )
               :
@@ -131,6 +136,44 @@ class Chat extends Component {
     } else {
       return (
         <LoadingAnimation name="ball-clip-rotate" color="black" />
+      )
+    }
+  }
+  handleImageLightboxRender() {
+    const { message } = this.props;
+    const {
+      isImageLightboxOpen,
+      imageIndex
+    } = this.state;
+
+    if (!message.isLoading && message.isFetchMessagesSuccess) {
+      const imagesArray = [];
+      const imageMessages = message.all.filter(imageMessage =>
+        imageMessage.messageType === 'image'
+      );
+
+      for (var i = 0; i < imageMessages.length; i++) {
+        var imageMessage = imageMessages[i];
+
+        imagesArray[i] = {
+          id: imageMessage._id,
+          src: imageMessage.fileLink
+        };
+      }
+
+      return (
+        <div>
+          {
+            isImageLightboxOpen &&
+            <ChatImageLightBox
+              images={imagesArray}
+              imageIndex={imageIndex}
+              handleImageLightboxToggle={::this.handleImageLightboxToggle}
+              handlePrevImage={::this.handlePrevImage}
+              handleNextImage={::this.handleNextImage}
+            />
+          }
+        </div>
       )
     }
   }
@@ -183,6 +226,34 @@ class Chat extends Component {
 
     changeChatRoom(chatRoomObj, user.active._id, chatRoom.active.data._id);
   }
+  handleImageLightboxToggle(messageID) {
+    const { message } = this.props;
+    var index = 0;
+
+    const imageMessages = message.all.filter(imageMessage =>
+      imageMessage.messageType === 'image'
+    );
+
+    for (var i = 0; i < imageMessages.length; i++) {
+      var imageMessage = imageMessages[i];
+
+      if (imageMessage._id === messageID) {
+        index = i;
+        break;
+      }
+    }
+
+    this.setState({
+      isImageLightboxOpen: !this.state.isImageLightboxOpen,
+      imageIndex: index
+    });
+  }
+  handlePrevImage(imageIndex) {
+    this.setState({imageIndex: imageIndex});
+  }
+  handleNextImage(imageIndex) {
+    this.setState({imageIndex: imageIndex});
+  }
   render() {
     const {
       user,
@@ -217,6 +288,7 @@ class Chat extends Component {
             </div>
           </div>
         </div>
+        {::this.handleImageLightboxRender()}
         <ChatInput
           user={user.active}
           activeChatRoom={chatRoom.active}
