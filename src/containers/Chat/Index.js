@@ -42,11 +42,11 @@ class Chat extends Component {
     ::this.calculateViewportHeight();
     window.addEventListener('onorientationchange', ::this.calculateViewportHeight, true);
     window.addEventListener('resize', ::this.calculateViewportHeight, true);
-
-    ::this.handleScrollToBottom();
   }
-  componentDidUpdate() {
-    ::this.handleScrollToBottom();
+  componentDidUpdate(prevProps) {
+    if (prevProps.message.isLoading && this.props.message.isFetchMessagesSuccess) {
+      ::this.handleScrollToBottom();
+    }
   }
   calculateViewportHeight() {
     var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
