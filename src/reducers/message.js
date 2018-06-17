@@ -22,7 +22,8 @@ const message = (state=initialState, action) => {
       };
     case `${SEND_MESSAGE}_LOADING`:
       return {
-        ...state
+        ...state,
+        isSendingMessage: true,
       };
     case `${FETCH_MESSAGES}_SUCCESS`:
       return {

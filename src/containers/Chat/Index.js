@@ -44,7 +44,10 @@ class Chat extends Component {
     window.addEventListener('resize', ::this.calculateViewportHeight, true);
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.message.isLoading && this.props.message.isFetchMessagesSuccess) {
+    if (
+      ( prevProps.message.isLoading && this.props.message.isFetchMessagesSuccess ) ||
+      ( this.props.message.isSendingMessage )
+    ) {
       ::this.handleScrollToBottom();
     }
   }
