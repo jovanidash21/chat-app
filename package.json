@@ -98,6 +98,7 @@
     "react-select": "^1.0.0-rc.10",
     "react-simple-contenteditable": "0.0.3",
     "react-spinkit": "^3.0.0",
+    "react-stay-scrolled": "^2.1.1",
     "react-timeago": "^3.4.3",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
