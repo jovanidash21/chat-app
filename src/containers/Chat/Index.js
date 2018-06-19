@@ -45,7 +45,7 @@ class Chat extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.message.isLoading && this.props.message.isFetchMessagesSuccess ) ||
+      ( prevProps.message.isFetchingMessages && !this.props.message.isFetchingMessages ) ||
       ( this.props.message.isSendingMessage )
     ) {
       ::this.handleScrollToBottom();
@@ -104,7 +104,7 @@ class Chat extends Component {
           Hi! Welcome, create a Chat Room now.
         </div>
       )
-    } else if (!message.isLoading && message.isFetchMessagesSuccess) {
+    } else if (!message.isLoading && !message.isFetchingMessages) {
       return (
         <Container fluid>
           {
@@ -149,7 +149,7 @@ class Chat extends Component {
       imageIndex
     } = this.state;
 
-    if (!message.isLoading && message.isFetchMessagesSuccess) {
+    if (!message.isLoading && !message.isFetchingMessages) {
       const imagesArray = [];
       const imageMessages = message.all.filter(imageMessage =>
         imageMessage.messageType === 'image'
