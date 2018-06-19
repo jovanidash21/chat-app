@@ -37,14 +37,14 @@
     flex: 1;
     flex-direction: column;
     justify-content: flex-end;
+    max-height: calc(100vh - 127px);
     position: relative;
+    @media screen and (min-width: $screen-tablet-min) {
+      max-height: calc(100vh - 135px);
+    }
     .chat-bubbles {
-      max-height: calc(100vh - 127px);
       overflow-x: hidden;
       overflow-y: auto;
-      @media screen and (min-width: $screen-tablet-min) {
-        max-height: calc(100vh - 135px);
-      }
       &::-webkit-scrollbar {
         width: 6px;
       }

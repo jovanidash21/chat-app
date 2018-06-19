@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
-import StayScrolled from 'react-stay-scrolled';
 import Popup from 'react-popup';
 import mapDispatchToProps from '../../actions';
 import Header from '../Partial/Header';
@@ -47,9 +46,9 @@ class Chat extends Component {
   componentDidUpdate(prevProps) {
     if (
       ( prevProps.message.isFetchingMessages && !this.props.message.isFetchingMessages ) ||
-      ( this.props.message.isSendingMessage )
+      ( !prevProps.message.isSendingMessage && this.props.message.isSendingMessage )
     ) {
-      this.stayScrolled();
+      ::this.handleScrollToBottom();
     }
   }
   calculateViewportHeight() {
@@ -57,9 +56,8 @@ class Chat extends Component {
 
     document.getElementById('chat-section').setAttribute('style', 'height:' + viewportHeight + 'px;');
   }
-  storeScrolledControllers({stayScrolled, scrollBottom}) {
-    this.stayScrolled = stayScrolled;
-    this.scrollBottom = scrollBottom;
+  handleScrollToBottom() {
+    this.messagesBottom.scrollIntoView();
   }
   handleLeftSideDrawerRender() {
     const { isLeftSideDrawerOpen } = this.state;
@@ -284,12 +282,13 @@ class Chat extends Component {
           handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
         />
         <div className="chat-box">
-          <StayScrolled
-            className="chat-bubbles"
-            provideControllers={::this.storeScrolledControllers}
-          >
+          <div className="chat-bubbles">
             {::this.handleChatBoxRender()}
-          </StayScrolled>
+            <div
+              style={{float: "left", clear: "both"}}
+              ref={(element) => { this.messagesBottom = element; }}
+            />
+          </div>
         </div>
         {::this.handleImageLightboxRender()}
         <ChatInput
