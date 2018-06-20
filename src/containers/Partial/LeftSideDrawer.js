@@ -25,6 +25,26 @@ class LeftSideDrawer extends Component {
 
     fetchChatRooms(user.active._id);
   }
+  componentDidUpdate(prevProps) {
+    if ( prevProps.chatRoom.isFetchingChatRooms && !this.props.chatRoom.isFetchingChatRooms ) {
+      const {
+        user,
+        chatRoom,
+        changeChatRoom
+      } = this.props;
+      const allChatRooms = chatRoom.all.sort((a, b) =>  {
+        var n = a.priority - b.priority;
+
+        if (n !== 0) {
+          return n;
+        }
+
+        return a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
+      });
+
+      changeChatRoom(allChatRooms[0], user.active._id, '');
+    }
+  }
   handleChatRoomsListRender() {
     const {
       user,
@@ -50,7 +70,6 @@ class LeftSideDrawer extends Component {
             }).map((singleChatRoom, i) =>
               <ChatRoom
                 key={i}
-                index={i}
                 user={user.active}
                 chatRoom={singleChatRoom}
                 activeChatRoom={activeChatRoom}
