@@ -95,12 +95,13 @@
     margin-right: 10px;
     .image-button,
     .file-button,
+    .audio-button,
     .emoji-button {
       backface-visibility: hidden;
       color: #000;
       cursor: pointer;
       margin: 0;
-      padding: 10px;
+      padding: 7px;
       text-align: center;
       transition: all 0.3s ease;
       @media screen and (max-width: $screen-mobile-max) {
@@ -113,6 +114,13 @@
       }
       &:hover {
         color: $color-royal-purple;
+      }
+    }
+    .image-button,
+    .audio-button,
+    .emoji-button {
+      &:hover {
+        transform: scale(1.25);
       }
     }
     .image-button,
@@ -130,14 +138,11 @@
       }
     }
     .image-button,
-    .emoji-button {
-      &:hover {
-        transform: scale(1.25);
-      }
-    }
-    .image-button {
+    .audio-button {
       align-items: center;
       display: flex;
+    }
+    .image-button {
       font-size: 12px;
     }
     .file-button {
@@ -145,6 +150,9 @@
       &:hover {
         transform: rotate(180deg) scaleX(-1) scale(1.25);
       }
+    }
+    .audio-button {
+      font-size: 13px;
     }
   }
   .send-button {

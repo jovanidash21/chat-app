@@ -326,6 +326,15 @@ class ChatInput extends Component {
               />
             </label>
           </div>
+          <div
+            className="audio-button"
+            title="Send Voice Message"
+          >
+            <FontAwesome
+              name="microphone"
+              size="2x"
+            />
+          </div>
           <MediaQuery query="(min-width: 768px)">
             <div
               className="emoji-button"
