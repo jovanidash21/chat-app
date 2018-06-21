@@ -88,29 +88,12 @@ class ChatInput extends Component {
     }
     ::this.handleSaveCaretPosition(event);
   }
-  handleImageButtonClick(event) {
-    event.preventDefault();
-
-    var element = document.createElement("input");
-    element.setAttribute("type", "file");
-    element.setAttribute("accept", "image/*");
-    element.addEventListener("change", ::this.handleImageUploadSelect, false);
-    element.click(event);
-  }
   handleImageUploadSelect(event) {
     const { handleSendImageMessage } = this.props;
     const newMessageID = uuidv4();
     const imageName = event.target.value.split(/(\\|\/)/g).pop();
 
     handleSendImageMessage(newMessageID, imageName, event.target.files[0]);
-  }
-  handleFileButtonClick(event) {
-    event.preventDefault();
-
-    var element = document.createElement("input");
-    element.setAttribute("type", "file");
-    element.addEventListener("change", ::this.handleFileUploadSelect, false);
-    element.click(event);
   }
   handleFileUploadSelect(event) {
     const { handleSendFileMessage } = this.props;
@@ -313,23 +296,35 @@ class ChatInput extends Component {
         <div className="extra-buttons">
           <div
             className="image-button"
-            onClick={::this.handleImageButtonClick}
             title="Add an image"
           >
-            <FontAwesome
-              name="picture-o"
-              size="2x"
+            <input
+              id="image-button"
+              type="file"
+              onChange={::this.handleImageUploadSelect}
             />
+            <label htmlFor="image-button">
+              <FontAwesome
+                name="picture-o"
+                size="2x"
+              />
+            </label>
           </div>
           <div
             className="file-button"
-            onClick={::this.handleFileButtonClick}
             title="Add a File"
           >
-            <FontAwesome
-              name="paperclip"
-              size="2x"
+            <input
+              id="file-button"
+              type="file"
+              onChange={::this.handleFileUploadSelect}
             />
+            <label htmlFor="file-button">
+              <FontAwesome
+                name="paperclip"
+                size="2x"
+              />
+            </label>
           </div>
           <MediaQuery query="(min-width: 768px)">
             <div

@@ -115,6 +115,26 @@
         color: $color-royal-purple;
       }
     }
+    .image-button,
+    .file-button {
+      input {
+        height: 0.1px;
+        opacity: 0;
+      	overflow: hidden;
+      	position: absolute;
+        width: 0.1px;
+      	z-index: -1;
+      }
+      label {
+        cursor: pointer;
+      }
+    }
+    .image-button,
+    .emoji-button {
+      &:hover {
+        transform: scale(1.25);
+      }
+    }
     .image-button {
       align-items: center;
       display: flex;
@@ -124,12 +144,6 @@
       transform: rotate(180deg) scaleX(-1);
       &:hover {
         transform: rotate(180deg) scaleX(-1) scale(1.25);
-      }
-    }
-    .image-button,
-    .emoji-button {
-      &:hover {
-        transform: scale(1.25);
       }
     }
   }
