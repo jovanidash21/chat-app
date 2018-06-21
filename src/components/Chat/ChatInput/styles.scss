@@ -93,13 +93,15 @@
     display: flex;
     flex: 0 0 50px;
     margin-right: 10px;
+    .audio-button,
     .image-button,
     .file-button,
-    .audio-button,
     .emoji-button {
+      align-items: center;
       backface-visibility: hidden;
       color: #000;
       cursor: pointer;
+      display: flex;
       margin: 0;
       padding: 7px;
       text-align: center;
@@ -116,8 +118,8 @@
         color: $color-royal-purple;
       }
     }
-    .image-button,
     .audio-button,
+    .image-button,
     .emoji-button {
       &:hover {
         transform: scale(1.25);
@@ -137,22 +139,21 @@
         cursor: pointer;
       }
     }
-    .image-button,
+    .file-button,
+    .emoji-button {
+      font-size: 25px;
+    }
     .audio-button {
-      align-items: center;
-      display: flex;
+      font-size: 22px;
     }
     .image-button {
-      font-size: 12px;
+      font-size: 20px;
     }
     .file-button {
       transform: rotate(180deg) scaleX(-1);
       &:hover {
         transform: rotate(180deg) scaleX(-1) scale(1.25);
       }
-    }
-    .audio-button {
-      font-size: 13px;
     }
   }
   .send-button {

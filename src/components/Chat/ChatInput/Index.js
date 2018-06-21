@@ -294,46 +294,29 @@ class ChatInput extends Component {
           contentEditable="plaintext-only"
         />
         <div className="extra-buttons">
-          <div
-            className="image-button"
-            title="Add an image"
-          >
+          <div className="audio-button" title="Send Voice Message">
+            <FontAwesome name="microphone" />
+          </div>
+          <div className="image-button" title="Add an image">
             <input
               id="image-button"
               type="file"
+              accept="image/*"
               onChange={::this.handleImageUploadSelect}
             />
             <label htmlFor="image-button">
-              <FontAwesome
-                name="picture-o"
-                size="2x"
-              />
+              <FontAwesome name="camera" />
             </label>
           </div>
-          <div
-            className="file-button"
-            title="Add a File"
-          >
+          <div className="file-button" title="Add a File">
             <input
               id="file-button"
               type="file"
               onChange={::this.handleFileUploadSelect}
             />
             <label htmlFor="file-button">
-              <FontAwesome
-                name="paperclip"
-                size="2x"
-              />
+              <FontAwesome name="paperclip" />
             </label>
-          </div>
-          <div
-            className="audio-button"
-            title="Send Voice Message"
-          >
-            <FontAwesome
-              name="microphone"
-              size="2x"
-            />
           </div>
           <MediaQuery query="(min-width: 768px)">
             <div
@@ -341,10 +324,7 @@ class ChatInput extends Component {
               onClick={::this.handleEmojiPickerToggle}
               title="Add Emoji"
             >
-              <FontAwesome
-                name="smile-o"
-                size="2x"
-              />
+              <FontAwesome name="smile-o" />
             </div>
           </MediaQuery>
         </div>
