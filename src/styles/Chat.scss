@@ -4,7 +4,8 @@
   flex-direction: column;
   .header,
   .chat-box,
-  .chat-input {
+  .chat-input,
+  .chat-audio-recorder {
     padding-left: 0;
     @media screen and (min-width: $screen-tablet-min) {
       margin-left: 250px;
@@ -37,10 +38,16 @@
     flex: 1;
     flex-direction: column;
     justify-content: flex-end;
-    max-height: calc(100vh - 127px);
+    max-height: calc(100vh - 135px);
     position: relative;
-    @media screen and (min-width: $screen-tablet-min) {
-      max-height: calc(100vh - 135px);
+    @media screen and (max-width: $screen-mobile-max) {
+      max-height: calc(100vh - 127px);
+    }
+    &.audio-recorder-open {
+      max-height: calc(100vh - 190px);
+      @media screen and (max-width: $screen-mobile-max) {
+        max-height: calc(100vh - 182px);
+      }
     }
     .chat-bubbles {
       overflow-x: hidden;
@@ -79,5 +86,9 @@
       display: flex;
       margin-top: 15px;
     }
+  }
+  .chat-input,
+  .chat-audio-recorder {
+    flex-shrink: 0;
   }
 }

@@ -6,7 +6,6 @@
   position: relative;
   .textfield[contenteditable=true],
   .extra-buttons,
-  .audio-recorder,
   .emoji-dialog,
   .send-button {
     z-index: 2;
@@ -51,38 +50,9 @@
       width: $emoji-size;
     }
   }
-  .audio-recorder {
-    background-color: $color-gallery;
-    bottom: 65px;
-    box-shadow: 0 5px 5px -5px #000;
-    position: absolute;
-    right: 0;
-    width: 100% !important;
-    .sound-wave {
-      height: 50px;
-      width: 100%;
-      @media screen and (max-width: $screen-mobile-max) {
-        height: 40px;
-      }
-    }
-    .audio-controls {
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-      .play-button,
-      .stop-button {
-        color: $color-guardsman-red;
-        cursor: pointer;
-        font-size: 21px;
-        @media screen and (max-width: $screen-mobile-max) {
-          font-size: 20px;
-        }
-      }
-    }
-  }
   .emoji-dialog {
     border-radius: 0;
-    bottom: 103%;
+    bottom: 65px;
     box-shadow: 0 5px 5px -5px #000;
     height: 300px !important;
     position: absolute;
@@ -111,7 +81,6 @@
       }
     }
   }
-  .audio-recorder-overlay,
   .emoji-picker-overlay {
     height: 100%;
     left: 0;

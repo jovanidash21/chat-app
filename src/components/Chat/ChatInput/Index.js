@@ -4,7 +4,6 @@ import MediaQuery from 'react-responsive';
 import ContentEditable from 'react-simple-contenteditable';
 import { Button } from 'muicss/react';
 import emojione from 'emojione';
-import { ReactMic } from 'react-mic';
 import EmojiPicker from 'emojione-picker';
 import FontAwesome from 'react-fontawesome';
 import uuidv4 from 'uuid/v4';
@@ -20,8 +19,6 @@ class ChatInput extends Component {
       message: '',
       typing: false,
       emojiPicker: false,
-      audioRecorder: false,
-      isAudioRecording: false,
       validMessage: false
     };
   }
@@ -86,29 +83,10 @@ class ChatInput extends Component {
         message: '',
         typing: false,
         emojiPicker: false,
-        audioRecorder: false,
-        isAudioRecording: false,
         validMessage: false
       });
     }
     ::this.handleSaveCaretPosition(event);
-  }
-  handleAudioRecorderToggle(event) {
-    event.preventDefault();
-
-    this.setState({
-      emojiPicker: false,
-      audioRecorder: !this.state.audioRecorder,
-      isAudioRecording: false
-    });
-  }
-  handleAudioRecording(event) {
-    event.preventDefault();
-
-    this.setState({isAudioRecording: !this.state.isAudioRecording});
-  }
-  handleAudioUploadRecord(audio) {
-
   }
   handleImageUploadSelect(event) {
     const { handleSendImageMessage } = this.props;
@@ -141,10 +119,7 @@ class ChatInput extends Component {
   handleEmojiPickerToggle(event) {
     event.preventDefault();
 
-    this.setState({
-      emojiPicker: !this.state.emojiPicker,
-      audioRecorder: false
-    });
+    this.setState({emojiPicker: !this.state.emojiPicker});
   }
   handleEmojiPickerSelect(emoji) {
     const {
@@ -272,8 +247,6 @@ class ChatInput extends Component {
         message: '',
         typing: false,
         emojiPicker: false,
-        audioRecorder: false,
-        isAudioRecording: false,
         validMessage: false
       });
     }
@@ -282,52 +255,12 @@ class ChatInput extends Component {
     const {
       message,
       emojiPicker,
-      audioRecorder,
-      isAudioRecording,
       validMessage
     } = this.state;
+    const { handleAudioRecorderToggle } = this.props;
 
     return (
       <div className="chat-input">
-        {
-          audioRecorder &&
-          <div className="audio-recorder">
-            <ReactMic
-              record={isAudioRecording}
-              className="sound-wave"
-              onStop={::this.handleAudioUploadRecord}
-              strokeColor="#000000"
-              backgroundColor="#eee"
-            />
-            <div className="audio-controls">
-              {
-                !isAudioRecording &&
-                <div
-                  className="play-button"
-                  onClick={::this.handleAudioRecording}
-                  title="Start Recording"
-                >
-                  <FontAwesome name="microphone" size="2x" />
-                </div>
-              }
-              {
-                isAudioRecording &&
-                <div
-                  className="stop-button"
-                  onClick={::this.handleAudioRecording}
-                  title="Stop Recording"
-                >
-                  <FontAwesome name="stop-circle" size="2x" />
-                </div>
-              }
-              {!isAudioRecording ? 'Start' : 'Stop'}
-            </div>
-          </div>
-        }
-        {
-          audioRecorder &&
-          <div className="audio-recorder-overlay" onClick={::this.handleAudioRecorderToggle} />
-        }
         <MediaQuery query="(min-width: 768px)">
           <div>
             {
@@ -359,7 +292,7 @@ class ChatInput extends Component {
         <div className="extra-buttons">
           <div
             className="audio-button"
-            onClick={::this.handleAudioRecorderToggle}
+            onClick={handleAudioRecorderToggle}
             title="Send Voice Message"
           >
             <FontAwesome name="microphone" />
@@ -416,6 +349,7 @@ ChatInput.propTypes = {
   handleSocketIsTyping: PropTypes.func.isRequired,
   handleSocketIsNotTyping: PropTypes.func.isRequired,
   handleSendTextMessage: PropTypes.func.isRequired,
+  handleAudioRecorderToggle: PropTypes.func.isRequired,
   handleSendFileMessage: PropTypes.func.isRequired,
   handleSendImageMessage: PropTypes.func.isRequired
 }

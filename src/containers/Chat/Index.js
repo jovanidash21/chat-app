@@ -12,6 +12,7 @@ import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatBubble from '../../components/Chat/ChatBubble';
 import ChatTyper from '../../components/Chat/ChatTyper';
 import ChatInput from '../../components/Chat/ChatInput';
+import ChatAudioRecorder from '../../components/Chat/ChatAudioRecorder';
 import NotificationPopUp from '../../components/NotificationPopUp';
 import ChatImageLightBox from '../../components/Chat/ChatImageLightBox';
 import '../../styles/Chat.scss';
@@ -23,8 +24,8 @@ class Chat extends Component {
     this.state = {
       isLeftSideDrawerOpen: false,
       isRightSideDrawerOpen: false,
+      isAudioRecorderOpen: false,
       isImageLightboxOpen: false,
-      images: [],
       imageIndex: 0
     };
   }
@@ -144,6 +145,12 @@ class Chat extends Component {
         <LoadingAnimation name="ball-clip-rotate" color="black" />
       )
     }
+  }
+  handleAudioRecorderToggle(event) {
+    event.preventDefault();
+
+    this.setState({isAudioRecorderOpen: !this.state.isAudioRecorderOpen});
+    ::this.handleScrollToBottom();
   }
   handleImageLightboxRender() {
     const { message } = this.props;
@@ -266,7 +273,10 @@ class Chat extends Component {
       socketIsTyping,
       socketIsNotTyping
     } = this.props;
-    const { isRightSideDrawerOpen } = this.state;
+    const {
+      isRightSideDrawerOpen,
+      isAudioRecorderOpen
+    } = this.state;
 
     return (
       <div id="chat-section" className="chat-section">
@@ -281,7 +291,7 @@ class Chat extends Component {
           handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
           handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
         />
-        <div className="chat-box">
+        <div className={"chat-box " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
           <div className="chat-bubbles">
             {::this.handleChatBoxRender()}
             <div
@@ -291,15 +301,24 @@ class Chat extends Component {
           </div>
         </div>
         {::this.handleImageLightboxRender()}
-        <ChatInput
-          user={user.active}
-          activeChatRoom={chatRoom.active}
-          handleSocketIsTyping={socketIsTyping}
-          handleSocketIsNotTyping={socketIsNotTyping}
-          handleSendTextMessage={::this.handleSendTextMessage}
-          handleSendFileMessage={::this.handleSendFileMessage}
-          handleSendImageMessage={::this.handleSendImageMessage}
-        />
+        {
+          !isAudioRecorderOpen
+            ?
+            <ChatInput
+              user={user.active}
+              activeChatRoom={chatRoom.active}
+              handleSocketIsTyping={socketIsTyping}
+              handleSocketIsNotTyping={socketIsNotTyping}
+              handleSendTextMessage={::this.handleSendTextMessage}
+              handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
+              handleSendFileMessage={::this.handleSendFileMessage}
+              handleSendImageMessage={::this.handleSendImageMessage}
+            />
+            :
+            <ChatAudioRecorder
+              handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
+            />
+        }
         <NotificationPopUp handleViewMessage={::this.handleNotificationViewMessage} />
       </div>
     )
