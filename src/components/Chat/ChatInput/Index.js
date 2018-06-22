@@ -4,6 +4,7 @@ import MediaQuery from 'react-responsive';
 import ContentEditable from 'react-simple-contenteditable';
 import { Button } from 'muicss/react';
 import emojione from 'emojione';
+import { ReactMic } from 'react-mic';
 import EmojiPicker from 'emojione-picker';
 import FontAwesome from 'react-fontawesome';
 import uuidv4 from 'uuid/v4';
@@ -19,6 +20,8 @@ class ChatInput extends Component {
       message: '',
       typing: false,
       emojiPicker: false,
+      audioRecorder: false,
+      isAudioRecording: false,
       validMessage: false
     };
   }
@@ -83,10 +86,29 @@ class ChatInput extends Component {
         message: '',
         typing: false,
         emojiPicker: false,
+        audioRecorder: false,
+        isAudioRecording: false,
         validMessage: false
       });
     }
     ::this.handleSaveCaretPosition(event);
+  }
+  handleAudioRecorderToggle(event) {
+    event.preventDefault();
+
+    this.setState({
+      emojiPicker: false,
+      audioRecorder: !this.state.audioRecorder,
+      isAudioRecording: false
+    });
+  }
+  handleAudioRecording(event) {
+    event.preventDefault();
+
+    this.setState({isAudioRecording: !this.state.isAudioRecording});
+  }
+  handleAudioUploadRecord(audio) {
+
   }
   handleImageUploadSelect(event) {
     const { handleSendImageMessage } = this.props;
@@ -119,12 +141,10 @@ class ChatInput extends Component {
   handleEmojiPickerToggle(event) {
     event.preventDefault();
 
-    const {
-      caretPosition,
-      emojiPicker
-    } = this.state;
-
-    this.setState({emojiPicker: !emojiPicker});
+    this.setState({
+      emojiPicker: !this.state.emojiPicker,
+      audioRecorder: false
+    });
   }
   handleEmojiPickerSelect(emoji) {
     const {
@@ -252,6 +272,8 @@ class ChatInput extends Component {
         message: '',
         typing: false,
         emojiPicker: false,
+        audioRecorder: false,
+        isAudioRecording: false,
         validMessage: false
       });
     }
@@ -260,11 +282,52 @@ class ChatInput extends Component {
     const {
       message,
       emojiPicker,
+      audioRecorder,
+      isAudioRecording,
       validMessage
     } = this.state;
 
     return (
       <div className="chat-input">
+        {
+          audioRecorder &&
+          <div className="audio-recorder">
+            <ReactMic
+              record={isAudioRecording}
+              className="sound-wave"
+              onStop={::this.handleAudioUploadRecord}
+              strokeColor="#000000"
+              backgroundColor="#eee"
+            />
+            <div className="audio-controls">
+              {
+                !isAudioRecording &&
+                <div
+                  className="play-button"
+                  onClick={::this.handleAudioRecording}
+                  title="Start Recording"
+                >
+                  <FontAwesome name="microphone" size="2x" />
+                </div>
+              }
+              {
+                isAudioRecording &&
+                <div
+                  className="stop-button"
+                  onClick={::this.handleAudioRecording}
+                  title="Stop Recording"
+                >
+                  <FontAwesome name="stop-circle" size="2x" />
+                </div>
+              }
+              {!isAudioRecording ? 'Start' : 'Stop'}
+            </div>
+          </div>
+        }
+        {
+          audioRecorder &&
+          <div className="audio-recorder-overlay" onClick={::this.handleAudioRecorderToggle} />
+        }
         <MediaQuery query="(min-width: 768px)">
           <div>
             {
@@ -294,7 +357,11 @@ class ChatInput extends Component {
           contentEditable="plaintext-only"
         />
         <div className="extra-buttons">
-          <div className="audio-button" title="Send Voice Message">
+          <div
+            className="audio-button"
+            onClick={::this.handleAudioRecorderToggle}
+            title="Send Voice Message"
+          >
             <FontAwesome name="microphone" />
           </div>
           <div className="image-button" title="Add an image">
