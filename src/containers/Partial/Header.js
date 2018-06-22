@@ -57,7 +57,11 @@ class Header extends Component {
       handleRightSideDrawerToggleEvent
     } = this.props;
 
-    if (!chatRoom.isLoading && !chatRoom.isFetchingChatRooms) {
+    if (
+      !chatRoom.isFetching &&
+      chatRoom.isFetchingSuccess &&
+      Object.keys(chatRoom.active.data).length > 0
+    ) {
       const activeChatRoom = chatRoom.active;
 
       return (

@@ -10,6 +10,7 @@ import mapDispatchToProps from '../../actions';
 import ChatRoomNameInput from '../../components/CreateChatRoomModal/ChatRoomNameInput';
 import ChatMember from '../../components/CreateChatRoomModal/ChatMember';
 import ChatMemberSelect from '../../components/CreateChatRoomModal/ChatMemberSelect';
+import ErrorCard from '../../components/AuthForm/Card/ErrorCard';
 import '../../styles/CreateChatRoomModal.scss';
 
 class CreateChatRoomModal extends Component {
@@ -19,6 +20,13 @@ class CreateChatRoomModal extends Component {
     this.state = {
       chatRoomName: '',
       members: [this.props.user.active]
+    }
+  }
+  componentDidUpdate(prevProps) {
+    if ( prevProps.chatRoom.isCreating && this.props.chatRoom.isCreatingSuccess ) {
+      const { handleDeactivateModal } = this.props;
+
+      handleDeactivateModal();
     }
   }
   onChatRoomNameChange(event) {
@@ -63,7 +71,6 @@ class CreateChatRoomModal extends Component {
       user,
       chatRoom,
       createGroupChatRoom,
-      handleDeactivateModal,
       handleLeftSideDrawerToggleEvent
     } = this.props;
     const {
@@ -74,13 +81,13 @@ class CreateChatRoomModal extends Component {
 
     if ( chatRoomName.length > 0 && members.length > 2 ) {
       createGroupChatRoom(chatRoomName, members, user.active._id, activeChatRoom.data._id);
-      handleDeactivateModal();
       handleLeftSideDrawerToggleEvent(event);
     }
   }
   render() {
     const {
       user,
+      chatRoom,
       handleDeactivateModal,
       isLoading
     } = this.props;
@@ -96,6 +103,11 @@ class CreateChatRoomModal extends Component {
           style={{width: '300px'}}
           onClose={handleDeactivateModal}
         >
+          {
+            !chatRoom.isCreating &&
+            !chatRoom.isCreatingSuccess &&
+            <ErrorCard label="Error! Please try again" />
+          }
           <Form onSubmit={::this.handleAddGroupChatRoom}>
             <h2 className="modal-title">Add Chat Room</h2>
             <ChatRoomNameInput  onChatRoomNameChange={::this.onChatRoomNameChange} />
