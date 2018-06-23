@@ -182,3 +182,59 @@ export function sendImageMessage(newMessageID, text, image, user, chatRoomID) {
     });
   }
 }
+
+/**
+ * Send audio message
+ * @param {string} newMessageID
+ * @param {string} text
+ * @param {Object} audio
+ * @param {Object} user
+ * @param {string} chatRoomID
+ */
+export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID) {
+  let audio = new Blob([audioBlob], {type: "audio/webm;codecs=opus"});
+
+  let data = new FormData();
+  data.append('text', text);
+  data.append('audio', audio);
+  data.append('userID', user._id);
+  data.append('chatRoomID', chatRoomID);
+
+  let config = {
+    headers: {
+      'content-type': 'multipart/form-data',
+    }
+  };
+
+  return dispatch => {
+    dispatch({
+      type: SEND_MESSAGE,
+      message: {
+        newMessageID: newMessageID,
+        text: text,
+        user: user,
+        chatRoom: chatRoomID,
+        messageType: 'audio',
+        fileLink: ''
+      }
+    });
+
+    dispatch({
+      type: SEND_MESSAGE,
+      payload: axios.post('/api/message/audio', data, config),
+      meta: newMessageID
+    })
+    .then((response) => {
+      dispatch({
+        type: SOCKET_SEND_MESSAGE,
+        message: response.action.payload.data.messageData,
+        chatRoomID: chatRoomID
+      });
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}

@@ -25,7 +25,11 @@ class ChatAudioRecorder extends Component {
     this.setState({isAudioRecording: false});
   }
   handleAudioUploadRecord(audio) {
-    console.log(audio);
+    const { handleSendAudioMessage } = this.props;
+    const newMessageID = uuidv4();
+    const audioName = 'voice message';
+
+    handleSendAudioMessage(newMessageID, audioName, audio.blob);
   }
   render() {
     const { handleAudioRecorderToggle } = this.props;
@@ -93,7 +97,8 @@ class ChatAudioRecorder extends Component {
 }
 
 ChatAudioRecorder.propTypes = {
-  handleAudioRecorderToggle: PropTypes.func.isRequired
+  handleAudioRecorderToggle: PropTypes.func.isRequired,
+  handleSendAudioMessage: PropTypes.func.isRequired
 }
 
 export default ChatAudioRecorder;

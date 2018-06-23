@@ -146,12 +146,6 @@ class Chat extends Component {
       )
     }
   }
-  handleAudioRecorderToggle(event) {
-    event.preventDefault();
-
-    this.setState({isAudioRecorderOpen: !this.state.isAudioRecorderOpen});
-    ::this.handleScrollToBottom();
-  }
   handleImageLightboxRender() {
     const { message } = this.props;
     const {
@@ -190,6 +184,12 @@ class Chat extends Component {
       )
     }
   }
+  handleAudioRecorderToggle(event) {
+    event.preventDefault();
+
+    this.setState({isAudioRecorderOpen: !this.state.isAudioRecorderOpen});
+    ::this.handleScrollToBottom();
+  }
   handleSendTextMessage(newMessageID, text) {
     const {
       user,
@@ -198,6 +198,19 @@ class Chat extends Component {
     } = this.props;
 
     sendTextMessage(newMessageID, text, user.active, chatRoom.active.data._id);
+  }
+  handleSendAudioMessage(newMessageID, text, audio) {
+    const {
+      user,
+      chatRoom,
+      sendAudioMessage
+    } = this.props;
+
+    if ( audio.size > 1024 * 1024 * 2 ) {
+      Popup.alert('Maximum upload file size is 2MB only');
+    } else {
+      sendAudioMessage(newMessageID, text, audio, user.active, chatRoom.active.data._id);
+    }
   }
   handleSendFileMessage(newMessageID, text, file) {
     const {
@@ -317,6 +330,7 @@ class Chat extends Component {
             :
             <ChatAudioRecorder
               handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
+              handleSendAudioMessage={::this.handleSendAudioMessage}
             />
         }
         <NotificationPopUp handleViewMessage={::this.handleNotificationViewMessage} />

@@ -39,6 +39,10 @@ class ChatBubble extends Component {
         messageText = '<img class="image-message" src="' + message.fileLink + '" />';
         messageText = ReactHtmlParser(messageText);
         break;
+      case 'audio':
+        messageText = '<audio controls="controls" src="' + message.fileLink + '"></audio>';
+        messageText = ReactHtmlParser(messageText);
+        break
     }
 
     return messageText;

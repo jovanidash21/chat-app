@@ -38,7 +38,7 @@ var imageUpload = multer({
 });
 
 var audioFilter = (req, file, cb) => {
-  if ( file.mimetype === 'audio/wav' ) {
+  if ( file.mimetype === 'audio/webm' ) {
     cb(null, true);
   } else {
     cb(null, false);
