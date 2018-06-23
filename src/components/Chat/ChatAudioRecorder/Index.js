@@ -14,10 +14,15 @@ class ChatAudioRecorder extends Component {
       isAudioRecording: false
     };
   }
-  handleAudioRecording(event) {
+  handleStartAudioRecording(event) {
     event.preventDefault();
 
-    this.setState({isAudioRecording: !this.state.isAudioRecording});
+    this.setState({isAudioRecording: true});
+  }
+  handleStopAudioRecording(event) {
+    event.preventDefault();
+
+    this.setState({isAudioRecording: false});
   }
   handleAudioUploadRecord(audio) {
     console.log(audio);
@@ -29,8 +34,8 @@ class ChatAudioRecorder extends Component {
     return (
       <div className="chat-audio-recorder">
         <ReactMic
-          record={isAudioRecording}
           className="sound-wave"
+          record={isAudioRecording}
           onStop={::this.handleAudioUploadRecord}
           strokeColor="#000000"
           backgroundColor="#eee"
@@ -52,7 +57,7 @@ class ChatAudioRecorder extends Component {
               <div className="control-wrapper">
                 <div
                   className="play-button control"
-                  onClick={::this.handleAudioRecording}
+                  onClick={::this.handleStartAudioRecording}
                   title="Start Recording"
                 >
                   <FontAwesome name="circle" size="2x" />
@@ -63,7 +68,7 @@ class ChatAudioRecorder extends Component {
               <div className="control-wrapper">
                 <div
                   className="stop-button control"
-                  onClick={::this.handleAudioRecording}
+                  onClick={::this.handleStopAudioRecording}
                   title="Start Recording"
                 >
                   <FontAwesome name="stop" size="2x" />
@@ -74,10 +79,10 @@ class ChatAudioRecorder extends Component {
           <div className="control-wrapper">
             <div
               className="send-button control"
-              onClick={::this.handleAudioRecording}
+              onClick={::this.handleStopAudioRecording}
               title="Send"
             >
-              <FontAwesome name="paper-plane" size="2x" />
+              <FontAwesome name="check" size="2x" />
             </div>
             <span>Send</span>
           </div>
