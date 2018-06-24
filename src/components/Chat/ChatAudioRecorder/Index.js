@@ -11,25 +11,47 @@ class ChatAudioRecorder extends Component {
     super(props);
 
     this.state = {
-      isAudioRecording: false
+      isAudioRecording: false,
+      isSendAudioClick: false
     };
   }
   handleStartAudioRecording(event) {
     event.preventDefault();
 
-    this.setState({isAudioRecording: true});
+    this.setState({
+      isAudioRecording: true,
+      isSendAudioClick: false
+    });
   }
   handleStopAudioRecording(event) {
     event.preventDefault();
 
-    this.setState({isAudioRecording: false});
+    this.setState({
+      isAudioRecording: false,
+      isSendAudioClick: false
+    });
+  }
+  handleSendAudioMessageOnClick() {
+    const { isAudioRecording } = this.state;
+
+    if ( isAudioRecording ) {
+
+    }
+
+    this.setState({
+      isAudioRecording: false,
+      isSendAudioClick: true
+    });
   }
   handleAudioUploadRecord(audio) {
     const { handleSendAudioMessage } = this.props;
+    const { isSendAudioClick } = this.state;
     const newMessageID = uuidv4();
     const audioName = 'voice message';
 
-    handleSendAudioMessage(newMessageID, audioName, audio.blob);
+    if ( isSendAudioClick ) {
+      handleSendAudioMessage(newMessageID, audioName, audio.blob);
+    }
   }
   render() {
     const { handleAudioRecorderToggle } = this.props;
@@ -82,8 +104,8 @@ class ChatAudioRecorder extends Component {
           }
           <div className="control-wrapper">
             <div
-              className="send-button control"
-              onClick={::this.handleStopAudioRecording}
+              className={"send-button control " + (isAudioRecording ? 'active' : '')}
+              onClick={(e) => { isAudioRecording ? ::this.handleSendAudioMessageOnClick(e) : false}}
               title="Send"
             >
               <FontAwesome name="check" size="2x" />

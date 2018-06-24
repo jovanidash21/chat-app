@@ -45,5 +45,19 @@
         border-color: $color-guardsman-red;
       }
     }
+    .send-button {
+      color: $color-dusty-gray;
+      cursor: not-allowed;
+      &:hover {
+        border-color: $color-dusty-gray;
+      }
+      &.active {
+        color: $color-guardsman-red;
+        cursor: pointer;
+        &:hover {
+          border-color: $color-guardsman-red;
+        }
+      }
+    }
   }
 }
