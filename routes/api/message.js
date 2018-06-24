@@ -5,7 +5,7 @@ var ChatRoom = require('../../models/ChatRoom');
 var User = require('../../models/User');
 var multer = require('multer');
 
-var storage = multer.diskStorage({
+var fileImageStorage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './uploads/');
   },
@@ -14,8 +14,17 @@ var storage = multer.diskStorage({
   }
 });
 
+var audioStorage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/audio/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname + '.webm');
+  }
+});
+
 var fileUpload = multer({
-  storage: storage,
+  storage: fileImageStorage,
   limits: {
     fileSize: 1024 * 1024 * 2
   }
@@ -30,7 +39,7 @@ var imageFilter = (req, file, cb) => {
 };
 
 var imageUpload = multer({
-  storage: storage,
+  storage: fileImageStorage,
   fileFilter: imageFilter,
   limits: {
     fileSize: 1024 * 1024 * 2
@@ -46,7 +55,7 @@ var audioFilter = (req, file, cb) => {
 };
 
 var audioUpload = multer({
-  storage: storage,
+  storage: audioStorage,
   fileFilter: audioFilter,
   limits: {
     fileSize: 1024 * 1024 * 2

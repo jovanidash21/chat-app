@@ -22,7 +22,7 @@ var messageSchema = new Schema (
         'text',
         'file',
         'image',
-        'audio'
+        'audio',
       ],
       default: 'text',
     },
