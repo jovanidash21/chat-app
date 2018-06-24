@@ -187,7 +187,7 @@ export function sendImageMessage(newMessageID, text, image, user, chatRoomID) {
  * Send audio message
  * @param {string} newMessageID
  * @param {string} text
- * @param {Object} audio
+ * @param {Object} audioBlob
  * @param {Object} user
  * @param {string} chatRoomID
  */

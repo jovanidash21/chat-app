@@ -252,12 +252,12 @@ class ChatInput extends Component {
     }
   }
   render() {
+    const { handleAudioRecorderToggle } = this.props;
     const {
       message,
       emojiPicker,
       validMessage
     } = this.state;
-    const { handleAudioRecorderToggle } = this.props;
 
     return (
       <div className="chat-input">

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { emojify } from 'react-emojione';
 import ReactHtmlParser from 'react-html-parser';
 import FontAwesome from 'react-fontawesome';
+import ReactAudioPlayer from 'react-audio-player';
 import TimeAgo from 'react-timeago';
 import moment from 'moment';
 import Avatar from '../../Avatar';
@@ -40,8 +41,7 @@ class ChatBubble extends Component {
         messageText = ReactHtmlParser(messageText);
         break;
       case 'audio':
-        messageText = '<audio controls="controls" src="' + message.fileLink + '"></audio>';
-        messageText = ReactHtmlParser(messageText);
+        messageText = '';
         break
     }
 
@@ -72,6 +72,14 @@ class ChatBubble extends Component {
                 <div className="file-icon">
                   <FontAwesome name="file" />
                 </div>
+              }
+              {
+                message.messageType === 'audio' &&
+                <ReactAudioPlayer
+                  src={message.fileLink}
+                  autoPlay={false}
+                  controls
+                />
               }
               {::this.handleMessageText()}
             </div>
