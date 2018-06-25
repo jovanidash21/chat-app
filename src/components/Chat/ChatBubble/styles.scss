@@ -64,6 +64,40 @@
         margin-right: 5px;
         vertical-align: middle;
       }
+      .audio-player {
+        display: flex;
+        .player-button {
+          align-items: center;
+          cursor: pointer;
+          display: flex;
+          height: 20px;
+          justify-content: center;
+          margin-right: 10px;
+          width: 14px;
+          .play-icon,
+          .pause-icon {
+            padding: 5px;
+          }
+        }
+        .player-seek {
+          align-items: center;
+          display: flex;
+          progress {
+            appearance: none;
+            height: 2px;
+            background-color: $color-alto;
+            &::-webkit-progress-bar {
+              background-color: $color-alto;
+            }
+            &::-webkit-progress-value {
+              background-color: #fff;
+            }
+            &::-moz-progress-bar {
+              background-color: #fff;
+            }
+          }
+        }
+      }
     }
   }
   .chat-image {
