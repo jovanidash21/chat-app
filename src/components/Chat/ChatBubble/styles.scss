@@ -64,37 +64,34 @@
         margin-right: 5px;
         vertical-align: middle;
       }
-      .audio-player {
-        display: flex;
-        .player-button {
-          align-items: center;
-          cursor: pointer;
-          display: flex;
-          height: 20px;
-          justify-content: center;
-          margin-right: 10px;
-          width: 14px;
-          .play-icon,
-          .pause-icon {
-            padding: 5px;
+      .plyr {
+        .plyr__controls {
+          background-color: transparent;
+          padding: 0;
+          button[data-plyr="mute"],
+          .plyr__volume,
+          .plyr__menu {
+            display: none;
           }
-        }
-        .player-seek {
-          align-items: center;
-          display: flex;
-          progress {
-            appearance: none;
-            height: 2px;
-            background-color: $color-alto;
-            &::-webkit-progress-bar {
-              background-color: $color-alto;
-            }
-            &::-webkit-progress-value {
+          .plyr__control {
+            color: #fff;
+            &:hover {
               background-color: #fff;
+              color: #000;
             }
-            &::-moz-progress-bar {
-              background-color: #fff;
+          }
+          .plyr__progress {
+            input {
+              color: #fff;
             }
+          }
+          .plyr__time {
+            background-color: #fff;
+            border-radius: 12px;
+            color: #000;
+            padding: 0 5px;
+            text-align: center;
+            width: 55px;
           }
         }
       }

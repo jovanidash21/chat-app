@@ -117,6 +117,7 @@ class Chat extends Component {
               message.all.map((singleMessage, i) =>
                 <ChatBubble
                   key={i}
+                  index={i}
                   message={singleMessage}
                   isSender={(singleMessage.user._id === user.active._id) ? true : false }
                   handleImageLightboxToggle={::this.handleImageLightboxToggle}

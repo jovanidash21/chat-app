@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { emojify } from 'react-emojione';
 import ReactHtmlParser from 'react-html-parser';
 import FontAwesome from 'react-fontawesome';
+import Plyr from 'react-plyr';
 import TimeAgo from 'react-timeago';
 import moment from 'moment';
 import Avatar from '../../Avatar';
@@ -11,10 +12,6 @@ import './styles.scss';
 class ChatBubble extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isAudioPlaying: false
-    };
   }
   handleMessageText() {
     const {
@@ -52,10 +49,10 @@ class ChatBubble extends Component {
   }
   handleChatBubbleRender() {
     const {
+      index,
       message,
       isSender
     } = this.props;
-    const { isAudioPlaying } = this.state;
 
     if ( message.messageType !== 'text' && message.fileLink.length === 0 ) {
       return (
@@ -79,27 +76,12 @@ class ChatBubble extends Component {
               }
               {
                 message.messageType === 'audio' &&
-                <div className="audio-player">
-                  <audio ref={(audio) => {this.audio = audio}}>
-                    <source src={message.fileLink} type="audio/webm" />
-                  </audio>
-                  <div className="player-button">
-                    {
-                      !isAudioPlaying
-                        ?
-                        <div className="play-icon" onClick={::this.handlePlayAudio}>
-                          <FontAwesome name="play" />
-                        </div>
-                        :
-                        <div className="pause-icon" onClick={::this.handlePauseAudio}>
-                          <FontAwesome name="pause" />
-                        </div>
-                    }
-                  </div>
-                  <div className="player-seek">
-                    <progress value="0" max="1" />
-                  </div>
-                </div>
+                <Plyr
+                  className={"react-plyr-" + index}
+                  type="audio"
+                  url={message.fileLink}
+                  volume={1}
+                />
               }
               {::this.handleMessageText()}
             </div>
@@ -127,20 +109,6 @@ class ChatBubble extends Component {
     } = this.props;
 
     handleImageLightboxToggle(message._id);
-  }
-  handlePlayAudio(event) {
-    event.preventDefault();
-
-    this.setState({isAudioPlaying: true});
-
-    this.audio.play();
-  }
-  handlePauseAudio(event) {
-    event.preventDefault();
-
-    this.setState({isAudioPlaying: false});
-
-    this.audio.pause();
   }
   render() {
     const {
@@ -173,6 +141,7 @@ class ChatBubble extends Component {
 }
 
 ChatBubble.propTypes = {
+  index: PropTypes.number.isRequired,
   message: PropTypes.object.isRequired,
   isSender: PropTypes.bool.isRequired,
   handleImageLightboxToggle: PropTypes.func.isRequired
