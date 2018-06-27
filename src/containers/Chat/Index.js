@@ -26,7 +26,8 @@ class Chat extends Component {
       isRightSideDrawerOpen: false,
       isAudioRecorderOpen: false,
       isImageLightboxOpen: false,
-      imageIndex: 0
+      imageIndex: 0,
+      audioIndex: -1
     };
   }
   componentWillMount() {
@@ -121,6 +122,7 @@ class Chat extends Component {
                   message={singleMessage}
                   isSender={(singleMessage.user._id === user.active._id) ? true : false }
                   handleImageLightboxToggle={::this.handleImageLightboxToggle}
+                  handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
                 />
               )
               :
@@ -277,6 +279,25 @@ class Chat extends Component {
   }
   handleNextImage(imageIndex) {
     this.setState({imageIndex: imageIndex});
+  }
+  handleAudioPlayingToggle(audioPlayingIndex) {
+    const { audioIndex } = this.state;
+
+    if ( audioIndex > -1 && audioIndex !== audioPlayingIndex ) {
+      var audio = document.getElementsByClassName('react-plyr-' + audioIndex);
+      var previousAudio = audio[0];
+
+      if (
+        previousAudio.currentTime > 0  &&
+        !previousAudio.paused &&
+        !previousAudio.ended &&
+        previousAudio.readyState > 2
+      ) {
+        previousAudio.pause();
+      }
+    }
+
+    this.setState({audioIndex: audioPlayingIndex});
   }
   render() {
     const {

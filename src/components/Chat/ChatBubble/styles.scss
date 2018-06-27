@@ -65,9 +65,11 @@
         vertical-align: middle;
       }
       .plyr {
+        min-width: 100px;
         .plyr__controls {
           background-color: transparent;
           padding: 0;
+          width: 150px;
           button[data-plyr="mute"],
           .plyr__volume,
           .plyr__menu {
@@ -75,9 +77,15 @@
           }
           .plyr__control {
             color: #fff;
+            padding: 4px;
+            margin-right: -5px;
             &:hover {
               background-color: #fff;
               color: #000;
+            }
+            svg {
+              height: 14px;
+              width: 14px;
             }
           }
           .plyr__progress {
@@ -89,9 +97,9 @@
             background-color: #fff;
             border-radius: 12px;
             color: #000;
-            padding: 0 5px;
+            font-size: 11px;
+            min-width: 40px;
             text-align: center;
-            width: 55px;
           }
         }
       }

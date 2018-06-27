@@ -81,6 +81,7 @@ class ChatBubble extends Component {
                   type="audio"
                   url={message.fileLink}
                   volume={1}
+                  onPlay={::this.handleAudioOnPlay}
                 />
               }
               {::this.handleMessageText()}
@@ -109,6 +110,14 @@ class ChatBubble extends Component {
     } = this.props;
 
     handleImageLightboxToggle(message._id);
+  }
+  handleAudioOnPlay(event) {
+    const {
+      index,
+      handleAudioPlayingToggle
+    } = this.props;
+
+    handleAudioPlayingToggle(index);
   }
   render() {
     const {
@@ -144,7 +153,8 @@ ChatBubble.propTypes = {
   index: PropTypes.number.isRequired,
   message: PropTypes.object.isRequired,
   isSender: PropTypes.bool.isRequired,
-  handleImageLightboxToggle: PropTypes.func.isRequired
+  handleImageLightboxToggle: PropTypes.func.isRequired,
+  handleAudioPlayingToggle: PropTypes.func.isRequired
 }
 
 export default ChatBubble;

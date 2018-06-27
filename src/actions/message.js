@@ -192,7 +192,7 @@ export function sendImageMessage(newMessageID, text, image, user, chatRoomID) {
  * @param {string} chatRoomID
  */
 export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID) {
-  let audio = new Blob([audioBlob], {type: "audio/webm;codecs=opus"});
+  let audio = new Blob([audioBlob], {type: "audio/webm"});
 
   let data = new FormData();
   data.append('text', text);
