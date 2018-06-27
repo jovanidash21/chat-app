@@ -35,13 +35,11 @@ class ChatAudioRecorder extends Component {
     const { isAudioRecording } = this.state;
 
     if ( isAudioRecording ) {
-
+      this.setState({
+        isAudioRecording: false,
+        isSendAudioClick: true
+      });
     }
-
-    this.setState({
-      isAudioRecording: false,
-      isSendAudioClick: true
-    });
   }
   handleAudioUploadRecord(audio) {
     const { handleSendAudioMessage } = this.props;
