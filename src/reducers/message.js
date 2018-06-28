@@ -6,9 +6,10 @@ import {
 import { CHANGE_CHAT_ROOM } from '../constants/chat-room';
 
 const initialState = {
-  isLoading: false,
-  isFetchingMessages: false,
-  isSendingMessage: false,
+  isFetching: false,
+  isFetchingSuccess: true,
+  isSending: false,
+  isSendingSuccess: true,
   activeChatRoom: {
     data: {}
   },
@@ -20,39 +21,41 @@ const message = (state=initialState, action) => {
     case `${FETCH_MESSAGES}_LOADING`:
       return {
         ...state,
-        isLoading: true,
-        isFetchingMessages: true
+        isFetching: true
       };
     case `${SEND_MESSAGE}_LOADING`:
       return {
         ...state,
-        isSendingMessage: true,
+        isSending: true,
       };
     case `${FETCH_MESSAGES}_SUCCESS`:
       return {
         ...state,
-        isLoading: false,
-        isFetchingMessages: false,
+        isFetching: false,
+        isFetchingSuccess: true,
         all: action.payload.data
       };
     case `${SEND_MESSAGE}_SUCCESS`:
       return {
         ...state,
-        isLoading: false,
-        isSendingMessage: false,
+        isSending: false,
+        isSendingSuccess: true,
         all: [
           ...state.all.filter((messageData) => messageData.newMessageID !== action.meta),
           action.payload.data.messageData
         ]
       };
     case `${FETCH_MESSAGES}_ERROR`:
+      return {
+        ...state,
+        isFetching: false,
+        isFetchingSuccess: false
+      };
     case `${SEND_MESSAGE}_ERROR`:
       return {
         ...state,
-        isLoading: false,
-        isFetchingMessages: false,
-        isSendingMessage: false,
-        isError: true
+        isSending: false,
+        isSendingSuccess: false
       };
     case CHANGE_CHAT_ROOM:
       return {

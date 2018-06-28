@@ -57,7 +57,11 @@ class Header extends Component {
       handleRightSideDrawerToggleEvent
     } = this.props;
 
-    if (!chatRoom.isLoading && !chatRoom.isFetchingChatRooms) {
+    if (
+      !chatRoom.isFetching &&
+      chatRoom.isFetchingSuccess &&
+      Object.keys(chatRoom.active.data).length > 0
+    ) {
       const activeChatRoom = chatRoom.active;
 
       return (
@@ -80,8 +84,8 @@ class Header extends Component {
               {
                 ( activeChatRoom.data.chatType === 'public' ||
                 activeChatRoom.data.chatType === 'group' ) &&
-                !member.isLoading &&
-                member.isFetchMembersSuccess &&
+                !member.isFetching &&
+                member.isFetchingSuccess &&
                 <div
                   className="members-count"
                   onClick={handleRightSideDrawerToggleEvent}
@@ -96,8 +100,8 @@ class Header extends Component {
               }
               {
                 activeChatRoom.data.chatType === 'direct' &&
-                !member.isLoading &&
-                member.isFetchMembersSuccess &&
+                !member.isFetching &&
+                member.isFetchingSuccess &&
                 member.all.filter(singleMember =>
                   singleMember._id !== user.active._id
                 ).map((singleMember, i) =>
