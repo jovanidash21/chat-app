@@ -21,7 +21,8 @@ var messageSchema = new Schema (
       enum: [
         'text',
         'file',
-        'image'
+        'image',
+        'audio',
       ],
       default: 'text',
     },

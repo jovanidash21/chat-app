@@ -64,6 +64,48 @@
         margin-right: 5px;
         vertical-align: middle;
       }
+      .plyr {
+        min-width: 100px;
+        .plyr__controls {
+          background-color: transparent;
+          padding: 0;
+          width: 180px;
+          @media screen and (max-width: $screen-mobile-max) {
+            width: 150px;
+          }
+          button[data-plyr="mute"],
+          .plyr__volume,
+          .plyr__menu {
+            display: none;
+          }
+          .plyr__control {
+            color: #fff;
+            padding: 4px;
+            margin-right: -5px;
+            &:hover {
+              background-color: #fff;
+              color: #000;
+            }
+            svg {
+              height: 14px;
+              width: 14px;
+            }
+          }
+          .plyr__progress {
+            input {
+              color: #fff;
+            }
+          }
+          .plyr__time {
+            background-color: #fff;
+            border-radius: 12px;
+            color: #000;
+            font-size: 11px;
+            min-width: 40px;
+            text-align: center;
+          }
+        }
+      }
     }
   }
   .chat-image {

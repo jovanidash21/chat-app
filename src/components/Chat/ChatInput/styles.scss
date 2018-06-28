@@ -52,7 +52,7 @@
   }
   .emoji-dialog {
     border-radius: 0;
-    bottom: 103%;
+    bottom: 65px;
     box-shadow: 0 5px 5px -5px #000;
     height: 300px !important;
     position: absolute;
@@ -93,14 +93,17 @@
     display: flex;
     flex: 0 0 50px;
     margin-right: 10px;
+    .audio-button,
     .image-button,
     .file-button,
     .emoji-button {
+      align-items: center;
       backface-visibility: hidden;
       color: #000;
       cursor: pointer;
+      display: flex;
       margin: 0;
-      padding: 10px;
+      padding: 7px;
       text-align: center;
       transition: all 0.3s ease;
       @media screen and (max-width: $screen-mobile-max) {
@@ -113,6 +116,13 @@
       }
       &:hover {
         color: $color-royal-purple;
+      }
+    }
+    .audio-button,
+    .image-button,
+    .emoji-button {
+      &:hover {
+        transform: scale(1.25);
       }
     }
     .image-button,
@@ -129,16 +139,15 @@
         cursor: pointer;
       }
     }
-    .image-button,
+    .file-button,
     .emoji-button {
-      &:hover {
-        transform: scale(1.25);
-      }
+      font-size: 25px;
+    }
+    .audio-button {
+      font-size: 22px;
     }
     .image-button {
-      align-items: center;
-      display: flex;
-      font-size: 12px;
+      font-size: 20px;
     }
     .file-button {
       transform: rotate(180deg) scaleX(-1);

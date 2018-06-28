@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { emojify } from 'react-emojione';
 import ReactHtmlParser from 'react-html-parser';
 import FontAwesome from 'react-fontawesome';
+import Plyr from 'react-plyr';
 import TimeAgo from 'react-timeago';
 import moment from 'moment';
 import Avatar from '../../Avatar';
@@ -39,12 +40,16 @@ class ChatBubble extends Component {
         messageText = '<img class="image-message" src="' + message.fileLink + '" />';
         messageText = ReactHtmlParser(messageText);
         break;
+      case 'audio':
+        messageText = '';
+        break
     }
 
     return messageText;
   }
   handleChatBubbleRender() {
     const {
+      index,
       message,
       isSender
     } = this.props;
@@ -60,7 +65,7 @@ class ChatBubble extends Component {
         <div className="chat-message">
           <div
             className={(message.messageType !== 'image' ? 'chat-bubble ' : 'chat-image ') + (isSender ? 'right' : '')}
-            onClick={message.messageType === 'image' ? ::this.handleImageClick : false}
+            onClick={(e) => {message.messageType === 'image' ? ::this.handleImageClick(e) : false }}
           >
             <div className="chat-text">
               {
@@ -68,6 +73,16 @@ class ChatBubble extends Component {
                 <div className="file-icon">
                   <FontAwesome name="file" />
                 </div>
+              }
+              {
+                message.messageType === 'audio' &&
+                <Plyr
+                  className={"react-plyr-" + index}
+                  type="audio"
+                  url={message.fileLink}
+                  volume={1}
+                  onPlay={::this.handleAudioOnPlay}
+                />
               }
               {::this.handleMessageText()}
             </div>
@@ -95,6 +110,14 @@ class ChatBubble extends Component {
     } = this.props;
 
     handleImageLightboxToggle(message._id);
+  }
+  handleAudioOnPlay(event) {
+    const {
+      index,
+      handleAudioPlayingToggle
+    } = this.props;
+
+    handleAudioPlayingToggle(index);
   }
   render() {
     const {
@@ -127,9 +150,11 @@ class ChatBubble extends Component {
 }
 
 ChatBubble.propTypes = {
+  index: PropTypes.number.isRequired,
   message: PropTypes.object.isRequired,
   isSender: PropTypes.bool.isRequired,
-  handleImageLightboxToggle: PropTypes.func.isRequired
+  handleImageLightboxToggle: PropTypes.func.isRequired,
+  handleAudioPlayingToggle: PropTypes.func.isRequired
 }
 
 export default ChatBubble;

@@ -5,7 +5,7 @@ var ChatRoom = require('../../models/ChatRoom');
 var User = require('../../models/User');
 var multer = require('multer');
 
-var storage = multer.diskStorage({
+var fileImageStorage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './uploads/');
   },
@@ -14,8 +14,17 @@ var storage = multer.diskStorage({
   }
 });
 
+var audioStorage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, './uploads/audio/');
+  },
+  filename: function(req, file, cb) {
+    cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname + '.webm');
+  }
+});
+
 var fileUpload = multer({
-  storage: storage,
+  storage: fileImageStorage,
   limits: {
     fileSize: 1024 * 1024 * 2
   }
@@ -30,8 +39,24 @@ var imageFilter = (req, file, cb) => {
 };
 
 var imageUpload = multer({
-  storage: storage,
+  storage: fileImageStorage,
   fileFilter: imageFilter,
+  limits: {
+    fileSize: 1024 * 1024 * 2
+  }
+});
+
+var audioFilter = (req, file, cb) => {
+  if ( file.mimetype === 'audio/webm' ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
+
+var audioUpload = multer({
+  storage: audioStorage,
+  fileFilter: audioFilter,
   limits: {
     fileSize: 1024 * 1024 * 2
   }
@@ -273,6 +298,85 @@ router.post('/image', imageUpload.single('image'), function(req, res, next) {
       chatRoom: chatRoomID,
       readBy: [userID],
       messageType: 'image',
+      fileLink: req.file.path
+    };
+    var message = new Message(messageData);
+
+    message.save(function(err, messageData) {
+      if (!err) {
+        Message.findById(messageData._id)
+          .populate('user')
+          .exec(function(err, messageData) {
+            if (!err) {
+              ChatRoom.findById(chatRoomID)
+                .exec(function(err, chatRoom) {
+                  if (!err) {
+                    for (var i = 0; i < chatRoom.members.length; i++) {
+                      var memberID = chatRoom.members[i];
+
+                      if (memberID != userID) {
+                        User.update(
+                          { _id: memberID, 'chatRooms.data': chatRoomID },
+                          { $inc: { 'chatRooms.$.unReadMessages': 1 } },
+                          { safe: true, upsert: true, new: true },
+                          function(err) {
+                            if (!err) {
+                              res.end();
+                            } else {
+                              res.end(err);
+                            }
+                          }
+                        );
+                      } else {
+                        continue;
+                      }
+                    }
+                  } else {
+                    res.status(500).send({
+                      success: false,
+                      message: 'Server Error!'
+                    });
+                  }
+                });
+
+              res.status(200).send({
+                success: true,
+                message: 'Message Sent.',
+                messageData: messageData
+              });
+            } else {
+              res.status(500).send({
+                success: false,
+                message: 'Server Error!'
+              });
+            }
+          });
+      } else {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      }
+    });
+  }
+});
+
+router.post('/audio', audioUpload.single('audio'), function(req, res, next) {
+  var chatRoomID = req.body.chatRoomID;
+  var userID = req.body.userID;
+
+  if ((req.user === undefined) || (req.user._id != userID)) {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var messageData = {
+      text: req.file.originalname,
+      user: userID,
+      chatRoom: chatRoomID,
+      readBy: [userID],
+      messageType: 'audio',
       fileLink: req.file.path
     };
     var message = new Message(messageData);
