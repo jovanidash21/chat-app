@@ -18,6 +18,13 @@ class RightSideDrawer extends Component {
       memberName: ''
     }
   }
+  componentDidUpdate(prevProps) {
+    if ( prevProps.chatRoom.isCreating && this.props.chatRoom.isCreatingSuccess ) {
+      const { handleRightSideDrawerToggleEvent } = this.props;
+
+      handleRightSideDrawerToggleEvent();
+    }
+  }
   handleMembersListRender() {
     const {
       user,
@@ -76,6 +83,8 @@ class RightSideDrawer extends Component {
     this.setState({memberName: event.target.value});
   }
   handleAddDirectChatRoom(event, memberID) {
+    event.preventDefault();
+
     const {
       user,
       chatRoom,
@@ -108,10 +117,9 @@ class RightSideDrawer extends Component {
 
     if ( ! directChatRoomExists ) {
       createDirectChatRoom(userID, memberID, activeChatRoom.data._id);
-      handleRightSideDrawerToggleEvent(event);
     } else {
       changeChatRoom(directChatRoomData, userID, activeChatRoom.data._id);
-      handleRightSideDrawerToggleEvent(event);
+      handleRightSideDrawerToggleEvent();
     }
   }
   render() {

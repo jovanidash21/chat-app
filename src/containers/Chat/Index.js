@@ -79,17 +79,13 @@ class Chat extends Component {
       </MediaQuery>
     )
   }
-  handleLeftSideDrawerToggleEvent(event) {
-    event.preventDefault();
-
+  handleLeftSideDrawerToggleEvent() {
     this.setState({isLeftSideDrawerOpen: !this.state.isLeftSideDrawerOpen});
   }
   handleLeftSideDrawerToggleState(state) {
     this.setState({isLeftSideDrawerOpen: state.isOpen});
   }
-  handleRightSideDrawerToggleEvent(event) {
-    event.preventDefault();
-
+  handleRightSideDrawerToggleEvent() {
     this.setState({isRightSideDrawerOpen: !this.state.isRightSideDrawerOpen});
   }
   handleRightSideDrawerToggleState(state) {
