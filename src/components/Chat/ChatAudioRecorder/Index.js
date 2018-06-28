@@ -103,7 +103,7 @@ class ChatAudioRecorder extends Component {
           <div className="control-wrapper">
             <div
               className={"send-button control " + (isAudioRecording ? 'active' : '')}
-              onClick={(e) => { isAudioRecording ? ::this.handleSendAudioMessageOnClick(e) : false}}
+              onClick={(e) => {isAudioRecording ? ::this.handleSendAudioMessageOnClick(e) : false}}
               title="Send"
             >
               <FontAwesome name="check" size="2x" />

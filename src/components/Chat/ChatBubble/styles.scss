@@ -69,7 +69,10 @@
         .plyr__controls {
           background-color: transparent;
           padding: 0;
-          width: 150px;
+          width: 180px;
+          @media screen and (max-width: $screen-mobile-max) {
+            width: 150px;
+          }
           button[data-plyr="mute"],
           .plyr__volume,
           .plyr__menu {

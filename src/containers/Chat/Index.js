@@ -26,7 +26,7 @@ class Chat extends Component {
       isRightSideDrawerOpen: false,
       isAudioRecorderOpen: false,
       isImageLightboxOpen: false,
-      imageIndex: 0,
+      imageIndex: -1,
       audioIndex: -1
     };
   }
@@ -254,7 +254,7 @@ class Chat extends Component {
   }
   handleImageLightboxToggle(messageID) {
     const { message } = this.props;
-    var index = 0;
+    var index = -1;
 
     const imageMessages = message.all.filter(imageMessage =>
       imageMessage.messageType === 'image'
@@ -284,8 +284,7 @@ class Chat extends Component {
     const { audioIndex } = this.state;
 
     if ( audioIndex > -1 && audioIndex !== audioPlayingIndex ) {
-      var audio = document.getElementsByClassName('react-plyr-' + audioIndex);
-      var previousAudio = audio[0];
+      var previousAudio = document.getElementsByClassName('react-plyr-' + audioIndex)[0];
 
       if (
         previousAudio.currentTime > 0  &&
