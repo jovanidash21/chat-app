@@ -53,8 +53,7 @@ class Header extends Component {
     const {
       user,
       chatRoom,
-      member,
-      handleRightSideDrawerToggleEvent
+      member
     } = this.props;
 
     if (
@@ -133,14 +132,14 @@ class Header extends Component {
 
     const { handleLeftSideDrawerToggleEvent } = this.props;
 
-    handleLeftSideDrawerToggleEvent();
+    handleLeftSideDrawerToggleEvent(true);
   }
   handleRightSideDrawerToggleEvent(event) {
     event.preventDefault();
 
     const { handleRightSideDrawerToggleEvent } = this.props;
 
-    handleRightSideDrawerToggleEvent();
+    handleRightSideDrawerToggleEvent(true);
   }
   handleLogout() {
     const {
@@ -153,8 +152,7 @@ class Header extends Component {
   render() {
     const {
       user,
-      logout,
-      handleLeftSideDrawerToggleEvent
+      logout
     } = this.props;
 
     return (

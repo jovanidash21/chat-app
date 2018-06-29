@@ -79,14 +79,14 @@ class Chat extends Component {
       </MediaQuery>
     )
   }
-  handleLeftSideDrawerToggleEvent() {
-    this.setState({isLeftSideDrawerOpen: !this.state.isLeftSideDrawerOpen});
+  handleLeftSideDrawerToggleEvent(openTheDrawer: false) {
+    this.setState({isLeftSideDrawerOpen: openTheDrawer});
   }
   handleLeftSideDrawerToggleState(state) {
     this.setState({isLeftSideDrawerOpen: state.isOpen});
   }
-  handleRightSideDrawerToggleEvent() {
-    this.setState({isRightSideDrawerOpen: !this.state.isRightSideDrawerOpen});
+  handleRightSideDrawerToggleEvent(openTheDrawer: false) {
+    this.setState({isRightSideDrawerOpen: openTheDrawer});
   }
   handleRightSideDrawerToggleState(state) {
     this.setState({isRightSideDrawerOpen: state.isOpen});
@@ -246,6 +246,8 @@ class Chat extends Component {
     } = this.props;
 
     changeChatRoom(chatRoomObj, user.active._id, chatRoom.active.data._id);
+    ::this.handleLeftSideDrawerToggleEvent();
+    ::this.handleRightSideDrawerToggleEvent();
   }
   handleImageLightboxToggle(messageID) {
     const { message } = this.props;
