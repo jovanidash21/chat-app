@@ -88,7 +88,7 @@ class Header extends Component {
                 member.isFetchingSuccess &&
                 <div
                   className="members-count"
-                  onClick={handleRightSideDrawerToggleEvent}
+                  onClick={::this.handleRightSideDrawerToggleEvent}
                   title="View Members List"
                 >
                   <FontAwesome
@@ -128,6 +128,20 @@ class Header extends Component {
       )
     }
   }
+  handleLeftSideDrawerToggleEvent(event) {
+    event.preventDefault();
+
+    const { handleLeftSideDrawerToggleEvent } = this.props;
+
+    handleLeftSideDrawerToggleEvent();
+  }
+  handleRightSideDrawerToggleEvent(event) {
+    event.preventDefault();
+
+    const { handleRightSideDrawerToggleEvent } = this.props;
+
+    handleRightSideDrawerToggleEvent();
+  }
   handleLogout() {
     const {
       user,
@@ -155,7 +169,7 @@ class Header extends Component {
                       className="hamburger-icon"
                       name="bars"
                       size="2x"
-                      onClick={handleLeftSideDrawerToggleEvent}
+                      onClick={::this.handleLeftSideDrawerToggleEvent}
                     />
                   </MediaQuery>
                   {::this.handleLeftPartHeaderRender()}
