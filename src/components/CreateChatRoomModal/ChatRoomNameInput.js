@@ -11,12 +11,18 @@ const ChatRoomNameInput = (props) => {
       floatingLabel={true}
       required={true}
       onChange={props.onChatRoomNameChange}
+      disabled={props.isDisabled}
     />
   );
 }
 
 ChatRoomNameInput.propTypes = {
-  onChatRoomNameChange: PropTypes.func.isRequired
+  onChatRoomNameChange: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool
+}
+
+ChatRoomNameInput.defaultProps = {
+  isDisabled: false
 }
 
 export default ChatRoomNameInput;

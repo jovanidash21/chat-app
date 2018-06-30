@@ -14,6 +14,9 @@
   .header {
     z-index: 3;
   }
+  .bm-menu-wrap {
+    z-index: 4 !important;
+  }
   .left-side-drawer-overlay {
     &,
     & + .bm-menu-wrap {

@@ -97,6 +97,10 @@ class CreateChatRoomModal extends Component {
       chatRoomName,
       members
     } = this.state;
+    const isButtonDisabled =
+      chatRoomName.length === 0 ||
+      members.length < 3 ||
+      isLoading;
 
     return (
      <ModalContainer onClose={handleDeactivateModal}>
@@ -112,11 +116,14 @@ class CreateChatRoomModal extends Component {
           }
           <Form onSubmit={::this.handleAddGroupChatRoom}>
             <h2 className="modal-title">Add Chat Room</h2>
-            <ChatRoomNameInput  onChatRoomNameChange={::this.onChatRoomNameChange} />
+            <ChatRoomNameInput
+              onChatRoomNameChange={::this.onChatRoomNameChange}
+              isDisabled={isLoading}
+            />
             <div className="members-list-label">
-              Select atleast 3 members
+              Select at least 3 members
             </div>
-            <div className="members-list">
+            <div className="members-list" disabled={isLoading}>
               {
                 members.map((member, i) =>
                   <ChatMember
@@ -132,13 +139,14 @@ class CreateChatRoomModal extends Component {
               user={user.active}
               users={user.all}
               onSuggestionSelected={::this.onSuggestionSelected}
+              isDisabled={isLoading}
             />
             <Button
               className="modal-button"
               size="large"
               type="submit"
               variant="raised"
-              disabled={chatRoomName.length === 0 || members.length < 3 || isLoading}
+              disabled={isButtonDisabled}
             >
               Add
             </Button>
