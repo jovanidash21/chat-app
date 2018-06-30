@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { emojify } from 'react-emojione';
 import ReactHtmlParser from 'react-html-parser';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Plyr from 'react-plyr';
 import TimeAgo from 'react-timeago';
 import moment from 'moment';
@@ -57,7 +57,7 @@ class ChatBubble extends Component {
     if ( message.messageType !== 'text' && message.fileLink.length === 0 ) {
       return (
         <div className="uploading-icon">
-          <FontAwesome name="spinner" pulse />
+          <FontAwesomeIcon icon="spinner" pulse />
         </div>
       )
     } else {
@@ -71,7 +71,7 @@ class ChatBubble extends Component {
               {
                 message.messageType === 'file' &&
                 <div className="file-icon">
-                  <FontAwesome name="file" />
+                  <FontAwesomeIcon icon="file" />
                 </div>
               }
               {

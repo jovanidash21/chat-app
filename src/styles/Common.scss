@@ -33,17 +33,14 @@
   &.button-register {
     background-color: $color-sunshade;
   }
-  .icon {
+  .social-icon {
+    align-items: center;
     border-right: 1px solid $color-dusty-gray;
-    display: inline-table;
+    display: flex;
     float: left;
     height: 100%;
+    justify-content: center;
     width: 45px;
-    span {
-      display: table-cell;
-      text-align: center;
-      vertical-align: middle;
-    }
   }
 }
 

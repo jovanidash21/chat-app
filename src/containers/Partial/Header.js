@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   Appbar,
   Container
@@ -90,10 +90,9 @@ class Header extends Component {
                   onClick={::this.handleRightSideDrawerToggleEvent}
                   title="View Members List"
                 >
-                  <FontAwesome
-                    className="user-icon"
-                    name="user"
-                  />
+                  <div className="user-icon">
+                    <FontAwesomeIcon icon="user" />
+                  </div>
                   {member.all.length}
                 </div>
               }
@@ -163,12 +162,12 @@ class Header extends Component {
               <td className="mui--appbar-height">
                 <div className="left-part-header">
                   <MediaQuery query="(max-width: 767px)">
-                    <FontAwesome
+                    <div
                       className="hamburger-icon"
-                      name="bars"
-                      size="2x"
                       onClick={::this.handleLeftSideDrawerToggleEvent}
-                    />
+                    >
+                      <FontAwesomeIcon icon="bars" size="2x" />
+                    </div>
                   </MediaQuery>
                   {::this.handleLeftPartHeaderRender()}
                 </div>

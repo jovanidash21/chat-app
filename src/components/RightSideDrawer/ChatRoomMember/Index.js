@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import OnlineIndicator from '../../OnlineIndicator';
 import Avatar from '../../Avatar';
 import './styles.scss';
@@ -45,10 +45,7 @@ class ChatRoomMember extends Component {
             user._id !== chatRoomMember._id &&
             <div>
               <div className="member-options-button" data-mui-toggle="dropdown">
-                <FontAwesome
-                  className="options-icon"
-                   name="ellipsis-v"
-                />
+                <FontAwesomeIcon icon="ellipsis-v" />
               </div>
               <ul className="mui-dropdown__menu mui-dropdown__menu--right">
                 <li>

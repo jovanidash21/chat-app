@@ -92,6 +92,7 @@
   .extra-buttons {
     display: flex;
     flex: 0 0 50px;
+    font-size: 22px;
     margin-right: 10px;
     .audio-button,
     .image-button,
@@ -116,12 +117,6 @@
       }
       &:hover {
         color: $color-royal-purple;
-      }
-    }
-    .audio-button,
-    .image-button,
-    .emoji-button {
-      &:hover {
         transform: scale(1.25);
       }
     }
@@ -137,22 +132,6 @@
       }
       label {
         cursor: pointer;
-      }
-    }
-    .file-button,
-    .emoji-button {
-      font-size: 25px;
-    }
-    .audio-button {
-      font-size: 22px;
-    }
-    .image-button {
-      font-size: 20px;
-    }
-    .file-button {
-      transform: rotate(180deg) scaleX(-1);
-      &:hover {
-        transform: rotate(180deg) scaleX(-1) scale(1.25);
       }
     }
   }

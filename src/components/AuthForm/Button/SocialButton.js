@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'muicss/react';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const SocialButton = (props) => {
   return (
@@ -12,11 +12,8 @@ const SocialButton = (props) => {
       onClick={props.handleSocialLogin}
       disabled={props.isDisabled}
     >
-      <div className="icon">
-        <FontAwesome
-          name={props.socialMedia}
-          size="2x"
-        />
+      <div className="social-icon">
+        <FontAwesomeIcon icon={["fab", props.socialMediaIcon]} size="2x" />
       </div>
       {props.label}
     </Button>
@@ -25,6 +22,7 @@ const SocialButton = (props) => {
 
 SocialButton.propTypes = {
   socialMedia: PropTypes.string.isRequired,
+  socialMediaIcon: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   handleSocialLogin: PropTypes.func,
   isDisabled: PropTypes.bool

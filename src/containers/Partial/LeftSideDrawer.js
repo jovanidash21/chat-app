@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { slide as Menu } from 'react-burger-menu';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../actions';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatRoom from '../../components/LeftSideDrawer/ChatRoom';
@@ -121,7 +121,7 @@ class LeftSideDrawer extends Component {
                 onClick={::this.handleActivateModal}
                 title="Add Chat Room"
               >
-                <FontAwesome name="plus-circle" />
+                <FontAwesomeIcon icon="plus-circle" />
               </div>
             </div>
             {::this.handleChatRoomsListRender()}

@@ -39,7 +39,7 @@
       transition: all 0.3s ease;
       width: $size;
       @media screen and (max-width: $screen-mobile-max) {
-        font-size: 20px;
+        font-size: 14px;
       }
       &:hover {
         border-color: $color-guardsman-red;

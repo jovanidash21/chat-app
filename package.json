@@ -53,6 +53,12 @@
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-free-brands": "^5.0.13",
+    "@fortawesome/fontawesome-free-regular": "^5.0.13",
+    "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@fortawesome/fontawesome-svg-core": "^1.2.0",
+    "@fortawesome/react-fontawesome": "^0.1.0",
     "autoprefixer": "^8.2.0",
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.16.2",
@@ -82,7 +88,6 @@
     "react-color": "^2.13.8",
     "react-dom": "^15.6.1",
     "react-emojione": "^3.1.10",
-    "react-fontawesome": "^1.6.1",
     "react-helmet": "^5.2.0",
     "react-html-parser": "^2.0.2",
     "react-image-lightbox": "^5.0.0",

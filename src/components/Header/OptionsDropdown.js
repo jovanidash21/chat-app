@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Avatar from '../Avatar';
 import './styles.scss';
 
@@ -35,7 +35,9 @@ class OptionsDropdown extends Component {
         </MediaQuery>
         <div>
           <button className="mui-btn mui-btn--small mui-btn--fab" data-mui-toggle="dropdown">
-            <FontAwesome className="icon" name="ellipsis-v" size="2x" />
+            <div className="dropdown-icon">
+              <FontAwesomeIcon icon="ellipsis-v" size="2x" />
+            </div>
           </button>
           <ul className="mui-dropdown__menu mui-dropdown__menu--right">
             <li>

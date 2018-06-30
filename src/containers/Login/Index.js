@@ -103,6 +103,7 @@ class Login extends Component {
             <Col md="12">
               <SocialButton
                 socialMedia="facebook"
+                socialMediaIcon="facebook-f"
                 label="Login with Facebook"
                 handleSocialLogin={facebookLogin}
                 isDisabled={auth.isLoading}
@@ -111,6 +112,7 @@ class Login extends Component {
             <Col md="12">
               <SocialButton
                 socialMedia="google"
+                socialMediaIcon="google"
                 label="Login with Google"
                 handleSocialLogin={googleLogin}
                 isDisabled={auth.isLoading}
@@ -119,6 +121,7 @@ class Login extends Component {
             <Col md="12">
               <SocialButton
                 socialMedia="twitter"
+                socialMediaIcon="twitter"
                 label="Login with Twitter"
                 handleSocialLogin={twitterLogin}
                 isDisabled={auth.isLoading}
@@ -127,6 +130,7 @@ class Login extends Component {
             <Col md="12">
               <SocialButton
                 socialMedia="instagram"
+                socialMediaIcon="instagram"
                 label="Login with Instagram"
                 handleSocialLogin={instagramLogin}
                 isDisabled={auth.isLoading}
@@ -135,6 +139,7 @@ class Login extends Component {
             <Col md="12">
               <SocialButton
                 socialMedia="linkedin"
+                socialMediaIcon="linkedin-in"
                 label="Login with LinkedIn"
                 handleSocialLogin={linkedinLogin}
                 isDisabled={auth.isLoading}
@@ -143,6 +148,7 @@ class Login extends Component {
             <Col md="12">
               <SocialButton
                 socialMedia="github"
+                socialMediaIcon="github"
                 label="Login with GitHub"
                 handleSocialLogin={githubLogin}
                 isDisabled={auth.isLoading}

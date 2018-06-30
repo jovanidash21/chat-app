@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { slide as Menu } from 'react-burger-menu';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../actions';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import ChatRoomMemberFilter from '../../components/RightSideDrawer/ChatRoomMemberFilter';
@@ -45,11 +45,9 @@ class RightSideDrawer extends Component {
       return (
         <div className="right-side-drawer">
           <div className="members-count">
-            <FontAwesome
-              className="user-icon"
-              name="user"
-              size="2x"
-            />
+            <div className="user-icon">
+              <FontAwesomeIcon icon="user" size="2x" />
+            </div>
             <h3>
               {member.all.length}&nbsp;
               {member.all.length > 1 ? 'Members' : 'Member'}

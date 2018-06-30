@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './styles.scss';
 
 class Avatar extends Component {
@@ -14,6 +14,12 @@ class Avatar extends Component {
     switch ( accountType ) {
       case 'local':
         icon = '';
+        break;
+      case 'facebook':
+        icon = 'facebook-f';
+        break;
+      case 'linkedin':
+        icon = 'linkedin-in';
         break;
       default:
         break;
@@ -47,16 +53,13 @@ class Avatar extends Component {
           badgeIcon.length > 0 &&
           <div
             className={
-              "badge-logo " +
+              "badge-icon " +
               (badgeCloser ? 'closer ' : '') +
               accountType
             }
             title={badgeIcon}
           >
-            <FontAwesome
-              className="icon"
-              name={badgeIcon}
-            />
+            <FontAwesomeIcon icon={["fab", badgeIcon]} />
           </div>
         }
       </div>

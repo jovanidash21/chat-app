@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'muicss/react';
 import { ReactMic } from 'react-mic';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuidv4 from 'uuid/v4';
 import './styles.scss';
 
@@ -71,7 +71,7 @@ class ChatAudioRecorder extends Component {
               onClick={handleAudioRecorderToggle}
               title="Close"
             >
-              <FontAwesome name="times" size="2x" />
+              <FontAwesomeIcon icon="times" size="2x" />
             </div>
             <span>Close</span>
           </div>
@@ -84,7 +84,7 @@ class ChatAudioRecorder extends Component {
                   onClick={::this.handleStartAudioRecording}
                   title="Start Recording"
                 >
-                  <FontAwesome name="circle" size="2x" />
+                  <FontAwesomeIcon icon="circle" size="2x" />
                 </div>
                 <span>Start</span>
               </div>
@@ -95,7 +95,7 @@ class ChatAudioRecorder extends Component {
                   onClick={::this.handleStopAudioRecording}
                   title="Start Recording"
                 >
-                  <FontAwesome name="stop" size="2x" />
+                  <FontAwesomeIcon icon="stop" size="2x" />
                 </div>
                 <span>Stop</span>
               </div>
@@ -106,7 +106,7 @@ class ChatAudioRecorder extends Component {
               onClick={(e) => {isAudioRecording ? ::this.handleSendAudioMessageOnClick(e) : false}}
               title="Send"
             >
-              <FontAwesome name="check" size="2x" />
+              <FontAwesomeIcon icon="check" size="2x" />
             </div>
             <span>Send</span>
           </div>

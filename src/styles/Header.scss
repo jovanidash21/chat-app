@@ -50,7 +50,9 @@
     .chat-room-info {
       height: 20px;
       .members-count {
+        align-items: center;
         cursor: pointer;
+        display: flex;
         margin-top: 3px;
         .user-icon {
           margin-right: 5px;

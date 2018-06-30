@@ -5,7 +5,7 @@ import ContentEditable from 'react-simple-contenteditable';
 import { Button } from 'muicss/react';
 import emojione from 'emojione';
 import EmojiPicker from 'emojione-picker';
-import FontAwesome from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuidv4 from 'uuid/v4';
 import 'emojione-picker/css/picker.css';
 import './styles.scss';
@@ -295,7 +295,7 @@ class ChatInput extends Component {
             onClick={handleAudioRecorderToggle}
             title="Send Voice Message"
           >
-            <FontAwesome name="microphone" />
+            <FontAwesomeIcon icon="microphone" />
           </div>
           <div className="image-button" title="Add an image">
             <input
@@ -305,7 +305,7 @@ class ChatInput extends Component {
               onChange={::this.handleImageUploadSelect}
             />
             <label htmlFor="image-button">
-              <FontAwesome name="camera" />
+              <FontAwesomeIcon icon="camera" />
             </label>
           </div>
           <div className="file-button" title="Add a File">
@@ -315,7 +315,7 @@ class ChatInput extends Component {
               onChange={::this.handleFileUploadSelect}
             />
             <label htmlFor="file-button">
-              <FontAwesome name="paperclip" />
+              <FontAwesomeIcon icon="paperclip" />
             </label>
           </div>
           <MediaQuery query="(min-width: 768px)">
@@ -324,7 +324,7 @@ class ChatInput extends Component {
               onClick={::this.handleEmojiPickerToggle}
               title="Add Emoji"
             >
-              <FontAwesome name="smile-o" />
+              <FontAwesomeIcon icon={["far", "smile"]} />
             </div>
           </MediaQuery>
         </div>
@@ -333,10 +333,7 @@ class ChatInput extends Component {
           onClick={::this.handleSendTextMessageOnClick}
           disabled={!validMessage}
         >
-          <FontAwesome
-            name="paper-plane"
-            size="2x"
-          />
+          <FontAwesomeIcon icon="paper-plane" size="2x" />
         </Button>
       </div>
     )
