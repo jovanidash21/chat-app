@@ -13,7 +13,9 @@
     }
   }
   .dropdown-icon {
-    vertical-align: middle;
+    align-items: center;
+    display: flex;
+    justify-content: center;
   }
   .user-details {
     align-items: center;

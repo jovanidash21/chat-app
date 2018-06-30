@@ -11,19 +11,19 @@
       margin-left: 250px;
     }
   }
-  .bm-menu-wrap {
-    z-index: 3 !important;
+  .header {
+    z-index: 3;
   }
   .left-side-drawer-overlay {
     &,
     & + .bm-menu-wrap {
-      z-index: 3 !important;
+      z-index: 4 !important;
     }
   }
   .right-side-drawer-overlay {
     &,
     & + .bm-menu-wrap {
-      z-index: 4 !important;
+      z-index: 5 !important;
     }
   }
   .bm-cross-button,
