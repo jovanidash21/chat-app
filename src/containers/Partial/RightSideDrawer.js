@@ -68,6 +68,12 @@ class RightSideDrawer extends Component {
                 />
               )
             }
+            {
+              members.length === 0 &&
+              <div className="no-results">
+                No results found
+              </div>
+            }
           </div>
         </div>
       )
