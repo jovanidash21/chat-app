@@ -7,7 +7,7 @@ import {
 } from '../constants/chat-room';
 import { SOCKET_BROADCAST_USER_LOGIN } from '../constants/auth';
 import {
-  FETCH_MESSAGES,
+  FETCH_NEW_MESSAGES,
   SOCKET_BROADCAST_NOTIFY_MESSAGE
 } from '../constants/message';
 
@@ -120,7 +120,7 @@ const chatRoom = (state=initialState, action) => {
         ...state,
         active: {...activeChatRoom}
       }
-    case `${FETCH_MESSAGES}_SUCCESS`:
+    case `${FETCH_NEW_MESSAGES}_SUCCESS`:
       var activeChatRoom = {...state.active};
       var chatRooms = [...state.all];
 

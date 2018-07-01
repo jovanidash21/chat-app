@@ -29,7 +29,7 @@ import {
   socketLeaveChatRoom
 } from './chat-room';
 import {
-  fetchMessages,
+  fetchNewMessages,
   sendTextMessage,
   sendFileMessage,
   sendImageMessage,
@@ -59,7 +59,7 @@ const actions = (dispatch) => {
     createDirectChatRoom,
     socketJoinChatRoom,
     socketLeaveChatRoom,
-    fetchMessages,
+    fetchNewMessages,
     sendTextMessage,
     sendFileMessage,
     sendImageMessage,

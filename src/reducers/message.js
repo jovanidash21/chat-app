@@ -1,13 +1,13 @@
 import {
-  FETCH_MESSAGES,
+  FETCH_NEW_MESSAGES,
   SEND_MESSAGE,
   SOCKET_BROADCAST_SEND_MESSAGE
 } from '../constants/message';
 import { CHANGE_CHAT_ROOM } from '../constants/chat-room';
 
 const initialState = {
-  isFetching: false,
-  isFetchingSuccess: true,
+  isFetchingNew: false,
+  isFetchingNewSuccess: true,
   isSending: false,
   isSendingSuccess: true,
   activeChatRoom: {
@@ -18,38 +18,43 @@ const initialState = {
 
 const message = (state=initialState, action) => {
   switch(action.type) {
-    case `${FETCH_MESSAGES}_LOADING`:
+    case `${FETCH_NEW_MESSAGES}_LOADING`:
       return {
         ...state,
-        isFetching: true
+        isFetchingNew: true
       };
     case `${SEND_MESSAGE}_LOADING`:
       return {
         ...state,
         isSending: true,
       };
-    case `${FETCH_MESSAGES}_SUCCESS`:
+    case `${FETCH_NEW_MESSAGES}_SUCCESS`:
       return {
         ...state,
-        isFetching: false,
-        isFetchingSuccess: true,
+        isFetchingNew: false,
+        isFetchingNewSuccess: true,
         all: action.payload.data
       };
     case `${SEND_MESSAGE}_SUCCESS`:
+      var messages = [...state.all];
+      var messageID = action.meta;
+
+      messages = messages.filter((messageData) => messageData.newMessageID !== messageID);
+
       return {
         ...state,
         isSending: false,
         isSendingSuccess: true,
         all: [
-          ...state.all.filter((messageData) => messageData.newMessageID !== action.meta),
+          ...messages,
           action.payload.data.messageData
         ]
       };
-    case `${FETCH_MESSAGES}_ERROR`:
+    case `${FETCH_NEW_MESSAGES}_ERROR`:
       return {
         ...state,
-        isFetching: false,
-        isFetchingSuccess: false
+        isFetchingNew: false,
+        isFetchingNewSuccess: false
       };
     case `${SEND_MESSAGE}_ERROR`:
       return {

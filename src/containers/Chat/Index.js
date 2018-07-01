@@ -49,7 +49,7 @@ class Chat extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.message.isFetching && !this.props.message.isFetching ) ||
+      ( prevProps.message.isFetchingNew && !this.props.message.isFetchingNew ) ||
       ( !prevProps.message.isSending && this.props.message.isSending ) ||
       this.state.isChatBoxScrollToBottom
     ) {
@@ -68,7 +68,7 @@ class Chat extends Component {
     if ( this.chatBox.scrollTop === (this.chatBox.scrollHeight - this.chatBox.offsetHeight) ) {
       this.setState({isChatBoxScrollToBottom: true});
     } else {
-      this.setState({isChatBubblesScrollToBottom: false});
+      this.setState({isChatBoxScrollToBottom: false});
     }
   }
   handleLeftSideDrawerRender() {
@@ -115,7 +115,7 @@ class Chat extends Component {
           Hi! Welcome, create a Chat Room now.
         </div>
       )
-    } else if ( !message.isFetching && message.isFetchingSuccess ) {
+    } else if ( !message.isFetchingNew && message.isFetchingNewSuccess ) {
       return (
         <Container fluid>
           {
@@ -161,7 +161,7 @@ class Chat extends Component {
       isImageLightboxOpen,
       imageIndex
     } = this.state;
-    if ( !message.isFetching && message.isFetchingSuccess ) {
+    if ( !message.isFetchingNew && message.isFetchingNewSuccess ) {
       const imagesArray = [];
       const imageMessages = message.all.filter(imageMessage =>
         imageMessage.messageType === 'image'

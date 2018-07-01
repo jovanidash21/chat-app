@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  FETCH_MESSAGES,
+  FETCH_NEW_MESSAGES,
   SEND_MESSAGE,
   SOCKET_SEND_MESSAGE
 } from '../constants/message';
@@ -10,11 +10,17 @@ import {
  * @param {string} chatRoomID
  * @param {string} userID
  */
-export function fetchMessages(chatRoomID, userID) {
+export function fetchNewMessages(chatRoomID, userID) {
+  let data = {
+    chatRoomID: chatRoomID,
+    userID: userID,
+    skipCount: 0
+  };
+
   return dispatch => {
     return dispatch({
-      type: FETCH_MESSAGES,
-      payload: axios.get(`/api/message/${chatRoomID}/${userID}`)
+      type: FETCH_NEW_MESSAGES,
+      payload: axios.post('/api/message', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
