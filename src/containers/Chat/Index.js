@@ -22,7 +22,7 @@ class Chat extends Component {
     super(props);
 
     this.state = {
-      isChatBubblesScrollToBottom: false,
+      isChatBoxScrollToBottom: false,
       isLeftSideDrawerOpen: false,
       isRightSideDrawerOpen: false,
       isAudioRecorderOpen: false,
@@ -45,13 +45,13 @@ class Chat extends Component {
     ::this.calculateViewportHeight();
     window.addEventListener('onorientationchange', ::this.calculateViewportHeight, true);
     window.addEventListener('resize', ::this.calculateViewportHeight, true);
-    this.chatBubbles.addEventListener('scroll', ::this.handleChatBoxScroll, true);
+    this.chatBox.addEventListener('scroll', ::this.handleChatBoxScroll, true);
   }
   componentDidUpdate(prevProps) {
     if (
       ( prevProps.message.isFetching && !this.props.message.isFetching ) ||
       ( !prevProps.message.isSending && this.props.message.isSending ) ||
-      this.state.isChatBubblesScrollToBottom
+      this.state.isChatBoxScrollToBottom
     ) {
       ::this.handleScrollToBottom();
     }
@@ -65,8 +65,8 @@ class Chat extends Component {
     this.messagesBottom.scrollIntoView();
   }
   handleChatBoxScroll() {
-    if ( this.chatBubbles.scrollTop === (this.chatBubbles.scrollHeight - this.chatBubbles.offsetHeight)) {
-      this.setState({isChatBubblesScrollToBottom: true});
+    if ( this.chatBox.scrollTop === (this.chatBox.scrollHeight - this.chatBox.offsetHeight) ) {
+      this.setState({isChatBoxScrollToBottom: true});
     } else {
       this.setState({isChatBubblesScrollToBottom: false});
     }
@@ -89,13 +89,13 @@ class Chat extends Component {
       </MediaQuery>
     )
   }
-  handleLeftSideDrawerToggleEvent(openTheDrawer: false) {
+  handleLeftSideDrawerToggleEvent(openTheDrawer=false) {
     this.setState({isLeftSideDrawerOpen: openTheDrawer});
   }
   handleLeftSideDrawerToggleState(state) {
     this.setState({isLeftSideDrawerOpen: state.isOpen});
   }
-  handleRightSideDrawerToggleEvent(openTheDrawer: false) {
+  handleRightSideDrawerToggleEvent(openTheDrawer=false) {
     this.setState({isRightSideDrawerOpen: openTheDrawer});
   }
   handleRightSideDrawerToggleState(state) {
@@ -332,10 +332,10 @@ class Chat extends Component {
           handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
           handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
         />
-        <div  className={"chat-box " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
+        <div  className={"chat-box-wrapper " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
           <div
-            className="chat-bubbles"
-            ref={(element) => { this.chatBubbles = element; }}
+            className="chat-box"
+            ref={(element) => { this.chatBox = element; }}
           >
             {::this.handleChatBoxRender()}
             <div

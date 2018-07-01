@@ -3,7 +3,7 @@
   height: 100vh;
   flex-direction: column;
   .header,
-  .chat-box,
+  .chat-box-wrapper,
   .chat-input,
   .chat-audio-recorder {
     padding-left: 0;
@@ -36,7 +36,7 @@
   .header {
     flex-shrink: 0;
   }
-  .chat-box {
+  .chat-box-wrapper {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -52,7 +52,7 @@
         max-height: calc(100vh - 182px);
       }
     }
-    .chat-bubbles {
+    .chat-box {
       overflow-x: hidden;
       overflow-y: auto;
       &::-webkit-scrollbar {
