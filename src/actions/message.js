@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   FETCH_NEW_MESSAGES,
+  FETCH_OLD_MESSAGES,
   SEND_MESSAGE,
   SOCKET_SEND_MESSAGE
 } from '../constants/message';
@@ -20,6 +21,32 @@ export function fetchNewMessages(chatRoomID, userID) {
   return dispatch => {
     return dispatch({
       type: FETCH_NEW_MESSAGES,
+      payload: axios.post('/api/message', data)
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Fetch messages
+ * @param {string} chatRoomID
+ * @param {string} userID
+ * @param {number} skipCount
+ */
+export function fetchOldMessages(chatRoomID, userID, skipCount) {
+  let data = {
+    chatRoomID: chatRoomID,
+    userID: userID,
+    skipCount: skipCount
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: FETCH_OLD_MESSAGES,
       payload: axios.post('/api/message', data)
     })
     .catch((error) => {

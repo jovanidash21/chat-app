@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { Container } from 'muicss/react';
 import Popup from 'react-popup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../actions';
 import Header from '../Partial/Header';
 import LeftSideDrawer from '../Partial/LeftSideDrawer';
@@ -22,7 +23,9 @@ class Chat extends Component {
     super(props);
 
     this.state = {
+      hasLoadedAllMessages: false,
       isChatBoxScrollToBottom: false,
+      isChatBoxScrollToTop: false,
       isLeftSideDrawerOpen: false,
       isRightSideDrawerOpen: false,
       isAudioRecorderOpen: false,
@@ -55,6 +58,21 @@ class Chat extends Component {
     ) {
       ::this.handleScrollToBottom();
     }
+
+    if ( prevProps.message.isFetchingNew && !this.props.message.isFetchingNew ) {
+      this.setState({hasLoadedAllMessages: false});
+    }
+
+    if (
+      ( prevProps.message.isFetchingNew &&
+        !this.props.message.isFetchingNew &&
+        this.props.message.all.length < 50 ) ||
+      ( prevProps.message.isFetchingOld &&
+        !this.props.message.isFetchingOld &&
+        prevProps.message.all.length === this.props.message.all.length )
+    ) {
+      this.setState({hasLoadedAllMessages: true});
+    }
   }
   calculateViewportHeight() {
     var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -69,6 +87,13 @@ class Chat extends Component {
       this.setState({isChatBoxScrollToBottom: true});
     } else {
       this.setState({isChatBoxScrollToBottom: false});
+    }
+
+    if ( this.chatBox.scrollTop === 0 ) {
+      this.setState({isChatBoxScrollToTop: true});
+      ::this.handleFetchOldMessages();
+    } else {
+      this.setState({isChatBoxScrollToTop: false});
     }
   }
   handleLeftSideDrawerRender() {
@@ -108,6 +133,7 @@ class Chat extends Component {
       chatRoom,
       message
     } = this.props;
+    const { hasLoadedAllMessages } = this.state;
 
     if (chatRoom.all.length === 0) {
       return (
@@ -118,6 +144,13 @@ class Chat extends Component {
     } else if ( !message.isFetchingNew && message.isFetchingNewSuccess ) {
       return (
         <Container fluid>
+          {
+            !hasLoadedAllMessages &&
+            message.isFetchingOld &&
+            <div className="loading-icon">
+              <FontAwesomeIcon icon="spinner" size="2x" pulse />
+            </div>
+          }
           {
             message.all.length > 0
               ?
@@ -197,6 +230,22 @@ class Chat extends Component {
 
     this.setState({isAudioRecorderOpen: !this.state.isAudioRecorderOpen});
     ::this.handleScrollToBottom();
+  }
+  handleFetchOldMessages() {
+    const {
+      user,
+      chatRoom,
+      message,
+      fetchOldMessages
+    } = this.props;
+    const {
+      hasLoadedAllMessages,
+      isChatBoxScrollToTop
+    } = this.state;
+
+    if ( !hasLoadedAllMessages && isChatBoxScrollToTop && !message.isFetchingOld ) {
+      fetchOldMessages(chatRoom.active.data._id, user.active._id, message.all.length);
+    }
   }
   handleSendTextMessage(newMessageID, text) {
     const {

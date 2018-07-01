@@ -80,6 +80,12 @@
         padding: 15px;
       }
     }
+    .loading-icon {
+      color: $color-emperor;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 5px;
+    }
     .chat-no-messages {
       font-size: 17px;
       font-weight: 700;
