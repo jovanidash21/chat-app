@@ -49,8 +49,8 @@ const message = (state=initialState, action) => {
         isFetchingOld: false,
         isFetchingOldSuccess: true,
         all: [
-          ...state.all,
-          ...action.payload.data
+          ...action.payload.data,
+          ...state.all
         ]
       };
     case `${SEND_MESSAGE}_SUCCESS`:

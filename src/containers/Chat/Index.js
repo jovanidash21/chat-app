@@ -89,7 +89,7 @@ class Chat extends Component {
       this.setState({isChatBoxScrollToBottom: false});
     }
 
-    if ( this.chatBox.scrollTop === 0 ) {
+    if ( this.chatBox.scrollTop < 20 ) {
       this.setState({isChatBoxScrollToTop: true});
       ::this.handleFetchOldMessages();
     } else {
@@ -146,7 +146,6 @@ class Chat extends Component {
         <Container fluid>
           {
             !hasLoadedAllMessages &&
-            message.isFetchingOld &&
             <div className="loading-icon">
               <FontAwesomeIcon icon="spinner" size="2x" pulse />
             </div>
@@ -156,7 +155,7 @@ class Chat extends Component {
               ?
               message.all.map((singleMessage, i) =>
                 <ChatBubble
-                  key={i}
+                  key={singleMessage._id}
                   index={i}
                   message={singleMessage}
                   isSender={(singleMessage.user._id === user.active._id) ? true : false }
