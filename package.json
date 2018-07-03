@@ -106,7 +106,6 @@
     "react-simple-contenteditable": "0.0.3",
     "react-spinkit": "^3.0.0",
     "react-timeago": "^3.4.3",
-    "react-visibility-sensor": "^3.11.0",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^4.3.0",
