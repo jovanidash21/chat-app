@@ -26,6 +26,9 @@ class Chat extends Component {
       hasLoadedAllMessages: false,
       isChatBoxScrollToBottom: false,
       isChatBoxScrollToTop: false,
+      scrollPosition: 0,
+      oldestMessageQuery: false,
+      oldestMessageOffsetTop: 0,
       isLeftSideDrawerOpen: false,
       isRightSideDrawerOpen: false,
       isAudioRecorderOpen: false,
@@ -63,6 +66,19 @@ class Chat extends Component {
       this.setState({hasLoadedAllMessages: false});
     }
 
+    if ( prevProps.message.isFetchingOld && !this.props.message.isFetchingOld ) {
+      const {
+        scrollPosition,
+        oldestMessageQuery,
+        oldestMessageOffsetTop
+      } = this.state;
+      const newOldestMessageOffsetTop = oldestMessageQuery.offsetTop;
+
+      if ( scrollPosition === this.chatBox.scrollTop && oldestMessageQuery ) {
+        this.chatBox.scrollTop = newOldestMessageOffsetTop - oldestMessageOffsetTop;
+      }
+    }
+
     if (
       ( prevProps.message.isFetchingNew &&
         !this.props.message.isFetchingNew &&
@@ -89,7 +105,7 @@ class Chat extends Component {
       this.setState({isChatBoxScrollToBottom: false});
     }
 
-    if ( this.chatBox.scrollTop < 20 ) {
+    if ( this.chatBox.scrollTop < 40 ) {
       this.setState({isChatBoxScrollToTop: true});
       ::this.handleFetchOldMessages();
     } else {
@@ -243,6 +259,16 @@ class Chat extends Component {
     } = this.state;
 
     if ( !hasLoadedAllMessages && isChatBoxScrollToTop && !message.isFetchingOld ) {
+      const scrollPosition = this.chatBox.scrollTop;
+      const oldestMessageQuery = document.querySelectorAll(".chat-box .chat-bubble-wrapper")[0];
+      const oldestMessageOffsetTop = oldestMessageQuery.offsetTop;
+
+      this.setState({
+        scrollPosition: scrollPosition,
+        oldestMessageQuery: oldestMessageQuery,
+        oldestMessageOffsetTop: oldestMessageOffsetTop
+      });
+
       fetchOldMessages(chatRoom.active.data._id, user.active._id, message.all.length);
     }
   }
