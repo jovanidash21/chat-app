@@ -7,7 +7,7 @@ import {
 } from '../constants/message';
 
 /**
- * Fetch messages
+ * Fetch new messages
  * @param {string} chatRoomID
  * @param {string} userID
  */
@@ -32,7 +32,7 @@ export function fetchNewMessages(chatRoomID, userID) {
 }
 
 /**
- * Fetch messages
+ * Fetch old messages
  * @param {string} chatRoomID
  * @param {string} userID
  * @param {number} skipCount

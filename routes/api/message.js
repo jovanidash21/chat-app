@@ -79,9 +79,9 @@ router.post('/', function(req, res, next) {
       .limit(50)
       .populate('user')
       .exec(function(err, messages) {
-        var chatRoomMessages = messages.reverse();
-
         if (!err) {
+          var chatRoomMessages = messages.reverse();
+
           for (var i = 0; i < chatRoomMessages.length; i++) {
             var message = chatRoomMessages[i];
 
