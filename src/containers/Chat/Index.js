@@ -85,7 +85,7 @@ class Chat extends Component {
         this.props.message.all.length < 50 ) ||
       ( prevProps.message.isFetchingOld &&
         !this.props.message.isFetchingOld &&
-        prevProps.message.all.length === this.props.message.all.length )
+        this.props.message.all.length - prevProps.message.all.length < 50 )
     ) {
       this.setState({hasLoadedAllMessages: true});
     }

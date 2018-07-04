@@ -87,16 +87,6 @@ class ChatBubble extends Component {
               {::this.handleMessageText()}
             </div>
           </div>
-          {
-            message.createdAt &&
-            <div className="chat-time">
-              <TimeAgo
-                date={moment(message.createdAt).format("MMM D, YYYY h:mm:ss A")}
-                title={moment(message.createdAt).format("dddd - MMM D, YYYY - h:mm A")}
-                minPeriod={60}
-              />
-            </div>
-          }
         </div>
       )
     }
@@ -143,6 +133,16 @@ class ChatBubble extends Component {
             <div className="chat-user-name">{message.user.name}</div>
           }
           {::this.handleChatBubbleRender()}
+          {
+            message.createdAt &&
+            <div className="chat-time">
+              <TimeAgo
+                date={moment(message.createdAt).format("MMM D, YYYY h:mm:ss A")}
+                title={moment(message.createdAt).format("dddd - MMM D, YYYY - h:mm A")}
+                minPeriod={60}
+              />
+            </div>
+          }
         </div>
       </div>
     )
