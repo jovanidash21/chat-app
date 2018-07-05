@@ -75,6 +75,7 @@ export function sendTextMessage(newMessageID, text, user, chatRoomID) {
     dispatch({
       type: SEND_MESSAGE,
       message: {
+        _id: newMessageID,
         newMessageID: newMessageID,
         text: text,
         user: user,

@@ -4,8 +4,6 @@ import { emojify } from 'react-emojione';
 import ReactHtmlParser from 'react-html-parser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Plyr from 'react-plyr';
-import TimeAgo from 'react-timeago';
-import moment from 'moment';
 import Avatar from '../../Avatar';
 import './styles.scss';
 
@@ -133,16 +131,6 @@ class ChatBubble extends Component {
             <div className="chat-user-name">{message.user.name}</div>
           }
           {::this.handleChatBubbleRender()}
-          {
-            message.createdAt &&
-            <div className="chat-time">
-              <TimeAgo
-                date={moment(message.createdAt).format("MMM D, YYYY h:mm:ss A")}
-                title={moment(message.createdAt).format("dddd - MMM D, YYYY - h:mm A")}
-                minPeriod={60}
-              />
-            </div>
-          }
         </div>
       </div>
     )
