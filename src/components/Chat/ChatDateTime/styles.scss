@@ -1,0 +1,18 @@
+.chat-date-time {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  text-align: center;
+  &:before,
+  &:after {
+    background-color: $color-alto;
+    content: "";
+    height: 1px;
+    width: 100%;
+  }
+  span {
+    margin: 0 10px;
+    white-space: nowrap;
+  }
+}

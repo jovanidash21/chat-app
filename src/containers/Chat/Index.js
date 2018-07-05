@@ -10,6 +10,7 @@ import LeftSideDrawer from '../Partial/LeftSideDrawer';
 import RightSideDrawer from '../Partial/RightSideDrawer';
 import Head from '../../components/Head';
 import LoadingAnimation from '../../components/LoadingAnimation';
+import ChatDateTime from '../../components/Chat/ChatDateTime';
 import ChatBubble from '../../components/Chat/ChatBubble';
 import ChatTyper from '../../components/Chat/ChatTyper';
 import ChatInput from '../../components/Chat/ChatInput';
@@ -170,14 +171,19 @@ class Chat extends Component {
             message.all.length > 0
               ?
               message.all.map((singleMessage, i) =>
-                <ChatBubble
-                  key={singleMessage._id}
-                  index={i}
-                  message={singleMessage}
-                  isSender={(singleMessage.user._id === user.active._id) ? true : false }
-                  handleImageLightboxToggle={::this.handleImageLightboxToggle}
-                  handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
-                />
+                <div key={singleMessage._id.length > 0 ? singleMessage._id : i}>
+                  <ChatDateTime
+                    message={singleMessage}
+                    previousMessage={i-1 !== -1 ? message.all[i -1] : {}}
+                  />
+                  <ChatBubble
+                    index={i}
+                    message={singleMessage}
+                    isSender={(singleMessage.user._id === user.active._id) ? true : false }
+                    handleImageLightboxToggle={::this.handleImageLightboxToggle}
+                    handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
+                  />
+                </div>
               )
               :
               <div className="chat-no-messages">
