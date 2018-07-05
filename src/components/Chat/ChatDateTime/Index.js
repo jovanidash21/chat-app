@@ -15,6 +15,39 @@ class ChatDateTime extends Component {
   componentWillMount() {
     ::this.handleMessageDateTime();
   }
+  isDatesSameDay(d1, d2) {
+    if (
+      d1.getFullYear() === d2.getFullYear() &&
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate()
+    ) {
+      return true
+    }
+
+    return false;
+  }
+  isDateTodayOrYesterday(d1) {
+    const d2 = new Date();
+    const timeDiff = d1.getTime() - d2.getTime();
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    if ( daysDiff === 0 ) {
+      return 'Today';
+    } else if ( daysDiff === -1 ) {
+      return 'Yesterday';
+    }
+
+    return false;
+  }
+  isDateThisYear(d1) {
+    const d2 = new Date();
+
+    if ( d1.getFullYear() === d2.getFullYear() ) {
+      return true;
+    }
+
+    return false;
+  }
   handleMessageDateTime() {
     const {
       message,
@@ -25,31 +58,33 @@ class ChatDateTime extends Component {
       message.createdAt
     ) {
       if ( Object.keys(previousMessage).length > 0 ) {
-        const d1 = new Date();
-        const d2 = new Date(previousMessage.createdAt);
-        const d3 = new Date(message.createdAt);
+        const thisMessageDate = new Date(message.createdAt);
+        const previousMessageDate = new Date(previousMessage.createdAt);
+        const isDatesSameDay = ::this.isDatesSameDay(thisMessageDate, previousMessageDate);
+        const isDateTodayOrYesterday = ::this.isDateTodayOrYesterday(thisMessageDate);
+        const isDateThisYear = ::this.isDateThisYear(thisMessageDate);
 
-
-        if (
-          d2.getFullYear() === d3.getFullYear() &&
-          d2.getMonth() === d3.getMonth() &&
-          d2.getDate() === d3.getDate()
-        ) {
+        if ( isDatesSameDay ) {
           this.setState({dateTime: false});
+        } else if ( isDateTodayOrYesterday.length > 0 ) {
+          this.setState({dateTime: isDateTodayOrYesterday});
+        } else if ( isDateThisYear ) {
+          this.setState({dateTime: moment(message.createdAt).format("dddd, MMMM Do")});
         } else {
-          const timeDiff = d1.getTime() - d3.getTime();
-          const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-          if ( daysDiff === 1 ) {
-            this.setState({dateTime: "Today"});
-          } else if ( daysDiff === 2 ) {
-            this.setState({dateTime: "Yesterday"});
-          } else {
-            this.setState({dateTime: moment(message.createdAt).format("dddd, MMMM Do")});
-          }
+          this.setState({dateTime: moment(message.createdAt).format("dddd, MMMM Do YYYY")});
         }
       } else {
-        this.setState({dateTime: moment(message.createdAt).format("dddd, MMMM Do")});
+        const thisMessageDate = new Date(message.createdAt);
+        const isDateTodayOrYesterday = ::this.isDateTodayOrYesterday(thisMessageDate);
+        const isDateThisYear = ::this.isDateThisYear(thisMessageDate);
+
+        if ( isDateTodayOrYesterday.length > 0 ) {
+          this.setState({dateTime: isDateTodayOrYesterday});
+        } else if ( isDateThisYear ) {
+          this.setState({dateTime: moment(message.createdAt).format("dddd, MMMM Do")});
+        } else {
+          this.setState({dateTime: moment(message.createdAt).format("dddd, MMMM Do YYYY")});
+        }
       }
     }
   }
