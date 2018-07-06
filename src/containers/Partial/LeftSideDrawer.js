@@ -60,13 +60,17 @@ class LeftSideDrawer extends Component {
         <div className="chat-room-list">
           {
             chatRoom.all.sort((a, b) =>  {
-              var n = a.priority - b.priority;
+              var priority = a.priority - b.priority;
+              var name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
+              var date = new Date(b.data.createdAt) - new Date(a.data.createdAt);
 
-              if (n !== 0) {
-                return n;
+              if (priority !== 0) {
+                return priority;
+              } else if ( name !== 0 ) {
+                return name
+              } else {
+                return date;
               }
-
-              return a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
             }).map((singleChatRoom, i) =>
               <ChatRoom
                 key={i}
