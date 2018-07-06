@@ -171,10 +171,10 @@ class Chat extends Component {
             message.all.length > 0
               ?
               message.all.map((singleMessage, i) =>
-                <div key={singleMessage._id.length > 0 ? singleMessage._id : i}>
+                <div key={singleMessage._id}>
                   <ChatDateTime
-                    message={singleMessage}
-                    previousMessage={i-1 !== -1 ? message.all[i -1] : {}}
+                    messageDate={singleMessage.createdAt}
+                    previousMessageDate={i-1 !== -1 ? message.all[i -1].createdAt : ''}
                   />
                   <ChatBubble
                     index={i}
@@ -190,17 +190,19 @@ class Chat extends Component {
                 No messages in this Chat Room
               </div>
           }
-          <div className="chat-typers">
-            {
-              typer.all.length > 0 &&
-              typer.all.map((singleTyper, i) =>
-                <ChatTyper
-                  key={i}
-                  typer={singleTyper}
-                />
-              )
-            }
-          </div>
+          {
+            typer.all.length > 0 &&
+            <div className="chat-typers">
+              {
+                typer.all.map((singleTyper, i) =>
+                  <ChatTyper
+                    key={i}
+                    typer={singleTyper}
+                  />
+                )
+              }
+            </div>
+          }
         </Container>
       )
     } else {

@@ -16,8 +16,8 @@ class ChatDateTime extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      Object.keys(prevProps.previousMessage).length === 0 &&
-      Object.keys(this.props.previousMessage).length > 0
+      prevProps.previousMessageDate.length === 0 &&
+      this.props.previousMessageDate.length > 0
     ) {
       ::this.handleMessageDateTime();
     }
@@ -57,46 +57,39 @@ class ChatDateTime extends Component {
   }
   handleMessageDateTime() {
     const {
-      message,
-      previousMessage
+      messageDate,
+      previousMessageDate
     } = this.props;
-    if (
-      previousMessage.constructor === Object &&
-      message.createdAt
-    ) {
-      if ( Object.keys(previousMessage).length > 0 ) {
-        const thisMessageDate = new Date(message.createdAt);
-        const previousMessageDate = new Date(previousMessage.createdAt);
-        const isDatesSameDay = ::this.isDatesSameDay(thisMessageDate, previousMessageDate);
-        const isDateTodayOrYesterday = ::this.isDateTodayOrYesterday(thisMessageDate);
-        const isDateThisYear = ::this.isDateThisYear(thisMessageDate);
+    if ( messageDate.length > 0 ) {
+      const d1 = new Date(messageDate);
+      const isDateTodayOrYesterday = ::this.isDateTodayOrYesterday(d1);
+      const isDateThisYear = ::this.isDateThisYear(d1);
+
+      if ( previousMessageDate.length > 0 ) {
+        const d2 = new Date(previousMessageDate);
+        const isDatesSameDay = ::this.isDatesSameDay(d1, d2);
 
         if ( isDatesSameDay ) {
           this.setState({dateTime: false});
         } else if ( isDateTodayOrYesterday.length > 0 ) {
           this.setState({dateTime: isDateTodayOrYesterday});
         } else if ( isDateThisYear ) {
-          this.setState({dateTime: moment(message.createdAt).format("dddd, MMMM Do")});
+          this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do")});
         } else {
-          this.setState({dateTime: moment(message.createdAt).format("dddd, MMMM Do YYYY")});
+          this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do YYYY")});
         }
       } else {
-        const thisMessageDate = new Date(message.createdAt);
-        const isDateTodayOrYesterday = ::this.isDateTodayOrYesterday(thisMessageDate);
-        const isDateThisYear = ::this.isDateThisYear(thisMessageDate);
-
         if ( isDateTodayOrYesterday.length > 0 ) {
           this.setState({dateTime: isDateTodayOrYesterday});
         } else if ( isDateThisYear ) {
-          this.setState({dateTime: moment(message.createdAt).format("dddd, MMMM Do")});
+          this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do")});
         } else {
-          this.setState({dateTime: moment(message.createdAt).format("dddd, MMMM Do YYYY")});
+          this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do YYYY")});
         }
       }
     }
   }
   render() {
-    const { message } = this.props;
     const { dateTime } = this.state;
 
     if ( dateTime.length > 0 ) {
@@ -114,8 +107,8 @@ class ChatDateTime extends Component {
 }
 
 ChatDateTime.propTypes = {
-  message: PropTypes.object.isRequired,
-  previousMessage: PropTypes.object.isRequired
+  messageDate: PropTypes.string.isRequired,
+  previousMessageDate: PropTypes.string.isRequired
 }
 
 export default ChatDateTime;
