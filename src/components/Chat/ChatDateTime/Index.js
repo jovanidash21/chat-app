@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import TimeAgo from 'react-timeago';
 import moment from 'moment';
 import './styles.scss';
 
@@ -15,6 +14,14 @@ class ChatDateTime extends Component {
   componentWillMount() {
     ::this.handleMessageDateTime();
   }
+  componentDidUpdate(prevProps) {
+    if (
+      Object.keys(prevProps.previousMessage).length === 0 &&
+      Object.keys(this.props.previousMessage).length > 0
+    ) {
+      ::this.handleMessageDateTime();
+    }
+  }
   isDatesSameDay(d1, d2) {
     if (
       d1.getFullYear() === d2.getFullYear() &&
@@ -27,13 +34,13 @@ class ChatDateTime extends Component {
     return false;
   }
   isDateTodayOrYesterday(d1) {
-    const d2 = new Date();
-    const timeDiff = d1.getTime() - d2.getTime();
-    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    const todayDate = new Date();
+    const yesterdayDate = new Date();
+    yesterdayDate.setDate(yesterdayDate.getDate() - 1);
 
-    if ( daysDiff === 0 ) {
+    if ( d1.setHours(0,0,0,0) === todayDate.setHours(0,0,0,0) ) {
       return 'Today';
-    } else if ( daysDiff === -1 ) {
+    } else if ( d1.setHours(0,0,0,0) === yesterdayDate.setHours(0,0,0,0) ) {
       return 'Yesterday';
     }
 

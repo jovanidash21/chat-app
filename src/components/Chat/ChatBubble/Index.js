@@ -4,12 +4,25 @@ import { emojify } from 'react-emojione';
 import ReactHtmlParser from 'react-html-parser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Plyr from 'react-plyr';
+import TimeAgo from 'react-timeago';
+import moment from 'moment';
 import Avatar from '../../Avatar';
 import './styles.scss';
 
 class ChatBubble extends Component {
   constructor(props) {
     super(props);
+  }
+  isMessageToday() {
+    const { message } = this.props;
+    const messageDate = new Date(message.createdAt);
+    const todayDate = new Date();
+
+    if ( messageDate.setHours(0,0,0,0) === todayDate.setHours(0,0,0,0) ) {
+      return true;
+    }
+
+    return false;
   }
   handleMessageText() {
     const {
@@ -131,6 +144,18 @@ class ChatBubble extends Component {
             <div className="chat-user-name">{message.user.name}</div>
           }
           {::this.handleChatBubbleRender()}
+          {
+            !message.isSending &&
+            message.createdAt &&
+            ::this.isMessageToday() &&
+            <div className="chat-time">
+              <TimeAgo
+                date={moment(message.createdAt).format("MMM D, YYYY h:mm:ss A")}
+                title={moment(message.createdAt).format("dddd - MMM D, YYYY - h:mm A")}
+                minPeriod={60}
+              />
+            </div>
+          }
         </div>
       </div>
     )

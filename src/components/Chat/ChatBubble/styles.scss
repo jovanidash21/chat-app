@@ -139,6 +139,12 @@
     line-height: 15px;
     margin-left: 10px;
   }
+  .chat-time {
+    color: $color-dusty-gray;
+    font-size: 11px;
+    margin-left: 10px;
+    white-space: nowrap;
+  }
   &.reverse {
     flex-direction: row-reverse;
     .chat-details {
