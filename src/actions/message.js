@@ -76,7 +76,7 @@ export function sendTextMessage(newMessageID, text, user, chatRoomID) {
       type: SEND_MESSAGE,
       message: {
         _id: newMessageID,
-        newMessageID: newMessageID,
+        createdAt: new Date(),
         text: text,
         user: user,
         chatRoom: chatRoomID,
@@ -134,7 +134,8 @@ export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
     dispatch({
       type: SEND_MESSAGE,
       message: {
-        newMessageID: newMessageID,
+        _id: newMessageID,
+        createdAt: new Date(),
         text: text,
         user: user,
         chatRoom: chatRoomID,
@@ -188,7 +189,8 @@ export function sendImageMessage(newMessageID, text, image, user, chatRoomID) {
     dispatch({
       type: SEND_MESSAGE,
       message: {
-        newMessageID: newMessageID,
+        _id: newMessageID,
+        createdAt: new Date(),
         text: text,
         user: user,
         chatRoom: chatRoomID,
@@ -244,7 +246,8 @@ export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID
     dispatch({
       type: SEND_MESSAGE,
       message: {
-        newMessageID: newMessageID,
+        _id: newMessageID,
+        createdAt: new Date(),
         text: text,
         user: user,
         chatRoom: chatRoomID,

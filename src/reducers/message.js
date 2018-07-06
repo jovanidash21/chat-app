@@ -57,7 +57,7 @@ const message = (state=initialState, action) => {
       var messages = [...state.all];
       var messageID = action.meta;
 
-      messages = messages.filter((messageData) => messageData.newMessageID !== messageID);
+      messages = messages.filter((message) => message._id !== messageID);
 
       return {
         ...state,
