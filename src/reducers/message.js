@@ -56,8 +56,11 @@ const message = (state=initialState, action) => {
     case `${SEND_MESSAGE}_SUCCESS`:
       var messages = [...state.all];
       var messageID = action.meta;
+      var newMessage = action.payload.data.messageData;
 
       messages = messages.filter((message) => message._id !== messageID);
+
+      newMessage.isSending = false;
 
       return {
         ...state,
@@ -65,7 +68,7 @@ const message = (state=initialState, action) => {
         isSendingSuccess: true,
         all: [
           ...messages,
-          action.payload.data.messageData
+          newMessage
         ]
       };
     case `${FETCH_NEW_MESSAGES}_ERROR`:

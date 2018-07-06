@@ -80,7 +80,8 @@ export function sendTextMessage(newMessageID, text, user, chatRoomID) {
         text: text,
         user: user,
         chatRoom: chatRoomID,
-        messageType: 'text'
+        messageType: 'text',
+        isSending: true
       }
     });
     dispatch({
@@ -140,7 +141,8 @@ export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
         user: user,
         chatRoom: chatRoomID,
         messageType: messageType,
-        fileLink: ''
+        fileLink: '',
+        isSending: true
       }
     });
 
@@ -195,7 +197,8 @@ export function sendImageMessage(newMessageID, text, image, user, chatRoomID) {
         user: user,
         chatRoom: chatRoomID,
         messageType: 'image',
-        fileLink: ''
+        fileLink: '',
+        isSending: true
       }
     });
 
@@ -252,7 +255,8 @@ export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID
         user: user,
         chatRoom: chatRoomID,
         messageType: 'audio',
-        fileLink: ''
+        fileLink: '',
+        isSending: true
       }
     });
 
