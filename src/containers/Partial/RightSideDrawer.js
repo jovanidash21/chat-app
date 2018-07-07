@@ -62,7 +62,7 @@ class RightSideDrawer extends Component {
                 var date = new Date(b.createdAt) - new Date(a.createdAt);
 
                 if ( name !== 0 ) {
-                  return name
+                  return name;
                 } else {
                   return date;
                 }

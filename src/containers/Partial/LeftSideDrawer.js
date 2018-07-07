@@ -32,7 +32,7 @@ class LeftSideDrawer extends Component {
         chatRoom,
         changeChatRoom
       } = this.props;
-      const allChatRooms = chatRoom.all.sort((a, b) =>  {
+      const allChatRooms = chatRoom.all.sort((a, b) => {
         var n = a.priority - b.priority;
 
         if (n !== 0) {
@@ -59,7 +59,7 @@ class LeftSideDrawer extends Component {
       return (
         <div className="chat-room-list">
           {
-            chatRoom.all.sort((a, b) =>  {
+            chatRoom.all.sort((a, b) => {
               var priority = a.priority - b.priority;
               var name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
               var date = new Date(b.data.createdAt) - new Date(a.data.createdAt);

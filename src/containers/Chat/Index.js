@@ -75,7 +75,11 @@ class Chat extends Component {
       } = this.state;
       const newOldestMessageOffsetTop = oldestMessageQuery.offsetTop;
 
-      if ( scrollPosition === this.chatBox.scrollTop && oldestMessageQuery ) {
+      if (
+        ( this.chatBox.scrollTop < 40 ||
+        scrollPosition === this.chatBox.scrollTop ) &&
+        oldestMessageQuery
+      ) {
         this.chatBox.scrollTop = newOldestMessageOffsetTop - oldestMessageOffsetTop;
       }
     }
