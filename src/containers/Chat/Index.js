@@ -174,12 +174,16 @@ class Chat extends Component {
                 <div key={singleMessage._id}>
                   <ChatDateTime
                     messageDate={singleMessage.createdAt}
-                    previousMessageDate={i-1 !== -1 ? message.all[i -1].createdAt : ''}
+                    previousMessageDate={i-1 !== -1 ? message.all[i-1].createdAt : ''}
                   />
                   <ChatBubble
                     index={i}
                     message={singleMessage}
                     isSender={(singleMessage.user._id === user.active._id) ? true : false }
+                    previousMessageSenderID={i-1 !== -1 ? message.all[i-1].user._id : ''}
+                    nextMessageSenderID={i !== message.all.length-1 ? message.all[i+1].user._id : ''}
+                    previousMessageDate={i-1 !== -1 ? message.all[i-1].createdAt : ''}
+                    nextMessageDate={i !== message.all.length-1 ? message.all[i+1].createdAt : ''}
                     handleImageLightboxToggle={::this.handleImageLightboxToggle}
                     handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
                   />

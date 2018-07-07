@@ -13,6 +13,17 @@ class ChatBubble extends Component {
   constructor(props) {
     super(props);
   }
+  isDatesSameDay(d1, d2) {
+    if (
+      d1.getFullYear() === d2.getFullYear() &&
+      d1.getMonth() === d2.getMonth() &&
+      d1.getDate() === d2.getDate()
+    ) {
+      return true
+    }
+
+    return false;
+  }
   isMessageToday() {
     const { message } = this.props;
     const messageDate = new Date(message.createdAt);
@@ -123,13 +134,33 @@ class ChatBubble extends Component {
   render() {
     const {
       message,
-      isSender
+      isSender,
+      previousMessageSenderID,
+      nextMessageSenderID,
+      previousMessageDate,
+      nextMessageDate
     } = this.props;
+    const d1 = new Date(message.createdAt);
+    const d2 = new Date(previousMessageDate);
+    const d3 = new Date(nextMessageDate);
+    const isThisAndPreviousDatesSameDay = ::this.isDatesSameDay(d1, d2);
+    const isThisAndNextDatesSameDay = ::this.isDatesSameDay(d1, d3);
+    const isPreviousMessageSameSender = isThisAndPreviousDatesSameDay && message.user._id === previousMessageSenderID;
+    const isNextMessageSameSender = isThisAndNextDatesSameDay && message.user._id === nextMessageSenderID;
 
     return (
-      <div className={"chat-bubble-wrapper " + (isSender ? 'reverse' : '')}>
+      <div
+        className={
+          "chat-bubble-wrapper " +
+          (isSender ? 'reverse ' : '') +
+          (isPreviousMessageSameSender ? 'no-b-radius-top ' : '') +
+          (isNextMessageSameSender ? 'no-b-radius-bottom ' : '') +
+          (!isSender && isPreviousMessageSameSender ? 'no-avatar' : '')
+        }
+      >
         {
           !isSender &&
+          !isPreviousMessageSameSender &&
           <Avatar
             image={message.user.profilePicture}
             size="35px"
@@ -141,6 +172,7 @@ class ChatBubble extends Component {
         <div className="chat-details">
           {
             !isSender &&
+            !isPreviousMessageSameSender &&
             <div className="chat-user-name">{message.user.name}</div>
           }
           {::this.handleChatBubbleRender()}
@@ -166,6 +198,10 @@ ChatBubble.propTypes = {
   index: PropTypes.number.isRequired,
   message: PropTypes.object.isRequired,
   isSender: PropTypes.bool.isRequired,
+  previousMessageSenderID: PropTypes.string.isRequired,
+  nextMessageSenderID: PropTypes.string.isRequired,
+  previousMessageDate: PropTypes.string.isRequired,
+  nextMessageDate: PropTypes.string.isRequired,
   handleImageLightboxToggle: PropTypes.func.isRequired,
   handleAudioPlayingToggle: PropTypes.func.isRequired
 }

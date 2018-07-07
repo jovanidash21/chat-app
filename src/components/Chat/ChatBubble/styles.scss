@@ -1,6 +1,6 @@
 .chat-bubble-wrapper {
   display: flex;
-  padding: 2px;
+  padding: 1px;
   .chat-details {
     align-items: flex-start;
     display: flex;
@@ -16,7 +16,7 @@
   .chat-bubble {
     $bg-color: $color-dusty-gray;
     background-color: $bg-color;
-    border-radius: 8px;
+    border-radius: 15px;
     margin-left: 10px;
     position: relative;
     word-wrap: break-word;
@@ -26,7 +26,7 @@
       border-width: 12px;
       bottom: auto;
       content: '';
-      left: -8px;
+      left: -6px;
       position: absolute;
       right: auto;
       text-align: left;
@@ -116,7 +116,7 @@
     .image-message {
       background-color: $color-gallery;
       border: 1px solid $color-alto;
-      border-radius: 8px;
+      border-radius: 15px;
       cursor: pointer;
       height: auto;
       width: 100%;
@@ -147,8 +147,45 @@
   }
   &.reverse {
     flex-direction: row-reverse;
+    &.no-b-radius-top {
+      .chat-bubble,
+      .image-message {
+        border-top-right-radius: 0;
+      }
+    }
+    &.no-b-radius-bottom {
+      .chat-bubble,
+      .image-message {
+        border-bottom-right-radius: 0;
+      }
+    }
     .chat-details {
       align-items: flex-end;
+    }
+  }
+  &:not(.reverse) {
+    &.no-b-radius-top {
+      .chat-bubble,
+      .image-message {
+        border-top-left-radius: 0;
+      }
+    }
+    &.no-b-radius-bottom {
+      .chat-bubble,
+      .image-message {
+        border-bottom-left-radius: 0;
+      }
+    }
+    &.no-avatar {
+      .chat-bubble {
+        margin-left: 44px;
+        @media screen and (max-width: $screen-mobile-max) {
+          margin-left: 35px;
+        }
+        &:after {
+          display: none;
+        }
+      }
     }
   }
 }
