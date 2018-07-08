@@ -1,7 +1,7 @@
 .header {
-  box-shadow: 0px 0px 5px 1px $color-emperor;
+  box-shadow: 0 2px 5px rgba($color-emperor, 0.25);
   table {
-    padding: 0 21px;
+    padding: 0 10px 0 21px;
     @media screen and (max-width: $screen-mobile-max) {
       padding: 0 0 0 7px;
     }
@@ -31,18 +31,18 @@
       .chat-room-name {
         display: inline;
         margin: 0 10px 0 0;
-        max-width: 150px;
+        max-width: 370px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        @media screen and (min-width: $screen-mobile-min) {
-          max-width: 250px;
-        }
-        @media screen and (min-width: $screen-tablet-min) {
+        @media screen and (max-width: $screen-tablet-max) {
           max-width: 270px;
         }
-        @media screen and (min-width: $screen-desktop-min) {
-          max-width: 370px;
+        @media screen and (max-width: $screen-mobile-max) {
+          max-width: 250px;
+        }
+        @media screen and (max-width: $screen-small-mobile-max) {
+          max-width: 130px;
         }
       }
     }
