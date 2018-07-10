@@ -164,11 +164,9 @@
     }
   }
   &:not(.reverse) {
-    &.no-b-radius-top {
-      .chat-bubble,
-      .image-message {
-        border-top-left-radius: 0;
-      }
+    .chat-bubble,
+    .image-message {
+      border-top-left-radius: 0;
     }
     &.no-b-radius-bottom {
       .chat-bubble,
@@ -178,9 +176,18 @@
     }
     &.no-avatar {
       .chat-bubble {
-        margin-left: 44px;
+        margin-left: 45px;
         @media screen and (max-width: $screen-mobile-max) {
           margin-left: 35px;
+        }
+        &:after {
+          display: none;
+        }
+      }
+      .image-message {
+        margin-left: 35px;
+        @media screen and (max-width: $screen-mobile-max) {
+          margin-left: 25px;
         }
         &:after {
           display: none;
