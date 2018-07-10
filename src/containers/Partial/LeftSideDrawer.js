@@ -17,14 +17,6 @@ class LeftSideDrawer extends Component {
       showModal: false
     }
   }
-  componentWillMount() {
-    const {
-      user,
-      fetchChatRooms
-    } = this.props;
-
-    fetchChatRooms(user.active._id);
-  }
   componentDidUpdate(prevProps) {
     if ( prevProps.chatRoom.isFetching && !this.props.chatRoom.isFetching ) {
       const {

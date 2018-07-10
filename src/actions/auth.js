@@ -40,7 +40,7 @@ export function localLogin(username, password) {
       type: LOGIN,
       payload: axios.post('/api/login/local', data)
     })
-    .then((response) => {
+    .then(() => {
       dispatch(hideLoading());
       dispatch(push('/chat'));
     })
