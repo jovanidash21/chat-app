@@ -91,7 +91,7 @@ class Header extends Component {
                   title="View Members List"
                 >
                   <div className="user-icon">
-                    <FontAwesomeIcon icon="user" />
+                    <FontAwesomeIcon icon={["far", "user"]} />
                   </div>
                   {member.all.length}
                 </div>

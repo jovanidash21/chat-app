@@ -46,7 +46,7 @@ class RightSideDrawer extends Component {
         <div className="right-side-drawer">
           <div className="members-count">
             <div className="user-icon">
-              <FontAwesomeIcon icon="user" size="2x" />
+              <FontAwesomeIcon icon={["far", "user"]} size="2x" />
             </div>
             <h3>
               {member.all.length}&nbsp;
