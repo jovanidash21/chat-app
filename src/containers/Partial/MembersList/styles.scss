@@ -1,0 +1,41 @@
+.members-list-wrapper {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .members-count {
+    align-items: center;
+    display: flex;
+    flex-shrink: 1;
+    margin: 0;
+    padding: 15px;
+    h3 {
+      margin: 0;
+    }
+    .user-icon {
+      margin-right: 5px;
+      margin-top: 1px;
+    }
+  }
+  .members-list {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: rgba($color-dusty-gray, 0.2);
+      border-radius: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-dusty-gray;
+      border-radius: 5px;
+    }
+    .no-results {
+      font-size: 16px;
+      padding: 5px;
+      text-align: center;
+    }
+  }
+}

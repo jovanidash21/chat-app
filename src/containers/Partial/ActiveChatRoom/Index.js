@@ -3,18 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  Appbar,
-  Container
-} from 'muicss/react/';
-import mapDispatchToProps from '../../actions';
-import LoadingAnimation from '../../components/LoadingAnimation';
-import Avatar from '../../components/Avatar';
-import OnlineIndicator from '../../components/OnlineIndicator';
-import OptionsDropdown from '../../components/Header/OptionsDropdown';
-import '../../styles/Header.scss';
+import mapDispatchToProps from '../../../actions';
+import LoadingAnimation from '../../../components/LoadingAnimation';
+import Avatar from '../../../components/Avatar';
+import OnlineIndicator from '../../../components/OnlineIndicator';
+import './styles.scss';
 
-class Header extends Component {
+class ActiveChatRoom extends Component {
   constructor(props) {
     super(props);
   }
@@ -49,7 +44,7 @@ class Header extends Component {
 
     return accountType;
   }
-  handleLeftPartHeaderRender() {
+  handleActiveChatRoomRender() {
     const {
       user,
       chatRoom,
@@ -155,33 +150,17 @@ class Header extends Component {
     } = this.props;
 
     return (
-      <Appbar className="header">
-        <table width="100%">
-          <tbody>
-            <tr style={{verticalAlign: 'middle'}}>
-              <td className="mui--appbar-height">
-                <div className="left-part-header">
-                  <MediaQuery query="(max-width: 767px)">
-                    <div
-                      className="hamburger-icon"
-                      onClick={::this.handleLeftSideDrawerToggleEvent}
-                    >
-                      <FontAwesomeIcon icon="bars" size="2x" />
-                    </div>
-                  </MediaQuery>
-                  {::this.handleLeftPartHeaderRender()}
-                </div>
-              </td>
-              <td className="mui--appbar-height mui--text-right">
-                <OptionsDropdown
-                  user={user.active}
-                  handleLogout={::this.handleLogout}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </Appbar>
+      <div className="active-chat-room">
+        <MediaQuery query="(max-width: 767px)">
+          <div
+            className="hamburger-icon"
+            onClick={::this.handleLeftSideDrawerToggleEvent}
+          >
+            <FontAwesomeIcon icon="bars" size="2x" />
+          </div>
+        </MediaQuery>
+        {::this.handleActiveChatRoomRender()}
+      </div>
     )
   }
 }
@@ -194,7 +173,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-Header.propTypes = {
+ActiveChatRoom.propTypes = {
   handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
   handleRightSideDrawerToggleEvent: PropTypes.func.isRequired
 }
@@ -202,4 +181,4 @@ Header.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Header);
+)(ActiveChatRoom);

@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { slide as Menu } from 'react-burger-menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import mapDispatchToProps from '../../actions';
-import LoadingAnimation from '../../components/LoadingAnimation';
-import ChatRoom from '../../components/LeftSideDrawer/ChatRoom';
-import CreateChatRoomModal from './CreateChatRoomModal';
-import '../../styles/LeftSideDrawer.scss';
+import mapDispatchToProps from '../../../actions';
+import LoadingAnimation from '../../../components/LoadingAnimation';
+import ChatRoom from '../../../components/LeftSideDrawer/ChatRoom';
+import CreateChatRoomModal from '../CreateChatRoomModal';
+import './styles.scss';
 
-class LeftSideDrawer extends Component {
+class ChatRoomsList extends Component {
   constructor(props) {
     super(props);
 
@@ -49,7 +48,7 @@ class LeftSideDrawer extends Component {
       const activeChatRoom = chatRoom.active;
 
       return (
-        <div className="chat-room-list">
+        <div className="chat-rooms-list">
           {
             chatRoom.all.sort((a, b) => {
               var priority = a.priority - b.priority;
@@ -93,45 +92,34 @@ class LeftSideDrawer extends Component {
     const {
       user,
       chatRoom,
-      isLeftSideDrawerOpen,
-      handleLeftSideDrawerToggleEvent,
-      handleLeftSideDrawerToggleState,
-      noOverlay
+      handleLeftSideDrawerToggleEvent
     } = this.props;
     const { showModal } = this.state;
 
     return (
-      <Menu
-        overlayClassName={"left-side-drawer-overlay"}
-        width="250px"
-        isOpen={isLeftSideDrawerOpen}
-        onStateChange={handleLeftSideDrawerToggleState}
-        noOverlay={noOverlay}
-      >
-        <div>
-          <div className="left-side-drawer">
-            <h1 className="title">Chat App</h1>
-            <div className="chat-rooms-options">
-              <h3>Chat Rooms</h3>
-              <div className="add-chat-room-icon"
-                onClick={::this.handleActivateModal}
-                title="Add Chat Room"
-              >
-                <FontAwesomeIcon icon="plus-circle" />
-              </div>
+      <div style={{height: '100%'}}>
+        <div className="chat-rooms-list-wrapper">
+          <h1 className="title">Chat App</h1>
+          <div className="chat-rooms-options">
+            <h3>Chat Rooms</h3>
+            <div className="add-chat-room-icon"
+              onClick={::this.handleActivateModal}
+              title="Add Chat Room"
+            >
+              <FontAwesomeIcon icon="plus-circle" />
             </div>
-            {::this.handleChatRoomsListRender()}
           </div>
-          {
-            showModal &&
-            <CreateChatRoomModal
-              handleDeactivateModal={::this.handleDeactivateModal}
-              handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
-              isLoading={chatRoom.isCreating}
-            />
-          }
+          {::this.handleChatRoomsListRender()}
         </div>
-      </Menu>
+        {
+          showModal &&
+          <CreateChatRoomModal
+            handleDeactivateModal={::this.handleDeactivateModal}
+            handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
+            isLoading={chatRoom.isCreating}
+          />
+        }
+      </div>
     );
   }
 }
@@ -143,19 +131,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-LeftSideDrawer.propTypes = {
-  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
-  handleLeftSideDrawerToggleState: PropTypes.func.isRequired,
-  isLeftSideDrawerOpen: PropTypes.bool,
-  noOverlay: PropTypes.bool
-}
-
-LeftSideDrawer.defaultProps = {
-  isLeftSideDrawerOpen: false,
-  noOverlay: false
+ChatRoomsList.propTypes = {
+  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LeftSideDrawer);
+)(ChatRoomsList);

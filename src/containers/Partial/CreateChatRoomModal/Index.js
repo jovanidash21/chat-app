@@ -6,12 +6,12 @@ import {
   Form,
   Button
 } from 'muicss/react';
-import mapDispatchToProps from '../../actions';
-import ChatRoomNameInput from '../../components/CreateChatRoomModal/ChatRoomNameInput';
-import ChatMember from '../../components/CreateChatRoomModal/ChatMember';
-import ChatMemberSelect from '../../components/CreateChatRoomModal/ChatMemberSelect';
-import ErrorCard from '../../components/AuthForm/Card/ErrorCard';
-import '../../styles/CreateChatRoomModal.scss';
+import mapDispatchToProps from '../../../actions';
+import ChatRoomNameInput from '../../../components/CreateChatRoomModal/ChatRoomNameInput';
+import ChatMember from '../../../components/CreateChatRoomModal/ChatMember';
+import ChatMemberSelect from '../../../components/CreateChatRoomModal/ChatMemberSelect';
+import ErrorCard from '../../../components/AuthForm/Card/ErrorCard';
+import './styles.scss';
 
 class CreateChatRoomModal extends Component {
   constructor(props) {
