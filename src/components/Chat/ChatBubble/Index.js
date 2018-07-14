@@ -109,6 +109,26 @@ class ChatBubble extends Component {
               {::this.handleMessageText()}
             </div>
           </div>
+          <div className="sending-status">
+            {
+              isSender &&
+              message.isSending !== undefined && (
+                message.isSending
+                  ?
+                  <div title="Message is sending">
+                    <FontAwesomeIcon className="sending" icon={["far", "square"]} />
+                  </div>
+                  :
+                  <div title="Message is sent">
+                    <FontAwesomeIcon
+                      className="sent"
+                      icon="check-square"
+                      title="Message is sent"
+                    />
+                  </div>
+              )
+            }
+          </div>
         </div>
       )
     }
@@ -176,18 +196,6 @@ class ChatBubble extends Component {
             <div className="chat-user-name">{message.user.name}</div>
           }
           {::this.handleChatBubbleRender()}
-          {
-            !message.isSending &&
-            message.createdAt &&
-            ::this.isMessageToday() &&
-            <div className="chat-time">
-              <TimeAgo
-                date={moment(message.createdAt).format("MMM D, YYYY h:mm:ss A")}
-                title={moment(message.createdAt).format("dddd - MMM D, YYYY - h:mm A")}
-                minPeriod={60}
-              />
-            </div>
-          }
         </div>
       </div>
     )
