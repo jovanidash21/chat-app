@@ -13,6 +13,7 @@
     }
   }
   .chat-room-detail {
+    align-items: flex-start;
     display: flex;
     flex-direction: column;
     .chat-room-name {
@@ -41,6 +42,10 @@
       cursor: pointer;
       display: flex;
       margin-top: 3px;
+      transition: all 0.2s ease;
+      &:hover {
+        color: $color-secondary;
+      }
       .user-icon {
         margin-right: 5px;
       }

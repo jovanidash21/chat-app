@@ -3,23 +3,27 @@ $color-alto: #d3d3d3;
 $color-amaranth: #ea4754;
 $color-cerulean: #00aced;
 $color-chambray: #3b5998;
-$color-chateau-green: #4bb06b;
 $color-deep-cerulean: #0077b5;
 $color-dodger-blue: #2196f3;
 $color-dusty-gray: #999;
 $color-emperor: #555;
 $color-gallery: #eee;
-$color-goblin: #377b4d;
 $color-guardsman-red: #d50000;
+$color-jungle-green: #26a69a;
 $color-limed-spruce: #37474f;
 $color-mantis: #5dc060;
 $color-mine-shaft: #333;
+$color-oil: #1d1611;
 $color-old-lace: #fefbf7;
 $color-outer-space: #263238;
 $color-punch: #db3236;
-$color-royal-purple: #639;
 $color-studio: #8a3ab9;
-$color-sunshade: #ffa726;
+$color-treehouse: #35281e;
+
+// Color palette
+$color-primary: $color-jungle-green;
+$color-secondary: $color-treehouse;
+$color-tertiary: $color-limed-spruce;
 
 /* Screen sizes */
 $screen-mobile-min: 480px;

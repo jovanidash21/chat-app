@@ -75,9 +75,9 @@
       transform: translate(-50%, -50%);
     }
     .mui-container-fluid {
-      padding: 15px 5px;
-      @media screen and (min-width: $screen-tablet-min) {
-        padding: 15px;
+      padding: 15px 5px 15px 15px;
+      @media screen and (max-width: $screen-mobile-max) {
+        padding: 15px 5px;
       }
     }
     .loading-icon {

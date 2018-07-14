@@ -33,7 +33,7 @@
       top: 0;
     }
     &.right {
-      $bg-color: $color-dodger-blue;
+      $bg-color: $color-primary;
       background-color: $bg-color;
       margin-left: 0;
       margin-right: 0;
@@ -173,6 +173,12 @@
         .sent {
           height: 10px;
           width: 10px;
+        }
+        .sending {
+          color: $color-dusty-gray;
+        }
+        .sent {
+          color: $color-primary;
         }
       }
     }

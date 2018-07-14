@@ -100,7 +100,7 @@
     .emoji-button {
       align-items: center;
       backface-visibility: hidden;
-      color: #000;
+      color: $color-emperor;
       cursor: pointer;
       display: flex;
       margin: 0;
@@ -116,7 +116,7 @@
         box-shadow: none;
       }
       &:hover {
-        color: $color-royal-purple;
+        color: $color-primary;
         transform: scale(1.25);
       }
     }
@@ -137,7 +137,7 @@
   }
   .send-button {
     align-items: center;
-    background-color: $color-royal-purple;
+    background-color: $color-primary;
     border-radius: 0;
     color: #fff;
     display: flex;
