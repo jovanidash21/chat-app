@@ -8,10 +8,6 @@ import './styles.scss';
 class RightSideDrawer extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      memberName: ''
-    }
   }
   render() {
     const {
