@@ -30,9 +30,6 @@ class ChatBox extends Component {
     };
   }
   componentDidMount() {
-    ::this.calculateViewportHeight();
-    window.addEventListener('onorientationchange', ::this.calculateViewportHeight, true);
-    window.addEventListener('resize', ::this.calculateViewportHeight, true);
     this.chatBox.addEventListener('scroll', ::this.handleChatBoxScroll, true);
   }
   componentDidUpdate(prevProps) {
@@ -75,11 +72,6 @@ class ChatBox extends Component {
     ) {
       this.setState({hasLoadedAllMessages: true});
     }
-  }
-  calculateViewportHeight() {
-    var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-
-    document.getElementById('chat-section').setAttribute('style', 'height:' + viewportHeight + 'px;');
   }
   handleScrollToBottom() {
     this.messagesBottom.scrollIntoView();

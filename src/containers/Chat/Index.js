@@ -37,6 +37,16 @@ class Chat extends Component {
     document.body.className = '';
     document.body.classList.add('chat-page');
   }
+  componentDidMount() {
+    ::this.calculateViewportHeight();
+    window.addEventListener('onorientationchange', ::this.calculateViewportHeight, true);
+    window.addEventListener('resize', ::this.calculateViewportHeight, true);
+  }
+  calculateViewportHeight() {
+    var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+
+    document.getElementById('chat-section').setAttribute('style', 'height:' + viewportHeight + 'px;');
+  }
   handleLeftSideDrawerRender() {
     const { isLeftSideDrawerOpen } = this.state;
 
@@ -72,7 +82,6 @@ class Chat extends Component {
     event.preventDefault();
 
     this.setState({isAudioRecorderOpen: !this.state.isAudioRecorderOpen});
-    ::this.handleScrollToBottom();
   }
   handleSendTextMessage(newMessageID, text) {
     const {
