@@ -40,8 +40,8 @@ class ChatImageLightBox extends Component {
     return (
       <Lightbox
         mainSrc={images[imageIndex].src}
-        nextSrc={images.length > 1 ? images[(imageIndex + 1) % images.length].src : false}
-        prevSrc={images.length > 1 ? images[(imageIndex + images.length - 1) % images.length].src : false}
+        nextSrc={images.length > 1 ? images[(imageIndex + 1) % images.length].src : ''}
+        prevSrc={images.length > 1 ? images[(imageIndex + images.length - 1) % images.length].src : ''}
         onCloseRequest={(e) => handleImageLightboxToggle(images[imageIndex].id)}
         onMovePrevRequest={::this.handlePrevImage}
         onMoveNextRequest={::this.handleNextImage}
