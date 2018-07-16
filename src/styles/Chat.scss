@@ -36,66 +36,6 @@
   .header {
     flex-shrink: 0;
   }
-  .chat-box-wrapper {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    justify-content: flex-end;
-    max-height: calc(100vh - 135px);
-    position: relative;
-    @media screen and (max-width: $screen-mobile-max) {
-      max-height: calc(100vh - 127px);
-    }
-    &.audio-recorder-open {
-      max-height: calc(100vh - 190px);
-      @media screen and (max-width: $screen-mobile-max) {
-        max-height: calc(100vh - 182px);
-      }
-    }
-    .chat-box {
-      overflow-x: hidden;
-      overflow-y: auto;
-      &::-webkit-scrollbar {
-        width: 6px;
-      }
-      &::-webkit-scrollbar-track {
-        background: transparent;
-      }
-      &::-webkit-scrollbar-thumb {
-        background-color: $color-mine-shaft;
-        border-radius: 5px;
-      }
-    }
-    .user-no-chat-rooms {
-      font-size: 21px;
-      left: 50%;
-      position: absolute;
-      text-align: center;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .mui-container-fluid {
-      padding: 15px 5px 15px 15px;
-      @media screen and (max-width: $screen-mobile-max) {
-        padding: 15px 5px;
-      }
-    }
-    .loading-icon {
-      color: $color-emperor;
-      display: flex;
-      justify-content: center;
-      margin-bottom: 5px;
-    }
-    .chat-no-messages {
-      font-size: 17px;
-      font-weight: 700;
-      text-align: center;
-    }
-    .chat-typers {
-      display: flex;
-      margin-top: 15px;
-    }
-  }
   .chat-input,
   .chat-audio-recorder {
     flex-shrink: 0;
