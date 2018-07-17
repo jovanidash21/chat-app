@@ -1,6 +1,7 @@
 .member-wrapper {
   display: inline-block;
   padding: 1px;
+  vertical-align: bottom;
   .member {
     align-items: center;
     background-color: $color-dusty-gray;
@@ -9,9 +10,8 @@
     flex-shrink: 0;
     font-size: 14px;
     overflow: hidden;
-    padding: 3px;
+    padding: 3px 7px 3px 3px;
     transition: all 0.2s ease;
-    width: 100px;
     &:hover {
       background-color: $color-punch;
     }
@@ -29,7 +29,7 @@
     display: inline;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 70px;
+    max-width: 70px;
     white-space: nowrap;
   }
 }
