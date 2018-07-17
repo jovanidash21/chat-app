@@ -76,6 +76,7 @@
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^1.1.11",
     "history": "^4.7.2",
+    "initials": "^3.0.0",
     "muicss": "^0.9.38",
     "nodemon": "^1.11.0",
     "postcss-flexbugs-fixes": "^3.3.0",
