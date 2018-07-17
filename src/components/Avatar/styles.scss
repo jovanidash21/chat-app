@@ -1,7 +1,10 @@
 .avatar {
   background-repeat: no-repeat;
   border-radius: 50%;
+  color: #fff;
   position: relative;
+  text-align: center;
+  word-break: break-all;
   .badge-icon {
     $badge-size: 10px;
     align-items: center;

@@ -68,6 +68,7 @@ class ChatRoom extends Component {
       >
         <Avatar
           image={chatRoom.data.chatIcon}
+          title={chatRoom.data.name}
           accountType={::this.handleAccountType()}
         />
         <div className="chat-room-name">

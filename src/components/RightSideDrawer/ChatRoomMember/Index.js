@@ -31,6 +31,7 @@ class ChatRoomMember extends Component {
         <Avatar
           image={chatRoomMember.profilePicture}
           size="23px"
+          title={chatRoomMember.name}
           accountType={chatRoomMember.accountType}
         />
         <div className="member-name">
