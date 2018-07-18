@@ -30,7 +30,9 @@ router.get('/:userID', function(req, res, next) {
               var member = chatRoom.members[j];
 
               if (chatRoom.chatType === 'private') {
-                chatRoom.chatIcon = member.profilePicture;
+                if (member._id == userID) {
+                  chatRoom.chatIcon = member.profilePicture;
+                }
               } else if (chatRoom.chatType === 'direct') {
                 if (member._id != userID) {
                   chatRoom.name = member.name;
