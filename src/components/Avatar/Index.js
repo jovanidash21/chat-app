@@ -45,7 +45,7 @@ class Avatar extends Component {
       const j = charCodeSum % colors.length;
 
       avatarStyles.backgroundColor = colors[j];
-      avatarStyles.fontSize = Math.floor(parseInt(size, 10) / 2);
+      avatarStyles.fontSize = Math.floor(parseInt(size, 10) / 2.5);
       avatarStyles.lineHeight = size;
     }
 

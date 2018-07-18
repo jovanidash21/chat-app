@@ -27,9 +27,9 @@
   .member-name {
     color: #fff;
     display: inline;
+    max-width: 70px;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 70px;
     white-space: nowrap;
   }
 }
