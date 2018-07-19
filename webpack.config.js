@@ -6,19 +6,20 @@ const postcssFlexbugsFixes = require('postcss-flexbugs-fixes');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const extractSassBundle = new ExtractTextPlugin({
-  filename: 'bundle.css',
+  filename: '[name].bundle.css',
   disable: false,
 });
 
 const webpackConfig = {
   devtool: 'source-map',
-  entry: [
-    './src/index.js',
-  ],
+  entry: {
+    main: './src/index.js',
+    admin: './src/admin.js',
+  },
   output: {
     path: path.join(__dirname, '/public/build'),
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
   },
   resolve: {
     extensions: ['.js', '.jsx'],

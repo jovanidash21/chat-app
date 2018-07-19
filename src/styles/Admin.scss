@@ -1,0 +1,11 @@
+.admin-section {
+  .header,
+  .admin-content {
+    @media screen and (min-width: $screen-tablet-min) {
+      margin-left: 250px;
+    }
+  }
+  .admin-content {
+    padding: 15px;
+  }
+}

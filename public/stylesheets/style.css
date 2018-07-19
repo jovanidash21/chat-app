@@ -21,7 +21,8 @@ body::-webkit-scrollbar-thumb {
   background-color: #0b6621;
   border-radius: 5px;
 }
-body.chat-page {
+body.chat-page,
+body.admin-page {
   overflow: hidden;
 }
 .loading-bar {

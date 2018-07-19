@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
-import { Container } from 'muicss/react';
 import Popup from 'react-popup';
 import mapDispatchToProps from '../../actions';
 import Header from '../Common/Header';
