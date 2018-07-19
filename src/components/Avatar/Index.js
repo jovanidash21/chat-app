@@ -51,25 +51,45 @@ class Avatar extends Component {
 
     return avatarStyles;
   }
-  handleBadgeIcon() {
+  handleBadge(type) {
     const { accountType } = this.props;
-    var icon = accountType;
+    var icon = '';
+    var title = '';
 
     switch ( accountType ) {
-      case 'local':
-        icon = '';
-        break;
       case 'facebook':
         icon = 'facebook-f';
+        title = 'Facebook'
+        break;
+      case 'google':
+        icon = 'google';
+        title = 'Google'
+        break;
+      case 'twitter':
+        icon = 'twitter';
+        title = 'Twitter'
+        break;
+      case 'instagram':
+        icon = 'instagram';
+        title = 'Instagram'
         break;
       case 'linkedin':
         icon = 'linkedin-in';
+        title = 'LinkedIn'
+        break;
+      case 'github':
+        icon = 'github';
+        title = 'GitHub'
         break;
       default:
         break;
     }
 
-    return icon;
+    if ( type === 'icon' ) {
+      return icon;
+    } else if ( type === 'title' ) {
+      return title;
+    }
   }
   render() {
     const {
@@ -81,7 +101,8 @@ class Avatar extends Component {
     } = this.props;
     const avatarStyles = ::this.handleAvatarStyles();
     const nameAbbr = initials(title).substring(0,2);
-    const badgeIcon = ::this.handleBadgeIcon();
+    const badgeIcon = ::this.handleBadge('icon');
+    const badgeTitle = ::this.handleBadge('title');
 
     return (
       <div
@@ -101,7 +122,7 @@ class Avatar extends Component {
               (badgeCloser ? 'closer ' : '') +
               accountType
             }
-            title={badgeIcon}
+            title={badgeTitle}
           >
             <FontAwesomeIcon icon={["fab", badgeIcon]} />
           </div>
