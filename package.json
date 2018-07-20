@@ -59,6 +59,8 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "@fortawesome/fontawesome-svg-core": "^1.2.0",
     "@fortawesome/react-fontawesome": "^0.1.0",
+    "ag-grid": "^18.1.1",
+    "ag-grid-react": "^18.1.0",
     "autoprefixer": "^8.2.0",
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.16.2",
