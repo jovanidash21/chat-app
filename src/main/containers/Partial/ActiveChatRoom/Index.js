@@ -121,13 +121,6 @@ class ActiveChatRoom extends Component {
       )
     }
   }
-  handleLeftSideDrawerToggleEvent(event) {
-    event.preventDefault();
-
-    const { handleLeftSideDrawerToggleEvent } = this.props;
-
-    handleLeftSideDrawerToggleEvent(true);
-  }
   handleRightSideDrawerToggleEvent(event) {
     event.preventDefault();
 
@@ -151,14 +144,6 @@ class ActiveChatRoom extends Component {
 
     return (
       <div className="active-chat-room">
-        <MediaQuery query="(max-width: 767px)">
-          <div
-            className="hamburger-icon"
-            onClick={::this.handleLeftSideDrawerToggleEvent}
-          >
-            <FontAwesomeIcon icon="bars" size="2x" />
-          </div>
-        </MediaQuery>
         {::this.handleActiveChatRoomRender()}
       </div>
     )
@@ -174,7 +159,6 @@ const mapStateToProps = (state) => {
 }
 
 ActiveChatRoom.propTypes = {
-  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
   handleRightSideDrawerToggleEvent: PropTypes.func.isRequired
 }
 

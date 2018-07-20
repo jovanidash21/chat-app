@@ -166,9 +166,8 @@ class Chat extends Component {
         >
           <MembersList handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent} />
         </RightSideDrawer>
-        <Header>
+        <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}>
           <ActiveChatRoom
-            handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
             handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
           />
         </Header>

@@ -13,6 +13,11 @@
   }
   .header {
     z-index: 3;
+    .hamburger-icon {
+      @media screen and (min-width: $screen-tablet-min) {
+        display: none;
+      }
+    }
   }
   .bm-menu-wrap {
     z-index: 4 !important;

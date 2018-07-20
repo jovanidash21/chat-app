@@ -59,7 +59,7 @@ class Layout extends Component {
       return (
         <div className="admin-section">
           {::this.handleLeftSideDrawerRender()}
-          <Header />
+          <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent} />
           <div className="admin-content">
             <Content {...matchProps} />
           </div>

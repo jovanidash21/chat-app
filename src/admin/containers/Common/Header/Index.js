@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Appbar } from 'muicss/react/';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import OptionsDropdown from '../../../components/Header/OptionsDropdown';
 import './styles.scss';
@@ -9,6 +10,13 @@ import './styles.scss';
 class Header extends Component {
   constructor(props) {
     super(props);
+  }
+  handleLeftSideDrawerToggleEvent(event) {
+    event.preventDefault();
+
+    const { handleLeftSideDrawerToggleEvent } = this.props;
+
+    handleLeftSideDrawerToggleEvent(true);
   }
   handleLogout() {
     const {
@@ -31,6 +39,12 @@ class Header extends Component {
             <tr style={{verticalAlign: 'middle'}}>
               <td className="mui--appbar-height">
                 <div className="left-part-header">
+                  <div
+                    className="hamburger-icon"
+                    onClick={::this.handleLeftSideDrawerToggleEvent}
+                  >
+                    <FontAwesomeIcon icon="bars" size="2x" />
+                  </div>
                   {children}
                 </div>
               </td>
@@ -52,6 +66,10 @@ const mapStateToProps = (state) => {
   return {
     user: state.user
   }
+}
+
+Header.propTypes = {
+  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired
 }
 
 export default connect(

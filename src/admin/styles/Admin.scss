@@ -5,6 +5,27 @@
       margin-left: 250px;
     }
   }
+  .header {
+    z-index: 3;
+    .hamburger-icon {
+      @media screen and (min-width: $screen-tablet-min) {
+        display: none;
+      }
+    }
+  }
+  .bm-menu-wrap {
+    z-index: 4 !important;
+  }
+  .left-side-drawer-overlay {
+    &,
+    & + .bm-menu-wrap {
+      z-index: 4 !important;
+    }
+  }
+  .bm-cross-button,
+  .bm-burger-button {
+    display: none;
+  }
   .admin-content {
     padding: 15px;
   }
