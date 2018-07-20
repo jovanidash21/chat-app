@@ -1,0 +1,17 @@
+.header {
+  background-color: $color-primary;
+  box-shadow: 0 2px 5px rgba($color-emperor, 0.25);
+  table {
+    padding: 0 10px 0 21px;
+    @media screen and (max-width: $screen-mobile-max) {
+      padding: 0 0 0 7px;
+    }
+  }
+  .mui--appbar-height {
+    position: relative;
+    width: 10px;
+  }
+  .left-part-header {
+    position: relative;
+  }
+}

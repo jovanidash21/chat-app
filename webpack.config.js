@@ -13,8 +13,8 @@ const extractSassBundle = new ExtractTextPlugin({
 const webpackConfig = {
   devtool: 'source-map',
   entry: {
-    main: './src/index.js',
-    admin: './src/admin.js',
+    main: './src/main/index.js',
+    admin: './src/admin/index.js',
   },
   output: {
     path: path.join(__dirname, '/public/build'),
