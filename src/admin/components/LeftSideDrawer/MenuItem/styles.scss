@@ -1,0 +1,50 @@
+.menu-item-wrapper {
+  .menu-item {
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    padding: 7px 10px;
+    transition: all 0.2s ease;
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: $color-oil;
+    }
+    &.selected {
+      background-color: $color-night-rider;
+      & + .sub-menu-items {
+        display: block;
+      }
+      .arrow-icon {
+        transform: rotate(-180deg);
+      }
+    }
+    .menu-icon {
+      align-items: center;
+      display: flex;
+      font-size: 18px;
+      justify-content: center;
+      margin-right: 10px;
+      width: 30px;
+    }
+    .menu-title {
+      flex: 1;
+      font-size: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .arrow-icon {
+      color: #fff;
+      font-size: 14px;
+      transform: rotate(0deg);
+      transition: all 0.2s ease;
+    }
+  }
+  .sub-menu-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+}

@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
 import { Route } from 'react-router';
 import mapDispatchToProps from '../actions';
-import LoadingAnimation from '../components/LoadingAnimation';
+import Menu from './Partial/Menu';
 import Header from './Common/Header';
 import LeftSideDrawer from './Common/LeftSideDrawer';
+import LoadingAnimation from '../components/LoadingAnimation';
 import '../styles/Admin.scss';
 
 class Layout extends Component {
@@ -37,7 +38,9 @@ class Layout extends Component {
               handleLeftSideDrawerToggleState={::this.handleLeftSideDrawerToggleState}
               isLeftSideDrawerOpen={matches ? isLeftSideDrawerOpen : true}
               noOverlay={matches ? false : true}
-            />
+            >
+              <Menu handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent} />
+            </LeftSideDrawer>
           )
         }}
       </MediaQuery>
@@ -63,7 +66,6 @@ class Layout extends Component {
           <div className="admin-content">
             <Content {...matchProps} />
           </div>
-
         </div>
       )
     } else {
