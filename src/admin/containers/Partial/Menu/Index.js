@@ -9,19 +9,24 @@ var SubMenuItem = MenuItem.SubMenuItem;
 
 const menuItems = [
   {
+    icon: "tachometer-alt",
+    title: "Dashboard",
+    link: "/admin"
+  },
+  {
     icon: "user",
     title: "User",
     subMenuItems: [
-      { title: "All Users" },
-      { title: "Create User" }
+      { title: "All Users", link: "" },
+      { title: "Create User", link: "" }
     ]
   },
   {
     icon: "door-closed",
     title: "Chat Room",
     subMenuItems: [
-      { title: "All Chat Rooms" },
-      { title: "Create Chat Room" }
+      { title: "All Chat Rooms", link: "" },
+      { title: "Create Chat Room", link: "" }
     ]
   }
 ];
@@ -59,13 +64,19 @@ class Menu extends Component {
                   index={i}
                   icon={singleMenuItem.icon}
                   title={singleMenuItem.title}
+                  link={('link' in singleMenuItem ? singleMenuItem.link : '')}
                   isOpen={openMenuItem === i}
                   handleOpenMenuItem={::this.handleOpenMenuItem}
                 >
                   {
+                    'subMenuItems' in singleMenuItem &&
                     singleMenuItem.subMenuItems.length > 0 &&
                     singleMenuItem.subMenuItems.map((singleSubMenuItem, i) =>
-                      <SubMenuItem key={i} title={singleSubMenuItem.title} />
+                      <SubMenuItem
+                        key={i}
+                        title={singleSubMenuItem.title}
+                        link={singleSubMenuItem.link}
+                      />
                     )
                   }
                 </MenuItem>

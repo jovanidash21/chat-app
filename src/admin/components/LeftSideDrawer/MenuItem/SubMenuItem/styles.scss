@@ -1,15 +1,18 @@
-.sub-menu-item {
-  background-color: $color-kabul;
-  cursor: pointer;
-  padding: 6px 10px;
-  transition: all 0.2s ease;
-  &:active,
-  &:focus,
-  &:hover {
-    background-color: $color-oil;
-  }
-  .sub-menu-title {
-    font-size: 14px;
-    margin-left: 40px;
+.sub-menu-item-wrapper {
+  .sub-menu-item {
+    background-color: $color-kabul;
+    color: #fff;
+    cursor: pointer;
+    padding: 6px 10px;
+    transition: all 0.2s ease;
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: $color-oil;
+    }
+    .sub-menu-title {
+      font-size: 14px;
+      margin-left: 40px;
+    }
   }
 }

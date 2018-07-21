@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './styles.scss';
 
 class SubMenuItem extends Component {
   constructor(props) {
     super(props);
   }
-  render() {
-    const {
-      icon,
-      title
-    } = this.props;
+  handleSubMenuItemRender() {
+    const { title } = this.props;
 
     return (
       <div className="sub-menu-item">
@@ -20,14 +18,33 @@ class SubMenuItem extends Component {
       </div>
     )
   }
+  render() {
+    const { link } = this.props;
+
+    return (
+      <div className="sub-menu-item-wrapper">
+        {
+          link.length > 0
+            ?
+            <Link to={link}>
+              {::this.handleSubMenuItemRender()}
+            </Link>
+            :
+            ::this.handleSubMenuItemRender()
+        }
+      </div>
+    )
+  }
 }
 
 SubMenuItem.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
+  link: PropTypes.string
 }
 
 SubMenuItem.defaultProps = {
-  title: 'Menu Item'
+  title: 'Menu Item',
+  link: ''
 }
 
 export default SubMenuItem;
