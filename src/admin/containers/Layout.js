@@ -7,6 +7,7 @@ import mapDispatchToProps from '../actions';
 import Menu from './Partial/Menu';
 import Header from './Common/Header';
 import LeftSideDrawer from './Common/LeftSideDrawer';
+import Head from '../components/Head';
 import LoadingAnimation from '../components/LoadingAnimation';
 import '../styles/Admin.scss';
 
@@ -55,14 +56,20 @@ class Layout extends Component {
   handleComponentRender(matchProps) {
     const {
       component: Content,
+      title,
       user
     } = this.props;
 
     if (!user.isLoading && user.isSuccess) {
       return (
         <div className="admin-section">
+          <Head title={"Chat App | " + title} />
           {::this.handleLeftSideDrawerRender()}
-          <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent} />
+          <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}>
+            <div className="page-title">
+              {title}
+            </div>
+          </Header>
           <div className="admin-content">
             <Content {...matchProps} />
           </div>
@@ -90,7 +97,12 @@ const mapStateToProps = (state) => {
 }
 
 Layout.propTypes = {
-  component: PropTypes.func.isRequired
+  component: PropTypes.func.isRequired,
+  title: PropTypes.string
+}
+
+Layout.defaultProps = {
+  title: ''
 }
 
 export default connect(

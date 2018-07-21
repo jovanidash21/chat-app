@@ -12,7 +12,7 @@ const routes = (
     <LoadingBar className="loading-bar" />
     <Popup />
     <Switch>
-      <Layout exact path="/admin" component={Dashboard} />
+      <Layout exact path="/admin" component={Dashboard} title="Dashboard" />
     </Switch>
   </div>
 );
