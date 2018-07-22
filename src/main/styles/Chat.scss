@@ -41,6 +41,9 @@
   .header {
     flex-shrink: 0;
   }
+  .chat-box-wrapper {
+    flex: 1;
+  }
   .chat-input,
   .chat-audio-recorder {
     flex-shrink: 0;
