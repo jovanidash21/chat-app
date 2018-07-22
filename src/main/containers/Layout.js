@@ -24,7 +24,7 @@ class Layout extends Component {
       user
     } = this.props;
 
-    if (!user.isLoading && user.isSuccess) {
+    if ( !user.isFetchingActive && user.isFetchingActiveSuccess ) {
       return (
         <Content {...matchProps} />
       )

@@ -60,7 +60,7 @@ class Layout extends Component {
       user
     } = this.props;
 
-    if (!user.isLoading && user.isSuccess) {
+    if ( !user.isFetchingActive && user.isFetchingActiveSuccess ) {
       return (
         <div className="admin-section">
           <Head title={"Chat App | " + title} />

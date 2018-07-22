@@ -4,7 +4,10 @@ import {
 } from '../constants/user';
 
 const initialState = {
-  isLoading: false,
+  isFetchingActive: false,
+  isFetchingActiveSuccess: false,
+  isFetchingAll: false,
+  isFetchingAllSuccess: false,
   active: {},
   all: []
 };
@@ -14,26 +17,38 @@ const user = (state=initialState, action) => {
     case `${FETCH_USER}_LOADING`:
       return {
         ...state,
-        isLoading: true
+        isFetchingActive: true
+      };
+    case `${FETCH_USERS}_LOADING`:
+      return {
+        ...state,
+        isFetchingAll: true
       };
     case `${FETCH_USER}_SUCCESS`:
       return {
         ...state,
-        isLoading: false,
-        isSuccess: true,
+        isFetchingActive: false,
+        isFetchingActiveSuccess: true,
         active: action.payload.data
       };
     case `${FETCH_USERS}_SUCCESS`:
       return {
         ...state,
-        isSuccess: true,
+        isFetchingAll: false,
+        isFetchingAllSuccess: true,
         all: action.payload.data
       };
     case `${FETCH_USER}_ERROR`:
       return {
         ...state,
-        isLoading: false,
-        isError: true
+        isFetchingActive: false,
+        isFetchingActiveSuccess: false
+      };
+    case `${FETCH_USERS}_ERROR`:
+      return {
+        ...state,
+        isFetchingAll: false,
+        isFetchingAllSuccess: false
       };
     default:
       return state;
