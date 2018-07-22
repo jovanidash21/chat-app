@@ -20,7 +20,7 @@ router.get('/all', function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
-    User.find({}, function(err, users) {
+    User.find({_id: {$ne: null}}, function(err, users) {
       if (!err) {
         res.status(200).send(users);
       } else {
