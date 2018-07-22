@@ -1,4 +1,7 @@
 .admin-section {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
   .header,
   .admin-content {
     @media screen and (min-width: $screen-tablet-min) {
@@ -6,6 +9,7 @@
     }
   }
   .header {
+    flex-shrink: 0;
     z-index: 3;
     .hamburger-icon {
       @media screen and (min-width: $screen-tablet-min) {
@@ -30,6 +34,19 @@
     display: none;
   }
   .admin-content {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
     padding: 15px;
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $color-mine-shaft;
+      border-radius: 5px;
+    }
   }
 }
