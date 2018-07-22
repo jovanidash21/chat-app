@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import mapDispatchToProps from '../../../actions';
+import LoadingAnimation from '../../../components/LoadingAnimation';
 import TableColumn from '../../../Components/Table/TableColumn';
 import './styles.scss';
 
@@ -18,8 +19,60 @@ class Table extends Component {
     };
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.rows.length === 0 && this.props.rows.length > 0 ) {
+    if ( prevProps.isLoading && !this.props.isLoading ) {
       ::this.handleSortTable(this.props.columns[0].key);
+    }
+  }
+  handleTableRender() {
+    const {
+      columns,
+      isLoading
+    } = this.props;
+    const { sort } = this.state;
+
+    if ( !isLoading ) {
+      return (
+        <table className="mui-table">
+          <thead>
+            <tr>
+              {
+                columns.length > 0 &&
+                columns.map((singleColumn, i) =>
+                  <TableColumn
+                    key={i}
+                    columnKey={singleColumn.key}
+                    label={singleColumn.label}
+                    isSortActive={sort.column === singleColumn.key}
+                    sortOrder={sort.direction}
+                    handleSortTable={::this.handleSortTable}
+                  />
+                )
+              }
+            </tr>
+          </thead>
+          <tbody>
+            {
+              columns.length > 0 &&
+              sort.rows.length > 0 &&
+              sort.rows.map((singleRow, i) =>
+                <tr key={i}>
+                  {
+                    columns.map((singleColumn, i) =>
+                      <td key={i}>
+                        {singleRow[singleColumn.key]}
+                      </td>
+                    )
+                  }
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
+      )
+    } else {
+      return (
+        <LoadingAnimation name="ball-clip-rotate" color="black" />
+      )
     }
   }
   handleSortTable(column) {
@@ -64,38 +117,9 @@ class Table extends Component {
     const { sort } = this.state;
 
     return (
-      <table className="mui-table">
-        <thead>
-          <tr>
-            {
-              columns.length > 0 &&
-              columns.map((singleColumn, i) =>
-                <TableColumn
-                  key={i}
-                  columnKey={singleColumn.key}
-                  label={singleColumn.label}
-                  isSortActive={sort.column === singleColumn.key}
-                  sortOrder={sort.direction}
-                  handleSortTable={::this.handleSortTable}
-                />
-              )
-            }
-          </tr>
-        </thead>
-        <tbody>
-          {
-            sort.rows.length > 0 &&
-            sort.rows.map((singleRow, i) =>
-              <tr key={i}>
-                <td>{singleRow[columns[0].key]}</td>
-                <td>{singleRow[columns[1].key]}</td>
-                <td>{singleRow[columns[2].key]}</td>
-                <td>{singleRow[columns[3].key]}</td>
-              </tr>
-            )
-          }
-        </tbody>
-      </table>
+      <div className="table">
+        {::this.handleTableRender()}
+      </div>
     );
   }
 }
@@ -106,7 +130,12 @@ const mapStateToProps = (state) => {
 
 Table.propTypes = {
   columns: PropTypes.array.isRequired,
-  rows: PropTypes.array.isRequired
+  rows: PropTypes.array.isRequired,
+  isLoading: PropTypes.bool
+}
+
+Table.defaultProps = {
+  isLoading: false
 }
 
 export default connect(

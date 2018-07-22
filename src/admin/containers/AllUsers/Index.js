@@ -20,9 +20,6 @@ class AllUsers extends Component {
 
     fetchUsers();
   }
-  handleTableRender() {
-
-  }
   render() {
     const { user } = this.props;
 
@@ -32,6 +29,7 @@ class AllUsers extends Component {
           <Table
             columns={columns}
             rows={user.all}
+            isLoading={user.isFetchingAll}
           />
         </Panel>
       </div>
