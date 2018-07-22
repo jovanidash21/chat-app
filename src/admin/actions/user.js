@@ -4,6 +4,9 @@ import {
   FETCH_USERS
 } from '../constants/user';
 
+const localtionArr = window.location.href.split("/");
+const baseURL = localtionArr[0] + "//" + localtionArr[2];
+
 /**
  * Fetch user
  */
@@ -11,7 +14,7 @@ export function fetchUser() {
   return dispatch => {
     return dispatch({
       type: FETCH_USER,
-      payload: axios.get('api/user')
+      payload: axios.get(baseURL + '/api/user')
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -28,7 +31,7 @@ export function fetchUsers() {
   return dispatch => {
     return dispatch({
       type: FETCH_USERS,
-      payload: axios.get('api/user/all')
+      payload: axios.get(baseURL + '/api/user/all')
     })
     .catch((error) => {
       if (error instanceof Error) {

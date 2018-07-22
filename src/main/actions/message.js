@@ -6,6 +6,9 @@ import {
   SOCKET_SEND_MESSAGE
 } from '../constants/message';
 
+const localtionArr = window.location.href.split("/");
+const baseURL = localtionArr[0] + "//" + localtionArr[2];
+
 /**
  * Fetch new messages
  * @param {string} chatRoomID
@@ -21,7 +24,7 @@ export function fetchNewMessages(chatRoomID, userID) {
   return dispatch => {
     return dispatch({
       type: FETCH_NEW_MESSAGES,
-      payload: axios.post('/api/message', data)
+      payload: axios.post(baseURL + '/api/message', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -47,7 +50,7 @@ export function fetchOldMessages(chatRoomID, userID, skipCount) {
   return dispatch => {
     return dispatch({
       type: FETCH_OLD_MESSAGES,
-      payload: axios.post('/api/message', data)
+      payload: axios.post(baseURL + '/api/message', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -86,7 +89,7 @@ export function sendTextMessage(newMessageID, text, user, chatRoomID) {
     });
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post('/api/message/text', data),
+      payload: axios.post(baseURL + '/api/message/text', data),
       meta: newMessageID
     })
     .then((response) => {
@@ -148,7 +151,7 @@ export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post('/api/message/file', data, config),
+      payload: axios.post(baseURL + '/api/message/file', data, config),
       meta: newMessageID
     })
     .then((response) => {
@@ -204,7 +207,7 @@ export function sendImageMessage(newMessageID, text, image, user, chatRoomID) {
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post('/api/message/image', data, config),
+      payload: axios.post(baseURL + '/api/message/image', data, config),
       meta: newMessageID
     })
     .then((response) => {
@@ -262,7 +265,7 @@ export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post('/api/message/audio', data, config),
+      payload: axios.post(baseURL + '/api/message/audio', data, config),
       meta: newMessageID
     })
     .then((response) => {

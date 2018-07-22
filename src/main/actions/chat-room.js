@@ -10,6 +10,9 @@ import {
 import { fetchNewMessages } from './message';
 import { fetchMembers } from './member';
 
+const localtionArr = window.location.href.split("/");
+const baseURL = localtionArr[0] + "//" + localtionArr[2];
+
 /**
  * Fetch chat rooms
  * @param {string} userID
@@ -18,7 +21,7 @@ export function fetchChatRooms(userID) {
   return dispatch => {
     return dispatch({
       type: FETCH_CHAT_ROOMS,
-      payload: axios.get(`/api/chat-room/${userID}`)
+      payload: axios.get(baseURL + `/api/chat-room/${userID}`)
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -119,7 +122,7 @@ export function createGroupChatRoom(name, members, userID, activeChatRoomID) {
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post(`/api/chat-room/group/${userID}`, data)
+      payload: axios.post(baseURL + `/api/chat-room/group/${userID}`, data)
     })
     .then((response) => {
       dispatch(createChatRoom(userID, response.action.payload.data.chatRoom, activeChatRoomID));
@@ -148,7 +151,7 @@ export function createDirectChatRoom(userID, memberID, activeChatRoomID) {
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post(`/api/chat-room/direct/${userID}`, data)
+      payload: axios.post(baseURL + `/api/chat-room/direct/${userID}`, data)
     })
     .then((response) => {
       dispatch(createChatRoom(userID, response.action.payload.data.chatRoom, activeChatRoomID));

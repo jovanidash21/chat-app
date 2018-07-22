@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { SEND_EMAIL } from '../constants/email';
 
+const localtionArr = window.location.href.split("/");
+const baseURL = localtionArr[0] + "//" + localtionArr[2];
+
 /**
  * Send email
  * @param {string} username
@@ -15,7 +18,7 @@ export function sendEmail(email, name) {
   return dispatch => {
     return dispatch({
       type: SEND_EMAIL,
-      payload: axios.post('/api/email', data)
+      payload: axios.post(baseURL + '/api/email', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
