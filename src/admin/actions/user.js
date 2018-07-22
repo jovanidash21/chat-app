@@ -3,7 +3,6 @@ import {
   FETCH_USER,
   FETCH_USERS
 } from '../constants/user';
-import { fetchChatRooms } from './chat-room';
 
 /**
  * Fetch user
@@ -13,9 +12,6 @@ export function fetchUser() {
     return dispatch({
       type: FETCH_USER,
       payload: axios.get('api/user')
-    })
-    .then((response) => {
-      dispatch(fetchChatRooms(response.value.data._id));
     })
     .catch((error) => {
       if (error instanceof Error) {
