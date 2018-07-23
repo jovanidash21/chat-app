@@ -1,4 +1,7 @@
 .table {
   min-height: 50px;
   position: relative;
+  .pagination-buttons {
+    text-align: right;
+  }
 }
