@@ -16,15 +16,35 @@ class Table extends Component {
       itemsCountPerPage: 10,
       sort: {
         column: null,
-        direction: 'asc',
-        rows: []
-      }
+        direction: 'asc'
+      },
+      dataRows: []
     };
   }
   componentDidUpdate(prevProps) {
     if ( prevProps.isLoading && !this.props.isLoading ) {
       ::this.handleSortTable(this.props.columns[0].key);
     }
+  }
+  handleDataRowsChange(column, direction, page) {
+    const { rows } = this.props;
+    const { itemsCountPerPage } = this.state;
+    const lastItemIndex = page * itemsCountPerPage;
+    const firstItemIndex = lastItemIndex - itemsCountPerPage;
+
+    var sortedData = rows.sort((a, b) => {
+      var sortKey = a[column].toLowerCase().localeCompare(b[column].toLowerCase());
+
+      return sortKey;
+    });
+
+    if ( direction === 'desc' ) {
+      sortedData.reverse();
+    }
+
+    sortedData = sortedData.slice(firstItemIndex, lastItemIndex);
+
+    this.setState({dataRows: sortedData});
   }
   handleTableRender() {
     const {
@@ -35,7 +55,8 @@ class Table extends Component {
     const {
       activePage,
       itemsCountPerPage,
-      sort
+      sort,
+      dataRows
     } = this.state;
 
     if ( !isLoading ) {
@@ -62,8 +83,8 @@ class Table extends Component {
             <tbody>
               {
                 columns.length > 0 &&
-                sort.rows.length > 0 &&
-                sort.rows.map((singleRow, i) =>
+                dataRows.length > 0 &&
+                dataRows.map((singleRow, i) =>
                   <tr key={i}>
                     {
                       columns.map((singleColumn, i) =>
@@ -77,12 +98,14 @@ class Table extends Component {
               }
             </tbody>
           </table>
-          <Pagination
-            handleChangePage={::this.handleChangePage}
-            activePage={activePage}
-            totalCount={rows.length}
-            itemsCountPerPage={itemsCountPerPage}
-          />
+          <div className="pagination-wrapper">
+            <Pagination
+              handleChangePage={::this.handleChangePage}
+              activePage={activePage}
+              totalCount={rows.length}
+              itemsCountPerPage={itemsCountPerPage}
+            />
+          </div>
         </div>
       )
     } else {
@@ -95,11 +118,8 @@ class Table extends Component {
     const { rows } = this.props;
     const {
       activePage,
-      itemsCountPerPage,
       sort
     } = this.state;
-    const lastItemIndex = activePage * itemsCountPerPage;
-    const firstItemIndex = lastItemIndex - itemsCountPerPage;
     var direction = 'desc';
 
     if ( sort.column !== null ) {
@@ -116,55 +136,21 @@ class Table extends Component {
       direction = 'asc';
     }
 
-    var sortedData = rows.sort((a, b) => {
-      var sortKey = a[column].toLowerCase().localeCompare(b[column].toLowerCase());
-
-      return sortKey;
-    });
-
-    if ( direction === 'desc' ) {
-      sortedData.reverse();
-    }
-
-    sortedData = sortedData.slice(firstItemIndex, lastItemIndex);
-
     this.setState({
       sort: {
         column,
-        direction,
-        rows: sortedData
+        direction
       }
     });
+
+    ::this.handleDataRowsChange(column, direction, activePage);
   }
   handleChangePage(page) {
-    const { rows } = this.props;
-    const {
-      itemsCountPerPage,
-      sort
-    } = this.state;
-    const lastItemIndex = page * itemsCountPerPage;
-    const firstItemIndex = lastItemIndex - itemsCountPerPage;
+    const { sort } = this.state;
 
-    var sortedData = rows.sort((a, b) => {
-      var sortKey = a[sort.column].toLowerCase().localeCompare(b[sort.column].toLowerCase());
+    this.setState({activePage: page});
 
-      return sortKey;
-    });
-
-    if ( sort.direction === 'desc' ) {
-      sortedData.reverse();
-    }
-
-    sortedData = sortedData.slice(firstItemIndex, lastItemIndex);
-
-    this.setState({
-      activePage: page,
-      sort: {
-        column: sort.column,
-        direction: sort.direction,
-        rows: sortedData
-      }
-    });
+    ::this.handleDataRowsChange(sort.column, sort.direction, page);
   }
   render() {
     const { columns } = this.props;

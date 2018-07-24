@@ -1,7 +1,8 @@
 .table {
   min-height: 50px;
   position: relative;
-  .pagination-buttons {
-    text-align: right;
+  .pagination-wrapper {
+    display: flex;
+    justify-content: flex-end;
   }
 }
