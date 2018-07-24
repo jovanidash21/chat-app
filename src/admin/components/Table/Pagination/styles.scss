@@ -27,12 +27,20 @@
       &:focus {
         background-color: #fff;
       }
+      &:disabled {
+        pointer-events: unset;
+      }
       &:hover {
         color: $color-primary;
       }
       &.active {
         background-color: $color-primary;
         color: #fff;
+      }
+      &.arrow-button,
+      &.ellipsis-button {
+        font-size: 12px;
+        padding: 0 0.8rem;
       }
     }
   }
