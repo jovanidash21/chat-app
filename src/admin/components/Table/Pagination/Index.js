@@ -99,6 +99,7 @@ class Pagination extends Component {
             variant="flat"
             size="small"
             onClick={!isPrevButtonDisabled ? (e) => ::this.handleChangePage(e, 1) : false}
+            title="First Page"
             disabled={isPrevButtonDisabled}
           >
             <FontAwesomeIcon icon="angle-double-left" />
@@ -110,6 +111,7 @@ class Pagination extends Component {
             variant="flat"
             size="small"
             onClick={!isPrevButtonDisabled ? (e) => ::this.handleChangePage(e, activePage - 1) : false}
+            title="Previous Page"
             disabled={isPrevButtonDisabled}
           >
             <FontAwesomeIcon icon="angle-left" />
@@ -122,6 +124,7 @@ class Pagination extends Component {
             variant="flat"
             size="small"
             onClick={!isNextButtonDisabled ? (e) => ::this.handleChangePage(e, activePage + 1) : false}
+            title="Next Page"
             disabled={isNextButtonDisabled}
           >
             <FontAwesomeIcon icon="angle-right" />
@@ -133,6 +136,7 @@ class Pagination extends Component {
             variant="flat"
             size="small"
             onClick={!isNextButtonDisabled ? (e) => ::this.handleChangePage(e, numberOfPages) : false}
+            title="Last Page"
             disabled={isNextButtonDisabled}
           >
             <FontAwesomeIcon icon="angle-double-right" />

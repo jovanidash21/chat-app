@@ -34,13 +34,24 @@ class TableColumn extends Component {
   render() {
     const {
       label,
-      isSortActive
+      isSortActive,
+      sortOrder
     } = this.props;
+    var sortTitle = '';
+
+    if ( isSortActive && sortOrder === 'asc' ) {
+      sortTitle = 'Ascending';
+    } else if ( isSortActive && sortOrder === 'desc' ) {
+      sortTitle = 'Descending';
+    }
 
     return (
       <th className="table-column" onClick={::this.handleSortTable}>
         {label}
-        <div className={"sort-icon " + (isSortActive ? 'active' : '')}>
+        <div
+          className={"sort-icon " + (isSortActive ? 'active' : '')}
+          title={sortTitle}
+        >
           <FontAwesomeIcon icon={::this.handleSortIcon()} />
         </div>
       </th>
