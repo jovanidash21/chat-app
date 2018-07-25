@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import mapDispatchToProps from '../../../actions';
 import LoadingAnimation from '../../../components/LoadingAnimation';
 import TableColumn from '../../../Components/Table/TableColumn';
+import SearchFilter from '../../../Components/Table/SearchFilter';
 import Pagination from '../../../Components/Table/Pagination';
 import './styles.scss';
 
@@ -12,8 +13,10 @@ class Table extends Component {
     super(props);
 
     this.state = {
+      totalRows: 0,
       activePage: 1,
       itemsCountPerPage: 10,
+      searchFilter: '',
       sort: {
         column: null,
         direction: 'asc'
@@ -26,25 +29,47 @@ class Table extends Component {
       ::this.handleSortTable(this.props.columns[0].key);
     }
   }
-  handleDataRowsChange(column, direction, page) {
+  handleDataRowsChange(filter, column, direction, page) {
     const { rows } = this.props;
     const { itemsCountPerPage } = this.state;
+    var dataRows = rows;
     const lastItemIndex = page * itemsCountPerPage;
     const firstItemIndex = lastItemIndex - itemsCountPerPage;
 
-    var sortedData = rows.sort((a, b) => {
+    if ( filter.length > 0 ) {
+      var filteredData = [];
+
+      for (var i = 0; i < dataRows.length; i++) {
+        var singleDataRow = dataRows[i];
+
+        for ( var key in singleDataRow ) {
+          if (
+            singleDataRow[key].length > 0 &&
+            singleDataRow[key].toLowerCase().match(filter)
+          ) {
+            filteredData.push(singleDataRow);
+          }
+        }
+      }
+
+      dataRows = filteredData;
+    }
+
+    this.setState({totalRows: dataRows.length});
+
+    dataRows = dataRows.sort((a, b) => {
       var sortKey = a[column].toLowerCase().localeCompare(b[column].toLowerCase());
 
       return sortKey;
     });
 
     if ( direction === 'desc' ) {
-      sortedData.reverse();
+      dataRows.reverse();
     }
 
-    sortedData = sortedData.slice(firstItemIndex, lastItemIndex);
+    dataRows = dataRows.slice(firstItemIndex, lastItemIndex);
 
-    this.setState({dataRows: sortedData});
+    this.setState({dataRows: dataRows});
   }
   handleTableRender() {
     const {
@@ -53,6 +78,7 @@ class Table extends Component {
       isLoading
     } = this.props;
     const {
+      totalRows,
       activePage,
       itemsCountPerPage,
       sort,
@@ -62,6 +88,9 @@ class Table extends Component {
     if ( !isLoading ) {
       return (
         <div>
+          <div className="search-filter-wrapper">
+            <SearchFilter onSearchFilterChange={::this.onSearchFilterChange} />
+          </div>
           <table className="mui-table mui-table--bordered">
             <thead>
               <tr>
@@ -98,14 +127,17 @@ class Table extends Component {
               }
             </tbody>
           </table>
-          <div className="pagination-wrapper">
-            <Pagination
-              handleChangePage={::this.handleChangePage}
-              activePage={activePage}
-              totalCount={rows.length}
-              itemsCountPerPage={itemsCountPerPage}
-            />
-          </div>
+          {
+            totalRows > itemsCountPerPage &&
+            <div className="pagination-wrapper">
+              <Pagination
+                handleChangePage={::this.handleChangePage}
+                activePage={activePage}
+                totalCount={totalRows}
+                itemsCountPerPage={itemsCountPerPage}
+              />
+            </div>
+          }
         </div>
       )
     } else {
@@ -114,10 +146,22 @@ class Table extends Component {
       )
     }
   }
+  onSearchFilterChange(event) {
+    const {
+      activePage,
+      sort
+    } = this.state;
+    const searchFilter = event.target.value.trim().toLowerCase();
+
+    this.setState({searchFilter: searchFilter});
+
+    ::this.handleDataRowsChange(searchFilter, sort.column, sort.direction, activePage);
+  }
   handleSortTable(column) {
     const { rows } = this.props;
     const {
       activePage,
+      searchFilter,
       sort
     } = this.state;
     var direction = 'desc';
@@ -143,14 +187,17 @@ class Table extends Component {
       }
     });
 
-    ::this.handleDataRowsChange(column, direction, activePage);
+    ::this.handleDataRowsChange(searchFilter, column, direction, activePage);
   }
   handleChangePage(page) {
-    const { sort } = this.state;
+    const {
+      searchFilter,
+      sort
+    } = this.state;
 
     this.setState({activePage: page});
 
-    ::this.handleDataRowsChange(sort.column, sort.direction, page);
+    ::this.handleDataRowsChange(searchFilter, sort.column, sort.direction, page);
   }
   render() {
     const { columns } = this.props;

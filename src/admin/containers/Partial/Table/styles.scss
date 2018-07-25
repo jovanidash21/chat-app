@@ -1,6 +1,7 @@
 .table {
   min-height: 50px;
   position: relative;
+  .search-filter-wrapper,
   .pagination-wrapper {
     display: flex;
     justify-content: flex-end;

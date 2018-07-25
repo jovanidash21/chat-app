@@ -13,6 +13,14 @@ class Pagination extends Component {
     };
   }
   componentWillMount() {
+    ::this.handleNumberOfPages();
+  }
+  componentDidUpdate(prevProps) {
+    if ( prevProps.totalCount !== this.props.totalCount ) {
+      ::this.handleNumberOfPages();
+    }
+  }
+  handleNumberOfPages() {
     const {
       totalCount,
       itemsCountPerPage
@@ -20,7 +28,6 @@ class Pagination extends Component {
     const numberOfPages = Math.ceil(totalCount / itemsCountPerPage);
 
     this.setState({numberOfPages: numberOfPages});
-
   }
   handleChangePage(event, page) {
     event.preventDefault();
