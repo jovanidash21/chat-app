@@ -5,6 +5,7 @@ import mapDispatchToProps from '../../../actions';
 import LoadingAnimation from '../../../components/LoadingAnimation';
 import TableColumn from '../../../Components/Table/TableColumn';
 import SearchFilter from '../../../Components/Table/SearchFilter';
+import Avatar from '../../../Components/Avatar';
 import Pagination from '../../../Components/Table/Pagination';
 import './styles.scss';
 
@@ -118,7 +119,21 @@ class Table extends Component {
                     {
                       columns.map((singleColumn, i) =>
                         <td key={i}>
-                          {singleRow[singleColumn.key]}
+                          <div className="table-data">
+                            {
+                              i === 0 &&
+                              <Avatar
+                                image={singleRow.image}
+                                size="32px"
+                                title={singleRow[singleColumn.key]}
+                                accountType={singleRow.accountType}
+                                badgeCloser
+                              />
+                            }
+                            <span>
+                              {singleRow[singleColumn.key]}
+                            </span>
+                          </div>
                         </td>
                       )
                     }
