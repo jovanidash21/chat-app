@@ -20,16 +20,21 @@ class Avatar extends Component {
       flex: `0 0 ${size}`
     };
     const colors = [
-      '#f85f0d', // blaze orange
-      '#57d006', // bright green
+      '#ffc107', // amber
+      '#43a047', // apple
+      '#FF6F00', // blaze orange
       '#304ffe', // blue ribbon
-      '#e53935', // cinnabar
-      '#d500f9', // electric violet
-      '#f05247', // flamingo
-      '#4a148c', // persian indigo
+      '#03a9f4', // cerulean
+      '#6200ea', // electric violet
+      '#dd2c00', // grenadier
+      '#d50000', // guardsman red
+      '#afb42b', // lemon butter
+      '#64dd17', // lima
+      '#f44336', // pomegranate
       '#f50057', // razzmatazz
-      '#2e7d32', // sea green
-      '#0d47a1', // tory blue
+      '#26c6da', // scooter
+      '#f9a825', // sea buckthorn
+      '#8e24aa', // seance
     ];
 
     if ( image.length > 0 ) {
@@ -45,7 +50,7 @@ class Avatar extends Component {
       const j = charCodeSum % colors.length;
 
       avatarStyles.backgroundColor = colors[j];
-      avatarStyles.fontSize = Math.floor(parseInt(size, 10) / 2.5);
+      avatarStyles.fontSize = Math.floor(parseInt(size, 10) / 2.1);
       avatarStyles.lineHeight = size;
     }
 
