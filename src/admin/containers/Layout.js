@@ -77,7 +77,7 @@ class Layout extends Component {
       )
     } else {
       return (
-        <LoadingAnimation name="pacman" color="#4bb06b" />
+        <LoadingAnimation name="pacman" color="#26a69a" />
       )
     }
   }
