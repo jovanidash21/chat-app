@@ -26,10 +26,12 @@ class ChatMemberSelect extends Component {
     const inputValue = value.trim().toLowerCase();
     const inputLength = inputValue.length;
 
-    return inputLength === 0 ? [] : users.filter(suggestion =>
-      user._id !== suggestion._id &&
-      suggestion.name &&
-      suggestion.name.toLowerCase().slice(0, inputLength) === inputValue
+    const regex = new RegExp('\\b' + inputValue, 'i');
+
+    return inputLength === 0 ? [] : users.filter(singleUser =>
+      user._id !== singleUser._id &&
+      singleUser.name &&
+      regex.test(::this.handleGetSuggestionValue(singleUser))
     );
   };
   handleGetSuggestionValue(suggestion) {
