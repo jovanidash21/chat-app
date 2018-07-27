@@ -13,7 +13,7 @@ import {
 } from './auth';
 import {
   fetchUser,
-  fetchUsers
+  searchUser
 } from './user';
 import {
   socketIsTyping,
@@ -47,7 +47,7 @@ const actions = (dispatch) => {
     register,
     logout,
     fetchUser,
-    fetchUsers,
+    searchUser,
     socketIsTyping,
     socketIsNotTyping,
     changeChatRoom,

@@ -1,15 +1,13 @@
 import {
   FETCH_USER,
-  FETCH_USERS
+  SEARCH_USER
 } from '../constants/user';
 
 const initialState = {
   isFetchingActive: false,
   isFetchingActiveSuccess: false,
-  isFetchingAll: false,
-  isFetchingAllSuccess: false,
   active: {},
-  all: []
+  search: []
 };
 
 const user = (state=initialState, action) => {
@@ -19,10 +17,10 @@ const user = (state=initialState, action) => {
         ...state,
         isFetchingActive: true
       };
-    case `${FETCH_USERS}_LOADING`:
+    case `${SEARCH_USER}_LOADING`:
       return {
         ...state,
-        isFetchingAll: true
+        search: []
       };
     case `${FETCH_USER}_SUCCESS`:
       return {
@@ -31,12 +29,10 @@ const user = (state=initialState, action) => {
         isFetchingActiveSuccess: true,
         active: action.payload.data
       };
-    case `${FETCH_USERS}_SUCCESS`:
+    case `${SEARCH_USER}_SUCCESS`:
       return {
         ...state,
-        isFetchingAll: false,
-        isFetchingAllSuccess: true,
-        all: action.payload.data
+        search: action.payload.data
       };
     case `${FETCH_USER}_ERROR`:
       return {
@@ -44,11 +40,10 @@ const user = (state=initialState, action) => {
         isFetchingActive: false,
         isFetchingActiveSuccess: false
       };
-    case `${FETCH_USERS}_ERROR`:
+    case `${SEARCH_USER}_ERROR`:
       return {
         ...state,
-        isFetchingAll: false,
-        isFetchingAllSuccess: false
+        search: []
       };
     default:
       return state;

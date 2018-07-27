@@ -10,13 +10,9 @@ class Layout extends Component {
     super(props);
   }
   componentWillMount() {
-    const {
-      fetchUser,
-      fetchUsers
-    } = this.props;
+    const { fetchUser } = this.props;
 
     fetchUser();
-    fetchUsers();
   }
   handleComponentRender(matchProps) {
     const {

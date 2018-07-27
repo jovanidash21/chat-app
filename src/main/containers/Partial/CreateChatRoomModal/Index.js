@@ -90,6 +90,7 @@ class CreateChatRoomModal extends Component {
     const {
       user,
       chatRoom,
+      searchUser,
       handleDeactivateModal,
       isLoading
     } = this.props;
@@ -136,8 +137,8 @@ class CreateChatRoomModal extends Component {
               }
             </div>
             <ChatMemberSelect
-              user={user.active}
-              users={user.all}
+              searchedUsers={user.search}
+              handleSearchUser={searchUser}
               onSuggestionSelected={::this.onSuggestionSelected}
               isDisabled={isLoading}
             />

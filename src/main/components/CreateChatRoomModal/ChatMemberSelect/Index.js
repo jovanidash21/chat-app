@@ -19,20 +19,9 @@ class ChatMemberSelect extends Component {
     this.setState({selectMember: newValue});
   };
   handleGetSuggestions(value) {
-    const {
-      user,
-      users
-    } = this.props;
-    const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
+    const { searchedUsers } = this.props;
 
-    const regex = new RegExp('\\b' + inputValue, 'i');
-
-    return inputLength === 0 ? [] : users.filter(singleUser =>
-      user._id !== singleUser._id &&
-      singleUser.name &&
-      regex.test(::this.handleGetSuggestionValue(singleUser))
-    );
+    return searchedUsers;
   };
   handleGetSuggestionValue(suggestion) {
     return suggestion.name;
@@ -73,16 +62,21 @@ class ChatMemberSelect extends Component {
     this.setState({selectMember: ''});
   }
   onSuggestionsFetchRequested({value}) {
-    this.setState({suggestions: ::this.handleGetSuggestions(value)});
+    const { handleSearchUser } = this.props;
+    const inputValue = value.trim().toLowerCase();
+    const inputLength = inputValue.length;
+
+    if ( inputLength > 0 ) {
+      handleSearchUser(inputValue).then(() => {
+        this.setState({suggestions: ::this.handleGetSuggestions(value)});
+      });
+    }
   };
   onSuggestionsClearRequested() {
     this.setState({suggestions: []});
   };
   render() {
-    const {
-      users,
-      isDisabled
-    } = this.props;
+    const { isDisabled } = this.props;
     const {
       selectMember,
       suggestions
@@ -112,8 +106,8 @@ class ChatMemberSelect extends Component {
 }
 
 ChatMemberSelect.propTypes = {
-  user: PropTypes.object.isRequired,
-  users: PropTypes.array.isRequired,
+  searchedUsers: PropTypes.array.isRequired,
+  handleSearchUser: PropTypes.func.isRequired,
   onSuggestionSelected: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool
 }
