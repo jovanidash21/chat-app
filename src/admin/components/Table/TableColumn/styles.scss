@@ -2,15 +2,19 @@
   cursor: pointer;
   padding: 10px 30px 10px 10px !important;
   position: relative;
+  &.active {
+    border-bottom-color: $color-primary; 
+    .sort-icon {
+      opacity: 0.8;
+      transform: translateY(-50%);
+    }
+  }
   .sort-icon {
     opacity: 0.2;
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%) rotate(90deg);
-    &.active {
-      opacity: 0.8;
-      transform: translateY(-50%);
-    }
+
   }
 }
