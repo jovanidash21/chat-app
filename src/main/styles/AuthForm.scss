@@ -11,6 +11,11 @@
     @media screen and (max-width: $screen-mobile-max) {
       box-shadow: none;
     }
+    .button {
+      display: block;
+      padding: 0;
+      width: 100%;
+    }
   }
   .line {
     margin: 15px 0;
