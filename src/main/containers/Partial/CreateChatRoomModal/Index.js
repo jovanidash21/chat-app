@@ -25,11 +25,11 @@ class CreateChatRoomModal extends Component {
   componentDidUpdate(prevProps) {
     if ( prevProps.chatRoom.isCreating && this.props.chatRoom.isCreatingSuccess ) {
       const {
-        handleDeactivateModal,
+        handleCloseModal,
         handleLeftSideDrawerToggleEvent
       } = this.props;
 
-      handleDeactivateModal();
+      handleCloseModal();
       handleLeftSideDrawerToggleEvent();
     }
   }
@@ -92,7 +92,7 @@ class CreateChatRoomModal extends Component {
       chatRoom,
       searchUser,
       isModalOpen,
-      handleDeactivateModal,
+      handleCloseModal,
       isLoading
     } = this.props;
     const {
@@ -112,7 +112,7 @@ class CreateChatRoomModal extends Component {
       <Modal
         classNames={modalClassNames}
         open={isModalOpen}
-        onClose={handleDeactivateModal}
+        onClose={handleCloseModal}
         center
       >
         {
@@ -171,7 +171,7 @@ const mapStateToProps = (state) => {
 
 CreateChatRoomModal.propTypes = {
   isModalOpen: PropTypes.bool,
-  handleDeactivateModal: PropTypes.func.isRequired,
+  handleCloseModal: PropTypes.func.isRequired,
   handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
   isLoading: PropTypes.bool
 }

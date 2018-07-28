@@ -82,10 +82,12 @@ class ChatRoomsList extends Component {
       )
     }
   }
-  handleActivateModal() {
+  handleOpenModal(event) {
+    event.preventDefault();
+
     this.setState({isModalOpen: true});
   }
-  handleDeactivateModal() {
+  handleCloseModal() {
     this.setState({isModalOpen: false});
   }
   render() {
@@ -103,7 +105,7 @@ class ChatRoomsList extends Component {
           <div className="chat-rooms-options">
             <h3>Chat Rooms</h3>
             <div className="add-chat-room-icon"
-              onClick={::this.handleActivateModal}
+              onClick={::this.handleOpenModal}
               title="Add Chat Room"
             >
               <FontAwesomeIcon icon="plus-circle" />
@@ -115,7 +117,7 @@ class ChatRoomsList extends Component {
           isModalOpen &&
           <CreateChatRoomModal
             isModalOpen={isModalOpen}
-            handleDeactivateModal={::this.handleDeactivateModal}
+            handleCloseModal={::this.handleCloseModal}
             handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
             isLoading={chatRoom.isCreating}
           />

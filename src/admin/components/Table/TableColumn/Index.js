@@ -46,12 +46,12 @@ class TableColumn extends Component {
     }
 
     return (
-      <th className={"table-column " + (isSortActive ? 'active' : '')} onClick={::this.handleSortTable}>
+      <th
+        className={"table-column " + (isSortActive ? 'active' : '')}
+        onClick={::this.handleSortTable}
+      >
         {label}
-        <div
-          className="sort-icon"
-          title={sortTitle}
-        >
+        <div className="sort-icon" title={sortTitle}>
           <FontAwesomeIcon icon={::this.handleSortIcon()} />
         </div>
       </th>
