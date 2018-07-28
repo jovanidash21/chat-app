@@ -1,0 +1,17 @@
+@mixin scrollbar($color: #000, $bg-color: transparent, $direction: 'y') {
+  &::-webkit-scrollbar {
+    @if $direction == 'x' {
+      height: 6px;
+    }
+    @if $direction == 'y' {
+      width: 6px;
+    }
+  }
+  &::-webkit-scrollbar-track {
+    background: $bg-color;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $color;
+    border-radius: 5px;
+  }
+}

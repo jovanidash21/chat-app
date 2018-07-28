@@ -14,18 +14,9 @@
     }
   }
   .chat-box {
+    @include scrollbar($color-mine-shaft);
     overflow-x: hidden;
     overflow-y: auto;
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: $color-mine-shaft;
-      border-radius: 5px;
-    }
   }
   .user-no-chat-rooms {
     font-size: 21px;

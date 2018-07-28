@@ -34,19 +34,10 @@
     display: none;
   }
   .admin-content {
+    @include scrollbar($color-mine-shaft);
     flex: 1;
     overflow-x: hidden;
     overflow-y: auto;
     padding: 15px;
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: $color-mine-shaft;
-      border-radius: 5px;
-    }
   }
 }
