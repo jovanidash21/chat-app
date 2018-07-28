@@ -13,7 +13,7 @@ class ChatRoomsList extends Component {
     super(props);
 
     this.state = {
-      showModal: false
+      isModalOpen: false
     }
   }
   componentDidUpdate(prevProps) {
@@ -83,10 +83,10 @@ class ChatRoomsList extends Component {
     }
   }
   handleActivateModal() {
-    this.setState({showModal: true});
+    this.setState({isModalOpen: true});
   }
   handleDeactivateModal() {
-    this.setState({showModal: false});
+    this.setState({isModalOpen: false});
   }
   render() {
     const {
@@ -94,7 +94,7 @@ class ChatRoomsList extends Component {
       chatRoom,
       handleLeftSideDrawerToggleEvent
     } = this.props;
-    const { showModal } = this.state;
+    const { isModalOpen } = this.state;
 
     return (
       <div style={{height: '100%'}}>
@@ -112,9 +112,9 @@ class ChatRoomsList extends Component {
           {::this.handleChatRoomsListRender()}
         </div>
         {
-          showModal &&
+          isModalOpen &&
           <CreateChatRoomModal
-            showModal={showModal}
+            isModalOpen={isModalOpen}
             handleDeactivateModal={::this.handleDeactivateModal}
             handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
             isLoading={chatRoom.isCreating}

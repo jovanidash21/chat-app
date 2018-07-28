@@ -91,7 +91,7 @@ class CreateChatRoomModal extends Component {
       user,
       chatRoom,
       searchUser,
-      showModal,
+      isModalOpen,
       handleDeactivateModal,
       isLoading
     } = this.props;
@@ -111,7 +111,7 @@ class CreateChatRoomModal extends Component {
     return (
       <Modal
         classNames={modalClassNames}
-        open={showModal}
+        open={isModalOpen}
         onClose={handleDeactivateModal}
         center
       >
@@ -170,14 +170,14 @@ const mapStateToProps = (state) => {
 }
 
 CreateChatRoomModal.propTypes = {
-  showModal: PropTypes.bool,
+  isModalOpen: PropTypes.bool,
   handleDeactivateModal: PropTypes.func.isRequired,
   handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
   isLoading: PropTypes.bool
 }
 
 CreateChatRoomModal.defaultProps = {
-  showModal: false,
+  isModalOpen: false,
   isLoading: false
 }
 
