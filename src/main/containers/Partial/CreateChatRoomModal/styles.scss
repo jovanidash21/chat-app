@@ -1,18 +1,4 @@
 .add-chat-room-modal {
-  max-width: 500px;
-  width: 100%;
-  border-radius: 0 !important;
-  .close-button {
-    cursor: pointer;
-    opacity: 0.5;
-    transition: all 0.2s ease;
-    &:hover {
-      opacity: 1;
-    }
-  }
-  .modal-title {
-    margin-top: 0;
-  }
   .members-list {
     border: 1px solid $color-dusty-gray;
     margin-bottom: 10px;
@@ -23,13 +9,5 @@
       opacity: 0.6;
       pointer-events: none;
     }
-  }
-  .modal-button {
-    background-color: $color-primary;
-    color: #fff;
-    display: block;
-    padding: 0;
-    width: 100%;
-    position: relative;
   }
 }

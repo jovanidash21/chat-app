@@ -119,7 +119,6 @@ class ChatRoomsList extends Component {
             isModalOpen={isModalOpen}
             handleCloseModal={::this.handleCloseModal}
             handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
-            isLoading={chatRoom.isCreating}
           />
         }
       </div>
