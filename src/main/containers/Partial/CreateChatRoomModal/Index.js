@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ModalContainer, ModalDialog } from 'react-modal-dialog';
+import Modal from 'react-responsive-modal';
 import {
   Form,
   Button
@@ -91,6 +91,7 @@ class CreateChatRoomModal extends Component {
       user,
       chatRoom,
       searchUser,
+      showModal,
       handleDeactivateModal,
       isLoading
     } = this.props;
@@ -98,62 +99,65 @@ class CreateChatRoomModal extends Component {
       chatRoomName,
       members
     } = this.state;
+    const modalClassNames = {
+      modal: "add-chat-room-modal",
+      closeButton: "close-button"
+    };
     const isButtonDisabled =
       chatRoomName.length === 0 ||
       members.length < 3 ||
       isLoading;
 
     return (
-     <ModalContainer onClose={handleDeactivateModal}>
-        <ModalDialog
-          className="add-chat-room-modal"
-          style={{width: '300px'}}
-          onClose={handleDeactivateModal}
-        >
-          {
-            !chatRoom.isCreating &&
-            !chatRoom.isCreatingSuccess &&
-            <ErrorCard label="Error! Please try again" />
-          }
-          <Form onSubmit={::this.handleAddGroupChatRoom}>
-            <h2 className="modal-title">Add Chat Room</h2>
-            <ChatRoomNameInput
-              onChatRoomNameChange={::this.onChatRoomNameChange}
-              isDisabled={isLoading}
-            />
-            <div className="members-list-label">
-              Select at least 3 members
-            </div>
-            <div className="members-list" disabled={isLoading}>
-              {
-                members.map((member, i) =>
-                  <ChatMember
-                    key={i}
-                    index={i}
-                    member={member}
-                    handleDeselectMember={::this.handleDeselectMember}
-                  />
-                )
-              }
-            </div>
-            <ChatMemberSelect
-              searchedUsers={user.search}
-              handleSearchUser={searchUser}
-              onSuggestionSelected={::this.onSuggestionSelected}
-              isDisabled={isLoading}
-            />
-            <Button
-              className="modal-button"
-              size="large"
-              type="submit"
-              variant="raised"
-              disabled={isButtonDisabled}
-            >
-              Add
-            </Button>
-          </Form>
-        </ModalDialog>
-      </ModalContainer>
+      <Modal
+        classNames={modalClassNames}
+        open={showModal}
+        onClose={handleDeactivateModal}
+        center
+      >
+        {
+          !chatRoom.isCreating &&
+          !chatRoom.isCreatingSuccess &&
+          <ErrorCard label="Error! Please try again" />
+        }
+        <Form onSubmit={::this.handleAddGroupChatRoom}>
+          <h2 className="modal-title">Add Chat Room</h2>
+          <ChatRoomNameInput
+            onChatRoomNameChange={::this.onChatRoomNameChange}
+            isDisabled={isLoading}
+          />
+          <div className="members-list-label">
+            Select at least 3 members
+          </div>
+          <div className="members-list" disabled={isLoading}>
+            {
+              members.map((member, i) =>
+                <ChatMember
+                  key={i}
+                  index={i}
+                  member={member}
+                  handleDeselectMember={::this.handleDeselectMember}
+                />
+              )
+            }
+          </div>
+          <ChatMemberSelect
+            searchedUsers={user.search}
+            handleSearchUser={searchUser}
+            onSuggestionSelected={::this.onSuggestionSelected}
+            isDisabled={isLoading}
+          />
+          <Button
+            className="modal-button"
+            size="large"
+            type="submit"
+            variant="raised"
+            disabled={isButtonDisabled}
+          >
+            Add
+          </Button>
+        </Form>
+      </Modal>
     )
   }
 }
@@ -166,12 +170,14 @@ const mapStateToProps = (state) => {
 }
 
 CreateChatRoomModal.propTypes = {
+  showModal: PropTypes.bool,
   handleDeactivateModal: PropTypes.func.isRequired,
   handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
   isLoading: PropTypes.bool
 }
 
 CreateChatRoomModal.defaultProps = {
+  showModal: false,
   isLoading: false
 }
 

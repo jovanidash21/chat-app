@@ -114,6 +114,7 @@ class ChatRoomsList extends Component {
         {
           showModal &&
           <CreateChatRoomModal
+            showModal={showModal}
             handleDeactivateModal={::this.handleDeactivateModal}
             handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
             isLoading={chatRoom.isCreating}
