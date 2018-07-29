@@ -62,9 +62,11 @@ class DeleteUserModal extends Component {
               />
             </div>
             <p>
-              <span className="mui--text-danger">{selectedUser.name}</span>&nbsp;
-              will be deleted. This action cannot be undone. Are you sure you want to delete this user?
+              <span className="user-name mui--text-danger">{selectedUser.name}</span>&nbsp;
+              will be deleted. This will permanently delete all of his/her
+              messages including all the private/direct chat rooms.
             </p>
+            <p>This action cannot be undone. Are you sure you want to delete this user?</p>
           </div>
           <div className="modal-footer">
             <Button
@@ -81,7 +83,7 @@ class DeleteUserModal extends Component {
               variant="raised"
               disabled={user.isDeleting}
             >
-              Yes, Delete It!
+              Yes, Delete User
             </Button>
           </div>
         </Form>
