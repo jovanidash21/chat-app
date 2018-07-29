@@ -1,54 +1,4 @@
-.modal {
-  $padding: 15px;
-  max-width: 500px;
-  padding: 0;
-  width: 100%;
-  .modal-header,
-  .modal-body,
-  .modal-footer {
-    position: relative;
-    padding: $padding;
-  }
-  .modal-header {
-    border-bottom: 1px solid $color-alto;
-  }
-  .modal-footer {
-    border-top: 1px solid $color-alto;
-    text-align: right;
-  }
-  .close-button {
-    cursor: pointer;
-    opacity: 0.5;
-    padding: 6px;
-    right: 5px;
-    top: 5px;
-    transition: all 0.2s ease;
-    &:hover {
-      opacity: 1;
-    }
-    svg {
-      height: 20px;
-      width: 20px;
-    }
-  }
-  .modal-title {
-    margin: 0;
-  }
-}
 .button {
-  color: #fff;
-  &:active,
-  &:focus,
-  &:hover {
-    color: #fff;
-  }
-  &.button-default {
-    background-color: $color-alto;
-    color: #000;
-  }
-  &.button-primary {
-    background-color: $color-primary;
-  }
   &.button-login {
     background-color: $color-primary;
   }
@@ -84,7 +34,4 @@
       width: 45px;
     }
   }
-}
-.mm-popup__box__footer {
-  padding: 20px !important;
 }

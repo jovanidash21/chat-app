@@ -8,6 +8,7 @@ import Login from '../containers/Login';
 import Register from '../containers/Register';
 import Chat from '../containers/Chat';
 import 'react-popup/style.css';
+import '../../styles/Common.scss';
 import '../styles/Common.scss';
 
 const routes = (

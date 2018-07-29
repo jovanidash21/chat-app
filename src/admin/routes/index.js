@@ -6,6 +6,7 @@ import Layout from '../containers/Layout';
 import Dashboard from '../containers/Dashboard';
 import AllUsers from '../containers/AllUsers';
 import 'react-popup/style.css';
+import '../../styles/Common.scss';
 import '../styles/Common.scss';
 
 const routes = (
