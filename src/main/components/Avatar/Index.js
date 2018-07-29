@@ -102,6 +102,7 @@ class Avatar extends Component {
       size,
       title,
       accountType,
+      badgeBigger,
       badgeCloser
     } = this.props;
     const avatarStyles = ::this.handleAvatarStyles();
@@ -124,6 +125,7 @@ class Avatar extends Component {
           <div
             className={
               "badge-icon " +
+              (badgeBigger ? 'bigger ' : '') +
               (badgeCloser ? 'closer ' : '') +
               accountType
             }
@@ -142,6 +144,7 @@ Avatar.propTypes = {
   size: PropTypes.string,
   title: PropTypes.string.isRequired,
   accountType: PropTypes.string.isRequired,
+  badgeBigger: PropTypes.bool,
   badgeCloser: PropTypes.bool
 }
 
@@ -149,6 +152,7 @@ Avatar.defaultProps = {
   image: '',
   className: '',
   size: '25px',
+  badgeBigger: false,
   badgeCloser: false
 }
 

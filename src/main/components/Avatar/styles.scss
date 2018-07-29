@@ -17,6 +17,12 @@
     position: absolute;
     right: -7px;
     width: $badge-size;
+    &.bigger {
+      $badge-size: 21px;
+      font-size: 15px;
+      height: $badge-size;
+      width: $badge-size;
+    }
     &.closer {
       right: -3px;
     }
