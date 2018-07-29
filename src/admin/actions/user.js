@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {
   FETCH_USER,
-  FETCH_USERS
+  FETCH_USERS,
+  SELECT_USER
 } from '../constants/user';
 
 const localtionArr = window.location.href.split("/");
@@ -37,6 +38,19 @@ export function fetchUsers() {
       if (error instanceof Error) {
         console.log(error);
       }
+    });
+  }
+}
+
+/**
+ * Select user
+ * @param {Object} user
+ */
+export function selectUser(user) {
+  return dispatch => {
+    dispatch({
+      type: SELECT_USER,
+      user: user
     });
   }
 }

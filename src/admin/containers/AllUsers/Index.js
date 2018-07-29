@@ -37,6 +37,7 @@ class AllUsers extends Component {
       const singleUser = user.all[i];
 
       userRows.push({
+        id: singleUser._id,
         image: singleUser.profilePicture,
         name: singleUser.name,
         email: singleUser.email,

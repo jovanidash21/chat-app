@@ -1,6 +1,7 @@
 import {
   FETCH_USER,
-  FETCH_USERS
+  FETCH_USERS,
+  SELECT_USER,
 } from '../constants/user';
 
 const initialState = {
@@ -9,7 +10,8 @@ const initialState = {
   isFetchingAll: false,
   isFetchingAllSuccess: false,
   active: {},
-  all: []
+  all: [],
+  selected: {}
 };
 
 const user = (state=initialState, action) => {
@@ -49,6 +51,13 @@ const user = (state=initialState, action) => {
         ...state,
         isFetchingAll: false,
         isFetchingAllSuccess: false
+      };
+    case SELECT_USER:
+      return {
+        ...state,
+        isDeleting: false,
+        isDeletingSuccess: true,
+        selected: action.user
       };
     default:
       return state;

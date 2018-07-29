@@ -1,10 +1,19 @@
-.table {
+.table-wrapper {
   min-height: 50px;
   position: relative;
   .search-filter-wrapper,
   .pagination-wrapper {
     display: flex;
     justify-content: flex-end;
+  }
+  .table {
+    @include scrollbar($color-mine-shaft, transparent, 'x');
+    overflow-x: auto;
+  }
+  .edit-column,
+  .delete-column,
+  .data-button {
+    text-align: center;
   }
   .table-data {
     align-items: center;

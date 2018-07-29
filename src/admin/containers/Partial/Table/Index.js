@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Button } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
+import DeleteUserModal from '../DeleteUserModal';
 import LoadingAnimation from '../../../components/LoadingAnimation';
-import TableColumn from '../../../Components/Table/TableColumn';
-import SearchFilter from '../../../Components/Table/SearchFilter';
-import Avatar from '../../../Components/Avatar';
-import Pagination from '../../../Components/Table/Pagination';
+import TableColumn from '../../../components/Table/TableColumn';
+import SearchFilter from '../../../components/Table/SearchFilter';
+import Avatar from '../../../components/Avatar';
+import Pagination from '../../../components/Table/Pagination';
 import './styles.scss';
 
 class Table extends Component {
@@ -22,7 +24,8 @@ class Table extends Component {
         column: null,
         direction: 'asc'
       },
-      dataRows: []
+      dataRows: [],
+      isModalOpen: false
     };
   }
   componentDidUpdate(prevProps) {
@@ -92,56 +95,83 @@ class Table extends Component {
           <div className="search-filter-wrapper">
             <SearchFilter onSearchFilterChange={::this.onSearchFilterChange} />
           </div>
-          <table className="mui-table mui-table--bordered">
-            <thead>
-              <tr>
+          <div className="table">
+            <table className="mui-table mui-table--bordered">
+              <thead>
+                <tr>
+                  {
+                    columns.length > 0 &&
+                    columns.map((singleColumn, i) =>
+                      <TableColumn
+                        key={i}
+                        columnKey={singleColumn.key}
+                        label={singleColumn.label}
+                        isSortActive={sort.column === singleColumn.key}
+                        sortOrder={sort.direction}
+                        handleSortTable={::this.handleSortTable}
+                      />
+                    )
+                  }
+                  <th className="edit-column">
+                    Edit
+                  </th>
+                  <th className="delete-column">
+                    Delete
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
                 {
                   columns.length > 0 &&
-                  columns.map((singleColumn, i) =>
-                    <TableColumn
-                      key={i}
-                      columnKey={singleColumn.key}
-                      label={singleColumn.label}
-                      isSortActive={sort.column === singleColumn.key}
-                      sortOrder={sort.direction}
-                      handleSortTable={::this.handleSortTable}
-                    />
+                  dataRows.length > 0 &&
+                  dataRows.map((singleRow, i) =>
+                    <tr key={i}>
+                      {
+                        columns.map((singleColumn, i) =>
+                          <td key={i}>
+                            <div className="table-data">
+                              {
+                                i === 0 &&
+                                <Avatar
+                                  image={singleRow.image}
+                                  size="32px"
+                                  title={singleRow.name}
+                                  accountType={singleRow.accountType}
+                                  badgeCloser
+                                />
+                              }
+                              <span>
+                                {singleRow[singleColumn.key]}
+                              </span>
+                            </div>
+                          </td>
+                        )
+                      }
+                      <td>
+                        <div className="data-button">
+                          <Button className="button button-primary" size="small">
+                            Edit
+                          </Button>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="data-button">
+                          <Button
+                            className="delete-button"
+                            color="danger"
+                            size="small"
+                            onClick={(e) => {::this.handleOpenModal(e, singleRow)}}
+                          >
+                            Delete
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
                   )
                 }
-              </tr>
-            </thead>
-            <tbody>
-              {
-                columns.length > 0 &&
-                dataRows.length > 0 &&
-                dataRows.map((singleRow, i) =>
-                  <tr key={i}>
-                    {
-                      columns.map((singleColumn, i) =>
-                        <td key={i}>
-                          <div className="table-data">
-                            {
-                              i === 0 &&
-                              <Avatar
-                                image={singleRow.image}
-                                size="32px"
-                                title={singleRow[singleColumn.key]}
-                                accountType={singleRow.accountType}
-                                badgeCloser
-                              />
-                            }
-                            <span>
-                              {singleRow[singleColumn.key]}
-                            </span>
-                          </div>
-                        </td>
-                      )
-                    }
-                  </tr>
-                )
-              }
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
           {
             totalRows > itemsCountPerPage &&
             <div className="pagination-wrapper">
@@ -214,13 +244,30 @@ class Table extends Component {
 
     ::this.handleDataRowsChange(searchFilter, sort.column, sort.direction, page);
   }
+  handleOpenModal(event, selecedtUser) {
+    event.preventDefault();
+
+    const { selectUser } = this.props;
+
+    this.setState({isModalOpen: true});
+    selectUser(selecedtUser);
+  }
+  handleCloseModal() {
+    this.setState({isModalOpen: false});
+  }
   render() {
-    const { columns } = this.props;
-    const { sort } = this.state;
+    const { isModalOpen } = this.state;
 
     return (
-      <div className="table">
+      <div className="table-wrapper">
         {::this.handleTableRender()}
+        {
+          isModalOpen &&
+          <DeleteUserModal
+            isModalOpen={isModalOpen}
+            handleCloseModal={::this.handleCloseModal}
+          />
+        }
       </div>
     );
   }
