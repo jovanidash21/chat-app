@@ -105,13 +105,13 @@ class CreateChatRoomModal extends Component {
 
     return (
       <Modal
-        className="add-chat-room-modal"
+        className="create-chat-room-modal"
         isModalOpen={isModalOpen}
         handleCloseModal={handleCloseModal}
       >
         <Form onSubmit={::this.handleAddGroupChatRoom}>
           <Modal.Header>
-            <h3 className="modal-title">Add Chat Room</h3>
+            <h3 className="modal-title">Create Chat Room</h3>
           </Modal.Header>
           <Modal.Body>
             {
@@ -148,7 +148,6 @@ class CreateChatRoomModal extends Component {
           <Modal.Footer>
             <Button
               className="button button-default"
-              variant="raised"
               onClick={handleCloseModal}
               disabled={chatRoom.isCreating}
             >
@@ -157,10 +156,9 @@ class CreateChatRoomModal extends Component {
             <Button
               className="button button-primary"
               type="submit"
-              variant="raised"
               disabled={isSubmitButtonDisabled}
             >
-              Add
+              Create
             </Button>
           </Modal.Footer>
         </Form>

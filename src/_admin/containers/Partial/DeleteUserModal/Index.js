@@ -66,7 +66,6 @@ class DeleteUserModal extends Component {
           <Modal.Footer>
             <Button
               className="button button-default"
-              variant="raised"
               onClick={handleCloseModal}
               disabled={user.isDeleting}
             >
@@ -75,7 +74,6 @@ class DeleteUserModal extends Component {
             <Button
               color="danger"
               type="submit"
-              variant="raised"
               disabled={user.isDeleting}
             >
               Yes, Delete User
