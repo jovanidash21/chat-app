@@ -104,9 +104,9 @@ class ChatRoomsList extends Component {
           <h1 className="title">Chat App</h1>
           <div className="chat-rooms-options">
             <h3>Chat Rooms</h3>
-            <div className="add-chat-room-icon"
+            <div className="plus-icon"
               onClick={::this.handleOpenModal}
-              title="Add Chat Room"
+              title="Create Chat Room"
             >
               <FontAwesomeIcon icon="plus-circle" />
             </div>
