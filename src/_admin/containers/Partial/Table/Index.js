@@ -253,7 +253,11 @@ class Table extends Component {
     selectUser(selecedtUser);
   }
   handleCloseModal() {
+    const { deselectUser } = this.props;
+
     this.setState({isModalOpen: false});
+
+    deselectUser();
   }
   render() {
     const { isModalOpen } = this.state;

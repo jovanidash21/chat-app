@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
   FETCH_USER,
   FETCH_USERS,
-  SELECT_USER
+  SELECT_USER,
+  DESELECT_USER,
 } from '../constants/user';
 
 const localtionArr = window.location.href.split("/");
@@ -51,6 +52,17 @@ export function selectUser(user) {
     dispatch({
       type: SELECT_USER,
       user: user
+    });
+  }
+}
+
+/**
+ * Deselect user
+ */
+export function deselectUser() {
+  return dispatch => {
+    dispatch({
+      type: DESELECT_USER
     });
   }
 }
