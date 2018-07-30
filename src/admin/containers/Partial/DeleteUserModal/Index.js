@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Modal from 'react-responsive-modal';
 import {
   Form,
   Button
 } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
+import Modal from '../../Common/Modal';
 import Avatar from '../../../components/Avatar';
 import Alert from '../../../components/Alert';
 import './styles.scss';
@@ -28,24 +28,19 @@ class DeleteUserModal extends Component {
       isModalOpen,
       handleCloseModal
     } = this.props;
-    const modalClassNames = {
-      modal: "modal delete-user-modal",
-      closeButton: "close-button"
-    };
     const selectedUser = user.selected;
 
     return (
       <Modal
-        classNames={modalClassNames}
-        open={isModalOpen}
-        onClose={handleCloseModal}
-        center
+        className="delete-user-modal"
+        isModalOpen={isModalOpen}
+        handleCloseModal={handleCloseModal}
       >
         <Form onSubmit={::this.handleDeleteUser}>
-          <div className="modal-header">
+          <Modal.Header>
             <h3 className="modal-title">Delete User</h3>
-          </div>
-          <div className="modal-body">
+          </Modal.Header>
+          <Modal.Body>
             {
               !user.isDeleting &&
               !user.isDeletingSuccess &&
@@ -67,8 +62,8 @@ class DeleteUserModal extends Component {
               messages including all the private/direct chat rooms.
             </p>
             <p>This action cannot be undone. Are you sure you want to delete this user?</p>
-          </div>
-          <div className="modal-footer">
+          </Modal.Body>
+          <Modal.Footer>
             <Button
               className="button button-default"
               variant="raised"
@@ -85,7 +80,7 @@ class DeleteUserModal extends Component {
             >
               Yes, Delete User
             </Button>
-          </div>
+          </Modal.Footer>
         </Form>
       </Modal>
     )

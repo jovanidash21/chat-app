@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Modal from 'react-responsive-modal';
 import {
   Form,
   Button
 } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
+import Modal from '../../Common/Modal';
 import ChatRoomNameInput from '../../../components/CreateChatRoomModal/ChatRoomNameInput';
 import ChatMember from '../../../components/CreateChatRoomModal/ChatMember';
 import ChatMemberSelect from '../../../components/CreateChatRoomModal/ChatMemberSelect';
@@ -98,10 +98,6 @@ class CreateChatRoomModal extends Component {
       chatRoomName,
       members
     } = this.state;
-    const modalClassNames = {
-      modal: "modal add-chat-room-modal",
-      closeButton: "close-button"
-    };
     const isSubmitButtonDisabled =
       chatRoomName.length === 0 ||
       members.length < 3 ||
@@ -109,16 +105,15 @@ class CreateChatRoomModal extends Component {
 
     return (
       <Modal
-        classNames={modalClassNames}
-        open={isModalOpen}
-        onClose={handleCloseModal}
-        center
+        className="add-chat-room-modal"
+        isModalOpen={isModalOpen}
+        handleCloseModal={handleCloseModal}
       >
         <Form onSubmit={::this.handleAddGroupChatRoom}>
-          <div className="modal-header">
+          <Modal.Header>
             <h3 className="modal-title">Add Chat Room</h3>
-          </div>
-          <div className="modal-body">
+          </Modal.Header>
+          <Modal.Body>
             {
               !chatRoom.isCreating &&
               !chatRoom.isCreatingSuccess &&
@@ -149,8 +144,8 @@ class CreateChatRoomModal extends Component {
               onSuggestionSelected={::this.onSuggestionSelected}
               isDisabled={chatRoom.isCreating}
             />
-          </div>
-          <div className="modal-footer">
+          </Modal.Body>
+          <Modal.Footer>
             <Button
               className="button button-default"
               variant="raised"
@@ -167,7 +162,7 @@ class CreateChatRoomModal extends Component {
             >
               Add
             </Button>
-          </div>
+          </Modal.Footer>
         </Form>
       </Modal>
     )
