@@ -62,6 +62,7 @@ class AllUsers extends Component {
       <div className="all-users-section">
         <Panel>
           <Table
+            label="users"
             columns={columns}
             rows={rows}
             isLoading={isLoading}

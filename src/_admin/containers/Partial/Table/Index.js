@@ -82,6 +82,7 @@ class Table extends Component {
   }
   handleTableRender() {
     const {
+      label,
       columns,
       rows,
       isLoading
@@ -94,12 +95,16 @@ class Table extends Component {
       sort,
       dataRows
     } = this.state;
+    const capitalizeLabel = label.charAt(0).toUpperCase() + label.slice(1);
 
     if ( !isLoading ) {
       return (
         <div>
           <div className="search-filter-wrapper">
-            <SearchFilter onSearchFilterChange={::this.onSearchFilterChange} />
+            <SearchFilter
+              onSearchFilterChange={::this.onSearchFilterChange}
+              placeholder={"Search" + (label.length > 0 ? ' ' + capitalizeLabel : '')}
+            />
           </div>
           <div className="table">
             <table className="mui-table mui-table--bordered">
@@ -180,7 +185,7 @@ class Table extends Component {
                   dataRows.length === 0 &&
                   <tr className="no-items-row">
                     <td colSpan={columns.length + 2}>
-                      No results found
+                      No {(label.length > 0 ? label : 'results')} found
                     </td>
                   </tr>
                 }
@@ -297,12 +302,14 @@ const mapStateToProps = (state) => {
 }
 
 Table.propTypes = {
+  label: PropTypes.string,
   columns: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
   isLoading: PropTypes.bool
 }
 
 Table.defaultProps = {
+  label: '',
   isLoading: false
 }
 

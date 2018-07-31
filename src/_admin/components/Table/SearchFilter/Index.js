@@ -14,7 +14,7 @@ const SearchFilter = (props) => {
         type="text"
         autoComplete="off"
         floatingLabel={false}
-        placeholder="Search"
+        placeholder={props.placeholder}
         onChange={props.onSearchFilterChange}
       />
     </div>
@@ -22,7 +22,12 @@ const SearchFilter = (props) => {
 }
 
 SearchFilter.propTypes = {
-  onSearchFilterChange: PropTypes.func.isRequired
+  onSearchFilterChange: PropTypes.func.isRequired,
+  placeholder: PropTypes.string
+}
+
+SearchFilter.defaultProps = {
+  placeholder: 'Search'
 }
 
 export default SearchFilter;
