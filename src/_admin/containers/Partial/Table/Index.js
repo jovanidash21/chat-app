@@ -34,9 +34,12 @@ class Table extends Component {
     }
   }
   handleDataRowsChange(filter, column, direction, page) {
-    const { rows } = this.props;
+    const {
+      columns,
+      rows
+    } = this.props;
     const { itemsCountPerPage } = this.state;
-    var dataRows = rows;
+    var dataRows = [...rows];
     const lastItemIndex = page * itemsCountPerPage;
     const firstItemIndex = lastItemIndex - itemsCountPerPage;
 
@@ -48,10 +51,12 @@ class Table extends Component {
 
         for ( var key in singleDataRow ) {
           if (
+            columns.some((singleColumn) => singleColumn.key === key) &&
             singleDataRow[key].length > 0 &&
             singleDataRow[key].toLowerCase().match(filter)
           ) {
             filteredData.push(singleDataRow);
+            break;
           }
         }
       }
@@ -85,6 +90,7 @@ class Table extends Component {
       totalRows,
       activePage,
       itemsCountPerPage,
+      searchFilter,
       sort,
       dataRows
     } = this.state;
@@ -168,6 +174,15 @@ class Table extends Component {
                       </td>
                     </tr>
                   )
+                }
+                {
+                  searchFilter.length > 0 &&
+                  dataRows.length === 0 &&
+                  <tr className="no-items-row">
+                    <td colSpan={columns.length + 2}>
+                      No results found
+                    </td>
+                  </tr>
                 }
               </tbody>
             </table>
