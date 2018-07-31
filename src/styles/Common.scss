@@ -1,3 +1,21 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.loading-bar {
+  height: 3px;
+  background-color: $color-yellow-orange;
+  position: fixed;
+  z-index: 9999;
+}
 .button {
   color: #fff;
   &:active,
