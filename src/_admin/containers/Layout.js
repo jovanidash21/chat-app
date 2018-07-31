@@ -7,6 +7,7 @@ import mapDispatchToProps from '../actions';
 import Menu from './Partial/Menu';
 import Header from './Common/Header';
 import LeftSideDrawer from './Common/LeftSideDrawer';
+import Footer from './Common/Footer';
 import Head from '../components/Head';
 import LoadingAnimation from '../components/LoadingAnimation';
 import '../styles/Admin.scss';
@@ -73,6 +74,7 @@ class Layout extends Component {
           <div className="admin-content">
             <Content {...matchProps} />
           </div>
+          <Footer />
         </div>
       )
     } else {
