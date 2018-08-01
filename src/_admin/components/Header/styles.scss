@@ -17,6 +17,25 @@
     display: flex;
     justify-content: center;
   }
+  .dropdown-menu {
+    input[type="submit"] {
+      border: 0;
+      clear: both;
+      color: $color-emperor;
+      cursor: pointer;
+      display: block;
+      line-height: 1.429;
+      padding: 0.188rem 1.25rem;
+      text-align: left;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      width: 100%;
+      &:hover {
+        background-color: $color-gallery;
+      }
+    }
+  }
   .user-details {
     align-items: center;
     display: flex;
