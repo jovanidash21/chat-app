@@ -44,22 +44,21 @@ router.post('/search', function(req, res, next) {
 });
 
 router.get('/all', function(req, res, next) {
-  if (req.user === undefined) {
+  if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
       message: 'Unauthorized'
     });
   } else {
-    User.find({_id: {$ne: null}}, function(err, users) {
-      if (!err) {
+    User.find({_id: {$ne: null}})
+      .then((users) => {
         res.status(200).send(users);
-      } else {
+      }).catch((error) => {
         res.status(500).send({
           success: false,
           message: 'Server Error!'
         });
-      }
-    });
+      });
   }
 });
 

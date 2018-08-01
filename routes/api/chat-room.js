@@ -19,37 +19,37 @@ router.get('/:userID', function(req, res, next) {
         populate: {
           path: 'members'
         }
-      }).exec(function(err, user) {
+      })
+      .exec()
+      .then((user) => {
         var userChatRooms = user.chatRooms;
 
-        if (!err) {
-          for (var i = 0; i < userChatRooms.length; i++) {
-            var chatRoom = userChatRooms[i].data;
+        for (var i = 0; i < userChatRooms.length; i++) {
+          var chatRoom = userChatRooms[i].data;
 
-            for (var j = 0; j < chatRoom.members.length; j++) {
-              var member = chatRoom.members[j];
+          for (var j = 0; j < chatRoom.members.length; j++) {
+            var member = chatRoom.members[j];
 
-              if (chatRoom.chatType === 'private') {
-                if (member._id == userID) {
-                  chatRoom.chatIcon = member.profilePicture;
-                }
-              } else if (chatRoom.chatType === 'direct') {
-                if (member._id != userID) {
-                  chatRoom.name = member.name;
-                  chatRoom.chatIcon = member.profilePicture;
-                }
-              } else if ((chatRoom.chatType === 'group') || chatRoom.chatType === 'public') {
-                chatRoom.members[j] = member._id;
+            if (chatRoom.chatType === 'private') {
+              if (member._id == userID) {
+                chatRoom.chatIcon = member.profilePicture;
               }
+            } else if (chatRoom.chatType === 'direct') {
+              if (member._id != userID) {
+                chatRoom.name = member.name;
+                chatRoom.chatIcon = member.profilePicture;
+              }
+            } else if ((chatRoom.chatType === 'group') || chatRoom.chatType === 'public') {
+              chatRoom.members[j] = member._id;
             }
           }
-          res.status(200).send(userChatRooms);
-        } else {
-          res.status(500).send({
-            success: false,
-            message: 'Server Error!'
-          });
         }
+        res.status(200).send(userChatRooms);
+      }).catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
       });
   }
 });
