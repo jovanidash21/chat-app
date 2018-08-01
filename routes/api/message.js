@@ -78,47 +78,39 @@ router.post('/', function(req, res, next) {
       .skip(skipCount)
       .limit(50)
       .populate('user')
-      .exec(function(err, messages) {
-        if (!err) {
-          var chatRoomMessages = messages.reverse();
+      .exec()
+      .then((messages) => {
+        var chatRoomMessages = messages.reverse();
 
-          for (var i = 0; i < chatRoomMessages.length; i++) {
-            var message = chatRoomMessages[i];
+        for (var i = 0; i < chatRoomMessages.length; i++) {
+          var message = chatRoomMessages[i];
 
-            Message.findOneAndUpdate(
-              { _id: message._id, readBy: { $ne: userID } },
-              { $addToSet: { readBy: userID } },
-              { safe: true, upsert: true, new: true },
-              function(err) {
-                if (!err) {
-                  res.end();
-                } else {
-                  res.end(err);
-                }
-              }
-            );
-          }
-
-          User.update(
-            { _id: userID, 'chatRooms.data': chatRoomID },
-            { $set: { 'chatRooms.$.unReadMessages': 0 } },
-            { safe: true, upsert: true, new: true },
-            function(err) {
-              if (!err) {
-                res.end();
-              } else {
-                res.end(err);
-              }
-            }
+          Message.findOneAndUpdate(
+            { _id: message._id, readBy: { $ne: userID } },
+            { $addToSet: { readBy: userID } },
+            { safe: true, upsert: true, new: true }
           );
-
-          res.status(200).send(chatRoomMessages);
-        } else {
-          res.status(500).send({
-            success: false,
-            message: 'Server Error!'
-          });
         }
+
+        return Promise.all(chatRoomMessages);
+      })
+      .then((messages) => {
+        User.update(
+          { _id: userID, 'chatRooms.data': chatRoomID },
+          { $set: { 'chatRooms.$.unReadMessages': 0 } },
+          { safe: true, upsert: true, new: true }
+        );
+
+        return Promise.all(messages);
+      })
+      .then((messages) => {
+        res.status(200).send(messages);
+      })
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
       });
   }
 });
