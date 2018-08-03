@@ -45,7 +45,8 @@ router.get('/:userID', function(req, res, next) {
           }
         }
         res.status(200).send(userChatRooms);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         res.status(500).send({
           success: false,
           message: 'Server Error!'
@@ -80,52 +81,37 @@ router.post('/group/:userID', function(req, res, next) {
     } else {
       var chatRoom = new ChatRoom(chatRoomData);
 
-      chatRoom.save(function(err, chatRoomData) {
-        if (!err) {
-          var chatRoomID = chatRoom._id;
+      chatRoom.save()
+        .then((chatRoomData) => {
+          for (var i = 0; i < chatRoomData.members.length; i++) {
+            var chatRoomMember = chatRoomData.members[i];
 
-          ChatRoom.findById(chatRoomID)
-            .populate('members')
-            .exec(function(err, chatRoomData) {
-              if (!err) {
-                for (var i = 0; i < chatRoomData.members.length; i++) {
-                  var chatRoomMember = chatRoomData.members[i];
+            User.findByIdAndUpdate(
+              chatRoomMember,
+              { $push: { chatRooms: { data: chatRoomData._id, unReadMessages: 0 } } },
+              { safe: true, upsert: true, new: true }
+            ).exec();
+          }
 
-                  User.findByIdAndUpdate(
-                    chatRoomMember,
-                    { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
-                    { safe: true, upsert: true, new: true },
-                    function(err) {
-                      if (!err) {
-                        res.end();
-                      } else {
-                        res.end(err);
-                      }
-                    }
-                  );
-                }
-                res.status(200).send({
-                  success: true,
-                  message: 'Chat Room Created.',
-                  chatRoom: {
-                    data: chatRoomData,
-                    unReadMessages: 0
-                  }
-                });
-              } else {
-                res.status(500).send({
-                  success: false,
-                  message: 'Server Error!'
-                });
-              }
-            });
-        } else {
+          return ChatRoom.findById(chatRoomData._id)
+            .populate('members');
+        })
+        .then((chatRoomData) => {
+          res.status(200).send({
+            success: true,
+            message: 'Chat Room Created.',
+            chatRoom: {
+              data: chatRoomData,
+              unReadMessages: 0
+            }
+          });
+        })
+        .catch((error) => {
           res.status(500).send({
             success: false,
             message: 'Server Error!'
           });
-        }
-      });
+        });
     }
   }
 });
@@ -148,7 +134,7 @@ router.post('/direct/:userID', function(req, res, next) {
       chatType: chatType
     };
 
-    ChatRoom.findOne({members: members, chatType: 'direct'}, function(err, chatRoom) {
+    ChatRoom.findOne({members: {"$all": members}, chatType: 'direct'}, function(err, chatRoom) {
       if (!err) {
         if (chatRoom !== null) {
           res.status(401).send({
@@ -156,67 +142,39 @@ router.post('/direct/:userID', function(req, res, next) {
             message: 'Chat room already exist.'
           });
         } else {
-          ChatRoom.findOne({members: members.reverse(), chatType: 'direct'}, function(err, chatRoom) {
-            if (!err) {
-              if (chatRoom !== null) {
-                res.status(401).send({
-                  success: false,
-                  message: 'Chat room already exist.'
-                });
-              } else {
-                var chatRoom = new ChatRoom(chatRoomData);
+          var chatRoom = new ChatRoom(chatRoomData);
 
-                chatRoom.save(function(err, chatRoomData) {
-                  if (!err) {
-                    var chatRoomID = chatRoom._id;
+          chatRoom.save()
+            .then((chatRoomData) => {
+              for (var i = 0; i < chatRoomData.members.length; i++) {
+                var chatRoomMember = chatRoomData.members[i];
 
-                    ChatRoom.findById(chatRoomID)
-                      .populate('members')
-                      .exec(function(err, chatRoomData) {
-                        if (!err) {
-                          for (var i = 0; i < chatRoomData.members.length; i++) {
-                            var chatRoomMember = chatRoomData.members[i];
-
-                            User.findByIdAndUpdate(
-                              chatRoomMember,
-                              { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
-                              { safe: true, upsert: true, new: true },
-                              function(err) {
-                                if (!err) {
-                                  res.end();
-                                } else {
-                                  res.end(err);
-                                }
-                              }
-                            );
-                          }
-                          res.status(200).send({
-                            success: true,
-                            message: 'Chat Room Created.',
-                            chatRoom: {
-                              data: chatRoomData,
-                              unReadMessages: 0
-                            }
-                          });
-                        } else {
-                          res.status(500).send({
-                            success: false,
-                            message: 'Server Error!'
-                          });
-                        }
-                      });
-                  } else {
-                    res.status(500).send({
-                      success: false,
-                      message: 'Server Error!'
-                    });
-                  }
-                });
+                User.findByIdAndUpdate(
+                  chatRoomMember,
+                  { $push: { chatRooms: { data: chatRoomData._id, unReadMessages: 0 } } },
+                  { safe: true, upsert: true, new: true }
+                ).exec();
               }
-            } else {
-              res.end(err);
-            }
-          });
+
+              return ChatRoom.findById(chatRoomData._id)
+                .populate('members');
+            })
+            .then((chatRoomData) => {
+              res.status(200).send({
+                success: true,
+                message: 'Chat Room Created.',
+                chatRoom: {
+                  data: chatRoomData,
+                  unReadMessages: 0
+                }
+              });
+            })
+            .catch((error) => {
+              res.status(500).send({
+                success: false,
+                message: 'Server Error!'
+              });
+            });
         }
       } else {
         res.end(err);
