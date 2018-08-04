@@ -19,35 +19,6 @@ router.post('/', function(req, res, next) {
           if (!err ) {
             var chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
             var userID = user._id;
-
-            if (chatLoungeID) {
-              ChatRoom.findByIdAndUpdate(
-                chatLoungeID,
-                { $push: { members: userID }},
-                { safe: true, upsert: true, new: true },
-                function(err) {
-                  if (!err) {
-                    res.end();
-                  } else {
-                    res.end(err);
-                  }
-                }
-              );
-
-              User.findByIdAndUpdate(
-                userID,
-                { $push: { chatRooms: { data: chatLoungeID, unReadMessages: 0 } } },
-                { safe: true, upsert: true, new: true },
-                function(err) {
-                  if (!err) {
-                    res.end();
-                  } else {
-                    res.end(err);
-                  }
-                }
-              );
-            }
-
             var chatRoomData = {
               name: user.name,
               chatIcon: '',
@@ -56,32 +27,43 @@ router.post('/', function(req, res, next) {
             };
             var chatRoom = new ChatRoom(chatRoomData);
 
-            chatRoom.save(function(err, chatRoomData) {
-              if (!err) {
+            chatRoom.save()
+              .then((chatRoomData) => {
                 var chatRoomID = chatRoom._id;
+
+                if (chatLoungeID) {
+                  ChatRoom.findByIdAndUpdate(
+                    chatLoungeID,
+                    { $push: { members: userID }},
+                    { safe: true, upsert: true, new: true }
+                  ).exec();
+
+                  User.findByIdAndUpdate(
+                    userID,
+                    { $push: { chatRooms: { data: chatLoungeID, unReadMessages: 0 } } },
+                    { safe: true, upsert: true, new: true }
+                  ).exec();
+                }
 
                 User.findByIdAndUpdate(
                   userID,
                   { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
-                  { safe: true, upsert: true, new: true },
-                  function(err) {
-                    if (!err) {
-                      res.end();
-                    } else {
-                      res.end(err);
-                    }
-                  }
-                );
-              } else {
-                res.end(err);
-              }
-            });
-
-            res.status(200).send({
-              success: true,
-              message: 'Login Successful.',
-              userData: user
-            });
+                  { safe: true, upsert: true, new: true }
+                ).exec();
+              })
+              .then(() => {
+                res.status(200).send({
+                  success: true,
+                  message: 'Login Successful.',
+                  userData: user
+                });
+              })
+              .catch((error) => {
+                res.status(500).send({
+                  success: false,
+                  message: 'Server Error!'
+                });
+              });
           } else {
             res.status(500).send({
               success: false,
