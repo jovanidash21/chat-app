@@ -1,6 +1,7 @@
 import {
   FETCH_USER,
   FETCH_USERS,
+  DELETE_USER,
   SELECT_USER,
   DESELECT_USER
 } from '../constants/user';
@@ -10,6 +11,8 @@ const initialState = {
   isFetchingActiveSuccess: false,
   isFetchingAll: false,
   isFetchingAllSuccess: false,
+  isDeleting: false,
+  isDeletingSuccess: true,
   active: {},
   all: [],
   selected: {}
@@ -27,6 +30,11 @@ const user = (state=initialState, action) => {
         ...state,
         isFetchingAll: true
       };
+    case `${DELETE_USER}_LOADING`:
+      return {
+        ...state,
+        isDeleting: true
+      };
     case `${FETCH_USER}_SUCCESS`:
       return {
         ...state,
@@ -41,6 +49,18 @@ const user = (state=initialState, action) => {
         isFetchingAllSuccess: true,
         all: action.payload.data
       };
+    case `${DELETE_USER}_SUCCESS`:
+      var users = [...state.all];
+      var userID = action.meta;
+
+      users = users.filter((user) => user._id !== userID);
+
+      return {
+        ...state,
+        isDeleting: false,
+        isDeletingSuccess: true,
+        all: [...users]
+      };
     case `${FETCH_USER}_ERROR`:
       return {
         ...state,
@@ -52,6 +72,12 @@ const user = (state=initialState, action) => {
         ...state,
         isFetchingAll: false,
         isFetchingAllSuccess: false
+      };
+    case `${DELETE_USER}_ERROR`:
+      return {
+        ...state,
+        isDeleting: false,
+        isDeletingSuccess: false
       };
     case SELECT_USER:
       return {

@@ -20,7 +20,16 @@ class DeleteUserModal extends Component {
       this.props.handleCloseModal();
     }
   }
-  handleDeleteUser() {
+  handleDeleteUser(event) {
+    event.preventDefault();
+
+    const {
+      user,
+      deleteUser
+    } = this.props;
+    const selectedUser = user.selected;
+
+    deleteUser(selectedUser.id);
   }
   render() {
     const {

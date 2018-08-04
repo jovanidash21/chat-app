@@ -29,7 +29,10 @@ class Table extends Component {
     };
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.isLoading && !this.props.isLoading ) {
+    if (
+      ( prevProps.isLoading && !this.props.isLoading ) ||
+      ( prevProps.rows.length !== this.props.rows.length )
+    ) {
       ::this.handleSortTable(this.props.columns[0].key);
     }
   }

@@ -2,8 +2,9 @@ import axios from 'axios';
 import {
   FETCH_USER,
   FETCH_USERS,
+  DELETE_USER,
   SELECT_USER,
-  DESELECT_USER,
+  DESELECT_USER
 } from '../constants/user';
 
 const localtionArr = window.location.href.split("/");
@@ -34,6 +35,29 @@ export function fetchUsers() {
     return dispatch({
       type: FETCH_USERS,
       payload: axios.get(baseURL + '/api/user/all')
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Delete user
+ * @param {string} userID
+ */
+export function deleteUser(userID) {
+  let data = {
+    userID
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: DELETE_USER,
+      payload: axios.post(baseURL + '/api/user/delete', data),
+      meta: userID
     })
     .catch((error) => {
       if (error instanceof Error) {

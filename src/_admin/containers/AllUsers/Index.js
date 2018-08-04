@@ -25,7 +25,10 @@ class AllUsers extends Component {
     fetchUsers();
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.user.isFetchingAll && !this.props.user.isFetchingAll ) {
+    if (
+      ( prevProps.user.isFetchingAll && !this.props.user.isFetchingAll ) ||
+      ( prevProps.user.isDeleting && !this.props.user.isDeleting )
+    ) {
       ::this.handleUserRows();
     }
   }
