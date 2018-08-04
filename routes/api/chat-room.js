@@ -134,7 +134,7 @@ router.post('/direct/:userID', function(req, res, next) {
       chatType: chatType
     };
 
-    ChatRoom.findOne({members: {"$all": members}, chatType: 'direct'}, function(err, chatRoom) {
+    ChatRoom.findOne({members: {$all: members}, chatType: 'direct'}, function(err, chatRoom) {
       if (!err) {
         if (chatRoom !== null) {
           res.status(401).send({

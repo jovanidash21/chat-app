@@ -17,7 +17,8 @@ router.post('/', function(req, res, next) {
       .exec()
       .then((chatRoom) => {
         res.status(200).send(chatRoom.members);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         res.status(500).send({
           success: false,
           message: 'Server Error!'
