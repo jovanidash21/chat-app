@@ -84,11 +84,11 @@ router.post('/', function(req, res, next) {
         for (var i = 0; i < messages.length; i++) {
           var message = messages[i];
 
-          Message.findOneAndUpdate(
-            { _id: message._id, readBy: { $ne: userID } },
+          Message.findByIdAndUpdate(
+            message._id,
             { $addToSet: { readBy: userID } },
             { safe: true, upsert: true, new: true }
-          );
+          ).exec();
         }
 
         return Message.find({chatRoom: chatRoomID})

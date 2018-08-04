@@ -177,7 +177,10 @@ router.post('/direct/:userID', function(req, res, next) {
             });
         }
       } else {
-        res.end(err);
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
       }
     });
   }
