@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Panel } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import Table from '../Partial/Table';
+import DeleteUserModal from '../Partial/DeleteUserModal';
 
 class AllUsers extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class AllUsers extends Component {
 
     this.state = {
       isLoading: true,
+      isModalOpen: false,
       columns: [
         { key: 'name', label: 'Name' },
         { key: 'email', label: 'Email' },
@@ -54,12 +56,31 @@ class AllUsers extends Component {
       rows: userRows
     });
   }
+  handleOpenModal(selecedtUser) {
+    const { selectUser } = this.props;
+
+    this.setState({isModalOpen: true});
+
+    selectUser(selecedtUser);
+  }
+  handleCloseModal() {
+    const { deselectUser } = this.props;
+
+    this.setState({isModalOpen: false});
+
+    deselectUser();
+  }
   render() {
     const {
       isLoading,
       columns,
-      rows
+      rows,
+      isModalOpen
     } = this.state;
+    const modal = (<DeleteUserModal
+        isModalOpen={isModalOpen}
+        handleCloseModal={::this.handleCloseModal}
+      />);
 
     return (
       <div className="all-users-section">
@@ -69,6 +90,10 @@ class AllUsers extends Component {
             columns={columns}
             rows={rows}
             isLoading={isLoading}
+            modal={modal}
+            isModalOpen={isModalOpen}
+            handleOpenModal={::this.handleOpenModal}
+            handleCloseModal={::this.handleCloseModal}
           />
         </Panel>
       </div>

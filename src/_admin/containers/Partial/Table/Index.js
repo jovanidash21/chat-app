@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
-import DeleteUserModal from '../DeleteUserModal';
 import Avatar from '../../../../components/Avatar';
 import LoadingAnimation from '../../../components/LoadingAnimation';
 import TableColumn from '../../../components/Table/TableColumn';
@@ -24,8 +23,7 @@ class Table extends Component {
         column: null,
         direction: 'asc'
       },
-      dataRows: [],
-      isModalOpen: false
+      dataRows: []
     };
   }
   componentDidUpdate(prevProps) {
@@ -267,33 +265,30 @@ class Table extends Component {
 
     ::this.handleDataRowsChange(searchFilter, sort.column, sort.direction, page);
   }
-  handleOpenModal(event, selecedtUser) {
+  handleOpenModal(event, selecedtRow) {
     event.preventDefault();
 
-    const { selectUser } = this.props;
+    const { handleOpenModal } = this.props;
 
-    this.setState({isModalOpen: true});
-    selectUser(selecedtUser);
+    handleOpenModal(selecedtRow);
   }
   handleCloseModal() {
-    const { deselectUser } = this.props;
+    const { handleCloseModal } = this.props;
 
-    this.setState({isModalOpen: false});
-
-    deselectUser();
+    handleCloseModal();
   }
   render() {
-    const { isModalOpen } = this.state;
+    const {
+      modal,
+      isModalOpen
+    } = this.props;
 
     return (
       <div className="table-wrapper">
         {::this.handleTableRender()}
         {
           isModalOpen &&
-          <DeleteUserModal
-            isModalOpen={isModalOpen}
-            handleCloseModal={::this.handleCloseModal}
-          />
+          modal
         }
       </div>
     );
@@ -308,12 +303,20 @@ Table.propTypes = {
   label: PropTypes.string,
   columns: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool
+  isLoading: PropTypes.bool,
+  modal: PropTypes.element,
+  isModalOpen: PropTypes.bool,
+  handleOpenModal: PropTypes.func,
+  handleCloseModal: PropTypes.func
 }
 
 Table.defaultProps = {
   label: '',
-  isLoading: false
+  isLoading: false,
+  modal: React.createElement('div'),
+  isModalOpen: false,
+  handleOpenModal: () => {},
+  handleCloseModal: () => {}
 }
 
 export default connect(
