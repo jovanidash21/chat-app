@@ -66,7 +66,7 @@ router.post('/delete', function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
-    ChatRoom.find({members: {"$in": userID}, chatType: {"$in": ["private", "direct"]}})
+    ChatRoom.find({members: {$in: userID}, chatType: {$in: ["private", "direct"]}})
       .then((chatRooms) => {
         for (var i = 0; i < chatRooms.length; i++) {
           var chatRoom = chatRooms[i];
@@ -84,18 +84,18 @@ router.post('/delete', function(req, res, next) {
             }
           }
 
-          Message.remove({chatRoom: chatRoomID}).exec();
+          Message.deleteMany({chatRoom: chatRoomID}).exec();
           ChatRoom.deleteOne({_id: chatRoomID}).exec();
         }
 
-        return ChatRoom.find({members: {"$in": userID}, chatType: {"$in": ["group", "public"]}});
+        return ChatRoom.find({members: {$in: userID}, chatType: {$in: ["group", "public"]}});
       })
       .then((chatRooms) => {
         for (var i = 0; i < chatRooms.length; i++) {
           var chatRoom = chatRooms[i];
           var chatRoomID = chatRoom._id;
 
-          Message.remove({user: userID, chatRoom: chatRoomID}).exec();
+          Message.deleteMany({user: userID, chatRoom: chatRoomID}).exec();
           Message.update(
             { user: {$ne: userID}, chatRoom: chatRoomID },
             { $pull: {readBy: userID} },
