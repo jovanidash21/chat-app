@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Panel } from 'muicss/react';
+import {
+  Container,
+  Row,
+  Col,
+  Panel
+} from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 
 class Dashboard extends Component {
@@ -10,9 +15,15 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="dahsboard-section">
-        <Panel>
-          Dashboard
-        </Panel>
+        <Container>
+          <Row>
+            <Col xs="12">
+              <Panel>
+                Dashboard
+              </Panel>
+            </Col>
+          </Row>
+        </Container>
       </div>
     )
   }

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Panel } from 'muicss/react';
+import {
+  Container,
+  Row,
+  Col,
+  Panel
+} from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import Table from '../Partial/Table';
 import DeleteUserModal from '../Partial/DeleteUserModal';
@@ -84,18 +89,24 @@ class AllUsers extends Component {
 
     return (
       <div className="all-users-section">
-        <Panel>
-          <Table
-            label="users"
-            columns={columns}
-            rows={rows}
-            isLoading={isLoading}
-            modal={modal}
-            isModalOpen={isModalOpen}
-            handleOpenModal={::this.handleOpenModal}
-            handleCloseModal={::this.handleCloseModal}
-          />
-        </Panel>
+        <Container>
+          <Row>
+            <Col xs="12">
+              <Panel>
+                <Table
+                  label="users"
+                  columns={columns}
+                  rows={rows}
+                  isLoading={isLoading}
+                  modal={modal}
+                  isModalOpen={isModalOpen}
+                  handleOpenModal={::this.handleOpenModal}
+                  handleCloseModal={::this.handleCloseModal}
+                />
+              </Panel>
+            </Col>
+          </Row>
+        </Container>
       </div>
     )
   }

@@ -36,9 +36,10 @@
     display: none;
   }
   .admin-content {
-    padding: 85px 15px 50px;
+    padding-bottom: 50px;
+    padding-top: 85px;
     @media screen and (max-width: $screen-mobile-max) {
-      padding: 77px 15px 50px;
+      padding-top: 77px;
     }
   }
   .footer {
