@@ -1,0 +1,20 @@
+.password-input-wrapper {
+  .password-input {
+    position: relative;
+    input {
+      padding-right: 30px;
+    }
+    .show-password-icon {
+      bottom: 0;
+      color: $color-emperor;
+      cursor: pointer;
+      padding: 5px;
+      position: absolute;
+      right: 3px;
+      transition: all 0.2s ease;
+      &:hover {
+        color: $color-mine-shaft;
+      }
+    }
+  }
+}

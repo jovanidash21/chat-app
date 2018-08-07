@@ -16,7 +16,7 @@ const menuItems = [
     title: "User",
     subMenuItems: [
       { title: "All Users", link: "/admin/all-users" },
-      { title: "Create User", link: "" }
+      { title: "Create User", link: "/admin/create-user" }
     ]
   },
   {

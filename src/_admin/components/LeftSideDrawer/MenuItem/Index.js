@@ -88,7 +88,7 @@ MenuItem.propTypes = {
   icon: PropTypes.string,
   title: PropTypes.string,
   link: PropTypes.string,
-  isOpen:PropTypes.bool,
+  isOpen: PropTypes.bool,
   handleOpenMenuItem: PropTypes.func.isRequired
 }
 

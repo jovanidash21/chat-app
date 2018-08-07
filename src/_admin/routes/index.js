@@ -5,6 +5,7 @@ import Popup from 'react-popup';
 import Layout from '../containers/Layout';
 import Dashboard from '../containers/Dashboard';
 import AllUsers from '../containers/AllUsers';
+import CreateUser from '../containers/CreateUser';
 import 'react-popup/style.css';
 import '../../styles/Common.scss';
 import '../styles/Common.scss';
@@ -16,6 +17,7 @@ const routes = (
     <Switch>
       <Layout exact path="/admin" component={Dashboard} title="Dashboard" />
       <Layout exact path="/admin/all-users" component={AllUsers} title="All Users" />
+      <Layout exact path="/admin/create-user" component={CreateUser} title="Create User" />
     </Switch>
   </div>
 );
