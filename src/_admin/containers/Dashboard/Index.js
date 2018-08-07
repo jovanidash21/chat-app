@@ -15,7 +15,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="dahsboard-section">
-        <Container>
+        <Container fluid={true}>
           <Row>
             <Col xs="12">
               <Panel>
