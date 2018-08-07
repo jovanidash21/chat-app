@@ -82,6 +82,10 @@ class AllUsers extends Component {
       rows,
       isModalOpen
     } = this.state;
+    const label = {
+      singular: 'user',
+      plural: 'users'
+    };
     const modal = (<DeleteUserModal
         isModalOpen={isModalOpen}
         handleCloseModal={::this.handleCloseModal}
@@ -94,7 +98,7 @@ class AllUsers extends Component {
             <Col xs="12">
               <Panel>
                 <Table
-                  label="users"
+                  label={label}
                   columns={columns}
                   rows={rows}
                   isLoading={isLoading}

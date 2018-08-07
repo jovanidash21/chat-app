@@ -10,9 +10,8 @@
     @include scrollbar($color-mine-shaft, transparent, 'x');
     overflow-x: auto;
   }
-  .edit-column,
-  .delete-column,
-  .data-button {
+  .actions-column,
+  .data-actions {
     text-align: center;
   }
   .no-items-row {
@@ -26,5 +25,8 @@
     .avatar {
       margin-right: 10px;
     }
+  }
+  .data-actions {
+    display: flex;
   }
 }

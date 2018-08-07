@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button } from 'muicss/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import Avatar from '../../../../components/Avatar';
 import LoadingAnimation from '../../../components/LoadingAnimation';
@@ -96,7 +97,8 @@ class Table extends Component {
       sort,
       dataRows
     } = this.state;
-    const capitalizeLabel = label.charAt(0).toUpperCase() + label.slice(1);
+    const capitalizeSingularLabel = label.singular.charAt(0).toUpperCase() + label.singular.slice(1);
+    const capitalizePluralLabel = label.plural.charAt(0).toUpperCase() + label.plural.slice(1);
 
     if ( !isLoading ) {
       return (
@@ -104,7 +106,7 @@ class Table extends Component {
           <div className="search-filter-wrapper">
             <SearchFilter
               onSearchFilterChange={::this.onSearchFilterChange}
-              placeholder={"Search" + (label.length > 0 ? ' ' + capitalizeLabel : '')}
+              placeholder={"Search " + capitalizePluralLabel}
             />
           </div>
           <div className="table">
@@ -124,11 +126,8 @@ class Table extends Component {
                       />
                     )
                   }
-                  <th className="edit-column">
-                    Edit
-                  </th>
-                  <th className="delete-column">
-                    Delete
+                  <th className="actions-column">
+                    Actions
                   </th>
                 </tr>
               </thead>
@@ -160,21 +159,22 @@ class Table extends Component {
                         )
                       }
                       <td>
-                        <div className="data-button">
-                          <Button className="button button-primary" size="small">
-                            Edit
+                        <div className="data-actions">
+                          <Button
+                            className="button button-primary"
+                            size="small"
+                            title={"Edit " + capitalizeSingularLabel}
+                          >
+                            <FontAwesomeIcon icon={["far", "edit"]} />
                           </Button>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="data-button">
                           <Button
                             className="delete-button"
                             color="danger"
                             size="small"
+                            title={"Delete " + capitalizeSingularLabel}
                             onClick={(e) => {::this.handleOpenModal(e, singleRow)}}
                           >
-                            Delete
+                            <FontAwesomeIcon icon={["far", "trash-alt"]} />
                           </Button>
                         </div>
                       </td>
@@ -186,7 +186,7 @@ class Table extends Component {
                   dataRows.length === 0 &&
                   <tr className="no-items-row">
                     <td colSpan={columns.length + 2}>
-                      No {(label.length > 0 ? label : 'results')} found
+                      No {label.plural} found
                     </td>
                   </tr>
                 }
@@ -300,7 +300,7 @@ const mapStateToProps = (state) => {
 }
 
 Table.propTypes = {
-  label: PropTypes.string,
+  label: PropTypes.object,
   columns: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
   isLoading: PropTypes.bool,
@@ -311,7 +311,10 @@ Table.propTypes = {
 }
 
 Table.defaultProps = {
-  label: '',
+  label: {
+    singular: 'item',
+    plural: 'items'
+  },
   isLoading: false,
   modal: React.createElement('div'),
   isModalOpen: false,
