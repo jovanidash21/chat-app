@@ -10,8 +10,7 @@
     @include scrollbar($color-mine-shaft, transparent, 'x');
     overflow-x: auto;
   }
-  .actions-column,
-  .data-actions {
+  .actions-column {
     text-align: center;
   }
   .no-items-row {
@@ -28,5 +27,6 @@
   }
   .data-actions {
     display: flex;
+    justify-content: center;
   }
 }
