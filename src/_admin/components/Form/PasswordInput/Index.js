@@ -5,6 +5,7 @@ import {
   Button
 } from 'muicss/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import generatePassword from 'password-generator';
 import './styles.scss';
 
 class PasswordInput extends Component {
@@ -20,8 +21,17 @@ class PasswordInput extends Component {
 
     this.setState({showPassword: !this.state.showPassword});
   }
+  handleGeneratePassword(event) {
+    event.preventDefault();
+
+    const { handleGeneratePassword } = this.props;
+    const generatedPassword = generatePassword(12, false);
+
+    handleGeneratePassword(generatedPassword);
+  }
   render() {
     const {
+      value,
       handleChange,
       isLoading
     } = this.props;
@@ -31,6 +41,7 @@ class PasswordInput extends Component {
       <div className="password-input-wrapper">
         <div className="password-input">
           <Input
+            value={value}
             label="Password"
             type={(!showPassword ? "password" : "text")}
             name="password"
@@ -45,20 +56,31 @@ class PasswordInput extends Component {
             title={(!showPassword ? "Show Password" : "Hide Password")}
             onClick={::this.handleShowPassword}
           >
-            <FontAwesomeIcon icon={(!showPassword ? ["far", "eye"] : ["far", "eye-slash"])} />
+            <FontAwesomeIcon icon={(!showPassword ? ["far", "eye-slash"] : ["far", "eye"])} />
           </div>
         </div>
+        <Button
+          className="button button-default generate-password-button"
+          size="small"
+          title="Generate Password"
+          onClick={::this.handleGeneratePassword}
+        >
+          Generate
+        </Button>
       </div>
     )
   }
 }
 
 PasswordInput.propTypes = {
+  value: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
+  handleGeneratePassword: PropTypes.func.isRequired,
   isLoading: PropTypes.bool
 }
 
 PasswordInput.defaultProps = {
+  value: '',
   isLoading: false
 }
 

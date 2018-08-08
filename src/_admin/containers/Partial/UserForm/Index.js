@@ -29,11 +29,17 @@ class UserForm extends Component {
 
     this.setState({[event.target.name]: event.target.value});
   }
+  handleGeneratePassword(password) {
+    this.setState({password: password});
+  }
   handleCreateUser(event) {
     event.preventDefault();
   }
   render() {
-    const { isLoading } = this.state;
+    const {
+      password,
+      isLoading
+    } = this.state;
 
     return (
       <div className="user-form">
@@ -78,7 +84,9 @@ class UserForm extends Component {
             <Option value="admin" label="Admin" />
           </Select>
           <PasswordInput
+            value={password}
             handleChange={::this.handleChange}
+            handleGeneratePassword={::this.handleGeneratePassword}
             isLoading={isLoading}
           />
           <Button className="button button-primary" type="submit">

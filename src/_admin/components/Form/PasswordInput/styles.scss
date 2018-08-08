@@ -1,20 +1,28 @@
 .password-input-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
   .password-input {
+    flex: 0 0 70%;
     position: relative;
     input {
       padding-right: 30px;
     }
     .show-password-icon {
-      bottom: 0;
       color: $color-emperor;
       cursor: pointer;
       padding: 5px;
       position: absolute;
       right: 3px;
+      top: 50%;
+      transform: translateY(-50%);
       transition: all 0.2s ease;
       &:hover {
         color: $color-mine-shaft;
       }
     }
+  }
+  .generate-password-button {
+    flex: 0 0 25%;
   }
 }
