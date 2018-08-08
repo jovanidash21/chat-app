@@ -14,32 +14,21 @@ class OptionsDropdown extends Component {
 
     return (
       <div className="mui-dropdown options-dropdown">
-        <MediaQuery query="(min-width: 768px)">
-          <div className="user-details">
-            <Avatar
-              image={user.profilePicture}
-              title={user.name}
-              accountType={user.accountType}
-            />
-            <div className="user-name">
-              {user.name}
-            </div>
-          </div>
-        </MediaQuery>
-        <div>
-          <button className="mui-btn mui-btn--small mui-btn--fab" data-mui-toggle="dropdown">
-            <div className="dropdown-icon">
-              <FontAwesomeIcon icon="ellipsis-v" size="2x" />
-            </div>
-          </button>
-          <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
-            <li>
-              <form action="/api/logout" method="post">
-                <input type="submit" value="Logout" />
-              </form>
-            </li>
-          </ul>
+        <div className="dropdown-toggle" data-mui-toggle="dropdown">
+          <Avatar
+            image={user.profilePicture}
+            size="32px"
+            title={user.name}
+            accountType={user.accountType}
+          />
         </div>
+        <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
+          <li>
+            <form action="/api/logout" method="post">
+              <input type="submit" value="Logout" />
+            </form>
+          </li>
+        </ul>
       </div>
     )
   }

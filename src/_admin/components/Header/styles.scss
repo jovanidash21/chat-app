@@ -2,20 +2,14 @@
   align-items: center;
   display: flex;
   justify-content: flex-end;
-  button {
-    &,
-    &:active,
-    &:focus,
+  .dropdown-toggle {
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: none;
+    transition: all 0.3s ease;
     &:hover {
-      background-color: transparent;
-      box-shadow: none;
-      color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
     }
-  }
-  .dropdown-icon {
-    align-items: center;
-    display: flex;
-    justify-content: center;
   }
   .dropdown-menu {
     input[type="submit"] {
@@ -34,15 +28,6 @@
       &:hover {
         background-color: $color-gallery;
       }
-    }
-  }
-  .user-details {
-    align-items: center;
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 5px;
-    & > div {
-      margin: 0 6px;
     }
   }
 }
