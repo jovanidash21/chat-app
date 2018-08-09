@@ -57,6 +57,39 @@ router.get('/all', function(req, res, next) {
   }
 });
 
+router.post('/create', function(req, res, next) {
+  if (req.user === undefined || req.user.role !== 'admin') {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var userData = {
+      username: req.body.username,
+      name: req.body.name,
+      email: req.body.email,
+      role: req.body.role,
+      accountType: 'local'
+    };
+    var user = new User(userData);
+
+    User.register(user, req.body.password, function(err) {
+      if (!err) {
+        res.status(200).send({
+          success: true,
+          message: 'User Created',
+          userData: user
+        });
+      } else {
+        res.status(401).send({
+          success: false,
+          message: 'Username already exist.'
+        });
+      }
+    });
+  }
+});
+
 router.post('/delete', function(req, res, next) {
   var userID = req.body.userID;
 

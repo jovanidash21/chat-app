@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   FETCH_USER,
   FETCH_USERS,
+  CREATE_USER,
   DELETE_USER,
   SELECT_USER,
   DESELECT_USER
@@ -35,6 +36,36 @@ export function fetchUsers() {
     return dispatch({
       type: FETCH_USERS,
       payload: axios.get(baseURL + '/api/user/all')
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Create user
+ * @param {string} username
+ * @param {string} name
+ * @param {string} email
+ * @param {string} role
+ * @param {string} password    
+ */
+export function createUser(username, name, email, role, password) {
+  let data = {
+    username,
+    name,
+    email,
+    role,
+    password
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: CREATE_USER,
+      payload: axios.post(baseURL + '/api/user/create', data)
     })
     .catch((error) => {
       if (error instanceof Error) {

@@ -20,9 +20,19 @@ class UserForm extends Component {
       name: '',
       email: '',
       role: 'ordinary',
-      password: '',
-      isLoading: false
+      password: ''
     };
+  }
+  componentDidUpdate(prevProps) {
+    if ( prevProps.user.isCreating && !this.props.user.isCreating && this.props.user.isCreatingSuccess ) {
+      this.setState({
+        username: '',
+        name: '',
+        email: '',
+        role: 'ordinary',
+        password: ''
+      });
+    }
   }
   handleChange(event) {
     event.preventDefault();
@@ -34,17 +44,39 @@ class UserForm extends Component {
   }
   handleCreateUser(event) {
     event.preventDefault();
+
+    const { createUser } = this.props;
+    const {
+      username,
+      name,
+      email,
+      role,
+      password
+    } = this.state;
+
+    createUser(
+      username,
+      name,
+      email,
+      role,
+      password
+    );
   }
   render() {
+    const { user } = this.props;
     const {
-      password,
-      isLoading
+      username,
+      name,
+      email,
+      role,
+      password
     } = this.state;
 
     return (
       <div className="user-form">
         <Form onSubmit={::this.handleCreateUser}>
           <Input
+            value={username}
             label="Username"
             type="text"
             name="username"
@@ -52,9 +84,10 @@ class UserForm extends Component {
             floatingLabel={true}
             required={true}
             onChange={::this.handleChange}
-            disabled={isLoading}
+            disabled={user.isCreating}
           />
           <Input
+            value={name}
             label="Name"
             type="text"
             name="name"
@@ -62,9 +95,10 @@ class UserForm extends Component {
             floatingLabel={true}
             required={true}
             onChange={::this.handleChange}
-            disabled={isLoading}
+            disabled={user.isCreating}
           />
           <Input
+            value={email}
             label="Email"
             type="email"
             name="email"
@@ -72,13 +106,14 @@ class UserForm extends Component {
             floatingLabel={true}
             required={true}
             onChange={::this.handleChange}
-            disabled={isLoading}
+            disabled={user.isCreating}
           />
           <Select
+            value={role}
             label="Role"
             name="role"
             onChange={::this.handleChange}
-            disabled={isLoading}
+            disabled={user.isCreating}
           >
             <Option value="ordinary" label="Ordinary" />
             <Option value="admin" label="Admin" />
@@ -87,9 +122,13 @@ class UserForm extends Component {
             value={password}
             handleChange={::this.handleChange}
             handleGeneratePassword={::this.handleGeneratePassword}
-            isLoading={isLoading}
+            isLoading={user.isCreating}
           />
-          <Button className="button button-primary" type="submit">
+          <Button
+            className="button button-primary"
+            type="submit"
+            disabled={user.isCreating}
+          >
             Create User
           </Button>
         </Form>

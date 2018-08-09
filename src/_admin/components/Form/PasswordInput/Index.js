@@ -64,6 +64,7 @@ class PasswordInput extends Component {
           size="small"
           title="Generate Password"
           onClick={::this.handleGeneratePassword}
+          disabled={isLoading}
         >
           Generate
         </Button>

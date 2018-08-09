@@ -1,6 +1,7 @@
 import {
   FETCH_USER,
   FETCH_USERS,
+  CREATE_USER,
   DELETE_USER,
   SELECT_USER,
   DESELECT_USER
@@ -11,6 +12,8 @@ const initialState = {
   isFetchingActiveSuccess: false,
   isFetchingAll: false,
   isFetchingAllSuccess: false,
+  isCreating: false,
+  isCreatingSuccess: true,
   isDeleting: false,
   isDeletingSuccess: true,
   active: {},
@@ -30,6 +33,11 @@ const user = (state=initialState, action) => {
         ...state,
         isFetchingAll: true
       };
+    case `${CREATE_USER}_LOADING`:
+      return {
+        ...state,
+        isCreating: true
+      };
     case `${DELETE_USER}_LOADING`:
       return {
         ...state,
@@ -48,6 +56,12 @@ const user = (state=initialState, action) => {
         isFetchingAll: false,
         isFetchingAllSuccess: true,
         all: action.payload.data
+      };
+    case `${CREATE_USER}_SUCCESS`:
+      return {
+        ...state,
+        isCreating: false,
+        isCreatingSuccess: true
       };
     case `${DELETE_USER}_SUCCESS`:
       var users = [...state.all];
@@ -72,6 +86,12 @@ const user = (state=initialState, action) => {
         ...state,
         isFetchingAll: false,
         isFetchingAllSuccess: false
+      };
+    case `${CREATE_USER}_ERROR`:
+      return {
+        ...state,
+        isCreating: false,
+        isCreatingSuccess: false
       };
     case `${DELETE_USER}_ERROR`:
       return {

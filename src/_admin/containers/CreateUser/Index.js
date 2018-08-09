@@ -9,15 +9,27 @@ import {
 import mapDispatchToProps from '../../actions';
 import Table from '../Partial/Table';
 import UserForm from '../Partial/UserForm';
+import Alert from '../../components/Alert';
 
 class CreateUser extends Component {
   constructor(props) {
     super(props);
   }
   render() {
+    const { user } = this.props;
+
     return (
       <div className="create-user-section">
         <Container fluid={true}>
+          <Row>
+            <Col xs="12">
+              {
+                !user.isCreating &&
+                !user.isCreatingSuccess &&
+                <Alert label="Sorry! Username already taken." />
+              }
+            </Col>
+          </Row>
           <Row>
             <Col md="8">
               <Panel>
@@ -26,7 +38,7 @@ class CreateUser extends Component {
             </Col>
             <Col md="4">
               <Panel>
-                
+
               </Panel>
             </Col>
           </Row>
@@ -37,7 +49,9 @@ class CreateUser extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    user: state.user
+  }
 }
 
 export default connect(
