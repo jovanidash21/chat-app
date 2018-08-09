@@ -3,7 +3,8 @@
   display: flex;
   justify-content: space-between;
   .password-input {
-    flex: 0 0 70%;
+    flex: 1;
+    margin-right: 20px;
     position: relative;
     input {
       padding-right: 30px;
@@ -21,8 +22,5 @@
         color: $color-mine-shaft;
       }
     }
-  }
-  .generate-password-button {
-    flex: 0 0 25%;
   }
 }
