@@ -4,8 +4,10 @@ import {
   Container,
   Row,
   Col,
-  Panel
+  Panel,
+  Button
 } from 'muicss/react';
+import { Link } from 'react-router-dom';
 import mapDispatchToProps from '../../actions';
 import Table from '../Partial/Table';
 import DeleteUserModal from '../Partial/DeleteUserModal';
@@ -94,6 +96,15 @@ class AllUsers extends Component {
     return (
       <div className="all-users-section">
         <Container fluid={true}>
+          <Row>
+            <Col xs="12">
+              <div className="admin-menu-section">
+                <Link to="/admin/create-user" className="mui-btn mui-btn--large button button-default">
+                  Create New
+                </Link>
+              </div>
+            </Col>
+          </Row>
           <Row>
             <Col xs="12">
               <Panel>
