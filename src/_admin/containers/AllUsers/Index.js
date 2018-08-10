@@ -99,7 +99,7 @@ class AllUsers extends Component {
           <Row>
             <Col xs="12">
               <div className="admin-menu-section">
-                <Link to="/admin/create-user" className="mui-btn mui-btn--large button button-default">
+                <Link to="/create-user" className="mui-btn mui-btn--large button button-default">
                   Create New
                 </Link>
               </div>

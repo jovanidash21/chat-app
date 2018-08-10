@@ -9,14 +9,14 @@ const menuItems = [
   {
     icon: "tachometer-alt",
     title: "Dashboard",
-    link: "/admin"
+    link: "/dashboard"
   },
   {
     icon: "user",
     title: "User",
     subMenuItems: [
-      { title: "All Users", link: "/admin/all-users" },
-      { title: "Create User", link: "/admin/create-user" }
+      { title: "All Users", link: "/all-users" },
+      { title: "Create User", link: "/create-user" }
     ]
   },
   {

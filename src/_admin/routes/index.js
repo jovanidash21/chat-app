@@ -15,9 +15,9 @@ const routes = (
     <LoadingBar className="loading-bar" />
     <Popup />
     <Switch>
-      <Layout exact path="/admin" component={Dashboard} title="Dashboard" />
-      <Layout exact path="/admin/all-users" component={AllUsers} title="All Users" />
-      <Layout exact path="/admin/create-user" component={CreateUser} title="Create User" />
+      <Layout exact path="/dashboard" component={Dashboard} title="Dashboard" />
+      <Layout exact path="/all-users" component={AllUsers} title="All Users" />
+      <Layout exact path="/create-user" component={CreateUser} title="Create User" />
     </Switch>
   </div>
 );
