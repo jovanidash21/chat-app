@@ -39,9 +39,12 @@ class OptionsDropdown extends Component {
               <FontAwesomeIcon icon="ellipsis-v" size="2x" />
             </div>
           </button>
-          <ul className="mui-dropdown__menu mui-dropdown__menu--right">
+          <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
             <li>
               <a href="#" onClick={::this.handleLogout}>
+                <div className="option-icon">
+                  <FontAwesomeIcon icon="sign-out-alt" />
+                </div>
                 Logout
               </a>
             </li>

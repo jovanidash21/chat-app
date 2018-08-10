@@ -23,7 +23,12 @@ class OptionsDropdown extends Component {
         </div>
         <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
           <li>
-            <a href="/logout">Logout</a>
+            <a href="/logout">
+              <div className="option-icon">
+                <FontAwesomeIcon icon="sign-out-alt" />
+              </div>
+              Logout
+            </a>
           </li>
         </ul>
       </div>
