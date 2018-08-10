@@ -47,6 +47,7 @@ class Menu extends Component {
     }
   }
   render() {
+    const { router } = this.props;
     const { openMenuItem } = this.state;
 
     return (
@@ -56,29 +57,44 @@ class Menu extends Component {
           <div className="menus-list">
             {
               menuItems.length > 0 &&
-              menuItems.map((singleMenuItem, i) =>
-                <MenuItem
-                  key={i}
-                  index={i}
-                  icon={singleMenuItem.icon}
-                  title={singleMenuItem.title}
-                  link={('link' in singleMenuItem ? singleMenuItem.link : '')}
-                  isOpen={openMenuItem === i}
-                  handleOpenMenuItem={::this.handleOpenMenuItem}
-                >
-                  {
-                    'subMenuItems' in singleMenuItem &&
-                    singleMenuItem.subMenuItems.length > 0 &&
-                    singleMenuItem.subMenuItems.map((singleSubMenuItem, i) =>
-                      <MenuItem.SubMenuItem
-                        key={i}
-                        title={singleSubMenuItem.title}
-                        link={singleSubMenuItem.link}
-                      />
-                    )
-                  }
-                </MenuItem>
-              )
+              menuItems.map((singleMenuItem, i) => {
+                var isSubMenuActive = false;
+
+                if (
+                  'subMenuItems' in singleMenuItem &&
+                  singleMenuItem.subMenuItems.length > 0 &&
+                  singleMenuItem.subMenuItems.some((singleSubMenuItem) =>
+                    singleSubMenuItem.link === router.location.pathname
+                  )
+                ) {
+                  isSubMenuActive = true;
+                }
+
+                return (
+                  <MenuItem
+                    key={i}
+                    index={i}
+                    icon={singleMenuItem.icon}
+                    title={singleMenuItem.title}
+                    link={('link' in singleMenuItem ? singleMenuItem.link : '')}
+                    isSubMenuActive={isSubMenuActive}
+                    isOpen={openMenuItem === i}
+                    handleOpenMenuItem={::this.handleOpenMenuItem}
+                  >
+                    {
+                      'subMenuItems' in singleMenuItem &&
+                      singleMenuItem.subMenuItems.length > 0 &&
+                      singleMenuItem.subMenuItems.map((singleSubMenuItem, i) =>
+                        <MenuItem.SubMenuItem
+                          key={i}
+                          title={singleSubMenuItem.title}
+                          link={singleSubMenuItem.link}
+                        />
+                      )
+                    }
+                  </MenuItem>
+                )
+              })
             }
           </div>
         </div>
@@ -89,6 +105,7 @@ class Menu extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    router: state.router,
     user: state.user,
     chatRoom: state.chatRoom
   }

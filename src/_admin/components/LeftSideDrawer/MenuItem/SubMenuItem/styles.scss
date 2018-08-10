@@ -1,4 +1,9 @@
 .sub-menu-item-wrapper {
+  a.active {
+    .sub-menu-item {
+      background-color: $color-night-rider !important;
+    }
+  }
   .sub-menu-item {
     background-color: $color-kabul;
     color: #fff;

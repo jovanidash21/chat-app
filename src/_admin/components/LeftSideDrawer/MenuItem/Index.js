@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SubMenuItem from './SubMenuItem';
 import './styles.scss';
@@ -26,12 +26,20 @@ class MenuItem extends Component {
       title,
       link,
       isOpen,
+      isSubMenuActive,
       children
     } = this.props;
 
     return (
       <div>
-        <div className={"menu-item " + (isOpen ? 'selected' : '')} onClick={(link.length === 0 ? ::this.handleOpenMenuItem : false)}>
+        <div
+          className={
+            "menu-item " +
+            (isSubMenuActive ? 'active ' : '') +
+            (isOpen ? 'selected' : '')
+          }
+          onClick={(link.length === 0 ? ::this.handleOpenMenuItem : false)}
+        >
           <div className="menu-icon">
             <FontAwesomeIcon icon={icon} />
           </div>
@@ -72,9 +80,9 @@ class MenuItem extends Component {
         {
           link.length > 0
             ?
-            <Link to={link}>
+            <NavLink to={link}>
               {::this.handleMenuItemRender()}
-            </Link>
+            </NavLink>
             :
             ::this.handleMenuItemRender()
         }
@@ -89,6 +97,7 @@ MenuItem.propTypes = {
   title: PropTypes.string,
   link: PropTypes.string,
   isOpen: PropTypes.bool,
+  isSubMenuActive: PropTypes.bool,
   handleOpenMenuItem: PropTypes.func.isRequired
 }
 
@@ -96,7 +105,8 @@ MenuItem.defaultProps = {
   icon: 'flag',
   title: 'Menu Item',
   link: '',
-  isOpen: false
+  isOpen: false,
+  isSubMenuActive: false
 }
 
 MenuItem.SubMenuItem = SubMenuItem;

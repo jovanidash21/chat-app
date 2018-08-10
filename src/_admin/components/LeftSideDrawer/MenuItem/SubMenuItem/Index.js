@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './styles.scss';
 
 class SubMenuItem extends Component {
@@ -26,9 +26,9 @@ class SubMenuItem extends Component {
         {
           link.length > 0
             ?
-            <Link to={link}>
+            <NavLink to={link}>
               {::this.handleSubMenuItemRender()}
-            </Link>
+            </NavLink>
             :
             ::this.handleSubMenuItemRender()
         }

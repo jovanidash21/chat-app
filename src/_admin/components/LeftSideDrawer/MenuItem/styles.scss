@@ -1,4 +1,11 @@
 .menu-item-wrapper {
+  a.active .menu-item,
+  .menu-item.active {
+    background-color: $color-primary !important;
+    .menu-icon {
+      color: #fff !important;
+    }
+  }
   .menu-item {
     align-items: center;
     color: #fff;
