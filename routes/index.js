@@ -9,6 +9,11 @@ router.get('/', function(req, res, next) {
   }
 });
 
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+
 router.get('/register', function(req, res, next) {
   if (!req.user) {
     res.render('index', { title: 'Chat App | Register' });

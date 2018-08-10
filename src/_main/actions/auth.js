@@ -268,7 +268,7 @@ export function logout(userID) {
 
     return dispatch({
       type: LOGOUT,
-      payload: axios.post(baseURL + '/api/logout')
+      payload: axios.get(baseURL + '/logout')
     })
     .then(() => {
       dispatch({
