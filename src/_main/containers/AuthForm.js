@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router';
-require('../styles/AuthForm.scss');
+import '../styles/AuthForm.scss';
 
 class AuthForm extends Component {
   constructor(props) {

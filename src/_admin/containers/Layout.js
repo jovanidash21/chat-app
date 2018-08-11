@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
 import { Route } from 'react-router';
 import mapDispatchToProps from '../actions';
-import Menu from './Partial/Menu';
-import Header from './Common/Header';
-import LeftSideDrawer from './Common/LeftSideDrawer';
-import Footer from './Common/Footer';
+import { Menu } from './Partial';
+import {
+  Header,
+  LeftSideDrawer,
+  Footer
+} from './Common';
 import Head from '../components/Head';
-import LoadingAnimation from '../components/LoadingAnimation';
+import { LoadingAnimation } from '../components/LoadingAnimation';
 import '../styles/Admin.scss';
 
 class Layout extends Component {

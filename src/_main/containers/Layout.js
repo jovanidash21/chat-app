@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router';
 import mapDispatchToProps from '../actions';
-import LoadingAnimation from '../components/LoadingAnimation';
+import { LoadingAnimation } from '../components/LoadingAnimation';
 
 class Layout extends Component {
   constructor(props) {
