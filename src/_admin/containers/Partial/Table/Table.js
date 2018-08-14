@@ -5,7 +5,7 @@ import { Button } from 'muicss/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { Avatar } from '../../../../components/Avatar';
-import { LoadingAnimation } from '../../../components/LoadingAnimation';
+import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import {
   TableColumn,
   SearchFilter,

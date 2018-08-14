@@ -9,7 +9,7 @@ import {
   Divider
 } from 'muicss/react'
 import mapDispatchToProps from '../../actions';
-import Head from '../../components/Head';
+import Head from '../../../components/Head';
 import {
   EmailInput,
   NameInput,

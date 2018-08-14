@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
-import { LoadingAnimation } from '../../../components/LoadingAnimation';
+import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { ChatRoom } from '../../../components/LeftSideDrawer';
 import { CreateChatRoomModal } from '../CreateChatRoomModal';
 import './styles.scss';

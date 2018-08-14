@@ -5,7 +5,7 @@ import { Container } from 'muicss/react';
 import Popup from 'react-popup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
-import { LoadingAnimation } from '../../../components/LoadingAnimation';
+import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import {
   ChatDateTime,
   ChatBubble,

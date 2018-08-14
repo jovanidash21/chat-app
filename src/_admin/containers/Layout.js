@@ -10,8 +10,8 @@ import {
   LeftSideDrawer,
   Footer
 } from './Common';
-import Head from '../components/Head';
-import { LoadingAnimation } from '../components/LoadingAnimation';
+import Head from '../../components/Head';
+import { LoadingAnimation } from '../../components/LoadingAnimation';
 import '../styles/Admin.scss';
 
 class Layout extends Component {

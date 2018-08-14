@@ -14,7 +14,7 @@ import {
   ChatRoomsList,
   MembersList
 } from '../Partial';
-import Head from '../../components/Head';
+import Head from '../../../components/Head';
 import {
   ChatInput,
   ChatAudioRecorder
