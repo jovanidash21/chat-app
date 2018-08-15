@@ -13,34 +13,36 @@ var sockets = function(io) {
             action.user._id,
             { $set: { isOnline: true, socketID: socket.id } },
             { safe: true, upsert: true, new: true },
-            function(err) {
-              if (!err) {
-                users[socket.id] = action.user._id;
+          )
+          .then((user) => {
+            users[socket.id] = action.user._id;
 
-                socket.broadcast.emit('action', {
-                  type: 'SOCKET_BROADCAST_USER_LOGIN',
-                  user: action.user
-                });
-              }
-            }
-          );
-          break
+            socket.broadcast.emit('action', {
+              type: 'SOCKET_BROADCAST_USER_LOGIN',
+              user: action.user
+            });
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          break;
         case 'SOCKET_USER_LOGOUT':
           User.findByIdAndUpdate(
             action.userID,
             { $set: { isOnline: false, socketID: ''} },
             { safe: true, upsert: true, new: true },
-            function(err) {
-              if (!err) {
-                socket.broadcast.emit('action', {
-                  type: 'SOCKET_BROADCAST_USER_LOGOUT',
-                  userID: action.userID
-                });
+          )
+          .then((user) => {
+            socket.broadcast.emit('action', {
+              type: 'SOCKET_BROADCAST_USER_LOGOUT',
+              userID: action.userID
+            });
 
-                delete users[socket.id];
-              }
-            }
-          );
+            delete users[socket.id];
+          })
+          .catch((error) => {
+            console.log(error);
+          });
           break;
         case 'SOCKET_JOIN_CHAT_ROOM':
           socket.join(action.chatRoomID);
@@ -87,55 +89,52 @@ var sockets = function(io) {
 
           ChatRoom.findById(action.chatRoomID)
             .populate('members')
-            .exec(function(err, chatRoom) {
-              if (!err) {
-                for (var i = 0; i < chatRoom.members.length; i++) {
-                  var chatRoomMember = chatRoom.members[i];
+            .exec()
+            .then((chatRoom) => {
+              for (var i = 0; i < chatRoom.members.length; i++) {
+                var chatRoomMember = chatRoom.members[i];
 
-                  User.findById(chatRoomMember, function(err, user) {
-                    if (!err) {
-                      if (chatRoomClients.indexOf(user.socketID) > -1) {
-                        Message.findOneAndUpdate(
-                          { _id: action.message._id, readBy: { $ne: user._id } },
-                          { $addToSet: { readBy: user._id } },
-                          { safe: true, upsert: true, new: true },
-                          function(err) {
-                            if (!err) {
-                              User.update(
-                                { _id: user._id, 'chatRooms.data': action.chatRoomID },
-                                { $set: { 'chatRooms.$.unReadMessages': 0 } },
-                                { safe: true, upsert: true, new: true },
-                                function(err) {
-                                  if (!err) {
-                                    socket.broadcast.to(user.socketID).emit('action', {
-                                      type: 'SOCKET_BROADCAST_SEND_MESSAGE',
-                                      message: action.message
-                                    });
-                                  }
-                                }
-                              );
-                            }
-                          }
-                        );
-                      } else {
-                        if (chatRoom.chatType === 'direct') {
-                          chatRoom.name = action.message.user.name;
-                        }
+                User.findById(chatRoomMember)
+                  .then((user) => {
+                    if (chatRoomClients.indexOf(user.socketID) > -1) {
+                      Message.findOneAndUpdate(
+                        { _id: action.message._id, readBy: { $ne: user._id } },
+                        { $addToSet: { readBy: user._id } },
+                        { safe: true }
+                      ).exec();
 
-                        socket.broadcast.to(user.socketID).emit('action', {
-                          type: 'SOCKET_BROADCAST_NOTIFY_MESSAGE',
-                          chatRoom: {data: chatRoom, unReadMessages: 0},
-                          chatRoomID: action.chatRoomID,
-                          chatRoomName: chatRoom.name,
-                          senderName: action.message.user.name
-                        });
+                      User.update(
+                        { _id: user._id, 'chatRooms.data': action.chatRoomID },
+                        { $set: { 'chatRooms.$.unReadMessages': 0 } },
+                        { safe: true, upsert: true, new: true }
+                      ).exec();
+
+                      socket.broadcast.to(user.socketID).emit('action', {
+                        type: 'SOCKET_BROADCAST_SEND_MESSAGE',
+                        message: action.message
+                      });
+                    } else {
+                      if (chatRoom.chatType === 'direct') {
+                        chatRoom.name = action.message.user.name;
                       }
+
+                      socket.broadcast.to(user.socketID).emit('action', {
+                        type: 'SOCKET_BROADCAST_NOTIFY_MESSAGE',
+                        chatRoom: {data: chatRoom, unReadMessages: 0},
+                        chatRoomID: action.chatRoomID,
+                        chatRoomName: chatRoom.name,
+                        senderName: action.message.user.name
+                      });
                     }
+                  })
+                  .catch((error) => {
+                    console.log(error);
                   });
-                }
               }
+            })
+            .catch((error) => {
+              console.log(error);
             });
-          break;
         default:
           break;
       }
@@ -144,17 +143,18 @@ var sockets = function(io) {
           users[socket.id],
           { $set: { isOnline: false, socketID: ''} },
           { safe: true, upsert: true, new: true },
-          function(err) {
-            if (!err) {
-              socket.broadcast.emit('action', {
-                type: 'SOCKET_BROADCAST_USER_LOGOUT',
-                userID: users[socket.id]
-              });
+        )
+        .then((user) => {
+          socket.broadcast.emit('action', {
+            type: 'SOCKET_BROADCAST_USER_LOGOUT',
+            userID: users[socket.id]
+          });
 
-              delete users[socket.id];
-            }
-          }
-        );
+          delete users[socket.id];
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       });
     });
   });
