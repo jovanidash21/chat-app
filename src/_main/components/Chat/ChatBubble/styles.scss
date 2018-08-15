@@ -124,13 +124,6 @@
   }
   .avatar {
     margin-top: 15px;
-    @media screen and (max-width: $screen-mobile-max) {
-      $image-size: 25px;
-      background-size: $image-size !important;
-      flex: 0 0 $image-size !important;
-      height: $image-size !important;
-      width: $image-size !important;
-    }
   }
   .chat-user-name {
     color: #000;

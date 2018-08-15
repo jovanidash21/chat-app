@@ -56,13 +56,13 @@ class Chat extends Component {
     const { isLeftSideDrawerOpen } = this.state;
 
     return (
-      <MediaQuery query="(max-width: 767px)">
+      <MediaQuery query="(min-width: 768px)">
         {(matches) => {
           return (
             <LeftSideDrawer
               handleLeftSideDrawerToggleState={::this.handleLeftSideDrawerToggleState}
-              isLeftSideDrawerOpen={matches ? isLeftSideDrawerOpen : true}
-              noOverlay={matches ? false : true}
+              isLeftSideDrawerOpen={matches ? true : isLeftSideDrawerOpen}
+              noOverlay={matches ? true : false}
             >
               <ChatRoomsList handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent} />
             </LeftSideDrawer>
