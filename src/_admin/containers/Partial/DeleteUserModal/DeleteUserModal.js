@@ -8,7 +8,7 @@ import {
 import mapDispatchToProps from '../../../actions';
 import { Modal } from '../../../../components/Modal';
 import { Avatar } from '../../../../components/Avatar';
-import { Alert } from '../../../components/Alert';
+import { Alert } from '../../../../components/Alert';
 import './styles.scss';
 
 class DeleteUserModal extends Component {

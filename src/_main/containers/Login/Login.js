@@ -15,9 +15,9 @@ import {
   PasswordInput,
   LoginButton,
   RegisterButton,
-  SocialButton,
-  ErrorCard
+  SocialButton
 } from '../../components/AuthForm';
+import { Alert } from '../../../components/Alert'
 
 class Login extends Component {
   constructor(props) {
@@ -82,7 +82,7 @@ class Login extends Component {
             {
               auth.isLoginError &&
               <Col md="12">
-                <ErrorCard label="Invalid username or password!" />
+                <Alert label="Invalid username or password!" center />
               </Col>
             }
             <Col md="12">

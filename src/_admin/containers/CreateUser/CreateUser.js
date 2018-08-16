@@ -8,7 +8,7 @@ import {
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import { UserForm } from '../Partial';
-import { Alert } from '../../components/Alert';
+import { Alert } from '../../../components/Alert';
 
 class CreateUser extends Component {
   constructor(props) {

@@ -16,9 +16,9 @@ import {
   UsernameInput,
   PasswordInput,
   RegisterButton,
-  LoginButton,
-  ErrorCard
+  LoginButton
 } from '../../components/AuthForm';
+import { Alert } from '../../../components/Alert';
 
 class Register extends Component {
   constructor(props) {
@@ -92,7 +92,7 @@ class Register extends Component {
             {
               auth.isRegisterError &&
               <Col md="12">
-                <ErrorCard label="Sorry! Username already taken." />
+                <Alert label="Sorry! Username already taken." center />
               </Col>
             }
             <Col md="12">

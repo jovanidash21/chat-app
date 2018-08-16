@@ -12,7 +12,7 @@ import {
   ChatMember,
   ChatMemberSelect
 } from '../../../components/CreateChatRoomModal';
-import { ErrorCard } from '../../../components/AuthForm';
+import { Alert } from '../../../../components/Alert';
 import './styles.scss';
 
 class CreateChatRoomModal extends Component {
@@ -119,7 +119,7 @@ class CreateChatRoomModal extends Component {
             {
               !chatRoom.isCreating &&
               !chatRoom.isCreatingSuccess &&
-              <ErrorCard label="Error! Please try again" />
+              <Alert label="Error! Please try again" />
             }
             <ChatRoomNameInput
               onChatRoomNameChange={::this.onChatRoomNameChange}
