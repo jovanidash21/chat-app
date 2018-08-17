@@ -75,11 +75,53 @@ router.post('/create', function(req, res, next) {
 
     User.register(user, req.body.password, function(err) {
       if (!err) {
-        res.status(200).send({
-          success: true,
-          message: 'User Created',
-          userData: user
-        });
+        var chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
+        var userID = user._id;
+        var chatRoomData = {
+          name: user.name,
+          chatIcon: '',
+          members: [userID],
+          chatType: 'private'
+        };
+        var chatRoom = new ChatRoom(chatRoomData);
+
+        chatRoom.save()
+          .then((chatRoomData) => {
+            var chatRoomID = chatRoom._id;
+
+            if (chatLoungeID) {
+              ChatRoom.findByIdAndUpdate(
+                chatLoungeID,
+                { $push: { members: userID }},
+                { safe: true, upsert: true, new: true }
+              ).exec();
+
+              User.findByIdAndUpdate(
+                userID,
+                { $push: { chatRooms: { data: chatLoungeID, unReadMessages: 0 } } },
+                { safe: true, upsert: true, new: true }
+              ).exec();
+            }
+
+            User.findByIdAndUpdate(
+              userID,
+              { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
+              { safe: true, upsert: true, new: true }
+            ).exec();
+          })
+          .then(() => {
+            res.status(200).send({
+              success: true,
+              message: 'Login Successful.',
+              userData: user
+            });
+          })
+          .catch((error) => {
+            res.status(500).send({
+              success: false,
+              message: 'Server Error!'
+            });
+          });
       } else {
         res.status(401).send({
           success: false,
