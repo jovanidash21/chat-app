@@ -26,24 +26,6 @@ var sockets = function(io) {
             console.log(error);
           });
           break;
-        case 'SOCKET_USER_LOGOUT':
-          User.findByIdAndUpdate(
-            action.userID,
-            { $set: { isOnline: false, socketID: ''} },
-            { safe: true, upsert: true, new: true },
-          )
-          .then((user) => {
-            socket.broadcast.emit('action', {
-              type: 'SOCKET_BROADCAST_USER_LOGOUT',
-              userID: action.userID
-            });
-
-            delete users[socket.id];
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-          break;
         case 'SOCKET_JOIN_CHAT_ROOM':
           socket.join(action.chatRoomID);
           break;

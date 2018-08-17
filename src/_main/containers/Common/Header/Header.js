@@ -18,14 +18,6 @@ class Header extends Component {
 
     handleLeftSideDrawerToggleEvent(true);
   }
-  handleLogout() {
-    const {
-      user,
-      logout
-    } = this.props;
-
-    logout(user.active._id);
-  }
   render() {
     const {
       user,

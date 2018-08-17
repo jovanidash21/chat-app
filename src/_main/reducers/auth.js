@@ -1,7 +1,6 @@
 import {
   LOGIN,
-  REGISTER,
-  LOGOUT
+  REGISTER
 } from '../constants/auth';
 
 const initialState = {
@@ -13,7 +12,6 @@ const auth = (state=initialState, action) => {
   switch(action.type) {
     case `${LOGIN}_LOADING`:
     case `${REGISTER}_LOADING`:
-    case `${LOGOUT}_LOADING`:
       return {
         ...state,
         isLoading: true,
@@ -26,12 +24,6 @@ const auth = (state=initialState, action) => {
         isLoading: false,
         isAuthenticated: true
       };
-    case `${LOGOUT}_SUCCESS`:
-      return {
-        ...state,
-        isLoading: false,
-        isAuthenticated: false,
-      };
     case `${LOGIN}_ERROR`:
       return {
         ...state,
@@ -43,11 +35,6 @@ const auth = (state=initialState, action) => {
         ...state,
         isLoading: false,
         isRegisterError: true
-      };
-    case `${LOGOUT}_ERROR`:
-      return {
-        ...state,
-        isLoading: false
       };
     default:
       return state;

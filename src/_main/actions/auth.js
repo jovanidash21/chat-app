@@ -6,9 +6,7 @@ import { sendEmail } from './email';
 import {
   LOGIN,
   REGISTER,
-  LOGOUT,
-  SOCKET_USER_LOGIN,
-  SOCKET_USER_LOGOUT
+  SOCKET_USER_LOGIN
 } from '../constants/auth';
 
 const localtionArr = window.location.href.split("/");
@@ -249,34 +247,6 @@ export function register(email, name, username, password) {
       dispatch(hideLoading());
       dispatch(sendEmail(email, name));
       dispatch(push('/chat'));
-    })
-    .catch((error) => {
-      if (error instanceof Error) {
-        dispatch(hideLoading());
-      }
-    });
-  }
-}
-
-/**
- * Logout
- * @param {string} userID
- */
-export function logout(userID) {
-  return dispatch => {
-    dispatch(showLoading());
-
-    return dispatch({
-      type: LOGOUT,
-      payload: axios.get(baseURL + '/logout')
-    })
-    .then(() => {
-      dispatch({
-        type: SOCKET_USER_LOGOUT,
-        userID: userID
-      });
-      dispatch(hideLoading());
-      dispatch(push('/'));
     })
     .catch((error) => {
       if (error instanceof Error) {
