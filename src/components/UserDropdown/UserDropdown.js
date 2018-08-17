@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Avatar } from '../../../components/Avatar';
+import { Avatar } from '../Avatar';
 import './styles.scss';
 
-class OptionsDropdown extends Component {
+class UserDropdown extends Component {
   constructor(props) {
     super(props);
   }
@@ -12,7 +12,7 @@ class OptionsDropdown extends Component {
     const { user } = this.props;
 
     return (
-      <div className="mui-dropdown options-dropdown">
+      <div className="mui-dropdown user-dropdown">
         <div className="dropdown-toggle" data-mui-toggle="dropdown">
           <Avatar
             image={user.profilePicture}
@@ -36,8 +36,8 @@ class OptionsDropdown extends Component {
   }
 }
 
-OptionsDropdown.propTypes = {
+UserDropdown.propTypes = {
   user: PropTypes.object.isRequired
 }
 
-export default OptionsDropdown;
+export default UserDropdown;
