@@ -19,9 +19,25 @@ class UserDropdown extends Component {
             size="32px"
             title={user.name}
             accountType={user.accountType}
+            badgeCloser
           />
         </div>
         <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
+          <li>
+            <div className="user-full-name">
+              {user.name}
+            </div>
+            <div className="user-username">
+              {
+                user.accountType === 'local'
+                  ? '@' + user.username
+                  : user.accountType
+              }
+            </div>
+          </li>
+          <li>
+            <div className="divider" />
+          </li>
           <li>
             <a href="/logout">
               <div className="option-icon">

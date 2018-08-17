@@ -191,7 +191,7 @@ class ChatBubble extends Component {
                     size={matches ? '35px' : '25px'}
                     title={message.user.name}
                     accountType={message.user.accountType}
-                    badgeCloser
+                    badgeCloser={matches ? true : false}
                   />
                 }
               </div>
