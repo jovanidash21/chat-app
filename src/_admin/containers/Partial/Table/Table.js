@@ -30,11 +30,18 @@ class Table extends Component {
     };
   }
   componentDidUpdate(prevProps) {
-    if (
-      ( prevProps.isLoading && !this.props.isLoading ) ||
-      ( prevProps.rows.length !== this.props.rows.length )
-    ) {
+    if ( prevProps.isLoading && !this.props.isLoading ) {
       ::this.handleSortTable(this.props.columns[0].key);
+    }
+
+    if ( prevProps.rows.length !== this.props.rows.length ) {
+      const {
+        activePage,
+        searchFilter,
+        sort
+      } = this.state;
+
+      ::this.handleDataRowsChange(searchFilter, sort.column, sort.direction, activePage);
     }
   }
   handleDataRowsChange(filter, column, direction, page) {
