@@ -35,11 +35,6 @@ class CreateUser extends Component {
                 <UserForm />
               </Panel>
             </Col>
-            <Col md="4">
-              <Panel>
-
-              </Panel>
-            </Col>
           </Row>
         </Container>
       </div>

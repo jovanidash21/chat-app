@@ -138,7 +138,7 @@ class Table extends Component {
                   columns.length > 0 &&
                   dataRows.length > 0 &&
                   dataRows.map((singleRow, i) =>
-                    <tr key={i}>
+                    <tr key={i} className="table-row">
                       {
                         columns.map((singleColumn, i) =>
                           <td key={i}>
