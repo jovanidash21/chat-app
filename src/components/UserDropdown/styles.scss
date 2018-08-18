@@ -25,10 +25,11 @@
       top: -8px;
       width: 0;
     }
+    .user-detail {
+      padding: 5px 15px;
+    }
     .user-full-name,
     .user-username {
-      padding-left: 15px;
-      padding-right: 15px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -36,13 +37,11 @@
     .user-full-name {
       color: $color-mine-shaft;
       font-size: 18px;
-      padding-bottom: 3px;
-      padding-top: 5px;
+      margin-bottom: 3px;
     }
     .user-username {
       color: $color-dusty-gray;
       font-size: 12px;
-      padding-bottom: 5px;
     }
     .divider {
       background-color: $color-alto;

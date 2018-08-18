@@ -24,15 +24,17 @@ class UserDropdown extends Component {
         </div>
         <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
           <li>
-            <div className="user-full-name">
-              {user.name}
-            </div>
-            <div className="user-username">
-              {
-                user.accountType === 'local'
-                  ? '@' + user.username
-                  : user.accountType
-              }
+            <div className="user-detail">
+              <div className="user-full-name">
+                {user.name}
+              </div>
+              <div className="user-username">
+                {
+                  user.accountType === 'local'
+                    ? '@' + user.username
+                    : user.accountType
+                }
+              </div>
             </div>
           </li>
           <li>
