@@ -116,9 +116,9 @@ class AllUsers extends Component {
                   rows={rows}
                   isLoading={isLoading}
                   modal={modal}
-                  isModalOpen={isModalOpen}
-                  handleOpenModal={::this.handleOpenModal}
-                  handleCloseModal={::this.handleCloseModal}
+                  isDeleteModalOpen={isModalOpen}
+                  handleOpenDeleteModal={::this.handleOpenModal}
+                  handleCloseDeleteModal={::this.handleCloseModal}
                 />
               </Panel>
             </Col>

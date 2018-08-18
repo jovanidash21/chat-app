@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Button } from 'muicss/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
@@ -34,7 +35,7 @@ class Table extends Component {
       ::this.handleSortTable(this.props.columns[0].key);
     }
 
-    if ( prevProps.rows.length !== this.props.rows.length ) {
+    if ( !prevProps.isLoading && prevProps.rows.length !== this.props.rows.length ) {
       const {
         activePage,
         searchFilter,
@@ -96,7 +97,8 @@ class Table extends Component {
       label,
       columns,
       rows,
-      isLoading
+      isLoading,
+      editLink
     } = this.props;
     const {
       totalRows,
@@ -169,19 +171,22 @@ class Table extends Component {
                       }
                       <td>
                         <div className="data-actions">
-                          <Button
-                            className="button button-primary"
-                            size="small"
-                            title={"Edit " + capitalizeSingularLabel}
-                          >
-                            <FontAwesomeIcon icon={["far", "edit"]} />
-                          </Button>
+                          {
+                            editLink.length > 0 &&
+                            <Link
+                              to={editLink + "/" + singleRow.id}
+                              className="mui-btn mui-btn--small button button-primary"
+                              title={"Edit " + capitalizeSingularLabel}
+                            >
+                              <FontAwesomeIcon icon={["far", "edit"]} />
+                            </Link>
+                          }
                           <Button
                             className="delete-button"
                             color="danger"
                             size="small"
                             title={"Delete " + capitalizeSingularLabel}
-                            onClick={(e) => {::this.handleOpenModal(e, singleRow)}}
+                            onClick={(e) => {::this.handleOpenDeleteModal(e, singleRow)}}
                           >
                             <FontAwesomeIcon icon={["far", "trash-alt"]} />
                           </Button>
@@ -274,29 +279,29 @@ class Table extends Component {
 
     ::this.handleDataRowsChange(searchFilter, sort.column, sort.direction, page);
   }
-  handleOpenModal(event, selecedtRow) {
+  handleOpenDeleteModal(event, selecedtRow) {
     event.preventDefault();
 
-    const { handleOpenModal } = this.props;
+    const { handleOpenDeleteModal } = this.props;
 
-    handleOpenModal(selecedtRow);
+    handleOpenDeleteModal(selecedtRow);
   }
-  handleCloseModal() {
-    const { handleCloseModal } = this.props;
+  handleCloseDeleteModal() {
+    const { handleCloseDeleteModal } = this.props;
 
-    handleCloseModal();
+    handleCloseDeleteModal();
   }
   render() {
     const {
       modal,
-      isModalOpen
+      isDeleteModalOpen
     } = this.props;
 
     return (
       <div className="table-wrapper">
         {::this.handleTableRender()}
         {
-          isModalOpen &&
+          isDeleteModalOpen &&
           modal
         }
       </div>
@@ -313,10 +318,11 @@ Table.propTypes = {
   columns: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
   isLoading: PropTypes.bool,
+  editLink: PropTypes.string,
   modal: PropTypes.element,
-  isModalOpen: PropTypes.bool,
-  handleOpenModal: PropTypes.func,
-  handleCloseModal: PropTypes.func
+  isDeleteModalOpen: PropTypes.bool,
+  handleOpenDeleteModal: PropTypes.func,
+  handleCloseDeleteModal: PropTypes.func
 }
 
 Table.defaultProps = {
@@ -325,10 +331,11 @@ Table.defaultProps = {
     plural: 'items'
   },
   isLoading: false,
+  editLink: '',
   modal: React.createElement('div'),
-  isModalOpen: false,
-  handleOpenModal: () => {},
-  handleCloseModal: () => {}
+  isDeleteModalOpen: false,
+  handleOpenDeleteModal: () => {},
+  handleCloseDeleteModal: () => {}
 }
 
 export default connect(
