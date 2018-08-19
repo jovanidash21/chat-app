@@ -65,19 +65,15 @@ class AllUsers extends Component {
       rows: userRows
     });
   }
-  handleOpenModal(selecedtUser) {
-    const { selectUser } = this.props;
+  handleOpenModal(selecedtUserID) {
+    const { fetchSelectedUser } = this.props;
 
     this.setState({isModalOpen: true});
 
-    selectUser(selecedtUser);
+    fetchSelectedUser(selecedtUserID);
   }
   handleCloseModal() {
-    const { deselectUser } = this.props;
-
     this.setState({isModalOpen: false});
-
-    deselectUser();
   }
   render() {
     const {

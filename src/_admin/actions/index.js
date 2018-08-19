@@ -5,9 +5,7 @@ import {
   fetchUsers,
   createUser,
   editUser,
-  deleteUser,
-  selectUser,
-  deselectUser
+  deleteUser
 } from './user';
 
 const actions = (dispatch) => {
@@ -17,9 +15,7 @@ const actions = (dispatch) => {
     fetchUsers,
     createUser,
     editUser,
-    deleteUser,
-    selectUser,
-    deselectUser
+    deleteUser
   }, dispatch);
 }
 

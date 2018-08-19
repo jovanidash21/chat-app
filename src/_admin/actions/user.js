@@ -5,9 +5,7 @@ import {
   FETCH_USERS,
   CREATE_USER,
   EDIT_USER,
-  DELETE_USER,
-  SELECT_USER,
-  DESELECT_USER
+  DELETE_USER
 } from '../constants/user';
 
 const localtionArr = window.location.href.split("/");
@@ -148,30 +146,6 @@ export function deleteUser(userID) {
       if (error instanceof Error) {
         console.log(error);
       }
-    });
-  }
-}
-
-/**
- * Select user
- * @param {Object} user
- */
-export function selectUser(user) {
-  return dispatch => {
-    dispatch({
-      type: SELECT_USER,
-      user: user
-    });
-  }
-}
-
-/**
- * Deselect user
- */
-export function deselectUser() {
-  return dispatch => {
-    dispatch({
-      type: DESELECT_USER
     });
   }
 }

@@ -4,9 +4,7 @@ import {
   FETCH_USERS,
   CREATE_USER,
   EDIT_USER,
-  DELETE_USER,
-  SELECT_USER,
-  DESELECT_USER
+  DELETE_USER
 } from '../constants/user';
 
 const initialState = {
@@ -139,18 +137,6 @@ const user = (state=initialState, action) => {
         ...state,
         isDeleting: false,
         isDeletingSuccess: false
-      };
-    case SELECT_USER:
-      return {
-        ...state,
-        selected: action.user
-      };
-    case DESELECT_USER:
-      return {
-        ...state,
-        isDeleting: false,
-        isDeletingSuccess: true,
-        selected: {}
       };
     default:
       return state;

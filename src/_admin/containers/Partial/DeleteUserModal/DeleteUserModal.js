@@ -9,42 +9,39 @@ import mapDispatchToProps from '../../../actions';
 import { Modal } from '../../../../components/Modal';
 import { Avatar } from '../../../../components/Avatar';
 import { Alert } from '../../../../components/Alert';
+import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import './styles.scss';
 
 class DeleteUserModal extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isLoading: true
+    };
   }
   componentDidUpdate(prevProps) {
+    if ( prevProps.user.isFetchingSelected && !this.props.user.isFetchingSelected ) {
+      this.setState({
+        isLoading: false
+      });
+    }
+
     if ( prevProps.user.isDeleting && this.props.user.isDeletingSuccess ) {
       this.props.handleCloseModal();
     }
   }
-  handleDeleteUser(event) {
-    event.preventDefault();
-
-    const {
-      user,
-      deleteUser
-    } = this.props;
-    const selectedUser = user.selected;
-
-    deleteUser(selectedUser._id);
-  }
-  render() {
+  handleDeleteUserFormRender() {
     const {
       user,
       isModalOpen,
       handleCloseModal
     } = this.props;
+    const { isLoading } = this.state;
     const selectedUser = user.selected;
 
-    return (
-      <Modal
-        className="delete-user-modal"
-        isModalOpen={isModalOpen}
-        handleCloseModal={handleCloseModal}
-      >
+    if ( !isLoading ) {
+      return (
         <Form onSubmit={::this.handleDeleteUser}>
           <Modal.Header>
             <h3 className="modal-title">Delete User</h3>
@@ -57,7 +54,7 @@ class DeleteUserModal extends Component {
             }
             <div className="avatar-wrapper">
               <Avatar
-                image={selectedUser.image}
+                image={selectedUser.profilePicture}
                 size="100px"
                 title={selectedUser.name}
                 accountType={selectedUser.accountType}
@@ -89,6 +86,37 @@ class DeleteUserModal extends Component {
             </Button>
           </Modal.Footer>
         </Form>
+      )
+    } else {
+      return (
+        <LoadingAnimation name="ball-clip-rotate" color="black" />
+      )
+    }
+  }
+  handleDeleteUser(event) {
+    event.preventDefault();
+
+    const {
+      user,
+      deleteUser
+    } = this.props;
+    const selectedUser = user.selected;
+
+    deleteUser(selectedUser._id);
+  }
+  render() {
+    const {
+      isModalOpen,
+      handleCloseModal
+    } = this.props;
+
+    return (
+      <Modal
+        className="delete-user-modal"
+        isModalOpen={isModalOpen}
+        handleCloseModal={handleCloseModal}
+      >
+        {::this.handleDeleteUserFormRender()}
       </Modal>
     )
   }
