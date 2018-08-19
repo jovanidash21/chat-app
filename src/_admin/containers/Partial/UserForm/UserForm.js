@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   Panel,
@@ -9,7 +10,9 @@ import {
   Button
 } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
+import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { PasswordInput } from '../../../components/Form';
+import './styles.scss';
 
 class UserForm extends Component {
   constructor(props) {
@@ -24,7 +27,12 @@ class UserForm extends Component {
     };
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.user.isCreating && !this.props.user.isCreating && this.props.user.isCreatingSuccess ) {
+    if (
+      this.props.mode === 'create' &&
+      prevProps.user.isCreating &&
+      !this.props.user.isCreating &&
+      this.props.user.isCreatingSuccess
+    ) {
       this.setState({
         username: '',
         name: '',
@@ -32,20 +40,20 @@ class UserForm extends Component {
         role: 'ordinary',
         password: ''
       });
+    } else if (
+      this.props.mode === 'edit' &&
+      prevProps.isLoading &&
+      !this.props.isLoading
+    ) {
+      ::this.handleDisplayeSelectedUser();
     }
   }
-  handleChange(event) {
-    event.preventDefault();
-
-    this.setState({[event.target.name]: event.target.value});
-  }
-  handleGeneratePassword(password) {
-    this.setState({password: password});
-  }
-  handleCreateUser(event) {
-    event.preventDefault();
-
-    const { createUser } = this.props;
+  handleUserFormRender() {
+    const {
+      user,
+      mode,
+      isLoading
+    } = this.props;
     const {
       username,
       name,
@@ -54,27 +62,9 @@ class UserForm extends Component {
       password
     } = this.state;
 
-    createUser(
-      username,
-      name,
-      email,
-      role,
-      password
-    );
-  }
-  render() {
-    const { user } = this.props;
-    const {
-      username,
-      name,
-      email,
-      role,
-      password
-    } = this.state;
-
-    return (
-      <div className="user-form">
-        <Form onSubmit={::this.handleCreateUser}>
+    if ( !isLoading ) {
+      return (
+        <Form onSubmit={::this.handleSubmitUserForm}>
           <Input
             value={username}
             label="Username"
@@ -118,20 +108,116 @@ class UserForm extends Component {
             <Option value="ordinary" label="Ordinary" />
             <Option value="admin" label="Admin" />
           </Select>
-          <PasswordInput
-            value={password}
-            handleChange={::this.handleChange}
-            handleGeneratePassword={::this.handleGeneratePassword}
-            isLoading={user.isCreating}
-          />
+          {
+            mode === 'create' &&
+            <PasswordInput
+              value={password}
+              handleChange={::this.handleChange}
+              handleGeneratePassword={::this.handleGeneratePassword}
+              isLoading={user.isCreating}
+            />
+          }
           <Button
             className="button button-primary"
             type="submit"
-            disabled={user.isCreating}
+            disabled={mode === 'create' ? user.isCreating : user.isEditing}
           >
-            Create User
+            {
+              mode === 'create'
+                ? 'Create User'
+                : 'Update User'
+            }
           </Button>
         </Form>
+      )
+    } else {
+      <LoadingAnimation name="ball-clip-rotate" color="black" />
+    }
+  }
+  handleDisplayeSelectedUser() {
+    const {
+      user,
+      mode
+    } = this.props;
+
+    if ( mode === 'edit' ) {
+      const selectedUser = user.selected;
+
+      this.setState({
+        username: selectedUser.username,
+        name: selectedUser.name,
+        email: selectedUser.email,
+        role: selectedUser.role
+      });
+    }
+  }
+  handleChange(event) {
+    event.preventDefault();
+
+    this.setState({[event.target.name]: event.target.value});
+  }
+  handleGeneratePassword(password) {
+    this.setState({password: password});
+  }
+  handleSubmitUserForm(event) {
+    event.preventDefault();
+
+    const { mode } = this.props;
+
+    switch(mode) {
+      case 'create':
+        ::this.handleCreateUser();
+        break;
+      case 'edit':
+        ::this.handleEditUser();
+        break;
+      default:
+        break;
+    }
+  }
+  handleCreateUser() {
+    const { createUser } = this.props;
+    const {
+      username,
+      name,
+      email,
+      role,
+      password
+    } = this.state;
+
+    createUser(
+      username,
+      name,
+      email,
+      role,
+      password
+    );
+  }
+  handleEditUser() {
+    const {
+      user,
+      editUser
+    } = this.props;
+    const {
+      username,
+      name,
+      email,
+      role
+    } = this.state;
+    const selectedUser = user.selected;
+
+    editUser(
+      selectedUser._id,
+      username,
+      name,
+      email,
+      role
+    );
+  }
+  render() {
+    return (
+      <div className="user-form">
+        {::this.handleUserFormRender()}
       </div>
     )
   }
@@ -141,6 +227,16 @@ const mapStateToProps = (state) => {
   return {
     user: state.user
   }
+}
+
+UserForm.propTypes = {
+  mode: PropTypes.string,
+  isLoading: PropTypes.bool
+}
+
+UserForm.defaultProps = {
+  mode: 'create',
+  isLoading: false
 }
 
 export default connect(

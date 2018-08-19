@@ -1,5 +1,5 @@
 import {
-  FETCH_USER,
+  FETCH_ACTIVE_USER,
   SEARCH_USER
 } from '../constants/user';
 
@@ -12,7 +12,7 @@ const initialState = {
 
 const user = (state=initialState, action) => {
   switch(action.type) {
-    case `${FETCH_USER}_LOADING`:
+    case `${FETCH_ACTIVE_USER}_LOADING`:
       return {
         ...state,
         isFetchingActive: true
@@ -22,7 +22,7 @@ const user = (state=initialState, action) => {
         ...state,
         search: []
       };
-    case `${FETCH_USER}_SUCCESS`:
+    case `${FETCH_ACTIVE_USER}_SUCCESS`:
       return {
         ...state,
         isFetchingActive: false,
@@ -34,7 +34,7 @@ const user = (state=initialState, action) => {
         ...state,
         search: action.payload.data
       };
-    case `${FETCH_USER}_ERROR`:
+    case `${FETCH_ACTIVE_USER}_ERROR`:
       return {
         ...state,
         isFetchingActive: false,

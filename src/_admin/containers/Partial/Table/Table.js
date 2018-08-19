@@ -174,7 +174,7 @@ class Table extends Component {
                           {
                             editLink.length > 0 &&
                             <Link
-                              to={editLink + "/" + singleRow.id}
+                              to={editLink + "/" + singleRow._id}
                               className="mui-btn mui-btn--small button button-primary"
                               title={"Edit " + capitalizeSingularLabel}
                             >

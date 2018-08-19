@@ -37,6 +37,28 @@ router.post('/search', function(req, res, next) {
   }
 });
 
+router.post('/select', function(req, res, next) {
+  var userID = req.body.userID;
+
+  if (req.user === undefined || req.user.role !== 'admin') {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    User.findById(userID)
+      .then((user) => {
+        res.status(200).send(user);
+      })
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      });
+  }
+});
+
 router.get('/all', function(req, res, next) {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
@@ -128,6 +150,42 @@ router.post('/create', function(req, res, next) {
           message: 'Username already exist.'
         });
       }
+    });
+  }
+});
+
+router.post('/edit', function(req, res, next) {
+  var userID = req.body.userID;
+
+  if (req.user === undefined || req.user.role !== 'admin') {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var userData = {
+      username: req.body.username,
+      name: req.body.name,
+      email: req.body.email,
+      role: req.body.role
+    };
+
+    User.findByIdAndUpdate(
+      userID,
+      { $set: userData },
+      { safe: true, upsert: true, new: true },
+    )
+    .then((user) => {
+      res.status(200).send({
+        success: true,
+        message: 'User Edited'
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        success: false,
+        message: 'Server Error!'
+      });
     });
   }
 });

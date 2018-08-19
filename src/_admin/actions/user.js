@@ -1,8 +1,10 @@
 import axios from 'axios';
 import {
-  FETCH_USER,
+  FETCH_ACTIVE_USER,
+  FETCH_SELECTED_USER,
   FETCH_USERS,
   CREATE_USER,
+  EDIT_USER,
   DELETE_USER,
   SELECT_USER,
   DESELECT_USER
@@ -17,8 +19,30 @@ const baseURL = localtionArr[0] + "//" + localtionArr[2];
 export function fetchActiveUser() {
   return dispatch => {
     return dispatch({
-      type: FETCH_USER,
+      type: FETCH_ACTIVE_USER,
       payload: axios.get(baseURL + '/api/user')
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Fetch selected user
+ * @param {string} userID
+ */
+export function fetchSelectedUser(userID) {
+  let data = {
+    userID
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: FETCH_SELECTED_USER,
+      payload: axios.post(baseURL + '/api/user/select', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -51,7 +75,7 @@ export function fetchUsers() {
  * @param {string} name
  * @param {string} email
  * @param {string} role
- * @param {string} password    
+ * @param {string} password
  */
 export function createUser(username, name, email, role, password) {
   let data = {
@@ -66,6 +90,36 @@ export function createUser(username, name, email, role, password) {
     return dispatch({
       type: CREATE_USER,
       payload: axios.post(baseURL + '/api/user/create', data)
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Edit user
+ * @param {string} userID
+ * @param {string} username
+ * @param {string} name
+ * @param {string} email
+ * @param {string} role
+ */
+export function editUser(userID, username, name, email, role) {
+  let data = {
+    userID,
+    username,
+    name,
+    email,
+    role
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: EDIT_USER,
+      payload: axios.post(baseURL + '/api/user/edit', data)
     })
     .catch((error) => {
       if (error instanceof Error) {

@@ -29,7 +29,7 @@ class DeleteUserModal extends Component {
     } = this.props;
     const selectedUser = user.selected;
 
-    deleteUser(selectedUser.id);
+    deleteUser(selectedUser._id);
   }
   render() {
     const {

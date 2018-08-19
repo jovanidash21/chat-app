@@ -33,4 +33,12 @@ router.get('/create-user', function(req, res, next) {
   }
 });
 
+router.get('/edit-user/:userID', function(req, res, next) {
+  if (req.user && req.user.role == 'admin') {
+    res.render('admin', { title: 'Chat App | Edit User' });
+  } else {
+    res.redirect('/');
+  }
+});
+
 module.exports = router;

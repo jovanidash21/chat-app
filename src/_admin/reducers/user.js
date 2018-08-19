@@ -1,7 +1,9 @@
 import {
-  FETCH_USER,
+  FETCH_ACTIVE_USER,
+  FETCH_SELECTED_USER,
   FETCH_USERS,
   CREATE_USER,
+  EDIT_USER,
   DELETE_USER,
   SELECT_USER,
   DESELECT_USER
@@ -10,10 +12,14 @@ import {
 const initialState = {
   isFetchingActive: false,
   isFetchingActiveSuccess: false,
+  isFetchingSelected: false,
+  isFetchingSelectedSuccess: false,
   isFetchingAll: false,
   isFetchingAllSuccess: false,
   isCreating: false,
   isCreatingSuccess: true,
+  isEditing: false,
+  isEditingSuccess: true,
   isDeleting: false,
   isDeletingSuccess: true,
   active: {},
@@ -23,10 +29,15 @@ const initialState = {
 
 const user = (state=initialState, action) => {
   switch(action.type) {
-    case `${FETCH_USER}_LOADING`:
+    case `${FETCH_ACTIVE_USER}_LOADING`:
       return {
         ...state,
         isFetchingActive: true
+      };
+    case `${FETCH_SELECTED_USER}_LOADING`:
+      return {
+        ...state,
+        isFetchingSelected: true
       };
     case `${FETCH_USERS}_LOADING`:
       return {
@@ -38,17 +49,29 @@ const user = (state=initialState, action) => {
         ...state,
         isCreating: true
       };
+    case `${EDIT_USER}_LOADING`:
+      return {
+        ...state,
+        isEditing: true
+      };
     case `${DELETE_USER}_LOADING`:
       return {
         ...state,
         isDeleting: true
       };
-    case `${FETCH_USER}_SUCCESS`:
+    case `${FETCH_ACTIVE_USER}_SUCCESS`:
       return {
         ...state,
         isFetchingActive: false,
         isFetchingActiveSuccess: true,
         active: action.payload.data
+      };
+    case `${FETCH_SELECTED_USER}_SUCCESS`:
+      return {
+        ...state,
+        isFetchingSelected: false,
+        isFetchingSelectedSuccess: true,
+        selected: action.payload.data
       };
     case `${FETCH_USERS}_SUCCESS`:
       return {
@@ -63,6 +86,12 @@ const user = (state=initialState, action) => {
         isCreating: false,
         isCreatingSuccess: true
       };
+    case `${EDIT_USER}_SUCCESS`:
+      return {
+        ...state,
+        isEditing: false,
+        isEditingSuccess: true
+      };
     case `${DELETE_USER}_SUCCESS`:
       var users = [...state.all];
       var userID = action.meta;
@@ -75,11 +104,17 @@ const user = (state=initialState, action) => {
         isDeletingSuccess: true,
         all: [...users]
       };
-    case `${FETCH_USER}_ERROR`:
+    case `${FETCH_ACTIVE_USER}_ERROR`:
       return {
         ...state,
         isFetchingActive: false,
         isFetchingActiveSuccess: false
+      };
+    case `${FETCH_SELECTED_USER}_ERROR`:
+      return {
+        ...state,
+        isFetchingSelected: false,
+        isFetchingSelectedSuccess: false
       };
     case `${FETCH_USERS}_ERROR`:
       return {
@@ -92,6 +127,12 @@ const user = (state=initialState, action) => {
         ...state,
         isCreating: false,
         isCreatingSuccess: false
+      };
+    case `${EDIT_USER}_ERROR`:
+      return {
+        ...state,
+        isEditing: false,
+        isEditingSuccess: false
       };
     case `${DELETE_USER}_ERROR`:
       return {

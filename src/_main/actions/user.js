@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  FETCH_USER,
+  FETCH_ACTIVE_USER,
   SEARCH_USER
 } from '../constants/user';
 import { fetchChatRooms } from './chat-room';
@@ -14,7 +14,7 @@ const baseURL = localtionArr[0] + "//" + localtionArr[2];
 export function fetchActiveUser() {
   return dispatch => {
     return dispatch({
-      type: FETCH_USER,
+      type: FETCH_ACTIVE_USER,
       payload: axios.get(baseURL + '/api/user')
     })
     .then((response) => {

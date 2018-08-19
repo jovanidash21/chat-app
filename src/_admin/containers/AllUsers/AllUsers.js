@@ -51,7 +51,7 @@ class AllUsers extends Component {
       const singleUser = user.all[i];
 
       userRows.push({
-        id: singleUser._id,
+        _id: singleUser._id,
         image: singleUser.profilePicture,
         name: singleUser.name,
         email: singleUser.email,
@@ -115,6 +115,7 @@ class AllUsers extends Component {
                   columns={columns}
                   rows={rows}
                   isLoading={isLoading}
+                  editLink="/edit-user"
                   modal={modal}
                   isDeleteModalOpen={isModalOpen}
                   handleOpenDeleteModal={::this.handleOpenModal}
