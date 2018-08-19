@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import {
   Container,
   Row,
-  Col,
-  Panel
+  Col
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import { UserForm } from '../Partial';
 import { Alert } from '../../../components/Alert';
-import { Avatar } from '../../../components/Avatar';
 
 class EditUser extends Component {
   constructor(props) {
@@ -48,19 +46,13 @@ class EditUser extends Component {
           <Row>
             <Col xs="12">
               {
-                !user.isCreating &&
-                !user.isCreatingSuccess &&
+                !user.isEditing &&
+                !user.isEditingSuccess &&
                 <Alert label="Sorry! Please try again." />
               }
             </Col>
           </Row>
-          <Row>
-            <Col md="8">
-              <Panel>
-                <UserForm mode="edit" isLoading={isLoading} />
-              </Panel>
-            </Col>
-          </Row>
+          <UserForm mode="edit" isLoading={isLoading} />
         </Container>
       </div>
     )

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
+  Container,
+  Row,
+  Col,
   Panel,
   Form,
   Input,
@@ -217,7 +220,18 @@ class UserForm extends Component {
   render() {
     return (
       <div className="user-form">
-        {::this.handleUserFormRender()}
+        <Row>
+          <Col md="8">
+            <Panel>
+              {::this.handleUserFormRender()}
+            </Panel>
+          </Col>
+          <Col md="4">
+            <Panel>
+
+            </Panel>
+          </Col>
+        </Row>
       </div>
     )
   }

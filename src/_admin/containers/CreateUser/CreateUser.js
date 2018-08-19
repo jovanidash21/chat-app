@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import {
   Container,
   Row,
-  Col,
-  Panel
+  Col
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import { UserForm } from '../Partial';
@@ -29,13 +28,7 @@ class CreateUser extends Component {
               }
             </Col>
           </Row>
-          <Row>
-            <Col md="8">
-              <Panel>
-                <UserForm />
-              </Panel>
-            </Col>
-          </Row>
+          <UserForm />
         </Container>
       </div>
     )
