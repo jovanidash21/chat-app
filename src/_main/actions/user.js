@@ -9,9 +9,9 @@ const localtionArr = window.location.href.split("/");
 const baseURL = localtionArr[0] + "//" + localtionArr[2];
 
 /**
- * Fetch user
+ * Fetch active user
  */
-export function fetchUser() {
+export function fetchActiveUser() {
   return dispatch => {
     return dispatch({
       type: FETCH_USER,

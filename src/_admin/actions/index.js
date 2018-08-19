@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 import {
-  fetchUser,
+  fetchActiveUser,
   fetchUsers,
   createUser,
   deleteUser,
@@ -10,7 +10,7 @@ import {
 
 const actions = (dispatch) => {
   return bindActionCreators({
-    fetchUser,
+    fetchActiveUser,
     fetchUsers,
     createUser,
     deleteUser,

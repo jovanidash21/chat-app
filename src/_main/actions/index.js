@@ -11,7 +11,7 @@ import {
   register
 } from './auth';
 import {
-  fetchUser,
+  fetchActiveUser,
   searchUser
 } from './user';
 import {
@@ -44,7 +44,7 @@ const actions = (dispatch) => {
     linkedinLogin,
     githubLogin,
     register,
-    fetchUser,
+    fetchActiveUser,
     searchUser,
     socketIsTyping,
     socketIsNotTyping,

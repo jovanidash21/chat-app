@@ -24,10 +24,10 @@ class Layout extends Component {
   }
   componentWillMount() {
     const {
-      fetchUser
+      fetchActiveUser
     } = this.props;
 
-    fetchUser();
+    fetchActiveUser();
     document.body.className = '';
     document.body.classList.add('admin-page');
   }
