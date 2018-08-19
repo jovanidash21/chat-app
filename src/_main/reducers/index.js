@@ -8,7 +8,6 @@ import typer from './typer';
 import chatRoom from './chat-room';
 import message from './message';
 import member from './member';
-import { LOGOUT } from '../constants/auth';
 
 const appReducer = combineReducers({
   router: routerReducer,
@@ -23,10 +22,6 @@ const appReducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  if (action.type === `${LOGOUT}_SUCCESS`) {
-    state = undefined;
-  }
-
   return appReducer(state, action);
 }
 
