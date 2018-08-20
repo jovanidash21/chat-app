@@ -117,7 +117,7 @@ class UserForm extends Component {
               value={password}
               handleChange={::this.handleChange}
               handleGeneratePassword={::this.handleGeneratePassword}
-              isLoading={user.isCreating}
+              isDisabled={user.isCreating}
             />
           }
           <Button
