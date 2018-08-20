@@ -4,7 +4,6 @@ import {
   Container,
   Row,
   Col,
-  Panel,
   Button
 } from 'muicss/react';
 import { Link } from 'react-router-dom';
@@ -105,19 +104,17 @@ class AllUsers extends Component {
           </Row>
           <Row>
             <Col xs="12">
-              <Panel>
-                <Table
-                  label={label}
-                  columns={columns}
-                  rows={rows}
-                  isLoading={isLoading}
-                  editLink="/edit-user"
-                  modal={modal}
-                  isDeleteModalOpen={isModalOpen}
-                  handleOpenDeleteModal={::this.handleOpenModal}
-                  handleCloseDeleteModal={::this.handleCloseModal}
-                />
-              </Panel>
+              <Table
+                label={label}
+                columns={columns}
+                rows={rows}
+                isLoading={isLoading}
+                editLink="/edit-user"
+                modal={modal}
+                isDeleteModalOpen={isModalOpen}
+                handleOpenDeleteModal={::this.handleOpenModal}
+                handleCloseDeleteModal={::this.handleCloseModal}
+              />
             </Col>
           </Row>
         </Container>

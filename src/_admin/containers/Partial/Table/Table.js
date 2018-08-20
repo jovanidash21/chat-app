@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Button } from 'muicss/react';
+import {
+  Panel,
+  Button
+} from 'muicss/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { Avatar } from '../../../../components/Avatar';
@@ -113,7 +116,7 @@ class Table extends Component {
 
     if ( !isLoading ) {
       return (
-        <div>
+        <div className="table-wrapper">
           <div className="search-filter-wrapper">
             <SearchFilter
               onSearchFilterChange={::this.onSearchFilterChange}
@@ -298,13 +301,13 @@ class Table extends Component {
     } = this.props;
 
     return (
-      <div className="table-wrapper">
+      <Panel>
         {::this.handleTableRender()}
         {
           isDeleteModalOpen &&
           modal
         }
-      </div>
+      </Panel>
     );
   }
 }
