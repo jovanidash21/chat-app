@@ -7,6 +7,7 @@ import {
   editUser,
   deleteUser
 } from './user';
+import { uploadImage } from './upload';
 
 const actions = (dispatch) => {
   return bindActionCreators({
@@ -15,7 +16,8 @@ const actions = (dispatch) => {
     fetchUsers,
     createUser,
     editUser,
-    deleteUser
+    deleteUser,
+    uploadImage
   }, dispatch);
 }
 
