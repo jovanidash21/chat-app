@@ -50,6 +50,7 @@
     "popup-tools": "^1.0.2",
     "pug": "^2.0.0-rc.3",
     "serve-favicon": "~2.4.3",
+    "slash": "^2.0.0",
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
