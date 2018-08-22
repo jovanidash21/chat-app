@@ -4,6 +4,7 @@ var Message = require('../../models/Message');
 var ChatRoom = require('../../models/ChatRoom');
 var User = require('../../models/User');
 var multer = require('multer');
+var slash = require('slash');
 
 var fileImageStorage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -185,7 +186,7 @@ router.post('/file', fileUpload.single('file'), function(req, res, next) {
     });
   } else {
     var messageType = 'file';
-    var fileLink = req.protocol + '://' + req.get('host') + '/' + req.file.path;
+    var fileLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
 
     if ( req.file.mimetype.indexOf('image/') > -1 ) {
       messageType = 'image';
@@ -249,7 +250,7 @@ router.post('/image', imageUpload.single('image'), function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
-    var fileLink = req.protocol + '://' + req.get('host') + '/' + req.file.path;
+    var fileLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
     var messageData = {
       text: req.file.originalname,
       user: userID,
@@ -308,7 +309,7 @@ router.post('/audio', audioUpload.single('audio'), function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
-    var fileLink = req.protocol + '://' + req.get('host') + '/' + req.file.path;
+    var fileLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
     var messageData = {
       text: req.file.originalname,
       user: userID,

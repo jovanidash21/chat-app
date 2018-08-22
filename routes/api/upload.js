@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
 var multer = require('multer');
+var slash = require('slash');
 
 var imageStorage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -34,7 +35,7 @@ router.post('/image', imageUpload.single('image'), function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
-    var imageLink = req.protocol + '://' + req.get('host') + '/' + req.file.path;
+    var imageLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
 
     res.status(200).send({
       success: true,
