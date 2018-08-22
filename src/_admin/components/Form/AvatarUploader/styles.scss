@@ -1,0 +1,50 @@
+.avatar-uploader-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 15px 0;
+  position: relative;
+  &:hover {
+    .avatar-uploader {
+      opacity: 0.9;
+    }
+  }
+  .avatar-uploader {
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: 0.2s ease;
+    width: 100%;
+    input {
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      width: 0.1px;
+      z-index: -1;
+    }
+    label {
+      cursor: pointer;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+    .avatar-uploader-button {
+      left: 50%;
+      position: absolute;
+      text-align: center;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      .camera-icon {
+        font-size: 20px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

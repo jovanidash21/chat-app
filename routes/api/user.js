@@ -91,7 +91,8 @@ router.post('/create', function(req, res, next) {
       name: req.body.name,
       email: req.body.email,
       role: req.body.role,
-      accountType: 'local'
+      accountType: 'local',
+      profilePicture: req.body.profilePicture
     };
     var user = new User(userData);
 
@@ -170,23 +171,31 @@ router.post('/edit', function(req, res, next) {
       role: req.body.role
     };
 
-    User.findByIdAndUpdate(
-      userID,
-      { $set: userData },
-      { safe: true, upsert: true, new: true },
-    )
-    .then((user) => {
-      res.status(200).send({
-        success: true,
-        message: 'User Edited'
+    User.findById(userID)
+      .exec()
+      .then((user) => {
+        if (user.accountType === 'local') {
+          userData.profilePicture = req.body.profilePicture
+        }
+
+        User.update(
+          { _id: userID },
+          { $set: userData },
+          { safe: true, upsert: true, new: true },
+        ).exec();
+      })
+      .then((user) => {
+        res.status(200).send({
+          success: true,
+          message: 'User Edited'
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
       });
-    })
-    .catch((error) => {
-      res.status(500).send({
-        success: false,
-        message: 'Server Error!'
-      });
-    });
   }
 });
 

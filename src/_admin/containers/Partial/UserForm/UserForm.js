@@ -12,9 +12,13 @@ import {
   Option,
   Button
 } from 'muicss/react';
+import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
-import { PasswordInput } from '../../../components/Form';
+import {
+  PasswordInput,
+  AvatarUploader
+} from '../../../components/Form';
 import './styles.scss';
 
 class UserForm extends Component {
@@ -22,42 +26,98 @@ class UserForm extends Component {
     super(props);
 
     this.state = {
+      isLoading: true,
+      isDisabled: false,
       username: '',
       name: '',
       email: '',
       role: 'ordinary',
-      password: ''
+      password: '',
+      profilePicture: ''
     };
+  }
+  componentWillMount() {
+    if ( this.props.mode === 'create' ) {
+      this.setState({
+        isLoading: false
+      });
+    }
   }
   componentDidUpdate(prevProps) {
     if (
-      this.props.mode === 'create' &&
-      prevProps.user.isCreating &&
-      !this.props.user.isCreating &&
-      this.props.user.isCreatingSuccess
+      prevProps.upload.isUploadingImage &&
+      !this.props.upload.isUploadingImage &&
+      this.props.upload.isUploadingImageSuccess
     ) {
       this.setState({
-        username: '',
-        name: '',
-        email: '',
-        role: 'ordinary',
-        password: ''
+        profilePicture: this.props.upload.imageLink
       });
-    } else if (
-      this.props.mode === 'edit' &&
-      prevProps.isLoading &&
-      !this.props.isLoading
-    ) {
-      ::this.handleDisplayeSelectedUser();
+    }
+
+    if ( this.props.mode === 'create' ) {
+      if (
+        prevProps.user.isCreating &&
+        !this.props.user.isCreating &&
+        this.props.user.isCreatingSuccess
+      ) {
+        this.setState({
+          username: '',
+          name: '',
+          email: '',
+          role: 'ordinary',
+          password: '',
+          profilePicture: ''
+        });
+      }
+
+      if ( !prevProps.user.isCreating && this.props.user.isCreating ) {
+        this.setState({
+          isDisabled: true
+        });
+      }
+
+      if (
+        prevProps.user.isCreating &&
+        !this.props.user.isCreating
+      ) {
+        this.setState({
+          isDisabled: false
+        });
+      }
+    }
+
+    if ( this.props.mode === 'edit' ) {
+      if (
+        prevProps.user.isFetchingSelected &&
+        !this.props.user.isFetchingSelected
+      ) {
+        ::this.handleDisplayeSelectedUser();
+      }
+
+      if ( !prevProps.user.isEditing && this.props.user.isEditing ) {
+        this.setState({
+          isDisabled: true
+        });
+      }
+
+      if (
+        prevProps.user.isEditing &&
+        !this.props.user.isEditing
+      ) {
+        this.setState({
+          isDisabled: false
+        });
+      }
     }
   }
   handleUserFormRender() {
     const {
       user,
-      mode,
-      isLoading
+      mode
     } = this.props;
     const {
+      isLoading,
+      isDisabled,
       username,
       name,
       email,
@@ -67,7 +127,7 @@ class UserForm extends Component {
 
     if ( !isLoading ) {
       return (
-        <Form onSubmit={::this.handleSubmitUserForm}>
+        <div>
           <Input
             value={username}
             label="Username"
@@ -77,7 +137,7 @@ class UserForm extends Component {
             floatingLabel={true}
             required={true}
             onChange={::this.handleChange}
-            disabled={user.isCreating}
+            disabled={isDisabled}
           />
           <Input
             value={name}
@@ -88,7 +148,7 @@ class UserForm extends Component {
             floatingLabel={true}
             required={true}
             onChange={::this.handleChange}
-            disabled={user.isCreating}
+            disabled={isDisabled}
           />
           <Input
             value={email}
@@ -99,14 +159,14 @@ class UserForm extends Component {
             floatingLabel={true}
             required={true}
             onChange={::this.handleChange}
-            disabled={user.isCreating}
+            disabled={isDisabled}
           />
           <Select
             value={role}
             label="Role"
             name="role"
             onChange={::this.handleChange}
-            disabled={user.isCreating}
+            disabled={isDisabled}
           >
             <Option value="ordinary" label="Ordinary" />
             <Option value="admin" label="Admin" />
@@ -117,13 +177,13 @@ class UserForm extends Component {
               value={password}
               handleChange={::this.handleChange}
               handleGeneratePassword={::this.handleGeneratePassword}
-              isDisabled={user.isCreating}
+              isDisabled={isDisabled}
             />
           }
           <Button
             className="button button-primary"
             type="submit"
-            disabled={mode === 'create' ? user.isCreating : user.isEditing}
+            disabled={isDisabled}
           >
             {
               mode === 'create'
@@ -131,10 +191,36 @@ class UserForm extends Component {
                 : 'Update User'
             }
           </Button>
-        </Form>
+        </div>
       )
     } else {
-      <LoadingAnimation name="ball-clip-rotate" color="black" />
+      return (
+        <LoadingAnimation name="ball-clip-rotate" color="black" />
+      )
+    }
+  }
+  handleAvatarUploadRender() {
+    const { user } = this.props;
+    const {
+      isLoading,
+      name,
+      profilePicture
+    } = this.state;
+    const selectedUser = user.selected;
+
+    if ( !isLoading ) {
+      return (
+        <AvatarUploader
+          imageLink={profilePicture}
+          name={name}
+          accountType={selectedUser.accountType}
+          handleImageUpload={::this.handleImageUpload}
+        />
+      )
+    } else {
+      return (
+        <LoadingAnimation name="ball-clip-rotate" color="black" />
+      )
     }
   }
   handleDisplayeSelectedUser() {
@@ -147,10 +233,12 @@ class UserForm extends Component {
       const selectedUser = user.selected;
 
       this.setState({
+        isLoading: false,
         username: selectedUser.username,
         name: selectedUser.name,
         email: selectedUser.email,
-        role: selectedUser.role
+        role: selectedUser.role,
+        profilePicture: selectedUser.profilePicture
       });
     }
   }
@@ -161,6 +249,17 @@ class UserForm extends Component {
   }
   handleGeneratePassword(password) {
     this.setState({password: password});
+  }
+  handleImageUpload(image) {
+    const { uploadImage } = this.props;
+
+    if ( image.type.indexOf('image/') === -1 ) {
+      Popup.alert('Please select an image file');
+    } else if ( image.size > 1024 * 1024 * 2 ) {
+      Popup.alert('Maximum upload file size is 2MB only');
+    } else {
+      uploadImage(image);
+    }
   }
   handleSubmitUserForm(event) {
     event.preventDefault();
@@ -185,7 +284,8 @@ class UserForm extends Component {
       name,
       email,
       role,
-      password
+      password,
+      profilePicture
     } = this.state;
 
     createUser(
@@ -193,7 +293,8 @@ class UserForm extends Component {
       name,
       email,
       role,
-      password
+      password,
+      profilePicture
     );
   }
   handleEditUser() {
@@ -205,7 +306,8 @@ class UserForm extends Component {
       username,
       name,
       email,
-      role
+      role,
+      profilePicture
     } = this.state;
     const selectedUser = user.selected;
 
@@ -214,24 +316,27 @@ class UserForm extends Component {
       username,
       name,
       email,
-      role
+      role,
+      profilePicture
     );
   }
   render() {
     return (
       <div className="user-form">
-        <Row>
-          <Col md="8">
-            <Panel>
-              {::this.handleUserFormRender()}
-            </Panel>
-          </Col>
-          <Col md="4">
-            <Panel>
-
-            </Panel>
-          </Col>
-        </Row>
+        <Form onSubmit={::this.handleSubmitUserForm}>
+          <Row>
+            <Col md="8">
+              <Panel>
+                {::this.handleUserFormRender()}
+              </Panel>
+            </Col>
+            <Col md="4">
+              <Panel>
+                {::this.handleAvatarUploadRender()}
+              </Panel>
+            </Col>
+          </Row>
+        </Form>
       </div>
     )
   }
@@ -239,18 +344,17 @@ class UserForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    upload: state.upload
   }
 }
 
 UserForm.propTypes = {
-  mode: PropTypes.string,
-  isLoading: PropTypes.bool
+  mode: PropTypes.string
 }
 
 UserForm.defaultProps = {
-  mode: 'create',
-  isLoading: false
+  mode: 'create'
 }
 
 export default connect(

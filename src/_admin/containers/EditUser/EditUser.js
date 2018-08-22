@@ -20,13 +20,6 @@ class EditUser extends Component {
   componentWillMount() {
     ::this.handleFetchSelectedtUser();
   }
-  componentDidUpdate(prevProps) {
-    if ( prevProps.user.isFetchingSelected && !this.props.user.isFetchingSelected ) {
-      this.setState({
-        isLoading: false
-      });
-    }
-  }
   handleFetchSelectedtUser() {
     const {
       match,
@@ -38,7 +31,6 @@ class EditUser extends Component {
   }
   render() {
     const { user } = this.props;
-    const { isLoading } = this.state;
 
     return (
       <div className="create-user-section">
@@ -52,7 +44,7 @@ class EditUser extends Component {
               }
             </Col>
           </Row>
-          <UserForm mode="edit" isLoading={isLoading} />
+          <UserForm mode="edit" />
         </Container>
       </div>
     )

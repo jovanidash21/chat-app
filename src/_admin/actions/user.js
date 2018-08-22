@@ -74,14 +74,16 @@ export function fetchUsers() {
  * @param {string} email
  * @param {string} role
  * @param {string} password
+ * @param {string} profilePicture
  */
-export function createUser(username, name, email, role, password) {
+export function createUser(username, name, email, role, password, profilePicture) {
   let data = {
     username,
     name,
     email,
     role,
-    password
+    password,
+    profilePicture
   };
 
   return dispatch => {
@@ -104,14 +106,16 @@ export function createUser(username, name, email, role, password) {
  * @param {string} name
  * @param {string} email
  * @param {string} role
+ * @param {string} profilePicture
  */
-export function editUser(userID, username, name, email, role) {
+export function editUser(userID, username, name, email, role, profilePicture) {
   let data = {
     userID,
     username,
     name,
     email,
-    role
+    role,
+    profilePicture
   };
 
   return dispatch => {
