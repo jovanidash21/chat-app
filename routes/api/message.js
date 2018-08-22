@@ -185,9 +185,9 @@ router.post('/file', fileUpload.single('file'), function(req, res, next) {
     });
   } else {
     var messageType = 'file';
+    var fileLink = req.protocol + '://' + req.get('host') + '/' + req.file.path;
 
     if ( req.file.mimetype.indexOf('image/') > -1 ) {
-
       messageType = 'image';
     }
 
@@ -197,7 +197,7 @@ router.post('/file', fileUpload.single('file'), function(req, res, next) {
       chatRoom: chatRoomID,
       readBy: [userID],
       messageType: messageType,
-      fileLink: req.file.path
+      fileLink: fileLink
     };
     var message = new Message(messageData);
 
@@ -249,13 +249,14 @@ router.post('/image', imageUpload.single('image'), function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
+    var fileLink = req.protocol + '://' + req.get('host') + '/' + req.file.path;
     var messageData = {
       text: req.file.originalname,
       user: userID,
       chatRoom: chatRoomID,
       readBy: [userID],
       messageType: 'image',
-      fileLink: req.file.path
+      fileLink: fileLink
     };
     var message = new Message(messageData);
 
@@ -307,13 +308,14 @@ router.post('/audio', audioUpload.single('audio'), function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
+    var fileLink = req.protocol + '://' + req.get('host') + '/' + req.file.path;
     var messageData = {
       text: req.file.originalname,
       user: userID,
       chatRoom: chatRoomID,
       readBy: [userID],
       messageType: 'audio',
-      fileLink: req.file.path
+      fileLink: fileLink
     };
     var message = new Message(messageData);
 

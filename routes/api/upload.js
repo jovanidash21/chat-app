@@ -34,10 +34,12 @@ router.post('/image', imageUpload.single('image'), function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
+    var imageLink = req.protocol + '://' + req.get('host') + '/' + req.file.path;
+
     res.status(200).send({
       success: true,
       message: 'Image Uploaded.',
-      imageLink: req.file.path
+      imageLink: imageLink
     });
   }
 });
