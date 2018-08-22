@@ -1,1 +1,1 @@
-export { default as ChatImageLightbox } from './ChatImageLightbox';
+export { default as ChatImageLightBox } from './ChatImageLightBox';
