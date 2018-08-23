@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from 'muicss/react';
 import { Avatar } from '../../../../components/Avatar';
 import { Modal } from '../../../../components/Modal';
 import './styles.scss';
@@ -14,11 +14,19 @@ class AvatarUploader extends Component {
 
     handleImageUpload(event.target.files[0]);
   }
+  handleRemoveImage(event) {
+    event.preventDefault();
+
+    const { handleRemoveImage } = this.props;
+
+    handleRemoveImage();
+  }
   render() {
     const {
       imageLink,
       name,
-      accountType
+      accountType,
+      isDisabled
     } = this.props;
 
     return (
@@ -40,15 +48,27 @@ class AvatarUploader extends Component {
               accept="image/*"
               onChange={::this.handleImageUploadSelect}
             />
-            <label htmlFor="avatar-uploader-button">
-              <div className="avatar-uploader-button">
-                <div className="camera-icon">
-                  <FontAwesomeIcon icon="camera" size="2x" />
-                </div>
-                Change
-              </div>
+            <label
+              htmlFor="avatar-uploader-button"
+              className={
+                "mui-btn mui-btn--small button button-default " +
+                (isDisabled ? 'disabled' : '')
+              }
+            >
+              Change
             </label>
-          </div>  
+            {
+              imageLink.length > 0 &&
+              <Button
+                color="danger"
+                size="small"
+                onClick={::this.handleRemoveImage}
+                disabled={isDisabled}
+              >
+                Remove
+              </Button>
+            }
+          </div>
         }
       </div>
     )
@@ -60,6 +80,7 @@ AvatarUploader.propTypes = {
   name: PropTypes.string,
   accountType: PropTypes.string,
   handleImageUpload: PropTypes.func.isRequired,
+  handleRemoveImage: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool
 }
 

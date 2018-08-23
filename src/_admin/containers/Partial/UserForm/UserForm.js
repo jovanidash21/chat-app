@@ -203,6 +203,7 @@ class UserForm extends Component {
     const { user } = this.props;
     const {
       isLoading,
+      isDisabled,
       name,
       profilePicture
     } = this.state;
@@ -215,6 +216,8 @@ class UserForm extends Component {
           name={name}
           accountType={selectedUser.accountType}
           handleImageUpload={::this.handleImageUpload}
+          handleRemoveImage={::this.handleRemoveImage}
+          isDisabled={isDisabled}
         />
       )
     } else {
@@ -260,6 +263,9 @@ class UserForm extends Component {
     } else {
       uploadImage(image);
     }
+  }
+  handleRemoveImage() {
+    this.setState({profilePicture: ''});
   }
   handleSubmitUserForm(event) {
     event.preventDefault();
