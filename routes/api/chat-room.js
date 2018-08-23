@@ -4,8 +4,8 @@ var User = require('../../models/User');
 var ChatRoom = require('../../models/ChatRoom');
 var Message = require('../../models/Message');
 
-router.get('/:userID', function(req, res, next) {
-  var userID = req.params.userID;
+router.post('/', function(req, res, next) {
+  var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
@@ -55,8 +55,8 @@ router.get('/:userID', function(req, res, next) {
   }
 });
 
-router.post('/group/:userID', function(req, res, next) {
-  var userID = req.params.userID;
+router.post('/group', function(req, res, next) {
+  var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
@@ -116,8 +116,8 @@ router.post('/group/:userID', function(req, res, next) {
   }
 });
 
-router.post('/direct/:userID', function(req, res, next) {
-  var userID = req.params.userID;
+router.post('/direct', function(req, res, next) {
+  var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({

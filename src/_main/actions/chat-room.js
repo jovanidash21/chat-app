@@ -18,10 +18,12 @@ const baseURL = localtionArr[0] + "//" + localtionArr[2];
  * @param {string} userID
  */
 export function fetchChatRooms(userID) {
+  let data = { userID };
+
   return dispatch => {
     return dispatch({
       type: FETCH_CHAT_ROOMS,
-      payload: axios.get(baseURL + `/api/chat-room/${userID}`)
+      payload: axios.post(baseURL + '/api/chat-room', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -116,13 +118,13 @@ export function createGroupChatRoom(name, members, userID, activeChatRoomID) {
   let data = {
     name,
     members,
-    userID,
+    userID
   };
 
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post(baseURL + `/api/chat-room/group/${userID}`, data)
+      payload: axios.post(baseURL + '/api/chat-room/group', data)
     })
     .then((response) => {
       dispatch(createChatRoom(userID, response.action.payload.data.chatRoom, activeChatRoomID));
@@ -151,7 +153,7 @@ export function createDirectChatRoom(userID, memberID, activeChatRoomID) {
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post(baseURL + `/api/chat-room/direct/${userID}`, data)
+      payload: axios.post(baseURL + '/api/chat-room/direct', data)
     })
     .then((response) => {
       dispatch(createChatRoom(userID, response.action.payload.data.chatRoom, activeChatRoomID));
