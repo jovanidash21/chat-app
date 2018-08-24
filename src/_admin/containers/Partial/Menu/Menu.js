@@ -23,7 +23,7 @@ const menuItems = [
     icon: "door-closed",
     title: "Chat Room",
     subMenuItems: [
-      { title: "All Chat Rooms", link: "" },
+      { title: "All Chat Rooms", link: "/all-chat-rooms" },
       { title: "Create Chat Room", link: "" }
     ]
   }

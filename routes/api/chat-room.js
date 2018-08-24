@@ -39,7 +39,7 @@ router.post('/', function(req, res, next) {
                 chatRoom.name = member.name;
                 chatRoom.chatIcon = member.profilePicture;
               }
-            } else if ((chatRoom.chatType === 'group') || chatRoom.chatType === 'public') {
+            } else if (chatRoom.chatType === 'group' || chatRoom.chatType === 'public') {
               chatRoom.members[j] = member._id;
             }
           }
@@ -183,6 +183,43 @@ router.post('/direct', function(req, res, next) {
         });
       }
     });
+  }
+});
+
+router.get('/all', function(req, res, next) {
+  if (req.user === undefined || req.user.role !== 'admin') {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    ChatRoom.find({_id: {$ne: null}})
+      .populate({path: 'members'})
+      .then((chatRooms) => {
+        for (var i = 0; i < chatRooms.length; i++) {
+          var chatRoom = chatRooms[i];
+
+          if (chatRoom.chatType === 'group' || chatRoom.chatType === 'public') {
+            for (var j = 0; j < chatRoom.members.length; j++) {
+              var member = chatRoom.members[j];
+
+              chatRoom.members[j] = member._id;
+            }
+          }
+        }
+
+        return chatRooms;
+      })
+      .then((chatRooms) => {
+        res.status(200).send(chatRooms);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      });
   }
 });
 

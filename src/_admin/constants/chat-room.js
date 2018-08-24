@@ -1,0 +1,1 @@
+export const FETCH_CHAT_ROOMS = 'FETCH_CHAT_ROOMS';
