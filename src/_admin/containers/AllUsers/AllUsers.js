@@ -12,6 +12,7 @@ import {
   Table,
   DeleteUserModal
 } from '../Partial';
+import { Avatar } from '../../../components/Avatar';
 
 class AllUsers extends Component {
   constructor(props) {
@@ -48,10 +49,17 @@ class AllUsers extends Component {
 
     for ( var i = 0; i < user.all.length; i++ ) {
       const singleUser = user.all[i];
+      const image = (<Avatar
+          image={singleUser.profilePicture}
+          size="32px"
+          title={singleUser.name}
+          accountType={singleUser.accountType}
+          badgeCloser
+        />);
 
       userRows.push({
         _id: singleUser._id,
-        image: singleUser.profilePicture,
+        image: image,
         name: singleUser.name,
         email: singleUser.email,
         accountType: singleUser.accountType,
@@ -110,7 +118,7 @@ class AllUsers extends Component {
                 rows={rows}
                 isLoading={isLoading}
                 editLink="/edit-user"
-                modal={modal}
+                deleteModal={modal}
                 isDeleteModalOpen={isModalOpen}
                 handleOpenDeleteModal={::this.handleOpenModal}
                 handleCloseDeleteModal={::this.handleCloseModal}

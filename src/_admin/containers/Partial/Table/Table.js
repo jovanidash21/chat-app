@@ -8,7 +8,6 @@ import {
 } from 'muicss/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
-import { Avatar } from '../../../../components/Avatar';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import {
   TableColumn,
@@ -82,7 +81,7 @@ class Table extends Component {
     this.setState({totalRows: dataRows.length});
 
     dataRows = dataRows.sort((a, b) => {
-      var sortKey = a[column].toLowerCase().localeCompare(b[column].toLowerCase());
+      var sortKey = a[column].toString().toLowerCase().localeCompare(b[column].toString().toLowerCase());
 
       return sortKey;
     });
@@ -157,13 +156,9 @@ class Table extends Component {
                             <div className="table-data">
                               {
                                 i === 0 &&
-                                <Avatar
-                                  image={singleRow.image}
-                                  size="32px"
-                                  title={singleRow.name}
-                                  accountType={singleRow.accountType}
-                                  badgeCloser
-                                />
+                                <div className="row-image">
+                                  {singleRow.image}
+                                </div>
                               }
                               <span>
                                 {singleRow[singleColumn.key]}
@@ -296,7 +291,7 @@ class Table extends Component {
   }
   render() {
     const {
-      modal,
+      deleteModal,
       isDeleteModalOpen
     } = this.props;
 
@@ -305,7 +300,7 @@ class Table extends Component {
         {::this.handleTableRender()}
         {
           isDeleteModalOpen &&
-          modal
+          deleteModal
         }
       </Panel>
     );
@@ -322,7 +317,7 @@ Table.propTypes = {
   rows: PropTypes.array.isRequired,
   isLoading: PropTypes.bool,
   editLink: PropTypes.string,
-  modal: PropTypes.element,
+  deleteModal: PropTypes.element,
   isDeleteModalOpen: PropTypes.bool,
   handleOpenDeleteModal: PropTypes.func,
   handleCloseDeleteModal: PropTypes.func
@@ -335,7 +330,7 @@ Table.defaultProps = {
   },
   isLoading: false,
   editLink: '',
-  modal: React.createElement('div'),
+  deleteModal: React.createElement('div'),
   isDeleteModalOpen: false,
   handleOpenDeleteModal: () => {},
   handleCloseDeleteModal: () => {}

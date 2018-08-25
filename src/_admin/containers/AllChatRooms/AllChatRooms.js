@@ -11,6 +11,7 @@ import {
   Table,
   DeleteChatRoomModal
 } from '../Partial';
+import { Avatar } from '../../../components/Avatar';
 
 class AllChatRooms extends Component {
   constructor(props) {
@@ -40,16 +41,38 @@ class AllChatRooms extends Component {
       ::this.handleChatRoomRows();
     }
   }
+  handleAccountType(chatRoomData) {
+    var accountType = '';
+
+    switch ( chatRoomData.chatType ) {
+      case 'private':
+        if ( chatRoomData.members.length > 0 ) {
+          accountType = chatRoomData.members[0].accountType;
+        }
+        break;
+      default:
+        break;
+    }
+
+    return accountType;
+  }
   handleChatRoomRows() {
     const { chatRoom } = this.props;
     const chatRoomRows = [];
 
     for ( var i = 0; i < chatRoom.all.length; i++ ) {
       const singleChatRoom = chatRoom.all[i];
+      const image = (<Avatar
+          image={singleChatRoom.chatIcon}
+          size="32px"
+          title={singleChatRoom.name}
+          accountType={::this.handleAccountType(singleChatRoom)}
+          badgeCloser
+        />);
 
       chatRoomRows.push({
         _id: singleChatRoom._id,
-        image: singleChatRoom.chatIcon,
+        image: image,
         name: singleChatRoom.name,
         members: singleChatRoom.members.length,
         chatType: singleChatRoom.chatType,
@@ -98,7 +121,7 @@ class AllChatRooms extends Component {
                 rows={rows}
                 isLoading={isLoading}
                 editLink="/edit-chat-room"
-                modal={modal}
+                deleteModal={modal}
                 isDeleteModalOpen={isModalOpen}
                 handleOpenDeleteModal={::this.handleOpenModal}
                 handleCloseDeleteModal={::this.handleCloseModal}
