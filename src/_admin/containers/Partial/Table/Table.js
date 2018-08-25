@@ -54,8 +54,6 @@ class Table extends Component {
     } = this.props;
     const { itemsCountPerPage } = this.state;
     var dataRows = [...rows];
-    const lastItemIndex = page * itemsCountPerPage;
-    const firstItemIndex = lastItemIndex - itemsCountPerPage;
 
     if ( filter.length > 0 ) {
       var filteredData = [];
@@ -76,7 +74,11 @@ class Table extends Component {
       }
 
       dataRows = filteredData;
+      page = 1;
     }
+
+    const lastItemIndex = page * itemsCountPerPage;
+    const firstItemIndex = lastItemIndex - itemsCountPerPage;
 
     this.setState({totalRows: dataRows.length});
 

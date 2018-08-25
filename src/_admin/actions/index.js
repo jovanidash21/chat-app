@@ -7,7 +7,10 @@ import {
   editUser,
   deleteUser
 } from './user';
-import { fetchChatRooms } from './chat-room';
+import {
+  fetchSelectedChatRoom,
+  fetchChatRooms
+} from './chat-room';
 import { uploadImage } from './upload';
 
 const actions = (dispatch) => {
@@ -18,6 +21,7 @@ const actions = (dispatch) => {
     createUser,
     editUser,
     deleteUser,
+    fetchSelectedChatRoom,
     fetchChatRooms,
     uploadImage
   }, dispatch);

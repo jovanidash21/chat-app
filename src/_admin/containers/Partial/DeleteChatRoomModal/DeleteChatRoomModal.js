@@ -31,6 +31,21 @@ class DeleteChatRoomModal extends Component {
       this.props.handleCloseModal();
     }
   }
+  handleAccountType(chatRoomData) {
+    var accountType = '';
+
+    switch ( chatRoomData.chatType ) {
+      case 'private':
+        if ( chatRoomData.members.length > 0 ) {
+          accountType = chatRoomData.members[0].accountType;
+        }
+        break;
+      default:
+        break;
+    }
+
+    return accountType;
+  }
   handleDeleteChatRoomFormRender() {
     const {
       chatRoom,
@@ -54,10 +69,10 @@ class DeleteChatRoomModal extends Component {
             }
             <div className="avatar-wrapper">
               <Avatar
-                image={selectedChatRoom.profilePicture}
+                image={selectedChatRoom.chatIcon}
                 size="100px"
                 title={selectedChatRoom.name}
-                accountType={selectedChatRoom.accountType}
+                accountType={::this.handleAccountType(selectedChatRoom)}
                 badgeBigger
                 badgeCloser
               />
@@ -111,7 +126,7 @@ class DeleteChatRoomModal extends Component {
 
     return (
       <Modal
-        className="delete-chatRoom-modal"
+        className="delete-chat-room-modal"
         isModalOpen={isModalOpen}
         handleCloseModal={handleCloseModal}
       >

@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var User = require('../../models/User');
 var ChatRoom = require('../../models/ChatRoom');
-var Message = require('../../models/Message');
 
 router.post('/', function(req, res, next) {
   var userID = req.body.userID;
@@ -186,6 +185,49 @@ router.post('/direct', function(req, res, next) {
   }
 });
 
+router.post('/select', function(req, res, next) {
+  var chatRoomID = req.body.chatRoomID;
+
+  if (req.user === undefined || req.user.role !== 'admin') {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    ChatRoom.findById(chatRoomID)
+      .populate({path: 'members'})
+      .exec()
+      .then((chatRoom) => {
+        for (var i = 0; i < chatRoom.members.length; i++) {
+          var member = chatRoom.members[i];
+
+          if (chatRoom.chatType === 'private') {
+            chatRoom.chatIcon = member.profilePicture;
+          } else if (chatRoom.chatType === 'direct') {
+            if (chatRoom.name.length) {
+              chatRoom.name = chatRoom.name + ' / ' + member.name;
+            } else {
+              chatRoom.name = member.name;
+            }
+          } else if (chatRoom.chatType === 'group' || chatRoom.chatType === 'public') {
+            chatRoom.members[i] = member._id;
+          }
+        }
+
+        return chatRoom;
+      })
+      .then((chatRoom) => {
+        res.status(200).send(chatRoom);
+      })
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      });
+  }
+});
+
 router.get('/all', function(req, res, next) {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
@@ -195,14 +237,23 @@ router.get('/all', function(req, res, next) {
   } else {
     ChatRoom.find({_id: {$ne: null}})
       .populate({path: 'members'})
+      .exec()
       .then((chatRooms) => {
         for (var i = 0; i < chatRooms.length; i++) {
           var chatRoom = chatRooms[i];
 
-          if (chatRoom.chatType === 'group' || chatRoom.chatType === 'public') {
-            for (var j = 0; j < chatRoom.members.length; j++) {
-              var member = chatRoom.members[j];
+          for (var j = 0; j < chatRoom.members.length; j++) {
+            var member = chatRoom.members[j];
 
+            if (chatRoom.chatType === 'private') {
+              chatRoom.chatIcon = member.profilePicture;
+            } else if (chatRoom.chatType === 'direct') {
+              if (chatRoom.name.length) {
+                chatRoom.name = chatRoom.name + ' / ' + member.name;
+              } else {
+                chatRoom.name = member.name;
+              }
+            } else if (chatRoom.chatType === 'group' || chatRoom.chatType === 'public') {
               chatRoom.members[j] = member._id;
             }
           }
