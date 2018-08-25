@@ -1,4 +1,7 @@
 .alert {
+  border-radius: 0;
+  margin-bottom: 1.25rem;
+  padding: 15px;
   &.alert-success {
     background-color: $color-water-leaf;
     color: $color-blue-stone;

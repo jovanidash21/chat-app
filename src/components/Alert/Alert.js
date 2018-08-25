@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Panel } from 'muicss/react';
 import './styles.scss';
 
 const Alert = (props) => {
   return (
-    <Panel className={
+    <div className={
         "alert alert-" +
         props.type +
         (props.center ? ' mui--text-center': '')
       }
     >
       {props.label}
-    </Panel>
+    </div>
   );
 }
 
