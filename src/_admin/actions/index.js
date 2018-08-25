@@ -9,7 +9,8 @@ import {
 } from './user';
 import {
   fetchSelectedChatRoom,
-  fetchChatRooms
+  fetchChatRooms,
+  deleteChatRoom
 } from './chat-room';
 import { uploadImage } from './upload';
 
@@ -23,6 +24,7 @@ const actions = (dispatch) => {
     deleteUser,
     fetchSelectedChatRoom,
     fetchChatRooms,
+    deleteChatRoom,
     uploadImage
   }, dispatch);
 }

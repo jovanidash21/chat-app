@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {
   FETCH_SELECTED_CHAT_ROOM,
-  FETCH_CHAT_ROOMS
+  FETCH_CHAT_ROOMS,
+  DELETE_CHAT_ROOM
 } from '../constants/chat-room';
 
 const localtionArr = window.location.href.split("/");
@@ -37,6 +38,29 @@ export function fetchChatRooms() {
     return dispatch({
       type: FETCH_CHAT_ROOMS,
       payload: axios.get(baseURL + '/api/chat-room/all')
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Delete chat room
+ * @param {string} chatRoomID
+ */
+export function deleteChatRoom(chatRoomID) {
+  let data = {
+    chatRoomID
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: DELETE_CHAT_ROOM,
+      payload: axios.post(baseURL + '/api/chat-room/delete', data),
+      meta: chatRoomID
     })
     .catch((error) => {
       if (error instanceof Error) {

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var User = require('../../models/User');
 var ChatRoom = require('../../models/ChatRoom');
+var Message = require('../../models/Message');
 
 router.post('/', function(req, res, next) {
   var userID = req.body.userID;
@@ -263,6 +264,45 @@ router.get('/all', function(req, res, next) {
       })
       .then((chatRooms) => {
         res.status(200).send(chatRooms);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      });
+  }
+});
+
+router.post('/delete', function(req, res, next) {
+  var chatRoomID = req.body.chatRoomID;
+
+  if (req.user === undefined || req.user.role !== 'admin') {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    ChatRoom.findById(chatRoomID)
+      .then((chatRoom) => {
+        for (var i = 0; i < chatRoom.members.length; i++) {
+          var memberID = chatRoom.members[i];
+
+          User.findByIdAndUpdate(
+            memberID,
+            { $pull: {chatRooms: {data: chatRoomID}} },
+            { new: true, upsert: true }
+          ).exec();
+        }
+
+        Message.deleteMany({chatRoom: chatRoomID}).exec();
+        ChatRoom.deleteOne({_id: chatRoomID}).exec();
+
+        res.status(200).send({
+          success: true,
+          message: 'Chat Room Deleted'
+        });
       })
       .catch((error) => {
         console.log(error);
