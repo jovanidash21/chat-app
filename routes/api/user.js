@@ -24,7 +24,7 @@ router.post('/search', function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
-    User.find({_id: {$ne: req.user._id}, name: {$regex: '\\b' + query, $options: 'i'}})
+    User.find({_id: {$ne: null}, name: {$regex: '\\b' + query, $options: 'i'}})
       .then((users) => {
         res.status(200).send(users);
       })

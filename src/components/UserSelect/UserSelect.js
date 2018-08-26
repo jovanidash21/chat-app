@@ -85,6 +85,7 @@ class UserSelect extends Component {
   }
   render() {
     const {
+      label,
       placeholder,
       handleSearchUser,
       selectedUsers,
@@ -104,6 +105,9 @@ class UserSelect extends Component {
 
     return (
       <div className="user-select-wrapper">
+        <div className="users-list-label">
+          {label}
+        </div>
         <div className="users-list" disabled={isDisabled}>
           {
             selectedUsers.map((user, i) =>
@@ -146,6 +150,7 @@ class UserSelect extends Component {
 }
 
 UserSelect.propTypes = {
+  label: PropTypes.string,
   placeholder: PropTypes.string,
   handleSearchUser: PropTypes.func.isRequired,
   selectedUsers: PropTypes.array,
@@ -156,6 +161,7 @@ UserSelect.propTypes = {
 }
 
 UserSelect.defaultProps = {
+  label: 'Users',
   placeholder: 'Select a user',
   selectedUsers: [],
   searchUsers: [],

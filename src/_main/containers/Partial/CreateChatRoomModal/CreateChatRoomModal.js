@@ -40,22 +40,25 @@ class CreateChatRoomModal extends Component {
   onSuggestionSelected(event, suggestion) {
     event.preventDefault();
 
+    const { user } = this.props;
     const { members } = this.state;
     const selectedMember = suggestion.suggestion;
 
-    if (members.some((singleMember) => singleMember._id === selectedMember._id)) {
-      this.setState({
-        members: [
-          ...members.filter((singleMember) => singleMember._id !== selectedMember._id)
-        ]
-      });
-    } else {
-      this.setState({
-        members: [
-          ...members.filter((singleMember) => singleMember._id !== selectedMember._id),
-          selectedMember
-        ]
-      });
+    if ( selectedMember._id !== user.active._id ) {
+      if (members.some((singleMember) => singleMember._id === selectedMember._id)) {
+        this.setState({
+          members: [
+            ...members.filter((singleMember) => singleMember._id !== selectedMember._id)
+          ]
+        });
+      } else {
+        this.setState({
+          members: [
+            ...members.filter((singleMember) => singleMember._id !== selectedMember._id),
+            selectedMember
+          ]
+        });
+      }
     }
   }
   handleDeselectMember(member) {
@@ -100,6 +103,9 @@ class CreateChatRoomModal extends Component {
       chatRoomName,
       members
     } = this.state;
+    const searchedUsers = user.search.filter((singleUser) => {
+      return !members.some((singleMember) => singleMember._id === singleUser._id);
+    });
     const isSubmitButtonDisabled =
       chatRoomName.length === 0 ||
       members.length < 3 ||
@@ -125,14 +131,12 @@ class CreateChatRoomModal extends Component {
               onChatRoomNameChange={::this.onChatRoomNameChange}
               isDisabled={chatRoom.isCreating}
             />
-            <div className="members-list-label">
-              Select at least 3 members
-            </div>
             <UserSelect
+              label="Select at least 3 members"
               placeholder="Select a member"
               handleSearchUser={searchUser}
               selectedUsers={members}
-              searchedUsers={user.search}
+              searchedUsers={searchedUsers}
               onSuggestionSelected={::this.onSuggestionSelected}
               handleDeselectUser={::this.handleDeselectMember}
               isDisabled={chatRoom.isCreating}
