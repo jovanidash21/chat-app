@@ -7,12 +7,9 @@ import {
 } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
 import { Modal } from '../../../../components/Modal';
-import {
-  ChatRoomNameInput,
-  ChatMember,
-  ChatMemberSelect
-} from '../../../components/CreateChatRoomModal';
+import { ChatRoomNameInput } from '../../../components/CreateChatRoomModal';
 import { Alert } from '../../../../components/Alert';
+import { UserSelect } from '../../../../components/UserSelect';
 import './styles.scss';
 
 class CreateChatRoomModal extends Component {
@@ -62,13 +59,16 @@ class CreateChatRoomModal extends Component {
     }
   }
   handleDeselectMember(member) {
+    const { user } = this.props;
     const { members } = this.state;
 
-    this.setState({
-      members: [
-        ...members.filter((singleMember) => singleMember._id !== member._id)
-      ]
-    });
+    if ( member._id !== user.active._id ) {
+      this.setState({
+        members: [
+          ...members.filter((singleMember) => singleMember._id !== member._id)
+        ]
+      });
+    }
   }
   handleAddGroupChatRoom(event) {
     event.preventDefault();
@@ -128,22 +128,13 @@ class CreateChatRoomModal extends Component {
             <div className="members-list-label">
               Select at least 3 members
             </div>
-            <div className="members-list" disabled={chatRoom.isCreating}>
-              {
-                members.map((member, i) =>
-                  <ChatMember
-                    key={i}
-                    index={i}
-                    member={member}
-                    handleDeselectMember={::this.handleDeselectMember}
-                  />
-                )
-              }
-            </div>
-            <ChatMemberSelect
-              searchedUsers={user.search}
+            <UserSelect
+              placeholder="Select a member"
               handleSearchUser={searchUser}
+              selectedUsers={members}
+              searchedUsers={user.search}
               onSuggestionSelected={::this.onSuggestionSelected}
+              handleDeselectUser={::this.handleDeselectMember}
               isDisabled={chatRoom.isCreating}
             />
           </Modal.Body>

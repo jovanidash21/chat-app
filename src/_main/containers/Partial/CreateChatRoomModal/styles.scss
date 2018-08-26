@@ -1,13 +1,11 @@
 .create-chat-room-modal {
-  .members-list {
-    border: 1px solid $color-dusty-gray;
-    margin-bottom: 10px;
-    min-height: 20px;
-    padding: 4px;
-    &[disabled] {
-      cursor: not-allowed;
-      opacity: 0.6;
-      pointer-events: none;
+  .users-list {
+    .user-wrapper {
+      &:first-child {
+        .user:hover {
+          background-color: $color-dusty-gray;
+        }
+      }
     }
   }
 }
