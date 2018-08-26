@@ -3,6 +3,7 @@ import {
   fetchActiveUser,
   fetchSelectedUser,
   fetchUsers,
+  searchUser,
   createUser,
   editUser,
   deleteUser
@@ -10,6 +11,7 @@ import {
 import {
   fetchSelectedChatRoom,
   fetchChatRooms,
+  createChatRoom,
   deleteChatRoom
 } from './chat-room';
 import { uploadImage } from './upload';
@@ -19,11 +21,13 @@ const actions = (dispatch) => {
     fetchActiveUser,
     fetchSelectedUser,
     fetchUsers,
+    searchUser,
     createUser,
     editUser,
     deleteUser,
     fetchSelectedChatRoom,
     fetchChatRooms,
+    createChatRoom,
     deleteChatRoom,
     uploadImage
   }, dispatch);

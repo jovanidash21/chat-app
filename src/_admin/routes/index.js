@@ -8,6 +8,7 @@ import { AllUsers } from '../containers/AllUsers';
 import { CreateUser } from '../containers/CreateUser';
 import { EditUser } from '../containers/EditUser';
 import { AllChatRooms } from '../containers/AllChatRooms';
+import { CreateChatRoom } from '../containers/CreateChatRoom';
 import 'react-popup/style.css';
 import '../../styles/Common.scss';
 import '../styles/Common.scss';
@@ -22,6 +23,7 @@ const routes = (
       <Layout exact path="/create-user" component={CreateUser} title="Create User" />
       <Layout exact path="/edit-user/:userID" component={EditUser} title="Edit User" />
       <Layout exact path="/all-chat-rooms" component={AllChatRooms} title="All Chat Rooms" />
+      <Layout exact path="/create-chat-room" component={CreateChatRoom} title="Create Chat Room" />
     </Switch>
   </div>
 );

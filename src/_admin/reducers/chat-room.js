@@ -1,6 +1,7 @@
 import {
   FETCH_SELECTED_CHAT_ROOM,
   FETCH_CHAT_ROOMS,
+  CREATE_CHAT_ROOM,
   DELETE_CHAT_ROOM
 } from '../constants/chat-room';
 
@@ -9,6 +10,8 @@ const initialState = {
   isFetchingSelectedSuccess: false,
   isFetchingAll: false,
   isFetchingAllSuccess: false,
+  isCreating: false,
+  isCreatingSuccess: true,
   isDeleting: false,
   isDeletingSuccess: true,
   all: [],
@@ -26,6 +29,11 @@ const chatRoom = (state=initialState, action) => {
       return {
         ...state,
         isFetchingAll: true
+      };
+    case `${CREATE_CHAT_ROOM}_LOADING`:
+      return {
+        ...state,
+        isCreating: true
       };
     case `${DELETE_CHAT_ROOM}_LOADING`:
       return {
@@ -45,6 +53,12 @@ const chatRoom = (state=initialState, action) => {
         isFetchingAll: false,
         isFetchingAllSuccess: true,
         all: action.payload.data
+      };
+    case `${CREATE_CHAT_ROOM}_SUCCESS`:
+      return {
+        ...state,
+        isCreating: false,
+        isCreatingSuccess: true
       };
     case `${DELETE_CHAT_ROOM}_SUCCESS`:
       var chatRooms = [...state.all];
@@ -69,6 +83,12 @@ const chatRoom = (state=initialState, action) => {
         ...state,
         isFetchingAll: false,
         isFetchingAllSuccess: false
+      };
+    case `${CREATE_CHAT_ROOM}_ERROR`:
+      return {
+        ...state,
+        isCreating: false,
+        isCreatingSuccess: false
       };
     case `${DELETE_CHAT_ROOM}_ERROR`:
       return {

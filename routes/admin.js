@@ -49,4 +49,12 @@ router.get('/all-chat-rooms', function(req, res, next) {
   }
 });
 
+router.get('/create-chat-room', function(req, res, next) {
+  if (req.user && req.user.role == 'admin') {
+    res.render('admin', { title: 'Chat App | Create Chat Room' });
+  } else {
+    res.redirect('/');
+  }
+});
+
 module.exports = router;

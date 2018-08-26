@@ -2,6 +2,7 @@ import {
   FETCH_ACTIVE_USER,
   FETCH_SELECTED_USER,
   FETCH_USERS,
+  SEARCH_USER,
   CREATE_USER,
   EDIT_USER,
   DELETE_USER
@@ -22,7 +23,8 @@ const initialState = {
   isDeletingSuccess: true,
   active: {},
   all: [],
-  selected: {}
+  selected: {},
+  search: []
 };
 
 const user = (state=initialState, action) => {
@@ -41,6 +43,11 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         isFetchingAll: true
+      };
+    case `${SEARCH_USER}_LOADING`:
+      return {
+        ...state,
+        search: []
       };
     case `${CREATE_USER}_LOADING`:
       return {
@@ -77,6 +84,11 @@ const user = (state=initialState, action) => {
         isFetchingAll: false,
         isFetchingAllSuccess: true,
         all: action.payload.data
+      };
+    case `${SEARCH_USER}_SUCCESS`:
+      return {
+        ...state,
+        search: action.payload.data
       };
     case `${CREATE_USER}_SUCCESS`:
       return {
@@ -119,6 +131,11 @@ const user = (state=initialState, action) => {
         ...state,
         isFetchingAll: false,
         isFetchingAllSuccess: false
+      };
+    case `${SEARCH_USER}_ERROR`:
+      return {
+        ...state,
+        search: []
       };
     case `${CREATE_USER}_ERROR`:
       return {

@@ -24,6 +24,7 @@ class AvatarUploader extends Component {
   render() {
     const {
       imageLink,
+      defaultImageLink,
       name,
       accountType,
       isDisabled
@@ -58,7 +59,7 @@ class AvatarUploader extends Component {
               Change
             </label>
             {
-              imageLink.length > 0 &&
+              imageLink !== defaultImageLink &&
               <Button
                 color="danger"
                 size="small"
@@ -77,6 +78,7 @@ class AvatarUploader extends Component {
 
 AvatarUploader.propTypes = {
   imageLink: PropTypes.string,
+  defaultImageLink: PropTypes.string,
   name: PropTypes.string,
   accountType: PropTypes.string,
   handleImageUpload: PropTypes.func.isRequired,
@@ -86,6 +88,7 @@ AvatarUploader.propTypes = {
 
 AvatarUploader.defaultProps = {
   imageLink: '',
+  defaultImageLink: '',
   name: '',
   accountType: '',
   isDisabled: false

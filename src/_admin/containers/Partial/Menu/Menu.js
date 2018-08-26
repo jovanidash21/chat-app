@@ -24,7 +24,7 @@ const menuItems = [
     title: "Chat Room",
     subMenuItems: [
       { title: "All Chat Rooms", link: "/all-chat-rooms" },
-      { title: "Create Chat Room", link: "" }
+      { title: "Create Chat Room", link: "/create-chat-room" }
     ]
   }
 ];

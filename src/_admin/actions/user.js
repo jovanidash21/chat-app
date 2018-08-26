@@ -3,6 +3,7 @@ import {
   FETCH_ACTIVE_USER,
   FETCH_SELECTED_USER,
   FETCH_USERS,
+  SEARCH_USER,
   CREATE_USER,
   EDIT_USER,
   DELETE_USER
@@ -58,6 +59,27 @@ export function fetchUsers() {
     return dispatch({
       type: FETCH_USERS,
       payload: axios.get(baseURL + '/api/user/all')
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Search user
+ */
+export function searchUser(query) {
+  let data = {
+    query
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: SEARCH_USER,
+      payload: axios.post(baseURL + '/api/user/search', data)
     })
     .catch((error) => {
       if (error instanceof Error) {

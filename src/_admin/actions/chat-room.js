@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   FETCH_SELECTED_CHAT_ROOM,
   FETCH_CHAT_ROOMS,
+  CREATE_CHAT_ROOM,
   DELETE_CHAT_ROOM
 } from '../constants/chat-room';
 
@@ -38,6 +39,34 @@ export function fetchChatRooms() {
     return dispatch({
       type: FETCH_CHAT_ROOMS,
       payload: axios.get(baseURL + '/api/chat-room/all')
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Create chat room
+ * @param {string} chatType
+ * @param {string} name
+ * @param {string} members
+ * @param {string} chatIcon
+ */
+export function createChatRoom(chatType, name, members, chatIcon) {
+  let data = {
+    chatType,
+    name,
+    members,
+    chatIcon
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: CREATE_CHAT_ROOM,
+      payload: axios.post(baseURL + '/api/chat-room/create', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
