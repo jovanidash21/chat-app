@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   .avatar-uploader {
+    display: flex;
+    justify-content: center;
     margin-top: 10px;
     input {
       height: 0.1px;

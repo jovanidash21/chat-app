@@ -40,7 +40,7 @@ class AvatarUploader extends Component {
           badgeCloser
         />
         {
-          accountType === 'local' &&
+          (accountType.length === 0 || accountType === 'local') &&
           <div className="avatar-uploader">
             <input
               id="avatar-uploader-button"
