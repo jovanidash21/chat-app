@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   FETCH_ACTIVE_USER,
+  FETCH_USERS_COUNT,
   FETCH_SELECTED_USER,
   FETCH_USERS,
   SEARCH_USER,
@@ -20,6 +21,23 @@ export function fetchActiveUser() {
     return dispatch({
       type: FETCH_ACTIVE_USER,
       payload: axios.get(baseURL + '/api/user')
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Fetch users count
+ */
+export function fetchUsersCount() {
+  return dispatch => {
+    return dispatch({
+      type: FETCH_USERS_COUNT,
+      payload: axios.get(baseURL + '/api/user/count')
     })
     .catch((error) => {
       if (error instanceof Error) {

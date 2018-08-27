@@ -1,0 +1,104 @@
+.card-banner {
+  $transition: all 0.2s ease;
+  background-color: #fff;
+  border-radius: 0;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.16), 0 0 2px 0 rgba(0,0,0,.12);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: $transition;
+  width: 100%;
+  &.black {
+    .card-icon {
+      background-color: rgba(#000, 0.1);
+      color: #000;
+    }
+    .card-content {
+      .count {
+        color: #000;
+      }
+    }
+    &:hover {
+      background-color: #000;
+    }
+  }
+  &.green {
+    .card-icon {
+      background-color: rgba($color-mantis, 0.1);
+      color: $color-mantis;
+    }
+    .card-content {
+      .count {
+        color: $color-mantis;
+      }
+    }
+    &:hover {
+      background-color: $color-mantis;
+    }
+  }
+  &.yellow {
+    .card-icon {
+      background-color: rgba($color-amber, 0.1);
+      color: $color-amber;
+    }
+    .card-content {
+      .count {
+        color: $color-amber;
+      }
+    }
+    &:hover {
+      background-color: $color-amber;
+    }
+  }
+  &.red {
+    .card-icon {
+      background-color: rgba($color-punch, 0.1);
+      color: $color-punch;
+    }
+    .card-content {
+      .count {
+        color: $color-punch;
+      }
+    }
+    &:hover {
+      background-color: $color-punch;
+    }
+  }
+  &:hover {
+    .card-icon {
+      background-color: rgba(#fff, 0.1);
+      color: #fff;
+    }
+    .card-content {
+      .label {
+        color: #fff;
+      }
+      .count {
+        color: #fff;
+      }
+    }
+  }
+  .card-icon {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    transition: $transition;
+    width: 90px;
+  }
+  .card-content {
+    padding: 15px;
+    text-align: right;
+    .label {
+      color: $color-emperor;
+      font-size: 16px;
+      text-transform: uppercase;
+      transition: $transition;
+    }
+    .count {
+      font-size: 50px;
+      transition: $transition;
+    }
+  }
+}

@@ -358,4 +358,27 @@ router.post('/audio', audioUpload.single('audio'), function(req, res, next) {
   }
 });
 
+router.get('/count', function(req, res, next) {
+  if (req.user === undefined || req.user.role !== 'admin') {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    Message.count({_id: {$ne: null}})
+      .then((messagesCount) => {
+        res.status(200).send({
+          success: true,
+          count: messagesCount
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      });
+  }
+});
+
 module.exports = router;

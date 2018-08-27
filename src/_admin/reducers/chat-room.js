@@ -1,4 +1,5 @@
 import {
+  FETCH_CHAT_ROOMS_COUNT,
   FETCH_SELECTED_CHAT_ROOM,
   FETCH_CHAT_ROOMS,
   CREATE_CHAT_ROOM,
@@ -7,6 +8,7 @@ import {
 } from '../constants/chat-room';
 
 const initialState = {
+  count: 0,
   isFetchingSelected: false,
   isFetchingSelectedSuccess: false,
   isFetchingAll: false,
@@ -47,6 +49,11 @@ const chatRoom = (state=initialState, action) => {
       return {
         ...state,
         isDeleting: true
+      };
+    case `${FETCH_CHAT_ROOMS_COUNT}_SUCCESS`:
+      return {
+        ...state,
+        count: action.payload.data.count
       };
     case `${FETCH_SELECTED_CHAT_ROOM}_SUCCESS`:
       return {

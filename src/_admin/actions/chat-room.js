@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  FETCH_CHAT_ROOMS_COUNT,
   FETCH_SELECTED_CHAT_ROOM,
   FETCH_CHAT_ROOMS,
   CREATE_CHAT_ROOM,
@@ -9,6 +10,23 @@ import {
 
 const localtionArr = window.location.href.split("/");
 const baseURL = localtionArr[0] + "//" + localtionArr[2];
+
+/**
+ * Fetch chat rooms count
+ */
+export function fetchChatRoomsCount() {
+  return dispatch => {
+    return dispatch({
+      type: FETCH_CHAT_ROOMS_COUNT,
+      payload: axios.get(baseURL + '/api/chat-room/count')
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
 
 /**
  * Fetch selected chat room

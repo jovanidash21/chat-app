@@ -1,5 +1,6 @@
 import {
   FETCH_ACTIVE_USER,
+  FETCH_USERS_COUNT,
   FETCH_SELECTED_USER,
   FETCH_USERS,
   SEARCH_USER,
@@ -9,6 +10,7 @@ import {
 } from '../constants/user';
 
 const initialState = {
+  count: 0,
   isFetchingActive: false,
   isFetchingActiveSuccess: false,
   isFetchingSelected: false,
@@ -70,6 +72,11 @@ const user = (state=initialState, action) => {
         isFetchingActive: false,
         isFetchingActiveSuccess: true,
         active: action.payload.data
+      };
+    case `${FETCH_USERS_COUNT}_SUCCESS`:
+      return {
+        ...state,
+        count: action.payload.data.count
       };
     case `${FETCH_SELECTED_USER}_SUCCESS`:
       return {

@@ -186,6 +186,29 @@ router.post('/direct', function(req, res, next) {
   }
 });
 
+router.get('/count', function(req, res, next) {
+  if (req.user === undefined || req.user.role !== 'admin') {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    ChatRoom.count({_id: {$ne: null}})
+      .then((chatRoomsCount) => {
+        res.status(200).send({
+          success: true,
+          count: chatRoomsCount
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      });
+  }
+});
+
 router.post('/select', function(req, res, next) {
   var chatRoomID = req.body.chatRoomID;
 

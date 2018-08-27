@@ -37,6 +37,29 @@ router.post('/search', function(req, res, next) {
   }
 });
 
+router.get('/count', function(req, res, next) {
+  if (req.user === undefined || req.user.role !== 'admin') {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    User.count({_id: {$ne: null}})
+      .then((usersCount) => {
+        res.status(200).send({
+          success: true,
+          count: usersCount
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      });
+  }
+});
+
 router.post('/select', function(req, res, next) {
   var userID = req.body.userID;
 

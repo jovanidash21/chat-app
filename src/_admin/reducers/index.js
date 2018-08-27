@@ -3,6 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import { loadingBarReducer } from 'react-redux-loading-bar';
 import user from './user';
 import chatRoom from './chat-room';
+import message from './message';
 import upload from './upload';
 
 const appReducer = combineReducers({
@@ -10,6 +11,7 @@ const appReducer = combineReducers({
   loadingBar: loadingBarReducer,
   user,
   chatRoom,
+  message,
   upload
 });
 
