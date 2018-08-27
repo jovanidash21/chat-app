@@ -76,6 +76,7 @@ class AllChatRooms extends Component {
         name: singleChatRoom.name,
         members: singleChatRoom.members.length,
         chatType: singleChatRoom.chatType,
+        isEditable: singleChatRoom.chatType === 'group'
       });
     }
 

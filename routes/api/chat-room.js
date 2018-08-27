@@ -210,8 +210,6 @@ router.post('/select', function(req, res, next) {
             } else {
               chatRoom.name = member.name;
             }
-          } else if (chatRoom.chatType === 'group' || chatRoom.chatType === 'public') {
-            chatRoom.members[i] = member._id;
           }
         }
 
@@ -357,6 +355,85 @@ router.post('/create', function(req, res, next) {
           });
         }
       });
+    }
+  }
+});
+
+router.post('/edit', function(req, res, next) {
+  var chatRoomID = req.body.chatRoomID;
+
+  if (req.user === undefined || req.user.role !== 'admin') {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var name = req.body.name;
+    var chatType = req.body.chatType;
+    var members = req.body.members;
+    var chatIcon = req.body.chatIcon;
+    var chatRoomData = {
+      name: name,
+      chatType: chatType,
+      members: members,
+      chatIcon: chatIcon
+    };
+
+    if (chatType === 'private' || chatType === 'direct' || chatType === 'public') {
+      res.status(401).send({
+        success: false,
+        message: 'Unauthorized'
+      });
+    } else if (chatType === 'group' && members.length < 3) {
+      res.status(401).send({
+        success: false,
+        message: 'Please select at least 3 members.'
+      });
+    } else {
+      ChatRoom.findById(chatRoomID)
+        .then((chatRoom) => {
+          for (var i = 0; i < members.length; i++) {
+            var chatRoomMember = members[i];
+
+            if (!chatRoom.members.some((singleMember) => singleMember === chatRoomMember)) {
+              User.findByIdAndUpdate(
+                chatRoomMember,
+                { $push: { chatRooms: { data: chatRoom._id, unReadMessages: 0 } } },
+                { safe: true, upsert: true, new: true }
+              ).exec();
+            }
+          }
+
+          for (var i = 0; i < chatRoom.members.length; i++) {
+            var chatRoomMember = chatRoom.members[i];
+
+            if (!members.some((singleMember) => singleMember === chatRoomMember)) {
+              User.findByIdAndUpdate(
+                chatRoomMember,
+                { $pull: {chatRooms: {data: chatRoomID}} },
+                { safe: true, upsert: true, new: true }
+              ).exec();
+            }
+          }
+
+          ChatRoom.update(
+            { _id: chatRoomID },
+            { $set: chatRoomData },
+            { safe: true, upsert: true, new: true },
+          ).exec();
+        })
+        .then((chatRoom) => {
+          res.status(200).send({
+            success: true,
+            message: 'Chat Room Edited'
+          });
+        })
+        .catch((error) => {
+          res.status(500).send({
+            success: false,
+            message: 'Server Error!'
+          });
+        });
     }
   }
 });

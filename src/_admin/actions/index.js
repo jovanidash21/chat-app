@@ -12,6 +12,7 @@ import {
   fetchSelectedChatRoom,
   fetchChatRooms,
   createChatRoom,
+  editChatRoom,
   deleteChatRoom
 } from './chat-room';
 import { uploadImage } from './upload';
@@ -28,6 +29,7 @@ const actions = (dispatch) => {
     fetchSelectedChatRoom,
     fetchChatRooms,
     createChatRoom,
+    editChatRoom,
     deleteChatRoom,
     uploadImage
   }, dispatch);

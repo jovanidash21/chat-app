@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var ChatRoom = require('../models/ChatRoom');
 
 router.get('/admin', function(req, res, next) {
   if (req.user && req.user.role == 'admin') {
@@ -52,6 +53,30 @@ router.get('/all-chat-rooms', function(req, res, next) {
 router.get('/create-chat-room', function(req, res, next) {
   if (req.user && req.user.role == 'admin') {
     res.render('admin', { title: 'Chat App | Create Chat Room' });
+  } else {
+    res.redirect('/');
+  }
+});
+
+router.get('/edit-chat-room/:chatRoomID', function(req, res, next) {
+  if (req.user && req.user.role == 'admin') {
+    var chatRoomID = req.params.chatRoomID;
+
+    ChatRoom.findById(chatRoomID)
+      .exec()
+      .then((chatRoom) => {
+        if (chatRoom.chatType === 'group') {
+          res.render('admin', { title: 'Chat App | Edit Chat Roomr' });
+        } else {
+          res.redirect('/admin');
+        }
+      })
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      });
   } else {
     res.redirect('/');
   }

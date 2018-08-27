@@ -63,7 +63,8 @@ class AllUsers extends Component {
         name: singleUser.name,
         email: singleUser.email,
         accountType: singleUser.accountType,
-        role: singleUser.role
+        role: singleUser.role,
+        isEditable: true
       });
     }
 

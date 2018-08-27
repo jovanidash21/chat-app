@@ -173,6 +173,7 @@ class Table extends Component {
                         <div className="data-actions">
                           {
                             editLink.length > 0 &&
+                            singleRow.isEditable &&
                             <Link
                               to={editLink + "/" + singleRow._id}
                               className="mui-btn mui-btn--small button button-primary"

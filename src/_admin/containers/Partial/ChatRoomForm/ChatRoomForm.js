@@ -112,7 +112,7 @@ class ChatRoomForm extends Component {
     switch ( selectedChatRoom.chatType ) {
       case 'private':
         if ( selectedChatRoom.members.length > 0 ) {
-          accountType = chatRoomData.members[0].accountType;
+          accountType = selectedChatRoom.members[0].accountType;
         }
         break;
       default:
@@ -177,13 +177,11 @@ class ChatRoomForm extends Component {
     const { user } = this.props;
     const { members } = this.state;
 
-    if ( member._id !== user.active._id ) {
-      this.setState({
-        members: [
-          ...members.filter((singleMember) => singleMember._id !== member._id)
-        ]
-      });
-    }
+    this.setState({
+      members: [
+        ...members.filter((singleMember) => singleMember._id !== member._id)
+      ]
+    });
   }
   handleChatRoomFormRender() {
     const {
@@ -209,16 +207,19 @@ class ChatRoomForm extends Component {
     if ( !isLoading ) {
       return (
         <div>
-          <Select
-            value={chatType}
-            label="Chat Type"
-            name="chatType"
-            onChange={::this.handleChange}
-            disabled={isDisabled}
-          >
-            <Option value="direct" label="Direct" />
-            <Option value="group" label="Group" />
-          </Select>
+          {
+            mode === 'create' &&
+            <Select
+              value={chatType}
+              label="Chat Type"
+              name="chatType"
+              onChange={::this.handleChange}
+              disabled={isDisabled}
+            >
+              <Option value="direct" label="Direct" />
+              <Option value="group" label="Group" />
+            </Select>
+          }
           {
             chatType === 'group' &&
             <Input
@@ -333,16 +334,26 @@ class ChatRoomForm extends Component {
     event.preventDefault();
 
     const { mode } = this.props;
+    const {
+      chatType,
+      members
+    } = this.state
 
-    switch(mode) {
-      case 'create':
-        ::this.handleCreateChatRoom();
-        break;
-      case 'edit':
-        ::this.handleEditChatRoom();
-        break;
-      default:
-        break;
+    if ( chatType === 'direct' && members.length !== 2 ) {
+      Popup.alert('Please select 2 members on Direct Chat Room');
+    } else if ( chatType === 'group' && members.length < 3 ) {
+      Popup.alert('Please select at least 3 members');
+    } else {
+      switch(mode) {
+        case 'create':
+          ::this.handleCreateChatRoom();
+          break;
+        case 'edit':
+          ::this.handleEditChatRoom();
+          break;
+        default:
+          break;
+      }
     }
   }
   handleCreateChatRoom() {
@@ -353,27 +364,34 @@ class ChatRoomForm extends Component {
       members,
       chatIcon
     } = this.state;
-    var chatRoomName = name;
 
-    if ( chatType === 'direct' && members.length !== 2 ) {
-      Popup.alert('Please select 2 members on Direct Chat Room');
-    } else if ( chatType === 'group' && members.length > 3 ) {
-      Popup.alert('Please select at least 3 members');
-    } else {
-      if ( chatType === 'direct' ) {
-        chatRoomName = '';
-      }
-
-      createChatRoom(
-        chatType,
-        chatRoomName,
-        members,
-        chatIcon
-      );
-    }
+    createChatRoom(
+      chatType,
+      name,
+      members,
+      chatIcon
+    );
   }
   handleEditChatRoom() {
+    const {
+      chatRoom,
+      editChatRoom
+    } = this.props;
+    const {
+      chatType,
+      name,
+      members,
+      chatIcon
+    } = this.state;
+    const selectedChatRoom = chatRoom.selected;
 
+    editChatRoom(
+      selectedChatRoom._id,
+      chatType,
+      name,
+      members,
+      chatIcon
+    );
   }
   render() {
     return (
