@@ -42,10 +42,7 @@ const CardBanner = (props) => {
 CardBanner.propTypes = {
   label: PropTypes.string,
   count: PropTypes.string,
-  icon: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array
-  ]),
+  icon: PropTypes.string,
   color: PropTypes.string,
   link: PropTypes.string
 }

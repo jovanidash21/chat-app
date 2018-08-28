@@ -6,6 +6,7 @@
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 15px;
   overflow: hidden;
   transition: $transition;
   width: 100%;
@@ -95,6 +96,7 @@
       font-size: 16px;
       text-transform: uppercase;
       transition: $transition;
+      white-space: nowrap;
     }
     .count {
       font-size: 50px;
