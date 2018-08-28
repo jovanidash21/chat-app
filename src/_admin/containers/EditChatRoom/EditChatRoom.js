@@ -7,6 +7,7 @@ import {
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import { ChatRoomForm } from '../Partial';
+import { MenuButton } from '../../components/MenuButton';
 import { Alert } from '../../../components/Alert';
 
 class EditChatRoom extends Component {
@@ -33,8 +34,15 @@ class EditChatRoom extends Component {
     const { chatRoom } = this.props;
 
     return (
-      <div className="create-chatRoom-section">
+      <div className="create-chat-room-section">
         <Container fluid={true}>
+          <Row>
+            <Col xs="12">
+              <div className="admin-menu-section">
+                <MenuButton label="Create New" link="/create-chat-room" />
+              </div>
+            </Col>
+          </Row>
           <Row>
             <Col xs="12">
               {

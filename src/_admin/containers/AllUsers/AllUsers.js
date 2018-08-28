@@ -6,12 +6,12 @@ import {
   Col,
   Button
 } from 'muicss/react';
-import { Link } from 'react-router-dom';
 import mapDispatchToProps from '../../actions';
 import {
   Table,
   DeleteUserModal
 } from '../Partial';
+import { MenuButton } from '../../components/MenuButton';
 import { Avatar } from '../../../components/Avatar';
 
 class AllUsers extends Component {
@@ -105,9 +105,7 @@ class AllUsers extends Component {
           <Row>
             <Col xs="12">
               <div className="admin-menu-section">
-                <Link to="/create-user" className="mui-btn mui-btn--large button button-default">
-                  Create New
-                </Link>
+                <MenuButton label="Create New" link="/create-user" />
               </div>
             </Col>
           </Row>

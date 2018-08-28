@@ -7,6 +7,7 @@ import {
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import { UserForm } from '../Partial';
+import { MenuButton } from '../../components/MenuButton';
 import { Alert } from '../../../components/Alert';
 
 class EditUser extends Component {
@@ -35,6 +36,13 @@ class EditUser extends Component {
     return (
       <div className="create-user-section">
         <Container fluid={true}>
+          <Row>
+            <Col xs="12">
+              <div className="admin-menu-section">
+                <MenuButton label="Create New" link="/create-user" />
+              </div>
+            </Col>
+          </Row>
           <Row>
             <Col xs="12">
               {

@@ -11,6 +11,7 @@ import {
   Table,
   DeleteChatRoomModal
 } from '../Partial';
+import { MenuButton } from '../../components/MenuButton';
 import { Avatar } from '../../../components/Avatar';
 
 class AllChatRooms extends Component {
@@ -114,6 +115,13 @@ class AllChatRooms extends Component {
     return (
       <div className="all-chat-rooms-section">
         <Container fluid={true}>
+          <Row>
+            <Col xs="12">
+              <div className="admin-menu-section">
+                <MenuButton label="Create New" link="/create-chat-room" />
+              </div>
+            </Col>
+          </Row>
           <Row>
             <Col xs="12">
               <Table
