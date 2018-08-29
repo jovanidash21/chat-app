@@ -14,11 +14,11 @@ const CardBanner = (props) => {
         }
       </div>
       <div className="card-content">
-        <div className="label">
-          {props.label}
-        </div>
         <div className="count">
           {props.count}
+        </div>
+        <div className="label">
+          {props.label}
         </div>
       </div>
     </div>

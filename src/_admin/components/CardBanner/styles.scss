@@ -86,10 +86,10 @@
     justify-content: center;
     padding: 10px;
     transition: $transition;
-    width: 90px;
+    width: 70px;
   }
   .card-content {
-    padding: 15px;
+    padding: 25px 15px;
     text-align: right;
     .label {
       color: $color-emperor;
@@ -99,7 +99,8 @@
       white-space: nowrap;
     }
     .count {
-      font-size: 50px;
+      font-size: 60px;
+      line-height: 60px;
       transition: $transition;
     }
   }
