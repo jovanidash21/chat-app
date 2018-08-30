@@ -1,0 +1,39 @@
+.table-wrapper {
+  .search-filter-wrapper,
+  .pagination-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .table {
+    @include scrollbar($color-mine-shaft, transparent, 'x');
+    overflow-x: auto;
+    table {
+      border-spacing: 0;
+    }
+  }
+  .actions-column {
+    text-align: center;
+    width: 100px;
+  }
+  .table-row {
+    &:nth-child(odd) {
+      background-color: $color-alabaster;
+    }
+  }
+  .no-items-row {
+    font-size: 21px;
+    font-weight: bold;
+    text-align: center;
+  }
+  .table-data {
+    align-items: center;
+    display: flex;
+    .row-image {
+      margin-right: 10px;
+    }
+  }
+  .data-actions {
+    display: flex;
+    justify-content: center;
+  }
+}

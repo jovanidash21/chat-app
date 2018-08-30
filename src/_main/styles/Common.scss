@@ -1,0 +1,37 @@
+.button {
+  &.button-login {
+    background-color: $color-primary;
+  }
+  &.button-facebook {
+    background-color: $color-chambray;
+  }
+  &.button-google {
+    background-color: $color-punch;
+  }
+  &.button-twitter {
+    background-color: $color-cerulean;
+  }
+  &.button-instagram {
+    background-color: $color-studio;
+  }
+  &.button-linkedin {
+    background-color: $color-deep-cerulean;
+  }
+  &.button-github {
+    background-color: $color-mine-shaft;
+  }
+  &.button-register {
+    background-color: $color-sunshade;
+  }
+  &.button-social {
+    .social-icon {
+      align-items: center;
+      border-right: 1px solid $color-dusty-gray;
+      display: flex;
+      float: left;
+      height: 100%;
+      justify-content: center;
+      width: 45px;
+    }
+  }
+}

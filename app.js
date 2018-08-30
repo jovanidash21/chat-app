@@ -16,6 +16,7 @@ var Promise = require('bluebird');
 
 var index = require('./routes/index');
 var api = require('./routes/api');
+var admin = require('./routes/admin');
 
 var app = express();
 
@@ -66,6 +67,7 @@ app.use(flash());
 
 app.use('/', index);
 app.use('/api', api);
+app.use('/', admin);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

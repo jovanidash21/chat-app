@@ -1,0 +1,34 @@
+.chat-rooms-list-wrapper {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .title {
+    flex-shrink: 1;
+    margin: 0;
+    padding: 15px;
+  }
+  .chat-rooms-options {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px 10px;
+    h3 {
+      margin: 0;
+    }
+    .plus-icon {
+      cursor: pointer;
+      font-size: 25px;
+      transition: all 0.2s ease;
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+  .chat-rooms-list {
+    @include scrollbar($color-dusty-gray, rgba($color-dusty-gray, 0.2));
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+}

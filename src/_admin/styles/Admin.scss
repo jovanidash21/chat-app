@@ -1,0 +1,55 @@
+.admin-section {
+  min-height: 100vh;
+  position: relative;
+  .header,
+  .admin-content,
+  .footer {
+    @media screen and (min-width: $screen-tablet-min) {
+      margin-left: 250px;
+    }
+  }
+  .header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    .hamburger-icon {
+      @media screen and (min-width: $screen-tablet-min) {
+        display: none;
+      }
+    }
+    .page-title {
+      font-size: 22px;
+    }
+  }
+  .bm-menu-wrap {
+    z-index: 4 !important;
+  }
+  .left-side-drawer-overlay {
+    &,
+    & + .bm-menu-wrap {
+      z-index: 4 !important;
+    }
+  }
+  .bm-cross-button,
+  .bm-burger-button {
+    display: none;
+  }
+  .admin-content {
+    padding-bottom: 50px;
+    padding-top: 85px;
+    @media screen and (max-width: $screen-mobile-max) {
+      padding-top: 77px;
+    }
+  }
+  .footer {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+  }
+  .admin-menu-section {
+    margin-bottom: 15px;
+    text-align: right;
+  }
+}

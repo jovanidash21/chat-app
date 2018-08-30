@@ -1,0 +1,12 @@
+.delete-chat-room-modal {
+  min-height: 70px;
+  position: relative;
+  .avatar-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .user-name {
+    font-weight: bold;
+  }
+}

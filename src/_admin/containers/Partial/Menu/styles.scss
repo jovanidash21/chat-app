@@ -1,0 +1,17 @@
+.admin-menu-wrapper {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .title {
+    flex-shrink: 1;
+    margin: 0;
+    padding: 15px;
+  }
+  .menus-list {
+    @include scrollbar($color-dusty-gray, rgba($color-dusty-gray, 0.2));
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+}

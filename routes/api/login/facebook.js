@@ -50,39 +50,10 @@ passport.use(new Strategy({
       } else {
         var newUser = new User(userData);
 
-        newUser.save(function(err) {
-          if (!err) {
+        newUser.save()
+          .then((userData) => {
             var chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
-            var userID = newUser._id;
-
-            if (chatLoungeID) {
-              ChatRoom.findByIdAndUpdate(
-                chatLoungeID,
-                { $push: { members: userID }},
-                { safe: true, upsert: true, new: true },
-                function(err) {
-                  if (!err) {
-                    done();
-                  } else {
-                    done(err);
-                  }
-                }
-              );
-
-              User.findByIdAndUpdate(
-                userID,
-                { $push: { chatRooms: { data: chatLoungeID, unReadMessages: 0 } } },
-                { safe: true, upsert: true, new: true },
-                function(err) {
-                  if (!err) {
-                    done();
-                  } else {
-                    done(err);
-                  }
-                }
-              );
-            }
-
+            var userID = userData._id;
             var chatRoomData = {
               name: newUser.name,
               chatIcon: '',
@@ -91,32 +62,36 @@ passport.use(new Strategy({
             };
             var chatRoom = new ChatRoom(chatRoomData);
 
-            chatRoom.save(function(err, chatRoomData) {
-              if (!err) {
-                var chatRoomID = chatRoom._id;
+            if (chatLoungeID) {
+              ChatRoom.findByIdAndUpdate(
+                chatLoungeID,
+                { $push: { members: userID }},
+                { safe: true, upsert: true, new: true }
+              ).exec();
 
-                User.findByIdAndUpdate(
-                  userID,
-                  { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
-                  { safe: true, upsert: true, new: true },
-                  function(err) {
-                    if (!err) {
-                      done();
-                    } else {
-                      done(err);
-                    }
-                  }
-                );
-              } else {
-                done(err);
-              }
-            });
+              User.findByIdAndUpdate(
+                userID,
+                { $push: { chatRooms: { data: chatLoungeID, unReadMessages: 0 } } },
+                { safe: true, upsert: true, new: true }
+              ).exec();
+            }
+
+            return chatRoom.save();
+          })
+          .then((chatRoomData) => {
+            var chatRoomID = chatRoomData._id;
+
+            User.findByIdAndUpdate(
+              newUser._id,
+              { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
+              { safe: true, upsert: true, new: true }
+            ).exec();
 
             return done(null, newUser);
-          } else {
+          })
+          .catch((error) => {
             return done(err);
-          }
-        });
+          });
       }
     } else {
       return done(err);

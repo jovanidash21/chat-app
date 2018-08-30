@@ -44,6 +44,14 @@ var userSchema = new Schema (
       ],
       default: 'local',
     },
+    role: {
+      type: String,
+      enum: [
+        'admin',
+        'ordinary',
+      ],
+      default: 'ordinary',
+    },
     isOnline: {
       type: Boolean,
       default: false,

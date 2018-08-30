@@ -1,0 +1,31 @@
+.members-list-wrapper {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .members-count {
+    align-items: center;
+    display: flex;
+    flex-shrink: 1;
+    margin: 0;
+    padding: 15px;
+    h3 {
+      margin: 0;
+    }
+    .user-icon {
+      margin-right: 5px;
+      margin-top: 1px;
+    }
+  }
+  .members-list {
+    @include scrollbar($color-dusty-gray, rgba($color-dusty-gray, 0.2));
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    .no-results {
+      font-size: 16px;
+      padding: 5px;
+      text-align: center;
+    }
+  }
+}

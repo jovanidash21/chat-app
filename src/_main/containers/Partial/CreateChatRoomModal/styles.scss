@@ -1,0 +1,11 @@
+.create-chat-room-modal {
+  .users-list {
+    .user-wrapper {
+      &:first-child {
+        .user:hover {
+          background-color: $color-dusty-gray;
+        }
+      }
+    }
+  }
+}

@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var ChatRoom = require('../../models/ChatRoom');
 
-router.get('/:chatRoomID/:userID', function(req, res, next) {
-  var chatRoomID = req.params.chatRoomID;
-  var userID = req.params.userID;
+router.post('/', function(req, res, next) {
+  var chatRoomID = req.body.chatRoomID;
+  var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
@@ -14,15 +14,15 @@ router.get('/:chatRoomID/:userID', function(req, res, next) {
   } else {
     ChatRoom.findById(chatRoomID)
       .populate('members')
-      .exec(function(err, chatRoom) {
-        if (!err) {
-          res.status(200).send(chatRoom.members);
-        } else {
-          res.status(500).send({
-            success: false,
-            message: 'Server Error!'
-          });
-        }
+      .exec()
+      .then((chatRoom) => {
+        res.status(200).send(chatRoom.members);
+      })
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
       });
   }
 });

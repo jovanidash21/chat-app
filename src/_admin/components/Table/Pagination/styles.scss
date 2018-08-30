@@ -1,0 +1,47 @@
+.pagination-buttons {
+  padding: 0;
+  li {
+    display: inline-block;
+    list-style-type: none;
+    &:first-child {
+      .pagination-button {
+        margin-left: 0;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
+      }
+    }
+    &:last-child {
+      .pagination-button {
+        border-bottom-right-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+    }
+    .pagination-button {
+      background-color: #fff;
+      border: 1px solid $color-alto;
+      border-radius: 0;
+      color: $color-mine-shaft;
+      margin-left: -1px;
+      text-transform: lowercase;
+      &:active,
+      &:focus {
+        background-color: #fff;
+      }
+      &:disabled {
+        pointer-events: unset;
+      }
+      &:hover {
+        color: $color-primary;
+      }
+      &.active {
+        background-color: $color-primary;
+        color: #fff;
+      }
+      &.arrow-button,
+      &.ellipsis-button {
+        font-size: 12px;
+        padding: 0 0.8rem;
+      }
+    }
+  }
+}

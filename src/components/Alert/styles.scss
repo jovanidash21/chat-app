@@ -1,0 +1,21 @@
+.alert {
+  border-radius: 0;
+  margin-bottom: 1.25rem;
+  padding: 15px;
+  &.alert-success {
+    background-color: $color-water-leaf;
+    color: $color-blue-stone;
+  }
+  &.alert-info {
+    background-color: $color-malibu;
+    color: $color-deep-sea-green;
+  }
+  &.alert-warning {
+    background-color: $color-cream-brulee;
+    color: $color-corn-harvest;
+  }
+  &.alert-danger {
+    background-color: $color-melon;
+    color: $color-kenyan-copper;
+  }
+}

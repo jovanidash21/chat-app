@@ -1,0 +1,12 @@
+.footer {
+  color: $color-emperor;
+  font-size: 14px;
+  .footer-copyright {
+    align-items: center;
+    display: flex;
+    padding: 15px;
+    .copyright-icon {
+      margin: 0 5px;
+    }
+  }
+}

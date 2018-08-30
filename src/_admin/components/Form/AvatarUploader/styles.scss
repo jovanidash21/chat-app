@@ -1,0 +1,27 @@
+.avatar-uploader-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  .avatar-uploader {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    input {
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      width: 0.1px;
+      z-index: -1;
+    }
+    label {
+      height: 31px;
+      &.disabled {
+        box-shadow: none;
+        cursor: not-allowed;
+        opacity: 0.6;
+        pointer-events: none;
+      }
+    }
+  }
+}
