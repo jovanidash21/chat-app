@@ -13,8 +13,8 @@
     "start": "node bin/www",
     "build": "run-s webpack:prod node:prod",
     "dev": "run-p webpack:dev node:dev",
-    "webpack:prod": "webpack -p",
-    "webpack:dev": "webpack --watch",
+    "webpack:prod": "webpack --progress --colors -p --config webpack.prod.js --env.minimize",
+    "webpack:dev": "webpack --progress --colors --config webpack.dev.js --watch",
     "node:prod": "cross-env NODE_ENV=production node bin/www",
     "node:dev": "nodemon bin/www --watch build"
   },

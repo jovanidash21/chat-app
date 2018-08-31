@@ -10,17 +10,14 @@ const extractSassBundle = new ExtractTextPlugin({
   disable: false,
 });
 
-const webpackConfig = {
-  devtool: 'source-map',
+module.exports = {
   entry: {
-    main: './src/_main/index.js',
-    admin: './src/_admin/index.js',
+    main: ['babel-polyfill', path.resolve(__dirname, 'src/_main/index.js')],
+    admin: ['babel-polyfill', path.resolve(__dirname, 'src/_admin/index.js')],
   },
-  output: {
-    path: path.join(__dirname, '/public/build'),
-    publicPath: '/',
-    filename: '[name].bundle.js',
-  },
+  plugins: [
+    extractSassBundle,
+  ],
   resolve: {
     extensions: ['.js', '.jsx'],
   },
@@ -103,15 +100,9 @@ const webpackConfig = {
       },
     ],
   },
-  plugins: [
-    extractSassBundle,
-  ],
-};
-
-module.exports = function(env) {
-  if ((env && env.minimize) || process.env.NODE_ENV === 'production') {
-    webpackConfig.devtool = false;
-  }
-
-  return webpackConfig;
+  output: {
+    filename: '[name].bundle.js',
+    path: path.join(__dirname, '/public/build'),
+    publicPath: '/',
+  },
 };
