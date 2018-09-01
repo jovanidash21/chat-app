@@ -5,23 +5,27 @@ import { Input } from 'muicss/react';
 const EmailInput = (props) => {
   return (
     <Input
+      value={props.value}
       label="Email"
-      type="text"
+      type="email"
+      name="email"
       autoComplete="off"
       floatingLabel={true}
       required={true}
-      onChange={props.onEmailChange}
+      onChange={props.handleChange}
       disabled={props.isDisabled}
     />
   );
 }
 
 EmailInput.propTypes = {
-  onEmailChange: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool
 }
 
 EmailInput.defaultProps = {
+  value: '',
   isDisabled: false
 }
 

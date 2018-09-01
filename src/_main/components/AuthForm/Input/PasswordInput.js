@@ -5,23 +5,27 @@ import { Input } from 'muicss/react';
 const PasswordInput = (props) => {
   return (
     <Input
+      value={props.value}
       label="Password"
       type="password"
+      name="password"
       autoComplete="off"
       floatingLabel={true}
       required={true}
-      onChange={props.onPasswordChange}
+      onChange={props.handleChange}
       disabled={props.isDisabled}
     />
   );
 }
 
 PasswordInput.propTypes = {
-  onPasswordChange: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool
 }
 
 PasswordInput.defaultProps = {
+  value: '',
   isDisabled: false
 }
 

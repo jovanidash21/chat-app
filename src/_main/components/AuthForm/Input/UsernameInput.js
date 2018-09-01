@@ -5,23 +5,27 @@ import { Input } from 'muicss/react';
 const UsernameInput = (props) => {
   return (
     <Input
+      value={props.value}
       label="Username"
       type="text"
+      name="username"
       autoComplete="off"
       floatingLabel={true}
       required={true}
-      onChange={props.onUsernameChange}
+      onChange={props.handleChange}
       disabled={props.isDisabled}
     />
   );
 }
 
 UsernameInput.propTypes = {
-  onUsernameChange: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool
 }
 
 UsernameInput.defaultProps = {
+  value: '',
   isDisabled: false
 }
 

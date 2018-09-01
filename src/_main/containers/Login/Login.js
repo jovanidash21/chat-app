@@ -6,7 +6,8 @@ import {
   Row,
   Col,
   Panel,
-  Divider
+  Divider,
+  Input
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import Head from '../../../components/Head';
@@ -32,15 +33,10 @@ class Login extends Component {
     document.body.className = '';
     document.body.classList.add('login-page');
   }
-  onUsernameChange(event) {
+  handleChange(event) {
     event.preventDefault();
 
-    this.setState({username: event.target.value});
-  }
-  onPasswordChange(event) {
-    event.preventDefault();
-
-    this.setState({password: event.target.value});
+    this.setState({[event.target.name]: event.target.value});
   }
   handleHeadData() {
     const title = 'Chat App | Login';
@@ -70,6 +66,10 @@ class Login extends Component {
       githubLogin,
       auth
     } = this.props;
+    const {
+      username,
+      password
+    } = this.state;
 
     return (
       <div>
@@ -88,11 +88,13 @@ class Login extends Component {
             <Col md="12">
               <Form onSubmit={::this.handleLocalLogin}>
                 <UsernameInput
-                  onUsernameChange={::this.onUsernameChange}
+                  value={username}
+                  handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
                 <PasswordInput
-                  onPasswordChange={::this.onPasswordChange}
+                  value={password}
+                  handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
                 <LoginButton

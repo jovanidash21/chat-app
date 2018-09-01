@@ -35,25 +35,10 @@ class Register extends Component {
     document.body.className = '';
     document.body.classList.add('register-page');
   }
-  onEmailChange(event) {
+  handleChange(event) {
     event.preventDefault();
 
-    this.setState({email: event.target.value});
-  }
-  onNameChange(event) {
-    event.preventDefault();
-
-    this.setState({name: event.target.value});
-  }
-  onUsernameChange(event) {
-    event.preventDefault();
-
-    this.setState({username: event.target.value});
-  }
-  onPasswordChange(event) {
-    event.preventDefault();
-
-    this.setState({password: event.target.value});
+    this.setState({[event.target.name]: event.target.value});
   }
   handleHeadData() {
     const title = 'Chat App | Register';
@@ -80,6 +65,12 @@ class Register extends Component {
       auth,
       register
     } = this.props;
+    const {
+      email,
+      name,
+      username,
+      password
+    } = this.state;
 
     return (
       <div>
@@ -98,19 +89,23 @@ class Register extends Component {
             <Col md="12">
               <Form onSubmit={::this.handleRegister}>
                 <EmailInput
-                  onEmailChange={::this.onEmailChange}
+                  value={email}
+                  handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
                 <NameInput
-                  onNameChange={::this.onNameChange}
+                  value={name}
+                  handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
                 <UsernameInput
-                  onUsernameChange={::this.onUsernameChange}
+                  value={username}
+                  handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
                 <PasswordInput
-                  onPasswordChange={::this.onPasswordChange}
+                  value={password}
+                  handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
                 <RegisterButton
