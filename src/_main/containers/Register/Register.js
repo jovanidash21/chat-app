@@ -108,17 +108,17 @@ class Register extends Component {
                   handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
-                <RegisterButton
-                  type="submit"
-                  isDisabled={auth.isLoading}
-                />
+                <RegisterButton isDisabled={auth.isLoading} />
               </Form>
             </Col>
             <Col md="12">
               <Divider className="line" />
             </Col>
             <Col md="12">
-              <LoginButton isDisabled={auth.isLoading} />
+              <LoginButton
+                link="/"
+                isDisabled={auth.isLoading}
+              />
             </Col>
           </Row>
         </Panel>

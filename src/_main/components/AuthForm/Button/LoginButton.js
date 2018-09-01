@@ -4,43 +4,40 @@ import { Link } from 'react-router-dom';
 import { Button } from 'muicss/react';
 
 const LoginButton = (props) => {
-  return (
-    <div>
-      {
-        ((props.type === '') && (!props.isDisabled))
-          ?
-          <Link to="/">
-            <Button
-              className='button button-login'
-              size="large"
-              variant="raised"
-              disabled={false}
-            >
-              Login
-            </Button>
-          </Link>
-          :
-          <Button
-            className='button button-login'
-            size="large"
-            type={props.type}
-            variant="raised"
-            disabled={props.isDisabled}
-          >
-            Login
-          </Button>
-      }
-    </div>
-  );
+  if ( props.link.length > 0 ) {
+    return (
+      <Link
+        to={props.link}
+        className={
+          "mui-btn mui-btn--raised mui-btn--large button button-login " +
+          (props.isDisabled ? 'disabled' : '')
+        }
+      >
+        Login
+      </Link>
+    )
+  } else {
+    return (
+      <Button
+        className='button button-login'
+        size="large"
+        type="submit"
+        variant="raised"
+        disabled={props.isDisabled}
+      >
+        Login
+      </Button>
+    )
+  }
 }
 
 LoginButton.propTypes = {
-  type: PropTypes.string,
+  link: PropTypes.string,
   isDisabled: PropTypes.bool
 }
 
 LoginButton.defaultProps = {
-  type: '',
+  link: '',
   isDisabled: false
 }
 

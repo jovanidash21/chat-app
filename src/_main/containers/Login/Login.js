@@ -97,10 +97,7 @@ class Login extends Component {
                   handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
-                <LoginButton
-                  type="submit"
-                  isDisabled={auth.isLoading}
-                />
+                <LoginButton isDisabled={auth.isLoading} />
               </Form>
             </Col>
             <Col md="12">
@@ -161,7 +158,10 @@ class Login extends Component {
               <Divider className="line" />
             </Col>
             <Col md="12">
-              <RegisterButton isDisabled={auth.isLoading} />
+              <RegisterButton
+                link="/register"
+                isDisabled={auth.isLoading}
+              />
             </Col>
           </Row>
         </Panel>
