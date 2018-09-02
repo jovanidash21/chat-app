@@ -6,6 +6,7 @@ import { Button } from 'muicss/react';
 import emojione from 'emojione';
 import EmojiPicker from 'emojione-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Popup from 'react-popup';
 import uuidv4 from 'uuid/v4';
 import 'emojione-picker/css/picker.css';
 import './styles.scss';
@@ -19,7 +20,8 @@ class ChatInput extends Component {
       message: '',
       typing: false,
       emojiPicker: false,
-      validMessage: false
+      validMessage: false,
+      maxLengthReached: false
     };
   }
   onMessageChange(event, value) {
@@ -28,10 +30,18 @@ class ChatInput extends Component {
     const messageValue = value;
 
     this.setState({message: messageValue});
+    ::this.handleMessageTextLength();
   }
   onMessageKeyPress(event) {
+    const { maxLengthReached } = this.state;
+    const messageTextLength = ::this.handleMessageText('length');
+
     if ( event.key === 'Enter' ) {
       event.preventDefault();
+    }
+
+    if ( maxLengthReached || messageTextLength >= 160 ) {
+      Popup.alert('Sorry, maximum of 160 characters only!');
     }
   }
   onMessageKeyUp(event) {
@@ -44,7 +54,8 @@ class ChatInput extends Component {
     const {
       message,
       typing,
-      validMessage
+      validMessage,
+      maxLengthReached
     } = this.state;
     const chatInputText = document.getElementById('chat-input').innerHTML;
 
@@ -76,7 +87,7 @@ class ChatInput extends Component {
       handleSocketIsNotTyping(user, activeChatRoom.data._id);
     }
 
-    if ( (event.key === 'Enter') && validMessage ) {
+    if ( (event.key === 'Enter') && validMessage && !maxLengthReached ) {
       ::this.handleSendTextMessageOnChange(event);
 
       this.setState({
@@ -87,6 +98,14 @@ class ChatInput extends Component {
       });
     }
     ::this.handleSaveCaretPosition(event);
+  }
+  onMessagePaste(event) {
+    const messageTextLength = ::this.handleMessageText('length');
+    const maxLengthLeft = 160 - messageTextLength;
+
+    if ( maxLengthLeft <= 0 ) {
+      Popup.alert('Sorry, maximum of 160 characters only!');
+    } 
   }
   handleImageUploadSelect(event) {
     const { handleSendImageMessage } = this.props;
@@ -130,8 +149,10 @@ class ChatInput extends Component {
     const {
       caretPosition,
       typing,
-      validMessage
+      validMessage,
+      maxLengthReached
     } = this.state;
+    const messageTextLength = ::this.handleMessageText('length');
 
     var emojiSelect = emojione.toImage(emoji.shortname);
 
@@ -146,7 +167,12 @@ class ChatInput extends Component {
     }
 
     document.getElementById('chat-input').focus();
-    ::this.handleInsertEmoji(emojiSelect);
+
+    if ( maxLengthReached || messageTextLength >= 159 ) {
+      Popup.alert('Sorry, maximum of 160 characters only!');
+    } else {
+      ::this.handleInsertEmoji(emojiSelect);
+    }
 
     if ( !typing && !validMessage ) {
       this.setState({
@@ -193,7 +219,16 @@ class ChatInput extends Component {
       this.setState({caretPosition: document.selection.createRange()});
     }
   }
-  handleMessageText() {
+  handleMessageTextLength() {
+    const messageTextLength = ::this.handleMessageText('length');
+
+    if ( messageTextLength > 160 ) {
+      this.setState({maxLengthReached: true});
+    } else {
+      this.setState({maxLengthReached: false});
+    }
+  }
+  handleMessageText(type) {
     var emojis = document.getElementById('chat-input').getElementsByClassName('emojione');
     var chatInputText = document.getElementById('chat-input').innerHTML;
 
@@ -207,8 +242,13 @@ class ChatInput extends Component {
     element.innerHTML = chatInputText;
 
     var messageText = element.textContent || element.innerText || "";
+    messageText = messageText.trim();
 
-    return messageText;
+    if ( type === 'text' ) {
+      return messageText;
+    } else if ( type === 'length' ) {
+      return messageText.length;
+    }
   }
   handleSendTextMessageOnChange(event) {
     const {
@@ -217,7 +257,7 @@ class ChatInput extends Component {
       handleSocketIsNotTyping,
       handleSendTextMessage
     } = this.props;
-    const messageText = ::this.handleMessageText().trim();
+    const messageText = ::this.handleMessageText('text');
     const newMessageID = uuidv4();
 
     document.getElementById('chat-input').innerHTML = '';
@@ -233,11 +273,14 @@ class ChatInput extends Component {
       handleSocketIsNotTyping,
       handleSendTextMessage
     } = this.props;
-    const { validMessage } = this.state;
-    const messageText = ::this.handleMessageText().trim();
+    const {
+      validMessage,
+      maxLengthReached
+    } = this.state;
+    const messageText = ::this.handleMessageText('text');
     const newMessageID = uuidv4();
 
-    if ( validMessage ) {
+    if ( validMessage && !maxLengthReached ) {
       document.getElementById('chat-input').innerHTML = '';
       document.getElementById('chat-input').focus();
       handleSocketIsNotTyping(user, activeChatRoom.data._id);
@@ -256,7 +299,8 @@ class ChatInput extends Component {
     const {
       message,
       emojiPicker,
-      validMessage
+      validMessage,
+      maxLengthReached
     } = this.state;
 
     return (
@@ -287,6 +331,7 @@ class ChatInput extends Component {
           onChange={::this.onMessageChange}
           onKeyPress={::this.onMessageKeyPress}
           onKeyUp={::this.onMessageKeyUp}
+          onPaste={::this.onMessagePaste}
           contentEditable="plaintext-only"
         />
         <div className="extra-buttons">
@@ -331,7 +376,7 @@ class ChatInput extends Component {
         <Button
           className="send-button"
           onClick={::this.handleSendTextMessageOnClick}
-          disabled={!validMessage}
+          disabled={!validMessage || maxLengthReached}
         >
           <FontAwesomeIcon icon="paper-plane" size="2x" />
         </Button>
