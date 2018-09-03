@@ -17,6 +17,9 @@
     }
   }
   &.offline {
+    .avatar {
+      filter: grayscale(100%);
+    }
     .member-name {
       color: $color-dusty-gray;
     }
