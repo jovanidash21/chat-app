@@ -1,11 +1,11 @@
 .sub-menu-item-wrapper {
   a.active {
     .sub-menu-item {
-      background-color: $color-night-rider !important;
+      background-color: $color-treehouse !important;
     }
   }
   .sub-menu-item {
-    background-color: $color-kabul;
+    background-color: $color-saddle;
     color: #fff;
     cursor: pointer;
     padding: 6px 10px;
@@ -13,7 +13,7 @@
     &:active,
     &:focus,
     &:hover {
-      background-color: $color-oil;
+      background-color: $color-millbrook;
     }
     .sub-menu-title {
       font-size: 14px;

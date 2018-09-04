@@ -1,6 +1,6 @@
 .chat-room {
   align-items: center;
-  border-bottom: 1px solid $color-oil;
+  border-bottom: 1px solid $color-millbrook;
   color: $color-old-lace;
   cursor: pointer;
   display: flex;
@@ -10,7 +10,7 @@
   &:active,
   &:focus,
   &:hover {
-    background-color: $color-oil;
+    background-color: $color-millbrook;
   }
   &.active {
     background-color: $color-primary;

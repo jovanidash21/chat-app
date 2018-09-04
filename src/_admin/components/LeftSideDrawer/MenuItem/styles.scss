@@ -16,10 +16,10 @@
     &:active,
     &:focus,
     &:hover {
-      background-color: $color-oil;
+      background-color: $color-millbrook;
     }
     &.selected {
-      background-color: $color-night-rider;
+      background-color: $color-treehouse;
       & + .sub-menu-items {
         display: block;
       }
