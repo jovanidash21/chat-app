@@ -87,21 +87,33 @@
     padding: 10px;
     transition: $transition;
     width: 70px;
+    @media screen and (max-width: $screen-mobile-max) {
+      font-size: 11px;
+    }
   }
   .card-content {
     padding: 25px 15px;
     text-align: right;
+    @media screen and (max-width: $screen-mobile-max) {
+      padding: 5px 10px;
+    }
     .label {
       color: $color-emperor;
       font-size: 16px;
       text-transform: uppercase;
       transition: $transition;
       white-space: nowrap;
+      @media screen and (max-width: $screen-mobile-max) {
+        font-size: 14px;
+      }
     }
     .count {
       font-size: 60px;
       line-height: 60px;
       transition: $transition;
+      @media screen and (max-width: $screen-mobile-max) {
+        font-size: 45px;
+      }
     }
   }
 }
