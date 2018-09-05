@@ -19,7 +19,6 @@ import {
   PasswordInput,
   AvatarUploader
 } from '../../../components/Form';
-import './styles.scss';
 
 class UserForm extends Component {
   constructor(props) {

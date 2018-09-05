@@ -17,7 +17,6 @@ import mapDispatchToProps from '../../../actions';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { UserSelect } from '../../../../components/UserSelect';
 import { AvatarUploader } from '../../../components/Form';
-import './styles.scss';
 
 class ChatRoomForm extends Component {
   constructor(props) {
