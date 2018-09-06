@@ -108,7 +108,7 @@ class ChatRoomsList extends Component {
               onClick={::this.handleOpenModal}
               title="Create Chat Room"
             >
-              <FontAwesomeIcon icon="plus-circle" />
+              <FontAwesomeIcon icon="plus" />
             </div>
           </div>
           {::this.handleChatRoomsListRender()}

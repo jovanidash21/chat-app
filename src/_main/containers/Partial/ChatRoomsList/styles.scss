@@ -17,11 +17,13 @@
       margin: 0;
     }
     .plus-icon {
+      color: $color-alto;
       cursor: pointer;
-      font-size: 25px;
+      font-size: 21px;
       transition: all 0.2s ease;
       &:hover {
         color: $color-primary;
+        transform: scale(1.5); 
       }
     }
   }
