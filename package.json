@@ -11,12 +11,15 @@
   },
   "scripts": {
     "start": "node bin/www",
-    "build": "run-s webpack:prod node:prod",
-    "dev": "run-p webpack:dev node:dev",
+    "build": "run-s clean-webpack:prod node:prod",
+    "dev": "run-p clean-webpack:dev node:dev",
+    "clean-webpack:prod": "run-s clean webpack:prod",
+    "clean-webpack:dev": "run-s clean webpack:dev",
     "webpack:prod": "webpack --progress --colors -p --config webpack.prod.js --env.minimize",
     "webpack:dev": "webpack --progress --colors --config webpack.dev.js --watch",
     "node:prod": "cross-env NODE_ENV=production node bin/www",
-    "node:dev": "nodemon bin/www --watch build"
+    "node:dev": "nodemon bin/www --watch build",
+    "clean": "rimraf public/build"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
