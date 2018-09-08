@@ -105,14 +105,7 @@ class ChatInput extends Component {
 
     if ( maxLengthLeft <= 0 ) {
       Popup.alert('Sorry, maximum of 160 characters only!');
-    } 
-  }
-  handleFileUploadSelect(event) {
-    const { handleSendFileMessage } = this.props;
-    const newMessageID = uuidv4();
-    const fileName = event.target.value.split(/(\\|\/)/g).pop();
-
-    handleSendFileMessage(newMessageID, fileName, event.target.files[0]);
+    }
   }
   handleSaveCaretPosition(event) {
     event.preventDefault();
@@ -287,6 +280,13 @@ class ChatInput extends Component {
       });
     }
   }
+  handleDragDropBoxToggle(event) {
+    event.preventDefault();
+
+    const { handleDragDropBoxToggle } = this.props;
+
+    handleDragDropBoxToggle(true);
+  }
   render() {
     const { handleAudioRecorderToggle } = this.props;
     const {
@@ -335,15 +335,12 @@ class ChatInput extends Component {
           >
             <FontAwesomeIcon icon="microphone" />
           </div>
-          <div className="file-button" title="Add a File">
-            <input
-              id="file-button"
-              type="file"
-              onChange={::this.handleFileUploadSelect}
-            />
-            <label htmlFor="file-button">
-              <FontAwesomeIcon icon="paperclip" />
-            </label>
+          <div
+            className="file-button"
+            onClick={::this.handleDragDropBoxToggle}
+            title="Add a File"
+          >
+            <FontAwesomeIcon icon="paperclip" />
           </div>
           <MediaQuery query="(min-width: 768px)">
             <div
@@ -374,7 +371,7 @@ ChatInput.propTypes = {
   handleSocketIsNotTyping: PropTypes.func.isRequired,
   handleSendTextMessage: PropTypes.func.isRequired,
   handleAudioRecorderToggle: PropTypes.func.isRequired,
-  handleSendFileMessage: PropTypes.func.isRequired,
+  handleDragDropBoxToggle: PropTypes.func.isRequired
 }
 
 export default ChatInput;

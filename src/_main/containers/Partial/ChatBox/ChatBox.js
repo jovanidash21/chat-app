@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import { Container } from 'muicss/react';
 import Popup from 'react-popup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import uuidv4 from 'uuid/v4';
 import mapDispatchToProps from '../../../actions';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import {
   ChatDateTime,
   ChatBubble,
   ChatTyper,
-  ChatImageLightBox
+  ChatImageLightBox,
+  ChatDragDropBox
 } from '../../../components/Chat';
 import './styles.scss';
 
@@ -200,6 +202,22 @@ class ChatBox extends Component {
       )
     }
   }
+  handleDragDropBoxRender() {
+    const {
+      handleDragDropBoxToggle,
+      isDragDropBoxOpen
+    } = this.props;
+
+    if ( isDragDropBoxOpen ) {
+      return (
+        <ChatDragDropBox
+          handleDragDropBoxToggle={handleDragDropBoxToggle}
+          handleFilesDrop={::this.handleFilesDrop}
+          handleSelectFile={::this.handleSelectFile}
+        />
+      )
+    }
+  }
   handleFetchOldMessages() {
     const {
       user,
@@ -263,6 +281,43 @@ class ChatBox extends Component {
   handleNextImage(imageIndex) {
     this.setState({imageIndex: imageIndex});
   }
+  handleSendFileMessage(newMessageID, text, file) {
+    const {
+      user,
+      chatRoom,
+      sendFileMessage
+    } = this.props;
+
+    sendFileMessage(newMessageID, text, file, user.active, chatRoom.active.data._id);
+  }
+  handleFilesDrop(acceptedFiles, rejectedFiles) {
+    const { handleDragDropBoxToggle } = this.props;
+
+    if ( rejectedFiles.length > 0 ) {
+      Popup.alert('Maximum file size upload is 2MB only');
+    } else {
+      handleDragDropBoxToggle();
+
+      for (var i = 0; i < acceptedFiles.length; i++) {
+        const file = acceptedFiles[i];
+        const newMessageID = uuidv4();
+        const fileName = file.name;
+
+        ::this.handleSendFileMessage(newMessageID, fileName, file);
+      }
+    }
+  }
+  handleSelectFile(fileName, file) {
+    const { handleDragDropBoxToggle } = this.props;
+    const newMessageID = uuidv4();
+
+    if ( file.size > 1024 * 1024 * 2 ) {
+      Popup.alert('Maximum file size upload is 2MB only');
+    } else {
+      handleDragDropBoxToggle();
+      ::this.handleSendFileMessage(newMessageID, fileName, file);
+    }
+  }
   handleAudioPlayingToggle(audioPlayingIndex) {
     const { audioIndex } = this.state;
 
@@ -305,6 +360,7 @@ class ChatBox extends Component {
           />
         </div>
         {::this.handleImageLightboxRender()}
+        {::this.handleDragDropBoxRender()}
       </div>
     )
   }
@@ -320,11 +376,14 @@ const mapStateToProps = (state) => {
 }
 
 ChatBox.propTypes = {
-  isAudioRecorderOpen: PropTypes.bool
+  isAudioRecorderOpen: PropTypes.bool,
+  handleDragDropBoxToggle: PropTypes.func.isRequired,
+  isDragDropBoxOpen: PropTypes.bool
 }
 
 ChatBox.defaultProps = {
-  isAudioRecorderOpen: false
+  isAudioRecorderOpen: false,
+  isDragDropBoxOpen: false
 }
 
 export default connect(

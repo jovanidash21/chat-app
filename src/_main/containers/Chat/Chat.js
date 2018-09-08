@@ -29,7 +29,8 @@ class Chat extends Component {
     this.state = {
       isLeftSideDrawerOpen: false,
       isRightSideDrawerOpen: false,
-      isAudioRecorderOpen: false
+      isAudioRecorderOpen: false,
+      isDragDropBoxOpen: false
     };
   }
   componentWillMount() {
@@ -88,6 +89,9 @@ class Chat extends Component {
 
     this.setState({isAudioRecorderOpen: !this.state.isAudioRecorderOpen});
   }
+  handleDragDropBoxToggle(openTheDragDropBox=false) {
+    this.setState({isDragDropBoxOpen: openTheDragDropBox});
+  }
   handleSendTextMessage(newMessageID, text) {
     const {
       user,
@@ -105,22 +109,9 @@ class Chat extends Component {
     } = this.props;
 
     if ( audio.size > 1024 * 1024 * 2 ) {
-      Popup.alert('Maximum upload file size is 2MB only');
+      Popup.alert('Maximum file size upload is 2MB only');
     } else {
       sendAudioMessage(newMessageID, text, audio, user.active, chatRoom.active.data._id);
-    }
-  }
-  handleSendFileMessage(newMessageID, text, file) {
-    const {
-      user,
-      chatRoom,
-      sendFileMessage
-    } = this.props;
-
-    if ( file.size > 1024 * 1024 * 2 ) {
-      Popup.alert('Maximum upload file size is 2MB only');
-    } else {
-      sendFileMessage(newMessageID, text, file, user.active, chatRoom.active.data._id);
     }
   }
   handleNotificationViewMessage(chatRoomObj) {
@@ -144,7 +135,8 @@ class Chat extends Component {
     } = this.props;
     const {
       isRightSideDrawerOpen,
-      isAudioRecorderOpen
+      isAudioRecorderOpen,
+      isDragDropBoxOpen
     } = this.state;
 
     return (
@@ -162,7 +154,11 @@ class Chat extends Component {
             handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
           />
         </Header>
-        <ChatBox isAudioRecorderOpen={isAudioRecorderOpen} />
+        <ChatBox
+          isAudioRecorderOpen={isAudioRecorderOpen}
+          handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
+          isDragDropBoxOpen={isDragDropBoxOpen}
+        />
         {
           !isAudioRecorderOpen
             ?
@@ -173,7 +169,7 @@ class Chat extends Component {
               handleSocketIsNotTyping={socketIsNotTyping}
               handleSendTextMessage={::this.handleSendTextMessage}
               handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
-              handleSendFileMessage={::this.handleSendFileMessage}
+              handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
             />
             :
             <ChatAudioRecorder

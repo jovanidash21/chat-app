@@ -1,0 +1,51 @@
+.chat-drag-drop-box-wrapper {
+  background-color: rgba(#000, 0.7);
+  border: 5px dashed #fff;
+  border-radius: 5px;
+  bottom: 0;
+  color: #fff;
+  left: 0;
+  position: absolute !important;
+  right: 0;
+  top: 0;
+  transition: all 0.2s ease-in-out;
+  z-index: 2;
+  &.active {
+    background-color: rgba(#000, 0.9);
+  }
+  .chat-drag-drop-box {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+    input {
+      height: 0.1px;
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      width: 0.1px;
+      z-index: -1;
+    }
+    label {
+      margin-bottom: 15px;
+    }
+    .title {
+      font-size: 25px;
+    }
+  }
+  .close-icon {
+    cursor: pointer;
+    font-size: 20px;
+    opacity: 0.7;
+    padding: 2px 5px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    transition: all 0.2s ease;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
