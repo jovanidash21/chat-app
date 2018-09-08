@@ -138,6 +138,7 @@ class Chat extends Component {
       isAudioRecorderOpen,
       isDragDropBoxOpen
     } = this.state;
+    const isChatInputDisabled = chatRoom.isFetching || message.isFetchingNew || isDragDropBoxOpen;
 
     return (
       <div id="chat-section" className="chat-section">
@@ -170,6 +171,7 @@ class Chat extends Component {
               handleSendTextMessage={::this.handleSendTextMessage}
               handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
               handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
+              isDisabled={isChatInputDisabled}
             />
             :
             <ChatAudioRecorder
@@ -186,7 +188,8 @@ class Chat extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
+    message: state.message
   }
 }
 
