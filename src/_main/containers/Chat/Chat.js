@@ -123,21 +123,6 @@ class Chat extends Component {
       sendFileMessage(newMessageID, text, file, user.active, chatRoom.active.data._id);
     }
   }
-  handleSendImageMessage(newMessageID, text, image) {
-    const {
-      user,
-      chatRoom,
-      sendImageMessage
-    } = this.props;
-
-    if ( image.type.indexOf('image/') === -1 ) {
-      Popup.alert('Please select an image file');
-    } else if ( image.size > 1024 * 1024 * 2 ) {
-      Popup.alert('Maximum upload file size is 2MB only');
-    } else {
-      sendImageMessage(newMessageID, text, image, user.active, chatRoom.active.data._id);
-    }
-  }
   handleNotificationViewMessage(chatRoomObj) {
     const {
       user,
@@ -189,7 +174,6 @@ class Chat extends Component {
               handleSendTextMessage={::this.handleSendTextMessage}
               handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
               handleSendFileMessage={::this.handleSendFileMessage}
-              handleSendImageMessage={::this.handleSendImageMessage}
             />
             :
             <ChatAudioRecorder

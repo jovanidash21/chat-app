@@ -95,7 +95,6 @@
     font-size: 22px;
     margin-right: 10px;
     .audio-button,
-    .image-button,
     .file-button,
     .emoji-button {
       align-items: center;
@@ -120,7 +119,6 @@
         transform: scale(1.25);
       }
     }
-    .image-button,
     .file-button {
       input {
         height: 0.1px;

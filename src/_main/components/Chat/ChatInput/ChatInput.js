@@ -107,13 +107,6 @@ class ChatInput extends Component {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } 
   }
-  handleImageUploadSelect(event) {
-    const { handleSendImageMessage } = this.props;
-    const newMessageID = uuidv4();
-    const imageName = event.target.value.split(/(\\|\/)/g).pop();
-
-    handleSendImageMessage(newMessageID, imageName, event.target.files[0]);
-  }
   handleFileUploadSelect(event) {
     const { handleSendFileMessage } = this.props;
     const newMessageID = uuidv4();
@@ -342,17 +335,6 @@ class ChatInput extends Component {
           >
             <FontAwesomeIcon icon="microphone" />
           </div>
-          <div className="image-button" title="Add an image">
-            <input
-              id="image-button"
-              type="file"
-              accept="image/*"
-              onChange={::this.handleImageUploadSelect}
-            />
-            <label htmlFor="image-button">
-              <FontAwesomeIcon icon="camera" />
-            </label>
-          </div>
           <div className="file-button" title="Add a File">
             <input
               id="file-button"
@@ -393,7 +375,6 @@ ChatInput.propTypes = {
   handleSendTextMessage: PropTypes.func.isRequired,
   handleAudioRecorderToggle: PropTypes.func.isRequired,
   handleSendFileMessage: PropTypes.func.isRequired,
-  handleSendImageMessage: PropTypes.func.isRequired
 }
 
 export default ChatInput;

@@ -6,7 +6,7 @@ var User = require('../../models/User');
 var multer = require('multer');
 var slash = require('slash');
 
-var fileImageStorage = multer.diskStorage({
+var fileStorage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, './uploads/');
   },
@@ -25,23 +25,7 @@ var audioStorage = multer.diskStorage({
 });
 
 var fileUpload = multer({
-  storage: fileImageStorage,
-  limits: {
-    fileSize: 1024 * 1024 * 2
-  }
-});
-
-var imageFilter = (req, file, cb) => {
-  if ( file.mimetype.indexOf('image/') > -1 ) {
-    cb(null, true);
-  } else {
-    cb(null, false);
-  }
-};
-
-var imageUpload = multer({
-  storage: fileImageStorage,
-  fileFilter: imageFilter,
+  storage: fileStorage,
   limits: {
     fileSize: 1024 * 1024 * 2
   }
@@ -198,65 +182,6 @@ router.post('/file', fileUpload.single('file'), function(req, res, next) {
       chatRoom: chatRoomID,
       readBy: [userID],
       messageType: messageType,
-      fileLink: fileLink
-    };
-    var message = new Message(messageData);
-
-    message.save()
-      .then((messageData) => {
-        return ChatRoom.findById(chatRoomID);
-      })
-      .then((chatRoom) => {
-        for (var i = 0; i < chatRoom.members.length; i++) {
-          var memberID = chatRoom.members[i];
-
-          if (memberID != userID) {
-            User.update(
-              { _id: memberID, 'chatRooms.data': chatRoomID },
-              { $inc: { 'chatRooms.$.unReadMessages': 1 } },
-              { safe: true, upsert: true, new: true }
-            ).exec();
-          } else {
-            continue;
-          }
-        }
-
-        return Message.findById(message._id)
-          .populate('user');
-      })
-      .then((messageData) => {
-        res.status(200).send({
-          success: true,
-          message: 'Message Sent.',
-          messageData: messageData
-        });
-      })
-      .catch((error) => {
-        res.status(500).send({
-          success: false,
-          message: 'Server Error!'
-        });
-      });
-  }
-});
-
-router.post('/image', imageUpload.single('image'), function(req, res, next) {
-  var chatRoomID = req.body.chatRoomID;
-  var userID = req.body.userID;
-
-  if ((req.user === undefined) || (req.user._id != userID)) {
-    res.status(401).send({
-      success: false,
-      message: 'Unauthorized'
-    });
-  } else {
-    var fileLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
-    var messageData = {
-      text: req.file.originalname,
-      user: userID,
-      chatRoom: chatRoomID,
-      readBy: [userID],
-      messageType: 'image',
       fileLink: fileLink
     };
     var message = new Message(messageData);
