@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
+import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './styles.scss';
 
@@ -33,10 +34,14 @@ class ChatDragDropBox extends Component {
         disableClick
       >
         <div className="chat-drag-drop-box">
-          <div className="title">
-            Drop files to upload
-          </div>
-          or
+          <MediaQuery query="(min-width: 768px)">
+            <div style={{textAlign: 'center'}}>
+              <div className="title">
+                Drop files to upload
+              </div>
+              or
+            </div>
+          </MediaQuery>
           <input
             id="file-uploader-button"
             type="file"
