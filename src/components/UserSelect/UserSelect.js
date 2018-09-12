@@ -28,33 +28,12 @@ class UserSelect extends Component {
     return suggestion.name;
   }
   handleRenderSuggestion(suggestion, {query}) {
+    const { handleRenderSuggestion } = this.props;
     const suggestionText = suggestion.name;
     const matches = AutosuggestHighlightMatch(suggestionText, query);
     const parts = AutosuggestHighlightParse(suggestionText, matches);
 
-    return (
-      <span className="suggestion-content">
-        <Avatar
-          image={suggestion.profilePicture}
-          size="27px"
-          title={suggestionText}
-          accountType={suggestion.accountType}
-          badgeCloser
-        />
-        {
-          parts.map((part, i) => {
-            return (
-              <span
-                key={i}
-                className={"user-name " + (part.highlight ? 'highlight' : '')}
-              >
-                {part.text.replace(/ /g, "\u00a0")}
-              </span>
-            );
-          })
-        }
-      </span>
-    );
+    return handleRenderSuggestion(suggestion, parts);
   }
   onSuggestionSelected(event, suggestion) {
     const { onSuggestionSelected } = this.props;
@@ -87,6 +66,7 @@ class UserSelect extends Component {
     const {
       label,
       placeholder,
+      showUsersList,
       handleSearchUser,
       selectedUsers,
       searchedUsers,
@@ -106,33 +86,39 @@ class UserSelect extends Component {
 
     return (
       <div className="user-select-wrapper">
-        <div className="users-list-label">
-          {label}
-        </div>
-        <div className="users-list" disabled={isListDisabled}>
-          {
-            selectedUsers.map((user, i) =>
-              <div
-                key={i}
-                className="user-wrapper"
-                onClick={(e) => {::this.handleDeselectUser(e, user)}}
-              >
-                <div className="user" title={user.name}>
-                  <Avatar
-                    image={user.profilePicture}
-                    size="20px"
-                    title={user.name}
-                    accountType={user.accountType}
-                    badgeCloser
-                  />
-                  <div className="user-name">
-                    {user.name}
+        {
+          label.length > 0 &&
+          <div className="users-list-label">
+            {label}
+          </div>
+        }
+        {
+          showUsersList &&
+          <div className="users-list" disabled={isListDisabled}>
+            {
+              selectedUsers.map((user, i) =>
+                <div
+                  key={i}
+                  className="user-wrapper"
+                  onClick={(e) => {::this.handleDeselectUser(e, user)}}
+                >
+                  <div className="user" title={user.name}>
+                    <Avatar
+                      image={user.profilePicture}
+                      size="20px"
+                      title={user.name}
+                      accountType={user.accountType}
+                      badgeCloser
+                    />
+                    <div className="user-name">
+                      {user.name}
+                    </div>
                   </div>
                 </div>
-              </div>
-            )
-          }
-        </div>
+              )
+            }
+          </div>
+        }
         <div className="user-select">
           <Autosuggest
             suggestions={suggestions}
@@ -153,9 +139,11 @@ class UserSelect extends Component {
 UserSelect.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  showUsersList: PropTypes.bool,
   handleSearchUser: PropTypes.func.isRequired,
   selectedUsers: PropTypes.array,
   searchedUsers: PropTypes.array,
+  handleRenderSuggestion: PropTypes.func.isRequired,
   onSuggestionSelected: PropTypes.func.isRequired,
   handleDeselectUser: PropTypes.func.isRequired,
   isListDisabled: PropTypes.bool,
@@ -163,8 +151,9 @@ UserSelect.propTypes = {
 }
 
 UserSelect.defaultProps = {
-  label: 'Users',
+  label: '',
   placeholder: 'Select a user',
+  showUsersList: true,
   selectedUsers: [],
   searchUsers: [],
   isListDisabled: false,

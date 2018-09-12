@@ -40,7 +40,6 @@
         white-space: nowrap;
       }
     }
-
   }
   .user-select {
     .react-autosuggest__container {
@@ -54,6 +53,11 @@
       width: 100%;
       &:focus {
         outline: none;
+      }
+      &[disabled] {
+        cursor: not-allowed;
+        opacity: 0.6;
+        pointer-events: none;
       }
     }
     .react-autosuggest__suggestions-container {
@@ -82,26 +86,7 @@
       }
     }
     .react-autosuggest__suggestion--highlighted {
-      background-color: $color-dodger-blue !important;
-      .suggestion-content {
-        .user-name.highlight {
-          color: #fff;
-        }
-      }
-    }
-    .suggestion-content {
-      align-items: center;
-      display: flex;
-      .avatar {
-        margin-right: 10px;
-      }
-      .user-name {
-        color: #000;
-        &.highlight {
-          color: $color-dodger-blue;
-          font-weight: bold;
-        }
-      }
+      background-color: $color-primary !important;
     }
   }
 }

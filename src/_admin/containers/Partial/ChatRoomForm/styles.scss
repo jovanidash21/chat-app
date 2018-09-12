@@ -1,13 +1,4 @@
-.create-chat-room-modal {
-  .users-list {
-    .user-wrapper {
-      &:first-child {
-        .user:hover {
-          background-color: $color-dusty-gray;
-        }
-      }
-    }
-  }
+.chat-room-form {
   .react-autosuggest__suggestion--highlighted {
     .suggestion-content {
       .user-name.highlight {

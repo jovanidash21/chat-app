@@ -16,7 +16,9 @@ import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { UserSelect } from '../../../../components/UserSelect';
+import { Avatar } from '../../../../components/Avatar';
 import { AvatarUploader } from '../../../components/Form';
+import './styles.scss';
 
 class ChatRoomForm extends Component {
   constructor(props) {
@@ -151,6 +153,31 @@ class ChatRoomForm extends Component {
       ]
     });
   }
+  handleRenderSuggestion(suggestion, parts) {
+    return (
+      <span className="suggestion-content">
+        <Avatar
+          image={suggestion.profilePicture}
+          size="27px"
+          title={suggestion.name}
+          accountType={suggestion.accountType}
+          badgeCloser
+        />
+        {
+          parts.map((part, i) => {
+            return (
+              <span
+                key={i}
+                className={"user-name " + (part.highlight ? 'highlight' : '')}
+              >
+                {part.text.replace(/ /g, "\u00a0")}
+              </span>
+            );
+          })
+        }
+      </span>
+    );
+  }
   onSuggestionSelected(event, suggestion) {
     event.preventDefault();
 
@@ -239,6 +266,7 @@ class ChatRoomForm extends Component {
             handleSearchUser={searchUser}
             selectedUsers={members}
             searchedUsers={searchedUsers}
+            handleRenderSuggestion={::this.handleRenderSuggestion}
             onSuggestionSelected={::this.onSuggestionSelected}
             handleDeselectUser={::this.handleDeselectMember}
             isListDisabled={isListDisabled}
@@ -394,7 +422,7 @@ class ChatRoomForm extends Component {
   }
   render() {
     return (
-      <div className="chatRoom-form">
+      <div className="chat-room-form">
         <Form onSubmit={::this.handleSubmitChatRoomForm}>
           <Row>
             <Col md="8">
