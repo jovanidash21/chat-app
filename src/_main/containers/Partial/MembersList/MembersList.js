@@ -15,10 +15,15 @@ class MembersList extends Component {
     super(props);
 
     this.state = {
+      members: [],
       memberName: ''
     }
   }
   componentDidUpdate(prevProps) {
+    if ( prevProps.member.isFetching && this.props.member.isFetchingSuccess ) {
+      this.setState({members: this.props.member.all});
+    }
+
     if ( prevProps.chatRoom.isCreating && this.props.chatRoom.isCreatingSuccess ) {
       const { handleRightSideDrawerToggleEvent } = this.props;
 
@@ -30,18 +35,12 @@ class MembersList extends Component {
       user,
       member
     } = this.props;
-    const { memberName } = this.state;
+    const {
+      members,
+      memberName
+    } = this.state;
 
     if ( !member.isFetching && member.isFetchingSuccess ) {
-      var members = [...member.all];
-      var query = memberName.trim().toLowerCase();
-
-      if ( query.length > 0 ) {
-        members = members.filter((singleMember) => {
-          return singleMember.name.toLowerCase().match(query);
-        });
-      }
-
       return (
         <div className="members-list-wrapper">
           <div className="members-count">
@@ -53,7 +52,9 @@ class MembersList extends Component {
               {member.all.length > 1 ? 'Members' : 'Member'}
             </h3>
           </div>
-          <ChatRoomMemberFilter onMemberNameChange={::this.onMemberNameChange} />
+          <ChatRoomMemberFilter
+            value={memberName}
+          />
           <div className="members-list">
             {
               members.length > 0 &&
@@ -91,7 +92,23 @@ class MembersList extends Component {
     }
   }
   onMemberNameChange(event) {
-    this.setState({memberName: event.target.value});
+    const { member } = this.props;
+    const { members } = this.state;
+    var allMembers = [];
+    var memberName = event.target.value;
+
+    if ( memberName.length > 0 ) {
+      allMembers = members.filter((singleMember) => {
+        return singleMember.name.toLowerCase().match(memberName);
+      });
+    } else {
+      allMembers = [...member.all];
+    }
+
+    this.setState({
+      members: allMembers,
+      memberName: memberName
+    });
   }
   handleAddDirectChatRoom(event, memberID) {
     event.preventDefault();

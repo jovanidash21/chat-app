@@ -11,6 +11,7 @@ const ChatRoomMemberFilter = (props) => {
         <FontAwesomeIcon icon="search" />
       </div>
       <Input
+        value={props.value}
         type="text"
         autoComplete="off"
         floatingLabel={false}
@@ -22,7 +23,12 @@ const ChatRoomMemberFilter = (props) => {
 }
 
 ChatRoomMemberFilter.propTypes = {
-  onMemberNameChange: PropTypes.func.isRequired
+  value: PropTypes.string,
+  onMemberNameChange: PropTypes.func.isRequired,
+}
+
+ChatRoomMemberFilter.defaultProps = {
+  value: ''
 }
 
 export default ChatRoomMemberFilter;
