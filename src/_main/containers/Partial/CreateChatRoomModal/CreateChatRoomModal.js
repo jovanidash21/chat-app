@@ -10,7 +10,6 @@ import { Modal } from '../../../../components/Modal';
 import { ChatRoomNameInput } from '../../../components/CreateChatRoomModal';
 import { Alert } from '../../../../components/Alert';
 import { UserSelect } from '../../../../components/UserSelect';
-import { Avatar } from '../../../../components/Avatar';
 import './styles.scss';
 
 class CreateChatRoomModal extends Component {
@@ -37,31 +36,6 @@ class CreateChatRoomModal extends Component {
     event.preventDefault();
 
     this.setState({chatRoomName: event.target.value});
-  }
-  handleRenderSuggestion(suggestion, parts) {
-    return (
-      <span className="suggestion-content">
-        <Avatar
-          image={suggestion.profilePicture}
-          size="27px"
-          title={suggestion.name}
-          accountType={suggestion.accountType}
-          badgeCloser
-        />
-        {
-          parts.map((part, i) => {
-            return (
-              <span
-                key={i}
-                className={"user-name " + (part.highlight ? 'highlight' : '')}
-              >
-                {part.text.replace(/ /g, "\u00a0")}
-              </span>
-            );
-          })
-        }
-      </span>
-    );
   }
   onSuggestionSelected(event, suggestion) {
     event.preventDefault();
@@ -163,7 +137,6 @@ class CreateChatRoomModal extends Component {
               handleSearchUser={searchUser}
               selectedUsers={members}
               searchedUsers={searchedUsers}
-              handleRenderSuggestion={::this.handleRenderSuggestion}
               onSuggestionSelected={::this.onSuggestionSelected}
               handleDeselectUser={::this.handleDeselectMember}
               isListDisabled={chatRoom.isCreating}

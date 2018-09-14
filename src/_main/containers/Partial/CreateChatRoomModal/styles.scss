@@ -8,25 +8,4 @@
       }
     }
   }
-  .react-autosuggest__suggestion--highlighted {
-    .suggestion-content {
-      .user-name.highlight {
-        color: #fff;
-      }
-    }
-  }
-  .suggestion-content {
-    align-items: center;
-    display: flex;
-    .avatar {
-      margin-right: 10px;
-    }
-    .user-name {
-      color: #000;
-      &.highlight {
-        color: $color-primary;
-        font-weight: bold;
-      }
-    }
-  }
 }

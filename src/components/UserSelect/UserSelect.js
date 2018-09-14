@@ -28,12 +28,33 @@ class UserSelect extends Component {
     return suggestion.name;
   }
   handleRenderSuggestion(suggestion, {query}) {
-    const { handleRenderSuggestion } = this.props;
     const suggestionText = suggestion.name;
     const matches = AutosuggestHighlightMatch(suggestionText, query);
     const parts = AutosuggestHighlightParse(suggestionText, matches);
 
-    return handleRenderSuggestion(suggestion, parts);
+    return (
+      <span className="suggestion-content">
+        <Avatar
+          image={suggestion.profilePicture}
+          size="27px"
+          title={suggestionText}
+          accountType={suggestion.accountType}
+          badgeCloser
+        />
+        {
+          parts.map((part, i) => {
+            return (
+              <span
+                key={i}
+                className={"user-name " + (part.highlight ? 'highlight' : '')}
+              >
+                {part.text.replace(/ /g, "\u00a0")}
+              </span>
+            );
+          })
+        }
+      </span>
+    );
   }
   onSuggestionSelected(event, suggestion) {
     const { onSuggestionSelected } = this.props;
@@ -143,9 +164,8 @@ UserSelect.propTypes = {
   handleSearchUser: PropTypes.func.isRequired,
   selectedUsers: PropTypes.array,
   searchedUsers: PropTypes.array,
-  handleRenderSuggestion: PropTypes.func.isRequired,
   onSuggestionSelected: PropTypes.func.isRequired,
-  handleDeselectUser: PropTypes.func.isRequired,
+  handleDeselectUser: PropTypes.func,
   isListDisabled: PropTypes.bool,
   isInputDisabled: PropTypes.bool
 }
@@ -156,6 +176,7 @@ UserSelect.defaultProps = {
   showUsersList: true,
   selectedUsers: [],
   searchUsers: [],
+  handleDeselectUser: () => {},
   isListDisabled: false,
   isInputDisabled: false
 }
