@@ -17,6 +17,7 @@ const ChatRoomMemberFilter = (props) => {
         floatingLabel={false}
         placeholder="Search"
         onChange={props.onMemberNameChange}
+        onKeyDown={props.onMemberNameKeyDown}
       />
     </div>
   );
@@ -25,6 +26,7 @@ const ChatRoomMemberFilter = (props) => {
 ChatRoomMemberFilter.propTypes = {
   value: PropTypes.string,
   onMemberNameChange: PropTypes.func.isRequired,
+  onMemberNameKeyDown: PropTypes.func.isRequired
 }
 
 ChatRoomMemberFilter.defaultProps = {

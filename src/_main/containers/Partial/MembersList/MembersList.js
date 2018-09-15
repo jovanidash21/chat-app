@@ -16,11 +16,12 @@ class MembersList extends Component {
 
     this.state = {
       members: [],
-      memberName: ''
+      memberName: '',
+      selectedMemberIndex: -1
     }
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.member.isFetching && this.props.member.isFetchingSuccess ) {
+    if ( prevProps.member.isFetching && !this.props.member.isFetching ) {
       this.setState({members: this.props.member.all});
     }
 
@@ -28,6 +29,7 @@ class MembersList extends Component {
       const { handleRightSideDrawerToggleEvent } = this.props;
 
       handleRightSideDrawerToggleEvent();
+      this.setState({selectedMemberIndex: -1});
     }
   }
   handleMembersListRender() {
@@ -37,10 +39,11 @@ class MembersList extends Component {
     } = this.props;
     const {
       members,
-      memberName
+      memberName,
+      selectedMemberIndex
     } = this.state;
 
-    if ( !member.isFetching && member.isFetchingSuccess ) {
+     if ( !member.isFetching && member.isFetchingSuccess ) {
       return (
         <div className="members-list-wrapper">
           <div className="members-count">
@@ -54,6 +57,8 @@ class MembersList extends Component {
           </div>
           <ChatRoomMemberFilter
             value={memberName}
+            onMemberNameChange={::this.onMemberNameChange}
+            onMemberNameKeyDown={::this.onMemberNameKeyDown}
           />
           <div className="members-list">
             {
@@ -73,6 +78,7 @@ class MembersList extends Component {
                   user={user.active}
                   chatRoomMember={chatRoomMember}
                   handleAddDirectChatRoom={::this.handleAddDirectChatRoom}
+                  isActive={selectedMemberIndex === i}
                 />
               )
             }
@@ -93,26 +99,64 @@ class MembersList extends Component {
   }
   onMemberNameChange(event) {
     const { member } = this.props;
-    const { members } = this.state;
+    const {
+      members,
+      selectedMemberIndex
+    } = this.state;
     var allMembers = [];
-    var memberName = event.target.value;
+    var memberName = event.target.value
+    var memberIndex = selectedMemberIndex;
 
     if ( memberName.length > 0 ) {
       allMembers = members.filter((singleMember) => {
         return singleMember.name.toLowerCase().match(memberName);
       });
+
+      if ( selectedMemberIndex === -1 ) {
+        memberIndex = 0;
+      }
     } else {
       allMembers = [...member.all];
+      memberIndex = -1;
     }
 
     this.setState({
       members: allMembers,
-      memberName: memberName
+      memberName: memberName,
+      selectedMemberIndex: memberIndex
     });
   }
-  handleAddDirectChatRoom(event, memberID) {
-    event.preventDefault();
+  onMemberNameKeyDown(event) {
+    const {
+      members,
+      selectedMemberIndex
+    } = this.state;
 
+    if ( members.length > 0 ) {
+      if ( event.keyCode === 38 ) {
+        if ( selectedMemberIndex === -1 ) {
+          this.setState({selectedMemberIndex: members.length - 1});
+        } else {
+          this.setState({selectedMemberIndex: selectedMemberIndex - 1});
+        }
+      }
+
+      if ( event.keyCode === 40 ) {
+        if ( selectedMemberIndex === members.length - 1 ) {
+          this.setState({selectedMemberIndex: -1});
+        } else {
+          this.setState({selectedMemberIndex: selectedMemberIndex + 1});
+        }
+      }
+
+      if ( event.key === 'Enter' && selectedMemberIndex !== -1 ) {
+        const selectedMember = members[selectedMemberIndex];
+
+        ::this.handleAddDirectChatRoom(selectedMember._id);
+      }
+    }
+  }
+  handleAddDirectChatRoom(memberID) {
     const {
       user,
       chatRoom,
@@ -123,30 +167,31 @@ class MembersList extends Component {
     const userID = user.active._id;
     const chatRooms = chatRoom.all;
     const activeChatRoom = chatRoom.active;
-    var directChatRoomExists = false;
-    var directChatRoomData = {};
+    var chatRoomExists = false;
+    var existingChatRoomData = {};
 
     for ( var i = 0; i < chatRooms.length; i++ ) {
-      if ( chatRooms[i].data.chatType === 'direct' ) {
-        var isMembersMatch = chatRooms[i].data.members.some(member => member._id === memberID);
+      var singleChatRoom = chatRooms[i];
 
-        if ( isMembersMatch ) {
-          directChatRoomExists = true;
-          directChatRoomData = chatRooms[i];
-          break;
-        } else {
-          continue;
-        }
-      } else {
-        continue;
+      if (
+        ( singleChatRoom.data.chatType === 'private' && userID === memberID ) ||
+        ( singleChatRoom.data.chatType === 'direct' && singleChatRoom.data.members.some(member => member._id === memberID) )
+      ) {
+        chatRoomExists = true;
+        existingChatRoomData = singleChatRoom;
+        break;
       }
     }
 
-    if ( ! directChatRoomExists ) {
+    if ( !chatRoomExists ) {
       createDirectChatRoom(userID, memberID, activeChatRoom.data._id);
-    } else {
-      changeChatRoom(directChatRoomData, userID, activeChatRoom.data._id);
+    } else if ( Object.keys(existingChatRoomData).length > 0 && existingChatRoomData.constructor === Object ) {
+      changeChatRoom(existingChatRoomData, userID, activeChatRoom.data._id);
       handleRightSideDrawerToggleEvent();
+      this.setState({selectedMemberIndex: -1});
+    } else {
+      handleRightSideDrawerToggleEvent();
+      this.setState({selectedMemberIndex: -1});
     }
   }
   render() {

@@ -24,6 +24,14 @@
       color: $color-dusty-gray;
     }
   }
+  &.active {
+    background-color: $color-primary;
+    .online-indicator,
+    .member-name,
+    .member-options-button {
+      color: #fff;
+    }
+  }
   .avatar {
     margin-right: 12px;
   }

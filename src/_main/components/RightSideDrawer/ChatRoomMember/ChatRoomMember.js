@@ -17,16 +17,24 @@ class ChatRoomMember extends Component {
       handleAddDirectChatRoom
     } = this.props;
 
-    handleAddDirectChatRoom(event, chatRoomMember._id);
+    handleAddDirectChatRoom(chatRoomMember._id);
   }
   render() {
     const {
       user,
-      chatRoomMember
+      chatRoomMember,
+      isActive
     } = this.props;
 
     return (
-      <div className={"chat-room-member " + (chatRoomMember.isOnline ? 'online' : 'offline')} title={chatRoomMember.name}>
+      <div
+        className={
+          "chat-room-member " +
+          (chatRoomMember.isOnline ? 'online ' : 'offline ') +
+          (isActive ? 'active' : '')
+        }
+        title={chatRoomMember.name}
+      >
         <OnlineIndicator isOnline={chatRoomMember.isOnline} />
         <Avatar
           image={chatRoomMember.profilePicture}
@@ -66,7 +74,12 @@ class ChatRoomMember extends Component {
 ChatRoomMember.propTypes = {
   user: PropTypes.object.isRequired,
   chatRoomMember: PropTypes.object.isRequired,
-  handleAddDirectChatRoom: PropTypes.func.isRequired
+  handleAddDirectChatRoom: PropTypes.func.isRequired,
+  isActive: PropTypes.bool
+}
+
+ChatRoomMember.defaultProps = {
+  isActive: false
 }
 
 export default ChatRoomMember;
