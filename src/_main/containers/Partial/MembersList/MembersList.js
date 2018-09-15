@@ -29,7 +29,10 @@ class MembersList extends Component {
       const { handleRightSideDrawerToggleEvent } = this.props;
 
       handleRightSideDrawerToggleEvent();
-      this.setState({selectedMemberIndex: -1});
+      this.setState({
+        memberName: '',
+        selectedMemberIndex: -1
+      });
     }
   }
   handleMembersListRender() {
@@ -188,10 +191,16 @@ class MembersList extends Component {
     } else if ( Object.keys(existingChatRoomData).length > 0 && existingChatRoomData.constructor === Object ) {
       changeChatRoom(existingChatRoomData, userID, activeChatRoom.data._id);
       handleRightSideDrawerToggleEvent();
-      this.setState({selectedMemberIndex: -1});
+      this.setState({
+        memberName: '',
+        selectedMemberIndex: -1
+      });
     } else {
       handleRightSideDrawerToggleEvent();
-      this.setState({selectedMemberIndex: -1});
+      this.setState({
+        memberName: '',
+        selectedMemberIndex: -1
+      });
     }
   }
   render() {
