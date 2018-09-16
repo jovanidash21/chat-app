@@ -110,26 +110,28 @@ class ChatBubble extends Component {
               {::this.handleMessageText()}
             </div>
           </div>
-          <div className="sending-status">
-            {
-              isSender &&
-              message.isSending !== undefined && (
-                message.isSending
-                  ?
-                  <div title="Message is sending">
-                    <FontAwesomeIcon className="sending" icon={["far", "square"]} />
-                  </div>
-                  :
-                  <div title="Message is sent">
-                    <FontAwesomeIcon
-                      className="sent"
-                      icon="check-square"
-                      title="Message is sent"
-                    />
-                  </div>
-              )
-            }
-          </div>
+          {
+            isSender &&
+            <div className="sending-status">
+              {
+                message.isSending !== undefined && (
+                  message.isSending
+                    ?
+                    <div title="Message is sending">
+                      <FontAwesomeIcon className="sending" icon={["far", "square"]} />
+                    </div>
+                    :
+                    <div title="Message is sent">
+                      <FontAwesomeIcon
+                        className="sent"
+                        icon="check-square"
+                        title="Message is sent"
+                      />
+                    </div>
+                )
+              }
+            </div>
+          }
         </div>
       )
     }
@@ -179,25 +181,23 @@ class ChatBubble extends Component {
           (!isSender && isPreviousMessageSameSender ? 'no-avatar' : '')
         }
       >
-        <MediaQuery query="(min-width: 768px)">
-          {(matches) => {
-            return (
-              <div>
-                {
-                  !isSender &&
-                  !isPreviousMessageSameSender &&
-                  <Avatar
-                    image={message.user.profilePicture}
-                    size={matches ? '35px' : '25px'}
-                    title={message.user.name}
-                    accountType={message.user.accountType}
-                    badgeCloser={matches ? true : false}
-                  />
-                }
-              </div>
-            )
-          }}
-        </MediaQuery>
+        {
+          !isSender &&
+          !isPreviousMessageSameSender &&
+          <MediaQuery query="(min-width: 768px)">
+            {(matches) => {
+              return (
+                <Avatar
+                  image={message.user.profilePicture}
+                  size={matches ? '35px' : '25px'}
+                  title={message.user.name}
+                  accountType={message.user.accountType}
+                  badgeCloser={matches ? true : false}
+                />
+              )
+            }}
+          </MediaQuery>
+        }
         <div className="chat-details">
           {
             !isSender &&
