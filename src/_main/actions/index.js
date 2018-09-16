@@ -29,7 +29,8 @@ import {
   fetchOldMessages,
   sendTextMessage,
   sendFileMessage,
-  sendAudioMessage
+  sendAudioMessage,
+  deleteMessage
 } from './message';
 
 const actions = (dispatch) => {
@@ -55,7 +56,8 @@ const actions = (dispatch) => {
     fetchOldMessages,
     sendTextMessage,
     sendFileMessage,
-    sendAudioMessage
+    sendAudioMessage,
+    deleteMessage
   }, dispatch);
 }
 

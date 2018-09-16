@@ -20,6 +20,17 @@ class DeleteMessageModal extends Component {
   }
   handleDeleteMessage(event) {
     event.preventDefault();
+
+    const {
+      chatRoom,
+      deleteMessage,
+      selectedMessageID
+    } = this.props;
+    const activeChatRoom = chatRoom.active;
+
+    if ( selectedMessageID.length > 0 ) {
+      deleteMessage(selectedMessageID, activeChatRoom.data._id);
+    }
   }
   render() {
     const {

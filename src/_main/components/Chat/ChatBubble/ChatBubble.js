@@ -170,10 +170,13 @@ class ChatBubble extends Component {
 
     const {
       message,
+      isActiveUserAdmin,
       handleOpenModal
     } = this.props;
 
-    handleOpenModal(message._id);
+    if ( isActiveUserAdmin ) {
+      handleOpenModal(message._id);
+    }
   }
   render() {
     const {

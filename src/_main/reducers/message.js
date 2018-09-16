@@ -2,7 +2,8 @@ import {
   FETCH_NEW_MESSAGES,
   FETCH_OLD_MESSAGES,
   SEND_MESSAGE,
-  SOCKET_BROADCAST_SEND_MESSAGE
+  SOCKET_BROADCAST_SEND_MESSAGE,
+  DELETE_MESSAGE
 } from '../constants/message';
 import { CHANGE_CHAT_ROOM } from '../constants/chat-room';
 
@@ -13,6 +14,8 @@ const initialState = {
   isFetchingOldSuccess: true,
   isSending: false,
   isSendingSuccess: true,
+  isDeleting: false,
+  isDeletingSuccess: true,
   activeChatRoom: {
     data: {}
   },
@@ -35,6 +38,11 @@ const message = (state=initialState, action) => {
       return {
         ...state,
         isSending: true,
+      };
+    case `${DELETE_MESSAGE}_LOADING`:
+      return {
+        ...state,
+        isDeleting: true,
       };
     case `${FETCH_NEW_MESSAGES}_SUCCESS`:
       return {
@@ -71,6 +79,18 @@ const message = (state=initialState, action) => {
           newMessage
         ]
       };
+    case `${DELETE_MESSAGE}_SUCCESS`:
+      var messages = [...state.all];
+      var messageID = action.meta;  
+
+      messages = messages.filter((message) => message._id !== messageID);
+
+      return {
+        ...state,
+        isDeleting: false,
+        isDeletingSuccess: true,
+        all: messages
+      };
     case `${FETCH_NEW_MESSAGES}_ERROR`:
       return {
         ...state,
@@ -88,6 +108,12 @@ const message = (state=initialState, action) => {
         ...state,
         isSending: false,
         isSendingSuccess: false
+      };
+    case `${DELETE_MESSAGE}_ERROR`:
+      return {
+        ...state,
+        isDeleting: false,
+        isDeletingSuccess: false
       };
     case CHANGE_CHAT_ROOM:
       return {

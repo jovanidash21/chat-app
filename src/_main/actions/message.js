@@ -3,7 +3,8 @@ import {
   FETCH_NEW_MESSAGES,
   FETCH_OLD_MESSAGES,
   SEND_MESSAGE,
-  SOCKET_SEND_MESSAGE
+  SOCKET_SEND_MESSAGE,
+  DELETE_MESSAGE
 } from '../constants/message';
 
 const localtionArr = window.location.href.split("/");
@@ -218,6 +219,31 @@ export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID
         message: response.action.payload.data.messageData,
         chatRoomID: chatRoomID
       });
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Delete message
+ * @param {string} messageID
+ * @param {string} chatRoomID
+ */
+export function deleteMessage(messageID, chatRoomID) {
+  let data = {
+    messageID,
+    chatRoomID
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: DELETE_MESSAGE,
+      payload: axios.post(baseURL + '/api/message/delete', data),
+      meta: messageID
     })
     .catch((error) => {
       if (error instanceof Error) {
