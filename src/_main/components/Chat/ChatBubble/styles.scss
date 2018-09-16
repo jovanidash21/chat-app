@@ -1,6 +1,13 @@
 .chat-bubble-wrapper {
   display: flex;
   padding: 1px;
+  &:hover {
+    .chat-message {
+      .trash-icon {
+        opacity: 0.5;
+      }
+    }
+  }
   .chat-details {
     align-items: flex-start;
     display: flex;
@@ -8,6 +15,26 @@
     max-width: 75%;
     @media screen and (max-width: $screen-mobile-max) {
       max-width: 80%;
+    }
+  }
+  .chat-message {
+    align-items: center;
+    display: flex;
+    .trash-icon {
+      color: $color-punch;
+      cursor: pointer;
+      font-size: 17px;
+      line-height: 17px;
+      opacity: 0;
+      padding: 5px;
+      transition: all 0.2s ease-in-out;
+      @media screen and (max-width: $screen-mobile-max) {
+        font-size: 15px;
+        line-height: 15px;
+      }
+      &:hover {
+        opacity: 1;
+      }
     }
   }
   .uploading-icon {
@@ -156,7 +183,13 @@
       align-items: flex-end;
     }
     .chat-message {
-      display: flex;
+      flex-direction: row;
+      .trash-icon {
+        margin-right: 5px;
+        @media screen and (max-width: $screen-mobile-max) {
+          margin-right: 0;
+        }
+      }
       .sending-status {
         align-self: flex-end;
         flex: 0 0 12px;
@@ -205,6 +238,15 @@
         }
         &:after {
           display: none;
+        }
+      }
+    }
+    .chat-message {
+      flex-direction: row-reverse;
+      .trash-icon {
+        margin-left: 5px;
+        @media screen and (max-width: $screen-mobile-max) {
+          margin-left: 0;
         }
       }
     }

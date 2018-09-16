@@ -101,6 +101,7 @@ class ChatBox extends Component {
       message
     } = this.props;
     const { hasLoadedAllMessages } = this.state;
+    const isActiveUserAdmin = user.active.role === 'admin';
 
     if (chatRoom.all.length === 0) {
       return (
@@ -136,6 +137,7 @@ class ChatBox extends Component {
                     nextMessageDate={i !== message.all.length-1 ? message.all[i+1].createdAt : ''}
                     handleImageLightboxToggle={::this.handleImageLightboxToggle}
                     handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
+                    isActiveUserAdmin={isActiveUserAdmin}
                   />
                 </div>
               )

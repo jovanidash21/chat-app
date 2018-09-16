@@ -74,7 +74,8 @@ class ChatBubble extends Component {
     const {
       index,
       message,
-      isSender
+      isSender,
+      isActiveUserAdmin
     } = this.props;
 
     if ( message.messageType !== 'text' && message.fileLink.length === 0 ) {
@@ -86,6 +87,12 @@ class ChatBubble extends Component {
     } else {
       return (
         <div className="chat-message">
+          {
+            isActiveUserAdmin &&
+            <div className="trash-icon" title="Delete Message">
+              <FontAwesomeIcon icon={["far", "trash-alt"]} />
+            </div>
+          }
           <div
             className={(message.messageType !== 'image' ? 'chat-bubble ' : 'chat-image ') + (isSender ? 'right' : '')}
             onClick={(e) => {message.messageType === 'image' ? ::this.handleImageClick(e) : false }}
@@ -220,7 +227,12 @@ ChatBubble.propTypes = {
   previousMessageDate: PropTypes.string.isRequired,
   nextMessageDate: PropTypes.string.isRequired,
   handleImageLightboxToggle: PropTypes.func.isRequired,
-  handleAudioPlayingToggle: PropTypes.func.isRequired
+  handleAudioPlayingToggle: PropTypes.func.isRequired,
+  isActiveUserAdmin: PropTypes.bool
+}
+
+ChatBubble.defaultProps = {
+  isActiveUserAdmin: false
 }
 
 export default ChatBubble;
