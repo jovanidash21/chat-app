@@ -4,7 +4,8 @@ import {
   FETCH_OLD_MESSAGES,
   SEND_MESSAGE,
   SOCKET_SEND_MESSAGE,
-  DELETE_MESSAGE
+  DELETE_MESSAGE,
+  SOCKET_DELETE_MESSAGE
 } from '../constants/message';
 
 const localtionArr = window.location.href.split("/");
@@ -244,6 +245,13 @@ export function deleteMessage(messageID, chatRoomID) {
       type: DELETE_MESSAGE,
       payload: axios.post(baseURL + '/api/message/delete', data),
       meta: messageID
+    })
+    .then((response) => {
+      dispatch({
+        type: SOCKET_DELETE_MESSAGE,
+        messageID: messageID,
+        chatRoomID: chatRoomID
+      });
     })
     .catch((error) => {
       if (error instanceof Error) {
