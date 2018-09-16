@@ -89,7 +89,11 @@ class ChatBubble extends Component {
         <div className="chat-message">
           {
             isActiveUserAdmin &&
-            <div className="trash-icon" title="Delete Message">
+            <div
+              className="trash-icon"
+              title="Delete Message"
+              onClick={::this.handleOpenModal}
+            >
               <FontAwesomeIcon icon={["far", "trash-alt"]} />
             </div>
           }
@@ -161,6 +165,16 @@ class ChatBubble extends Component {
 
     handleAudioPlayingToggle(index);
   }
+  handleOpenModal(event) {
+    event.preventDefault();
+
+    const {
+      message,
+      handleOpenModal
+    } = this.props;
+
+    handleOpenModal(message._id);
+  }
   render() {
     const {
       message,
@@ -228,11 +242,13 @@ ChatBubble.propTypes = {
   nextMessageDate: PropTypes.string.isRequired,
   handleImageLightboxToggle: PropTypes.func.isRequired,
   handleAudioPlayingToggle: PropTypes.func.isRequired,
-  isActiveUserAdmin: PropTypes.bool
+  isActiveUserAdmin: PropTypes.bool,
+  handleOpenModal: PropTypes.func
 }
 
 ChatBubble.defaultProps = {
-  isActiveUserAdmin: false
+  isActiveUserAdmin: false,
+  handleOpenModal: () => {}
 }
 
 export default ChatBubble;

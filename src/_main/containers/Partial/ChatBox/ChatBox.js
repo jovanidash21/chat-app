@@ -14,6 +14,7 @@ import {
   ChatImageLightBox,
   ChatDragDropBox
 } from '../../../components/Chat';
+import { DeleteMessageModal } from '../DeleteMessageModal';
 import './styles.scss';
 
 class ChatBox extends Component {
@@ -29,7 +30,9 @@ class ChatBox extends Component {
       oldestMessageOffsetTop: 0,
       isImageLightboxOpen: false,
       imageIndex: -1,
-      audioIndex: -1
+      audioIndex: -1,
+      isModalOpen: false,
+      selectedMessageID: ''
     };
   }
   componentDidMount() {
@@ -138,6 +141,7 @@ class ChatBox extends Component {
                     handleImageLightboxToggle={::this.handleImageLightboxToggle}
                     handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
                     isActiveUserAdmin={isActiveUserAdmin}
+                    handleOpenModal={::this.handleOpenModal}
                   />
                 </div>
               )
@@ -338,6 +342,18 @@ class ChatBox extends Component {
 
     this.setState({audioIndex: audioPlayingIndex});
   }
+  handleOpenModal(selectedMessageID) {
+    this.setState({
+      isModalOpen: true,
+      selectedMessageID: selectedMessageID
+    });
+  }
+  handleCloseModal() {
+    this.setState({
+      isModalOpen: false,
+      selectedMessageID: ''
+    });
+  }
   render() {
     const {
       user,
@@ -348,6 +364,10 @@ class ChatBox extends Component {
       socketIsNotTyping,
       isAudioRecorderOpen
     } = this.props;
+    const {
+      isModalOpen,
+      selectedMessageID
+    } = this.state;
 
     return (
       <div  className={"chat-box-wrapper " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
@@ -363,6 +383,14 @@ class ChatBox extends Component {
         </div>
         {::this.handleImageLightboxRender()}
         {::this.handleDragDropBoxRender()}
+        {
+          isModalOpen &&
+          <DeleteMessageModal
+            isModalOpen={isModalOpen}
+            selectedMessageID={selectedMessageID}
+            handleCloseModal={::this.handleCloseModal}
+          />
+        }
       </div>
     )
   }
