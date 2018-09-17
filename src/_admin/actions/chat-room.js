@@ -33,9 +33,7 @@ export function fetchChatRoomsCount() {
  * @param {string} chatRoomID
  */
 export function fetchSelectedChatRoom(chatRoomID) {
-  let data = {
-    chatRoomID
-  };
+  let data = { chatRoomID };
 
   return dispatch => {
     return dispatch({
@@ -130,9 +128,7 @@ export function editChatRoom(chatRoomID, chatType, name, members, chatIcon) {
  * @param {string} chatRoomID
  */
 export function deleteChatRoom(chatRoomID) {
-  let data = {
-    chatRoomID
-  };
+  let data = { chatRoomID };
 
   return dispatch => {
     return dispatch({

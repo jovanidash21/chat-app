@@ -52,9 +52,7 @@ export function fetchUsersCount() {
  * @param {string} userID
  */
 export function fetchSelectedUser(userID) {
-  let data = {
-    userID
-  };
+  let data = { userID };
 
   return dispatch => {
     return dispatch({
@@ -90,9 +88,7 @@ export function fetchUsers() {
  * Search user
  */
 export function searchUser(query) {
-  let data = {
-    query
-  };
+  let data = { query };
 
   return dispatch => {
     return dispatch({
@@ -176,9 +172,7 @@ export function editUser(userID, username, name, email, role, profilePicture) {
  * @param {string} userID
  */
 export function deleteUser(userID) {
-  let data = {
-    userID
-  };
+  let data = { userID };
 
   return dispatch => {
     return dispatch({

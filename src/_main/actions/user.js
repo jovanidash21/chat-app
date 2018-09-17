@@ -32,9 +32,7 @@ export function fetchActiveUser() {
  * Search user
  */
 export function searchUser(query) {
-  let data = {
-    query
-  };
+  let data = { query };
 
   return dispatch => {
     return dispatch({
