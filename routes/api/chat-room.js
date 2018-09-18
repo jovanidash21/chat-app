@@ -55,134 +55,92 @@ router.post('/', function(req, res, next) {
   }
 });
 
-router.post('/group', function(req, res, next) {
-  var userID = req.body.userID;
-
-  if ((req.user === undefined) || (req.user._id != userID)) {
+router.post('/create', function(req, res, next) {
+  if (req.user === undefined) {
     res.status(401).send({
       success: false,
       message: 'Unauthorized'
     });
   } else {
     var name = req.body.name;
+    var chatType = req.body.chatType;
     var members = req.body.members;
-    var chatType = 'group';
     var chatRoomData = {
-      name: name,
-      members: members,
-      chatType: chatType
+      name,
+      chatType,
+      members
     };
 
-    if (members.length < 3) {
+    if ("chatIcon" in req.body) {
+      chatRoomData.chatIcon = req.body.chatIcon;
+    }
+
+    if (chatType === 'private' || chatType === 'public') {
+      res.status(401).send({
+        success: false,
+        message: 'Unauthorized'
+      });
+    } else if (chatType === 'direct' && members.length !== 2) {
+      res.status(401).send({
+        success: false,
+        message: 'Please select 2 members.'
+      });
+    } else if (chatType === 'group' && members.length < 3) {
       res.status(401).send({
         success: false,
         message: 'Please select at least 3 members.'
       });
     } else {
-      var chatRoom = new ChatRoom(chatRoomData);
+      ChatRoom.findOne({members: {$all: members}, chatType: 'direct'}, function(err, chatRoom) {
+        if (!err) {
+          if (chatRoom !== null) {
+            res.status(401).send({
+              success: false,
+              message: 'Chat room already exist.'
+            });
+          } else {
+            var chatRoom = new ChatRoom(chatRoomData);
 
-      chatRoom.save()
-        .then((chatRoomData) => {
-          for (var i = 0; i < chatRoomData.members.length; i++) {
-            var chatRoomMember = chatRoomData.members[i];
+            chatRoom.save()
+              .then((chatRoomData) => {
+                for (var i = 0; i < chatRoomData.members.length; i++) {
+                  var chatRoomMember = chatRoomData.members[i];
 
-            User.findByIdAndUpdate(
-              chatRoomMember,
-              { $push: { chatRooms: { data: chatRoomData._id, unReadMessages: 0 } } },
-              { safe: true, upsert: true, new: true }
-            ).exec();
+                  User.findByIdAndUpdate(
+                    chatRoomMember,
+                    { $push: { chatRooms: { data: chatRoomData._id, unReadMessages: 0 } } },
+                    { safe: true, upsert: true, new: true }
+                  ).exec();
+                }
+
+                return ChatRoom.findById(chatRoomData._id)
+                  .populate('members');
+              })
+              .then((chatRoomData) => {
+                res.status(200).send({
+                  success: true,
+                  message: 'Chat Room Created.',
+                  chatRoom: {
+                    data: chatRoomData,
+                    unReadMessages: 0
+                  }
+                });
+              })
+              .catch((error) => {
+                res.status(500).send({
+                  success: false,
+                  message: 'Server Error!'
+                });
+              });
           }
-
-          return ChatRoom.findById(chatRoomData._id)
-            .populate('members');
-        })
-        .then((chatRoomData) => {
-          res.status(200).send({
-            success: true,
-            message: 'Chat Room Created.',
-            chatRoom: {
-              data: chatRoomData,
-              unReadMessages: 0
-            }
-          });
-        })
-        .catch((error) => {
+        } else {
           res.status(500).send({
             success: false,
             message: 'Server Error!'
           });
-        });
-    }
-  }
-});
-
-router.post('/direct', function(req, res, next) {
-  var userID = req.body.userID;
-
-  if ((req.user === undefined) || (req.user._id != userID)) {
-    res.status(401).send({
-      success: false,
-      message: 'Unauthorized'
-    });
-  } else {
-    var name = req.body.name;
-    var members = req.body.members;
-    var chatType = 'direct';
-    var chatRoomData = {
-      name: name,
-      members: members,
-      chatType: chatType
-    };
-
-    ChatRoom.findOne({members: {$all: members}, chatType: 'direct'}, function(err, chatRoom) {
-      if (!err) {
-        if (chatRoom !== null) {
-          res.status(401).send({
-            success: false,
-            message: 'Chat room already exist.'
-          });
-        } else {
-          var chatRoom = new ChatRoom(chatRoomData);
-
-          chatRoom.save()
-            .then((chatRoomData) => {
-              for (var i = 0; i < chatRoomData.members.length; i++) {
-                var chatRoomMember = chatRoomData.members[i];
-
-                User.findByIdAndUpdate(
-                  chatRoomMember,
-                  { $push: { chatRooms: { data: chatRoomData._id, unReadMessages: 0 } } },
-                  { safe: true, upsert: true, new: true }
-                ).exec();
-              }
-
-              return ChatRoom.findById(chatRoomData._id)
-                .populate('members');
-            })
-            .then((chatRoomData) => {
-              res.status(200).send({
-                success: true,
-                message: 'Chat Room Created.',
-                chatRoom: {
-                  data: chatRoomData,
-                  unReadMessages: 0
-                }
-              });
-            })
-            .catch((error) => {
-              res.status(500).send({
-                success: false,
-                message: 'Server Error!'
-              });
-            });
         }
-      } else {
-        res.status(500).send({
-          success: false,
-          message: 'Server Error!'
-        });
-      }
-    });
+      });
+    }
   }
 });
 
@@ -292,93 +250,6 @@ router.get('/all', function(req, res, next) {
           message: 'Server Error!'
         });
       });
-  }
-});
-
-router.post('/create', function(req, res, next) {
-  if (req.user === undefined || req.user.role !== 'admin') {
-    res.status(401).send({
-      success: false,
-      message: 'Unauthorized'
-    });
-  } else {
-    var name = req.body.name;
-    var chatType = req.body.chatType;
-    var members = req.body.members;
-    var chatIcon = req.body.chatIcon;
-    var chatRoomData = {
-      name: name,
-      chatType: chatType,
-      members: members,
-      chatIcon: chatIcon
-    };
-
-    if (chatType === 'private' || chatType === 'public') {
-      res.status(401).send({
-        success: false,
-        message: 'Unauthorized'
-      });
-    } else if (chatType === 'direct' && members.length !== 2) {
-      res.status(401).send({
-        success: false,
-        message: 'Please select 2 members.'
-      });
-    } else if (chatType === 'group' && members.length < 3) {
-      res.status(401).send({
-        success: false,
-        message: 'Please select at least 3 members.'
-      });
-    } else {
-      ChatRoom.findOne({members: {$all: members}, chatType: 'direct'}, function(err, chatRoom) {
-        if (!err) {
-          if (chatRoom !== null) {
-            res.status(401).send({
-              success: false,
-              message: 'Chat room already exist.'
-            });
-          } else {
-            var chatRoom = new ChatRoom(chatRoomData);
-
-            chatRoom.save()
-              .then((chatRoomData) => {
-                for (var i = 0; i < chatRoomData.members.length; i++) {
-                  var chatRoomMember = chatRoomData.members[i];
-
-                  User.findByIdAndUpdate(
-                    chatRoomMember,
-                    { $push: { chatRooms: { data: chatRoomData._id, unReadMessages: 0 } } },
-                    { safe: true, upsert: true, new: true }
-                  ).exec();
-                }
-
-                return ChatRoom.findById(chatRoomData._id)
-                  .populate('members');
-              })
-              .then((chatRoomData) => {
-                res.status(200).send({
-                  success: true,
-                  message: 'Chat Room Created.',
-                  chatRoom: {
-                    data: chatRoomData,
-                    unReadMessages: 0
-                  }
-                });
-              })
-              .catch((error) => {
-                res.status(500).send({
-                  success: false,
-                  message: 'Server Error!'
-                });
-              });
-          }
-        } else {
-          res.status(500).send({
-            success: false,
-            message: 'Server Error!'
-          });
-        }
-      });
-    }
   }
 });
 
