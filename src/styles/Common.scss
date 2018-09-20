@@ -39,9 +39,13 @@ body {
     pointer-events: none;
   }
 }
-.mui-btn--large {
-  font-size: 1rem;
-}
 .mm-popup__box__footer {
   padding: 20px !important;
+}
+.scrollbar-measure {
+	width: 100px;
+	height: 100px;
+	overflow: scroll;
+	position: absolute;
+	top: -9999px;
 }
