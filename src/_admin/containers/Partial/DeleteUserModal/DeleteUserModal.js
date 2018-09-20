@@ -78,7 +78,7 @@ class DeleteUserModal extends Component {
               Cancel
             </Button>
             <Button
-              color="danger"
+              className="button button-danger"
               type="submit"
               disabled={user.isDeleting}
             >
@@ -115,6 +115,7 @@ class DeleteUserModal extends Component {
         className="delete-user-modal"
         isModalOpen={isModalOpen}
         handleCloseModal={handleCloseModal}
+        isDanger
       >
         {::this.handleDeleteUserFormRender()}
       </Modal>

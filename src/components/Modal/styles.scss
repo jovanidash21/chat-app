@@ -2,6 +2,13 @@
   max-width: 500px;
   padding: 0;
   width: 100%;
+  &.modal-danger {
+    .close-button {
+      svg path {
+        fill: #fff;
+      }
+    }
+  }
   .close-button {
     cursor: pointer;
     opacity: 0.5;

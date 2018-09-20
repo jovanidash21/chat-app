@@ -92,7 +92,7 @@ class DeleteChatRoomModal extends Component {
               Cancel
             </Button>
             <Button
-              color="danger"
+              className="button button-danger"
               type="submit"
               disabled={chatRoom.isDeleting}
             >
@@ -129,6 +129,7 @@ class DeleteChatRoomModal extends Component {
         className="delete-chat-room-modal"
         isModalOpen={isModalOpen}
         handleCloseModal={handleCloseModal}
+        isDanger
       >
         {::this.handleDeleteChatRoomFormRender()}
       </Modal>

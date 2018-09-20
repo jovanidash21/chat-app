@@ -183,8 +183,7 @@ class Table extends Component {
                             </Link>
                           }
                           <Button
-                            className="delete-button"
-                            color="danger"
+                            className="button button-danger"
                             size="small"
                             title={"Delete " + capitalizeSingularLabel}
                             onClick={(e) => {::this.handleOpenDeleteModal(e, singleRow)}}

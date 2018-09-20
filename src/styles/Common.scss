@@ -30,6 +30,9 @@ body {
   &.button-primary {
     background-color: $color-primary;
   }
+  &.button-danger {
+    background-color: $color-torch-red;
+  }
 }
 .mui-btn {
   &.disabled {

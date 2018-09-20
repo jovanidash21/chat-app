@@ -16,10 +16,11 @@ class Modal extends Component {
       className,
       isModalOpen,
       handleCloseModal,
+      isDanger,
       children
     } = this.props;
     const modalClassNames = {
-      modal: "modal " + className,
+      modal: "modal " + ( isDanger ? 'modal-danger ' : '' ) + className,
       closeButton: "close-button"
     };
 
@@ -38,11 +39,13 @@ class Modal extends Component {
 
 Modal.propTypes = {
   isModalOpen: PropTypes.bool,
-  handleCloseModal: PropTypes.func.isRequired
+  handleCloseModal: PropTypes.func.isRequired,
+  isDanger: PropTypes.bool
 }
 
 Modal.defaultProps = {
-  isModalOpen: false
+  isModalOpen: false,
+  isDanger: false
 }
 
 Modal.Header = Header;

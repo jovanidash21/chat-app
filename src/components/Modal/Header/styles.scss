@@ -2,6 +2,10 @@
   border-bottom: 1px solid $color-alto;
   position: relative;
   padding: 15px;
+  .modal-danger & {
+    background-color: $color-torch-red;
+    color: #fff;
+  }
   .modal-title {
     margin: 0;
   }

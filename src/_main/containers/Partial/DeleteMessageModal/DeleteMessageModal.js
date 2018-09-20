@@ -44,6 +44,7 @@ class DeleteMessageModal extends Component {
         className="delete-message-modal"
         isModalOpen={isModalOpen}
         handleCloseModal={handleCloseModal}
+        isDanger
       >
         <Form onSubmit={::this.handleDeleteMessage}>
           <Modal.Header>
@@ -66,7 +67,7 @@ class DeleteMessageModal extends Component {
               Cancel
             </Button>
             <Button
-              color="danger"
+              className="button button-danger"
               type="submit"
               disabled={message.isDeleting}
             >
