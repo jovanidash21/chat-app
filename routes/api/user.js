@@ -82,6 +82,60 @@ router.post('/select', function(req, res, next) {
   }
 });
 
+router.get('/graph', function(req, res, next) {
+  if (req.user === undefined || req.user.role !== 'admin') {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    User.find({_id: {$ne: null}})
+      .then((users) => {
+        var usersGraphData = [
+          {month: "January", users: 0},
+          {month: "February", users: 0},
+          {month: "March", users: 0},
+          {month: "April", users: 0},
+          {month: "May", users: 0},
+          {month: "June", users: 0},
+          {month: "July", users: 0},
+          {month: "August", users: 0},
+          {month: "September", users: 0},
+          {month: "October", users: 0},
+          {month: "November", users: 0},
+          {month: "December", users: 0},
+        ];
+        var todayDate = new Date();
+        var nextMonth = todayDate.getMonth() !== 11 ? todayDate.getMonth() + 1 : 0;
+        var lastYear = todayDate.getFullYear() - 1;
+        var lastTwelveMonthsDate = new Date();
+        lastTwelveMonthsDate.setDate(1);
+        lastTwelveMonthsDate.setMonth(nextMonth);
+        lastTwelveMonthsDate.setYear(lastYear);
+        lastTwelveMonthsDate = new Date(lastTwelveMonthsDate);
+
+        for (var i = 0; i < users.length; i++) {
+          var user = users[i];
+          var userCreatedDate = new Date(user.createdAt);
+          var userCreatedDateMonth = usersGraphData[userCreatedDate.getMonth()];
+
+          if (userCreatedDate > lastTwelveMonthsDate) {
+            userCreatedDateMonth["users"] = userCreatedDateMonth["users"] + 1;
+          }
+        }
+
+        res.status(200).send(usersGraphData);
+      })
+      .catch((error) => {
+        console.log(error);
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      });
+  }
+});
+
 router.get('/all', function(req, res, next) {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
