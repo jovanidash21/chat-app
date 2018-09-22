@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   FETCH_ACTIVE_USER,
   FETCH_USERS_COUNT,
+  FETCH_USERS_GRAPH,
   FETCH_SELECTED_USER,
   FETCH_USERS,
   SEARCH_USER,
@@ -38,6 +39,23 @@ export function fetchUsersCount() {
     return dispatch({
       type: FETCH_USERS_COUNT,
       payload: axios.get(baseURL + '/api/user/count')
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Fetch users graph
+ */
+export function fetchUsersGraph() {
+  return dispatch => {
+    return dispatch({
+      type: FETCH_USERS_GRAPH,
+      payload: axios.get(baseURL + '/api/user/graph')
     })
     .catch((error) => {
       if (error instanceof Error) {

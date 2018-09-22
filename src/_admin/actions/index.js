@@ -2,6 +2,7 @@ import { bindActionCreators } from 'redux';
 import {
   fetchActiveUser,
   fetchUsersCount,
+  fetchUsersGraph,
   fetchSelectedUser,
   fetchUsers,
   searchUser,
@@ -24,6 +25,7 @@ const actions = (dispatch) => {
   return bindActionCreators({
     fetchActiveUser,
     fetchUsersCount,
+    fetchUsersGraph,
     fetchSelectedUser,
     fetchUsers,
     searchUser,

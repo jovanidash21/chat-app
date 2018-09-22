@@ -1,6 +1,7 @@
 import {
   FETCH_ACTIVE_USER,
   FETCH_USERS_COUNT,
+  FETCH_USERS_GRAPH,
   FETCH_SELECTED_USER,
   FETCH_USERS,
   SEARCH_USER,
@@ -13,6 +14,8 @@ const initialState = {
   count: 0,
   isFetchingActive: false,
   isFetchingActiveSuccess: false,
+  isFetchingGraph: false,
+  isFetchingGraphSuccess: false,
   isFetchingSelected: false,
   isFetchingSelectedSuccess: false,
   isFetchingAll: false,
@@ -24,6 +27,7 @@ const initialState = {
   isDeleting: false,
   isDeletingSuccess: true,
   active: {},
+  graph: [],
   all: [],
   selected: {},
   search: []
@@ -35,6 +39,11 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         isFetchingActive: true
+      };
+    case `${FETCH_USERS_GRAPH}_LOADING`:
+      return {
+        ...state,
+        isFetchingGraph: true
       };
     case `${FETCH_SELECTED_USER}_LOADING`:
       return {
@@ -72,6 +81,13 @@ const user = (state=initialState, action) => {
         isFetchingActive: false,
         isFetchingActiveSuccess: true,
         active: action.payload.data
+      };
+    case `${FETCH_USERS_GRAPH}_SUCCESS`:
+      return {
+        ...state,
+        isFetchingGraph: false,
+        isFetchingGraphSuccess: true,
+        graph: action.payload.data
       };
     case `${FETCH_USERS_COUNT}_SUCCESS`:
       return {
@@ -126,6 +142,12 @@ const user = (state=initialState, action) => {
         ...state,
         isFetchingActive: false,
         isFetchingActiveSuccess: false
+      };
+    case `${FETCH_USERS_GRAPH}_ERROR`:
+      return {
+        ...state,
+        isFetchingGraph: false,
+        isFetchingGraphSuccess: false
       };
     case `${FETCH_SELECTED_USER}_ERROR`:
       return {

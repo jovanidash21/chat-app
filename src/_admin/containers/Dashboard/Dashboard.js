@@ -16,11 +16,13 @@ class Dashboard extends Component {
   componentWillMount() {
     const {
       fetchUsersCount,
+      fetchUsersGraph,
       fetchChatRoomsCount,
       fetchMessagesCount
     } = this.props;
 
     fetchUsersCount();
+    fetchUsersGraph();
     fetchChatRoomsCount();
     fetchMessagesCount();
   }
