@@ -8,6 +8,7 @@ import {
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import { CardBanner } from '../../components/CardBanner';
+import { LineChart } from '../../components/Chart';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -70,6 +71,17 @@ class Dashboard extends Component {
                 count={::this.handleCountRender(message.count)}
                 icon="comment"
                 color="red"
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs="12">
+              <LineChart
+                title="Users"
+                data={user.graph}
+                xAxisKey="month"
+                yAxisKey="users"
+                isLoading={user.isFetchingGraph}
               />
             </Col>
           </Row>
