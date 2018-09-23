@@ -17,8 +17,8 @@ import {
   LoginButton,
   RegisterButton,
   SocialButton
-} from '../../components/AuthForm';
-import { Alert } from '../../../components/Alert'
+} from '../../components/Form';
+import { Alert } from '../../../components/Alert';
 
 class Login extends Component {
   constructor(props) {

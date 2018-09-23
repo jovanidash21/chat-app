@@ -17,7 +17,7 @@ import {
   PasswordInput,
   RegisterButton,
   LoginButton
-} from '../../components/AuthForm';
+} from '../../components/Form';
 import { Alert } from '../../../components/Alert';
 
 class Register extends Component {
