@@ -14,6 +14,8 @@ const initialState = {
   count: 0,
   isFetchingActive: false,
   isFetchingActiveSuccess: false,
+  isFetchingCount: false,
+  isFetchingCountSuccess: false,
   isFetchingGraph: false,
   isFetchingGraphSuccess: false,
   isFetchingSelected: false,
@@ -39,6 +41,11 @@ const user = (state=initialState, action) => {
       return {
         ...state,
         isFetchingActive: true
+      };
+    case `${FETCH_USERS_COUNT}_LOADING`:
+      return {
+        ...state,
+        isFetchingCount: true
       };
     case `${FETCH_USERS_GRAPH}_LOADING`:
       return {
@@ -92,7 +99,9 @@ const user = (state=initialState, action) => {
     case `${FETCH_USERS_COUNT}_SUCCESS`:
       return {
         ...state,
-        count: action.payload.data.count
+        count: action.payload.data.count,
+        isFetchingCount: false,
+        isFetchingCountSuccess: true
       };
     case `${FETCH_SELECTED_USER}_SUCCESS`:
       return {
@@ -142,6 +151,12 @@ const user = (state=initialState, action) => {
         ...state,
         isFetchingActive: false,
         isFetchingActiveSuccess: false
+      };
+    case `${FETCH_USERS_COUNT}_ERROR`:
+      return {
+        ...state,
+        isFetchingCount: false,
+        isFetchingCountSuccess: false
       };
     case `${FETCH_USERS_GRAPH}_ERROR`:
       return {

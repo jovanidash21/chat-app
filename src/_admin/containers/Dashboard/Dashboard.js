@@ -54,6 +54,7 @@ class Dashboard extends Component {
                 icon="user"
                 color="green"
                 link="/all-users"
+                isLoading={user.isFetchingCount}
               />
             </Col>
             <Col lg="4" md="6" xs="12">
@@ -63,6 +64,7 @@ class Dashboard extends Component {
                 icon="door-closed"
                 color="yellow"
                 link="/all-chat-rooms"
+                isLoading={chatRoom.isFetchingCount}
               />
             </Col>
             <Col lg="4" md="6" xs="12">
@@ -71,6 +73,7 @@ class Dashboard extends Component {
                 count={::this.handleCountRender(message.count)}
                 icon="comment"
                 color="red"
+                isLoading={message.isFetchingCount}
               />
             </Col>
           </Row>
