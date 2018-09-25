@@ -6,6 +6,8 @@ import {
 const initialState = {
   isFetchingActive: false,
   isFetchingActiveSuccess: false,
+  isSearching: false,
+  isSearchingSuccess: false,
   active: {},
   search: []
 };
@@ -20,6 +22,7 @@ const user = (state=initialState, action) => {
     case `${SEARCH_USER}_LOADING`:
       return {
         ...state,
+        isSearching: true,
         search: []
       };
     case `${FETCH_ACTIVE_USER}_SUCCESS`:
@@ -32,6 +35,8 @@ const user = (state=initialState, action) => {
     case `${SEARCH_USER}_SUCCESS`:
       return {
         ...state,
+        isSearching: false,
+        isSearchingSuccess: true,
         search: action.payload.data
       };
     case `${FETCH_ACTIVE_USER}_ERROR`:
@@ -43,6 +48,8 @@ const user = (state=initialState, action) => {
     case `${SEARCH_USER}_ERROR`:
       return {
         ...state,
+        isSearching: false,
+        isSearchingSuccess: false,
         search: []
       };
     default:

@@ -141,6 +141,7 @@ class CreateChatRoomModal extends Component {
               handleDeselectUser={::this.handleDeselectMember}
               isListDisabled={chatRoom.isCreating}
               isInputDisabled={chatRoom.isCreating}
+              isLoading={user.isSearching}
             />
           </Modal.Body>
           <Modal.Footer>

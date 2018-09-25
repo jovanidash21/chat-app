@@ -243,6 +243,7 @@ class ChatRoomForm extends Component {
             handleDeselectUser={::this.handleDeselectMember}
             isListDisabled={isListDisabled}
             isInputDisabled={isInputDisabled}
+            isLoading={user.isSearching}
           />
           <Button
             className="button button-primary"

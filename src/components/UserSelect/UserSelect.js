@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Autosuggest from 'react-autosuggest';
 import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
 import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar } from '../Avatar';
 import './styles.scss';
 
@@ -92,7 +93,8 @@ class UserSelect extends Component {
       selectedUsers,
       searchedUsers,
       isListDisabled,
-      isInputDisabled
+      isInputDisabled,
+      isLoading
     } = this.props;
     const {
       selectUser,
@@ -151,6 +153,12 @@ class UserSelect extends Component {
             onSuggestionSelected={::this.onSuggestionSelected}
             highlightFirstSuggestion={true}
           />
+          {
+            isLoading &&
+            <div className="loading-icon">
+              <FontAwesomeIcon icon="spinner" pulse />
+            </div>
+          }
         </div>
       </div>
     )
@@ -167,7 +175,8 @@ UserSelect.propTypes = {
   onSuggestionSelected: PropTypes.func.isRequired,
   handleDeselectUser: PropTypes.func,
   isListDisabled: PropTypes.bool,
-  isInputDisabled: PropTypes.bool
+  isInputDisabled: PropTypes.bool,
+  isLoading: PropTypes.bool
 }
 
 UserSelect.defaultProps = {
@@ -178,7 +187,8 @@ UserSelect.defaultProps = {
   searchUsers: [],
   handleDeselectUser: () => {},
   isListDisabled: false,
-  isInputDisabled: false
+  isInputDisabled: false,
+  isLoading: false
 }
 
 export default UserSelect

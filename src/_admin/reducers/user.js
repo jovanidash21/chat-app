@@ -22,6 +22,8 @@ const initialState = {
   isFetchingSelectedSuccess: false,
   isFetchingAll: false,
   isFetchingAllSuccess: false,
+  isSearching: false,
+  isSearchingSuccess: false,
   isCreating: false,
   isCreatingSuccess: true,
   isEditing: false,
@@ -65,6 +67,7 @@ const user = (state=initialState, action) => {
     case `${SEARCH_USER}_LOADING`:
       return {
         ...state,
+        isSearching: true,
         search: []
       };
     case `${CREATE_USER}_LOADING`:
@@ -120,6 +123,8 @@ const user = (state=initialState, action) => {
     case `${SEARCH_USER}_SUCCESS`:
       return {
         ...state,
+        isSearching: false,
+        isSearchingSuccess: true,
         search: action.payload.data
       };
     case `${CREATE_USER}_SUCCESS`:
@@ -179,6 +184,8 @@ const user = (state=initialState, action) => {
     case `${SEARCH_USER}_ERROR`:
       return {
         ...state,
+        isSearching: false,
+        isSearchingSuccess: false,
         search: []
       };
     case `${CREATE_USER}_ERROR`:
