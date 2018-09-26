@@ -1,3 +1,22 @@
+/* Button
+ * @param {color|transparent|initial|inherit} $bg-color - Background Color
+ * @param {color|initial|inherit} $color - Color
+ */
+@mixin button($bg-color, $color: #fff) {
+  &,
+  &[disabled]:active,
+  &[disabled]:focus,
+  &[disabled]:hover {
+    background-color: $bg-color;
+    color: $color;
+  }
+}
+
+/* Scrollbar
+ * @param {color|initial|inherit} $color - Color
+ * @param {color|transparent|initial|inherit} $bg-color - Background Color
+ * @param {x|y} $direction - Direction
+ */
 @mixin scrollbar($color: #000, $bg-color: transparent, $direction: 'y') {
   &::-webkit-scrollbar {
     @if $direction == 'x' {
@@ -13,14 +32,5 @@
   &::-webkit-scrollbar-thumb {
     background-color: $color;
     border-radius: 5px;
-  }
-}
-@mixin button($bg-color, $color: #fff) {
-  &,
-  &[disabled]:active,
-  &[disabled]:focus,
-  &[disabled]:hover {
-    background-color: $bg-color;
-    color: $color;
   }
 }
