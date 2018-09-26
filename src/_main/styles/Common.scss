@@ -1,27 +1,24 @@
 .button {
-  &.button-login {
-    background-color: $color-primary;
-  }
   &.button-facebook {
-    background-color: $color-chambray;
+    @include button($color-chambray);
   }
   &.button-google {
-    background-color: $color-punch;
+    @include button($color-punch);
   }
   &.button-twitter {
-    background-color: $color-cerulean;
+    @include button($color-cerulean);
   }
   &.button-instagram {
-    background-color: $color-studio;
+    @include button($color-studio);
   }
   &.button-linkedin {
-    background-color: $color-deep-cerulean;
+    @include button($color-deep-cerulean);
   }
   &.button-github {
-    background-color: $color-mine-shaft;
+    @include button($color-mine-shaft);
   }
   &.button-register {
-    background-color: $color-sunshade;
+    @include button($color-sunshade);
   }
   &.button-social {
     .social-icon {

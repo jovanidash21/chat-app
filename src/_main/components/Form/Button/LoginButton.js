@@ -9,7 +9,7 @@ const LoginButton = (props) => {
       <Link
         to={props.link}
         className={
-          "mui-btn mui-btn--raised mui-btn--large button button-login " +
+          "mui-btn mui-btn--raised mui-btn--large button button-primary " +
           (props.isDisabled ? 'disabled' : '')
         }
       >
@@ -19,7 +19,7 @@ const LoginButton = (props) => {
   } else {
     return (
       <Button
-        className='button button-login'
+        className='button button-primary'
         size="large"
         type="submit"
         variant="raised"

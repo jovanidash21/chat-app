@@ -17,21 +17,14 @@ body {
   z-index: 9999;
 }
 .button {
-  color: #fff;
-  &:active,
-  &:focus,
-  &:hover {
-    color: #fff;
-  }
   &.button-default {
-    background-color: $color-alto;
-    color: #000;
+    @include button($color-alto, #000);
   }
   &.button-primary {
-    background-color: $color-primary;
+    @include button($color-primary);
   }
   &.button-danger {
-    background-color: $color-torch-red;
+    @include button($color-torch-red);
   }
 }
 .mui-btn {

@@ -15,3 +15,12 @@
     border-radius: 5px;
   }
 }
+@mixin button($bg-color, $color: #fff) {
+  &,
+  &[disabled]:active,
+  &[disabled]:focus,
+  &[disabled]:hover {
+    background-color: $bg-color;
+    color: $color;
+  }
+}
