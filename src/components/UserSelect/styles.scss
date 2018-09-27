@@ -43,13 +43,26 @@
   }
   .user-select {
     position: relative;
-    .loading-icon {
+    .loading-icon,
+    .clear-icon {
       font-size: 17px;
-      pointer-events: none;
       position: absolute;
-      right: 5px;
       top: 50%;
       transform: translateY(-50%);
+    }
+    .loading-icon {
+      pointer-events: none;
+      right: 5px;
+    }
+    .clear-icon {
+      cursor: pointer;
+      opacity: 0.5;
+      padding: 0 7px;
+      right: 0;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        opacity: 1;
+      }
     }
     .react-autosuggest__container {
       position: relative;
@@ -58,7 +71,7 @@
       border: 1px solid $color-dusty-gray;
       box-sizing: border-box;
       font-size: 16px;
-      padding: 5px 4px;
+      padding: 5px 25px 5px 5px;
       width: 100%;
       &:focus {
         outline: none;

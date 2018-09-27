@@ -13,12 +13,12 @@ class UserSelect extends Component {
     super(props);
 
     this.state = {
-      selectUser: '',
+      searchSelect: '',
       suggestions: []
     }
   }
-  onSelectUserChange(event, {newValue}) {
-    this.setState({selectUser: newValue});
+  onSearchSelect(event, {newValue}) {
+    this.setState({searchSelect: newValue});
   };
   handleGetSuggestions(value) {
     const { searchedUsers } = this.props;
@@ -61,19 +61,23 @@ class UserSelect extends Component {
     const { onSuggestionSelected } = this.props;
 
     onSuggestionSelected(event, suggestion);
-    this.setState({selectUser: ''});
+    this.setState({searchSelect: ''});
   }
   onSuggestionsFetchRequested({value}) {
     const { handleSearchUser } = this.props;
     const inputValue = value.trim().toLowerCase();
-    const inputLength = inputValue.length;
 
-    if ( inputLength > 0 ) {
+    if ( inputValue.length > 0 ) {
       handleSearchUser(inputValue).then(() => {
         this.setState({suggestions: ::this.handleGetSuggestions(value)});
       });
     }
   };
+  handleClearSearchSelect(event) {
+    event.preventDefault();
+
+    this.setState({searchSelect: ''});
+  }
   onSuggestionsClearRequested() {
     this.setState({suggestions: []});
   };
@@ -97,13 +101,13 @@ class UserSelect extends Component {
       isLoading
     } = this.props;
     const {
-      selectUser,
+      searchSelect,
       suggestions
     } = this.state;
     const inputProps = {
       placeholder: placeholder,
-      value: selectUser,
-      onChange: ::this.onSelectUserChange,
+      value: searchSelect,
+      onChange: ::this.onSearchSelect,
       disabled: isInputDisabled
     };
 
@@ -157,6 +161,13 @@ class UserSelect extends Component {
             isLoading &&
             <div className="loading-icon">
               <FontAwesomeIcon icon="spinner" pulse />
+            </div>
+          }
+          {
+            !isLoading &&
+            searchSelect.length > 0 &&
+            <div className="clear-icon" onClick={::this.handleClearSearchSelect}>
+              <FontAwesomeIcon icon="times" />
             </div>
           }
         </div>
