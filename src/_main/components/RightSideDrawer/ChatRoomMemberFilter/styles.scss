@@ -2,25 +2,25 @@
   margin-bottom: 10px;
   padding: 0 5px;
   position: relative;
-  &.has-value {
-    .mui-textfield input {
-      padding-right: 20px;
-    }
+  .search-icon,
+  .clear-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
   }
   .search-icon {
     left: 10px;
     pointer-events: none;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
   }
   .clear-icon {
     cursor: pointer;
-    padding: 5px;
-    position: absolute;
+    opacity: 0.5;
+    padding: 5px 10px;
     right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
+    transition: all 0.2s ease-in-out;
+    &:hover {
+      opacity: 1;
+    }
   }
   .mui-textfield {
     border: 1px solid #fff;
@@ -31,7 +31,7 @@
       border: none;
       color: #fff;
       font-size: 15px;
-      padding: 3px 5px 3px 24px;
+      padding: 3px 20px 3px 24px;
       &::placeholder {
         color: $color-dusty-gray;
       }

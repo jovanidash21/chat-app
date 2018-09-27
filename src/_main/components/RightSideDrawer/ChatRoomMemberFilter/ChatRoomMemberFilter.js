@@ -23,7 +23,7 @@ class ChatRoomMemberFilter extends Component {
     } = this.props;
 
     return (
-      <div className={"chat-room-member-filter " + (value.length > 0 ? 'has-value' : '')}>
+      <div className="chat-room-member-filter">
         <div className="search-icon">
           <FontAwesomeIcon icon="search" />
         </div>
