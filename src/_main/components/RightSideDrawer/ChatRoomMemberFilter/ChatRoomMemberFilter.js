@@ -1,32 +1,57 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Input } from 'muicss/react';
 import './styles.scss';
 
-const ChatRoomMemberFilter = (props) => {
-  return (
-    <div className="chat-room-member-filter">
-      <div className="search-icon">
-        <FontAwesomeIcon icon="search" />
+class ChatRoomMemberFilter extends Component {
+  constructor(props) {
+    super(props);
+  }
+  handleClearSearchFilter(event) {
+    event.preventDefault();
+
+    const { handleClearSearchFilter } = this.props;
+
+    handleClearSearchFilter();
+  }
+  render() {
+    const {
+      value,
+      onMemberNameChange,
+      onMemberNameKeyDown
+    } = this.props;
+
+    return (
+      <div className={"chat-room-member-filter " + (value.length > 0 ? 'has-value' : '')}>
+        <div className="search-icon">
+          <FontAwesomeIcon icon="search" />
+        </div>
+        <Input
+          value={value}
+          type="text"
+          autoComplete="off"
+          floatingLabel={false}
+          placeholder="Search"
+          onChange={onMemberNameChange}
+          onKeyDown={onMemberNameKeyDown}
+        />
+        {
+          value.length > 0 &&
+          <div className="clear-icon" onClick={::this.handleClearSearchFilter}>
+            <FontAwesomeIcon icon="times" />
+          </div>
+        }
       </div>
-      <Input
-        value={props.value}
-        type="text"
-        autoComplete="off"
-        floatingLabel={false}
-        placeholder="Search"
-        onChange={props.onMemberNameChange}
-        onKeyDown={props.onMemberNameKeyDown}
-      />
-    </div>
-  );
+    );
+  }
 }
 
 ChatRoomMemberFilter.propTypes = {
   value: PropTypes.string,
   onMemberNameChange: PropTypes.func.isRequired,
-  onMemberNameKeyDown: PropTypes.func.isRequired
+  onMemberNameKeyDown: PropTypes.func.isRequired,
+  handleClearSearchFilter: PropTypes.func.isRequired
 }
 
 ChatRoomMemberFilter.defaultProps = {

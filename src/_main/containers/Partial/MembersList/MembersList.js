@@ -16,7 +16,7 @@ class MembersList extends Component {
 
     this.state = {
       members: [],
-      memberName: '',
+      searchFilter: '',
       selectedMemberIndex: -1
     }
   }
@@ -30,10 +30,13 @@ class MembersList extends Component {
 
       handleRightSideDrawerToggleEvent();
       this.setState({
-        memberName: '',
+        searchFilter: '',
         selectedMemberIndex: -1
       });
     }
+  }
+  handleClearSearchFilter() {
+    this.setState({searchFilter: ''});
   }
   handleMembersListRender() {
     const {
@@ -42,7 +45,7 @@ class MembersList extends Component {
     } = this.props;
     const {
       members,
-      memberName,
+      searchFilter,
       selectedMemberIndex
     } = this.state;
 
@@ -59,9 +62,10 @@ class MembersList extends Component {
             </h3>
           </div>
           <ChatRoomMemberFilter
-            value={memberName}
+            value={searchFilter}
             onMemberNameChange={::this.onMemberNameChange}
             onMemberNameKeyDown={::this.onMemberNameKeyDown}
+            handleClearSearchFilter={::this.handleClearSearchFilter}
           />
           <div className="members-list">
             {
@@ -107,12 +111,12 @@ class MembersList extends Component {
       selectedMemberIndex
     } = this.state;
     var allMembers = [];
-    var memberName = event.target.value
+    var searchFilter = event.target.value
     var memberIndex = selectedMemberIndex;
 
-    if ( memberName.length > 0 ) {
+    if ( searchFilter.length > 0 ) {
       allMembers = members.filter((singleMember) => {
-        return singleMember.name.toLowerCase().match(memberName);
+        return singleMember.name.toLowerCase().match(searchFilter);
       });
 
       if ( selectedMemberIndex === -1 ) {
@@ -125,7 +129,7 @@ class MembersList extends Component {
 
     this.setState({
       members: allMembers,
-      memberName: memberName,
+      searchFilter: searchFilter,
       selectedMemberIndex: memberIndex
     });
   }
@@ -192,13 +196,13 @@ class MembersList extends Component {
       changeChatRoom(existingChatRoomData, userID, activeChatRoom.data._id);
       handleRightSideDrawerToggleEvent();
       this.setState({
-        memberName: '',
+        searchFilter: '',
         selectedMemberIndex: -1
       });
     } else {
       handleRightSideDrawerToggleEvent();
       this.setState({
-        memberName: '',
+        searchFilter: '',
         selectedMemberIndex: -1
       });
     }
