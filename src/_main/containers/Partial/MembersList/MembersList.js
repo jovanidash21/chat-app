@@ -25,6 +25,10 @@ class MembersList extends Component {
       ::this.handleMembersListFilter();
     }
 
+    if ( prevProps.member.all.length !== this.props.member.all.length ) {
+      ::this.handleMembersListFilter(this.state.searchFilter);
+    }
+
     if ( prevProps.chatRoom.isCreating && this.props.chatRoom.isCreatingSuccess ) {
       const { handleRightSideDrawerToggleEvent } = this.props;
 
