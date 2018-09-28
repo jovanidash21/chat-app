@@ -6,14 +6,12 @@ import {
   Row,
   Col,
   Panel,
-  Divider,
-  Input
+  Divider
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import Head from '../../../components/Head';
 import {
-  UsernameInput,
-  PasswordInput,
+  Input,
   LoginButton,
   RegisterButton,
   SocialButton
@@ -87,13 +85,18 @@ class Login extends Component {
             }
             <Col md="12">
               <Form onSubmit={::this.handleLocalLogin}>
-                <UsernameInput
+                <Input
                   value={username}
+                  label="Username"
+                  name="username"
                   handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
-                <PasswordInput
+                <Input
                   value={password}
+                  label="Password"
+                  type="password"
+                  name="password"
                   handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />

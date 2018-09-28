@@ -11,10 +11,7 @@ import {
 import mapDispatchToProps from '../../actions';
 import Head from '../../../components/Head';
 import {
-  EmailInput,
-  NameInput,
-  UsernameInput,
-  PasswordInput,
+  Input,
   RegisterButton,
   LoginButton
 } from '../../components/Form';
@@ -88,23 +85,33 @@ class Register extends Component {
             }
             <Col md="12">
               <Form onSubmit={::this.handleRegister}>
-                <EmailInput
+                <Input
                   value={email}
+                  label="Email"
+                  type="email"
+                  name="email"
                   handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
-                <NameInput
+                <Input
                   value={name}
+                  label="Name"
+                  name="name"
                   handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
-                <UsernameInput
+                <Input
                   value={username}
+                  label="Username"
+                  name="username"
                   handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />
-                <PasswordInput
+                <Input
                   value={password}
+                  label="Password"
+                  type="password"
+                  name="password"
                   handleChange={::this.handleChange}
                   isDisabled={auth.isLoading}
                 />

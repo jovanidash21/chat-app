@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'muicss/react';
 
-const PasswordInput = (props) => {
+const InputComponent = (props) => {
   return (
     <Input
       value={props.value}
-      label="Password"
-      type="password"
-      name="password"
+      label={props.label}
+      type={props.type}
+      name={props.name}
       autoComplete="off"
       floatingLabel={true}
       required={true}
@@ -18,15 +18,21 @@ const PasswordInput = (props) => {
   );
 }
 
-PasswordInput.propTypes = {
+InputComponent.propTypes = {
   value: PropTypes.string,
+  label: PropTypes.string,
+  type: PropTypes.string,
+  name: PropTypes.string,
   handleChange: PropTypes.func.isRequired,
   isDisabled: PropTypes.bool
 }
 
-PasswordInput.defaultProps = {
+InputComponent.defaultProps = {
   value: '',
+  label: '',
+  type: 'text',
+  name: '',
   isDisabled: false
 }
 
-export default PasswordInput;
+export default InputComponent;
