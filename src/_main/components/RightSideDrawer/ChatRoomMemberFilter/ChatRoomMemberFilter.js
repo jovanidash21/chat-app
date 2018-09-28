@@ -14,6 +14,8 @@ class ChatRoomMemberFilter extends Component {
     const { handleClearSearchFilter } = this.props;
 
     handleClearSearchFilter();
+
+    this.inputFilter.controlEl.focus();
   }
   render() {
     const {
@@ -35,6 +37,7 @@ class ChatRoomMemberFilter extends Component {
           placeholder="Search"
           onChange={onMemberNameChange}
           onKeyDown={onMemberNameKeyDown}
+          ref={(element) => { this.inputFilter = element; }}
         />
         {
           value.length > 0 &&
