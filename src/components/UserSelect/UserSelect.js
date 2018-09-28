@@ -77,6 +77,8 @@ class UserSelect extends Component {
     event.preventDefault();
 
     this.setState({searchSelect: ''});
+
+    this.inputSelect.input.focus();
   }
   onSuggestionsClearRequested() {
     this.setState({suggestions: []});
@@ -156,6 +158,7 @@ class UserSelect extends Component {
             inputProps={inputProps}
             onSuggestionSelected={::this.onSuggestionSelected}
             highlightFirstSuggestion={true}
+            ref={(element) => { this.inputSelect = element; }}
           />
           {
             isLoading &&
