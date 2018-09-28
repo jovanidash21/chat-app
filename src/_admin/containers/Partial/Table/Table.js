@@ -120,8 +120,10 @@ class Table extends Component {
         <div className="table-wrapper">
           <div className="search-filter-wrapper">
             <SearchFilter
+              value={searchFilter}
               onSearchFilterChange={::this.onSearchFilterChange}
               placeholder={"Search " + capitalizePluralLabel}
+              handleClearSearchFilter={::this.handleClearSearchFilter}
             />
           </div>
           <div className="table">
@@ -232,6 +234,17 @@ class Table extends Component {
       sort
     } = this.state;
     const searchFilter = event.target.value.trim().toLowerCase();
+
+    this.setState({searchFilter: searchFilter});
+
+    ::this.handleDataRowsChange(searchFilter, sort.column, sort.direction, activePage);
+  }
+  handleClearSearchFilter() {
+    const {
+      activePage,
+      sort
+    } = this.state;
+    const searchFilter = '';
 
     this.setState({searchFilter: searchFilter});
 
