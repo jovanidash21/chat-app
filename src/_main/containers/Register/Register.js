@@ -32,7 +32,7 @@ class Register extends Component {
     document.body.className = '';
     document.body.classList.add('register-page');
   }
-  handleChange(event) {
+  onInputChange(event) {
     event.preventDefault();
 
     this.setState({[event.target.name]: event.target.value});
@@ -90,15 +90,15 @@ class Register extends Component {
                   label="Email"
                   type="email"
                   name="email"
-                  handleChange={::this.handleChange}
-                  isDisabled={auth.isLoading}
+                  onChange={::this.onInputChange}
+                  disabled={auth.isLoading}
                 />
                 <Input
                   value={name}
                   label="Name"
                   name="name"
-                  handleChange={::this.handleChange}
-                  isDisabled={auth.isLoading}
+                  onChange={::this.onInputChange}
+                  disabled={auth.isLoading}
                 />
                 <Input
                   value={username}

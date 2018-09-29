@@ -31,7 +31,7 @@ class Login extends Component {
     document.body.className = '';
     document.body.classList.add('login-page');
   }
-  handleChange(event) {
+  onInputChange(event) {
     event.preventDefault();
 
     this.setState({[event.target.name]: event.target.value});
@@ -89,16 +89,16 @@ class Login extends Component {
                   value={username}
                   label="Username"
                   name="username"
-                  handleChange={::this.handleChange}
-                  isDisabled={auth.isLoading}
+                  onChange={::this.onInputChange}
+                  disabled={auth.isLoading}
                 />
                 <Input
                   value={password}
                   label="Password"
                   type="password"
                   name="password"
-                  handleChange={::this.handleChange}
-                  isDisabled={auth.isLoading}
+                  onChange={::this.onInputChange}
+                  disabled={auth.isLoading}
                 />
                 <LoginButton isDisabled={auth.isLoading} />
               </Form>

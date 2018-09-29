@@ -12,8 +12,8 @@ const InputComponent = (props) => {
       autoComplete="off"
       floatingLabel={true}
       required={true}
-      onChange={props.handleChange}
-      disabled={props.isDisabled}
+      onChange={props.onChange}
+      disabled={props.disabled}
     />
   );
 }
@@ -23,8 +23,8 @@ InputComponent.propTypes = {
   label: PropTypes.string,
   type: PropTypes.string,
   name: PropTypes.string,
-  handleChange: PropTypes.func.isRequired,
-  isDisabled: PropTypes.bool
+  onChange: PropTypes.func,
+  disabled: PropTypes.bool
 }
 
 InputComponent.defaultProps = {
@@ -32,7 +32,8 @@ InputComponent.defaultProps = {
   label: '',
   type: 'text',
   name: '',
-  isDisabled: false
+  onChange: () => {},
+  disabled: false
 }
 
 export default InputComponent;
