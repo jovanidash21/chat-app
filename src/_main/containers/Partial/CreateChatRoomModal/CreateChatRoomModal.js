@@ -6,8 +6,8 @@ import {
   Button
 } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
+import { Input } from '../../../components/Form';
 import { Modal } from '../../../../components/Modal';
-import { ChatRoomNameInput } from '../../../components/CreateChatRoomModal';
 import { Alert } from '../../../../components/Alert';
 import { UserSelect } from '../../../../components/UserSelect';
 import './styles.scss';
@@ -127,9 +127,11 @@ class CreateChatRoomModal extends Component {
               !chatRoom.isCreatingSuccess &&
               <Alert label="Error! Please try again" />
             }
-            <ChatRoomNameInput
-              onChatRoomNameChange={::this.onChatRoomNameChange}
-              isDisabled={chatRoom.isCreating}
+            <Input
+              value={chatRoomName}
+              label="Chat Room Name"
+              onChange={::this.onChatRoomNameChange}
+              disabled={chatRoom.isCreating}
             />
             <UserSelect
               label="Select at least 3 members"
