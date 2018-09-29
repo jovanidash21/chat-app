@@ -9,7 +9,6 @@ import mapDispatchToProps from '../../../actions';
 import { Modal } from '../../../../components/Modal';
 import { Avatar } from '../../../../components/Avatar';
 import { Alert } from '../../../../components/Alert';
-import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import './styles.scss';
 
 class DeleteChatRoomModal extends Component {
@@ -46,7 +45,18 @@ class DeleteChatRoomModal extends Component {
 
     return accountType;
   }
-  handleDeleteChatRoomFormRender() {
+  handleDeleteChatRoom(event) {
+    event.preventDefault();
+
+    const {
+      chatRoom,
+      deleteChatRoom
+    } = this.props;
+    const selectedChatRoom = chatRoom.selected;
+
+    deleteChatRoom(selectedChatRoom._id);
+  }
+  render() {
     const {
       chatRoom,
       isModalOpen,
@@ -55,8 +65,14 @@ class DeleteChatRoomModal extends Component {
     const { isLoading } = this.state;
     const selectedChatRoom = chatRoom.selected;
 
-    if ( !isLoading ) {
-      return (
+    return (
+      <Modal
+        className="delete-chat-room-modal"
+        isModalOpen={isModalOpen}
+        handleCloseModal={handleCloseModal}
+        isDanger
+        isLoading={isLoading}
+      >
         <Form onSubmit={::this.handleDeleteChatRoom}>
           <Modal.Header>
             <h3 className="modal-title">Delete ChatRoom</h3>
@@ -100,38 +116,6 @@ class DeleteChatRoomModal extends Component {
             </Button>
           </Modal.Footer>
         </Form>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="black" />
-      )
-    }
-  }
-  handleDeleteChatRoom(event) {
-    event.preventDefault();
-
-    const {
-      chatRoom,
-      deleteChatRoom
-    } = this.props;
-    const selectedChatRoom = chatRoom.selected;
-
-    deleteChatRoom(selectedChatRoom._id);
-  }
-  render() {
-    const {
-      isModalOpen,
-      handleCloseModal
-    } = this.props;
-
-    return (
-      <Modal
-        className="delete-chat-room-modal"
-        isModalOpen={isModalOpen}
-        handleCloseModal={handleCloseModal}
-        isDanger
-      >
-        {::this.handleDeleteChatRoomFormRender()}
       </Modal>
     )
   }

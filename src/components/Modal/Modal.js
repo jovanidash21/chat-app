@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactModal from 'react-responsive-modal';
+import { LoadingAnimation } from '../LoadingAnimation';
 import { Header } from './Header';
 import { Body } from './Body';
 import { Footer } from './Footer';
@@ -17,6 +18,7 @@ class Modal extends Component {
       isModalOpen,
       handleCloseModal,
       isDanger,
+      isLoading,
       children
     } = this.props;
     const modalClassNames = {
@@ -30,8 +32,15 @@ class Modal extends Component {
         open={isModalOpen}
         onClose={handleCloseModal}
         center
+        showCloseIcon={!isLoading}
       >
-        {children}
+        {
+          !isLoading
+            ?
+            children
+            :
+            <LoadingAnimation name="ball-clip-rotate" color="black" />
+        }
       </ReactModal>
     )
   }
@@ -40,12 +49,14 @@ class Modal extends Component {
 Modal.propTypes = {
   isModalOpen: PropTypes.bool,
   handleCloseModal: PropTypes.func.isRequired,
-  isDanger: PropTypes.bool
+  isDanger: PropTypes.bool,
+  isLoading: PropTypes.bool
 }
 
 Modal.defaultProps = {
   isModalOpen: false,
-  isDanger: false
+  isDanger: false,
+  isLoading: false
 }
 
 Modal.Header = Header;

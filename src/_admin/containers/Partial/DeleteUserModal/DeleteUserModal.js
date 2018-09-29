@@ -9,7 +9,6 @@ import mapDispatchToProps from '../../../actions';
 import { Modal } from '../../../../components/Modal';
 import { Avatar } from '../../../../components/Avatar';
 import { Alert } from '../../../../components/Alert';
-import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import './styles.scss';
 
 class DeleteUserModal extends Component {
@@ -31,7 +30,18 @@ class DeleteUserModal extends Component {
       this.props.handleCloseModal();
     }
   }
-  handleDeleteUserFormRender() {
+  handleDeleteUser(event) {
+    event.preventDefault();
+
+    const {
+      user,
+      deleteUser
+    } = this.props;
+    const selectedUser = user.selected;
+
+    deleteUser(selectedUser._id);
+  }
+  render() {
     const {
       user,
       isModalOpen,
@@ -40,8 +50,14 @@ class DeleteUserModal extends Component {
     const { isLoading } = this.state;
     const selectedUser = user.selected;
 
-    if ( !isLoading ) {
-      return (
+    return (
+      <Modal
+        className="delete-user-modal"
+        isModalOpen={isModalOpen}
+        handleCloseModal={handleCloseModal}
+        isDanger
+        isLoading={isLoading}
+      >
         <Form onSubmit={::this.handleDeleteUser}>
           <Modal.Header>
             <h3 className="modal-title">Delete User</h3>
@@ -86,38 +102,6 @@ class DeleteUserModal extends Component {
             </Button>
           </Modal.Footer>
         </Form>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="black" />
-      )
-    }
-  }
-  handleDeleteUser(event) {
-    event.preventDefault();
-
-    const {
-      user,
-      deleteUser
-    } = this.props;
-    const selectedUser = user.selected;
-
-    deleteUser(selectedUser._id);
-  }
-  render() {
-    const {
-      isModalOpen,
-      handleCloseModal
-    } = this.props;
-
-    return (
-      <Modal
-        className="delete-user-modal"
-        isModalOpen={isModalOpen}
-        handleCloseModal={handleCloseModal}
-        isDanger
-      >
-        {::this.handleDeleteUserFormRender()}
       </Modal>
     )
   }
