@@ -1,9 +1,22 @@
-.chat-room-member-filter {
+.search-filter {
   margin-bottom: 10px;
   padding: 0 5px;
   position: relative;
+  &.light {
+    .search-icon,
+    .clear-icon {
+      color: #fff;
+    }
+    .mui-textfield {
+      border-color: #fff;
+      input {
+        color: #fff;
+      }
+    }
+  }
   .search-icon,
   .clear-icon {
+    color: #000;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -23,17 +36,21 @@
     }
   }
   .mui-textfield {
-    border: 1px solid #fff;
+    border: 1px solid $color-alto;
     border-radius: 3px;
     margin: 0;
     padding: 0;
     input {
       border: none;
-      color: #fff;
-      font-size: 15px;
-      padding: 3px 20px 3px 24px;
+      color: $color-mine-shaft;
+      font-size: 16px;
+      height: 33px;
+      padding: 3px 30px 3px 24px;
       &::placeholder {
         color: $color-dusty-gray;
+      }
+      &:focus {
+        margin-bottom: 0;
       }
     }
   }

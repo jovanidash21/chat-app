@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
-import {
-  ChatRoomMemberFilter,
-  ChatRoomMember
-} from '../../../components/RightSideDrawer';
+import { SearchFilter } from '../../../../components/SearchFilter';
+import { ChatRoomMember } from '../../../components/RightSideDrawer';
 import './styles.scss';
 
 class MembersList extends Component {
@@ -90,11 +88,12 @@ class MembersList extends Component {
               {member.all.length > 1 ? 'Members' : 'Member'}
             </h3>
           </div>
-          <ChatRoomMemberFilter
+          <SearchFilter
             value={searchFilter}
-            onMemberNameChange={::this.onMemberNameChange}
-            onMemberNameKeyDown={::this.onMemberNameKeyDown}
+            onChange={::this.onMemberNameChange}
+            onKeyDown={::this.onMemberNameKeyDown}
             handleClearSearchFilter={::this.handleClearSearchFilter}
+            light
           />
           <div className="members-list">
             {

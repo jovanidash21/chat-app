@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { OnlineIndicator } from '../../OnlineIndicator';
-import { Avatar } from '../../../../components/Avatar';
+import { OnlineIndicator } from '../OnlineIndicator';
+import { Avatar } from '../../../components/Avatar';
 import './styles.scss';
 
 class ChatRoomMember extends Component {

@@ -20,12 +20,14 @@ class SearchFilter extends Component {
   render() {
     const {
       value,
-      onSearchFilterChange,
-      placeholder
+      placeholder,
+      onChange,
+      onKeyDown,
+      light
     } = this.props;
 
     return (
-      <div className="search-filter">
+      <div className={"search-filter " + (light ? 'light' : '')}>
         <div className="search-icon">
           <FontAwesomeIcon icon="search" />
         </div>
@@ -35,7 +37,8 @@ class SearchFilter extends Component {
           autoComplete="off"
           floatingLabel={false}
           placeholder={placeholder}
-          onChange={onSearchFilterChange}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
           ref={(element) => { this.inputFilter = element; }}
         />
         {
@@ -51,14 +54,19 @@ class SearchFilter extends Component {
 
 SearchFilter.propTypes = {
   value: PropTypes.string,
-  onSearchFilterChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
-  handleClearSearchFilter: PropTypes.func.isRequired
+  onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  handleClearSearchFilter: PropTypes.func.isRequired,
+  light: PropTypes.bool
 }
 
 SearchFilter.defaultProps = {
   value: '',
-  placeholder: 'Search'
+  placeholder: 'Search',
+  onChange: () => {},
+  onKeyDown: () => {},
+  light: false
 }
 
 export default SearchFilter;

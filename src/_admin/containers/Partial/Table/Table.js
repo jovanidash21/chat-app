@@ -9,9 +9,9 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
+import { SearchFilter } from '../../../../components/SearchFilter';
 import {
   TableColumn,
-  SearchFilter,
   Pagination
 } from '../../../components/Table';
 import './styles.scss';
@@ -121,8 +121,8 @@ class Table extends Component {
           <div className="search-filter-wrapper">
             <SearchFilter
               value={searchFilter}
-              onSearchFilterChange={::this.onSearchFilterChange}
               placeholder={"Search " + capitalizePluralLabel}
+              onChange={::this.onSearchFilterChange}
               handleClearSearchFilter={::this.handleClearSearchFilter}
             />
           </div>
