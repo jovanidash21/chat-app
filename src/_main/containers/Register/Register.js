@@ -10,8 +10,8 @@ import {
 } from 'muicss/react'
 import mapDispatchToProps from '../../actions';
 import Head from '../../../components/Head';
+import { Input } from '../../../components/Form';
 import {
-  Input,
   RegisterButton,
   LoginButton
 } from '../../components/Form';

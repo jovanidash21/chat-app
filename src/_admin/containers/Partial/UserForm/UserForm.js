@@ -7,7 +7,6 @@ import {
   Col,
   Panel,
   Form,
-  Input,
   Select,
   Option,
   Button
@@ -15,6 +14,7 @@ import {
 import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
+import { Input } from '../../../../components/Form';
 import {
   PasswordInput,
   AvatarUploader
@@ -132,9 +132,6 @@ class UserForm extends Component {
             label="Username"
             type="text"
             name="username"
-            autoComplete="off"
-            floatingLabel={true}
-            required={true}
             onChange={::this.handleChange}
             disabled={isDisabled}
           />
@@ -143,9 +140,6 @@ class UserForm extends Component {
             label="Name"
             type="text"
             name="name"
-            autoComplete="off"
-            floatingLabel={true}
-            required={true}
             onChange={::this.handleChange}
             disabled={isDisabled}
           />
@@ -154,9 +148,6 @@ class UserForm extends Component {
             label="Email"
             type="email"
             name="email"
-            autoComplete="off"
-            floatingLabel={true}
-            required={true}
             onChange={::this.handleChange}
             disabled={isDisabled}
           />

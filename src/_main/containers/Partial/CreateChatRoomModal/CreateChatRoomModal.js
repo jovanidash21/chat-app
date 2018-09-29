@@ -6,10 +6,12 @@ import {
   Button
 } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
-import { Input } from '../../../components/Form';
 import { Modal } from '../../../../components/Modal';
 import { Alert } from '../../../../components/Alert';
-import { UserSelect } from '../../../../components/UserSelect';
+import {
+  Input,
+  UserSelect
+} from '../../../../components/Form';
 import './styles.scss';
 
 class CreateChatRoomModal extends Component {

@@ -5,7 +5,7 @@ import Autosuggest from 'react-autosuggest';
 import AutosuggestHighlightMatch from 'autosuggest-highlight/match';
 import AutosuggestHighlightParse from 'autosuggest-highlight/parse';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Avatar } from '../Avatar';
+import { Avatar } from '../../Avatar';
 import './styles.scss';
 
 class UserSelect extends Component {

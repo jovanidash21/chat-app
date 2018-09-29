@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Input,
-  Button
-} from 'muicss/react';
+import { Button } from 'muicss/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import generatePassword from 'password-generator';
+import { Input } from '../../../../components/Form';
 import './styles.scss';
 
 class PasswordInput extends Component {
@@ -45,9 +43,6 @@ class PasswordInput extends Component {
             label="Password"
             type={(!showPassword ? "password" : "text")}
             name="password"
-            autoComplete="off"
-            floatingLabel={true}
-            required={true}
             onChange={handleChange}
             disabled={isDisabled}
           />

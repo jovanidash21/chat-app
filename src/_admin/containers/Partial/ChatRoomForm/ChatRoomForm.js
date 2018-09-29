@@ -7,7 +7,6 @@ import {
   Col,
   Panel,
   Form,
-  Input,
   Select,
   Option,
   Button
@@ -15,7 +14,10 @@ import {
 import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
-import { UserSelect } from '../../../../components/UserSelect';
+import {
+  Input,
+  UserSelect
+} from '../../../../components/Form';
 import { AvatarUploader } from '../../../components/Form';
 
 class ChatRoomForm extends Component {
@@ -226,9 +228,6 @@ class ChatRoomForm extends Component {
               label="Name"
               type="text"
               name="name"
-              autoComplete="off"
-              floatingLabel={true}
-              required={true}
               onChange={::this.handleChange}
               disabled={isDisabled}
             />
