@@ -38,8 +38,8 @@ class LineChartComponent extends Component {
           <div className="line-chart">
             <ResponsiveContainer>
               <LineChart data={data}>
-                <Line type="monotone" dataKey={yAxisKey} stroke="#26a69a" strokeWidth={2} />
-                <CartesianGrid stroke="#ccc" strokeDasharray="5 5" tick={{fill: '#fff'}} />
+                <Line type="monotone" dataKey={yAxisKey} stroke="#26a69a" strokeWidth={4} />
+                <CartesianGrid stroke="#ccc" strokeDasharray="3 3" tick={{fill: '#000'}} />
                 <XAxis dataKey={xAxisKey} />
                 <YAxis />
                 <Tooltip />
