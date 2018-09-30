@@ -35,7 +35,7 @@ class AvatarUploader extends Component {
         <Avatar
           image={imageLink}
           size="120px"
-          title={name}
+          name={name}
           accountType={accountType}
           badgeBigger
           badgeCloser

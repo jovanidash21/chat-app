@@ -19,6 +19,11 @@
   &.offline {
     .avatar {
       filter: grayscale(100%);
+      & + .user-tooltip-wrapper {
+        .avatar {
+          filter: none;
+        }
+      }
     }
     .member-name {
       color: $color-dusty-gray;

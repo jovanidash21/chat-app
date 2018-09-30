@@ -52,7 +52,7 @@ class AllUsers extends Component {
       const image = (<Avatar
           image={singleUser.profilePicture}
           size="32px"
-          title={singleUser.name}
+          name={singleUser.name}
           accountType={singleUser.accountType}
           badgeCloser
         />);

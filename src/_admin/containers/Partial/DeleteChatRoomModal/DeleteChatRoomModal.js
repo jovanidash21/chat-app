@@ -87,7 +87,7 @@ class DeleteChatRoomModal extends Component {
               <Avatar
                 image={selectedChatRoom.chatIcon}
                 size="100px"
-                title={selectedChatRoom.name}
+                name={selectedChatRoom.name}
                 accountType={::this.handleAccountType(selectedChatRoom)}
                 badgeBigger
                 badgeCloser

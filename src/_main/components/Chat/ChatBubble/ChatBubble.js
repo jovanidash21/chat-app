@@ -214,9 +214,11 @@ class ChatBubble extends Component {
                 <Avatar
                   image={message.user.profilePicture}
                   size={matches ? '35px' : '25px'}
-                  title={message.user.name}
+                  name={message.user.name}
+                  username={message.user.username}
                   accountType={message.user.accountType}
                   badgeCloser={matches ? true : false}
+                  showUserTooltip
                 />
               )
             }}

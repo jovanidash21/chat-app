@@ -66,7 +66,7 @@ class AllChatRooms extends Component {
       const image = (<Avatar
           image={singleChatRoom.chatIcon}
           size="32px"
-          title={singleChatRoom.name}
+          name={singleChatRoom.name}
           accountType={::this.handleAccountType(singleChatRoom)}
           badgeCloser
         />);

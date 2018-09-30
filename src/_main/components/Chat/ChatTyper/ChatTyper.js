@@ -9,7 +9,7 @@ const ChatTyper = (props) => {
       <Avatar
         image={props.typer.profilePicture}
         size="21px"
-        title={props.typer.name}
+        name={props.typer.name}
         accountType={props.typer.accountType}
         badgeCloser
       />

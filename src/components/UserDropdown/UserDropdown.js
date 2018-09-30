@@ -17,7 +17,7 @@ class UserDropdown extends Component {
           <Avatar
             image={user.profilePicture}
             size="32px"
-            title={user.name}
+            name={user.name}
             accountType={user.accountType}
             badgeCloser
           />

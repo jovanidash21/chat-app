@@ -38,7 +38,7 @@ class UserSelect extends Component {
         <Avatar
           image={suggestion.profilePicture}
           size="27px"
-          title={suggestionText}
+          name={suggestionText}
           accountType={suggestion.accountType}
           badgeCloser
         />

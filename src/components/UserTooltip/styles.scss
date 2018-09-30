@@ -1,0 +1,42 @@
+.user-tooltip-wrapper {
+  box-shadow: 0 -2px 30px rgba(#000, 0.15);
+  margin-top: 12px;
+  padding: 10px;
+  .user-tooltip {
+    align-items: center;
+    display: flex;
+    &:before {
+      border-color: transparent transparent #fff transparent;
+      border-style: solid;
+      border-width: 0 8px 8px 8px;
+      content: '';
+      height: 0;
+      left: 8px;
+      position: absolute;
+      top: -8px;
+      width: 0;
+    }
+    .avatar {
+      margin-right: 10px;
+    }
+    .user-detail {
+      .user-full-name,
+      .user-username {
+        max-width: 250px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .user-full-name {
+        color: $color-mine-shaft;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 3px;
+      }
+      .user-username {
+        color: $color-dusty-gray;
+        font-size: 14px;
+      }
+    }
+  }
+}

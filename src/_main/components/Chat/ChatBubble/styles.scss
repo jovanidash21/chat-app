@@ -151,6 +151,11 @@
   }
   .avatar {
     margin-top: 15px;
+    & + .user-tooltip-wrapper {
+      .avatar {
+        margin-top: 0;
+      }
+    }
   }
   .chat-user-name {
     color: #000;

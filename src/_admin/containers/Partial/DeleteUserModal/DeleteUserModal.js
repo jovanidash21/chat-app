@@ -72,7 +72,7 @@ class DeleteUserModal extends Component {
               <Avatar
                 image={selectedUser.profilePicture}
                 size="100px"
-                title={selectedUser.name}
+                name={selectedUser.name}
                 accountType={selectedUser.accountType}
                 badgeBigger
                 badgeCloser

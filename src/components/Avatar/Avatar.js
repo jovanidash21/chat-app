@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import initials from 'initials';
+import { UserTooltip } from '../UserTooltip';
 import './styles.scss';
 
 class Avatar extends Component {
@@ -12,7 +13,7 @@ class Avatar extends Component {
     const {
       image,
       size,
-      title
+      name
     } = this.props;
     var avatarStyles = {
       height: size,
@@ -43,8 +44,8 @@ class Avatar extends Component {
     } else {
       var charCodeSum = 0;
 
-      for ( var i = 0; i < title.length; i++ ) {
-        charCodeSum += title.charCodeAt(i);
+      for ( var i = 0; i < name.length; i++ ) {
+        charCodeSum += name.charCodeAt(i);
       }
 
       const j = charCodeSum % colors.length;
@@ -100,39 +101,62 @@ class Avatar extends Component {
     const {
       image,
       size,
-      title,
+      name,
+      username,
       accountType,
       badgeBigger,
-      badgeCloser
+      badgeCloser,
+      showUserTooltip
     } = this.props;
     const avatarStyles = ::this.handleAvatarStyles();
-    const nameAbbr = initials(title).substring(0,2);
+    var avatarProps = {
+      style: avatarStyles,
+      title: name
+    }
+    const nameAbbr = initials(name).substring(0,2);
     const badgeIcon = ::this.handleBadge('icon');
     const badgeTitle = ::this.handleBadge('title');
 
+    if ( showUserTooltip ) {
+      avatarProps = {
+        ...avatarProps,
+        'data-mui-toggle': "dropdown"
+      }
+    }
+
     return (
-      <div
-        className="avatar"
-        style={avatarStyles}
-        title={title}
-      >
+      <div className={showUserTooltip ? 'mui-dropdown' : ''}>
+        <div
+          className={"avatar " + (showUserTooltip ? 'avatar-tooltip-toggle' : '')}
+          {...avatarProps}
+        >
+          {
+            image.length === 0 &&
+            nameAbbr
+          }
+          {
+            badgeIcon.length > 0 &&
+            <div
+              className={
+                "badge-icon " +
+                (badgeBigger ? 'bigger ' : '') +
+                (badgeCloser ? 'closer ' : '') +
+                accountType
+              }
+              title={badgeTitle}
+            >
+              <FontAwesomeIcon icon={["fab", badgeIcon]} />
+            </div>
+          }
+        </div>
         {
-          image.length === 0 &&
-          nameAbbr
-        }
-        {
-          badgeIcon.length > 0 &&
-          <div
-            className={
-              "badge-icon " +
-              (badgeBigger ? 'bigger ' : '') +
-              (badgeCloser ? 'closer ' : '') +
-              accountType
-            }
-            title={badgeTitle}
-          >
-            <FontAwesomeIcon icon={["fab", badgeIcon]} />
-          </div>
+          showUserTooltip &&
+          <UserTooltip
+            image={image}
+            name={name}
+            username={username}
+            accountType={accountType}
+          />
         }
       </div>
     )
@@ -142,18 +166,21 @@ class Avatar extends Component {
 Avatar.propTypes = {
   image: PropTypes.string,
   size: PropTypes.string,
-  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  username: PropTypes.string,
   accountType: PropTypes.string.isRequired,
   badgeBigger: PropTypes.bool,
-  badgeCloser: PropTypes.bool
+  badgeCloser: PropTypes.bool,
+  showUserTooltip: PropTypes.bool
 }
 
 Avatar.defaultProps = {
   image: '',
-  className: '',
   size: '25px',
+  username: '',
   badgeBigger: false,
-  badgeCloser: false
+  badgeCloser: false,
+  showUserTooltip: false
 }
 
 export default Avatar;

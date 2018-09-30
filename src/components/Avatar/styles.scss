@@ -5,6 +5,9 @@
   position: relative;
   text-align: center;
   word-break: break-all;
+  &.avatar-tooltip-toggle {
+    cursor: pointer;
+  }
   .badge-icon {
     $badge-size: 10px;
     align-items: center;
