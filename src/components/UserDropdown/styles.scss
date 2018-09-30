@@ -3,12 +3,23 @@
   display: flex;
   justify-content: flex-end;
   .dropdown-toggle {
+    align-items: center;
     cursor: pointer;
     border-radius: 50%;
     box-shadow: none;
-    transition: all 0.3s ease;
+    display: flex;
     &:hover {
-      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      .avatar {
+        box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      }
+    }
+    .avatar {
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+    .arrow-down-icon {
+      color: #fff;
+      font-size: 16px;
     }
   }
   .dropdown-menu {
@@ -21,7 +32,7 @@
       content: '';
       height: 0;
       position: absolute;
-      right: 8px;
+      right: 14px;
       top: -8px;
       width: 0;
     }

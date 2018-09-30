@@ -21,6 +21,9 @@ class UserDropdown extends Component {
             accountType={user.accountType}
             badgeCloser
           />
+          <div className="arrow-down-icon">
+            <FontAwesomeIcon icon="caret-down" />
+          </div>
         </div>
         <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
           <li>
