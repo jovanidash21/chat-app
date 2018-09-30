@@ -12,18 +12,19 @@ class UserTooltip extends Component {
       image,
       name,
       username,
-      accountType
+      accountType,
+      isSmall
     } = this.props;
 
     return (
       <ul className="user-tooltip-wrapper mui-dropdown__menu">
-        <div className="user-tooltip">
+        <div className={"user-tooltip " + (isSmall ? 'small' : '')}>
           <Avatar
             image={image}
-            size="60px"
+            size={!isSmall ? "70px" : "40px"}
             name={name}
             accountType={accountType}
-            badgeBigger
+            badgeBigger={!isSmall ? true : false}
             badgeCloser
           />
           <div className="user-detail">
@@ -49,13 +50,15 @@ UserTooltip.propTypes = {
   name: PropTypes.string,
   username: PropTypes.string,
   accountType: PropTypes.string,
+  isSmall: PropTypes.bool
 }
 
 UserTooltip.defaultProps = {
   image: '',
   name: '',
   username: '',
-  accountType: ''
+  accountType: '',
+  isSmall: false
 }
 
 export default UserTooltip;

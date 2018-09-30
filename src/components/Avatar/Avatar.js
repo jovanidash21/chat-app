@@ -156,6 +156,7 @@ class Avatar extends Component {
             name={name}
             username={username}
             accountType={accountType}
+            isSmall={parseInt(size, 10) <= 25 ? true : false}
           />
         }
       </div>

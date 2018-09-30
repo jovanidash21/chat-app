@@ -1,5 +1,5 @@
 .user-tooltip-wrapper {
-  box-shadow: 0 -2px 30px rgba(#000, 0.15);
+  box-shadow: 0 -2px 30px rgba(#000, 0.25);
   margin-top: 12px;
   padding: 10px;
   .user-tooltip {
@@ -36,6 +36,17 @@
       .user-username {
         color: $color-dusty-gray;
         font-size: 14px;
+      }
+    }
+    &.small {
+      &:before {
+        left: 3px;
+      }
+      .user-full-name {
+        font-size: 14px;
+      }
+      .user-username {
+        font-size: 12px;
       }
     }
   }
