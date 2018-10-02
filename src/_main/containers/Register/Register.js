@@ -32,17 +32,17 @@ class Register extends Component {
     document.body.className = '';
     document.body.classList.add('register-page');
   }
-  onInputChange(event) {
-    event.preventDefault();
-
-    this.setState({[event.target.name]: event.target.value});
-  }
   handleHeadData() {
     const title = 'Chat App | Register';
 
     return (
       <Head title={title} />
     )
+  }
+  onInputChange(event) {
+    event.preventDefault();
+
+    this.setState({[event.target.name]: event.target.value});
   }
   handleRegister(event) {
     event.preventDefault();
@@ -104,16 +104,16 @@ class Register extends Component {
                   value={username}
                   label="Username"
                   name="username"
-                  handleChange={::this.handleChange}
-                  isDisabled={auth.isLoading}
+                  onChange={::this.onInputChange}
+                  disabled={auth.isLoading}
                 />
                 <Input
                   value={password}
                   label="Password"
                   type="password"
                   name="password"
-                  handleChange={::this.handleChange}
-                  isDisabled={auth.isLoading}
+                  onChange={::this.onInputChange}
+                  disabled={auth.isLoading}
                 />
                 <RegisterButton isDisabled={auth.isLoading} />
               </Form>

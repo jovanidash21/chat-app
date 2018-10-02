@@ -31,17 +31,17 @@ class Login extends Component {
     document.body.className = '';
     document.body.classList.add('login-page');
   }
-  onInputChange(event) {
-    event.preventDefault();
-
-    this.setState({[event.target.name]: event.target.value});
-  }
   handleHeadData() {
     const title = 'Chat App | Login';
 
     return (
       <Head title={title} />
     )
+  }
+  onInputChange(event) {
+    event.preventDefault();
+
+    this.setState({[event.target.name]: event.target.value});
   }
   handleLocalLogin(event) {
     event.preventDefault();
