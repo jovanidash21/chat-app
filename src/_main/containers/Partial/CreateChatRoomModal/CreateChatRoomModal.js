@@ -34,10 +34,10 @@ class CreateChatRoomModal extends Component {
       handleLeftSideDrawerToggleEvent();
     }
   }
-  onChatRoomNameChange(event) {
+  onInputChange(event) {
     event.preventDefault();
 
-    this.setState({chatRoomName: event.target.value});
+    this.setState({[event.target.name]: event.target.value});
   }
   onSuggestionSelected(event, suggestion) {
     event.preventDefault();
@@ -132,7 +132,8 @@ class CreateChatRoomModal extends Component {
             <Input
               value={chatRoomName}
               label="Chat Room Name"
-              onChange={::this.onChatRoomNameChange}
+              name="chatRoomName"
+              onChange={::this.onInputChange}
               disabled={chatRoom.isCreating}
             />
             <UserSelect
