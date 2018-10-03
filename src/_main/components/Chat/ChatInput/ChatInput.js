@@ -305,10 +305,7 @@ class ChatInput extends Component {
           <div>
             {
               emojiPicker &&
-              <EmojiPicker
-                onChange={::this.handleEmojiPickerSelect}
-                search={true}
-              />
+              <EmojiPicker onChange={::this.handleEmojiPickerSelect} search />
             }
             {
               emojiPicker &&
@@ -356,11 +353,11 @@ class ChatInput extends Component {
           </MediaQuery>
         </div>
         <Button
-          className="send-button"
+          className="button button-primary send-button"
           onClick={::this.handleSendTextMessageOnClick}
           disabled={!validMessage || maxLengthReached}
         >
-          <FontAwesomeIcon icon="paper-plane" size="2x" />
+          <FontAwesomeIcon icon={["far", "paper-plane"]} size="2x" />
         </Button>
       </div>
     )
