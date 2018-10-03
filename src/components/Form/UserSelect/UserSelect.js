@@ -135,7 +135,7 @@ class UserSelect extends Component {
                     <Avatar
                       image={user.profilePicture}
                       size="20px"
-                      title={user.name}
+                      name={user.name}
                       accountType={user.accountType}
                       badgeCloser
                     />
@@ -171,6 +171,14 @@ class UserSelect extends Component {
             searchSelect.length > 0 &&
             <div className="clear-icon" onClick={::this.handleClearSearchSelect}>
               <FontAwesomeIcon icon="times" />
+            </div>
+          }
+          {
+            !isLoading &&
+            searchSelect.length > 0 &&
+            suggestions.length === 0 &&
+            <div className="no-results">
+              No results found
             </div>
           }
         </div>
