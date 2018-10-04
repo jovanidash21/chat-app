@@ -1,4 +1,5 @@
 .user-dropdown {
+  $transition: all 0.2s ease-in-out;
   align-items: center;
   display: flex;
   justify-content: flex-end;
@@ -15,7 +16,7 @@
     }
     .avatar {
       margin-right: 10px;
-      transition: all 0.3s ease;
+      transition: $transition;
     }
     .arrow-down-icon {
       color: #fff;
@@ -35,6 +36,16 @@
       right: 18px;
       top: -8px;
       width: 0;
+    }
+    a {
+      transition: $transition;
+      &:hover {
+        background-color: $color-primary;
+        &,
+        .option-icon {
+          color: #fff;
+        }
+      }
     }
     .user-detail {
       padding: 5px 15px;
@@ -60,8 +71,10 @@
       margin: 5px 0;
     }
     .option-icon {
+      color: $color-primary;
       display: inline-block;
       width: 21px;
+      transition: $transition;
     }
   }
 }
