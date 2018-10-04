@@ -12,6 +12,7 @@ class UserTooltip extends Component {
       image,
       name,
       username,
+      roleChatType,
       accountType,
       isSmall
     } = this.props;
@@ -23,6 +24,7 @@ class UserTooltip extends Component {
             image={image}
             size={!isSmall ? "70px" : "40px"}
             name={name}
+            roleChatType={roleChatType}
             accountType={accountType}
             badgeBigger={!isSmall ? true : false}
             badgeCloser
@@ -49,6 +51,7 @@ UserTooltip.propTypes = {
   image: PropTypes.string,
   name: PropTypes.string,
   username: PropTypes.string,
+  roleChatType: PropTypes.string,
   accountType: PropTypes.string,
   isSmall: PropTypes.bool
 }
@@ -57,6 +60,7 @@ UserTooltip.defaultProps = {
   image: '',
   name: '',
   username: '',
+  roleChatType: '',
   accountType: '',
   isSmall: false
 }

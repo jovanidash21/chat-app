@@ -7,15 +7,17 @@ class ChatRoom extends Component {
   constructor(props) {
     super(props);
   }
-  handleAccountType() {
+  handleAvatar(type='account') {
     const {
       user,
       chatRoom
     } = this.props;
+    var roleChatType = '';
     var accountType = '';
 
     switch ( chatRoom.data.chatType ) {
       case 'private':
+        roleChatType = user.role;
         accountType = user.accountType;
         break;
       case 'direct':
@@ -23,6 +25,7 @@ class ChatRoom extends Component {
           var member = chatRoom.data.members[i];
 
           if ( member._id != user._id ) {
+            roleChatType = member.role;
             accountType = member.accountType;
             break;
           } else {
@@ -30,10 +33,16 @@ class ChatRoom extends Component {
           }
         }
         break;
+      case 'public':
+        roleChatType = 'public';
+        break;
       default:
         break;
     }
 
+    if ( type === 'role-chat' ) {
+      return roleChatType;
+    }
     return accountType;
   }
   handleChangeChatRoom(event) {
@@ -69,7 +78,8 @@ class ChatRoom extends Component {
         <Avatar
           image={chatRoom.data.chatIcon}
           name={chatRoom.data.name}
-          accountType={::this.handleAccountType()}
+          roleChatType={::this.handleAvatar('role-chat')}
+          accountType={::this.handleAvatar()}
         />
         <div className="chat-room-name">
           {chatRoom.data.name}

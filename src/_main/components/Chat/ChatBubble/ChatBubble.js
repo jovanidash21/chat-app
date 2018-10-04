@@ -216,6 +216,7 @@ class ChatBubble extends Component {
                   size={matches ? '35px' : '25px'}
                   name={message.user.name}
                   username={message.user.username}
+                  roleChatType={message.user.role}
                   accountType={message.user.accountType}
                   badgeCloser={matches ? true : false}
                   showUserTooltip

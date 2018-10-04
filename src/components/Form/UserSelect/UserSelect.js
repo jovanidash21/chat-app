@@ -39,6 +39,7 @@ class UserSelect extends Component {
           image={suggestion.profilePicture}
           size="27px"
           name={suggestionText}
+          roleChatType={suggestion.role}
           accountType={suggestion.accountType}
           badgeCloser
         />
@@ -136,6 +137,7 @@ class UserSelect extends Component {
                       image={user.profilePicture}
                       size="20px"
                       name={user.name}
+                      roleChatType={user.role}
                       accountType={user.accountType}
                       badgeCloser
                     />

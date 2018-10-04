@@ -41,6 +41,7 @@ class ChatRoomMember extends Component {
           size="23px"
           name={chatRoomMember.name}
           username={chatRoomMember.username}
+          roleChatType={chatRoomMember.role}
           accountType={chatRoomMember.accountType}
           showUserTooltip
         />

@@ -10,6 +10,7 @@ const ChatTyper = (props) => {
         image={props.typer.profilePicture}
         size="21px"
         name={props.typer.name}
+        roleChatType={props.typer.role}
         accountType={props.typer.accountType}
         badgeCloser
       />

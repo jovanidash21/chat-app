@@ -53,6 +53,7 @@ class AllUsers extends Component {
           image={singleUser.profilePicture}
           size="32px"
           name={singleUser.name}
+          roleChatType={singleUser.role}
           accountType={singleUser.accountType}
           badgeCloser
         />);

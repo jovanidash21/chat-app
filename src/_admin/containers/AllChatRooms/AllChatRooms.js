@@ -42,19 +42,27 @@ class AllChatRooms extends Component {
       ::this.handleChatRoomRows();
     }
   }
-  handleAccountType(chatRoomData) {
+  handleAvatar(chatRoomData, type='account') {
+    var roleChatType = '';
     var accountType = '';
 
     switch ( chatRoomData.chatType ) {
       case 'private':
         if ( chatRoomData.members.length > 0 ) {
+          roleChatType = chatRoomData.members[0].role;
           accountType = chatRoomData.members[0].accountType;
         }
+        break;
+      case 'public':
+        roleChatType = 'public';
         break;
       default:
         break;
     }
 
+    if ( type === 'role-chat' ) {
+      return roleChatType;
+    }
     return accountType;
   }
   handleChatRoomRows() {
@@ -67,7 +75,8 @@ class AllChatRooms extends Component {
           image={singleChatRoom.chatIcon}
           size="32px"
           name={singleChatRoom.name}
-          accountType={::this.handleAccountType(singleChatRoom)}
+          roleChatType={::this.handleAvatar(singleChatRoom, 'role-chat')}
+          accountType={::this.handleAvatar(singleChatRoom)}
           badgeCloser
         />);
 

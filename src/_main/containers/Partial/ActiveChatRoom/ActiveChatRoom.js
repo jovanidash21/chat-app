@@ -13,17 +13,19 @@ class ActiveChatRoom extends Component {
   constructor(props) {
     super(props);
   }
-  handleAccountType() {
+  handleAvatar(type='account') {
     const {
       user,
       chatRoom
     } = this.props;
     const activeUser = user.active;
     const activeChatRoom = chatRoom.active;
+    var roleChatType = '';
     var accountType = '';
 
     switch ( activeChatRoom.data.chatType ) {
       case 'private':
+        roleChatType = activeUser.role;
         accountType = activeUser.accountType;
         break;
       case 'direct':
@@ -31,6 +33,7 @@ class ActiveChatRoom extends Component {
           var member = activeChatRoom.data.members[i];
 
           if ( member._id != activeUser._id ) {
+            roleChatType = activeUser.role;
             accountType = member.accountType;
             break;
           } else {
@@ -38,10 +41,16 @@ class ActiveChatRoom extends Component {
           }
         }
         break;
+      case 'public':
+        roleChatType = 'public';
+        break;
       default:
         break;
     }
 
+    if ( type === 'role-chat' ) {
+      return roleChatType;
+    }
     return accountType;
   }
   handleActiveChatRoomRender() {
@@ -64,14 +73,12 @@ class ActiveChatRoom extends Component {
             image={activeChatRoom.data.chatIcon}
             size="32px"
             name={activeChatRoom.data.name}
-            accountType={::this.handleAccountType()}
+            roleChatType={::this.handleAvatar('role-chat')}
+            accountType={::this.handleAvatar()}
             badgeCloser
           />
           <div className="chat-room-detail">
-            <h2
-              className="chat-room-name"
-              title={activeChatRoom.data.name}
-            >
+            <h2 className="chat-room-name" title={activeChatRoom.data.name}>
               {activeChatRoom.data.name}
             </h2>
             <div className="chat-room-info">

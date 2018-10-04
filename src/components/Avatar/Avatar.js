@@ -57,7 +57,31 @@ class Avatar extends Component {
 
     return avatarStyles;
   }
-  handleBadge(type) {
+  handleTopBadgeIcon(type) {
+    const { roleChatType } = this.props;
+    var icon = '';
+    var title = '';
+
+    switch ( roleChatType ) {
+      case 'admin':
+        icon = 'user-cog';
+        title = 'This member is an admin';
+        break;
+      case 'public':
+        icon = 'users';
+        title = 'This is a public chat room';
+        break;
+      default:
+        break;
+    }
+
+    if ( type === 'icon' ) {
+      return icon;
+    } else if ( type === 'title' ) {
+      return title;
+    }
+  }
+  handleBottomBadgeIcon(type) {
     const { accountType } = this.props;
     var icon = '';
     var title = '';
@@ -103,6 +127,7 @@ class Avatar extends Component {
       size,
       name,
       username,
+      roleChatType,
       accountType,
       badgeBigger,
       badgeCloser,
@@ -113,9 +138,11 @@ class Avatar extends Component {
       style: avatarStyles,
       title: name
     }
-    const nameAbbr = initials(name).substring(0,2);
-    const badgeIcon = ::this.handleBadge('icon');
-    const badgeTitle = ::this.handleBadge('title');
+    const nameAbbr = initials(name).substring(0, 2);
+    const topBadgeIcon = ::this.handleTopBadgeIcon('icon');
+    const topBadgeTitle = ::this.handleTopBadgeIcon('title');
+    const bottomBadgeIcon = ::this.handleBottomBadgeIcon('icon');
+    const bottomBadgeTitle = ::this.handleBottomBadgeIcon('title');
 
     if ( showUserTooltip ) {
       avatarProps = {
@@ -135,7 +162,21 @@ class Avatar extends Component {
             nameAbbr
           }
           {
-            badgeIcon.length > 0 &&
+            topBadgeIcon.length > 0 &&
+            <div
+              className={
+                "badge-icon top " +
+                (badgeBigger ? 'bigger ' : '') +
+                (badgeCloser ? 'closer ' : '') +
+                roleChatType
+              }
+              title={topBadgeTitle}
+            >
+              <FontAwesomeIcon icon={topBadgeIcon} />
+            </div>
+          }
+          {
+            bottomBadgeIcon.length > 0 &&
             <div
               className={
                 "badge-icon " +
@@ -143,9 +184,9 @@ class Avatar extends Component {
                 (badgeCloser ? 'closer ' : '') +
                 accountType
               }
-              title={badgeTitle}
+              title={bottomBadgeTitle}
             >
-              <FontAwesomeIcon icon={["fab", badgeIcon]} />
+              <FontAwesomeIcon icon={["fab", bottomBadgeIcon]} />
             </div>
           }
         </div>
@@ -155,6 +196,7 @@ class Avatar extends Component {
             image={image}
             name={name}
             username={username}
+            roleChatType={roleChatType}
             accountType={accountType}
             isSmall={parseInt(size, 10) <= 25 ? true : false}
           />
@@ -167,9 +209,10 @@ class Avatar extends Component {
 Avatar.propTypes = {
   image: PropTypes.string,
   size: PropTypes.string,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   username: PropTypes.string,
-  accountType: PropTypes.string.isRequired,
+  roleChatType: PropTypes.string,
+  accountType: PropTypes.string,
   badgeBigger: PropTypes.bool,
   badgeCloser: PropTypes.bool,
   showUserTooltip: PropTypes.bool
@@ -178,7 +221,10 @@ Avatar.propTypes = {
 Avatar.defaultProps = {
   image: '',
   size: '25px',
+  name: '',
   username: '',
+  roleChatType: '',
+  accountType: '',
   badgeBigger: false,
   badgeCloser: false,
   showUserTooltip: false

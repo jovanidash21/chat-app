@@ -267,6 +267,7 @@ class ChatRoomForm extends Component {
     const {
       isLoading,
       isDisabled,
+      chatType,
       name,
       chatIcon
     } = this.state;
@@ -277,7 +278,8 @@ class ChatRoomForm extends Component {
           imageLink={chatIcon}
           defaultImageLink="https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg"
           name={name}
-          accountType={::this.handleAccountType()}
+          roleChatType={chatType}
+          accountType={::this.handleAvatar()}
           handleImageUpload={::this.handleImageUpload}
           handleRemoveImage={::this.handleRemoveImage}
           isDisabled={isDisabled}

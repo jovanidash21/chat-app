@@ -26,6 +26,7 @@ class AvatarUploader extends Component {
       imageLink,
       defaultImageLink,
       name,
+      roleChatType,
       accountType,
       isDisabled
     } = this.props;
@@ -36,6 +37,7 @@ class AvatarUploader extends Component {
           image={imageLink}
           size="120px"
           name={name}
+          roleChatType={roleChatType}
           accountType={accountType}
           badgeBigger
           badgeCloser
@@ -80,6 +82,7 @@ AvatarUploader.propTypes = {
   imageLink: PropTypes.string,
   defaultImageLink: PropTypes.string,
   name: PropTypes.string,
+  roleChatType: PropTypes.string,
   accountType: PropTypes.string,
   handleImageUpload: PropTypes.func.isRequired,
   handleRemoveImage: PropTypes.func.isRequired,
@@ -90,6 +93,7 @@ AvatarUploader.defaultProps = {
   imageLink: '',
   defaultImageLink: '',
   name: '',
+  roleChatType: '',
   accountType: '',
   isDisabled: false
 }

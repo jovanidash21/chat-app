@@ -73,6 +73,7 @@ class DeleteUserModal extends Component {
                 image={selectedUser.profilePicture}
                 size="100px"
                 name={selectedUser.name}
+                roleChatType={selectedUser.role}
                 accountType={selectedUser.accountType}
                 badgeBigger
                 badgeCloser

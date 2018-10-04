@@ -18,6 +18,7 @@ class UserDropdown extends Component {
             image={user.profilePicture}
             size="32px"
             name={user.name}
+            roleChatType={user.role}
             accountType={user.accountType}
             badgeCloser
           />

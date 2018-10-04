@@ -195,6 +195,7 @@ class UserForm extends Component {
       isLoading,
       isDisabled,
       name,
+      role,
       profilePicture
     } = this.state;
     const selectedUser = user.selected;
@@ -204,6 +205,7 @@ class UserForm extends Component {
         <AvatarUploader
           imageLink={profilePicture}
           name={name}
+          roleChatType={role}
           accountType={selectedUser.accountType}
           handleImageUpload={::this.handleImageUpload}
           handleRemoveImage={::this.handleRemoveImage}
