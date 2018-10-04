@@ -1,6 +1,9 @@
 .auth-form {
   margin: 20px auto;
   max-width: 400px;
+  @media screen and (max-width: $screen-mobile-max) {
+    margin: 0; 
+  }
   a {
     &:hover {
       text-decoration: none;
@@ -10,6 +13,9 @@
     padding: 35px;
     @media screen and (max-width: $screen-mobile-max) {
       box-shadow: none;
+    }
+    .form-title {
+      margin-top: 0;
     }
     .button {
       display: block;
