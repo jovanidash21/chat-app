@@ -14,7 +14,6 @@ import {
   ChatRoomsList,
   MembersList
 } from '../Partial';
-import Head from '../../../components/Head';
 import {
   ChatInput,
   ChatAudioRecorder
@@ -142,7 +141,6 @@ class Chat extends Component {
 
     return (
       <div id="chat-section" className="chat-section">
-        <Head title="Chat App" />
         {::this.handleLeftSideDrawerRender()}
         <RightSideDrawer
           handleRightSideDrawerToggleState={::this.handleRightSideDrawerToggleState}

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router';
 import mapDispatchToProps from '../actions';
+import Head from '../../components/Head';
 import { LoadingAnimation } from '../../components/LoadingAnimation';
 
 class Layout extends Component {
@@ -17,18 +18,22 @@ class Layout extends Component {
   handleComponentRender(matchProps) {
     const {
       component: Content,
+      title,
       user
     } = this.props;
 
-    if ( !user.isFetchingActive && user.isFetchingActiveSuccess ) {
-      return (
-        <Content {...matchProps} />
-      )
-    } else {
-      return (
-        <LoadingAnimation name="pacman" color="#26a69a" />
-      )
-    }
+    return (
+      <div>
+        <Head title={"Chat App " + (title.length > 0 ? '| ' + title : '')} />
+        {
+          !user.isFetchingActive && user.isFetchingActiveSuccess
+            ?
+            <Content {...matchProps} />
+            :
+            <LoadingAnimation name="pacman" color="#26a69a" />
+        }
+      </div>
+    )
   }
   render() {
     const { component, ...rest } = this.props;
@@ -46,7 +51,12 @@ const mapStateToProps = (state) => {
 }
 
 Layout.propTypes = {
-  component: PropTypes.func.isRequired
+  component: PropTypes.func.isRequired,
+  title: PropTypes.string
+}
+
+Layout.defaultProps = {
+  title: ''
 }
 
 export default connect(

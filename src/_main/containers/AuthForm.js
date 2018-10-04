@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router';
+import Head from '../../components/Head';
 import '../styles/AuthForm.scss';
 
 class AuthForm extends Component {
@@ -8,10 +9,14 @@ class AuthForm extends Component {
     super(props);
   }
   handleComponentRender(matchProps) {
-    const { component: Content } = this.props;
+    const {
+      component: Content,
+      title
+    } = this.props;
 
     return (
       <div className="auth-form">
+        <Head title={"Chat App " + (title.length > 0 ? '| ' + title : '')} />
         <Content {...matchProps} />
       </div>
     )
@@ -26,7 +31,12 @@ class AuthForm extends Component {
 }
 
 AuthForm.propTypes = {
-  component: PropTypes.func.isRequired
+  component: PropTypes.func.isRequired,
+  title: PropTypes.string
+}
+
+AuthForm.defaultProps = {
+  title: ''
 }
 
 export default AuthForm;

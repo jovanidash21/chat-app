@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
 import { Route } from 'react-router';
 import mapDispatchToProps from '../actions';
+import Head from '../../components/Head';
 import { Menu } from './Partial';
 import {
   Header,
   LeftSideDrawer,
   Footer
 } from './Common';
-import Head from '../../components/Head';
 import { LoadingAnimation } from '../../components/LoadingAnimation';
 import '../styles/Admin.scss';
 
@@ -63,27 +63,29 @@ class Layout extends Component {
       user
     } = this.props;
 
-    if ( !user.isFetchingActive && user.isFetchingActiveSuccess ) {
-      return (
-        <div className="admin-section">
-          <Head title={"Chat App | " + title} />
-          {::this.handleLeftSideDrawerRender()}
-          <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}>
-            <div className="page-title">
-              {title}
+    return (
+      <div className="admin-section">
+        <Head title={"Chat App " + (title.length > 0 ? '| ' + title : '')} />
+        {
+          !user.isFetchingActive && user.isFetchingActiveSuccess
+            ?
+            <div>
+              {::this.handleLeftSideDrawerRender()}
+              <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}>
+                <div className="page-title">
+                  {title}
+                </div>
+              </Header>
+              <div className="admin-content">
+                <Content {...matchProps} />
+              </div>
+              <Footer />
             </div>
-          </Header>
-          <div className="admin-content">
-            <Content {...matchProps} />
-          </div>
-          <Footer />
-        </div>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="pacman" color="#26a69a" />
-      )
-    }
+            :
+            <LoadingAnimation name="pacman" color="#26a69a" />
+        }
+      </div>
+    )
   }
   render() {
     const { component, ...rest } = this.props;
