@@ -106,11 +106,12 @@ class Chat extends Component {
       chatRoom,
       sendAudioMessage
     } = this.props;
+    const audioLength = new Date(audio.stopTime) - new Date(audio.startTime);
 
-    if ( audio.size > 1024 * 1024 * 2 ) {
-      Popup.alert('Maximum file size upload is 2MB only');
+    if ( audioLength > ( 60 * 1000 ) ) {
+      Popup.alert('Maximum of 1 minute audio only');
     } else {
-      sendAudioMessage(newMessageID, text, audio, user.active, chatRoom.active.data._id);
+      sendAudioMessage(newMessageID, text, audio.blob, user.active, chatRoom.active.data._id);
     }
   }
   handleNotificationViewMessage(chatRoomObj) {

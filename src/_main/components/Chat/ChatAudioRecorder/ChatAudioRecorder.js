@@ -48,7 +48,7 @@ class ChatAudioRecorder extends Component {
     const audioName = 'voice message';
 
     if ( isSendAudioClick ) {
-      handleSendAudioMessage(newMessageID, audioName, audio.blob);
+      handleSendAudioMessage(newMessageID, audioName, audio);
     }
   }
   render() {
