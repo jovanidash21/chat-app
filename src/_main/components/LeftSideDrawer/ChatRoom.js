@@ -1,49 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { handleChatRoomAvatarBadges } from '../../../utils/avatar';
 import { Avatar } from '../../../components/Avatar';
 import './styles.scss';
 
 class ChatRoom extends Component {
   constructor(props) {
     super(props);
-  }
-  handleAvatar(type='account') {
-    const {
-      user,
-      chatRoom
-    } = this.props;
-    var roleChatType = '';
-    var accountType = '';
-
-    switch ( chatRoom.data.chatType ) {
-      case 'private':
-        roleChatType = user.role;
-        accountType = user.accountType;
-        break;
-      case 'direct':
-        for ( var i = 0; i < chatRoom.data.members.length; i++ ) {
-          var member = chatRoom.data.members[i];
-
-          if ( member._id != user._id ) {
-            roleChatType = member.role;
-            accountType = member.accountType;
-            break;
-          } else {
-            continue;
-          }
-        }
-        break;
-      case 'public':
-        roleChatType = 'public';
-        break;
-      default:
-        break;
-    }
-
-    if ( type === 'role-chat' ) {
-      return roleChatType;
-    }
-    return accountType;
   }
   handleChangeChatRoom(event) {
     event.preventDefault();
@@ -61,6 +24,7 @@ class ChatRoom extends Component {
   }
   render() {
     const {
+      user,
       chatRoom,
       isActive
     } = this.props;
@@ -78,8 +42,8 @@ class ChatRoom extends Component {
         <Avatar
           image={chatRoom.data.chatIcon}
           name={chatRoom.data.name}
-          roleChatType={::this.handleAvatar('role-chat')}
-          accountType={::this.handleAvatar()}
+          roleChatType={handleChatRoomAvatarBadges(chatRoom.data, user, 'role-chat')}
+          accountType={handleChatRoomAvatarBadges(chatRoom.data, user)}
         />
         <div className="chat-room-name">
           {chatRoom.data.name}

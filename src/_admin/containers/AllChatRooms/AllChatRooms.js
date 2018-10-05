@@ -7,6 +7,7 @@ import {
   Button
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
+import { handleChatRoomAvatarBadges } from '../../../utils/avatar';
 import {
   Table,
   DeleteChatRoomModal
@@ -42,29 +43,6 @@ class AllChatRooms extends Component {
       ::this.handleChatRoomRows();
     }
   }
-  handleAvatar(chatRoomData, type='account') {
-    var roleChatType = '';
-    var accountType = '';
-
-    switch ( chatRoomData.chatType ) {
-      case 'private':
-        if ( chatRoomData.members.length > 0 ) {
-          roleChatType = chatRoomData.members[0].role;
-          accountType = chatRoomData.members[0].accountType;
-        }
-        break;
-      case 'public':
-        roleChatType = 'public';
-        break;
-      default:
-        break;
-    }
-
-    if ( type === 'role-chat' ) {
-      return roleChatType;
-    }
-    return accountType;
-  }
   handleChatRoomRows() {
     const { chatRoom } = this.props;
     const chatRoomRows = [];
@@ -75,8 +53,8 @@ class AllChatRooms extends Component {
           image={singleChatRoom.chatIcon}
           size="32px"
           name={singleChatRoom.name}
-          roleChatType={::this.handleAvatar(singleChatRoom, 'role-chat')}
-          accountType={::this.handleAvatar(singleChatRoom)}
+          roleChatType={handleChatRoomAvatarBadges(singleChatRoom, {}, 'role-chat')}
+          accountType={handleChatRoomAvatarBadges(singleChatRoom)}
           badgeCloser
         />);
 

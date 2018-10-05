@@ -6,6 +6,7 @@ import {
   Button
 } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
+import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
 import { Modal } from '../../../../components/Modal';
 import { Avatar } from '../../../../components/Avatar';
 import { Alert } from '../../../../components/Alert';
@@ -29,29 +30,6 @@ class DeleteChatRoomModal extends Component {
     if ( prevProps.chatRoom.isDeleting && this.props.chatRoom.isDeletingSuccess ) {
       this.props.handleCloseModal();
     }
-  }
-  handleAvatar(chatRoomData, type='account') {
-    var roleChatType = '';
-    var accountType = '';
-
-    switch ( chatRoomData.chatType ) {
-      case 'private':
-        if ( chatRoomData.members.length > 0 ) {
-          roleChatType = chatRoomData.members[0].role;
-          accountType = chatRoomData.members[0].accountType;
-        }
-        break;
-      case 'public':
-        roleChatType = 'public';
-        break;
-      default:
-        break;
-    }
-
-    if ( type === 'role-chat' ) {
-      return roleChatType;
-    }
-    return accountType;
   }
   handleDeleteChatRoom(event) {
     event.preventDefault();
@@ -96,8 +74,8 @@ class DeleteChatRoomModal extends Component {
                 image={selectedChatRoom.chatIcon}
                 size="100px"
                 name={selectedChatRoom.name}
-                roleChatType={::this.handleAvatar(selectedChatRoom, 'role-chat')}
-                accountType={::this.handleAvatar(selectedChatRoom)}
+                roleChatType={handleChatRoomAvatarBadges(selectedChatRoom, {}, 'role-chat')}
+                accountType={handleChatRoomAvatarBadges(selectedChatRoom)}
                 badgeBigger
                 badgeCloser
               />

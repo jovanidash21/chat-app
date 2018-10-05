@@ -13,6 +13,7 @@ import {
 } from 'muicss/react';
 import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
+import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import {
   Input,
@@ -104,23 +105,6 @@ class ChatRoomForm extends Component {
         });
       }
     }
-  }
-  handleAccountType() {
-    const { chatRoom } = this.props;
-    var accountType = '';
-    const selectedChatRoom = chatRoom.selected;
-
-    switch ( selectedChatRoom.chatType ) {
-      case 'private':
-        if ( selectedChatRoom.members.length > 0 ) {
-          accountType = selectedChatRoom.members[0].accountType;
-        }
-        break;
-      default:
-        break;
-    }
-
-    return accountType;
   }
   onSuggestionSelected(event, suggestion) {
     event.preventDefault();
@@ -264,6 +248,7 @@ class ChatRoomForm extends Component {
     }
   }
   handleAvatarUploadRender() {
+    const { chatRoom } = this.props;
     const {
       isLoading,
       isDisabled,
@@ -271,6 +256,7 @@ class ChatRoomForm extends Component {
       name,
       chatIcon
     } = this.state;
+    const selectedChatRoom = chatRoom.selected;
 
     if ( !isLoading ) {
       return (
@@ -278,8 +264,8 @@ class ChatRoomForm extends Component {
           imageLink={chatIcon}
           defaultImageLink="https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg"
           name={name}
-          roleChatType={chatType}
-          accountType={::this.handleAvatar()}
+          roleChatType={handleChatRoomAvatarBadges(selectedChatRoom, {}, 'role-chat')}
+          accountType={handleChatRoomAvatarBadges(selectedChatRoom)}
           handleImageUpload={::this.handleImageUpload}
           handleRemoveImage={::this.handleRemoveImage}
           isDisabled={isDisabled}
