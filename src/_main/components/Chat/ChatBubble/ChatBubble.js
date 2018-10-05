@@ -7,34 +7,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Plyr from 'react-plyr';
 import TimeAgo from 'react-timeago';
 import moment from 'moment';
+import { isDatesSameDay } from '../../../../utils/date';
 import { Avatar } from '../../../../components/Avatar';
 import './styles.scss';
 
 class ChatBubble extends Component {
   constructor(props) {
     super(props);
-  }
-  isDatesSameDay(d1, d2) {
-    if (
-      d1.getFullYear() === d2.getFullYear() &&
-      d1.getMonth() === d2.getMonth() &&
-      d1.getDate() === d2.getDate()
-    ) {
-      return true
-    }
-
-    return false;
-  }
-  isMessageToday() {
-    const { message } = this.props;
-    const messageDate = new Date(message.createdAt);
-    const todayDate = new Date();
-
-    if ( messageDate.setHours(0,0,0,0) === todayDate.setHours(0,0,0,0) ) {
-      return true;
-    }
-
-    return false;
   }
   handleMessageText() {
     const {
@@ -187,11 +166,8 @@ class ChatBubble extends Component {
       previousMessageDate,
       nextMessageDate
     } = this.props;
-    const d1 = new Date(message.createdAt);
-    const d2 = new Date(previousMessageDate);
-    const d3 = new Date(nextMessageDate);
-    const isThisAndPreviousDatesSameDay = ::this.isDatesSameDay(d1, d2);
-    const isThisAndNextDatesSameDay = ::this.isDatesSameDay(d1, d3);
+    const isThisAndPreviousDatesSameDay = isDatesSameDay(message.createdAt, previousMessageDate);
+    const isThisAndNextDatesSameDay = isDatesSameDay(message.createdAt, nextMessageDate);
     const isPreviousMessageSameSender = isThisAndPreviousDatesSameDay && message.user._id === previousMessageSenderID;
     const isNextMessageSameSender = isThisAndNextDatesSameDay && message.user._id === nextMessageSenderID;
 
