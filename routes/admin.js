@@ -66,7 +66,7 @@ router.get('/edit-chat-room/:chatRoomID', function(req, res, next) {
       .exec()
       .then((chatRoom) => {
         if (chatRoom.chatType === 'group') {
-          res.render('admin', { title: 'Chat App | Edit Chat Roomr' });
+          res.render('admin', { title: 'Chat App | Edit Chat Room' });
         } else {
           res.redirect('/admin');
         }
