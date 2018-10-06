@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
+import { formatNumber } from '../../../../utils/number';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { SearchFilter } from '../../../../components/SearchFilter';
 import { ChatRoomMember } from '../../../components/RightSideDrawer';
@@ -84,7 +85,7 @@ class MembersList extends Component {
               <FontAwesomeIcon icon={["far", "user"]} size="2x" />
             </div>
             <h3>
-              {member.all.length}&nbsp;
+              {formatNumber(member.all.length)}&nbsp;
               {member.all.length > 1 ? 'Members' : 'Member'}
             </h3>
           </div>

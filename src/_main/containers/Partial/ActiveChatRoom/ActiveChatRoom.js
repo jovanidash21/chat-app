@@ -5,6 +5,7 @@ import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
+import { formatNumber } from '../../../../utils/number';
 import { Avatar } from '../../../../components/Avatar';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { OnlineIndicator } from '../../../components/OnlineIndicator';
@@ -56,7 +57,7 @@ class ActiveChatRoom extends Component {
                   <div className="user-icon">
                     <FontAwesomeIcon icon={["far", "user"]} />
                   </div>
-                  {member.all.length}
+                  {formatNumber(member.all.length)}
                 </div>
               }
               {
