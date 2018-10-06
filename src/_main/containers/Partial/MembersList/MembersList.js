@@ -45,7 +45,7 @@ class MembersList extends Component {
 
     if ( searchFilter.length > 0 ) {
       allMembers = allMembers.filter((singleMember) => {
-        return singleMember.name.toLowerCase().match(searchFilter);
+        return singleMember.name.toLowerCase().match(searchFilter.toLowerCase());
       });
 
       if ( selectedMemberIndex === -1 ) {
