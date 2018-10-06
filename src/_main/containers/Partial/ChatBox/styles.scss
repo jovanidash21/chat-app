@@ -10,7 +10,7 @@
   &.audio-recorder-open {
     max-height: calc(100vh - 190px);
     @media screen and (max-width: $screen-mobile-max) {
-      max-height: calc(100vh - 182px);
+      max-height: calc(100vh - 172px);
     }
   }
   .chat-box {

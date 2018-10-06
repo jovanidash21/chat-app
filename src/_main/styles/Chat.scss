@@ -7,7 +7,7 @@ body.chat-page {
   flex-direction: column;
   .header,
   .chat-box-wrapper,
-  .chat-input,
+  .chat-input-wrapper,
   .chat-audio-recorder {
     padding-left: 0;
     @media screen and (min-width: $screen-tablet-min) {
@@ -47,7 +47,7 @@ body.chat-page {
   .chat-box-wrapper {
     flex: 1;
   }
-  .chat-input,
+  .chat-input-wrapper,
   .chat-audio-recorder {
     flex-shrink: 0;
   }

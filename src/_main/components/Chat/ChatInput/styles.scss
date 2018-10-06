@@ -1,8 +1,8 @@
-.chat-input {
+.chat-input-wrapper {
   align-items: center;
   background-color: $color-gallery;
   display: flex;
-  flex-shrink: 0;
+  height: 65px;
   position: relative;
   &.disabled {
     cursor: not-allowed;
@@ -15,57 +15,17 @@
   .send-button {
     z-index: 2;
   }
-  .textfield[contenteditable=true] {
-    appearance: textfield;
-    border: 0;
-    color: #000;
-    cursor: text;
-    flex: 19;
-    font-size: 15px;
-    line-height: 24px;
-    overflow-x: auto;
-    padding: 10px 27px;
-    user-select: text;
-    @media screen and (max-width: $screen-mobile-max) {
-      padding: 10px;
-    }
-    &:empty:before {
-      color: $color-dusty-gray;
-      content: attr(placeholder);
-      display: inline;
-    }
-    &:focus {
-      outline: none;
-    }
-    &.single-line {
-      overflow: hidden;
-      white-space: nowrap;
-      br {
-        display: none;
-      }
-      * {
-        display: inline;
-        white-space: nowrap;
-      }
-    }
-    .emojione {
-      $emoji-size: 24px;
-      height: $emoji-size;
-      vertical-align: bottom;
-      width: $emoji-size;
-    }
-  }
   .emoji-dialog {
     border-radius: 0;
     bottom: 65px;
     box-shadow: 0 5px 5px -5px #000;
     height: 300px !important;
+    left: 20px;
     position: absolute;
-    right: 0;
-    width: 100% !important;
-    @media screen and (min-width: $screen-mobile-min) {
-      width: 350px !important;
-      right: 20px;
+    width: 350px !important;
+    @media screen and (max-width: $screen-mobile-max) {
+      left: 0;
+      width: 100% !important;
     }
     .emoji-dialog-header {
       ul {
@@ -94,54 +54,100 @@
     width: 100%;
     z-index: 1;
   }
-  .extra-buttons {
+  .chat-input {
     display: flex;
-    flex: 0 0 50px;
-    font-size: 22px;
-    margin-right: 10px;
-    .audio-button,
-    .file-button,
-    .emoji-button {
-      align-items: center;
-      backface-visibility: hidden;
-      color: $color-emperor;
-      cursor: pointer;
+    flex-direction: column;
+    flex: 19;
+    margin-left: 10px;
+    .textfield[contenteditable=true] {
+      appearance: textfield;
+      border: 2px solid $color-primary;
+      border-radius: 10px;
+      box-sizing: border-box;
+      color: #000;
+      cursor: text;
+      font-size: 15px;
+      line-height: 24px;
+      overflow-x: auto;
+      padding: 3px 10px;
+      user-select: text;
+      width: 100%;
+      &:empty:before {
+        color: $color-dusty-gray;
+        content: attr(placeholder);
+        display: inline;
+      }
+      &:focus {
+        outline: none;
+      }
+      &.single-line {
+        overflow: hidden;
+        white-space: nowrap;
+        br {
+          display: none;
+        }
+        * {
+          display: inline;
+          white-space: nowrap;
+        }
+      }
+      .emojione {
+        $emoji-size: 24px;
+        height: $emoji-size;
+        vertical-align: bottom;
+        width: $emoji-size;
+      }
+    }
+    .extra-buttons {
       display: flex;
-      margin: 0;
-      padding: 7px;
-      text-align: center;
-      transition: all 0.3s ease;
-      @media screen and (max-width: $screen-mobile-max) {
-        padding: 5px;
-      }
-      &:active,
-      &:focus,
-      &:hover {
-        box-shadow: none;
-      }
-      &:hover {
-        color: $color-primary;
-        transform: scale(1.25);
+      font-size: 17px;
+      margin-right: 10px;
+      .audio-button,
+      .file-button,
+      .emoji-button {
+        align-items: center;
+        backface-visibility: hidden;
+        color: $color-emperor;
+        cursor: pointer;
+        display: flex;
+        margin: 0;
+        padding: 4px 7px;
+        text-align: center;
+        transition: all 0.3s ease;
+        @media screen and (max-width: $screen-mobile-max) {
+          padding: 5px;
+        }
+        &:active,
+        &:focus,
+        &:hover {
+          box-shadow: none;
+        }
+        &:hover {
+          color: $color-primary;
+          transform: scale(1.25);
+        }
       }
     }
   }
   .send-button {
+    $size: 60px;
     align-items: center;
-    border-radius: 0;
+    border-radius: 50%;
     display: flex;
-    flex: 0 0 90px;
-    height: 65px;
+    flex: 0 0 $size;
+    height: $size;
     justify-content: center;
-    margin: 0;
+    margin: 0 10px;
     padding: 0;
     position: relative;
-    @media screen and (max-width: $screen-mobile-max) {
-      flex: 0 0 70px;
-    }
+    width: $size;
     &:active,
     &:focus,
     &:hover {
       box-shadow: none;
+    }
+    .send-icon {
+      margin: 8px 4px 0 0;
     }
   }
 }

@@ -300,64 +300,67 @@ class ChatInput extends Component {
     } = this.state;
 
     return (
-      <div className={"chat-input " + (isDisabled ? 'disabled' : '')}>
+      <div className={"chat-input-wrapper " + (isDisabled ? 'disabled' : '')}>
         <MediaQuery query="(min-width: 768px)">
           <div>
             {
               emojiPicker &&
-              <EmojiPicker onChange={::this.handleEmojiPickerSelect} search />
-            }
-            {
-              emojiPicker &&
-              <div className="emoji-picker-overlay" onClick={::this.handleEmojiPickerToggle} />
+              <div>
+                <EmojiPicker onChange={::this.handleEmojiPickerSelect} search />
+                <div className="emoji-picker-overlay" onClick={::this.handleEmojiPickerToggle} />
+              </div>
             }
           </div>
         </MediaQuery>
-        <ContentEditable
-          className="textfield single-line"
-          id="chat-input"
-          placeholder="Type here"
-          autoComplete="off"
-          html={message}
-          tagName="span"
-          onClick={::this.handleSaveCaretPosition}
-          onChange={::this.onMessageChange}
-          onKeyPress={::this.onMessageKeyPress}
-          onKeyUp={::this.onMessageKeyUp}
-          onPaste={::this.onMessagePaste}
-          contentEditable="plaintext-only"
-        />
-        <div className="extra-buttons">
-          <div
-            className="audio-button"
-            onClick={handleAudioRecorderToggle}
-            title="Send Voice Message"
-          >
-            <FontAwesomeIcon icon="microphone" />
-          </div>
-          <div
-            className="file-button"
-            onClick={::this.handleDragDropBoxToggle}
-            title="Add a File"
-          >
-            <FontAwesomeIcon icon="paperclip" />
-          </div>
-          <MediaQuery query="(min-width: 768px)">
+        <div className="chat-input">
+          <ContentEditable
+            className="textfield single-line"
+            id="chat-input"
+            placeholder="Type here"
+            autoComplete="off"
+            html={message}
+            tagName="span"
+            onClick={::this.handleSaveCaretPosition}
+            onChange={::this.onMessageChange}
+            onKeyPress={::this.onMessageKeyPress}
+            onKeyUp={::this.onMessageKeyUp}
+            onPaste={::this.onMessagePaste}
+            contentEditable="plaintext-only"
+          />
+          <div className="extra-buttons">
             <div
-              className="emoji-button"
-              onClick={::this.handleEmojiPickerToggle}
-              title="Add Emoji"
+              className="audio-button"
+              onClick={handleAudioRecorderToggle}
+              title="Send Voice Message"
             >
-              <FontAwesomeIcon icon={["far", "smile"]} />
+              <FontAwesomeIcon icon="microphone" />
             </div>
-          </MediaQuery>
+            <div
+              className="file-button"
+              onClick={::this.handleDragDropBoxToggle}
+              title="Add a File"
+            >
+              <FontAwesomeIcon icon="paperclip" />
+            </div>
+            <MediaQuery query="(min-width: 768px)">
+              <div
+                className="emoji-button"
+                onClick={::this.handleEmojiPickerToggle}
+                title="Add Emoji"
+              >
+                <FontAwesomeIcon icon={["far", "smile"]} />
+              </div>
+            </MediaQuery>
+          </div>
         </div>
         <Button
           className="button button-primary send-button"
           onClick={::this.handleSendTextMessageOnClick}
           disabled={!validMessage || maxLengthReached}
         >
-          <FontAwesomeIcon icon={["far", "paper-plane"]} size="2x" />
+          <div className="send-icon">
+            <FontAwesomeIcon icon={["far", "paper-plane"]} size="2x" />
+          </div>
         </Button>
       </div>
     )
