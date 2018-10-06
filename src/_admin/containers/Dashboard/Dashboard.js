@@ -7,6 +7,7 @@ import {
   Panel
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
+import { formatNumber } from '../../../utils/number';
 import { CardBanner } from '../../components/CardBanner';
 import { LineChart } from '../../components/Chart';
 
@@ -27,15 +28,6 @@ class Dashboard extends Component {
     fetchChatRoomsCount();
     fetchMessagesCount();
   }
-  handleCountRender(count) {
-    if ( count >= 1000000 ) {
-      return new Intl.NumberFormat().format(Math.round((count/1000000)*10)/10) + 'M';
-    } else if ( count >= 1000 ) {
-      return new Intl.NumberFormat().format(Math.round((count/1000)*10)/10) + 'k';
-    } else {
-      return new Intl.NumberFormat().format(Math.round(count*10)/10);
-    }
-  }
   render() {
     const {
       user,
@@ -50,7 +42,7 @@ class Dashboard extends Component {
             <Col lg="4" md="6" xs="12">
               <CardBanner
                 label="Users"
-                count={::this.handleCountRender(user.count)}
+                count={formatNumber(user.count)}
                 icon="user"
                 color="green"
                 link="/all-users"
@@ -60,7 +52,7 @@ class Dashboard extends Component {
             <Col lg="4" md="6" xs="12">
               <CardBanner
                 label="Chat Rooms"
-                count={::this.handleCountRender(chatRoom.count)}
+                count={formatNumber(chatRoom.count)}
                 icon="door-closed"
                 color="yellow"
                 link="/all-chat-rooms"
@@ -70,7 +62,7 @@ class Dashboard extends Component {
             <Col lg="4" md="6" xs="12">
               <CardBanner
                 label="Messages"
-                count={::this.handleCountRender(message.count)}
+                count={formatNumber(message.count)}
                 icon="comment"
                 color="red"
                 isLoading={message.isFetchingCount}

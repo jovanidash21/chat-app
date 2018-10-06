@@ -56,7 +56,7 @@ CardBanner.propTypes = {
 
 CardBanner.defaultProps = {
   label: '',
-  count: 0,
+  count: '',
   icon: '',
   color: 'black',
   link : '',
