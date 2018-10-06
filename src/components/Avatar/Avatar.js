@@ -65,7 +65,7 @@ class Avatar extends Component {
     switch ( roleChatType ) {
       case 'admin':
         icon = 'user-cog';
-        title = 'This member is an admin';
+        title = 'This user is an admin';
         break;
       case 'public':
         icon = 'users';
