@@ -168,14 +168,14 @@ router.get('/count', function(req, res, next) {
 });
 
 router.post('/select', function(req, res, next) {
-  var chatRoomID = req.body.chatRoomID;
-
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
       message: 'Unauthorized'
     });
   } else {
+    var chatRoomID = req.body.chatRoomID;
+
     ChatRoom.findById(chatRoomID)
       .populate({path: 'members'})
       .exec()

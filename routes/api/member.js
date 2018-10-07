@@ -3,7 +3,6 @@ var router = express.Router({mergeParams: true});
 var ChatRoom = require('../../models/ChatRoom');
 
 router.post('/', function(req, res, next) {
-  var chatRoomID = req.body.chatRoomID;
   var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
@@ -12,6 +11,8 @@ router.post('/', function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
+    var chatRoomID = req.body.chatRoomID;
+
     ChatRoom.findById(chatRoomID)
       .populate('members')
       .exec()

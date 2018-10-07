@@ -16,14 +16,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/search', function(req, res, next) {
-  var query = req.body.query;
-
   if (req.user === undefined) {
     res.status(401).send({
       success: false,
       message: 'Unauthorized'
     });
   } else {
+    var query = req.body.query;
+
     User.find({_id: {$ne: null}, name: {$regex: '\\b' + query, $options: 'i'}})
       .then((users) => {
         res.status(200).send(users);
@@ -122,14 +122,14 @@ router.get('/graph', function(req, res, next) {
 });
 
 router.post('/select', function(req, res, next) {
-  var userID = req.body.userID;
-
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
       message: 'Unauthorized'
     });
   } else {
+    var userID = req.body.userID;
+
     User.findById(userID)
       .then((user) => {
         res.status(200).send(user);
@@ -240,14 +240,13 @@ router.post('/create', function(req, res, next) {
 });
 
 router.post('/edit', function(req, res, next) {
-  var userID = req.body.userID;
-
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
       message: 'Unauthorized'
     });
   } else {
+    var userID = req.body.userID;
     var userData = {
       username: req.body.username,
       name: req.body.name,

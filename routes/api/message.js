@@ -48,9 +48,7 @@ var audioUpload = multer({
 });
 
 router.post('/', function(req, res, next) {
-  var chatRoomID = req.body.chatRoomID;
   var userID = req.body.userID;
-  var skipCount = req.body.skipCount;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
@@ -58,6 +56,9 @@ router.post('/', function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
+    var chatRoomID = req.body.chatRoomID;
+    var skipCount = req.body.skipCount;
+
     Message.find(
       {
         chatRoom: chatRoomID,
@@ -103,7 +104,6 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/text', function(req, res, next) {
-  var chatRoomID = req.body.chatRoomID;
   var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
@@ -112,6 +112,7 @@ router.post('/text', function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
+    var chatRoomID = req.body.chatRoomID;
     var messageData = {
       text: req.body.text,
       user: userID,
@@ -160,7 +161,6 @@ router.post('/text', function(req, res, next) {
 });
 
 router.post('/file', fileUpload.single('file'), function(req, res, next) {
-  var chatRoomID = req.body.chatRoomID;
   var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
@@ -169,6 +169,7 @@ router.post('/file', fileUpload.single('file'), function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
+    var chatRoomID = req.body.chatRoomID;
     var messageType = 'file';
     var fileLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
 
