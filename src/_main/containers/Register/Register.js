@@ -67,9 +67,10 @@ class Register extends Component {
             <h1 className="form-title mui--text-center">Create an Account</h1>
           </Col>
           {
-            auth.isRegisterError &&
+            !auth.register.loading &&
+            auth.register.error &&
             <Col md="12">
-              <Alert label="Sorry! Username already taken." center />
+              <Alert label={auth.register.message} center />
             </Col>
           }
           <Col md="12">
@@ -80,21 +81,21 @@ class Register extends Component {
                 type="email"
                 name="email"
                 onChange={::this.onInputChange}
-                disabled={auth.isLoading}
+                disabled={auth.register.loading}
               />
               <Input
                 value={name}
                 label="Name"
                 name="name"
                 onChange={::this.onInputChange}
-                disabled={auth.isLoading}
+                disabled={auth.register.loading}
               />
               <Input
                 value={username}
                 label="Username"
                 name="username"
                 onChange={::this.onInputChange}
-                disabled={auth.isLoading}
+                disabled={auth.register.loading}
               />
               <Input
                 value={password}
@@ -102,9 +103,9 @@ class Register extends Component {
                 type="password"
                 name="password"
                 onChange={::this.onInputChange}
-                disabled={auth.isLoading}
+                disabled={auth.register.loading}
               />
-              <RegisterButton isDisabled={auth.isLoading} />
+              <RegisterButton isDisabled={auth.register.loading} />
             </Form>
           </Col>
           <Col md="12">
@@ -113,7 +114,7 @@ class Register extends Component {
           <Col md="12">
             <LoginButton
               link="/"
-              isDisabled={auth.isLoading}
+              isDisabled={auth.register.loading}
             />
           </Col>
         </Row>

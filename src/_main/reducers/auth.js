@@ -4,37 +4,81 @@ import {
 } from '../constants/auth';
 
 const initialState = {
-  isLoading: false,
-  isAuthenticated: false
+  login: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  register: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  }
 };
 
 const auth = (state=initialState, action) => {
   switch(action.type) {
     case `${LOGIN}_LOADING`:
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          loading: true
+        }
+      };
     case `${REGISTER}_LOADING`:
       return {
         ...state,
-        isLoading: true,
-        isAuthenticated: false
+        register: {
+          ...state.register,
+          loading: true
+        }
       };
     case `${LOGIN}_SUCCESS`:
+      return {
+        ...state,
+        login: {
+          ...state.login,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        }
+      };
     case `${REGISTER}_SUCCESS`:
       return {
         ...state,
-        isLoading: false,
-        isAuthenticated: true
+        register: {
+          ...state.register,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        }
       };
     case `${LOGIN}_ERROR`:
       return {
         ...state,
-        isLoading: false,
-        isLoginError: true
+        login: {
+          ...state.login,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${REGISTER}_ERROR`:
       return {
         ...state,
-        isLoading: false,
-        isRegisterError: true
+        register: {
+          ...state.register,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     default:
       return state;

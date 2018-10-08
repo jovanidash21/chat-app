@@ -67,9 +67,10 @@ class Login extends Component {
             <h1 className="form-title mui--text-center">Chat App</h1>
           </Col>
           {
-            auth.isLoginError &&
+            !auth.login.loading &&
+            auth.login.error &&
             <Col md="12">
-              <Alert label="Invalid username or password!" center />
+              <Alert label={auth.login.message} center />
             </Col>
           }
           <Col md="12">
@@ -79,7 +80,7 @@ class Login extends Component {
                 label="Username"
                 name="username"
                 onChange={::this.onInputChange}
-                disabled={auth.isLoading}
+                disabled={auth.login.loading}
               />
               <Input
                 value={password}
@@ -87,9 +88,9 @@ class Login extends Component {
                 type="password"
                 name="password"
                 onChange={::this.onInputChange}
-                disabled={auth.isLoading}
+                disabled={auth.login.loading}
               />
-              <LoginButton isDisabled={auth.isLoading} />
+              <LoginButton isDisabled={auth.login.loading} />
             </Form>
           </Col>
           <Col md="12">
@@ -98,7 +99,7 @@ class Login extends Component {
               socialMediaIcon="facebook-f"
               label="Login with Facebook"
               handleSocialLogin={facebookLogin}
-              isDisabled={auth.isLoading}
+              isDisabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
@@ -107,7 +108,7 @@ class Login extends Component {
               socialMediaIcon="google"
               label="Login with Google"
               handleSocialLogin={googleLogin}
-              isDisabled={auth.isLoading}
+              isDisabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
@@ -116,7 +117,7 @@ class Login extends Component {
               socialMediaIcon="twitter"
               label="Login with Twitter"
               handleSocialLogin={twitterLogin}
-              isDisabled={auth.isLoading}
+              isDisabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
@@ -125,7 +126,7 @@ class Login extends Component {
               socialMediaIcon="instagram"
               label="Login with Instagram"
               handleSocialLogin={instagramLogin}
-              isDisabled={auth.isLoading}
+              isDisabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
@@ -134,7 +135,7 @@ class Login extends Component {
               socialMediaIcon="linkedin-in"
               label="Login with LinkedIn"
               handleSocialLogin={linkedinLogin}
-              isDisabled={auth.isLoading}
+              isDisabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
@@ -143,7 +144,7 @@ class Login extends Component {
               socialMediaIcon="github"
               label="Login with GitHub"
               handleSocialLogin={githubLogin}
-              isDisabled={auth.isLoading}
+              isDisabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
@@ -152,7 +153,7 @@ class Login extends Component {
           <Col md="12">
             <RegisterButton
               link="/register"
-              isDisabled={auth.isLoading}
+              isDisabled={auth.login.loading}
             />
           </Col>
         </Row>
