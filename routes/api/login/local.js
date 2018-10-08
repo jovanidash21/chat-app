@@ -14,20 +14,20 @@ router.post('/', function(req, res, next) {
       if (!user) {
         res.status(401).send({
           success: false,
-          message: 'Login failed! Invalid username or password.'
+          message: 'Invalid username or password'
         });
       } else {
         req.logIn(user, function(err) {
           if (!err) {
             res.status(200).send({
               success: true,
-              message: 'Login Successful.',
+              message: 'Login Successful',
               userData: user
             });
           } else {
             res.status(402).send({
               success: false,
-              message: 'Error! Please try again.'
+              message: 'Error! Please try again'
             });
           }
         })

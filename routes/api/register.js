@@ -54,7 +54,7 @@ router.post('/', function(req, res, next) {
               .then(() => {
                 res.status(200).send({
                   success: true,
-                  message: 'Login Successful.',
+                  message: 'Login Successful',
                   userData: user
                 });
               })
@@ -75,7 +75,7 @@ router.post('/', function(req, res, next) {
     } else {
       res.status(401).send({
         success: false,
-        message: 'Username already exist.'
+        message: 'Sorry! Username already taken'
       });
     }
   });
