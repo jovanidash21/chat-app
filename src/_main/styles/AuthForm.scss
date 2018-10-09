@@ -2,7 +2,7 @@
   margin: 20px auto;
   max-width: 400px;
   @media screen and (max-width: $screen-mobile-max) {
-    margin: 0; 
+    margin: 0 auto;
   }
   a {
     &:hover {
@@ -10,9 +10,11 @@
     }
   }
   .form-card {
+    margin: 0;
     padding: 35px;
     @media screen and (max-width: $screen-mobile-max) {
       box-shadow: none;
+      padding: 15px;
     }
     .form-title {
       margin-top: 0;
