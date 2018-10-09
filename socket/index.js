@@ -50,14 +50,16 @@ var sockets = function(io) {
           for (var i = 0; i < action.members.length; i++) {
             var chatRoomMember = action.members[i];
 
-            User.findById(chatRoomMember, function(err, user) {
-              if (!err) {
+            User.findById(chatRoomMember)
+              .then((user) => {
                 socket.broadcast.to(user.socketID).emit('action', {
                   type: 'SOCKET_BROADCAST_CREATE_CHAT_ROOM',
                   chatRoom: action.chatRoomBroadcast
                 });
-              }
-            });
+              })
+              .catch((error) => {
+                console.log(error);
+              });
           }
           break;
         case 'SOCKET_SEND_MESSAGE':
