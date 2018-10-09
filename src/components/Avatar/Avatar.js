@@ -57,7 +57,7 @@ class Avatar extends Component {
 
     return avatarStyles;
   }
-  handleTopBadgeIcon(type) {
+  handleTopBadge(type='icon') {
     const { roleChatType } = this.props;
     var icon = '';
     var title = '';
@@ -75,13 +75,12 @@ class Avatar extends Component {
         break;
     }
 
-    if ( type === 'icon' ) {
-      return icon;
-    } else if ( type === 'title' ) {
+    if ( type === 'title' ) {
       return title;
     }
+    return icon;
   }
-  handleBottomBadgeIcon(type) {
+  handleBottomBadge(type='icon') {
     const { accountType } = this.props;
     var icon = '';
     var title = '';
@@ -89,37 +88,36 @@ class Avatar extends Component {
     switch ( accountType ) {
       case 'facebook':
         icon = 'facebook-f';
-        title = 'Facebook'
+        title = 'Facebook';
         break;
       case 'google':
         icon = 'google';
-        title = 'Google'
+        title = 'Google';
         break;
       case 'twitter':
         icon = 'twitter';
-        title = 'Twitter'
+        title = 'Twitter';
         break;
       case 'instagram':
         icon = 'instagram';
-        title = 'Instagram'
+        title = 'Instagram';
         break;
       case 'linkedin':
         icon = 'linkedin-in';
-        title = 'LinkedIn'
+        title = 'LinkedIn';
         break;
       case 'github':
         icon = 'github';
-        title = 'GitHub'
+        title = 'GitHub';
         break;
       default:
         break;
     }
 
-    if ( type === 'icon' ) {
-      return icon;
-    } else if ( type === 'title' ) {
+    if ( type === 'title' ) {
       return title;
     }
+    return icon;
   }
   render() {
     const {
@@ -139,10 +137,10 @@ class Avatar extends Component {
       title: name
     }
     const nameAbbr = initials(name).substring(0, 2);
-    const topBadgeIcon = ::this.handleTopBadgeIcon('icon');
-    const topBadgeTitle = ::this.handleTopBadgeIcon('title');
-    const bottomBadgeIcon = ::this.handleBottomBadgeIcon('icon');
-    const bottomBadgeTitle = ::this.handleBottomBadgeIcon('title');
+    const topBadgeIcon = ::this.handleTopBadge();
+    const topBadgeTitle = ::this.handleTopBadge('title');
+    const bottomBadgeIcon = ::this.handleBottomBadge();
+    const bottomBadgeTitle = ::this.handleBottomBadge('title');
 
     if ( showUserTooltip ) {
       avatarProps = {
