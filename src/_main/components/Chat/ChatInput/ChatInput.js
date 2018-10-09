@@ -48,8 +48,8 @@ class ChatInput extends Component {
     const {
       user,
       activeChatRoom,
-      handleSocketIsTyping,
-      handleSocketIsNotTyping
+      handleIsTyping,
+      handleIsNotTyping
     } = this.props;
     const {
       message,
@@ -70,7 +70,7 @@ class ChatInput extends Component {
         validMessage: true
       });
 
-      handleSocketIsTyping(user, activeChatRoom.data._id);
+      handleIsTyping(user, activeChatRoom.data._id);
     }
 
     if (
@@ -84,7 +84,7 @@ class ChatInput extends Component {
         validMessage: false
       });
 
-      handleSocketIsNotTyping(user, activeChatRoom.data._id);
+      handleIsNotTyping(user, activeChatRoom.data._id);
     }
 
     if ( (event.key === 'Enter') && validMessage && !maxLengthReached ) {
@@ -130,7 +130,7 @@ class ChatInput extends Component {
     const {
       user,
       activeChatRoom,
-      handleSocketIsTyping
+      handleIsTyping
     } = this.props;
     const {
       caretPosition,
@@ -166,7 +166,7 @@ class ChatInput extends Component {
         validMessage: true
       });
 
-      handleSocketIsTyping(user, activeChatRoom.data._id);
+      handleIsTyping(user, activeChatRoom.data._id);
     }
   }
   handleInsertEmoji(emoji) {
@@ -240,14 +240,14 @@ class ChatInput extends Component {
     const {
       user,
       activeChatRoom,
-      handleSocketIsNotTyping,
+      handleIsNotTyping,
       handleSendTextMessage
     } = this.props;
     const messageText = ::this.handleMessageText('text');
     const newMessageID = uuidv4();
 
     document.getElementById('chat-input').innerHTML = '';
-    handleSocketIsNotTyping(user, activeChatRoom.data._id);
+    handleIsNotTyping(user, activeChatRoom.data._id);
     handleSendTextMessage(newMessageID, messageText);
   }
   handleSendTextMessageOnClick(event) {
@@ -256,7 +256,7 @@ class ChatInput extends Component {
     const {
       user,
       activeChatRoom,
-      handleSocketIsNotTyping,
+      handleIsNotTyping,
       handleSendTextMessage
     } = this.props;
     const {
@@ -269,7 +269,7 @@ class ChatInput extends Component {
     if ( validMessage && !maxLengthReached ) {
       document.getElementById('chat-input').innerHTML = '';
       document.getElementById('chat-input').focus();
-      handleSocketIsNotTyping(user, activeChatRoom.data._id);
+      handleIsNotTyping(user, activeChatRoom.data._id);
       handleSendTextMessage(newMessageID, messageText);
 
       this.setState({
@@ -370,8 +370,8 @@ class ChatInput extends Component {
 ChatInput.propTypes = {
   user: PropTypes.object.isRequired,
   activeChatRoom: PropTypes.object.isRequired,
-  handleSocketIsTyping: PropTypes.func.isRequired,
-  handleSocketIsNotTyping: PropTypes.func.isRequired,
+  handleIsTyping: PropTypes.func.isRequired,
+  handleIsNotTyping: PropTypes.func.isRequired,
   handleSendTextMessage: PropTypes.func.isRequired,
   handleAudioRecorderToggle: PropTypes.func.isRequired,
   handleDragDropBoxToggle: PropTypes.func.isRequired,

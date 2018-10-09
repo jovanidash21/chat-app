@@ -15,15 +15,13 @@ import {
   searchUser
 } from './user';
 import {
-  socketIsTyping,
-  socketIsNotTyping
+  isTyping,
+  isNotTyping
 } from './typer';
 import {
   changeChatRoom,
   createGroupChatRoom,
-  createDirectChatRoom,
-  socketJoinChatRoom,
-  socketLeaveChatRoom
+  createDirectChatRoom
 } from './chat-room';
 import {
   fetchOldMessages,
@@ -46,13 +44,11 @@ const actions = (dispatch) => {
     register,
     fetchActiveUser,
     searchUser,
-    socketIsTyping,
-    socketIsNotTyping,
+    isTyping,
+    isNotTyping,
     changeChatRoom,
     createGroupChatRoom,
     createDirectChatRoom,
-    socketJoinChatRoom,
-    socketLeaveChatRoom,
     fetchOldMessages,
     sendTextMessage,
     sendFileMessage,

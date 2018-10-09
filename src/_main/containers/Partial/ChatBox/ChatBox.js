@@ -360,8 +360,8 @@ class ChatBox extends Component {
       typer,
       chatRoom,
       message,
-      socketIsTyping,
-      socketIsNotTyping,
+      isTyping,
+      isNotTyping,
       isAudioRecorderOpen
     } = this.props;
     const {

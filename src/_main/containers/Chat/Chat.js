@@ -130,8 +130,8 @@ class Chat extends Component {
       user,
       chatRoom,
       message,
-      socketIsTyping,
-      socketIsNotTyping
+      isTyping,
+      isNotTyping
     } = this.props;
     const {
       isRightSideDrawerOpen,
@@ -165,8 +165,8 @@ class Chat extends Component {
             <ChatInput
               user={user.active}
               activeChatRoom={chatRoom.active}
-              handleSocketIsTyping={socketIsTyping}
-              handleSocketIsNotTyping={socketIsNotTyping}
+              handleIsTyping={isTyping}
+              handleIsNotTyping={isNotTyping}
               handleSendTextMessage={::this.handleSendTextMessage}
               handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
               handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
