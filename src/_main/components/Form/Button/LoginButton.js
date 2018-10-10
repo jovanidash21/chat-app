@@ -10,7 +10,7 @@ const LoginButton = (props) => {
         to={props.link}
         className={
           "mui-btn mui-btn--raised mui-btn--large button button-primary " +
-          (props.isDisabled ? 'disabled' : '')
+          (props.disabled ? 'disabled' : '')
         }
       >
         Login
@@ -23,7 +23,7 @@ const LoginButton = (props) => {
         size="large"
         type="submit"
         variant="raised"
-        disabled={props.isDisabled}
+        disabled={props.disabled}
       >
         Login
       </Button>
@@ -33,12 +33,12 @@ const LoginButton = (props) => {
 
 LoginButton.propTypes = {
   link: PropTypes.string,
-  isDisabled: PropTypes.bool
+  disabled: PropTypes.bool
 }
 
 LoginButton.defaultProps = {
   link: '',
-  isDisabled: false
+  disabled: false
 }
 
 export default LoginButton;

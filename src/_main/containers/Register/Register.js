@@ -104,17 +104,14 @@ class Register extends Component {
                 onChange={::this.onInputChange}
                 disabled={auth.register.loading}
               />
-              <RegisterButton isDisabled={auth.register.loading} />
+              <RegisterButton disabled={auth.register.loading} />
             </Form>
           </Col>
           <Col md="12">
             <Divider className="line" />
           </Col>
           <Col md="12">
-            <LoginButton
-              link="/"
-              isDisabled={auth.register.loading}
-            />
+            <LoginButton link="/" disabled={auth.register.loading} />
           </Col>
         </Row>
       </Panel>

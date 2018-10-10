@@ -89,7 +89,7 @@ class Login extends Component {
                 onChange={::this.onInputChange}
                 disabled={auth.login.loading}
               />
-              <LoginButton isDisabled={auth.login.loading} />
+              <LoginButton disabled={auth.login.loading} />
             </Form>
           </Col>
           <Col md="12">
@@ -98,7 +98,7 @@ class Login extends Component {
               socialMediaIcon="facebook-f"
               label="Login with Facebook"
               handleSocialLogin={facebookLogin}
-              isDisabled={auth.login.loading}
+              disabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
@@ -107,7 +107,7 @@ class Login extends Component {
               socialMediaIcon="google"
               label="Login with Google"
               handleSocialLogin={googleLogin}
-              isDisabled={auth.login.loading}
+              disabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
@@ -116,7 +116,7 @@ class Login extends Component {
               socialMediaIcon="twitter"
               label="Login with Twitter"
               handleSocialLogin={twitterLogin}
-              isDisabled={auth.login.loading}
+              disabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
@@ -125,7 +125,7 @@ class Login extends Component {
               socialMediaIcon="instagram"
               label="Login with Instagram"
               handleSocialLogin={instagramLogin}
-              isDisabled={auth.login.loading}
+              disabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
@@ -134,7 +134,7 @@ class Login extends Component {
               socialMediaIcon="linkedin-in"
               label="Login with LinkedIn"
               handleSocialLogin={linkedinLogin}
-              isDisabled={auth.login.loading}
+              disabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
@@ -143,17 +143,14 @@ class Login extends Component {
               socialMediaIcon="github"
               label="Login with GitHub"
               handleSocialLogin={githubLogin}
-              isDisabled={auth.login.loading}
+              disabled={auth.login.loading}
             />
           </Col>
           <Col md="12">
             <Divider className="line" />
           </Col>
           <Col md="12">
-            <RegisterButton
-              link="/register"
-              isDisabled={auth.login.loading}
-            />
+            <RegisterButton link="/register" disabled={auth.login.loading} />
           </Col>
         </Row>
       </Panel>

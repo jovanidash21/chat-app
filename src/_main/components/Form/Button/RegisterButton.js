@@ -10,7 +10,7 @@ const RegisterButton = (props) => {
         to={props.link}
         className={
           "mui-btn mui-btn--raised mui-btn--large button button-register " +
-          (props.isDisabled ? 'disabled' : '')
+          (props.disabled ? 'disabled' : '')
         }
       >
         Register
@@ -23,7 +23,7 @@ const RegisterButton = (props) => {
         size="large"
         type="submit"
         variant="raised"
-        disabled={props.isDisabled}
+        disabled={props.disabled}
       >
         Register
       </Button>
@@ -33,12 +33,12 @@ const RegisterButton = (props) => {
 
 RegisterButton.propTypes = {
   link: PropTypes.string,
-  isDisabled: PropTypes.bool
+  disabled: PropTypes.bool
 }
 
 RegisterButton.defaultProps = {
   link: '',
-  isDisabled: false
+  disabled: false
 }
 
 export default RegisterButton;

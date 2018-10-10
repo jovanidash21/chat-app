@@ -290,7 +290,7 @@ class ChatInput extends Component {
   render() {
     const {
       handleAudioRecorderToggle,
-      isDisabled
+      disabled
     } = this.props;
     const {
       message,
@@ -300,7 +300,7 @@ class ChatInput extends Component {
     } = this.state;
 
     return (
-      <div className={"chat-input-wrapper " + (isDisabled ? 'disabled' : '')}>
+      <div className={"chat-input-wrapper " + (disabled ? 'disabled' : '')}>
         <MediaQuery query="(min-width: 768px)">
           <div>
             {
@@ -375,11 +375,11 @@ ChatInput.propTypes = {
   handleSendTextMessage: PropTypes.func.isRequired,
   handleAudioRecorderToggle: PropTypes.func.isRequired,
   handleDragDropBoxToggle: PropTypes.func.isRequired,
-  isDisabled: PropTypes.bool
+  disabled: PropTypes.bool
 }
 
 ChatInput.defaultProps = {
-  isDisabled: false
+  disabled: false
 }
 
 export default ChatInput;

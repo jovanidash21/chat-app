@@ -170,7 +170,7 @@ class Chat extends Component {
               handleSendTextMessage={::this.handleSendTextMessage}
               handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
               handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
-              isDisabled={isChatInputDisabled}
+              disabled={isChatInputDisabled}
             />
             :
             <ChatAudioRecorder

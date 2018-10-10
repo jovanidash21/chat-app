@@ -10,7 +10,7 @@ const SocialButton = (props) => {
       size="large"
       variant="raised"
       onClick={props.handleSocialLogin}
-      disabled={props.isDisabled}
+      disabled={props.disabled}
     >
       <div className="social-icon">
         <FontAwesomeIcon icon={["fab", props.socialMediaIcon]} size="2x" />
@@ -25,12 +25,12 @@ SocialButton.propTypes = {
   socialMediaIcon: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   handleSocialLogin: PropTypes.func,
-  isDisabled: PropTypes.bool
+  disabled: PropTypes.bool
 }
 
 SocialButton.defaultProps = {
   handleSocialLogin: () => {},
-  isDisabled: false
+  disabled: false
 }
 
 export default SocialButton;
