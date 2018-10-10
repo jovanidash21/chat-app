@@ -107,7 +107,7 @@ const message = (state=initialState, action) => {
 
       messages = messages.filter((message) => message._id !== messageID);
 
-      newmessage.send.loading = false;
+      newMessage.isSending = false;
 
       return {
         ...state,
