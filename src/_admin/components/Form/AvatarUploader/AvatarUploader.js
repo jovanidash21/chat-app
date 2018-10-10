@@ -28,7 +28,7 @@ class AvatarUploader extends Component {
       name,
       roleChatType,
       accountType,
-      isDisabled
+      disabled
     } = this.props;
 
     return (
@@ -55,7 +55,7 @@ class AvatarUploader extends Component {
               htmlFor="avatar-uploader-button"
               className={
                 "mui-btn mui-btn--small button button-default " +
-                (isDisabled ? 'disabled' : '')
+                (disabled ? 'disabled' : '')
               }
             >
               Change
@@ -66,7 +66,7 @@ class AvatarUploader extends Component {
                 color="danger"
                 size="small"
                 onClick={::this.handleRemoveImage}
-                disabled={isDisabled}
+                disabled={disabled}
               >
                 Remove
               </Button>
@@ -86,7 +86,7 @@ AvatarUploader.propTypes = {
   accountType: PropTypes.string,
   handleImageUpload: PropTypes.func.isRequired,
   handleRemoveImage: PropTypes.func.isRequired,
-  isDisabled: PropTypes.bool
+  disabled: PropTypes.bool
 }
 
 AvatarUploader.defaultProps = {
@@ -95,7 +95,7 @@ AvatarUploader.defaultProps = {
   name: '',
   roleChatType: '',
   accountType: '',
-  isDisabled: false
+  disabled: false
 }
 
 export default AvatarUploader;

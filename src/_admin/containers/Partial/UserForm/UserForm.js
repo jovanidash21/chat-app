@@ -167,7 +167,7 @@ class UserForm extends Component {
               value={password}
               handleChange={::this.handleChange}
               handleGeneratePassword={::this.handleGeneratePassword}
-              isDisabled={isDisabled}
+              disabled={isDisabled}
             />
           }
           <Button
@@ -209,7 +209,7 @@ class UserForm extends Component {
           accountType={selectedUser.accountType}
           handleImageUpload={::this.handleImageUpload}
           handleRemoveImage={::this.handleRemoveImage}
-          isDisabled={isDisabled}
+          disabled={isDisabled}
         />
       )
     } else {

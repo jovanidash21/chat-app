@@ -268,7 +268,7 @@ class ChatRoomForm extends Component {
           accountType={handleChatRoomAvatarBadges(selectedChatRoom)}
           handleImageUpload={::this.handleImageUpload}
           handleRemoveImage={::this.handleRemoveImage}
-          isDisabled={isDisabled}
+          disabled={isDisabled}
         />
       )
     } else {
