@@ -1,9 +1,13 @@
 import { FETCH_MESSAGES_COUNT } from '../constants/message';
 
 const initialState = {
-  count: 0,
-  isFetchingCount: false,
-  isFetchingCountSuccess: false
+  fetchCount: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  count: 0
 };
 
 const message = (state=initialState, action) => {
@@ -11,20 +15,33 @@ const message = (state=initialState, action) => {
     case `${FETCH_MESSAGES_COUNT}_LOADING`:
       return {
         ...state,
-        isFetchingCount: true
+        fetchCount: {
+          ...state.fetchCount,
+          loading: true
+        }
       };
     case `${FETCH_MESSAGES_COUNT}_SUCCESS`:
       return {
         ...state,
-        count: action.payload.data.count,
-        isFetchingCount: false,
-        isFetchingCountSuccess: true
+        fetchCount: {
+          ...state.fetchCount,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        count: action.payload.data.count
       };
     case `${FETCH_MESSAGES_COUNT}_ERROR`:
       return {
         ...state,
-        isFetchingCount: false,
-        isFetchingCountSuccess: false
+        fetchCount: {
+          ...state.fetchCount,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     default:
       return state;

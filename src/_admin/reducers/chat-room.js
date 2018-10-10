@@ -8,19 +8,43 @@ import {
 } from '../constants/chat-room';
 
 const initialState = {
+  fetchCount: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  fetchSelect: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  fetchAll: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  create: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  edit: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  delete: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
   count: 0,
-  isFetchingCount: false,
-  isFetchingCountSuccess: false,
-  isFetchingSelected: false,
-  isFetchingSelectedSuccess: false,
-  isFetchingAll: false,
-  isFetchingAllSuccess: false,
-  isCreating: false,
-  isCreatingSuccess: true,
-  isEditing: false,
-  isEditingSuccess: true,
-  isDeleting: false,
-  isDeletingSuccess: true,
   all: [],
   selected: {}
 };
@@ -30,65 +54,108 @@ const chatRoom = (state=initialState, action) => {
     case `${FETCH_CHAT_ROOMS_COUNT}_LOADING`:
       return {
         ...state,
-        isFetchingCount: true
+        fetchCount: {
+          ...state.fetchCount,
+          loading: true
+        }
       };
     case `${FETCH_SELECTED_CHAT_ROOM}_LOADING`:
       return {
         ...state,
-        isFetchingSelected: true
+        fetchSelect: {
+          ...state.fetchSelect,
+          loading: true
+        }
       };
     case `${FETCH_CHAT_ROOMS}_LOADING`:
       return {
         ...state,
-        isFetchingAll: true
+        fetchAll: {
+          ...state.fetchAll,
+          loading: true
+        }
       };
     case `${CREATE_CHAT_ROOM}_LOADING`:
       return {
         ...state,
-        isCreating: true
+        create: {
+          ...state.create,
+          loading: true
+        }
       };
     case `${EDIT_CHAT_ROOM}_LOADING`:
       return {
         ...state,
-        isEditing: true
+        edit: {
+          ...state.edit,
+          loading: true
+        }
       };
     case `${DELETE_CHAT_ROOM}_LOADING`:
       return {
         ...state,
-        isDeleting: true
+        delete: {
+          ...state.delete,
+          loading: true
+        }
       };
     case `${FETCH_CHAT_ROOMS_COUNT}_SUCCESS`:
       return {
         ...state,
-        count: action.payload.data.count,
-        isFetchingCount: false,
-        isFetchingCountSuccess: true
+        fetchCount: {
+          ...state.fetchCount,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        count: action.payload.data.count
       };
     case `${FETCH_SELECTED_CHAT_ROOM}_SUCCESS`:
       return {
         ...state,
-        isFetchingSelected: false,
-        isFetchingSelectedSuccess: true,
-        selected: action.payload.data
+        fetchSelect: {
+          ...state.fetchSelect,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        selected: action.payload.data.chatRoom
       };
     case `${FETCH_CHAT_ROOMS}_SUCCESS`:
       return {
         ...state,
-        isFetchingAll: false,
-        isFetchingAllSuccess: true,
-        all: action.payload.data
+        fetchAll: {
+          ...state.fetchAll,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        all: action.payload.data.chatRooms
       };
     case `${CREATE_CHAT_ROOM}_SUCCESS`:
       return {
         ...state,
-        isCreating: false,
-        isCreatingSuccess: true
+        create: {
+          ...state.create,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        }
       };
     case `${EDIT_CHAT_ROOM}_SUCCESS`:
       return {
         ...state,
-        isEditing: false,
-        isEditingSuccess: true
+        edit: {
+          ...state.edit,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        }
       };
     case `${DELETE_CHAT_ROOM}_SUCCESS`:
       var chatRooms = [...state.all];
@@ -98,45 +165,80 @@ const chatRoom = (state=initialState, action) => {
 
       return {
         ...state,
-        isDeleting: false,
-        isDeletingSuccess: true,
+        delete: {
+          ...state.delete,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
         all: [...chatRooms]
       };
     case `${FETCH_CHAT_ROOMS_COUNT}_ERROR`:
       return {
         ...state,
-        isFetchingCount: false,
-        isFetchingCountSuccess: false
+        fetchCount: {
+          ...state.fetchCount,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${FETCH_SELECTED_CHAT_ROOM}_ERROR`:
       return {
         ...state,
-        isFetchingSelected: false,
-        isFetchingSelectedSuccess: false
+        fetchSelect: {
+          ...state.fetchSelect,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${FETCH_CHAT_ROOMS}_ERROR`:
       return {
         ...state,
-        isFetchingAll: false,
-        isFetchingAllSuccess: false
+        fetchAll: {
+          ...state.fetchAll,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${CREATE_CHAT_ROOM}_ERROR`:
       return {
         ...state,
-        isCreating: false,
-        isCreatingSuccess: false
+        create: {
+          ...state.create,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${EDIT_CHAT_ROOM}_ERROR`:
       return {
         ...state,
-        isEditing: false,
-        isEditingSuccess: false
+        edit: {
+          ...state.edit,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${DELETE_CHAT_ROOM}_ERROR`:
       return {
         ...state,
-        isDeleting: false,
-        isDeletingSuccess: false
+        delete: {
+          ...state.delete,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     default:
       return state;

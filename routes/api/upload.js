@@ -39,7 +39,7 @@ router.post('/image', imageUpload.single('image'), function(req, res, next) {
 
     res.status(200).send({
       success: true,
-      message: 'Image Uploaded.',
+      message: 'Image Uploaded',
       imageLink: imageLink
     });
   }

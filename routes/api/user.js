@@ -11,7 +11,11 @@ router.get('/', function(req, res, next) {
       message: 'Unauthorized'
     });
   } else {
-    res.status(200).json(req.user);
+    res.status(200).send({
+      success: true,
+      message: 'User Fetched',
+      user: req.user
+    });
   }
 });
 
@@ -26,7 +30,11 @@ router.post('/search', function(req, res, next) {
 
     User.find({_id: {$ne: null}, name: {$regex: '\\b' + query, $options: 'i'}})
       .then((users) => {
-        res.status(200).send(users);
+        res.status(200).send({
+          success: true,
+          message: 'Users Fetched',
+          users: users
+        });
       })
       .catch((error) => {
         res.status(500).send({
@@ -48,6 +56,7 @@ router.get('/count', function(req, res, next) {
       .then((usersCount) => {
         res.status(200).send({
           success: true,
+          message: 'Users Count Fetched',
           count: usersCount
         });
       })
@@ -109,8 +118,11 @@ router.get('/graph', function(req, res, next) {
 
           usersGraphData = lastYearMonths.concat(usersGraphData);
         }
-
-        res.status(200).send(usersGraphData);
+        res.status(200).send({
+          success: true,
+          message: 'Users Graph Fetched',
+          graph: usersGraphData
+        });
       })
       .catch((error) => {
         res.status(500).send({
@@ -132,7 +144,11 @@ router.post('/select', function(req, res, next) {
 
     User.findById(userID)
       .then((user) => {
-        res.status(200).send(user);
+        res.status(200).send({
+          success: true,
+          message: 'User Selected',
+          user: user
+        });
       })
       .catch((error) => {
         res.status(500).send({
@@ -152,7 +168,11 @@ router.get('/all', function(req, res, next) {
   } else {
     User.find({_id: {$ne: null}})
       .then((users) => {
-        res.status(200).send(users);
+        res.status(200).send({
+          success: true,
+          message: 'Users Fetched',
+          users: users
+        });
       })
       .catch((error) => {
         res.status(500).send({
@@ -219,7 +239,7 @@ router.post('/create', function(req, res, next) {
           .then(() => {
             res.status(200).send({
               success: true,
-              message: 'Login Successful.',
+              message: 'User Created',
               userData: user
             });
           })
@@ -232,7 +252,7 @@ router.post('/create', function(req, res, next) {
       } else {
         res.status(401).send({
           success: false,
-          message: 'Username already exist.'
+          message: 'Username already exist'
         });
       }
     });

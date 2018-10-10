@@ -67,7 +67,7 @@ class Layout extends Component {
       <div className="admin-section">
         <Head title={"Chat App " + (title.length > 0 ? '| ' + title : '')} />
         {
-          !user.isFetchingActive && user.isFetchingActiveSuccess
+          !user.fetchActive.loading && user.fetchActive.success
             ?
             <div>
               {::this.handleLeftSideDrawerRender()}

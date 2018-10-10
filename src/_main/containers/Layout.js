@@ -26,7 +26,7 @@ class Layout extends Component {
       <div>
         <Head title={"Chat App " + (title.length > 0 ? '| ' + title : '')} />
         {
-          !user.isFetchingActive && user.isFetchingActiveSuccess
+          !user.fetchActive.loading && user.fetchActive.success
             ?
             <Content {...matchProps} />
             :

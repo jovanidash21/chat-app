@@ -17,7 +17,11 @@ router.post('/', function(req, res, next) {
       .populate('members')
       .exec()
       .then((chatRoom) => {
-        res.status(200).send(chatRoom.members);
+        res.status(200).send({
+          success: true,
+          message: 'Members Fetched',
+          members: chatRoom.members
+        });
       })
       .catch((error) => {
         res.status(500).send({

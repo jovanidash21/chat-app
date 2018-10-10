@@ -40,18 +40,18 @@ class ChatBox extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.message.isFetchingNew && !this.props.message.isFetchingNew ) ||
-      ( !prevProps.message.isSending && this.props.message.isSending ) ||
+      ( prevProps.message.fetchNew.loading && !this.props.message.fetchNew.loading ) ||
+      ( !prevProps.message.send.loading && this.props.message.send.loading ) ||
       this.state.isChatBoxScrollToBottom
     ) {
       ::this.handleScrollToBottom();
     }
 
-    if ( prevProps.message.isFetchingNew && !this.props.message.isFetchingNew ) {
+    if ( prevProps.message.fetchNew.loading && !this.props.message.fetchNew.loading ) {
       this.setState({hasLoadedAllMessages: false});
     }
 
-    if ( prevProps.message.isFetchingOld && !this.props.message.isFetchingOld ) {
+    if ( prevProps.message.fetchOld.loading && !this.props.message.fetchOld.loading ) {
       const {
         scrollPosition,
         oldestMessageQuery,
@@ -69,11 +69,11 @@ class ChatBox extends Component {
     }
 
     if (
-      ( prevProps.message.isFetchingNew &&
-        !this.props.message.isFetchingNew &&
+      ( prevProps.message.fetchNew.loading &&
+        !this.props.message.fetchNew.loading &&
         this.props.message.all.length < 50 ) ||
-      ( prevProps.message.isFetchingOld &&
-        !this.props.message.isFetchingOld &&
+      ( prevProps.message.fetchOld.loading &&
+        !this.props.message.fetchOld.loading &&
         this.props.message.all.length - prevProps.message.all.length < 50 )
     ) {
       this.setState({hasLoadedAllMessages: true});
@@ -112,7 +112,7 @@ class ChatBox extends Component {
           Hi! Welcome, create a Chat Room now.
         </div>
       )
-    } else if ( !message.isFetchingNew && message.isFetchingNewSuccess ) {
+    } else if ( !message.fetchNew.loading && message.fetchNew.success ) {
       return (
         <Container fluid>
           {
@@ -177,7 +177,7 @@ class ChatBox extends Component {
       isImageLightboxOpen,
       imageIndex
     } = this.state;
-    if ( !message.isFetchingNew && message.isFetchingNewSuccess ) {
+    if ( !message.fetchNew.loading && message.fetchNew.success ) {
       const imagesArray = [];
       const imageMessages = message.all.filter(imageMessage =>
         imageMessage.messageType === 'image'
@@ -236,7 +236,7 @@ class ChatBox extends Component {
       isChatBoxScrollToTop
     } = this.state;
 
-    if ( !hasLoadedAllMessages && isChatBoxScrollToTop && !message.isFetchingOld ) {
+    if ( !hasLoadedAllMessages && isChatBoxScrollToTop && !message.fetchOld.loading ) {
       const scrollPosition = this.chatBox.scrollTop;
       const oldestMessageQuery = document.querySelectorAll(".chat-box .chat-bubble-wrapper")[0];
       const oldestMessageOffsetTop = oldestMessageQuery.offsetTop;

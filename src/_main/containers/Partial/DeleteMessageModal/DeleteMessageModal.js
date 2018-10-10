@@ -14,7 +14,7 @@ class DeleteMessageModal extends Component {
     super(props);
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.message.isDeleting && this.props.message.isDeletingSuccess ) {
+    if ( prevProps.message.delete.loading && this.props.message.delete.success ) {
       this.props.handleCloseModal();
     }
   }
@@ -52,9 +52,8 @@ class DeleteMessageModal extends Component {
           </Modal.Header>
           <Modal.Body>
             {
-              !message.isDeleting &&
-              !message.isDeletingSuccess &&
-              <Alert label="Error! Please try again" />
+              message.delete.error &&
+              <Alert label={message.delete.message} />
             }
             <p>This action cannot be undone. Are you sure you want to delete this message?</p>
           </Modal.Body>
@@ -62,14 +61,14 @@ class DeleteMessageModal extends Component {
             <Button
               className="button button-default"
               onClick={handleCloseModal}
-              disabled={message.isDeleting}
+              disabled={message.delete.loading}
             >
               Cancel
             </Button>
             <Button
               className="button button-danger"
               type="submit"
-              disabled={message.isDeleting}
+              disabled={message.delete.loading}
             >
               Yes, Delete Message
             </Button>

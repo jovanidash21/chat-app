@@ -20,13 +20,13 @@ class DeleteUserModal extends Component {
     };
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.user.isFetchingSelected && !this.props.user.isFetchingSelected ) {
+    if ( prevProps.user.fetchSelect.loading && !this.props.user.fetchSelect.loading ) {
       this.setState({
         isLoading: false
       });
     }
 
-    if ( prevProps.user.isDeleting && this.props.user.isDeletingSuccess ) {
+    if ( prevProps.user.delete.loading && this.props.user.delete.success ) {
       this.props.handleCloseModal();
     }
   }
@@ -64,9 +64,8 @@ class DeleteUserModal extends Component {
           </Modal.Header>
           <Modal.Body>
             {
-              !user.isDeleting &&
-              !user.isDeletingSuccess &&
-              <Alert label="Error! Please try again" />
+              user.delete.error &&
+              <Alert label={user.delete.message} />
             }
             <div className="avatar-wrapper">
               <Avatar
@@ -90,14 +89,14 @@ class DeleteUserModal extends Component {
             <Button
               className="button button-default"
               onClick={handleCloseModal}
-              disabled={user.isDeleting}
+              disabled={user.delete.loading}
             >
               Cancel
             </Button>
             <Button
               className="button button-danger"
               type="submit"
-              disabled={user.isDeleting}
+              disabled={user.delete.loading}
             >
               Yes, Delete User
             </Button>

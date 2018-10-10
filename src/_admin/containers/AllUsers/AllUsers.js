@@ -12,6 +12,7 @@ import {
   DeleteUserModal
 } from '../Partial';
 import { MenuButton } from '../../components/MenuButton';
+import { Alert } from '../../../components/Alert';
 import { Avatar } from '../../../components/Avatar';
 
 class AllUsers extends Component {
@@ -37,8 +38,8 @@ class AllUsers extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.user.isFetchingAll && !this.props.user.isFetchingAll ) ||
-      ( prevProps.user.isDeleting && !this.props.user.isDeleting )
+      ( prevProps.user.fetchAll.loading && !this.props.user.fetchAll.loading ) ||
+      ( prevProps.user.delete.loading && !this.props.user.delete.loading )
     ) {
       ::this.handleUserRows();
     }
@@ -85,6 +86,7 @@ class AllUsers extends Component {
     this.setState({isModalOpen: false});
   }
   render() {
+    const { user } = this.props;
     const {
       isLoading,
       columns,
@@ -108,6 +110,12 @@ class AllUsers extends Component {
               <div className="admin-menu-section">
                 <MenuButton label="Create New" link="/create-user" />
               </div>
+            </Col>
+            <Col xs="12">
+              {
+                user.delete.success &&
+                <Alert label={user.delete.message} type="success" />
+              }
             </Col>
           </Row>
           <Row>

@@ -22,9 +22,8 @@ class CreateChatRoom extends Component {
           <Row>
             <Col xs="12">
               {
-                !chatRoom.isCreating &&
-                !chatRoom.isCreatingSuccess &&
-                <Alert label="Sorry! Please try again." />
+                ( chatRoom.create.success || chatRoom.create.error ) &&
+                <Alert label={chatRoom.create.message} type={(chatRoom.create.success ? 'success' : 'error')} />
               }
             </Col>
           </Row>

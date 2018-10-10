@@ -24,7 +24,7 @@ class CreateChatRoomModal extends Component {
     }
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.chatRoom.isCreating && this.props.chatRoom.isCreatingSuccess ) {
+    if ( prevProps.chatRoom.create.loading && this.props.chatRoom.create.success ) {
       const {
         handleCloseModal,
         handleLeftSideDrawerToggleEvent
@@ -105,13 +105,13 @@ class CreateChatRoomModal extends Component {
       chatRoomName,
       members
     } = this.state;
-    const searchedUsers = user.search.filter((singleUser) => {
+    const searchedUsers = user.searched.filter((singleUser) => {
       return !members.some((singleMember) => singleMember._id === singleUser._id);
     });
     const isSubmitButtonDisabled =
       chatRoomName.length === 0 ||
       members.length < 3 ||
-      chatRoom.isCreating;
+      chatRoom.create.loading;
 
     return (
       <Modal
@@ -125,16 +125,15 @@ class CreateChatRoomModal extends Component {
           </Modal.Header>
           <Modal.Body>
             {
-              !chatRoom.isCreating &&
-              !chatRoom.isCreatingSuccess &&
-              <Alert label="Error! Please try again" />
+              chatRoom.create.error &&
+              <Alert label={chatRoom.create.message} />
             }
             <Input
               value={chatRoomName}
               label="Chat Room Name"
               name="chatRoomName"
               onChange={::this.onInputChange}
-              disabled={chatRoom.isCreating}
+              disabled={chatRoom.create.loading}
             />
             <UserSelect
               label="Select at least 3 members"
@@ -144,16 +143,16 @@ class CreateChatRoomModal extends Component {
               searchedUsers={searchedUsers}
               onSuggestionSelected={::this.onSuggestionSelected}
               handleDeselectUser={::this.handleDeselectMember}
-              isListDisabled={chatRoom.isCreating}
-              isInputDisabled={chatRoom.isCreating}
-              isLoading={user.isSearching}
+              isListDisabled={chatRoom.create.loading}
+              isInputDisabled={chatRoom.create.loading}
+              isLoading={user.search.loading}
             />
           </Modal.Body>
           <Modal.Footer>
             <Button
               className="button button-default"
               onClick={handleCloseModal}
-              disabled={chatRoom.isCreating}
+              disabled={chatRoom.create.loading}
             >
               Cancel
             </Button>

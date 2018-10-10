@@ -138,7 +138,7 @@ class Chat extends Component {
       isAudioRecorderOpen,
       isDragDropBoxOpen
     } = this.state;
-    const isChatInputDisabled = chatRoom.isFetching || message.isFetchingNew || isDragDropBoxOpen;
+    const isChatInputDisabled = chatRoom.fetch.loading || message.fetchNew.loading || isDragDropBoxOpen;
 
     return (
       <div id="chat-section" className="chat-section">

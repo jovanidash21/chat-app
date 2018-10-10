@@ -44,7 +44,11 @@ router.post('/', function(req, res, next) {
             }
           }
         }
-        res.status(200).send(userChatRooms);
+        res.status(200).send({
+          success: true,
+          message: 'Chat Rooms Fetched',
+          chatRooms: userChatRooms
+        });
       })
       .catch((error) => {
         res.status(500).send({
@@ -83,12 +87,12 @@ router.post('/create', function(req, res, next) {
     } else if (chatType === 'direct' && members.length !== 2) {
       res.status(401).send({
         success: false,
-        message: 'Please select 2 members.'
+        message: 'Please select 2 members'
       });
     } else if (chatType === 'group' && members.length < 3) {
       res.status(401).send({
         success: false,
-        message: 'Please select at least 3 members.'
+        message: 'Please select at least 3 members'
       });
     } else {
       ChatRoom.findOne({members: {$all: members}, chatType: 'direct'}, function(err, chatRoom) {
@@ -96,7 +100,7 @@ router.post('/create', function(req, res, next) {
           if (chatRoom !== null) {
             res.status(401).send({
               success: false,
-              message: 'Chat room already exist.'
+              message: 'Chat room already exist'
             });
           } else {
             var chatRoom = new ChatRoom(chatRoomData);
@@ -119,7 +123,7 @@ router.post('/create', function(req, res, next) {
               .then((chatRoomData) => {
                 res.status(200).send({
                   success: true,
-                  message: 'Chat Room Created.',
+                  message: 'Chat Room Created',
                   chatRoom: {
                     data: chatRoomData,
                     unReadMessages: 0
@@ -155,6 +159,7 @@ router.get('/count', function(req, res, next) {
       .then((chatRoomsCount) => {
         res.status(200).send({
           success: true,
+          message: 'Chat Rooms Count Fetched',
           count: chatRoomsCount
         });
       })
@@ -197,7 +202,11 @@ router.post('/select', function(req, res, next) {
         return chatRoom;
       })
       .then((chatRoom) => {
-        res.status(200).send(chatRoom);
+        res.status(200).send({
+          success: true,
+          message: 'Chat Rooms Selected',
+          chatRoom: chatRoom
+        });
       })
       .catch((error) => {
         res.status(500).send({
@@ -242,7 +251,11 @@ router.get('/all', function(req, res, next) {
         return chatRooms;
       })
       .then((chatRooms) => {
-        res.status(200).send(chatRooms);
+        res.status(200).send({
+          success: true,
+          message: 'Chat Rooms Fetched',
+          chatRooms: chatRooms
+        });
       })
       .catch((error) => {
         res.status(500).send({

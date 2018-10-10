@@ -11,30 +11,66 @@ import {
 } from '../constants/user';
 
 const initialState = {
+  fetchActive: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  fetchCount: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  fetchGraph: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  fetchSelect: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  fetchAll: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  search: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  create: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  edit: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
+  delete: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
   count: 0,
-  isFetchingActive: false,
-  isFetchingActiveSuccess: false,
-  isFetchingCount: false,
-  isFetchingCountSuccess: false,
-  isFetchingGraph: false,
-  isFetchingGraphSuccess: false,
-  isFetchingSelected: false,
-  isFetchingSelectedSuccess: false,
-  isFetchingAll: false,
-  isFetchingAllSuccess: false,
-  isSearching: false,
-  isSearchingSuccess: false,
-  isCreating: false,
-  isCreatingSuccess: true,
-  isEditing: false,
-  isEditingSuccess: true,
-  isDeleting: false,
-  isDeletingSuccess: true,
   active: {},
   graph: [],
   all: [],
   selected: {},
-  search: []
+  searched: []
 };
 
 const user = (state=initialState, action) => {
@@ -42,102 +78,169 @@ const user = (state=initialState, action) => {
     case `${FETCH_ACTIVE_USER}_LOADING`:
       return {
         ...state,
-        isFetchingActive: true
+        fetchActive: {
+          ...state.fetchActive,
+          loading: true
+        }
       };
     case `${FETCH_USERS_COUNT}_LOADING`:
       return {
         ...state,
-        isFetchingCount: true
+        fetchCount: {
+          ...state.fetchCount,
+          loading: true
+        }
       };
     case `${FETCH_USERS_GRAPH}_LOADING`:
       return {
         ...state,
-        isFetchingGraph: true
+        fetchGraph: {
+          ...state.fetchGraph,
+          loading: true
+        }
       };
     case `${FETCH_SELECTED_USER}_LOADING`:
       return {
         ...state,
-        isFetchingSelected: true
+        fetchSelect: {
+          ...state.fetchSelect,
+          loading: true
+        }
       };
     case `${FETCH_USERS}_LOADING`:
       return {
         ...state,
-        isFetchingAll: true
+        fetchAll: {
+          ...state.fetchAll,
+          loading: true
+        }
       };
     case `${SEARCH_USER}_LOADING`:
       return {
         ...state,
-        isSearching: true,
-        search: []
+        search: {
+          ...state.search,
+          loading: true
+        },
+        searched: []
       };
     case `${CREATE_USER}_LOADING`:
       return {
         ...state,
-        isCreating: true
+        create: {
+          ...state.create,
+          loading: true
+        }
       };
     case `${EDIT_USER}_LOADING`:
       return {
         ...state,
-        isEditing: true
+        edit: {
+          ...state.edit,
+          loading: true
+        }
       };
     case `${DELETE_USER}_LOADING`:
       return {
         ...state,
-        isDeleting: true
+        delete: {
+          ...state.delete,
+          loading: true
+        }
       };
     case `${FETCH_ACTIVE_USER}_SUCCESS`:
       return {
         ...state,
-        isFetchingActive: false,
-        isFetchingActiveSuccess: true,
-        active: action.payload.data
-      };
-    case `${FETCH_USERS_GRAPH}_SUCCESS`:
-      return {
-        ...state,
-        isFetchingGraph: false,
-        isFetchingGraphSuccess: true,
-        graph: action.payload.data
+        fetchActive: {
+          ...state.fetchActive,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        active: action.payload.data.user
       };
     case `${FETCH_USERS_COUNT}_SUCCESS`:
       return {
         ...state,
-        count: action.payload.data.count,
-        isFetchingCount: false,
-        isFetchingCountSuccess: true
+        fetchCount: {
+          ...state.fetchCount,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        count: action.payload.data.count
+      };
+    case `${FETCH_USERS_GRAPH}_SUCCESS`:
+      return {
+        ...state,
+        fetchGraph: {
+          ...state.fetchGraph,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        graph: action.payload.data.graph
       };
     case `${FETCH_SELECTED_USER}_SUCCESS`:
       return {
         ...state,
-        isFetchingSelected: false,
-        isFetchingSelectedSuccess: true,
-        selected: action.payload.data
+        fetchSelect: {
+          ...state.fetchSelect,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        selected: action.payload.data.user
       };
     case `${FETCH_USERS}_SUCCESS`:
       return {
         ...state,
-        isFetchingAll: false,
-        isFetchingAllSuccess: true,
-        all: action.payload.data
+        fetchAll: {
+          ...state.fetchAll,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        all: action.payload.data.users
       };
     case `${SEARCH_USER}_SUCCESS`:
       return {
         ...state,
-        isSearching: false,
-        isSearchingSuccess: true,
-        search: action.payload.data
+        search: {
+          ...state.search,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        searched: action.payload.data.users
       };
     case `${CREATE_USER}_SUCCESS`:
       return {
         ...state,
-        isCreating: false,
-        isCreatingSuccess: true
+        create: {
+          ...state.create,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        }
       };
     case `${EDIT_USER}_SUCCESS`:
       return {
         ...state,
-        isEditing: false,
-        isEditingSuccess: true
+        edit: {
+          ...state.edit,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        }
       };
     case `${DELETE_USER}_SUCCESS`:
       var users = [...state.all];
@@ -147,64 +250,114 @@ const user = (state=initialState, action) => {
 
       return {
         ...state,
-        isDeleting: false,
-        isDeletingSuccess: true,
+        delete: {
+          ...state.delete,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
         all: [...users]
       };
     case `${FETCH_ACTIVE_USER}_ERROR`:
       return {
         ...state,
-        isFetchingActive: false,
-        isFetchingActiveSuccess: false
+        fetchActive: {
+          ...state.fetchActive,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${FETCH_USERS_COUNT}_ERROR`:
       return {
         ...state,
-        isFetchingCount: false,
-        isFetchingCountSuccess: false
+        fetchCount: {
+          ...state.fetchCount,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${FETCH_USERS_GRAPH}_ERROR`:
       return {
         ...state,
-        isFetchingGraph: false,
-        isFetchingGraphSuccess: false
+        fetchGraph: {
+          ...state.fetchGraph,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${FETCH_SELECTED_USER}_ERROR`:
       return {
         ...state,
-        isFetchingSelected: false,
-        isFetchingSelectedSuccess: false
+        fetchSelect: {
+          ...state.fetchSelect,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${FETCH_USERS}_ERROR`:
       return {
         ...state,
-        isFetchingAll: false,
-        isFetchingAllSuccess: false
+        fetchAll: {
+          ...state.fetchAll,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${SEARCH_USER}_ERROR`:
       return {
         ...state,
-        isSearching: false,
-        isSearchingSuccess: false,
-        search: []
+        search: {
+          ...state.search,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        },
+        searched: []
       };
     case `${CREATE_USER}_ERROR`:
       return {
         ...state,
-        isCreating: false,
-        isCreatingSuccess: false
+        create: {
+          ...state.create,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${EDIT_USER}_ERROR`:
       return {
         ...state,
-        isEditing: false,
-        isEditingSuccess: false
+        edit: {
+          ...state.edit,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case `${DELETE_USER}_ERROR`:
       return {
         ...state,
-        isDeleting: false,
-        isDeletingSuccess: false
+        delete: {
+          ...state.delete,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     default:
       return state;

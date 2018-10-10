@@ -43,9 +43,9 @@ class ChatRoomForm extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      prevProps.upload.isUploadingImage &&
-      !this.props.upload.isUploadingImage &&
-      this.props.upload.isUploadingImageSuccess
+      prevProps.upload.image.loading &&
+      !this.props.upload.image.loading &&
+      this.props.upload.image.success
     ) {
       this.setState({
         chatIcon: this.props.upload.imageLink
@@ -54,9 +54,9 @@ class ChatRoomForm extends Component {
 
     if ( this.props.mode === 'create' ) {
       if (
-        prevProps.chatRoom.isCreating &&
-        !this.props.chatRoom.isCreating &&
-        this.props.chatRoom.isCreatingSuccess
+        prevProps.chatRoom.create.loading &&
+        !this.props.chatRoom.create.loading &&
+        this.props.chatRoom.create.success
       ) {
         this.setState({
           chatType: '',
@@ -66,15 +66,15 @@ class ChatRoomForm extends Component {
         });
       }
 
-      if ( !prevProps.chatRoom.isCreating && this.props.chatRoom.isCreating ) {
+      if ( !prevProps.chatRoom.create.loading && this.props.chatRoom.create.loading ) {
         this.setState({
           isDisabled: true
         });
       }
 
       if (
-        prevProps.chatRoom.isCreating &&
-        !this.props.chatRoom.isCreating
+        prevProps.chatRoom.create.loading &&
+        !this.props.chatRoom.create.loading
       ) {
         this.setState({
           isDisabled: false
@@ -84,21 +84,21 @@ class ChatRoomForm extends Component {
 
     if ( this.props.mode === 'edit' ) {
       if (
-        prevProps.chatRoom.isFetchingSelected &&
-        !this.props.chatRoom.isFetchingSelected
+        prevProps.chatRoom.fetchSelect.loading &&
+        !this.props.chatRoom.fetchSelect.loading
       ) {
         ::this.handleDisplayeSelectedChatRoom();
       }
 
-      if ( !prevProps.chatRoom.isEditing && this.props.chatRoom.isEditing ) {
+      if ( !prevProps.chatRoom.edit.loading && this.props.chatRoom.edit.loading ) {
         this.setState({
           isDisabled: true
         });
       }
 
       if (
-        prevProps.chatRoom.isEditing &&
-        !this.props.chatRoom.isEditing
+        prevProps.chatRoom.edit.loading &&
+        !this.props.chatRoom.edit.loading
       ) {
         this.setState({
           isDisabled: false
@@ -183,11 +183,11 @@ class ChatRoomForm extends Component {
       members,
       chatIcon
     } = this.state;
-    const searchedUsers = user.search.filter((singleUser) => {
+    const searchedUsers = user.searched.filter((singleUser) => {
       return !members.some((singleMember) => singleMember._id === singleUser._id);
     });
-    const isListDisabled = chatRoom.isCreating;
-    const isInputDisabled = (chatType === 'direct' && members.length === 2) || chatRoom.isCreating;
+    const isListDisabled = chatRoom.create.loading;
+    const isInputDisabled = (chatType === 'direct' && members.length === 2) || chatRoom.create.loading;
 
     if ( !isLoading ) {
       return (
@@ -226,7 +226,7 @@ class ChatRoomForm extends Component {
             handleDeselectUser={::this.handleDeselectMember}
             isListDisabled={isListDisabled}
             isInputDisabled={isInputDisabled}
-            isLoading={user.isSearching}
+            isLoading={user.search.loading}
           />
           <Button
             className="button button-primary"

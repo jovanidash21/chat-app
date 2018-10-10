@@ -67,7 +67,6 @@ class Register extends Component {
             <h1 className="form-title mui--text-center">Create an Account</h1>
           </Col>
           {
-            !auth.register.loading &&
             auth.register.error &&
             <Col md="12">
               <Alert label={auth.register.message} center />

@@ -6,8 +6,12 @@ import {
 } from '../constants/auth';
 
 const initialState = {
-  isFetching: false,
-  isFetchingSuccess: true,
+  fetch: {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  },
   activeChatRoom: {
     data: {}
   },
@@ -19,20 +23,33 @@ const member = (state=initialState, action) => {
     case `${FETCH_MEMBERS}_LOADING`:
       return {
         ...state,
-        isFetching: true
+        fetch: {
+          ...state.fetch,
+          loading: true
+        }
       };
     case `${FETCH_MEMBERS}_SUCCESS`:
       return {
         ...state,
-        isFetching: false,
-        isFetchingSuccess: true,
-        all: action.payload.data
+        fetch: {
+          ...state.fetch,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        all: action.payload.data.members
       };
     case `${FETCH_MEMBERS}_ERROR`:
       return {
         ...state,
-        isFetching: false,
-        isFetchingSuccess: false
+        fetch: {
+          ...state.fetch,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
       };
     case CHANGE_CHAT_ROOM:
       return {

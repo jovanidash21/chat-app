@@ -46,9 +46,8 @@ class EditChatRoom extends Component {
           <Row>
             <Col xs="12">
               {
-                !chatRoom.isEditing &&
-                !chatRoom.isEditingSuccess &&
-                <Alert label="Sorry! Please try again." />
+                ( chatRoom.edit.success || chatRoom.edit.error ) &&
+                <Alert label={chatRoom.edit.message} type={(chatRoom.create.success ? 'success' : 'error')} />
               }
             </Col>
           </Row>

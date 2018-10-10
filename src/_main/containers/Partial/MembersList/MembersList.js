@@ -20,7 +20,7 @@ class MembersList extends Component {
     }
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.member.isFetching && !this.props.member.isFetching ) {
+    if ( prevProps.member.fetch.loading && !this.props.member.fetch.loading ) {
       ::this.handleMembersListFilter();
     }
 
@@ -28,7 +28,7 @@ class MembersList extends Component {
       ::this.handleMembersListFilter(this.state.searchFilter);
     }
 
-    if ( prevProps.chatRoom.isCreating && this.props.chatRoom.isCreatingSuccess ) {
+    if ( prevProps.chatRoom.create.loading && this.props.chatRoom.create.success ) {
       const { handleRightSideDrawerToggleEvent } = this.props;
 
       handleRightSideDrawerToggleEvent();
@@ -77,7 +77,7 @@ class MembersList extends Component {
       selectedMemberIndex
     } = this.state;
 
-     if ( !member.isFetching && member.isFetchingSuccess ) {
+    if ( !member.fetch.loading && member.fetch.success ) {
       return (
         <div className="members-list-wrapper">
           <div className="members-count">

@@ -23,8 +23,8 @@ class ActiveChatRoom extends Component {
     } = this.props;
 
     if (
-      !chatRoom.isFetching &&
-      chatRoom.isFetchingSuccess &&
+      !chatRoom.fetch.loading &&
+      chatRoom.fetch.success &&
       Object.keys(chatRoom.active.data).length > 0
     ) {
       const activeChatRoom = chatRoom.active;
@@ -47,8 +47,8 @@ class ActiveChatRoom extends Component {
               {
                 ( activeChatRoom.data.chatType === 'public' ||
                 activeChatRoom.data.chatType === 'group' ) &&
-                !member.isFetching &&
-                member.isFetchingSuccess &&
+                !member.fetch.loading &&
+                member.fetch.success &&
                 <div
                   className="members-count"
                   onClick={::this.handleRightSideDrawerToggleEvent}
@@ -62,8 +62,8 @@ class ActiveChatRoom extends Component {
               }
               {
                 activeChatRoom.data.chatType === 'direct' &&
-                !member.isFetching &&
-                member.isFetchingSuccess &&
+                !member.fetch.loading &&
+                member.fetch.success &&
                 member.all.filter(singleMember =>
                   singleMember._id !== user.active._id
                 ).map((singleMember, i) =>

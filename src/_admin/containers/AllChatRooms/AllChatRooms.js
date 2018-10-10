@@ -13,6 +13,7 @@ import {
   DeleteChatRoomModal
 } from '../Partial';
 import { MenuButton } from '../../components/MenuButton';
+import { Alert } from '../../../components/Alert';
 import { Avatar } from '../../../components/Avatar';
 
 class AllChatRooms extends Component {
@@ -37,8 +38,8 @@ class AllChatRooms extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.chatRoom.isFetchingAll && !this.props.chatRoom.isFetchingAll ) ||
-      ( prevProps.chatRoom.isDeleting && !this.props.chatRoom.isDeleting )
+      ( prevProps.chatRoom.fetchAll.loading && !this.props.chatRoom.fetchAll.loading ) ||
+      ( prevProps.chatRoom.delete.loading && !this.props.chatRoom.delete.loading )
     ) {
       ::this.handleChatRoomRows();
     }
@@ -84,6 +85,7 @@ class AllChatRooms extends Component {
     this.setState({isModalOpen: false});
   }
   render() {
+    const { chatRoom } = this.props;
     const {
       isLoading,
       columns,
@@ -107,6 +109,12 @@ class AllChatRooms extends Component {
               <div className="admin-menu-section">
                 <MenuButton label="Create New" link="/create-chat-room" />
               </div>
+            </Col>
+            <Col xs="12">
+              {
+                chatRoom.delete.success &&
+                <Alert label={chatRoom.delete.message} type="success" />
+              }
             </Col>
           </Row>
           <Row>

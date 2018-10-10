@@ -67,7 +67,6 @@ class Login extends Component {
             <h1 className="form-title mui--text-center">Chat App</h1>
           </Col>
           {
-            !auth.login.loading &&
             auth.login.error &&
             <Col md="12">
               <Alert label={auth.login.message} center />

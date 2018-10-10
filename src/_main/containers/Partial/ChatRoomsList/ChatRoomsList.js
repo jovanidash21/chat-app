@@ -17,7 +17,7 @@ class ChatRoomsList extends Component {
     }
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.chatRoom.isFetching && !this.props.chatRoom.isFetching ) {
+    if ( prevProps.chatRoom.fetch.loading && !this.props.chatRoom.fetch.loading ) {
       const {
         user,
         chatRoom,
@@ -44,7 +44,7 @@ class ChatRoomsList extends Component {
       handleLeftSideDrawerToggleEvent
     } = this.props;
 
-    if ( !chatRoom.isFetching && chatRoom.isFetchingSuccess ) {
+    if ( !chatRoom.fetch.loading && chatRoom.fetch.success ) {
       const activeChatRoom = chatRoom.active;
 
       return (

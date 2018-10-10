@@ -21,13 +21,13 @@ class DeleteChatRoomModal extends Component {
     };
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.chatRoom.isFetchingSelected && !this.props.chatRoom.isFetchingSelected ) {
+    if ( prevProps.chatRoom.fetchSelect.loading && !this.props.chatRoom.fetchSelect.loading ) {
       this.setState({
         isLoading: false
       });
     }
 
-    if ( prevProps.chatRoom.isDeleting && this.props.chatRoom.isDeletingSuccess ) {
+    if ( prevProps.chatRoom.delete.loading && this.props.chatRoom.delete.success ) {
       this.props.handleCloseModal();
     }
   }
@@ -65,9 +65,8 @@ class DeleteChatRoomModal extends Component {
           </Modal.Header>
           <Modal.Body>
             {
-              !chatRoom.isDeleting &&
-              !chatRoom.isDeletingSuccess &&
-              <Alert label="Error! Please try again" />
+              chatRoom.delete.error &&
+              <Alert label={chatRoom.delete.message} />
             }
             <div className="avatar-wrapper">
               <Avatar
@@ -90,14 +89,14 @@ class DeleteChatRoomModal extends Component {
             <Button
               className="button button-default"
               onClick={handleCloseModal}
-              disabled={chatRoom.isDeleting}
+              disabled={chatRoom.delete.loading}
             >
               Cancel
             </Button>
             <Button
               className="button button-danger"
               type="submit"
-              disabled={chatRoom.isDeleting}
+              disabled={chatRoom.delete.loading}
             >
               Yes, Delete ChatRoom
             </Button>

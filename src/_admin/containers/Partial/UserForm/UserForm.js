@@ -44,9 +44,9 @@ class UserForm extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      prevProps.upload.isUploadingImage &&
-      !this.props.upload.isUploadingImage &&
-      this.props.upload.isUploadingImageSuccess
+      prevProps.upload.image.loading &&
+      !this.props.upload.image.loading &&
+      this.props.upload.image.success
     ) {
       this.setState({
         profilePicture: this.props.upload.imageLink
@@ -55,9 +55,9 @@ class UserForm extends Component {
 
     if ( this.props.mode === 'create' ) {
       if (
-        prevProps.user.isCreating &&
-        !this.props.user.isCreating &&
-        this.props.user.isCreatingSuccess
+        prevProps.user.create.loading &&
+        !this.props.user.create.loading &&
+        this.props.user.create.success
       ) {
         this.setState({
           username: '',
@@ -87,21 +87,21 @@ class UserForm extends Component {
 
     if ( this.props.mode === 'edit' ) {
       if (
-        prevProps.user.isFetchingSelected &&
-        !this.props.user.isFetchingSelected
+        prevProps.user.fetchSelect.loading &&
+        !this.props.user.fetchSelect.loading
       ) {
         ::this.handleDisplayeSelectedUser();
       }
 
-      if ( !prevProps.user.isEditing && this.props.user.isEditing ) {
+      if ( !prevProps.user.edit.loading && this.props.user.edit.loading ) {
         this.setState({
           isDisabled: true
         });
       }
 
       if (
-        prevProps.user.isEditing &&
-        !this.props.user.isEditing
+        prevProps.user.edit.loading &&
+        !this.props.user.edit.loading
       ) {
         this.setState({
           isDisabled: false
