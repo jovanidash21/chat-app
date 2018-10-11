@@ -10,61 +10,23 @@ import {
   DELETE_USER
 } from '../constants/user';
 
+const commonStateFlags = {
+  loading: false,
+  success: false,
+  error: false,
+  message: ''
+};
+
 const initialState = {
-  fetchActive: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  fetchCount: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  fetchGraph: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  fetchSelect: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  fetchAll: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  search: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  create: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  edit: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  delete: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
+  fetchActive: {...commonStateFlags},
+  fetchCount: {...commonStateFlags},
+  fetchGraph: {...commonStateFlags},
+  fetchSelect: {...commonStateFlags},
+  fetchAll: {...commonStateFlags},
+  search: {...commonStateFlags},
+  create: {...commonStateFlags},
+  edit: {...commonStateFlags},
+  delete: {...commonStateFlags},
   count: 0,
   active: {},
   graph: [],

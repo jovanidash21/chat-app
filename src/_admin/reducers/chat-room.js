@@ -7,43 +7,20 @@ import {
   DELETE_CHAT_ROOM
 } from '../constants/chat-room';
 
+const commonStateFlags = {
+  loading: false,
+  success: false,
+  error: false,
+  message: ''
+};
+
 const initialState = {
-  fetchCount: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  fetchSelect: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  fetchAll: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  create: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  edit: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  delete: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
+  fetchCount: {...commonStateFlags},
+  fetchSelect: {...commonStateFlags},
+  fetchAll: {...commonStateFlags},
+  create: {...commonStateFlags},
+  edit: {...commonStateFlags},
+  delete: {...commonStateFlags},
   count: 0,
   all: [],
   selected: {}

@@ -8,31 +8,18 @@ import {
 } from '../constants/message';
 import { CHANGE_CHAT_ROOM } from '../constants/chat-room';
 
+const commonStateFlags = {
+  loading: false,
+  success: false,
+  error: false,
+  message: ''
+};
+
 const initialState = {
-  fetchNew: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  fetchOld: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  send: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  delete: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
+  fetchNew: {...commonStateFlags},
+  fetchOld: {...commonStateFlags},
+  send: {...commonStateFlags},
+  delete: {...commonStateFlags},
   activeChatRoom: {
     data: {}
   },

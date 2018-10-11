@@ -29,19 +29,16 @@ const chatRoomPriority = (chatRoom) => {
   return priority;
 }
 
+const commonStateFlags = {
+  loading: false,
+  success: false,
+  error: false,
+  message: ''
+};
+
 const initialState = {
-  fetch: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  create: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
+  fetch: {...commonStateFlags},
+  create: {...commonStateFlags},
   active: {
     data: {}
   },

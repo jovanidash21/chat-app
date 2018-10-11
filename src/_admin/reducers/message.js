@@ -1,12 +1,14 @@
 import { FETCH_MESSAGES_COUNT } from '../constants/message';
 
+const commonStateFlags = {
+  loading: false,
+  success: false,
+  error: false,
+  message: ''
+};
+
 const initialState = {
-  fetchCount: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
+  fetchCount: {...commonStateFlags},
   count: 0
 };
 

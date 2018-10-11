@@ -3,19 +3,16 @@ import {
   SEARCH_USER
 } from '../constants/user';
 
+const commonStateFlags = {
+  loading: false,
+  success: false,
+  error: false,
+  message: ''
+};
+
 const initialState = {
-  fetchActive: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  search: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
+  fetchActive: {...commonStateFlags},
+  search: {...commonStateFlags},
   active: {},
   searched: []
 };

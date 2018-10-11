@@ -1,12 +1,14 @@
 export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
 
+const commonStateFlags = {
+  loading: false,
+  success: false,
+  error: false,
+  message: ''
+};
+
 const initialState = {
-  image: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
+  image: {...commonStateFlags},
   imageLink: ''
 };
 

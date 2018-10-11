@@ -3,19 +3,16 @@ import {
   REGISTER
 } from '../constants/auth';
 
+const commonStateFlags = {
+  loading: false,
+  success: false,
+  error: false,
+  message: ''
+};
+
 const initialState = {
-  login: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  },
-  register: {
-    loading: false,
-    success: false,
-    error: false,
-    message: ''
-  }
+  login: {...commonStateFlags},
+  register: {...commonStateFlags}
 };
 
 const auth = (state=initialState, action) => {
