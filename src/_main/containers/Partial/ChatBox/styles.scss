@@ -15,6 +15,7 @@
   }
   .chat-box {
     @include scrollbar($color-mine-shaft);
+    height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
   }
