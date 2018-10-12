@@ -39,7 +39,9 @@ class Modal extends Component {
             ?
             children
             :
-            <LoadingAnimation name="ball-clip-rotate" color="black" />
+            <Body>
+              <LoadingAnimation name="ball-clip-rotate" color="black" />
+            </Body>
         }
       </ReactModal>
     )
