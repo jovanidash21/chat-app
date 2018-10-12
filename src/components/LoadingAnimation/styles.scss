@@ -4,4 +4,8 @@
   height: 100%;
   justify-content: center;
   width: 100%;
+  &.full-screen {
+    height: 100vh;
+    width: 100vw;
+  }
 }

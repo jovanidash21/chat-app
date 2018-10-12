@@ -5,7 +5,7 @@ import './styles.scss';
 
 const LoadingAnimation = (props) => {
   return (
-    <div className="loading-animation">
+    <div className={"loading-animation " + (props.fullScreen ? 'full-screen' : '')}>
       <Spinner name={props.name} color={props.color} />
     </div>
   );
@@ -13,11 +13,13 @@ const LoadingAnimation = (props) => {
 
 LoadingAnimation.propTypes = {
   name: PropTypes.string.isRequired,
-  color: PropTypes.string
+  color: PropTypes.string,
+  fullScreen: PropTypes.bool
 }
 
 LoadingAnimation.defaultProps = {
-  color: '#000'
+  color: '#000',
+  fullScreen: false
 }
 
 export default LoadingAnimation;

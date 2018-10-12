@@ -30,7 +30,7 @@ class Layout extends Component {
             ?
             <Content {...matchProps} />
             :
-            <LoadingAnimation name="pacman" color="#26a69a" />
+            <LoadingAnimation name="pacman" color="#26a69a" fullScreen />
         }
       </div>
     )
