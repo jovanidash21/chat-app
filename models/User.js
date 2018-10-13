@@ -6,6 +6,22 @@ var timestamps = require('mongoose-timestamp');
 
 mongoose.Promise = Promise;
 
+var userEndDateSchema = new Schema (
+  {
+    data: {
+      type: Boolean,
+      default: false,
+    },
+    endDate: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    _id : false,
+  },
+);
+
 var userChatRoomSchema = new Schema (
   {
     data: {
@@ -16,6 +32,7 @@ var userChatRoomSchema = new Schema (
       type: Number,
       default: 0,
     },
+    mute: userEndDateSchema,
   },
   {
     _id : false,
