@@ -13,6 +13,7 @@ class ChatRoomsList extends Component {
     super(props);
 
     this.state = {
+      isChatBoxRoomsListScrolled: false,
       isModalOpen: false
     }
   }
@@ -33,7 +34,16 @@ class ChatRoomsList extends Component {
         return a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
       });
 
+      this.chatRoomsList.addEventListener('scroll', ::this.handleChatRoomsListScroll, true);
+
       changeChatRoom(allChatRooms[0], user.active._id, '');
+    }
+  }
+  handleChatRoomsListScroll() {
+    if ( this.chatRoomsList.scrollTop > 10 ) {
+      this.setState({isChatBoxRoomsListScrolled: true});
+    } else {
+      this.setState({isChatBoxRoomsListScrolled: false});
     }
   }
   handleChatRoomsListRender() {
@@ -48,7 +58,10 @@ class ChatRoomsList extends Component {
       const activeChatRoom = chatRoom.active;
 
       return (
-        <div className="chat-rooms-list">
+        <div
+          className="chat-rooms-list"
+          ref={(element) => { this.chatRoomsList = element; }}
+        >
           {
             chatRoom.all.sort((a, b) => {
               var priority = a.priority - b.priority;
@@ -96,13 +109,16 @@ class ChatRoomsList extends Component {
       chatRoom,
       handleLeftSideDrawerToggleEvent
     } = this.props;
-    const { isModalOpen } = this.state;
+    const {
+      isChatBoxRoomsListScrolled,
+      isModalOpen
+    } = this.state;
 
     return (
       <div style={{height: '100%'}}>
         <div className="chat-rooms-list-wrapper">
           <h1 className="title">Chat App</h1>
-          <div className="chat-rooms-options">
+          <div className={"chat-rooms-options " + (isChatBoxRoomsListScrolled ? 'scrolled' : '')}>
             <h3>Chat Rooms</h3>
             <div className="plus-icon"
               onClick={::this.handleOpenModal}

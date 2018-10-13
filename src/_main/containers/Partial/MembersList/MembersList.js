@@ -14,6 +14,7 @@ class MembersList extends Component {
     super(props);
 
     this.state = {
+      isMembersListScrolled: false,
       members: [],
       searchFilter: '',
       selectedMemberIndex: -1
@@ -21,6 +22,8 @@ class MembersList extends Component {
   }
   componentDidUpdate(prevProps) {
     if ( prevProps.member.fetch.loading && !this.props.member.fetch.loading ) {
+      this.membersList.addEventListener('scroll', ::this.handleMembersListScroll, true);
+
       ::this.handleMembersListFilter();
     }
 
@@ -36,6 +39,13 @@ class MembersList extends Component {
         searchFilter: '',
         selectedMemberIndex: -1
       });
+    }
+  }
+  handleMembersListScroll() {
+    if ( this.membersList.scrollTop > 10 ) {
+      this.setState({isMembersListScrolled: true});
+    } else {
+      this.setState({isMembersListScrolled: false});
     }
   }
   handleMembersListFilter(searchFilter='') {
@@ -72,6 +82,7 @@ class MembersList extends Component {
       member
     } = this.props;
     const {
+      isMembersListScrolled,
       members,
       searchFilter,
       selectedMemberIndex
@@ -89,14 +100,19 @@ class MembersList extends Component {
               {member.all.length > 1 ? 'Members' : 'Member'}
             </h3>
           </div>
-          <SearchFilter
-            value={searchFilter}
-            onChange={::this.onMemberNameChange}
-            onKeyDown={::this.onMemberNameKeyDown}
-            handleClearSearchFilter={::this.handleClearSearchFilter}
-            light
-          />
-          <div className="members-list">
+          <div className={"search-filter-wrapper " + (isMembersListScrolled ? 'scrolled' : '')}>
+            <SearchFilter
+              value={searchFilter}
+              onChange={::this.onMemberNameChange}
+              onKeyDown={::this.onMemberNameKeyDown}
+              handleClearSearchFilter={::this.handleClearSearchFilter}
+              light
+            />
+          </div>
+          <div
+            className="members-list"
+            ref={(element) => { this.membersList = element; }}
+          >
             {
               members.length > 0 &&
               members.sort((a, b) => {
