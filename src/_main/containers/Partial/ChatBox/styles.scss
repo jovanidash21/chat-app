@@ -17,6 +17,9 @@
     @include scrollbar($color-mine-shaft);
     overflow-x: hidden;
     overflow-y: auto;
+    &.loading {
+      height: 100%;
+    }
   }
   .user-no-chat-rooms {
     font-size: 21px;

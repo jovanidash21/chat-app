@@ -35,6 +35,9 @@ class ChatBox extends Component {
       selectedMessageID: ''
     };
   }
+  componentDidMount() {
+    this.chatBox.addEventListener('scroll', ::this.handleChatBoxScroll, true);
+  }
   componentDidUpdate(prevProps) {
     if (
       ( prevProps.message.fetchNew.loading && !this.props.message.fetchNew.loading ) ||
@@ -45,8 +48,6 @@ class ChatBox extends Component {
     }
 
     if ( prevProps.message.fetchNew.loading && !this.props.message.fetchNew.loading ) {
-      this.chatBox.addEventListener('scroll', ::this.handleChatBoxScroll, true);
-
       this.setState({hasLoadedAllMessages: false});
     }
 
@@ -113,61 +114,56 @@ class ChatBox extends Component {
       )
     } else if ( !message.fetchNew.loading && message.fetchNew.success ) {
       return (
-        <div
-          className="chat-box"
-          ref={(element) => { this.chatBox = element; }}
-        >
-          <Container fluid>
-            {
-              !hasLoadedAllMessages &&
-              <div className="loading-icon">
-                <FontAwesomeIcon icon="spinner" size="2x" pulse />
-              </div>
-            }
-            {
-              message.all.length > 0
-                ?
-                message.all.map((singleMessage, i) =>
-                  <div key={singleMessage._id}>
-                    <ChatDateTime
-                      messageDate={singleMessage.createdAt}
-                      previousMessageDate={i-1 !== -1 ? message.all[i-1].createdAt : ''}
-                    />
-                    <ChatBubble
-                      index={i}
-                      message={singleMessage}
-                      isSender={(singleMessage.user._id === user.active._id) ? true : false }
-                      previousMessageSenderID={i-1 !== -1 ? message.all[i-1].user._id : ''}
-                      nextMessageSenderID={i !== message.all.length-1 ? message.all[i+1].user._id : ''}
-                      previousMessageDate={i-1 !== -1 ? message.all[i-1].createdAt : ''}
-                      nextMessageDate={i !== message.all.length-1 ? message.all[i+1].createdAt : ''}
-                      handleImageLightboxToggle={::this.handleImageLightboxToggle}
-                      handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
-                      isActiveUserAdmin={isActiveUserAdmin}
-                      handleOpenModal={::this.handleOpenModal}
-                    />
-                  </div>
-                )
-                :
-                <div className="chat-no-messages">
-                  No messages in this Chat Room
+        <Container fluid>
+          {
+            !hasLoadedAllMessages &&
+            <div className="loading-icon">
+              <FontAwesomeIcon icon="spinner" size="2x" pulse />
+            </div>
+          }
+          {
+            message.all.length > 0
+              ?
+              message.all.map((singleMessage, i) =>
+                <div key={singleMessage._id}>
+                  <ChatDateTime
+                    messageDate={singleMessage.createdAt}
+                    previousMessageDate={i-1 !== -1 ? message.all[i-1].createdAt : ''}
+                  />
+                  <ChatBubble
+                    index={i}
+                    message={singleMessage}
+                    isSender={(singleMessage.user._id === user.active._id) ? true : false }
+                    previousMessageSenderID={i-1 !== -1 ? message.all[i-1].user._id : ''}
+                    nextMessageSenderID={i !== message.all.length-1 ? message.all[i+1].user._id : ''}
+                    previousMessageDate={i-1 !== -1 ? message.all[i-1].createdAt : ''}
+                    nextMessageDate={i !== message.all.length-1 ? message.all[i+1].createdAt : ''}
+                    handleImageLightboxToggle={::this.handleImageLightboxToggle}
+                    handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
+                    isActiveUserAdmin={isActiveUserAdmin}
+                    handleOpenModal={::this.handleOpenModal}
+                  />
                 </div>
-            }
-            {
-              typer.all.length > 0 &&
-              <div className="chat-typers">
-                {
-                  typer.all.map((singleTyper, i) =>
-                    <ChatTyper
-                      key={i}
-                      typer={singleTyper}
-                    />
-                  )
-                }
+              )
+              :
+              <div className="chat-no-messages">
+                No messages in this Chat Room
               </div>
-            }
-          </Container>
-        </div>
+          }
+          {
+            typer.all.length > 0 &&
+            <div className="chat-typers">
+              {
+                typer.all.map((singleTyper, i) =>
+                  <ChatTyper
+                    key={i}
+                    typer={singleTyper}
+                  />
+                )
+              }
+            </div>
+          }
+        </Container>
       )
     } else {
       return (
@@ -375,7 +371,12 @@ class ChatBox extends Component {
 
     return (
       <div className={"chat-box-wrapper " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
-        {::this.handleChatBoxRender()}
+        <div
+          className={"chat-box " + (message.fetchNew.loading ? 'loading' : '')}
+          ref={(element) => { this.chatBox = element; }}
+        >
+          {::this.handleChatBoxRender()}
+        </div>
         {::this.handleImageLightboxRender()}
         {::this.handleDragDropBoxRender()}
         {
