@@ -1,11 +1,14 @@
 var User = require('../models/User');
 var ChatRoom = require('../models/ChatRoom');
 var Message = require('../models/Message');
+var cron = require('../cron');
 
 var users = {};
 
 var sockets = function(io) {
   io.sockets.on('connection', function (socket) {
+    cron(socket);
+
     socket.on('action', (action) => {
       switch(action.type) {
         case 'SOCKET_USER_LOGIN':
