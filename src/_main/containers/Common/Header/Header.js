@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Appbar } from 'muicss/react/';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
+import { ChatRoomDropdown } from '../../../components/Header';
 import { UserDropdown } from '../../../../components/UserDropdown';
 import './styles.scss';
 
@@ -21,6 +22,7 @@ class Header extends Component {
   render() {
     const {
       user,
+      chatRoom,
       children
     } = this.props;
 
@@ -41,6 +43,12 @@ class Header extends Component {
                 </div>
               </td>
               <td className="mui--appbar-height mui--text-right">
+                {
+                  !chatRoom.fetch.loading &&
+                  chatRoom.fetch.success &&
+                  Object.keys(chatRoom.active.data).length > 0 &&
+                  <ChatRoomDropdown activeChatRoom={chatRoom.active} />
+                }
                 <UserDropdown user={user.active} />
               </td>
             </tr>
@@ -53,7 +61,8 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    chatRoom: state.chatRoom
   }
 }
 
