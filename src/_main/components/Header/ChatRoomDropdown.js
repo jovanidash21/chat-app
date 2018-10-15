@@ -7,6 +7,13 @@ class ChatRoomDropdown extends Component {
   constructor(props) {
     super(props);
   }
+  handleOpenMuteModal(event) {
+    event.preventDefault();
+
+    const { handleOpenMuteModal } = this.props;
+
+    handleOpenMuteModal();
+  }
   render() {
     return (
       <div className="mui-dropdown chat-room-dropdown">
@@ -15,7 +22,7 @@ class ChatRoomDropdown extends Component {
         </div>
         <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
           <li>
-            <a href="/logout">
+            <a href="#" onClick={::this.handleOpenMuteModal}>
               <div className="option-icon">
                 <FontAwesomeIcon icon="comment-slash" />
               </div>
@@ -29,7 +36,8 @@ class ChatRoomDropdown extends Component {
 }
 
 ChatRoomDropdown.propTypes = {
-  activeChatRoom: PropTypes.object.isRequired
+  activeChatRoom: PropTypes.object.isRequired,
+  handleOpenMuteModal: PropTypes.func.isRequired
 }
 
 export default ChatRoomDropdown;
