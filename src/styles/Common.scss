@@ -38,10 +38,34 @@ body {
 .mm-popup__box__footer {
   padding: 20px !important;
 }
-.scrollbar-measure {
-	width: 100px;
-	height: 100px;
-	overflow: scroll;
-	position: absolute;
-	top: -9999px;
+.dropdown-menu {
+  $transition: all 0.2s ease-in-out;
+  &:before {
+    border-color: transparent transparent #fff transparent;
+    border-style: solid;
+    border-width: 0 8px 8px 8px;
+    content: '';
+    height: 0;
+    position: absolute;
+    right: 10px;
+    top: -8px;
+    width: 0;
+  }
+  a {
+    transition: $transition;
+    &:hover {
+      background-color: $color-primary !important;
+      &,
+      .option-icon {
+        color: #fff !important;
+      }
+    }
+  }
+  .option-icon {
+    color: $color-primary;
+    display: inline-block;
+    margin-right: 5px;
+    width: 21px;
+    transition: $transition;
+  }
 }
