@@ -59,7 +59,7 @@ class ChatRoomMember extends Component {
               <div className="member-options-button" data-mui-toggle="dropdown">
                 <FontAwesomeIcon icon="ellipsis-v" />
               </div>
-              <ul className="mui-dropdown__menu mui-dropdown__menu--right">
+              <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
                 <li>
                   <a href="#" onClick={::this.handleAddDirectChatRoom}>
                     Direct messages
