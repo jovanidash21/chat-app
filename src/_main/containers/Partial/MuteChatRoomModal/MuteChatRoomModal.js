@@ -13,8 +13,27 @@ class MuteChatRoomModal extends Component {
   constructor(props) {
     super(props);
   }
+  componentDidUpdate(prevProps) {
+    if ( prevProps.chatRoom.mute.loading && this.props.chatRoom.mute.success ) {
+      this.props.handleCloseModal();
+    }
+  }
+  handleMuteChatRoom(event) {
+    event.preventDefault();
+
+    const {
+      user,
+      chatRoom,
+      muteChatRoom
+    } = this.props;
+    const activeUser = user.active;
+    const activeChatRoom = chatRoom.active;
+
+    muteChatRoom(activeUser._id, activeChatRoom.data._id);
+  }
   render() {
     const {
+      chatRoom,
       isModalOpen,
       handleCloseModal
     } = this.props;
@@ -25,23 +44,30 @@ class MuteChatRoomModal extends Component {
         isModalOpen={isModalOpen}
         handleCloseModal={handleCloseModal}
       >
-        <Modal.Header>
-          <h3 className="modal-title">Mute Chat Room</h3>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Muting will turn off popup notifications from this chat room</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            className="button button-default"
-            onClick={handleCloseModal}
-          >
-            Cancel
-          </Button>
-          <Button className="button button-primary">
-            Mute
-          </Button>
-        </Modal.Footer>
+        <Form onSubmit={::this.handleMuteChatRoom}>
+          <Modal.Header>
+            <h3 className="modal-title">Mute Chat Room</h3>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Muting will turn off popup notifications from this chat room</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              className="button button-default"
+              onClick={handleCloseModal}
+              disabled={chatRoom.mute.loading}
+            >
+              Cancel
+            </Button>
+            <Button
+              className="button button-primary"
+              type="submit"
+              disabled={chatRoom.mute.loading}
+            >
+              Mute
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     )
   }
@@ -49,6 +75,7 @@ class MuteChatRoomModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    user: state.user,
     chatRoom: state.chatRoom
   }
 }

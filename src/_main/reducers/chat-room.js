@@ -3,7 +3,8 @@ import {
   CHANGE_CHAT_ROOM,
   CREATE_CHAT_ROOM,
   SOCKET_CREATE_CHAT_ROOM,
-  SOCKET_BROADCAST_CREATE_CHAT_ROOM
+  SOCKET_BROADCAST_CREATE_CHAT_ROOM,
+  MUTE_CHAT_ROOM
 } from '../constants/chat-room';
 import { SOCKET_BROADCAST_USER_LOGIN } from '../constants/auth';
 import {
@@ -39,6 +40,7 @@ const commonStateFlags = {
 const initialState = {
   fetch: {...commonStateFlags},
   create: {...commonStateFlags},
+  mute: {...commonStateFlags},
   active: {
     data: {}
   },
@@ -60,6 +62,14 @@ const chatRoom = (state=initialState, action) => {
         ...state,
         create: {
           ...state.create,
+          loading: true
+        }
+      };
+    case `${MUTE_CHAT_ROOM}_LOADING`:
+      return {
+        ...state,
+        mute: {
+          ...state.mute,
           loading: true
         }
       };
@@ -94,6 +104,17 @@ const chatRoom = (state=initialState, action) => {
           message: action.payload.data.message
         }
       };
+    case `${MUTE_CHAT_ROOM}_SUCCESS`:
+      return {
+        ...state,
+        mute: {
+          ...state.mute,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        }
+      };
     case `${FETCH_CHAT_ROOMS}_ERROR`:
       return {
         ...state,
@@ -110,6 +131,17 @@ const chatRoom = (state=initialState, action) => {
         ...state,
         create: {
           ...state.create,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
+      };
+    case `${MUTE_CHAT_ROOM}_ERROR`:
+      return {
+        ...state,
+        mute: {
+          ...state.mute,
           loading: false,
           success: false,
           error: true,
