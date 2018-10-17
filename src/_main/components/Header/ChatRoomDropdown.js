@@ -20,11 +20,11 @@ class ChatRoomDropdown extends Component {
         <div className="dropdown-toggle settings-icon" data-mui-toggle="dropdown">
           <FontAwesomeIcon icon="cog" />
         </div>
-        <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
+        <ul className="dropdown-menu has-pointer mui-dropdown__menu mui-dropdown__menu--right">
           <li>
             <a href="#" onClick={::this.handleOpenMuteModal}>
               <div className="option-icon">
-                <FontAwesomeIcon icon="comment-slash" />
+                <FontAwesomeIcon icon="bell-slash" />
               </div>
               Mute
             </a>

@@ -60,11 +60,6 @@
     text-align: center;
     transition: all 0.2s ease;
   }
-  .dropdown-menu {
-    &:before {
-      display: none;
-    }
-  }
   &:hover {
     .member-options-button {
       opacity: 1;

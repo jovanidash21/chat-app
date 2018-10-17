@@ -26,7 +26,7 @@
   .dropdown-menu {
     margin-top: 12px;
     width: 210px;
-    &:before {
+    &.has-pointer:before {
       right: 18px;
     }
     .user-detail {
