@@ -148,6 +148,37 @@ router.post('/create', function(req, res, next) {
   }
 });
 
+router.post('/mute', function(req, res, next) {
+  if (req.user === undefined) {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var userID = req.body.userID;
+    var chatRoomID = req.body.chatRoomID;
+
+    User.update(
+      { _id: userID, 'chatRooms.data': chatRoomID },
+      { $set: { 'chatRooms.$.mute.data': true, 'chatRooms.$.mute.endDate': new Date() } },
+      { safe: true, upsert: true, new: true }
+    )
+    .then(() => {
+      res.status(200).send({
+        success: true,
+        message: 'Chat Room Muted',
+        chatRoomID: chatRoomID
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        success: false,
+        message: 'Server Error!'
+      });
+    });
+  }
+});
+
 router.get('/count', function(req, res, next) {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
