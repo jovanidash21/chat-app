@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Appbar } from 'muicss/react/';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
-import { MuteChatRoomModal } from '../../Partial';
+import { MuteUnmuteChatRoomModal } from '../../Partial';
 import { ChatRoomDropdown } from '../../../components/Header';
 import { UserDropdown } from '../../../../components/UserDropdown';
 import './styles.scss';
@@ -61,7 +61,7 @@ class Header extends Component {
                   Object.keys(chatRoom.active.data).length > 0 &&
                   <ChatRoomDropdown
                     activeChatRoom={chatRoom.active}
-                    handleOpenMuteModal={::this.handleOpenModal}
+                    handleOpenMuteUnmuteModal={::this.handleOpenModal}
                   />
                 }
                 <UserDropdown user={user.active} />
@@ -71,7 +71,7 @@ class Header extends Component {
         </table>
         {
           isModalOpen &&
-          <MuteChatRoomModal
+          <MuteUnmuteChatRoomModal
             isModalOpen={isModalOpen}
             handleCloseModal={::this.handleCloseModal}
           />

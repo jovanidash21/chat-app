@@ -7,14 +7,17 @@ class ChatRoomDropdown extends Component {
   constructor(props) {
     super(props);
   }
-  handleOpenMuteModal(event) {
+  handleOpenMuteUnmuteModal(event) {
     event.preventDefault();
 
-    const { handleOpenMuteModal } = this.props;
+    const { handleOpenMuteUnmuteModal } = this.props;
 
-    handleOpenMuteModal();
+    handleOpenMuteUnmuteModal();
   }
   render() {
+    const { activeChatRoom } = this.props;
+    const isMuted = activeChatRoom.mute.data;
+
     return (
       <div className="mui-dropdown chat-room-dropdown">
         <div className="dropdown-toggle settings-icon" data-mui-toggle="dropdown">
@@ -22,11 +25,11 @@ class ChatRoomDropdown extends Component {
         </div>
         <ul className="dropdown-menu has-pointer mui-dropdown__menu mui-dropdown__menu--right">
           <li>
-            <a href="#" onClick={::this.handleOpenMuteModal}>
+            <a href="#" onClick={::this.handleOpenMuteUnmuteModal}>
               <div className="option-icon">
-                <FontAwesomeIcon icon="bell-slash" />
+                <FontAwesomeIcon icon={!isMuted ? 'bell-slash' : 'bell'} />
               </div>
-              Mute
+              {!isMuted ? 'Mute' : 'Unmute'}
             </a>
           </li>
         </ul>
@@ -37,7 +40,7 @@ class ChatRoomDropdown extends Component {
 
 ChatRoomDropdown.propTypes = {
   activeChatRoom: PropTypes.object.isRequired,
-  handleOpenMuteModal: PropTypes.func.isRequired
+  handleOpenMuteUnmuteModal: PropTypes.func.isRequired
 }
 
 export default ChatRoomDropdown;

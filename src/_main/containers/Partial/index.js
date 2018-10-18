@@ -4,4 +4,4 @@ export { ChatRoomsList } from './ChatRoomsList';
 export { CreateChatRoomModal } from './CreateChatRoomModal';
 export { DeleteMessageModal } from './DeleteMessageModal';
 export { MembersList } from './MembersList';
-export { MuteChatRoomModal } from './MuteChatRoomModal';
+export { MuteUnmuteChatRoomModal } from './MuteUnmuteChatRoomModal';
