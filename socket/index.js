@@ -112,7 +112,7 @@ var sockets = function(io) {
                       for (var j = 0; j < user.chatRooms.length; j++) {
                         var singleChatRoom = user.chatRooms[j];
 
-                        if ( singleChatRoom.data._id == action.chatRoomID ) {
+                        if ( singleChatRoom.data._id == action.chatRoomID && !singleChatRoom.mute.data ) {
                           socket.broadcast.to(user.socketID).emit('action', {
                             type: 'SOCKET_BROADCAST_NOTIFY_MESSAGE',
                             chatRoom: singleChatRoom,
