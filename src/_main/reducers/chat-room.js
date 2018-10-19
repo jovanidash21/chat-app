@@ -115,6 +115,25 @@ const chatRoom = (state=initialState, action) => {
         }
       };
     case `${MUTE_CHAT_ROOM}_SUCCESS`:
+      var chatRoomID = action.payload.data.chatRoomID;
+      var activeChatRoom = {...state.active};
+      var chatRooms = [...state.all];
+
+      if ( activeChatRoom.data._id === chatRoomID ) {
+        activeChatRoom.mute.data = true;
+      }
+
+      for (var i = 0; i < chatRooms.length; i++) {
+        var chatRoom = chatRooms[i];
+
+        if ( chatRoom.data._id === chatRoomID ) {
+          chatRoom.mute.data = true;
+          break;
+        } else {
+          continue;
+        }
+      }
+
       return {
         ...state,
         mute: {
@@ -123,9 +142,30 @@ const chatRoom = (state=initialState, action) => {
           success: true,
           error: false,
           message: action.payload.data.message
-        }
+        },
+        active: {...activeChatRoom},
+        all: [...chatRooms]
       };
     case `${UNMUTE_CHAT_ROOM}_SUCCESS`:
+      var chatRoomID = action.payload.data.chatRoomID;
+      var activeChatRoom = {...state.active};
+      var chatRooms = [...state.all];
+
+      if ( activeChatRoom.data._id === chatRoomID ) {
+        activeChatRoom.mute.data = false;
+      }
+
+      for (var i = 0; i < chatRooms.length; i++) {
+        var chatRoom = chatRooms[i];
+
+        if ( chatRoom.data._id === chatRoomID ) {
+          chatRoom.mute.data = false;
+          break;
+        } else {
+          continue;
+        }
+      }
+
       return {
         ...state,
         unmute: {
@@ -134,7 +174,9 @@ const chatRoom = (state=initialState, action) => {
           success: true,
           error: false,
           message: action.payload.data.message
-        }
+        },
+        active: {...activeChatRoom},
+        all: [...chatRooms]
       };
     case `${FETCH_CHAT_ROOMS}_ERROR`:
       return {
