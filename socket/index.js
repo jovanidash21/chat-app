@@ -1,11 +1,14 @@
 var User = require('../models/User');
 var ChatRoom = require('../models/ChatRoom');
 var Message = require('../models/Message');
+var cron = require('../cron');
 
 var users = {};
 
 var sockets = function(io) {
   io.sockets.on('connection', function (socket) {
+    cron(socket);
+
     socket.on('action', (action) => {
       switch(action.type) {
         case 'SOCKET_USER_LOGIN':
@@ -79,6 +82,10 @@ var sockets = function(io) {
                 var chatRoomMember = chatRoom.members[i];
 
                 User.findById(chatRoomMember)
+                  .populate({
+                    path: 'chatRooms.data'
+                  })
+                  .exec()
                   .then((user) => {
                     if (chatRoomClients.indexOf(user.socketID) > -1) {
                       Message.findOneAndUpdate(
@@ -102,13 +109,20 @@ var sockets = function(io) {
                         chatRoom.name = action.message.user.name;
                       }
 
-                      socket.broadcast.to(user.socketID).emit('action', {
-                        type: 'SOCKET_BROADCAST_NOTIFY_MESSAGE',
-                        chatRoom: {data: chatRoom, unReadMessages: 0},
-                        chatRoomID: action.chatRoomID,
-                        chatRoomName: chatRoom.name,
-                        senderName: action.message.user.name
-                      });
+                      for (var j = 0; j < user.chatRooms.length; j++) {
+                        var singleChatRoom = user.chatRooms[j];
+
+                        if ( singleChatRoom.data._id == action.chatRoomID && !singleChatRoom.mute.data ) {
+                          socket.broadcast.to(user.socketID).emit('action', {
+                            type: 'SOCKET_BROADCAST_NOTIFY_MESSAGE',
+                            chatRoom: singleChatRoom,
+                            chatRoomID: action.chatRoomID,
+                            chatRoomName: chatRoom.name,
+                            senderName: action.message.user.name
+                          });
+                          break;
+                        }
+                      }
                     }
                   })
                   .catch((error) => {

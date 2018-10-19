@@ -5,7 +5,9 @@ import {
   CREATE_CHAT_ROOM,
   SOCKET_CREATE_CHAT_ROOM,
   SOCKET_JOIN_CHAT_ROOM,
-  SOCKET_LEAVE_CHAT_ROOM
+  SOCKET_LEAVE_CHAT_ROOM,
+  MUTE_CHAT_ROOM,
+  UNMUTE_CHAT_ROOM
 } from '../constants/chat-room';
 import { fetchNewMessages } from './message';
 import { fetchMembers } from './member';
@@ -186,4 +188,52 @@ export function leaveChatRoom(chatRoomID) {
     type: SOCKET_LEAVE_CHAT_ROOM,
     chatRoomID: chatRoomID
   };
+}
+
+/**
+ * Mute chat room
+ * @param {string} userID
+ * @param {string} chatRoomID
+ */
+export function muteChatRoom(userID, chatRoomID) {
+  let data = {
+    userID,
+    chatRoomID
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: MUTE_CHAT_ROOM,
+      payload: axios.post(baseURL + '/api/chat-room/mute', data)
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Unmute chat room
+ * @param {string} userID
+ * @param {string} chatRoomID
+ */
+export function unmuteChatRoom(userID, chatRoomID) {
+  let data = {
+    userID,
+    chatRoomID
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: UNMUTE_CHAT_ROOM,
+      payload: axios.post(baseURL + '/api/chat-room/unmute', data)
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
 }

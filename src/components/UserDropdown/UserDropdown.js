@@ -26,7 +26,7 @@ class UserDropdown extends Component {
             <FontAwesomeIcon icon="caret-down" />
           </div>
         </div>
-        <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
+        <ul className="dropdown-menu has-pointer mui-dropdown__menu mui-dropdown__menu--right">
           <li>
             <div className="user-detail">
               <div className="user-full-name">

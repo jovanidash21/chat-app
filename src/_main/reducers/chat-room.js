@@ -3,7 +3,9 @@ import {
   CHANGE_CHAT_ROOM,
   CREATE_CHAT_ROOM,
   SOCKET_CREATE_CHAT_ROOM,
-  SOCKET_BROADCAST_CREATE_CHAT_ROOM
+  SOCKET_BROADCAST_CREATE_CHAT_ROOM,
+  MUTE_CHAT_ROOM,
+  UNMUTE_CHAT_ROOM
 } from '../constants/chat-room';
 import { SOCKET_BROADCAST_USER_LOGIN } from '../constants/auth';
 import {
@@ -39,6 +41,8 @@ const commonStateFlags = {
 const initialState = {
   fetch: {...commonStateFlags},
   create: {...commonStateFlags},
+  mute: {...commonStateFlags},
+  unmute: {...commonStateFlags},
   active: {
     data: {}
   },
@@ -60,6 +64,22 @@ const chatRoom = (state=initialState, action) => {
         ...state,
         create: {
           ...state.create,
+          loading: true
+        }
+      };
+    case `${MUTE_CHAT_ROOM}_LOADING`:
+      return {
+        ...state,
+        mute: {
+          ...state.mute,
+          loading: true
+        }
+      };
+    case `${UNMUTE_CHAT_ROOM}_LOADING`:
+      return {
+        ...state,
+        unmute: {
+          ...state.unmute,
           loading: true
         }
       };
@@ -94,6 +114,70 @@ const chatRoom = (state=initialState, action) => {
           message: action.payload.data.message
         }
       };
+    case `${MUTE_CHAT_ROOM}_SUCCESS`:
+      var chatRoomID = action.payload.data.chatRoomID;
+      var activeChatRoom = {...state.active};
+      var chatRooms = [...state.all];
+
+      if ( activeChatRoom.data._id === chatRoomID ) {
+        activeChatRoom.mute.data = true;
+      }
+
+      for (var i = 0; i < chatRooms.length; i++) {
+        var chatRoom = chatRooms[i];
+
+        if ( chatRoom.data._id === chatRoomID ) {
+          chatRoom.mute.data = true;
+          break;
+        } else {
+          continue;
+        }
+      }
+
+      return {
+        ...state,
+        mute: {
+          ...state.mute,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        active: {...activeChatRoom},
+        all: [...chatRooms]
+      };
+    case `${UNMUTE_CHAT_ROOM}_SUCCESS`:
+      var chatRoomID = action.payload.data.chatRoomID;
+      var activeChatRoom = {...state.active};
+      var chatRooms = [...state.all];
+
+      if ( activeChatRoom.data._id === chatRoomID ) {
+        activeChatRoom.mute.data = false;
+      }
+
+      for (var i = 0; i < chatRooms.length; i++) {
+        var chatRoom = chatRooms[i];
+
+        if ( chatRoom.data._id === chatRoomID ) {
+          chatRoom.mute.data = false;
+          break;
+        } else {
+          continue;
+        }
+      }
+
+      return {
+        ...state,
+        unmute: {
+          ...state.unmute,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        active: {...activeChatRoom},
+        all: [...chatRooms]
+      };
     case `${FETCH_CHAT_ROOMS}_ERROR`:
       return {
         ...state,
@@ -110,6 +194,28 @@ const chatRoom = (state=initialState, action) => {
         ...state,
         create: {
           ...state.create,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
+      };
+    case `${MUTE_CHAT_ROOM}_ERROR`:
+      return {
+        ...state,
+        mute: {
+          ...state.mute,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
+      };
+    case `${UNMUTE_CHAT_ROOM}_ERROR`:
+      return {
+        ...state,
+        unmute: {
+          ...state.unmute,
           loading: false,
           success: false,
           error: true,

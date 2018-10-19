@@ -20,19 +20,23 @@ class NotificationPopUp extends Component {
     const { handleViewMessage } = this.props;
 
     socket.on('action', (action) => {
+      const chatRoom = action.chatRoom;
+
       if ( action.type === SOCKET_BROADCAST_NOTIFY_MESSAGE ) {
-        notificationSystem.addNotification({
-          title: 'New message from ' +
-            action.senderName +
-            (action.chatRoom.data.chatType !== 'direct' ? ` on ${action.chatRoomName}` : ''),
-          level: 'success',
-          action: {
-            label: 'View Message',
-            callback: function() {
-              handleViewMessage(action.chatRoom);
+        if ( !chatRoom.mute.data ) {
+          notificationSystem.addNotification({
+            title: 'New message from ' +
+              action.senderName +
+              (chatRoom.data.chatType !== 'direct' ? ` on ${action.chatRoomName}` : ''),
+            level: 'success',
+            action: {
+              label: 'View Message',
+              callback: function() {
+                handleViewMessage(chatRoom);
+              }
             }
-          }
-        });
+          });
+        }
       }
     });
   }

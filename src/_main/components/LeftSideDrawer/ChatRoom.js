@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { handleChatRoomAvatarBadges } from '../../../utils/avatar';
 import { Avatar } from '../../../components/Avatar';
 import './styles.scss';
@@ -34,7 +35,7 @@ class ChatRoom extends Component {
         className={
           "chat-room " +
           (isActive ? 'active ' : '') +
-          (chatRoom.unReadMessages > 0 ? 'new-message' : '')
+          (!chatRoom.mute.data && chatRoom.unReadMessages > 0 ? 'new-message' : '')
         }
         onClick={::this.handleChangeChatRoom}
         title={chatRoom.data.name}
@@ -53,6 +54,7 @@ class ChatRoom extends Component {
           }
         </div>
         {
+          !chatRoom.mute.data &&
           chatRoom.unReadMessages > 0 &&
           <div
             className="new-messages-count"
@@ -65,6 +67,12 @@ class ChatRoom extends Component {
                 :
                 '100 +'
             }
+          </div>
+        }
+        {
+          chatRoom.mute.data &&
+          <div className="mute-icon" title="This Chat Room is muted">
+            <FontAwesomeIcon icon="bell-slash" />
           </div>
         }
       </div>
