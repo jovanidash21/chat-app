@@ -50,7 +50,7 @@ class Chat extends Component {
   calculateViewportHeight() {
     var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-    document.getElementById('chat-section').setAttribute('style', 'height:' + viewportHeight + 'px;');
+    this.chatSection.setAttribute('style', 'height:' + viewportHeight + 'px;');
   }
   handleLeftSideDrawerRender() {
     const { isLeftSideDrawerOpen } = this.state;
@@ -141,7 +141,7 @@ class Chat extends Component {
     const isChatInputDisabled = chatRoom.fetch.loading || message.fetchNew.loading || isDragDropBoxOpen;
 
     return (
-      <div id="chat-section" className="chat-section">
+      <div className="chat-section" ref={(element) => { this.chatSection = element; }}>
         {::this.handleLeftSideDrawerRender()}
         <RightSideDrawer
           handleRightSideDrawerToggleState={::this.handleRightSideDrawerToggleState}

@@ -1,3 +1,5 @@
+import { isObjectEmpty } from './object';
+
 /**
  * Handle chat room avatar badges
  * @param {Object} chatRoom
@@ -5,8 +7,8 @@
  * @param {string} type
  */
 export function handleChatRoomAvatarBadges(chatRoom={}, user={}, type="account") {
-  const isChatRoomEmpty = Object.keys(chatRoom).length === 0 && chatRoom.constructor === Object;
-  const isUserEmpty = Object.keys(user).length === 0 && user.constructor === Object;
+  const isChatRoomEmpty = isObjectEmpty(chatRoom);
+  const isUserEmpty = isObjectEmpty(user);
 
   if ( isChatRoomEmpty && isUserEmpty  ) {
     return '';

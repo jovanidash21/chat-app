@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
+import { isObjectEmpty } from '../../../../utils/object';
 import { formatNumber } from '../../../../utils/number';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { SearchFilter } from '../../../../components/SearchFilter';
@@ -215,7 +216,7 @@ class MembersList extends Component {
 
     if ( !chatRoomExists ) {
       createDirectChatRoom(userID, memberID, activeChatRoom.data._id);
-    } else if ( Object.keys(existingChatRoomData).length > 0 && existingChatRoomData.constructor === Object ) {
+    } else if ( !isObjectEmpty(existingChatRoomData) ) {
       changeChatRoom(existingChatRoomData, userID, activeChatRoom.data._id);
       handleRightSideDrawerToggleEvent();
       this.setState({

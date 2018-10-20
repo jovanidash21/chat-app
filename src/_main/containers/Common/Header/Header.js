@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Appbar } from 'muicss/react/';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
+import { isObjectEmpty } from '../../../../utils/object';
 import { MuteUnmuteChatRoomModal } from '../../Partial';
 import { ChatRoomDropdown } from '../../../components/Header';
 import { UserDropdown } from '../../../../components/UserDropdown';
@@ -58,7 +59,7 @@ class Header extends Component {
                 {
                   !chatRoom.fetch.loading &&
                   chatRoom.fetch.success &&
-                  Object.keys(chatRoom.active.data).length > 0 &&
+                  !isObjectEmpty(chatRoom.active.data) &&
                   <ChatRoomDropdown
                     activeChatRoom={chatRoom.active}
                     handleOpenMuteUnmuteModal={::this.handleOpenModal}

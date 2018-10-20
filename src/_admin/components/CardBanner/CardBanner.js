@@ -15,13 +15,7 @@ const CardBanner = (props) => {
       </div>
       <div className="card-content">
         <div className="count">
-          {
-            !props.isLoading
-              ?
-              props.count
-              :
-              '-'
-          }
+          {!props.isLoading ? props.count : '-'}
         </div>
         <div className="label">
           {props.label}
