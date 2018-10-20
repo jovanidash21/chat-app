@@ -7,7 +7,7 @@ const Alert = (props) => {
     <div className={
         "alert alert-" +
         props.type +
-        (props.center ? ' mui--text-center': '')
+        (props.center ? ' mui--text-center' : '')
       }
     >
       {props.label}

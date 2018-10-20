@@ -10,6 +10,9 @@
     }
   }
   .form-card {
+    border: 1px solid $color-primary;
+    border-radius: 3px;
+    border-top-width: 7px;
     margin: 0;
     padding: 35px;
     @media screen and (max-width: $screen-mobile-max) {
@@ -17,7 +20,20 @@
       padding: 15px;
     }
     .form-title {
+      font-weight: bold;
       margin-top: 0;
+      padding-bottom: 0.625rem;
+      position: relative;
+      &:after {
+        background-color: $color-primary;
+        bottom: 0;
+        content: '';
+        height: 3px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70px;
+      }
     }
     .button {
       display: block;
