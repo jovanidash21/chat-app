@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'muicss/react';
+import './styles.scss';
 
 const InputComponent = (props) => {
   return (
     <Input
+      className="input"
       value={props.value}
       label={props.label}
       type={props.type}

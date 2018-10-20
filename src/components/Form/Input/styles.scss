@@ -1,0 +1,10 @@
+.input {
+  & > input {
+    &:focus {
+      border-color: $color-primary;
+      & ~ label {
+        color: $color-primary;
+      }
+    }
+  }
+}
