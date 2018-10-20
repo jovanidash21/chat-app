@@ -82,7 +82,7 @@ class Layout extends Component {
               <Footer />
             </div>
             :
-            <LoadingAnimation name="pacman" color="#26a69a" />
+            <LoadingAnimation name="pacman" color="#26a69a" fullScreen />
         }
       </div>
     )
