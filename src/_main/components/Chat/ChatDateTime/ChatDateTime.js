@@ -38,30 +38,16 @@ class ChatDateTime extends Component {
       const isMessageDateYesterday = isDateYesterday(messageDate);
       const isMessageDateThisYear = isDateThisYear(messageDate);
 
-      if ( previousMessageDate.length > 0 ) {
-        const isMessageDatesSameDay = isDatesSameDay(messageDate, previousMessageDate);
-
-        if ( isMessageDatesSameDay ) {
-          this.setState({dateTime: false});
-        } else if ( isMessageDateToday ) {
-          this.setState({dateTime: 'Today'});
-        } else if ( isMessageDateYesterday ) {
-          this.setState({dateTime: 'Yesterday'});
-        } else if ( isMessageDateThisYear ) {
-          this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do")});
-        } else {
-          this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do YYYY")});
-        }
+      if ( previousMessageDate.length > 0 && isDatesSameDay(messageDate, previousMessageDate) ) {
+        this.setState({dateTime: false});
+      } else if ( isMessageDateToday ) {
+        this.setState({dateTime: 'Today'});
+      } else if ( isMessageDateYesterday ) {
+        this.setState({dateTime: 'Yesterday'});
+      } else if ( isMessageDateThisYear ) {
+        this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do")});
       } else {
-        if ( isMessageDateToday ) {
-          this.setState({dateTime: 'Today'});
-        } else if ( isMessageDateYesterday ) {
-          this.setState({dateTime: 'Yesterday'});
-        } else if ( isMessageDateThisYear ) {
-          this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do")});
-        } else {
-          this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do YYYY")});
-        }
+        this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do YYYY")});
       }
     }
   }
