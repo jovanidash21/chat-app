@@ -12,8 +12,8 @@ const extractSassBundle = new ExtractTextPlugin({
 
 module.exports = {
   entry: {
-    main: ['babel-polyfill', path.resolve(__dirname, 'src/_main/index.js')],
-    admin: ['babel-polyfill', path.resolve(__dirname, 'src/_admin/index.js')],
+    main: [path.resolve(__dirname, 'src/_main/index.js')],
+    admin: [path.resolve(__dirname, 'src/_admin/index.js')],
   },
   plugins: [
     extractSassBundle,
