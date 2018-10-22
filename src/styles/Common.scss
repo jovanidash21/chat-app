@@ -66,8 +66,10 @@ body {
   .option-icon {
     color: $color-primary;
     display: inline-block;
+    font-size: 15px;
     margin-right: 5px;
     width: 21px;
     transition: $transition;
+    vertical-align: middle;
   }
 }
