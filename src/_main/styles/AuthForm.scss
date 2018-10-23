@@ -16,6 +16,8 @@
     margin: 0;
     padding: 35px;
     @media screen and (max-width: $screen-mobile-max) {
+      border: none;
+      border-radius: 0;
       box-shadow: none;
       padding: 15px;
     }
