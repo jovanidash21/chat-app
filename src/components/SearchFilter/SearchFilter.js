@@ -11,9 +11,14 @@ class SearchFilter extends Component {
   handleClearSearchFilter(event) {
     event.preventDefault();
 
-    const { handleClearSearchFilter } = this.props;
+    const {
+      value,
+      handleClearSearchFilter
+    } = this.props;
 
-    handleClearSearchFilter();
+    if ( value.length > 0 ) {
+      handleClearSearchFilter();
+    }
 
     this.inputFilter.controlEl.focus();
   }
@@ -27,7 +32,13 @@ class SearchFilter extends Component {
     } = this.props;
 
     return (
-      <div className={"search-filter " + (light ? 'light' : '')}>
+      <div
+        className={
+          "search-filter " +
+          (value.length > 0 ? 'show-clear-icon ' : '') +
+          (light ? 'light' : '')
+        }
+      >
         <div className="search-icon">
           <FontAwesomeIcon icon="search" />
         </div>
@@ -41,12 +52,9 @@ class SearchFilter extends Component {
           onKeyDown={onKeyDown}
           ref={(element) => { this.inputFilter = element; }}
         />
-        {
-          value.length > 0 &&
-          <div className="clear-icon" onClick={::this.handleClearSearchFilter}>
-            <FontAwesomeIcon icon="times" />
-          </div>
-        }
+        <div className="clear-icon" onClick={::this.handleClearSearchFilter}>
+          <FontAwesomeIcon icon="times" />
+        </div>
       </div>
     );
   }
