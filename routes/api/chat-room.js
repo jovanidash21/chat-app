@@ -112,7 +112,7 @@ router.post('/create', function(req, res, next) {
 
                   User.findByIdAndUpdate(
                     chatRoomMember,
-                    { $push: { chatRooms: { data: chatRoomData._id, unReadMessages: 0 } } },
+                    { $push: { chatRooms: { data: chatRoomData._id, mute: {} } } },
                     { safe: true, upsert: true, new: true }
                   ).exec();
                 }
@@ -126,7 +126,10 @@ router.post('/create', function(req, res, next) {
                   message: 'Chat Room Created',
                   chatRoom: {
                     data: chatRoomData,
-                    unReadMessages: 0
+                    unReadMessages: 0,
+                    mute: {
+                      data: false
+                    }
                   }
                 });
               })
