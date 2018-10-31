@@ -27,7 +27,8 @@ class ChatRoom extends Component {
     const {
       user,
       chatRoom,
-      isActive
+      isActive,
+      isSelected
     } = this.props;
 
     return (
@@ -35,6 +36,7 @@ class ChatRoom extends Component {
         className={
           "chat-room " +
           (isActive ? 'active ' : '') +
+          (isSelected ? 'selected ' : '') +
           (!chatRoom.mute.data && chatRoom.unReadMessages > 0 ? 'new-message' : '')
         }
         onClick={::this.handleChangeChatRoom}
@@ -85,12 +87,14 @@ ChatRoom.propTypes = {
   chatRoom: PropTypes.object.isRequired,
   activeChatRoom: PropTypes.object.isRequired,
   isActive: PropTypes.bool,
+  isSelected: PropTypes.bool,
   handleChangeChatRoom: PropTypes.func.isRequired,
   handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired
 }
 
 ChatRoom.defaultProps = {
-  isActive: false
+  isActive: false,
+  isSelected: false
 }
 
 export default ChatRoom;

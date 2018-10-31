@@ -15,6 +15,9 @@
   &.active {
     background-color: $color-primary;
   }
+  &.selected {
+    background-color: $color-tertiary;
+  }
   &.new-message {
     color: #fff;
     font-size: 15px;

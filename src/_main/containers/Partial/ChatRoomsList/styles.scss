@@ -29,7 +29,7 @@
       transition: all 0.2s ease;
       &:hover {
         color: $color-primary;
-        transform: scale(1.5);
+        transform: scale(1.2);
       }
     }
   }
@@ -38,5 +38,10 @@
     flex: 1;
     overflow-x: hidden;
     overflow-y: scroll;
+    .no-results {
+      font-size: 16px;
+      padding: 5px;
+      text-align: center;
+    }
   }
 }
