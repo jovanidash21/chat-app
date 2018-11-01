@@ -1,1 +1,1 @@
-export { default as ChatRoomDropdown } from './ChatRoomDropdown';
+export { ChatRoomDropdown } from './ChatRoomDropdown';
