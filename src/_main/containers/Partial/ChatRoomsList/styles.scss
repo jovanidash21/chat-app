@@ -15,10 +15,6 @@
     justify-content: space-between;
     padding: 0 15px 10px;
     transition: all 0.3s ease;
-    z-index: 2;
-    &.scrolled {
-      box-shadow: 0px 12px 15px rgba(#000, 0.3);
-    }
     h3 {
       margin: 0;
     }
@@ -31,6 +27,12 @@
         color: $color-primary;
         transform: scale(1.2);
       }
+    }
+  }
+  .search-filter-wrapper {
+    z-index: 2;
+    &.scrolled {
+      box-shadow: 0px 12px 15px rgba(#000, 0.3);
     }
   }
   .chat-rooms-list {

@@ -104,7 +104,7 @@ class ChatRoomsList extends Component {
       return (
         <div className="chat-rooms-list-wrapper">
           <h1 className="title">Chat App</h1>
-          <div className={"chat-rooms-options " + (isChatBoxRoomsListScrolled ? 'scrolled' : '')}>
+          <div className="chat-rooms-options">
             <h3>Chat Rooms</h3>
             <div className="plus-icon"
               onClick={::this.handleOpenModal}
@@ -113,13 +113,15 @@ class ChatRoomsList extends Component {
               <FontAwesomeIcon icon="plus" />
             </div>
           </div>
-          <SearchFilter
-            value={searchFilter}
-            onChange={::this.onChatRoomNameChange}
-            onKeyDown={::this.onChatRoomNameKeyDown}
-            handleClearSearchFilter={::this.handleClearSearchFilter}
-            light
-          />
+          <div className={"search-filter-wrapper " + (isChatBoxRoomsListScrolled ? 'scrolled' : '')}>
+            <SearchFilter
+              value={searchFilter}
+              onChange={::this.onChatRoomNameChange}
+              onKeyDown={::this.onChatRoomNameKeyDown}
+              handleClearSearchFilter={::this.handleClearSearchFilter}
+              light
+            />
+          </div>
           <div
             className="chat-rooms-list"
             ref={(element) => { this.chatRoomsList = element; }}
