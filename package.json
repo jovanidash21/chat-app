@@ -99,6 +99,7 @@
     "react-helmet": "^5.2.0",
     "react-html-parser": "^2.0.2",
     "react-image-lightbox": "^5.0.0",
+    "react-linkify": "^0.2.2",
     "react-mic": "^12.2.3",
     "react-notification-system": "^0.2.17",
     "react-plyr": "^2.1.1",
