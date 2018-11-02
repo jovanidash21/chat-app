@@ -73,3 +73,24 @@ body {
     vertical-align: middle;
   }
 }
+.scroll-shadow {
+  position: relative;
+  &:before {
+    content: '';
+    background: linear-gradient(to bottom, $color-mine-shaft 0%, rgba($color-mine-shaft, 0) 100%);
+    height: 25px;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transition: all 0.2s ease;
+    width: 100%;
+    z-index: 2;
+  }
+  &.scrolled {
+    &:before {
+      opacity: 1;
+    }
+  }
+}

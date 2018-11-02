@@ -113,15 +113,14 @@ class ChatRoomsList extends Component {
               <FontAwesomeIcon icon="plus" />
             </div>
           </div>
-          <div className={"search-filter-wrapper " + (isChatBoxRoomsListScrolled ? 'scrolled' : '')}>
-            <SearchFilter
-              value={searchFilter}
-              onChange={::this.onChatRoomNameChange}
-              onKeyDown={::this.onChatRoomNameKeyDown}
-              handleClearSearchFilter={::this.handleClearSearchFilter}
-              light
-            />
-          </div>
+          <SearchFilter
+            value={searchFilter}
+            onChange={::this.onChatRoomNameChange}
+            onKeyDown={::this.onChatRoomNameKeyDown}
+            handleClearSearchFilter={::this.handleClearSearchFilter}
+            light
+          />
+          <div className={"scroll-shadow " + (isChatBoxRoomsListScrolled ? 'scrolled' : '')} />
           <div
             className="chat-rooms-list"
             ref={(element) => { this.chatRoomsList = element; }}

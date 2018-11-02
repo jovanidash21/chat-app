@@ -101,15 +101,14 @@ class MembersList extends Component {
               {member.all.length > 1 ? 'Members' : 'Member'}
             </h3>
           </div>
-          <div className={"search-filter-wrapper " + (isMembersListScrolled ? 'scrolled' : '')}>
-            <SearchFilter
-              value={searchFilter}
-              onChange={::this.onMemberNameChange}
-              onKeyDown={::this.onMemberNameKeyDown}
-              handleClearSearchFilter={::this.handleClearSearchFilter}
-              light
-            />
-          </div>
+          <SearchFilter
+            value={searchFilter}
+            onChange={::this.onMemberNameChange}
+            onKeyDown={::this.onMemberNameKeyDown}
+            handleClearSearchFilter={::this.handleClearSearchFilter}
+            light
+          />
+          <div className={"scroll-shadow " + (isMembersListScrolled ? 'scrolled' : '')} />
           <div
             className="members-list"
             ref={(element) => { this.membersList = element; }}
