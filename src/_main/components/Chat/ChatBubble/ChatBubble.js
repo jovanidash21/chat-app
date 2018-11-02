@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { emojify } from 'react-emojione';
 import MediaQuery from 'react-responsive';
+import Linkify from 'react-linkify';
 import ReactHtmlParser from 'react-html-parser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Plyr from 'react-plyr';
@@ -33,6 +34,7 @@ class ChatBubble extends Component {
 
         messageText = messageText.replace(/ /g, "\u00a0");
         messageText = emojify(messageText, options);
+        messageText = (<Linkify properties={{target: '_blank'}}>{messageText}</Linkify>);
         break;
       case 'file':
         messageText = '<a download="' + messageText + '" href="' + message.fileLink + '" target="_blank">' + messageText + '</a>';
