@@ -103,7 +103,6 @@ class ChatRoomsList extends Component {
 
       return (
         <div className="chat-rooms-list-wrapper">
-          <h1 className="title">Chat App</h1>
           <div className="chat-rooms-options">
             <h3>Chat Rooms</h3>
             <div className="plus-icon"
