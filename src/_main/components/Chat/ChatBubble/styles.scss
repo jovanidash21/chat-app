@@ -79,6 +79,10 @@
       }
       a {
         color: #fff;
+        text-decoration: underline;
+        &:hover {
+          text-decoration: none;
+        }
       }
       span {
         margin-top: 3px !important;

@@ -33,8 +33,23 @@ class ChatBubble extends Component {
         };
 
         messageText = messageText.replace(/ /g, "\u00a0");
-        messageText = emojify(messageText, options);
-        messageText = (<Linkify properties={{target: '_blank'}}>{messageText}</Linkify>);
+        messageText = messageText.split(/(\*[A-z0-9]+\*|\_[A-z0-9]+\_|\~[A-z0-9]+\~)/);
+
+        for (var i = 0; i < messageText.length; i++) {
+          if ( /\*[A-z0-9]+\*/gi.test(messageText[i]) ) {
+            messageText[i] = {...ReactHtmlParser('<b>' + messageText[i].slice(1, -1) + '</b>')[0]};
+            messageText[i].key = i;
+          } else if ( /\_[A-z0-9]+\_/gi.test(messageText[i]) ) {
+            messageText[i] = {...ReactHtmlParser('<i>' + messageText[i].slice(1, -1) + '</i>')[0]};
+            messageText[i].key = i;
+          } else if ( /\~[A-z0-9]+\~/gi.test(messageText[i]) ) {
+            messageText[i] = {...ReactHtmlParser('<strike>' + messageText[i].slice(1, -1) + '</strike>')[0]};
+            messageText[i].key = i;
+          } else {
+            messageText[i] = emojify(messageText[i], options);
+            messageText[i] = (<Linkify key={i} properties={{target: '_blank'}}>{messageText[i]}</Linkify>);
+          }
+        }
         break;
       case 'file':
         messageText = '<a download="' + messageText + '" href="' + message.fileLink + '" target="_blank">' + messageText + '</a>';
