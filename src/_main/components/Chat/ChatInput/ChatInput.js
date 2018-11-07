@@ -327,30 +327,43 @@ class ChatInput extends Component {
             onPaste={::this.onMessagePaste}
             contentEditable="plaintext-only"
           />
-          <div className="extra-buttons">
-            <div
-              className="audio-button"
-              onClick={handleAudioRecorderToggle}
-              title="Send Voice Message"
-            >
-              <FontAwesomeIcon icon="microphone" />
-            </div>
-            <div
-              className="file-button"
-              onClick={::this.handleDragDropBoxToggle}
-              title="Add a File"
-            >
-              <FontAwesomeIcon icon="paperclip" />
-            </div>
-            <MediaQuery query="(min-width: 768px)">
+          <div className="extras">
+            <div className="extra-buttons">
               <div
-                className="emoji-button"
-                onClick={::this.handleEmojiPickerToggle}
-                title="Add Emoji"
+                className="audio-button"
+                onClick={handleAudioRecorderToggle}
+                title="Send Voice Message"
               >
-                <FontAwesomeIcon icon={["far", "smile"]} />
+                <FontAwesomeIcon icon="microphone" />
               </div>
-            </MediaQuery>
+              <div
+                className="file-button"
+                onClick={::this.handleDragDropBoxToggle}
+                title="Add a File"
+              >
+                <FontAwesomeIcon icon="paperclip" />
+              </div>
+              <MediaQuery query="(min-width: 768px)">
+                <div
+                  className="emoji-button"
+                  onClick={::this.handleEmojiPickerToggle}
+                  title="Add Emoji"
+                >
+                  <FontAwesomeIcon icon={["far", "smile"]} />
+                </div>
+              </MediaQuery>
+            </div>
+            <div className="extra-notes">
+              <div className="note">
+                <b>*bold*</b>
+              </div>
+              <div className="note">
+                <i>_italic_</i>
+              </div>
+              <div className="note">
+                ~strike~
+              </div>
+            </div>
           </div>
         </div>
         <Button

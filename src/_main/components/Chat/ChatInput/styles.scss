@@ -97,6 +97,11 @@
         width: $emoji-size;
       }
     }
+    .extras {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
     .extra-buttons {
       display: flex;
       font-size: 17px;
@@ -124,6 +129,16 @@
         &:hover {
           color: $color-primary;
           transform: scale(1.25);
+        }
+      }
+    }
+    .extra-notes {
+      align-items: center;
+      display: flex;
+      font-size: 11px;
+      .note {
+        &:not(:last-child) {
+          margin-right: 3px;
         }
       }
     }
