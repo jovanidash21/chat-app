@@ -134,11 +134,16 @@
     }
     .extra-notes {
       align-items: center;
+      color: $color-mine-shaft;
       display: flex;
       font-size: 11px;
+      user-select: none;
       .note {
         &:not(:last-child) {
           margin-right: 3px;
+        }
+        code {
+          color: inherit;
         }
       }
     }

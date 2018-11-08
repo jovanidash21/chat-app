@@ -33,7 +33,7 @@ class ChatBubble extends Component {
         };
 
         messageText = messageText.replace(/ /g, "\u00a0");
-        messageText = messageText.split(/(\*[A-z0-9]+\*|\_[A-z0-9]+\_|\~[A-z0-9]+\~)/);
+        messageText = messageText.split(/(\*[A-z0-9]+\*|\_[A-z0-9]+\_|\~[A-z0-9]+\~|\`\`\`[A-z0-9]+\`\`\`|\`[A-z0-9]+\`)/);
 
         for (var i = 0; i < messageText.length; i++) {
           if ( /\*[A-z0-9]+\*/gi.test(messageText[i]) ) {
@@ -44,6 +44,12 @@ class ChatBubble extends Component {
             messageText[i].key = i;
           } else if ( /\~[A-z0-9]+\~/gi.test(messageText[i]) ) {
             messageText[i] = {...ReactHtmlParser('<strike>' + messageText[i].slice(1, -1) + '</strike>')[0]};
+            messageText[i].key = i;
+          } else if ( /\`\`\`[A-z0-9]+\`\`\`/gi.test(messageText[i]) ) {
+            messageText[i] = {...ReactHtmlParser('<pre>' + messageText[i].slice(3, -3) + '</pre>')[0]};
+            messageText[i].key = i;
+          } else if ( /\`[A-z0-9]+\`/gi.test(messageText[i]) ) {
+            messageText[i] = {...ReactHtmlParser('<code>' + messageText[i].slice(1, -1) + '</code>')[0]};
             messageText[i].key = i;
           } else {
             messageText[i] = emojify(messageText[i], options);

@@ -363,6 +363,12 @@ class ChatInput extends Component {
               <div className="note">
                 ~strike~
               </div>
+              <div className="note">
+                <code>`code`</code>
+              </div>
+              <div className="note">
+                <code>```preformatted```</code>
+              </div>
             </div>
           </div>
         </div>

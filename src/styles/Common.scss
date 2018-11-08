@@ -10,6 +10,21 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
 }
+code,
+pre {
+  background-color: $color-alabaster;
+  border: 1px solid $color-alto;
+  border-radius: 3px;
+}
+code {
+  color: $color-torch-red;
+  padding: 1px 3px;
+}
+pre {
+  color: $color-mine-shaft;
+  margin: 8px 0;
+  padding: 8px;
+}
 .loading-bar {
   height: 3px;
   background-color: $color-seance;
