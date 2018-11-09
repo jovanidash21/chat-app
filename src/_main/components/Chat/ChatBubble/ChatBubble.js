@@ -16,6 +16,11 @@ class ChatBubble extends Component {
   constructor(props) {
     super(props);
   }
+  handleTextFormat(text, tag, slice=1) {
+    if ( tag !== '' ) {
+      return ReactHtmlParser('<' + tag + '>' + text.slice(slice, -slice) + '</' + tag + '>')[0];
+    }
+  }
   handleMessageText() {
     const {
       message,
@@ -36,20 +41,26 @@ class ChatBubble extends Component {
         messageText = messageText.split(/(\*[A-z0-9]+\*|\_[A-z0-9]+\_|\~[A-z0-9]+\~|\`\`\`[A-z0-9]+\`\`\`|\`[A-z0-9]+\`)/);
 
         for (var i = 0; i < messageText.length; i++) {
+          var tag = '';
+          var slice = 1;
+
           if ( /\*[A-z0-9]+\*/gi.test(messageText[i]) ) {
-            messageText[i] = {...ReactHtmlParser('<b>' + messageText[i].slice(1, -1) + '</b>')[0]};
-            messageText[i].key = i;
+            tag = 'b';
           } else if ( /\_[A-z0-9]+\_/gi.test(messageText[i]) ) {
-            messageText[i] = {...ReactHtmlParser('<i>' + messageText[i].slice(1, -1) + '</i>')[0]};
-            messageText[i].key = i;
+            tag = 'i';
           } else if ( /\~[A-z0-9]+\~/gi.test(messageText[i]) ) {
-            messageText[i] = {...ReactHtmlParser('<strike>' + messageText[i].slice(1, -1) + '</strike>')[0]};
-            messageText[i].key = i;
+            tag = 'strike';
           } else if ( /\`\`\`[A-z0-9]+\`\`\`/gi.test(messageText[i]) ) {
-            messageText[i] = {...ReactHtmlParser('<pre>' + messageText[i].slice(3, -3) + '</pre>')[0]};
-            messageText[i].key = i;
+            tag = 'pre';
+            slice = 3;
           } else if ( /\`[A-z0-9]+\`/gi.test(messageText[i]) ) {
-            messageText[i] = {...ReactHtmlParser('<code>' + messageText[i].slice(1, -1) + '</code>')[0]};
+            tag = 'code';
+          }
+
+          if ( tag.length > 0 ) {
+            const formatText = ::this.handleTextFormat(messageText[i], tag, slice);
+
+            messageText[i] = {...formatText};
             messageText[i].key = i;
           } else {
             messageText[i] = emojify(messageText[i], options);
