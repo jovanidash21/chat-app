@@ -7,11 +7,16 @@
     align-items: center;
     box-shadow: none;
     display: flex;
-    justify-content: space-between;
     padding: 10px 15px;
     transition: all 0.3s ease;
     h3 {
+      flex: 1;
       margin: 0;
+    }
+    .door-icon {
+      color: $color-primary;
+      margin-right: 5px;
+      margin-top: 1px;
     }
     .plus-icon {
       color: $color-alto;

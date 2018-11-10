@@ -104,6 +104,9 @@ class ChatRoomsList extends Component {
       return (
         <div className="chat-rooms-list-wrapper">
           <div className="chat-rooms-options">
+            <div className="door-icon">
+              <FontAwesomeIcon icon="door-closed" size="2x" />
+            </div>
             <h3>Chat Rooms</h3>
             <div className="plus-icon"
               onClick={::this.handleOpenModal}
