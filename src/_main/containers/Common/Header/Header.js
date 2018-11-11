@@ -6,7 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { isObjectEmpty } from '../../../../utils/object';
 import { MuteUnmuteChatRoomModal } from '../../Partial';
-import { ChatRoomDropdown } from '../../../components/Header';
+import {
+  NewMessagesDropdown,
+  ChatRoomDropdown
+} from '../../../components/Header';
 import { UserDropdown } from '../../../../components/UserDropdown';
 import './styles.scss';
 
@@ -56,6 +59,12 @@ class Header extends Component {
                 </div>
               </td>
               <td className="mui--appbar-height mui--text-right">
+                {
+                  !chatRoom.fetch.loading &&
+                  chatRoom.fetch.success &&
+                  !isObjectEmpty(chatRoom.active.data) &&
+                  <NewMessagesDropdown count="9" />
+                }
                 {
                   !chatRoom.fetch.loading &&
                   chatRoom.fetch.success &&

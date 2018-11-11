@@ -1,0 +1,33 @@
+.new-messages-dropdown-wrapper {
+  $transition: all 0.2s ease-in-out;
+  margin-right: 5px;
+  .new-messages-dropdown {
+    .message-icon {
+      color: #fff;
+      cursor: pointer;
+      font-size: 17px;
+      padding: 10px;
+      transition: $transition;
+      &:hover {
+        color: $color-mine-shaft;
+      }
+    }
+    .new-messages-count {
+      align-items: center;
+      background-color: $color-amaranth;
+      border-radius: 16px;
+      color: #fff;
+      display: flex;
+      font-size: 10px;
+      font-weight: bold;
+      height: 15px;
+      justify-content: center;
+      line-height: 18px;
+      margin-left: 3px;
+      padding: 0 7px;
+      position: absolute;
+      right: 0;
+      top: 3px;
+    }
+  }
+}
