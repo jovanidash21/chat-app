@@ -31,6 +31,10 @@ var chatRoomSchema = new Schema (
       ],
       default: 'group',
     },
+    latestMessageDate: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     collection: 'ChatRoom',
