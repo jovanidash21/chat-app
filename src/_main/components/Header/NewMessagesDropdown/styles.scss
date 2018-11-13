@@ -31,10 +31,19 @@
     }
   }
   .dropdown-menu {
-    @include scrollbar($color-mine-shaft, rgba($color-mine-shaft, 0.2));
-    max-height: 250px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    width: 250px;
+    .dropdown-chat-rooms-list {
+      @include scrollbar($color-mine-shaft, rgba($color-mine-shaft, 0.2));
+      max-height: 250px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      width: 250px;
+    }
+    .no-new-messages {
+      color: #000;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 5px;
+      text-align: center;
+    }
   }
 }

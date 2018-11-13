@@ -11,15 +11,25 @@ const NewMessagesDropdown = (props) => {
         <div className="message-icon">
           <FontAwesomeIcon icon="comment" />
         </div>
-        <div className="new-messages-count">
-          {
-            props.count > 0 &&
-            props.count
-          }
-        </div>
+        {
+          props.count > 0 &&
+          <div className="new-messages-count">
+            {props.count}
+          </div>
+        }
       </div>
       <ul className="dropdown-menu has-pointer mui-dropdown__menu mui-dropdown__menu--right">
-        {props.children}
+        <div className="dropdown-chat-rooms-list">
+          {
+            props.count > 0
+              ?
+              props.children
+              :
+              <div className="no-new-messages">
+                No New Messages
+              </div>
+          }
+        </div>  
       </ul>
     </div>
   )
