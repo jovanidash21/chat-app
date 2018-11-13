@@ -24,10 +24,17 @@
       justify-content: center;
       line-height: 18px;
       margin-left: 3px;
-      padding: 0 7px;
+      padding: 0 5px;
       position: absolute;
       right: 0;
       top: 3px;
     }
+  }
+  .dropdown-menu {
+    @include scrollbar($color-mine-shaft, rgba($color-mine-shaft, 0.2));
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 250px;
   }
 }

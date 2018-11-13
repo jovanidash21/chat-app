@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ChatRoom } from './ChatRoom';
 import './styles.scss';
 
 const NewMessagesDropdown = (props) => {
@@ -18,11 +19,7 @@ const NewMessagesDropdown = (props) => {
         </div>
       </div>
       <ul className="dropdown-menu has-pointer mui-dropdown__menu mui-dropdown__menu--right">
-        <li>
-          <a href="#">
-            Hello
-          </a>
-        </li>
+        {props.children}
       </ul>
     </div>
   )
@@ -35,5 +32,7 @@ NewMessagesDropdown.propTypes = {
 NewMessagesDropdown.defaultProps = {
   count: 0
 }
+
+NewMessagesDropdown.ChatRoom = ChatRoom;
 
 export default NewMessagesDropdown;
