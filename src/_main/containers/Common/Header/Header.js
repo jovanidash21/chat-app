@@ -34,6 +34,38 @@ class Header extends Component {
   handleCloseModal() {
     this.setState({isModalOpen: false});
   }
+  handleNewMessagesDropdownRender() {
+    const {
+      user,
+      chatRoom,
+      changeChatRoom,
+      children
+    } = this.props;
+    const newMessagesChatRooms = chatRoom.all.filter((singleChatRoom) =>
+      singleChatRoom.data.chatType !== 'public' &&
+      singleChatRoom.data.chatType !== 'private' &&
+      singleChatRoom.unReadMessages > 0
+    );
+
+    if ( !chatRoom.fetch.loading && chatRoom.fetch.success ) {
+      return (
+        <NewMessagesDropdown count={newMessagesChatRooms.length}>
+          {
+            newMessagesChatRooms.length > 0 &&
+            newMessagesChatRooms.map((singleChatRoom, i) =>
+              <NewMessagesDropdown.ChatRoom
+                key={i}
+                user={user.active}
+                chatRoom={singleChatRoom}
+                activeChatRoom={chatRoom.active}
+                handleChangeChatRoom={changeChatRoom}
+              />
+            )
+          }
+        </NewMessagesDropdown>
+      )
+    }
+  }
   render() {
     const {
       user,
@@ -59,12 +91,7 @@ class Header extends Component {
                 </div>
               </td>
               <td className="mui--appbar-height mui--text-right">
-                {
-                  !chatRoom.fetch.loading &&
-                  chatRoom.fetch.success &&
-                  !isObjectEmpty(chatRoom.active.data) &&
-                  <NewMessagesDropdown count="9" />
-                }
+                {::this.handleNewMessagesDropdownRender()}
                 {
                   !chatRoom.fetch.loading &&
                   chatRoom.fetch.success &&
