@@ -12,21 +12,9 @@
         color: $color-mine-shaft;
       }
     }
-    .new-messages-count {
-      align-items: center;
-      background-color: $color-amaranth;
-      border-radius: 16px;
-      color: #fff;
-      display: flex;
-      font-size: 10px;
-      font-weight: bold;
-      height: 15px;
-      justify-content: center;
-      line-height: 18px;
-      margin-left: 3px;
-      padding: 0 5px;
+    .notification-count {
       position: absolute;
-      right: 0;
+      right: 2px;
       top: 3px;
     }
   }

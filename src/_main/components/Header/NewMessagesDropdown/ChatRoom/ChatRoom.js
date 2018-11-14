@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { handleChatRoomAvatarBadges } from '../../../../../utils/avatar';
 import { Avatar } from '../../../../../components/Avatar';
+import { NotificationCount } from '../../../../../components/NotificationCount';
 import './styles.scss';
 
 class NewMessagesDropdownChatRoom extends Component {
@@ -43,18 +44,10 @@ class NewMessagesDropdownChatRoom extends Component {
         </div>
         {
           chatRoom.unReadMessages > 0 &&
-          <div
-            className="new-messages-count"
+          <NotificationCount
+            count={chatRoom.unReadMessages}
             title={chatRoom.unReadMessages + " New " + (chatRoom.unReadMessages > 1 ? 'Messages' : 'Message')}
-          >
-            {
-              chatRoom.unReadMessages <= 100
-                ?
-                chatRoom.unReadMessages
-                :
-                '100 +'
-            }
-          </div>
+          />
         }
       </div>
     )

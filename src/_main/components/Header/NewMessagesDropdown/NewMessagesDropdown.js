@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChatRoom } from './ChatRoom';
+import { NotificationCount } from '../../../../components/NotificationCount';
 import './styles.scss';
 
 const NewMessagesDropdown = (props) => {
@@ -13,9 +14,7 @@ const NewMessagesDropdown = (props) => {
         </div>
         {
           props.count > 0 &&
-          <div className="new-messages-count">
-            {props.count}
-          </div>
+          <NotificationCount count={props.count} small />
         }
       </div>
       <ul className="dropdown-menu has-pointer mui-dropdown__menu mui-dropdown__menu--right">
@@ -29,7 +28,7 @@ const NewMessagesDropdown = (props) => {
                 No New Messages
               </div>
           }
-        </div>  
+        </div>
       </ul>
     </div>
   )
