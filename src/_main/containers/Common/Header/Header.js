@@ -44,8 +44,21 @@ class Header extends Component {
     const newMessagesChatRooms = chatRoom.all.filter((singleChatRoom) =>
       singleChatRoom.data.chatType !== 'public' &&
       singleChatRoom.data.chatType !== 'private' &&
+      !singleChatRoom.mute.data &&
       singleChatRoom.unReadMessages > 0
-    );
+    ).sort((a, b) => {
+      var date = new Date(b.data.latestMessageDate) - new Date(a.data.latestMessageDate);
+      var name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
+      var priority = a.priority - b.priority;
+
+      if ( date !== 0 ) {
+        return date;
+      } else if ( name !== 0 ) {
+        return name
+      } else {
+        return priority;
+      }
+    });
 
     if ( !chatRoom.fetch.loading && chatRoom.fetch.success ) {
       return (

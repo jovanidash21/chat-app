@@ -41,6 +41,21 @@ class NewMessagesDropdownChatRoom extends Component {
         <div className="chat-room-name">
           {chatRoom.data.name}
         </div>
+        {
+          chatRoom.unReadMessages > 0 &&
+          <div
+            className="new-messages-count"
+            title={chatRoom.unReadMessages + " New " + (chatRoom.unReadMessages > 1 ? 'Messages' : 'Message')}
+          >
+            {
+              chatRoom.unReadMessages <= 100
+                ?
+                chatRoom.unReadMessages
+                :
+                '100 +'
+            }
+          </div>
+        }
       </div>
     )
   }
