@@ -6,15 +6,9 @@ const NotificationCount = (props) => {
   return (
     <div
       className={"notification-count " + (props.small ? 'small' : '')}
-      title={props.count}
+      title={props.title}
     >
-      {
-        props.count <= 100
-          ?
-          props.count
-          :
-          '100 +'
-      }
+      {props.count <= 100 ? props.count : '100 +'}
     </div>
   );
 }

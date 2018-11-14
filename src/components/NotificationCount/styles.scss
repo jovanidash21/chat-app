@@ -8,10 +8,12 @@
   font-weight: bold;
   height: 18px;
   justify-content: center;
-  line-height: 18px;
+  line-height: 10px;
   padding: 0 9px;
   &.small {
+    font-size: 9px;
     height: 15px;
+    line-height: 9px;
     padding: 0 5px;
   }
 }
