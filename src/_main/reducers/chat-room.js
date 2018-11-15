@@ -131,7 +131,12 @@ const chatRoom = (state=initialState, action) => {
       for (var i = 0; i < chatRooms.length; i++) {
         var chatRoom = chatRooms[i];
 
-        if ( chatRoom.unReadMessages > 0 ) {
+        if ( 
+          chatRoom.data.chatType !== 'public' &&
+          chatRoom.data.chatType !== 'private' &&
+          !chatRoom.mute.data &&
+          chatRoom.unReadMessages > 0
+        ) {
           if ( chatRoomID === 'all' ) {
             chatRoom.unReadMessages = 0;
           } else if ( chatRoom.data._id === chatRoomID ) {
