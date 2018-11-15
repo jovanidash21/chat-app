@@ -151,6 +151,53 @@ router.post('/create', function(req, res, next) {
   }
 });
 
+router.post('/clear-unread', function(req, res, next) {
+  if (req.user === undefined) {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var userID = req.body.userID;
+    var chatRoomID = req.body.chatRoomID;
+
+    User.findById(userID)
+      .then((user) => {
+        if ( chatRoomID === 'all' ) {
+          var userChatRooms = user.chatRooms;
+
+          for (var i = 0; i < userChatRooms.length; i++) {
+            var chatRoom = userChatRooms[i].data;
+
+            User.update(
+              { _id: userID, 'chatRooms.data': chatRoom },
+              { $set: { 'chatRooms.$.unReadMessages': 0 } },
+              { safe: true, upsert: true, new: true }
+            ).exec();
+          }
+        } else {
+          User.update(
+            { _id: userID, 'chatRooms.data': chatRoomID },
+            { $set: { 'chatRooms.$.unReadMessages': 0 } },
+            { safe: true, upsert: true, new: true }
+          ).exec();
+        }
+
+        res.status(200).send({
+          success: true,
+          message: 'Chat Room Unread Messages Cleared',
+          chatRoomID: chatRoomID
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      });
+  }
+});
+
 router.post('/mute', function(req, res, next) {
   if (req.user === undefined) {
     res.status(401).send({
