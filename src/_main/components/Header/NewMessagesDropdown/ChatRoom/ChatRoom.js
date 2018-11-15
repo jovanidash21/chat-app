@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { handleChatRoomAvatarBadges } from '../../../../../utils/avatar';
 import { Avatar } from '../../../../../components/Avatar';
 import { NotificationCount } from '../../../../../components/NotificationCount';
@@ -49,6 +50,9 @@ class NewMessagesDropdownChatRoom extends Component {
             title={chatRoom.unReadMessages + " New " + (chatRoom.unReadMessages > 1 ? 'Messages' : 'Message')}
           />
         }
+        <div className="clear-icon">
+          <FontAwesomeIcon icon="times" />
+        </div>
       </div>
     )
   }

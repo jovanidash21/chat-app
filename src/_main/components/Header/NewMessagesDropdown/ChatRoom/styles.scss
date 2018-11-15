@@ -11,6 +11,9 @@
   &:hover {
     background-color: $color-primary;
     color: #fff;
+    .clear-icon {
+      width: 15px;
+    }
   }
   .avatar {
     margin-right: 14px;
@@ -24,5 +27,16 @@
   }
   .notification-count {
     margin-left: 3px;
+  }
+  .clear-icon {
+    color: $color-mine-shaft;
+    margin-left: 5px;
+    opacity: 0.5;
+    overflow-x: hidden;
+    transition: all 0.2s ease;
+    width: 0;
+    &:hover {
+      opacity: 1;
+    }
   }
 }

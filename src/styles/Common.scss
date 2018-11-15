@@ -78,6 +78,11 @@ pre {
       }
     }
   }
+  .divider {
+    background-color: $color-alto;
+    height: 1px;
+    margin: 5px 0;
+  }
   .option-icon {
     color: $color-primary;
     display: inline-block;
