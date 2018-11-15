@@ -6,6 +6,7 @@ import {
   SOCKET_CREATE_CHAT_ROOM,
   SOCKET_JOIN_CHAT_ROOM,
   SOCKET_LEAVE_CHAT_ROOM,
+  CLEAR_CHAT_ROOM_UNREAD_MESSAGES,
   MUTE_CHAT_ROOM,
   UNMUTE_CHAT_ROOM
 } from '../constants/chat-room';
@@ -188,6 +189,30 @@ export function leaveChatRoom(chatRoomID) {
     type: SOCKET_LEAVE_CHAT_ROOM,
     chatRoomID: chatRoomID
   };
+}
+
+/**
+ * Clear chat room unread messages
+ * @param {string} userID
+ * @param {string} chatRoomID
+ */
+export function clearChatRoomUnreadMessages(userID, chatRoomID) {
+  let data = {
+    userID,
+    chatRoomID
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: CLEAR_CHAT_ROOM_UNREAD_MESSAGES,
+      payload: axios.post(baseURL + '/api/chat-room/clear-unread', data)
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
 }
 
 /**

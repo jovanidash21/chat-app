@@ -22,6 +22,7 @@ import {
   changeChatRoom,
   createGroupChatRoom,
   createDirectChatRoom,
+  clearChatRoomUnreadMessages,
   muteChatRoom,
   unmuteChatRoom
 } from './chat-room';
@@ -51,6 +52,7 @@ const actions = (dispatch) => {
     changeChatRoom,
     createGroupChatRoom,
     createDirectChatRoom,
+    clearChatRoomUnreadMessages,
     muteChatRoom,
     unmuteChatRoom,
     fetchOldMessages,
