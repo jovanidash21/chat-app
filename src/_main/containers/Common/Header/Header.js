@@ -39,6 +39,7 @@ class Header extends Component {
       user,
       chatRoom,
       changeChatRoom,
+      clearChatRoomUnreadMessages,
       children
     } = this.props;
     const newMessagesChatRooms = chatRoom.all.filter((singleChatRoom) =>
@@ -62,7 +63,11 @@ class Header extends Component {
 
     if ( !chatRoom.fetch.loading && chatRoom.fetch.success ) {
       return (
-        <NewMessagesDropdown count={newMessagesChatRooms.length}>
+        <NewMessagesDropdown
+          user={user.active}
+          count={newMessagesChatRooms.length}
+          handleClearChatRoomUnreadMessages={clearChatRoomUnreadMessages}
+        >
           {
             newMessagesChatRooms.length > 0 &&
             newMessagesChatRooms.map((singleChatRoom, i) =>
@@ -72,6 +77,7 @@ class Header extends Component {
                 chatRoom={singleChatRoom}
                 activeChatRoom={chatRoom.active}
                 handleChangeChatRoom={changeChatRoom}
+                handleClearChatRoomUnreadMessages={clearChatRoomUnreadMessages}
               />
             )
           }

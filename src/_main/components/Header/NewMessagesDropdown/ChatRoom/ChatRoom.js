@@ -22,6 +22,21 @@ class NewMessagesDropdownChatRoom extends Component {
 
     handleChangeChatRoom(chatRoom, user._id, activeChatRoom.data._id);
   }
+  handleClearChatRoomUnreadMessages(event) {
+    event.preventDefault();
+
+    if ( event.stopPropagation ) {
+      event.stopPropagation();
+    }
+
+    const {
+      user,
+      chatRoom,
+      handleClearChatRoomUnreadMessages
+    } = this.props;
+
+    handleClearChatRoomUnreadMessages(user._id, chatRoom.data._id);
+  }
   render() {
     const {
       user,
@@ -50,7 +65,7 @@ class NewMessagesDropdownChatRoom extends Component {
             title={chatRoom.unReadMessages + " New " + (chatRoom.unReadMessages > 1 ? 'Messages' : 'Message')}
           />
         }
-        <div className="clear-icon">
+        <div className="clear-icon" onClick={::this.handleClearChatRoomUnreadMessages}>
           <FontAwesomeIcon icon="times" />
         </div>
       </div>
@@ -62,7 +77,8 @@ NewMessagesDropdownChatRoom.propTypes = {
   user: PropTypes.object.isRequired,
   chatRoom: PropTypes.object.isRequired,
   activeChatRoom: PropTypes.object.isRequired,
-  handleChangeChatRoom: PropTypes.func.isRequired
+  handleChangeChatRoom: PropTypes.func.isRequired,
+  handleClearChatRoomUnreadMessages: PropTypes.func.isRequired
 }
 
 export default NewMessagesDropdownChatRoom;

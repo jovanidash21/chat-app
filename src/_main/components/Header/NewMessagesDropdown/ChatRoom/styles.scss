@@ -29,7 +29,10 @@
     margin-left: 3px;
   }
   .clear-icon {
+    align-items: center;
     color: $color-mine-shaft;
+    display: flex;
+    justify-content: center;
     margin-left: 5px;
     opacity: 0.5;
     overflow-x: hidden;
