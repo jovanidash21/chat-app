@@ -159,23 +159,13 @@ router.post('/clear-unread', function(req, res, next) {
     });
   } else {
     var userID = req.body.userID;
-    var chatRoomID = req.body.chatRoomID;
+    var chatRoomIDs = req.body.chatRoomIDs;
 
     User.findById(userID)
       .then((user) => {
-        if ( chatRoomID === 'all' ) {
-          var userChatRooms = user.chatRooms;
+        for (var i = 0; i < chatRoomIDs.length; i++) {
+          var chatRoomID = chatRoomIDs[i];
 
-          for (var i = 0; i < userChatRooms.length; i++) {
-            var chatRoom = userChatRooms[i].data;
-
-            User.update(
-              { _id: userID, 'chatRooms.data': chatRoom },
-              { $set: { 'chatRooms.$.unReadMessages': 0 } },
-              { safe: true, upsert: true, new: true }
-            ).exec();
-          }
-        } else {
           User.update(
             { _id: userID, 'chatRooms.data': chatRoomID },
             { $set: { 'chatRooms.$.unReadMessages': 0 } },
@@ -186,7 +176,7 @@ router.post('/clear-unread', function(req, res, next) {
         res.status(200).send({
           success: true,
           message: 'Chat Room Unread Messages Cleared',
-          chatRoomID: chatRoomID
+          chatRoomIDs: chatRoomIDs
         });
       })
       .catch((error) => {

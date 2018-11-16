@@ -125,24 +125,14 @@ const chatRoom = (state=initialState, action) => {
         }
       };
     case `${CLEAR_CHAT_ROOM_UNREAD_MESSAGES}_SUCCESS`:
-      var chatRoomID = action.payload.data.chatRoomID;
+      var chatRoomIDs = action.payload.data.chatRoomIDs;
       var chatRooms = [...state.all];
 
       for (var i = 0; i < chatRooms.length; i++) {
         var chatRoom = chatRooms[i];
 
-        if ( 
-          chatRoom.data.chatType !== 'public' &&
-          chatRoom.data.chatType !== 'private' &&
-          !chatRoom.mute.data &&
-          chatRoom.unReadMessages > 0
-        ) {
-          if ( chatRoomID === 'all' ) {
-            chatRoom.unReadMessages = 0;
-          } else if ( chatRoom.data._id === chatRoomID ) {
-            chatRoom.unReadMessages = 0;
-            break;
-          }
+        if ( chatRoomIDs.indexOf(chatRoom.data._id) > -1 ) {
+          chatRoom.unReadMessages = 0;
         }
       }
 
@@ -340,6 +330,7 @@ const chatRoom = (state=initialState, action) => {
 
         if ( chatRoom.data._id === chatRoomID ) {
           chatRoom.unReadMessages++;
+          chatRoom.data.latestMessageDate = new Date();
           break;
         } else {
           continue;

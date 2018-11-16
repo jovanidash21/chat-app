@@ -194,12 +194,12 @@ export function leaveChatRoom(chatRoomID) {
 /**
  * Clear chat room unread messages
  * @param {string} userID
- * @param {string} chatRoomID
+ * @param {Array} chatRoomIDs
  */
-export function clearChatRoomUnreadMessages(userID, chatRoomID) {
+export function clearChatRoomUnreadMessages(userID, chatRoomIDs) {
   let data = {
     userID,
-    chatRoomID
+    chatRoomIDs
   };
 
   return dispatch => {
