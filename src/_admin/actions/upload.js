@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { UPLOAD_IMAGE } from '../constants/upload';
+import { getBaseURL } from '../../utils/url';
 
-const localtionArr = window.location.href.split("/");
-const baseURL = localtionArr[0] + "//" + localtionArr[2];
+const baseURL = getBaseURL();
 
 /**
  * Upload image

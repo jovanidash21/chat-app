@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { SEND_EMAIL } from '../constants/email';
+import { getBaseURL } from '../../utils/url';
 
-const localtionArr = window.location.href.split("/");
-const baseURL = localtionArr[0] + "//" + localtionArr[2];
+const baseURL = getBaseURL();
 
 /**
  * Send email

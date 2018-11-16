@@ -7,9 +7,9 @@ import {
   EDIT_CHAT_ROOM,
   DELETE_CHAT_ROOM
 } from '../constants/chat-room';
+import { getBaseURL } from '../../utils/url';
 
-const localtionArr = window.location.href.split("/");
-const baseURL = localtionArr[0] + "//" + localtionArr[2];
+const baseURL = getBaseURL();
 
 /**
  * Fetch chat rooms count
