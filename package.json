@@ -97,6 +97,7 @@
     "react-autosuggest": "^9.4.2",
     "react-burger-menu": "^2.1.11",
     "react-dom": "^15.6.1",
+    "react-draggable": "^3.0.5",
     "react-dropzone": "^7.0.1",
     "react-emojione": "^3.1.10",
     "react-helmet": "^5.2.0",
