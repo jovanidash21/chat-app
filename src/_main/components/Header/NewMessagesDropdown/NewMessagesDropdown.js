@@ -62,7 +62,7 @@ class NewMessagesDropdown extends Component {
                   >
                     <FontAwesomeIcon icon={["far", "trash-alt"]} />
                   </div>
-                  Clear
+                  Clear All
                 </div>
                 <div className="divider" />
                 <div className="dropdown-chat-rooms-list">

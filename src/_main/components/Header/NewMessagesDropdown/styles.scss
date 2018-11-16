@@ -28,8 +28,10 @@
     }
     .clear-all-button {
       align-items: center;
-      background-color: #fff;
-      color: $color-torch-red;
+      background-color: $color-torch-red;
+      border-bottom: 1px solid $color-torch-red;
+      border-top: 1px solid $color-torch-red;
+      color: #fff;
       cursor: pointer;
       display: flex;
       font-size: 15px;
@@ -38,8 +40,8 @@
       padding: 5px 15px;
       transition: $transition;
       &:hover {
-        background-color: $color-torch-red;
-        color: #fff;
+        background-color: #fff;
+        color: $color-torch-red;
       }
       .trash-icon {
         margin-right: 5px;
