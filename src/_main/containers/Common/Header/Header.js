@@ -39,7 +39,6 @@ class Header extends Component {
       user,
       chatRoom,
       changeChatRoom,
-      clearChatRoomUnreadMessages,
       children
     } = this.props;
     const newMessagesChatRooms = chatRoom.all.filter((singleChatRoom) =>
@@ -55,7 +54,7 @@ class Header extends Component {
       if ( date !== 0 ) {
         return date;
       } else if ( name !== 0 ) {
-        return name
+        return name;
       } else {
         return priority;
       }
@@ -65,25 +64,21 @@ class Header extends Component {
       return (
         <NewMessagesDropdown
           user={user.active}
-          count={newMessagesChatRooms.length}
-          handleClearChatRoomUnreadMessages={clearChatRoomUnreadMessages}
-        >
-          {
-            newMessagesChatRooms.length > 0 &&
-            newMessagesChatRooms.map((singleChatRoom, i) =>
-              <NewMessagesDropdown.ChatRoom
-                key={i}
-                user={user.active}
-                chatRoom={singleChatRoom}
-                activeChatRoom={chatRoom.active}
-                handleChangeChatRoom={changeChatRoom}
-                handleClearChatRoomUnreadMessages={clearChatRoomUnreadMessages}
-              />
-            )
-          }
-        </NewMessagesDropdown>
+          chatRooms={newMessagesChatRooms}
+          activeChatRoom={chatRoom.active}
+          handleChangeChatRoom={changeChatRoom}
+          handleClearChatRoomUnreadMessages={::this.handleClearChatRoomUnreadMessages}
+        />
       )
     }
+  }
+  handleClearChatRoomUnreadMessages(chatRoomIDs) {
+    const {
+      user,
+      clearChatRoomUnreadMessages
+    } = this.props;
+
+    clearChatRoomUnreadMessages(user.active._id, chatRoomIDs);
   }
   render() {
     const {

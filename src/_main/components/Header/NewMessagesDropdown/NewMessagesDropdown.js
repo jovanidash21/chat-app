@@ -17,16 +17,26 @@ class NewMessagesDropdown extends Component {
     }
 
     const {
-      user,
+      chatRooms,
       handleClearChatRoomUnreadMessages
     } = this.props;
+    var chatRoomIDs = [];
 
-    handleClearChatRoomUnreadMessages(user._id, 'all');
+    for (var i = 0; i < chatRooms.length; i++) {
+      var chatRoom = chatRooms[i];
+
+      chatRoomIDs.push(chatRoom.data._id);
+    }
+
+    handleClearChatRoomUnreadMessages(chatRoomIDs);
   }
   render() {
     const {
-      count,
-      children
+      user,
+      chatRooms,
+      activeChatRoom,
+      handleChangeChatRoom,
+      handleClearChatRoomUnreadMessages
     } = this.props;
 
     return (
@@ -36,13 +46,13 @@ class NewMessagesDropdown extends Component {
             <FontAwesomeIcon icon="comment" />
           </div>
           {
-            count > 0 &&
-            <NotificationCount count={count} small />
+            chatRooms.length > 0 &&
+            <NotificationCount count={chatRooms.length} small />
           }
         </div>
         <ul className="dropdown-menu has-pointer mui-dropdown__menu mui-dropdown__menu--right">
           {
-            count > 0
+            chatRooms.length > 0
               ?
               <div>
                 <div className="clear-all-button" onClick={::this.handleClearChatRoomUnreadMessages}>
@@ -56,7 +66,18 @@ class NewMessagesDropdown extends Component {
                 </div>
                 <div className="divider" />
                 <div className="dropdown-chat-rooms-list">
-                  {children}
+                  {
+                    chatRooms.map((singleChatRoom, i) =>
+                      <ChatRoom
+                        key={i}
+                        user={user}
+                        chatRoom={singleChatRoom}
+                        activeChatRoom={activeChatRoom}
+                        handleChangeChatRoom={handleChangeChatRoom}
+                        handleClearChatRoomUnreadMessages={handleClearChatRoomUnreadMessages}
+                      />
+                    )
+                  }
                 </div>
               </div>
               :
@@ -72,14 +93,14 @@ class NewMessagesDropdown extends Component {
 }
 NewMessagesDropdown.propTypes = {
   user: PropTypes.object.isRequired,
-  count: PropTypes.number,
+  chatRooms: PropTypes.array.isRequired,
+  activeChatRoom: PropTypes.object.isRequired,
+  handleChangeChatRoom: PropTypes.func.isRequired,
   handleClearChatRoomUnreadMessages: PropTypes.func.isRequired
 }
 
 NewMessagesDropdown.defaultProps = {
   count: 0
 }
-
-NewMessagesDropdown.ChatRoom = ChatRoom;
 
 export default NewMessagesDropdown;

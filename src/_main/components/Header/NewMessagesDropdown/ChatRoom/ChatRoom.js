@@ -30,12 +30,11 @@ class NewMessagesDropdownChatRoom extends Component {
     }
 
     const {
-      user,
       chatRoom,
       handleClearChatRoomUnreadMessages
     } = this.props;
 
-    handleClearChatRoomUnreadMessages(user._id, chatRoom.data._id);
+    handleClearChatRoomUnreadMessages([chatRoom.data._id]);
   }
   render() {
     const {
