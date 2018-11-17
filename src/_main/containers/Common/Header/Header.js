@@ -11,7 +11,6 @@ import {
   ChatRoomDropdown
 } from '../../../components/Header';
 import { UserDropdown } from '../../../../components/UserDropdown';
-import './styles.scss';
 
 class Header extends Component {
   constructor(props) {

@@ -27,6 +27,21 @@ pre {
 }
 .header {
   $transition: all 0.1s ease-in-out;
+  align-items: center;
+  background-color: $color-primary;
+  box-shadow: 0 2px 5px rgba($color-emperor, 0.25);
+  display: flex;
+  padding: 0 21px;
+  @media screen and (max-width: $screen-mobile-max) {
+    padding: 0 7px;
+  }
+  .hamburger-icon {
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .content {
+    flex: 1;
+  }
   .header-item-icon {
     color: #fff;
     cursor: pointer;

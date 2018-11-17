@@ -5,7 +5,6 @@ import { Appbar } from 'muicss/react/';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { UserDropdown } from '../../../../components/UserDropdown';
-import './styles.scss';
 
 class Header extends Component {
   constructor(props) {
@@ -26,26 +25,16 @@ class Header extends Component {
 
     return (
       <Appbar className="header">
-        <table width="100%">
-          <tbody>
-            <tr style={{verticalAlign: 'middle'}}>
-              <td className="mui--appbar-height">
-                <div className="left-part-header">
-                  <div
-                    className="hamburger-icon"
-                    onClick={::this.handleLeftSideDrawerToggleEvent}
-                  >
-                    <FontAwesomeIcon icon="bars" size="2x" />
-                  </div>
-                  {children}
-                </div>
-              </td>
-              <td className="mui--appbar-height mui--text-right">
-                <UserDropdown user={user.active} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div
+          className="hamburger-icon"
+          onClick={::this.handleLeftSideDrawerToggleEvent}
+        >
+          <FontAwesomeIcon icon="bars" size="2x" />
+        </div>
+        <div className="content">
+          {children}
+        </div>
+        <UserDropdown user={user.active} />
       </Appbar>
     )
   }
