@@ -25,6 +25,22 @@ pre {
   margin: 8px 0;
   padding: 8px;
 }
+.header {
+  $transition: all 0.1s ease-in-out;
+  .header-item-icon {
+    color: #fff;
+    cursor: pointer;
+    font-size: 17px;
+    padding: 10px;
+    transition: $transition;
+    @media screen and (max-width: $screen-mobile-max) {
+      padding: 10px 3px;
+    }
+    &:hover {
+      color: $color-mine-shaft;
+    }
+  }
+}
 .loading-bar {
   height: 3px;
   background-color: $color-seance;

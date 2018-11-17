@@ -12,10 +12,6 @@ class NewMessagesDropdown extends Component {
   handleClearChatRoomUnreadMessages(event) {
     event.preventDefault();
 
-    if ( event.stopPropagation ) {
-      event.stopPropagation();
-    }
-
     const {
       chatRooms,
       handleClearChatRoomUnreadMessages
@@ -42,7 +38,7 @@ class NewMessagesDropdown extends Component {
     return (
       <div className="mui-dropdown new-messages-dropdown-wrapper">
         <div className="dropdown-toggle new-messages-dropdown" data-mui-toggle="dropdown">
-          <div className="message-icon">
+          <div className="message-icon header-item-icon">
             <FontAwesomeIcon icon="comment" />
           </div>
           {

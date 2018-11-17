@@ -1,14 +1,4 @@
 .chat-room-dropdown {
   $transition: all 0.2s ease-in-out;
   margin-right: 5px;
-  .settings-icon {
-    color: #fff;
-    cursor: pointer;
-    font-size: 17px;
-    padding: 10px;
-    transition: $transition;
-    &:hover {
-      color: $color-mine-shaft;
-    }
-  }
 }
