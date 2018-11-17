@@ -1,5 +1,7 @@
 .active-chat-room {
-  min-width: 120px;
+  &.loading {
+    max-width: 120px;
+  }
   .chat-room-detail-wrapper {
     align-items: center;
     display: flex;
@@ -25,7 +27,7 @@
         max-width: 250px;
       }
       @media screen and (max-width: $screen-small-mobile-max) {
-        max-width: 130px;
+        max-width: 110px;
       }
     }
   }

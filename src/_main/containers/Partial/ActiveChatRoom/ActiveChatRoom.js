@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
@@ -109,11 +108,12 @@ class ActiveChatRoom extends Component {
   render() {
     const {
       user,
+      chatRoom,
       logout
     } = this.props;
 
     return (
-      <div className="active-chat-room">
+      <div className={"active-chat-room " + (chatRoom.fetch.loading ? 'loading' : '')}>
         {::this.handleActiveChatRoomRender()}
       </div>
     )
