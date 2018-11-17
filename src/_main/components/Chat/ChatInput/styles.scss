@@ -138,6 +138,9 @@
       display: flex;
       font-size: 11px;
       user-select: none;
+      @media screen and (max-width: $screen-mobile-max) {
+        display: none;
+      }
       .note {
         &:not(:last-child) {
           margin-right: 3px;
