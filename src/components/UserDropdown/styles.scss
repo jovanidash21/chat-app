@@ -25,6 +25,9 @@
       color: #fff;
       font-size: 16px;
       transition: $transition;
+      @media screen and (max-width: $screen-mobile-max) {
+        display: none;
+      }
     }
   }
   .dropdown-menu {
