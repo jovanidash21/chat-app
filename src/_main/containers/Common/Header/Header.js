@@ -90,36 +90,26 @@ class Header extends Component {
 
     return (
       <Appbar className="header">
-        <table width="100%">
-          <tbody>
-            <tr style={{verticalAlign: 'middle'}}>
-              <td className="mui--appbar-height">
-                <div className="left-part-header">
-                  <div
-                    className="hamburger-icon"
-                    onClick={::this.handleLeftSideDrawerToggleEvent}
-                  >
-                    <FontAwesomeIcon icon="bars" size="2x" />
-                  </div>
-                  {children}
-                </div>
-              </td>
-              <td className="mui--appbar-height mui--text-right">
-                {::this.handleNewMessagesDropdownRender()}
-                {
-                  !chatRoom.fetch.loading &&
-                  chatRoom.fetch.success &&
-                  !isObjectEmpty(chatRoom.active.data) &&
-                  <ChatRoomDropdown
-                    activeChatRoom={chatRoom.active}
-                    handleOpenMuteUnmuteModal={::this.handleOpenModal}
-                  />
-                }
-                <UserDropdown user={user.active} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div
+          className="hamburger-icon"
+          onClick={::this.handleLeftSideDrawerToggleEvent}
+        >
+          <FontAwesomeIcon icon="bars" size="2x" />
+        </div>
+        <div className="content">
+          {children}
+        </div>
+        {::this.handleNewMessagesDropdownRender()}
+        {
+          !chatRoom.fetch.loading &&
+          chatRoom.fetch.success &&
+          !isObjectEmpty(chatRoom.active.data) &&
+          <ChatRoomDropdown
+            activeChatRoom={chatRoom.active}
+            handleOpenMuteUnmuteModal={::this.handleOpenModal}
+          />
+        }
+        <UserDropdown user={user.active} />
         {
           isModalOpen &&
           <MuteUnmuteChatRoomModal

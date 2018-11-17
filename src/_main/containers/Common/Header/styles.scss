@@ -1,29 +1,17 @@
 .header {
+  align-items: center;
   background-color: $color-primary;
   box-shadow: 0 2px 5px rgba($color-emperor, 0.25);
-  table {
-    padding: 0 21px;
-    @media screen and (max-width: $screen-mobile-max) {
-      padding: 0 7px;
-    }
+  display: flex;
+  padding: 0 21px;
+  @media screen and (max-width: $screen-mobile-max) {
+    padding: 0 7px;
   }
-  .mui--appbar-height {
-    position: relative;
-    width: 10px;
-    &.mui--text-right {
-      align-items: center;
-      display: flex;
-      justify-content: flex-end;
-      width: 100%;
-    }
+  .hamburger-icon {
+    cursor: pointer;
+    margin-right: 10px;
   }
-  .left-part-header {
-    align-items: center;
-    display: flex;
-    position: relative;
-    .hamburger-icon {
-      cursor: pointer;
-      margin-right: 10px;
-    }
+  .content {
+    flex: 1;
   }
 }
