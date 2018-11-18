@@ -1,3 +1,4 @@
+import { FETCH_ACTIVE_USER } from '../constants/user';
 import { FETCH_MEMBERS } from '../constants/member';
 import { CHANGE_CHAT_ROOM } from '../constants/chat-room';
 import {
@@ -14,6 +15,7 @@ const commonStateFlags = {
 
 const initialState = {
   fetch: {...commonStateFlags},
+  activeUser: {},
   activeChatRoom: {
     data: {}
   },
@@ -31,6 +33,15 @@ const member = (state=initialState, action) => {
         }
       };
     case `${FETCH_MEMBERS}_SUCCESS`:
+      var members = [...action.payload.data.members];
+      var activeUser = {...state.activeUser};
+
+      members = members.filter(singleMember =>
+        singleMember._id !== activeUser._id
+      );
+      activeUser.isOnline = true;
+      members.push(activeUser);
+
       return {
         ...state,
         fetch: {
@@ -40,7 +51,7 @@ const member = (state=initialState, action) => {
           error: false,
           message: action.payload.data.message
         },
-        all: action.payload.data.members
+        all: members
       };
     case `${FETCH_MEMBERS}_ERROR`:
       return {
@@ -52,6 +63,11 @@ const member = (state=initialState, action) => {
           error: true,
           message: action.payload.response.data.message
         }
+      };
+    case `${FETCH_ACTIVE_USER}_SUCCESS`:
+      return {
+        ...state,
+        activeUser: action.payload.data.user
       };
     case CHANGE_CHAT_ROOM:
       return {
