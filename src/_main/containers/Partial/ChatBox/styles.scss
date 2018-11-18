@@ -2,15 +2,21 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  max-height: calc(100vh - 135px);
+  max-height: calc(100vh - 129px);
   position: relative;
   @media screen and (max-width: $screen-mobile-max) {
     max-height: calc(100vh - 127px);
   }
+  @media screen and (max-width: $screen-small-mobile-max) {
+    max-height: calc(100vh - 121px);
+  }
   &.audio-recorder-open {
-    max-height: calc(100vh - 190px);
+    max-height: calc(100vh - 184px);
     @media screen and (max-width: $screen-mobile-max) {
       max-height: calc(100vh - 172px);
+    }
+    @media screen and (max-width: $screen-small-mobile-max) {
+      max-height: calc(100vh - 166px);
     }
   }
   .chat-box {

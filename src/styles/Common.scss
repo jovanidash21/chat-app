@@ -97,6 +97,9 @@ pre {
       right: 10px;
       top: -8px;
       width: 0;
+      @media screen and (max-width: $screen-mobile-max) {
+        right: 3px;
+      }
     }
   }
   a {
