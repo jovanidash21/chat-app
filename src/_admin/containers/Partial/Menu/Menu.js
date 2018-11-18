@@ -41,6 +41,11 @@ class Menu extends Component {
   componentDidMount() {
     this.menusList.addEventListener('scroll', ::this.handleMenusListScroll, true);
   }
+  componentDidUpdate(prevProps) {
+    if ( prevProps.router.location.pathname !== this.props.router.location.pathname ) {
+      this.props.handleLeftSideDrawerToggleEvent();
+    }
+  }
   handleMenusListScroll() {
     if ( this.menusList.scrollTop > 10 ) {
       this.setState({isMenusListScrolled: true});
