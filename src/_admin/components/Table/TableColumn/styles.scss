@@ -2,8 +2,15 @@
   cursor: pointer;
   padding: 10px 30px 10px 10px !important;
   position: relative;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    border-color: rgba(0,0,0,0.5);
+    .sort-icon {
+      opacity: 0.5;
+    }
+  }
   &.active {
-    border-bottom-color: $color-primary; 
+    border-bottom-color: $color-primary;
     .sort-icon {
       opacity: 0.8;
       transform: translateY(-50%);
@@ -15,6 +22,6 @@
     right: 10px;
     top: 50%;
     transform: translateY(-50%) rotate(90deg);
-
+    transition: opacity 0.2s ease-in-out;
   }
 }
