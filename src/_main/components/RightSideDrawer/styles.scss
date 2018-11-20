@@ -1,15 +1,20 @@
 .chat-room-member {
   align-items: center;
-  border-bottom: 1px solid $color-outer-space;
   display: flex;
   font-size: 14px;
   padding: 3px 0;
   position: relative;
   transition: all 0.2s ease;
+  &:not(:last-child) {
+    border-bottom: 1px solid $color-outer-space;
+  }
   &:active,
   &:focus,
   &:hover {
     background-color: $color-outer-space;
+    .ellipsis-icon {
+      width: 30px;
+    }
   }
   &.online {
     .member-name {
@@ -33,7 +38,7 @@
     background-color: $color-primary;
     .online-indicator,
     .member-name,
-    .member-options-button {
+    .ellipsis-icon {
       color: #fff;
     }
   }
@@ -50,18 +55,17 @@
       margin-left: 7px;
     }
   }
-  .member-options-button-wrapper {
-    width: 30px;
-  }
-  .member-options-button {
-    cursor: pointer;
+  .ellipsis-icon {
+    align-items: center;
     color: $color-dusty-gray;
-    opacity: 0;
-    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    opacity: 0.5;
+    overflow-x: hidden;
     transition: all 0.2s ease;
-  }
-  &:hover {
-    .member-options-button {
+    width: 0;
+    &:hover {
       opacity: 1;
     }
   }

@@ -52,11 +52,11 @@ class ChatRoomMember extends Component {
             <span className="you-label">(you)</span>
           }
         </div>
-        <div className="member-options-button-wrapper">
+        <div className="member-options-button">
           {
             user._id !== chatRoomMember._id &&
             <div>
-              <div className="member-options-button" data-mui-toggle="dropdown">
+              <div className="ellipsis-icon" data-mui-toggle="dropdown">
                 <FontAwesomeIcon icon="ellipsis-v" />
               </div>
               <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
