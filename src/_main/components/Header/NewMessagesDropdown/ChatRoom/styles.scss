@@ -1,22 +1,27 @@
 .new-messages-dropdown-chat-room {
+  $transition: all 0.2s ease-in-out;
   align-items: center;
   color: #000;
   cursor: pointer;
   display: flex;
-  padding: 5px 10px;
-  transition: all 0.2s ease-in-out;
+  padding: 5px 0;
+  transition: $transition;
   &:not(:last-child) {
     border-bottom: 1px solid $color-alto;
   }
   &:hover {
     background-color: $color-primary;
     color: #fff;
+    .notification-count {
+      margin-right: 3px;
+    }
     .clear-icon {
+      margin-right: 3px;
       width: 15px;
     }
   }
   .avatar {
-    margin-right: 14px;
+    margin: 0 14px 0 10px;
   }
   .chat-room-name {
     flex: 1;
@@ -26,17 +31,17 @@
     white-space: nowrap;
   }
   .notification-count {
-    margin-left: 3px;
+    margin: 0 10px 0 3px;
+    transition: $transition;
   }
   .clear-icon {
     align-items: center;
     color: $color-mine-shaft;
     display: flex;
     justify-content: center;
-    margin-left: 5px;
     opacity: 0.5;
     overflow-x: hidden;
-    transition: all 0.2s ease;
+    transition: $transition;
     width: 0;
     &:hover {
       opacity: 1;
