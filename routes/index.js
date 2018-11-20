@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   if (!req.user) {
     res.render('index', { title: 'Chat App | Login' });
   } else {
@@ -9,12 +9,12 @@ router.get('/', function(req, res, next) {
   }
 });
 
-router.get('/logout', function(req, res) {
+router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');
 });
 
-router.get('/register', function(req, res, next) {
+router.get('/register', (req, res, next) => {
   if (!req.user) {
     res.render('index', { title: 'Chat App | Register' });
   } else {
@@ -22,7 +22,7 @@ router.get('/register', function(req, res, next) {
   }
 });
 
-router.get('/chat', function(req, res, next) {
+router.get('/chat', (req, res, next) => {
   if (req.user) {
     res.render('index', { title: 'Chat App' });
   } else {

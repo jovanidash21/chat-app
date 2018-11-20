@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var ChatRoom = require('../models/ChatRoom');
 
-router.get('/admin', function(req, res, next) {
+router.get('/admin', (req, res, next) => {
   if (req.user && req.user.role == 'admin') {
     res.redirect('/dashboard');
   } else {
@@ -10,7 +10,7 @@ router.get('/admin', function(req, res, next) {
   }
 });
 
-router.get('/dashboard', function(req, res, next) {
+router.get('/dashboard', (req, res, next) => {
   if (req.user && req.user.role == 'admin') {
     res.render('admin', { title: 'Chat App | Dashboard' });
   } else {
@@ -18,7 +18,7 @@ router.get('/dashboard', function(req, res, next) {
   }
 });
 
-router.get('/all-users', function(req, res, next) {
+router.get('/all-users', (req, res, next) => {
   if (req.user && req.user.role == 'admin') {
     res.render('admin', { title: 'Chat App | All Users' });
   } else {
@@ -26,7 +26,7 @@ router.get('/all-users', function(req, res, next) {
   }
 });
 
-router.get('/create-user', function(req, res, next) {
+router.get('/create-user', (req, res, next) => {
   if (req.user && req.user.role == 'admin') {
     res.render('admin', { title: 'Chat App | Create User' });
   } else {
@@ -34,7 +34,7 @@ router.get('/create-user', function(req, res, next) {
   }
 });
 
-router.get('/edit-user/:userID', function(req, res, next) {
+router.get('/edit-user/:userID', (req, res, next) => {
   if (req.user && req.user.role == 'admin') {
     res.render('admin', { title: 'Chat App | Edit User' });
   } else {
@@ -42,7 +42,7 @@ router.get('/edit-user/:userID', function(req, res, next) {
   }
 });
 
-router.get('/all-chat-rooms', function(req, res, next) {
+router.get('/all-chat-rooms', (req, res, next) => {
   if (req.user && req.user.role == 'admin') {
     res.render('admin', { title: 'Chat App | All Chat Rooms' });
   } else {
@@ -50,7 +50,7 @@ router.get('/all-chat-rooms', function(req, res, next) {
   }
 });
 
-router.get('/create-chat-room', function(req, res, next) {
+router.get('/create-chat-room', (req, res, next) => {
   if (req.user && req.user.role == 'admin') {
     res.render('admin', { title: 'Chat App | Create Chat Room' });
   } else {
@@ -58,7 +58,7 @@ router.get('/create-chat-room', function(req, res, next) {
   }
 });
 
-router.get('/edit-chat-room/:chatRoomID', function(req, res, next) {
+router.get('/edit-chat-room/:chatRoomID', (req, res, next) => {
   if (req.user && req.user.role == 'admin') {
     var chatRoomID = req.params.chatRoomID;
 
