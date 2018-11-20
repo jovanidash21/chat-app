@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var nodemailer = require('nodemailer');
 
-router.post('/', function(req, res, next){
+router.post('/', (req, res, next) => {
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -21,17 +21,17 @@ router.post('/', function(req, res, next){
     text: 'Hi ' + req.body.username + ', Thank you for creating an account.',
     html: '<p>Hi ' + req.body.username + ', Thank you for creating an account.</p>'
   };
-  transporter.sendMail(mailOptions, function(err, response) {
-    if (!err) { 
+  transporter.sendMail(mailOptions, (err, response) => {
+    if (!err) {
       res.status(200).send({
-        success: true, 
+        success: true,
         message: 'Email Sent.'
-      }); 
+      });
     } else {
       res.status(500).send({
-        success: false, 
+        success: false,
         message: 'Server Error!'
-      });  
+      });
     }
     transporter.close();
   });

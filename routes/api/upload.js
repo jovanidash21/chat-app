@@ -4,10 +4,10 @@ var multer = require('multer');
 var slash = require('slash');
 
 var imageStorage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, './uploads/');
   },
-  filename: function(req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
   }
 });
@@ -28,7 +28,7 @@ var imageUpload = multer({
   }
 });
 
-router.post('/image', imageUpload.single('image'), function(req, res, next) {
+router.post('/image', imageUpload.single('image'), (req, res, next) => {
   if (req.user === undefined) {
     res.status(401).send({
       success: false,

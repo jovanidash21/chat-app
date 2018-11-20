@@ -10,7 +10,7 @@ passport.use(new Strategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: '/api/login/google/callback'
-}, function(accessToken, refreshToken, profile, done) {
+}, (accessToken, refreshToken, profile, done) => {
   var username = 'google/' + profile.id;
   var name = profile.displayName;
   var email = profile.email;
@@ -31,10 +31,10 @@ passport.use(new Strategy({
     accountType: 'google'
   }
 
-  User.findOne({username: username}, function(err, user) {
+  User.findOne({username: username}, (err, user) => {
     if (!err) {
       if (user !== null) {
-        user.update(userData, function(err) {
+        user.update(userData, (err) => {
           if (!err) {
             return done(null, user);
           } else {
@@ -100,7 +100,7 @@ router.get('/', passport.authenticate('google', {
   ]
 }));
 
-router.get('/callback', passport.authenticate('google'), function(req, res) {
+router.get('/callback', passport.authenticate('google'), (req, res) => {
   res.send(popupTools.popupResponse({userData: req.user}));
 });
 

@@ -4,7 +4,7 @@ var User = require('../../models/User');
 var ChatRoom = require('../../models/ChatRoom');
 var Message = require('../../models/Message');
 
-router.post('/', function(req, res, next) {
+router.post('/', (req, res, next) => {
   var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
@@ -59,7 +59,7 @@ router.post('/', function(req, res, next) {
   }
 });
 
-router.post('/create', function(req, res, next) {
+router.post('/create', (req, res, next) => {
   if (req.user === undefined) {
     res.status(401).send({
       success: false,
@@ -95,7 +95,7 @@ router.post('/create', function(req, res, next) {
         message: 'Please select at least 3 members'
       });
     } else {
-      ChatRoom.findOne({members: {$all: members}, chatType: 'direct'}, function(err, chatRoom) {
+      ChatRoom.findOne({members: {$all: members}, chatType: 'direct'}, (err, chatRoom) => {
         if (!err) {
           if (chatRoom !== null) {
             res.status(401).send({
@@ -151,7 +151,7 @@ router.post('/create', function(req, res, next) {
   }
 });
 
-router.post('/clear-unread', function(req, res, next) {
+router.post('/clear-unread', (req, res, next) => {
   if (req.user === undefined) {
     res.status(401).send({
       success: false,
@@ -188,7 +188,7 @@ router.post('/clear-unread', function(req, res, next) {
   }
 });
 
-router.post('/mute', function(req, res, next) {
+router.post('/mute', (req, res, next) => {
   if (req.user === undefined) {
     res.status(401).send({
       success: false,
@@ -219,7 +219,7 @@ router.post('/mute', function(req, res, next) {
   }
 });
 
-router.post('/unmute', function(req, res, next) {
+router.post('/unmute', (req, res, next) => {
   if (req.user === undefined) {
     res.status(401).send({
       success: false,
@@ -250,7 +250,7 @@ router.post('/unmute', function(req, res, next) {
   }
 });
 
-router.get('/count', function(req, res, next) {
+router.get('/count', (req, res, next) => {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
@@ -274,7 +274,7 @@ router.get('/count', function(req, res, next) {
   }
 });
 
-router.post('/select', function(req, res, next) {
+router.post('/select', (req, res, next) => {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
@@ -319,7 +319,7 @@ router.post('/select', function(req, res, next) {
   }
 });
 
-router.get('/all', function(req, res, next) {
+router.get('/all', (req, res, next) => {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
@@ -368,7 +368,7 @@ router.get('/all', function(req, res, next) {
   }
 });
 
-router.post('/edit', function(req, res, next) {
+router.post('/edit', (req, res, next) => {
   var chatRoomID = req.body.chatRoomID;
 
   if (req.user === undefined || req.user.role !== 'admin') {
@@ -447,7 +447,7 @@ router.post('/edit', function(req, res, next) {
   }
 });
 
-router.post('/delete', function(req, res, next) {
+router.post('/delete', (req, res, next) => {
   var chatRoomID = req.body.chatRoomID;
 
   if (req.user === undefined || req.user.role !== 'admin') {

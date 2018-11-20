@@ -11,7 +11,7 @@ passport.use(new Strategy({
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
   callbackURL: '/api/login/twitter/callback',
   includeEmail: true
-}, function(token, tokenSecret, profile, done) {
+}, (token, tokenSecret, profile, done) => {
   var username = 'twitter/' + profile.id;
   var name = profile.displayName;
   var email;
@@ -38,10 +38,10 @@ passport.use(new Strategy({
     accountType: 'twitter'
   }
 
-  User.findOne({username: username}, function(err, user) {
+  User.findOne({username: username}, (err, user) => {
     if (!err) {
       if (user !== null) {
-        user.update(userData, function(err) {
+        user.update(userData, (err) => {
           if (!err) {
             return done(null, user);
           } else {
@@ -102,7 +102,7 @@ passport.use(new Strategy({
 
 router.get('/', passport.authenticate('twitter'));
 
-router.get('/callback', passport.authenticate('twitter'), function(req, res) {
+router.get('/callback', passport.authenticate('twitter'), (req, res) => {
   res.send(popupTools.popupResponse({userData: req.user}));
 });
 

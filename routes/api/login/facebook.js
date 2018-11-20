@@ -11,7 +11,7 @@ passport.use(new Strategy({
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: '/api/login/facebook/callback',
   profileFields: ['id', 'displayName', 'emails', 'picture.type(large)']
-}, function(accessToken, refreshToken, profile, done) {
+}, (accessToken, refreshToken, profile, done) => {
   var username = 'facebook/' + profile.id;
   var name = profile.displayName;
   var email;
@@ -37,10 +37,10 @@ passport.use(new Strategy({
     accountType: 'facebook'
   }
 
-  User.findOne({username: username}, function(err, user) {
+  User.findOne({username: username}, (err, user) => {
     if (!err) {
       if (user !== null) {
-        user.update(userData, function(err) {
+        user.update(userData, (err) => {
           if (!err) {
             return done(null, user);
           } else {
@@ -103,7 +103,7 @@ router.get('/', passport.authenticate('facebook', {
   scope : ['email']
 }));
 
-router.get('/callback', passport.authenticate('facebook'), function(req, res) {
+router.get('/callback', passport.authenticate('facebook'), (req, res) => {
   res.send(popupTools.popupResponse({userData: req.user}));
 });
 

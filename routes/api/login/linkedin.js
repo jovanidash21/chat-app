@@ -12,7 +12,7 @@ passport.use(new Strategy({
   callbackURL: '/api/login/linkedin/callback',
   scope: ['r_emailaddress', 'r_basicprofile'],
   state: true
-}, function(accessToken, refreshToken, profile, done) {
+}, (accessToken, refreshToken, profile, done) => {
   var username = 'linkedin/' + profile.id;
   var name = profile.displayName;
   var email;
@@ -38,10 +38,10 @@ passport.use(new Strategy({
     accountType: 'linkedin'
   }
 
-  User.findOne({username: username}, function(err, user) {
+  User.findOne({username: username}, (err, user) => {
     if (!err) {
       if (user !== null) {
-        user.update(userData, function(err) {
+        user.update(userData, (err) => {
           if (!err) {
             return done(null, user);
           } else {
@@ -103,7 +103,7 @@ passport.use(new Strategy({
 
 router.get('/', passport.authenticate('linkedin'));
 
-router.get('/callback', passport.authenticate('linkedin'), function(req, res) {
+router.get('/callback', passport.authenticate('linkedin'), (req, res) => {
   res.send(popupTools.popupResponse({userData: req.user}));
 });
 

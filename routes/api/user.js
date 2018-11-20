@@ -4,7 +4,7 @@ var User = require('../../models/User');
 var ChatRoom = require('../../models/ChatRoom');
 var Message = require('../../models/Message');
 
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   if (req.user === undefined) {
     res.status(401).send({
       success: false,
@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
   }
 });
 
-router.post('/search', function(req, res, next) {
+router.post('/search', (req, res, next) => {
   if (req.user === undefined) {
     res.status(401).send({
       success: false,
@@ -45,7 +45,7 @@ router.post('/search', function(req, res, next) {
   }
 });
 
-router.get('/count', function(req, res, next) {
+router.get('/count', (req, res, next) => {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
@@ -69,7 +69,7 @@ router.get('/count', function(req, res, next) {
   }
 });
 
-router.get('/graph', function(req, res, next) {
+router.get('/graph', (req, res, next) => {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
@@ -133,7 +133,7 @@ router.get('/graph', function(req, res, next) {
   }
 });
 
-router.post('/select', function(req, res, next) {
+router.post('/select', (req, res, next) => {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
@@ -159,7 +159,7 @@ router.post('/select', function(req, res, next) {
   }
 });
 
-router.get('/all', function(req, res, next) {
+router.get('/all', (req, res, next) => {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
@@ -183,7 +183,7 @@ router.get('/all', function(req, res, next) {
   }
 });
 
-router.post('/create', function(req, res, next) {
+router.post('/create', (req, res, next) => {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
@@ -200,7 +200,7 @@ router.post('/create', function(req, res, next) {
     };
     var user = new User(userData);
 
-    User.register(user, req.body.password, function(err) {
+    User.register(user, req.body.password, (err) => {
       if (!err) {
         var chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
         var userID = user._id;
@@ -259,7 +259,7 @@ router.post('/create', function(req, res, next) {
   }
 });
 
-router.post('/edit', function(req, res, next) {
+router.post('/edit', (req, res, next) => {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
@@ -302,7 +302,7 @@ router.post('/edit', function(req, res, next) {
   }
 });
 
-router.post('/delete', function(req, res, next) {
+router.post('/delete', (req, res, next) => {
   var userID = req.body.userID;
 
   if (req.user === undefined || req.user.role !== 'admin') {

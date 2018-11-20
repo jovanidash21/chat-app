@@ -4,7 +4,7 @@ var passport = require('passport');
 var User = require('../../models/User');
 var ChatRoom = require('../../models/ChatRoom');
 
-router.post('/', function(req, res, next) {
+router.post('/', (req, res, next) => {
   var userData = {
     username: req.body.username,
     name: req.body.name,
@@ -12,10 +12,10 @@ router.post('/', function(req, res, next) {
     accountType: 'local'
   };
 
-  User.register(new User(userData), req.body.password, function(err) {
+  User.register(new User(userData), req.body.password, (err) => {
     if (!err) {
-      passport.authenticate('local', function(err, user) {
-        req.logIn(user, function(err) {
+      passport.authenticate('local', (err, user) => {
+        req.logIn(user, (err) => {
           if (!err ) {
             var chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
             var userID = user._id;

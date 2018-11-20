@@ -10,7 +10,7 @@ passport.use(new Strategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
   callbackURL: '/api/login/github/callback'
-}, function(accessToken, refreshToken, profile, done) {
+}, (accessToken, refreshToken, profile, done) => {
   var username = 'github/' + profile.id;
   var name = profile.displayName;
   var email;
@@ -36,10 +36,10 @@ passport.use(new Strategy({
     accountType: 'github'
   }
 
-  User.findOne({username: username}, function(err, user) {
+  User.findOne({username: username}, (err, user) => {
     if (!err) {
       if (user !== null) {
-        user.update(userData, function(err) {
+        user.update(userData, (err) => {
           if (!err) {
             return done(null, user);
           } else {
@@ -101,7 +101,7 @@ passport.use(new Strategy({
 
 router.get('/', passport.authenticate('github'));
 
-router.get('/callback', passport.authenticate('github'), function(req, res) {
+router.get('/callback', passport.authenticate('github'), (req, res) => {
   res.send(popupTools.popupResponse({userData: req.user}));
 });
 

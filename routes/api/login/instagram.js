@@ -10,7 +10,7 @@ passport.use(new Strategy({
   clientID: process.env.INSTAGRAM_CLIENT_ID,
   clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
   callbackURL: '/api/login/instagram/callback'
-}, function(accessToken, refreshToken, profile, done) {
+}, (accessToken, refreshToken, profile, done) => {
   var username = 'instagram/' + profile.id;
   var name = profile.displayName;
   var profilePicture = profile._json.data.profile_picture.replace('s150x150', 's200x200');
@@ -22,10 +22,10 @@ passport.use(new Strategy({
     accountType: 'instagram'
   }
 
-  User.findOne({username: username}, function(err, user) {
+  User.findOne({username: username}, (err, user) => {
     if (!err) {
       if (user !== null) {
-        user.update(userData, function(err) {
+        user.update(userData, (err) => {
           if (!err) {
             return done(null, user);
           } else {
@@ -86,7 +86,7 @@ passport.use(new Strategy({
 
 router.get('/', passport.authenticate('instagram'));
 
-router.get('/callback', passport.authenticate('instagram'), function(req, res) {
+router.get('/callback', passport.authenticate('instagram'), (req, res) => {
   res.send(popupTools.popupResponse({userData: req.user}));
 });
 

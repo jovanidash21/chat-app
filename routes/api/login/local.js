@@ -8,8 +8,8 @@ passport.use(new Strategy(
   User.authenticate()
 ));
 
-router.post('/', function(req, res, next) {
-  passport.authenticate('local', function(err, user) {
+router.post('/', (req, res, next) => {
+  passport.authenticate('local', (err, user) => {
     if (!err) {
       if (!user) {
         res.status(401).send({
@@ -17,7 +17,7 @@ router.post('/', function(req, res, next) {
           message: 'Invalid username or password'
         });
       } else {
-        req.logIn(user, function(err) {
+        req.logIn(user, (err) => {
           if (!err) {
             res.status(200).send({
               success: true,

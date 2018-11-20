@@ -7,19 +7,19 @@ var multer = require('multer');
 var slash = require('slash');
 
 var fileStorage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, './uploads/');
   },
-  filename: function(req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
   }
 });
 
 var audioStorage = multer.diskStorage({
-  destination: function(req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, './uploads/audio/');
   },
-  filename: function(req, file, cb) {
+  filename: (req, file, cb) => {
     cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname + '.webm');
   }
 });
@@ -47,7 +47,7 @@ var audioUpload = multer({
   }
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', (req, res, next) => {
   var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
@@ -107,7 +107,7 @@ router.post('/', function(req, res, next) {
   }
 });
 
-router.post('/text', function(req, res, next) {
+router.post('/text', (req, res, next) => {
   var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
@@ -167,7 +167,7 @@ router.post('/text', function(req, res, next) {
   }
 });
 
-router.post('/file', fileUpload.single('file'), function(req, res, next) {
+router.post('/file', fileUpload.single('file'), (req, res, next) => {
   var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
@@ -235,7 +235,7 @@ router.post('/file', fileUpload.single('file'), function(req, res, next) {
   }
 });
 
-router.post('/audio', audioUpload.single('audio'), function(req, res, next) {
+router.post('/audio', audioUpload.single('audio'), (req, res, next) => {
   var chatRoomID = req.body.chatRoomID;
   var userID = req.body.userID;
 
@@ -297,7 +297,7 @@ router.post('/audio', audioUpload.single('audio'), function(req, res, next) {
   }
 });
 
-router.get('/count', function(req, res, next) {
+router.get('/count', (req, res, next) => {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
@@ -321,7 +321,7 @@ router.get('/count', function(req, res, next) {
   }
 });
 
-router.post('/delete', function(req, res, next) {
+router.post('/delete', (req, res, next) => {
   var messageID = req.body.messageID;
   var chatRoomID = req.body.chatRoomID;
 

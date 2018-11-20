@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router({mergeParams: true});
 var ChatRoom = require('../../models/ChatRoom');
 
-router.post('/', function(req, res, next) {
+router.post('/', (req, res, next) => {
   var userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
