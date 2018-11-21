@@ -8,7 +8,7 @@ const NotificationCount = (props) => {
       className={"notification-count " + (props.small ? 'small' : '')}
       title={props.title}
     >
-      {props.count <= 100 ? props.count : '100 +'}
+      {props.count <= 99 ? props.count : '99+'}
     </div>
   );
 }
