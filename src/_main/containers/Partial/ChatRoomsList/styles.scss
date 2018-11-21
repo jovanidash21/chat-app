@@ -22,10 +22,10 @@
       color: $color-alto;
       cursor: pointer;
       font-size: 21px;
-      transition: all 0.2s ease;
+      transition: all 0.1s ease-in-out;
       &:hover {
         color: $color-primary;
-        transform: scale(1.2);
+        transform: scale(1.5);
       }
     }
   }
