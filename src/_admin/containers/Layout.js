@@ -50,7 +50,7 @@ class Layout extends Component {
       </MediaQuery>
     )
   }
-  handleLeftSideDrawerToggleEvent(openTheDrawer: false) {
+  handleLeftSideDrawerToggleEvent(openTheDrawer=false) {
     this.setState({isLeftSideDrawerOpen: openTheDrawer});
   }
   handleLeftSideDrawerToggleState(state) {
