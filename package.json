@@ -117,7 +117,7 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "react-simple-contenteditable": "0.0.3",
     "react-spinkit": "^3.0.0",
-    "react-svg": "^6.0.18",
+    "react-svg": "^7.1.0",
     "react-timeago": "^3.4.3",
     "recharts": "^1.1.0",
     "redux": "^4.0.1",
