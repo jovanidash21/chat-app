@@ -1,0 +1,48 @@
+.chat-popup-window {
+  background-color: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.16), 0 0 2px 0 rgba(0,0,0,.12);
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  left: 5px;
+  position: absolute;
+  top: 5px;
+  width: 300px;
+  .popup-header {
+    align-items: center;
+    background-color: $color-primary;
+    color: #fff;
+    cursor: all-scroll;
+    display: flex;
+    font-size: 15px;
+    padding: 7px 10px;
+    .chat-room-name {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .close-icon {
+      color: $color-mine-shaft;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  .popup-body {
+    @include scrollbar($color-mine-shaft);
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    &.loading {
+      height: 100%;
+    }
+  }
+  .popup-footer {
+    background-color: $color-gallery;
+    height: 40px;
+  }
+}

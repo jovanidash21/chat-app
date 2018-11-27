@@ -14,6 +14,7 @@ import {
   ChatImageLightBox,
   ChatDragDropBox
 } from '../../../components/Chat';
+import { ChatPopUpWindow } from '../ChatPopUpWindow';
 import { DeleteMessageModal } from '../DeleteMessageModal';
 import './styles.scss';
 
@@ -376,6 +377,7 @@ class ChatBox extends Component {
           ref={(element) => { this.chatBox = element; }}
         >
           {::this.handleChatBoxRender()}
+          <ChatPopUpWindow />
         </div>
         {::this.handleImageLightboxRender()}
         {::this.handleDragDropBoxRender()}
