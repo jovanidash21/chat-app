@@ -377,7 +377,10 @@ class ChatBox extends Component {
           ref={(element) => { this.chatBox = element; }}
         >
           {::this.handleChatBoxRender()}
-          <ChatPopUpWindow />
+          <div className="chat-popup-window-wrapper">
+            <ChatPopUpWindow />
+            <ChatPopUpWindow />
+          </div>
         </div>
         {::this.handleImageLightboxRender()}
         {::this.handleDragDropBoxRender()}

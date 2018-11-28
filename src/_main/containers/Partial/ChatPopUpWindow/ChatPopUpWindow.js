@@ -14,22 +14,26 @@ class ChatPopUpWindow extends Component {
   render() {
 
     return (
-      <div className="chat-popup-window">
-        <div className="popup-header">
-          <div className="chat-room-name">
-            Chat Room Name
-          </div>
-          <div className="close-icon">
-            <FontAwesomeIcon icon="times" />
-          </div>
-        </div>
-        <div className="popup-body">
+      <Draggable bounds="parent" handle="strong">
+        <div className="chat-popup-window">
+          <strong>
+            <div className="popup-header">
+              <div className="chat-room-name">
+                Chat Room Name
+              </div>
+              <div className="close-icon">
+                <FontAwesomeIcon icon="times" />
+              </div>
+            </div>
+          </strong>
+          <div className="popup-body">
 
-        </div>
-        <div className="popup-footer">
+          </div>
+          <div className="popup-footer">
 
+          </div>
         </div>
-      </div>
+      </Draggable>
     )
   }
 }
