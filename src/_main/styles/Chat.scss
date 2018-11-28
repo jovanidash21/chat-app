@@ -14,7 +14,7 @@ body.chat-page {
     }
   }
   .header {
-    z-index: 3;
+    z-index: 999;
     .hamburger-icon {
       @media screen and (min-width: $screen-tablet-min) {
         display: none;
@@ -22,18 +22,13 @@ body.chat-page {
     }
   }
   .bm-menu-wrap {
-    z-index: 4 !important;
+    z-index: 1000 !important;
   }
-  .left-side-drawer-overlay {
-    &,
-    & + .bm-menu-wrap {
-      z-index: 4 !important;
-    }
-  }
+  .left-side-drawer-overlay,
   .right-side-drawer-overlay {
     &,
     & + .bm-menu-wrap {
-      z-index: 5 !important;
+      z-index: 1000 !important;
     }
   }
   .bm-cross-button,
