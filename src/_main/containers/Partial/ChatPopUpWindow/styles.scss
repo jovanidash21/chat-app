@@ -6,6 +6,15 @@
   height: 300px;
   position: absolute;
   width: 300px;
+  @for $i from 0 to 5 {
+    &:nth-child(#{$i + 1}) {
+      left: #{$i * 15}px;
+      top: #{$i * 15}px;
+    }
+  }
+  &.active {
+    z-index: 500;
+  }
   .popup-header {
     align-items: center;
     background-color: $color-primary;

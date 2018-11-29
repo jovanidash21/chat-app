@@ -33,7 +33,8 @@ class ChatBox extends Component {
       imageIndex: -1,
       audioIndex: -1,
       isModalOpen: false,
-      selectedMessageID: ''
+      selectedMessageID: '',
+      activeChatPopUpWindow: 0
     };
   }
   componentDidMount() {
@@ -355,6 +356,9 @@ class ChatBox extends Component {
       selectedMessageID: ''
     });
   }
+  handleActiveChatPopUpWindow(popUpIndex) {
+    this.setState({activeChatPopUpWindow: popUpIndex});
+  }
   render() {
     const {
       user,
@@ -367,7 +371,8 @@ class ChatBox extends Component {
     } = this.props;
     const {
       isModalOpen,
-      selectedMessageID
+      selectedMessageID,
+      activeChatPopUpWindow
     } = this.state;
 
     return (
@@ -378,8 +383,31 @@ class ChatBox extends Component {
         >
           {::this.handleChatBoxRender()}
           <div className="chat-popup-window-wrapper">
-            <ChatPopUpWindow />
-            <ChatPopUpWindow />
+            <ChatPopUpWindow
+              index={1}
+              handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
+              active={activeChatPopUpWindow === 1}
+            />
+            <ChatPopUpWindow
+              index={2}
+              handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
+              active={activeChatPopUpWindow === 2}
+            />
+            <ChatPopUpWindow
+              index={3}
+              handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
+              active={activeChatPopUpWindow === 3}
+            />
+            <ChatPopUpWindow
+              index={4}
+              handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
+              active={activeChatPopUpWindow === 4}
+            />
+            <ChatPopUpWindow
+              index={5}
+              handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
+              active={activeChatPopUpWindow === 5}
+            />
           </div>
         </div>
         {::this.handleImageLightboxRender()}

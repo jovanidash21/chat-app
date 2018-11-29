@@ -11,21 +11,33 @@ class ChatPopUpWindow extends Component {
   constructor(props) {
     super(props);
   }
+  handleActiveChatPopUpWindow(event) {
+    event.preventDefault();
+
+    const {
+      index,
+      handleActiveChatPopUpWindow
+    } = this.props;
+
+    handleActiveChatPopUpWindow(index);
+  }
   render() {
+    const { active } = this.props;
 
     return (
-      <Draggable bounds="parent" handle="strong">
-        <div className="chat-popup-window">
-          <strong>
-            <div className="popup-header">
-              <div className="chat-room-name">
-                Chat Room Name
-              </div>
-              <div className="close-icon">
-                <FontAwesomeIcon icon="times" />
-              </div>
+      <Draggable bounds="parent" handle=".popup-header">
+        <div
+          className={"chat-popup-window " + (active ? 'active' : '')}
+          onClick={::this.handleActiveChatPopUpWindow}
+        >
+          <div className="popup-header">
+            <div className="chat-room-name">
+              Chat Room Name
             </div>
-          </strong>
+            <div className="close-icon">
+              <FontAwesomeIcon icon="times" />
+            </div>
+          </div>
           <div className="popup-body">
 
           </div>
@@ -48,7 +60,13 @@ const mapStateToProps = (state) => {
 }
 
 ChatPopUpWindow.propTypes = {
+  index: PropTypes.number.isRequired,
+  handleActiveChatPopUpWindow: PropTypes.func.isRequired,
+  active: PropTypes.bool
+}
 
+ChatPopUpWindow.defaultProps = {
+  active: false
 }
 
 export default connect(
