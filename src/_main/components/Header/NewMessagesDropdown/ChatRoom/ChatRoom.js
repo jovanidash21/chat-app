@@ -64,8 +64,12 @@ class NewMessagesDropdownChatRoom extends Component {
             title={chatRoom.unReadMessages + " New " + (chatRoom.unReadMessages > 1 ? 'Messages' : 'Message')}
           />
         }
-        <div className="clear-icon" onClick={::this.handleClearChatRoomUnreadMessages}>
-          <FontAwesomeIcon icon="times" />
+        <div
+          className="check-icon"
+          title="Mark as Read"
+          onClick={::this.handleClearChatRoomUnreadMessages}
+        >
+          <FontAwesomeIcon icon="check-double" />
         </div>
       </div>
     )

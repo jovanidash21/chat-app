@@ -15,7 +15,7 @@
     .notification-count {
       margin-right: 3px;
     }
-    .clear-icon {
+    .check-icon {
       margin-right: 3px;
       width: 15px;
     }
@@ -34,10 +34,11 @@
     margin: 0 10px 0 3px;
     transition: $transition;
   }
-  .clear-icon {
+  .check-icon {
     align-items: center;
     color: $color-mine-shaft;
     display: flex;
+    font-size: 12px;
     justify-content: center;
     opacity: 0.5;
     overflow-x: hidden;
