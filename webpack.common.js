@@ -91,6 +91,7 @@ module.exports = {
                 resources: [
                   path.join(__dirname, '/sass/variables.scss'),
                   path.join(__dirname, '/sass/mixins.scss'),
+                  path.join(__dirname, '/sass/functions.scss'),
                 ],
               },
             },
