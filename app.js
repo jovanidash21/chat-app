@@ -71,9 +71,24 @@ app.use('/', admin);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  res.status(404);
+
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('index',{
+      title: '404 | Page not found'
+    });
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Page Not Found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Page Not Found');
 });
 
 // error handler

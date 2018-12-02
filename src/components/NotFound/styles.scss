@@ -1,0 +1,22 @@
+.not-found {
+  align-items: center;
+  background-color: $color-primary;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  .title {
+    color: #fff;
+    font-size: 200px;
+    line-height: 200px;
+    margin-bottom: 50px;
+    margin-top: 0;
+    text-shadow: long-shadow(150, 33, 140, 130, 38, 166, 154);
+  }
+  .content {
+    font-size: 21px;
+    font-weight: bold;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+}
