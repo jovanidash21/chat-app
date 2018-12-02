@@ -38,22 +38,22 @@ class ChatBubble extends Component {
         };
 
         messageText = messageText.replace(/ /g, "\u00a0");
-        messageText = messageText.split(/(\*[A-z0-9]+\*|\_[A-z0-9]+\_|\~[A-z0-9]+\~|\`\`\`[A-z0-9]+\`\`\`|\`[A-z0-9]+\`)/);
+        messageText = messageText.split(/(\*[A-z0-9\s]+\*|\_[A-z0-9\s]+\_|\~[A-z0-9\s]+\~|\`\`\`[A-z0-9\s]+\`\`\`|\`[A-z0-9\s]+\`)/);
 
         for (var i = 0; i < messageText.length; i++) {
           var tag = '';
           var slice = 1;
 
-          if ( /\*[A-z0-9]+\*/gi.test(messageText[i]) ) {
+          if ( /\*[A-z0-9\s]+\*/gi.test(messageText[i]) ) {
             tag = 'b';
-          } else if ( /\_[A-z0-9]+\_/gi.test(messageText[i]) ) {
+          } else if ( /\_[A-z0-9\s]+\_/gi.test(messageText[i]) ) {
             tag = 'i';
-          } else if ( /\~[A-z0-9]+\~/gi.test(messageText[i]) ) {
+          } else if ( /\~[A-z0-9\s]+\~/gi.test(messageText[i]) ) {
             tag = 'strike';
-          } else if ( /\`\`\`[A-z0-9]+\`\`\`/gi.test(messageText[i]) ) {
+          } else if ( /\`\`\`[A-z0-9\s]+\`\`\`/gi.test(messageText[i]) ) {
             tag = 'pre';
             slice = 3;
-          } else if ( /\`[A-z0-9]+\`/gi.test(messageText[i]) ) {
+          } else if ( /\`[A-z0-9\s]+\`/gi.test(messageText[i]) ) {
             tag = 'code';
           }
 
