@@ -20,7 +20,7 @@ const routes = (
       <AuthForm exact path="/" component={Login} title="Login" />
       <AuthForm exact path="/register" component={Register} title="Register" />
       <Layout exact path="/chat" component={Chat} />
-      <Layout path="*" component={NotFound} />
+      <Layout path="*" component={NotFound} title="Page not found" />
     </Switch>
   </div>
 );

@@ -27,7 +27,7 @@ const routes = (
       <Layout exact path="/all-chat-rooms" component={AllChatRooms} title="All Chat Rooms" />
       <Layout exact path="/create-chat-room" component={CreateChatRoom} title="Create Chat Room" />
       <Layout exact path="/edit-chat-room/:chatRoomID" component={EditChatRoom} title="Edit Chat Room" />
-      <Layout path="*" component={NotFound} />
+      <Layout path="*" component={NotFound} title="Chat App | Page not found" />
     </Switch>
   </div>
 );

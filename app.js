@@ -76,7 +76,7 @@ app.use((req, res, next) => {
   // respond with html page
   if (req.accepts('html')) {
     res.render('index',{
-      title: '404 | Page not found'
+      title: 'Chat App | Page not found'
     });
     return;
   }
