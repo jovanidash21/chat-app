@@ -84,6 +84,9 @@ pre {
     pointer-events: none;
   }
 }
+.bm-menu-wrap {
+  transition: all 0.5s cubic-bezier(0.3, 1, 0.25, 1) !important;
+}
 .mm-popup__box__footer {
   padding: 20px !important;
 }
