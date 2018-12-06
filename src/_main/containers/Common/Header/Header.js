@@ -38,6 +38,7 @@ class Header extends Component {
       user,
       chatRoom,
       changeChatRoom,
+      openPopUpChatRoom,
       children
     } = this.props;
     const newMessagesChatRooms = chatRoom.all.filter((singleChatRoom) =>
@@ -65,6 +66,7 @@ class Header extends Component {
           user={user.active}
           chatRooms={newMessagesChatRooms}
           activeChatRoom={chatRoom.active}
+          handleOpenPopUpChatRoom={openPopUpChatRoom}
           handleChangeChatRoom={changeChatRoom}
           handleClearChatRoomUnreadMessages={::this.handleClearChatRoomUnreadMessages}
         />

@@ -34,7 +34,7 @@ class ChatBox extends Component {
       audioIndex: -1,
       isModalOpen: false,
       selectedMessageID: '',
-      activeChatPopUpWindow: 0
+      activeChatPopUpWindow: -1
     };
   }
   componentDidMount() {
@@ -364,6 +364,7 @@ class ChatBox extends Component {
       user,
       typer,
       chatRoom,
+      popUpChatRoom,
       message,
       isTyping,
       isNotTyping,
@@ -382,14 +383,22 @@ class ChatBox extends Component {
           ref={(element) => { this.chatBox = element; }}
         >
           {::this.handleChatBoxRender()}
-          <div className="chat-popup-window-wrapper">
-            <ChatPopUpWindow
-              index={1}
-              popUpChatRoom={chatRoom.active}
-              handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
-              active={activeChatPopUpWindow === 1}
-            />
-          </div>
+          {
+            popUpChatRoom.all.length > 0 &&
+            <div className="chat-popup-window-wrapper">
+              {
+                popUpChatRoom.all.map((singlePopUpChatRoom, i) =>
+                  <ChatPopUpWindow
+                    key={i}
+                    index={i}
+                    popUpChatRoom={singlePopUpChatRoom}
+                    handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
+                    active={activeChatPopUpWindow === i}
+                  />
+                )
+              }
+            </div>
+          }
         </div>
         {::this.handleImageLightboxRender()}
         {::this.handleDragDropBoxRender()}
@@ -411,6 +420,7 @@ const mapStateToProps = (state) => {
     user: state.user,
     typer: state.typer,
     chatRoom: state.chatRoom,
+    popUpChatRoom: state.popUpChatRoom,
     message: state.message
   }
 }

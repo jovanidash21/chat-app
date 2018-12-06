@@ -31,6 +31,7 @@ class NewMessagesDropdown extends Component {
       user,
       chatRooms,
       activeChatRoom,
+      handleOpenPopUpChatRoom,
       handleChangeChatRoom,
       handleClearChatRoomUnreadMessages
     } = this.props;
@@ -69,6 +70,7 @@ class NewMessagesDropdown extends Component {
                         user={user}
                         chatRoom={singleChatRoom}
                         activeChatRoom={activeChatRoom}
+                        handleOpenPopUpChatRoom={handleOpenPopUpChatRoom}
                         handleChangeChatRoom={handleChangeChatRoom}
                         handleClearChatRoomUnreadMessages={handleClearChatRoomUnreadMessages}
                       />
@@ -91,6 +93,7 @@ NewMessagesDropdown.propTypes = {
   user: PropTypes.object.isRequired,
   chatRooms: PropTypes.array.isRequired,
   activeChatRoom: PropTypes.object.isRequired,
+  handleOpenPopUpChatRoom: PropTypes.func.isRequired,
   handleChangeChatRoom: PropTypes.func.isRequired,
   handleClearChatRoomUnreadMessages: PropTypes.func.isRequired
 }
