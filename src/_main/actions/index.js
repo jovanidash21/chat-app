@@ -27,6 +27,10 @@ import {
   unmuteChatRoom
 } from './chat-room';
 import {
+  openPopUpChatRoom,
+  closePopUpChatRoom
+} from './popup-chat-room';
+import {
   fetchOldMessages,
   sendTextMessage,
   sendFileMessage,
@@ -55,6 +59,8 @@ const actions = (dispatch) => {
     clearChatRoomUnreadMessages,
     muteChatRoom,
     unmuteChatRoom,
+    openPopUpChatRoom,
+    closePopUpChatRoom,
     fetchOldMessages,
     sendTextMessage,
     sendFileMessage,

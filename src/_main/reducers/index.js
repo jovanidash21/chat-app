@@ -6,6 +6,7 @@ import user from './user';
 import email from './email';
 import typer from './typer';
 import chatRoom from './chat-room';
+import popUpChatRoom from './popup-chat-room';
 import message from './message';
 import member from './member';
 
@@ -17,6 +18,7 @@ const appReducer = combineReducers({
   email,
   typer,
   chatRoom,
+  popUpChatRoom,
   message,
   member
 });
