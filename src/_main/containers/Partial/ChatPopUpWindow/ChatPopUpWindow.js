@@ -5,6 +5,8 @@ import Draggable from 'react-draggable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuidv4 from 'uuid/v4';
 import mapDispatchToProps from '../../../actions';
+import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
+import { Avatar } from '../../../../components/Avatar';
 import './styles.scss';
 
 class ChatPopUpWindow extends Component {
@@ -22,7 +24,11 @@ class ChatPopUpWindow extends Component {
     handleActiveChatPopUpWindow(index);
   }
   render() {
-    const { active } = this.props;
+    const {
+      user,
+      popUpChatRoom,
+      active
+    } = this.props;
 
     return (
       <Draggable bounds="parent" handle=".popup-header">
@@ -31,8 +37,18 @@ class ChatPopUpWindow extends Component {
           onClick={::this.handleActiveChatPopUpWindow}
         >
           <div className="popup-header">
+            <Avatar
+              image={popUpChatRoom.data.chatIcon}
+              name={popUpChatRoom.data.name}
+              roleChatType={handleChatRoomAvatarBadges(popUpChatRoom.data, user, 'role-chat')}
+              accountType={handleChatRoomAvatarBadges(popUpChatRoom.data, user)}
+            />
             <div className="chat-room-name">
-              Chat Room Name
+              {popUpChatRoom.data.name}
+              {
+                popUpChatRoom.data.chatType === 'private' &&
+                <span className="you-label">(you)</span>
+              }
             </div>
             <div className="close-icon">
               <FontAwesomeIcon icon="times" />
@@ -61,6 +77,7 @@ const mapStateToProps = (state) => {
 
 ChatPopUpWindow.propTypes = {
   index: PropTypes.number.isRequired,
+  popUpChatRoom: PropTypes.object.isRequired,
   handleActiveChatPopUpWindow: PropTypes.func.isRequired,
   active: PropTypes.bool
 }

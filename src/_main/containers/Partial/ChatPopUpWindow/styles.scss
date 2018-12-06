@@ -23,6 +23,9 @@
     display: flex;
     font-size: 15px;
     padding: 7px 10px;
+    .avatar {
+      margin-right: 12px;
+    }
     .chat-room-name {
       flex: 1;
       overflow: hidden;

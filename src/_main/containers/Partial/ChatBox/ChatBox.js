@@ -385,28 +385,9 @@ class ChatBox extends Component {
           <div className="chat-popup-window-wrapper">
             <ChatPopUpWindow
               index={1}
+              popUpChatRoom={chatRoom.active}
               handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
               active={activeChatPopUpWindow === 1}
-            />
-            <ChatPopUpWindow
-              index={2}
-              handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
-              active={activeChatPopUpWindow === 2}
-            />
-            <ChatPopUpWindow
-              index={3}
-              handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
-              active={activeChatPopUpWindow === 3}
-            />
-            <ChatPopUpWindow
-              index={4}
-              handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
-              active={activeChatPopUpWindow === 4}
-            />
-            <ChatPopUpWindow
-              index={5}
-              handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
-              active={activeChatPopUpWindow === 5}
             />
           </div>
         </div>
