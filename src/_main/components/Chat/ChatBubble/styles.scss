@@ -4,6 +4,7 @@
   &:hover {
     .chat-message {
       .trash-icon {
+        width: 27px;
         opacity: 0.5;
       }
     }
@@ -21,13 +22,18 @@
     align-items: center;
     display: flex;
     .trash-icon {
+      align-items: center;
       color: $color-torch-red;
       cursor: pointer;
+      display: flex;
+      justify-content: center;
       font-size: 17px;
+      height: 21px;
       line-height: 17px;
       opacity: 0;
-      padding: 5px;
-      transition: all 0.2s ease-in-out;
+      overflow-x: hidden;
+      transition: all 0.3s cubic-bezier(0.1, 0.9, 0.5, 1);
+      width: 0;
       @media screen and (max-width: $screen-mobile-max) {
         font-size: 15px;
         line-height: 15px;
