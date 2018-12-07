@@ -23,6 +23,16 @@ class ChatPopUpWindow extends Component {
 
     handleActiveChatPopUpWindow(index);
   }
+  handleClosePopUpChatRoom(event) {
+    event.preventDefault();
+
+    const {
+      popUpChatRoom,
+      closePopUpChatRoom
+    } = this.props;
+
+    closePopUpChatRoom( popUpChatRoom.data._id );
+  }
   render() {
     const {
       user,
@@ -50,7 +60,7 @@ class ChatPopUpWindow extends Component {
                 <span className="you-label">(you)</span>
               }
             </div>
-            <div className="close-icon">
+            <div className="close-icon" onClick={::this.handleClosePopUpChatRoom}>
               <FontAwesomeIcon icon="times" />
             </div>
           </div>

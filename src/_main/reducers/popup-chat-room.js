@@ -35,6 +35,18 @@ const popUpChatRoom = (state=initialState, action) => {
         ...state,
         all: [...chatRooms]
       };
+    case CLOSE_POPUP_CHAT_ROOM:
+      var chatRoomID = action.chatRoomID;
+      var chatRooms = [...state.all];
+
+      chatRooms = chatRooms.filter(singlChatRoom =>
+        singlChatRoom.data._id !== chatRoomID
+      );
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
     default:
       return state;
   }
