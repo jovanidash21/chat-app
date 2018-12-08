@@ -33,8 +33,7 @@ class ChatBox extends Component {
       imageIndex: -1,
       audioIndex: -1,
       isModalOpen: false,
-      selectedMessageID: '',
-      activeChatPopUpWindow: -1
+      selectedMessageID: ''
     };
   }
   componentDidMount() {
@@ -356,9 +355,6 @@ class ChatBox extends Component {
       selectedMessageID: ''
     });
   }
-  handleActiveChatPopUpWindow(popUpIndex) {
-    this.setState({activeChatPopUpWindow: popUpIndex});
-  }
   render() {
     const {
       user,
@@ -368,12 +364,13 @@ class ChatBox extends Component {
       message,
       isTyping,
       isNotTyping,
+      activeChatPopUpWindow,
+      handleActiveChatPopUpWindow,
       isAudioRecorderOpen
     } = this.props;
     const {
       isModalOpen,
-      selectedMessageID,
-      activeChatPopUpWindow
+      selectedMessageID
     } = this.state;
 
     return (
@@ -392,7 +389,7 @@ class ChatBox extends Component {
                     key={i}
                     index={i}
                     popUpChatRoom={singlePopUpChatRoom}
-                    handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
+                    handleActiveChatPopUpWindow={handleActiveChatPopUpWindow}
                     active={activeChatPopUpWindow === i}
                   />
                 )
@@ -426,12 +423,15 @@ const mapStateToProps = (state) => {
 }
 
 ChatBox.propTypes = {
+  activeChatPopUpWindow: PropTypes.number,
+  handleActiveChatPopUpWindow: PropTypes.func.isRequired,
   isAudioRecorderOpen: PropTypes.bool,
   handleDragDropBoxToggle: PropTypes.func.isRequired,
   isDragDropBoxOpen: PropTypes.bool
 }
 
 ChatBox.defaultProps = {
+  activeChatPopUpWindow: -1,
   isAudioRecorderOpen: false,
   isDragDropBoxOpen: false
 }

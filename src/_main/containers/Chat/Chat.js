@@ -28,6 +28,7 @@ class Chat extends Component {
     this.state = {
       isLeftSideDrawerOpen: false,
       isRightSideDrawerOpen: false,
+      activeChatPopUpWindow: -1,
       isAudioRecorderOpen: false,
       isDragDropBoxOpen: false
     };
@@ -95,12 +96,14 @@ class Chat extends Component {
     const activeChatRoom = chatRoom.active;
     const allPopUpChatRooms = popUpChatRoom.all;
     var chatRoomFound = false;
+    var popUpIndex = -1;
 
     for ( var i = 0; i < allPopUpChatRooms.length; i++ ) {
       var singleChatRoom = allPopUpChatRooms[i];
 
       if ( singleChatRoom.data._id === selectedChatRoom.data._id ) {
         chatRoomFound = true;
+        popUpIndex = i;
         break;
       }
     }
@@ -111,7 +114,13 @@ class Chat extends Component {
       }
 
       openPopUpChatRoom(selectedChatRoom, activeUser._id, activeChatRoom.data._id);
+      this.setState({activeChatPopUpWindow: allPopUpChatRooms.length});
+    } else {
+      this.setState({activeChatPopUpWindow: popUpIndex});
     }
+  }
+  handleActiveChatPopUpWindow(popUpIndex) {
+    this.setState({activeChatPopUpWindow: popUpIndex});
   }
   handleAudioRecorderToggle(event) {
     event.preventDefault();
@@ -165,6 +174,7 @@ class Chat extends Component {
     } = this.props;
     const {
       isRightSideDrawerOpen,
+      activeChatPopUpWindow,
       isAudioRecorderOpen,
       isDragDropBoxOpen
     } = this.state;
@@ -188,6 +198,8 @@ class Chat extends Component {
           />
         </Header>
         <ChatBox
+          activeChatPopUpWindow={activeChatPopUpWindow}
+          handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
           isAudioRecorderOpen={isAudioRecorderOpen}
           handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
           isDragDropBoxOpen={isDragDropBoxOpen}
