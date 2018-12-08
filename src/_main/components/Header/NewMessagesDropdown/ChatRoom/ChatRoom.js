@@ -14,13 +14,11 @@ class NewMessagesDropdownChatRoom extends Component {
     event.preventDefault();
 
     const {
-      user,
       chatRoom,
-      activeChatRoom,
-      handleOpenPopUpChatRoom
+      handleOpenPopUpChatRoom  
     } = this.props;
 
-    handleOpenPopUpChatRoom(chatRoom, user._id, activeChatRoom.data._id);
+    handleOpenPopUpChatRoom(chatRoom);
   }
   handleClearChatRoomUnreadMessages(event) {
     event.preventDefault();

@@ -24,10 +24,6 @@ const popUpChatRoom = (state=initialState, action) => {
       }
 
       if ( ! chatRoomFound ) {
-        if ( chatRooms.length >= 5 ) {
-          chatRooms.shift();
-        }
-
         chatRooms.push(chatRoom);
       }
 
