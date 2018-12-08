@@ -31,7 +31,7 @@ class ChatPopUpWindow extends Component {
       closePopUpChatRoom
     } = this.props;
 
-    closePopUpChatRoom( popUpChatRoom.data._id );
+    closePopUpChatRoom(popUpChatRoom.data._id);
   }
   render() {
     const {

@@ -22,7 +22,7 @@
     cursor: all-scroll;
     display: flex;
     font-size: 15px;
-    padding: 7px 10px;
+    padding: 7px 0 7px 10px;
     .avatar {
       margin-right: 12px;
     }
@@ -36,6 +36,7 @@
       color: $color-mine-shaft;
       cursor: pointer;
       opacity: 0.5;
+      padding: 0 10px;
       transition: all 0.2s ease-in-out;
       &:hover {
         opacity: 1;
