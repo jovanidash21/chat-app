@@ -30,9 +30,7 @@ const popUpChatRoom = (state=initialState, action) => {
       var chatRoomFound = false;
 
       for ( var i = 0; i < chatRoom.length; i++ ) {
-        var singleChatRoom = chatRooms[i];
-
-        if ( singleChatRoom.data._id === chatRoom.data._id ) {
+        if ( chatRooms[i].data._id === chatRoom.data._id ) {
           chatRoomFound = true;
           break;
         }
@@ -67,16 +65,16 @@ const popUpChatRoom = (state=initialState, action) => {
       var chatRooms = [...state.all];
 
       for ( var i = 0; i < chatRooms.length; i++ ) {
-        var singleChatRoom = chatRooms[i];
-
-        if ( singleChatRoom.data._id === chatRoomID ) {
-          const fetchNew = {...singleChatRoom.message.fetchNew};
-
-          singleChatRoom.message.fetchNew = {
-            ...fetchNew,
-            loading: true,
+        if ( chatRooms[i].data._id === chatRoomID ) {
+          chatRooms[i].message = {
+            fetchNew: {
+              ...chatRooms[i].message.fetchNew,
+              loading: true
+            }
           };
           break;
+        } else {
+          continue;
         }
       }
 
@@ -89,18 +87,19 @@ const popUpChatRoom = (state=initialState, action) => {
       var chatRooms = [...state.all];
 
       for ( var i = 0; i < chatRooms.length; i++ ) {
-        var singleChatRoom = chatRooms[i];
-
-        if ( singleChatRoom.data._id === chatRoomID ) {
-          const fetchNew = {...singleChatRoom.message.fetchNew};
-
-          singleChatRoom.message.fetchNew = {
-            loading: false,
-            success: true,
-            error: false,
-            message: action.payload.data.message
+        if ( chatRooms[i].data._id === chatRoomID ) {
+          chatRooms[i].message = {
+            fetchNew: {
+              ...chatRooms[i].message.fetchNew,
+              loading: false,
+              success: true,
+              error: false,
+              message: action.payload.data.message
+            }
           };
           break;
+        } else {
+          continue;
         }
       }
 
@@ -113,19 +112,19 @@ const popUpChatRoom = (state=initialState, action) => {
       var chatRooms = [...state.all];
 
       for ( var i = 0; i < chatRooms.length; i++ ) {
-        var singleChatRoom = chatRooms[i];
-
-        if ( singleChatRoom.data._id === chatRoomID ) {
-          const fetchNew = {...singleChatRoom.message.fetchNew};
-
-          singleChatRoom.message.fetchNew = {
-            ...fetchNew,
-            loading: false,
-            success: false,
-            error: true,
-            message: action.payload.response.data.message
+        if ( chatRooms[i].data._id === chatRoomID ) {
+          chatRooms[i].message = {
+            fetchNew: {
+              ...chatRooms[i].message.fetchNew,
+              loading: false,
+              success: true,
+              error: false,
+              message: action.payload.response.data.message
+            }
           };
           break;
+        } else {
+          continue;
         }
       }
 
