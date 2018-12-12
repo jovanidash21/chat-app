@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { connectRouter } from 'connected-react-router';
 import { loadingBarReducer } from 'react-redux-loading-bar';
+import history from '../../history';
 import auth from './auth';
 import user from './user';
 import email from './email';
@@ -11,7 +12,7 @@ import message from './message';
 import member from './member';
 
 const appReducer = combineReducers({
-  router: routerReducer,
+  router: connectRouter(history),
   loadingBar: loadingBarReducer,
   auth,
   user,

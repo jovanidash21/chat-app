@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
-import { routerMiddleware } from 'react-router-redux';
+import { routerMiddleware } from 'connected-react-router';
 import { loadingBarMiddleware } from 'react-redux-loading-bar';
 import createSocketIoMiddleware from 'redux-socket.io';
 import socket from '../../socket';
