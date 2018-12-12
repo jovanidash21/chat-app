@@ -1,7 +1,7 @@
 import axios from 'axios';
 import popupTools from 'popup-tools';
 import { showLoading, hideLoading } from 'react-redux-loading-bar';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { sendEmail } from './email';
 import {
   LOGIN,
