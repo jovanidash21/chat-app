@@ -4,20 +4,6 @@ import {
   FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES
 } from '../constants/popup-chat-room';
 
-const commonStateFlags = {
-  loading: false,
-  success: false,
-  error: false,
-  message: ''
-};
-
-const popUpChatRoomState = {
-  message: {
-    fetchNew: {...commonStateFlags},
-    all: []
-  }
-};
-
 const initialState = {
   all: []
 };
@@ -27,20 +13,10 @@ const popUpChatRoom = (state=initialState, action) => {
     case OPEN_POPUP_CHAT_ROOM:
       var chatRoom = action.chatRoom;
       var chatRooms = [...state.all];
-      var chatRoomFound = false;
 
-      for ( var i = 0; i < chatRoom.length; i++ ) {
-        if ( chatRooms[i].data._id === chatRoom.data._id ) {
-          chatRoomFound = true;
-          break;
-        }
-      }
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoom.data._id);
 
-      if ( ! chatRoomFound ) {
-        chatRoom = {
-          ...chatRoom,
-          ...popUpChatRoomState
-        };
+      if ( chatRoomIndex === -1  ) {
         chatRooms.push(chatRoom);
       }
 
@@ -64,18 +40,15 @@ const popUpChatRoom = (state=initialState, action) => {
       var chatRoomID = action.meta;
       var chatRooms = [...state.all];
 
-      for ( var i = 0; i < chatRooms.length; i++ ) {
-        if ( chatRooms[i].data._id === chatRoomID ) {
-          chatRooms[i].message = {
-            fetchNew: {
-              ...chatRooms[i].message.fetchNew,
-              loading: true
-            }
-          };
-          break;
-        } else {
-          continue;
-        }
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+
+      console.log(chatRoomIndex);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].message.fetchNew = {
+          ...chatRooms[chatRoomIndex].message.fetchNew,
+          loading: true
+        };
       }
 
       return {
@@ -86,21 +59,16 @@ const popUpChatRoom = (state=initialState, action) => {
       var chatRoomID = action.meta;
       var chatRooms = [...state.all];
 
-      for ( var i = 0; i < chatRooms.length; i++ ) {
-        if ( chatRooms[i].data._id === chatRoomID ) {
-          chatRooms[i].message = {
-            fetchNew: {
-              ...chatRooms[i].message.fetchNew,
-              loading: false,
-              success: true,
-              error: false,
-              message: action.payload.data.message
-            }
-          };
-          break;
-        } else {
-          continue;
-        }
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].message.fetchNew = {
+          ...chatRooms[chatRoomIndex].message.fetchNew,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        };
       }
 
       return {
@@ -111,21 +79,16 @@ const popUpChatRoom = (state=initialState, action) => {
       var chatRoomID = action.meta;
       var chatRooms = [...state.all];
 
-      for ( var i = 0; i < chatRooms.length; i++ ) {
-        if ( chatRooms[i].data._id === chatRoomID ) {
-          chatRooms[i].message = {
-            fetchNew: {
-              ...chatRooms[i].message.fetchNew,
-              loading: false,
-              success: true,
-              error: false,
-              message: action.payload.response.data.message
-            }
-          };
-          break;
-        } else {
-          continue;
-        }
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].message.fetchNew = {
+          ...chatRooms[chatRoomIndex].message.fetchNew,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        };
       }
 
       return {

@@ -19,10 +19,27 @@ const baseURL = getBaseURL();
  * @param {string} activeChatRoomID
  */
 export function openPopUpChatRoom(chatRoom, userID, activeChatRoomID) {
+  const commonStateFlags = {
+    loading: false,
+    success: false,
+    error: false,
+    message: ''
+  };
+
+  const extraChatRoomData = {
+    message: {
+      fetchNew: {...commonStateFlags},
+      all: []
+    }
+  };
+
   return dispatch => {
     dispatch({
       type: OPEN_POPUP_CHAT_ROOM,
-      chatRoom: chatRoom
+      chatRoom: {
+        ...chatRoom,
+        ...extraChatRoomData
+      }
     });
     dispatch(joinChatRoom(chatRoom.data._id));
     dispatch(fetchPopUpChatRoomNewMessages(chatRoom.data._id, userID));
