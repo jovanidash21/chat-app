@@ -79,21 +79,14 @@ const member = (state=initialState, action) => {
       var userID = user._id;
       var activeChatRoom = {...state.activeChatRoom};
       var members = [...state.all];
-      var isMemberExist = false;
 
-      for (var i = 0; i < members.length; i++) {
-        var member = members[i];
+      var memberIndex = members.findIndex(singleMember => singleMember._id === userID);
 
-        if ( member._id === userID ) {
-          member.isOnline = true;
-          isMemberExist = true;
-          break;
-        } else {
-          continue
-        }
+      if ( memberIndex > -1 ) {
+        members[memberIndex].isOnline = true;
       }
 
-      if ( activeChatRoom.data.chatType === 'public' && !isMemberExist ) {
+      if ( activeChatRoom.data.chatType === 'public' && memberIndex === -1 ) {
         user.isOnline = true;
         members.push(user);
       }
@@ -106,15 +99,10 @@ const member = (state=initialState, action) => {
       var userID = action.userID;
       var members = [...state.all]
 
-      for (var i = 0; i < members.length; i++) {
-        var member = members[i];
+      var memberIndex = members.findIndex(singleMember => singleMember._id === userID);
 
-        if ( member._id === userID ) {
-          member.isOnline = false;
-          break;
-        } else {
-          continue
-        }
+      if ( memberIndex > -1 ) {
+        members[memberIndex].isOnline = false;
       }
 
       return {

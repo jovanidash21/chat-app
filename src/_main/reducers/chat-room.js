@@ -159,15 +159,10 @@ const chatRoom = (state=initialState, action) => {
         activeChatRoom.mute.data = true;
       }
 
-      for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i];
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
 
-        if ( chatRoom.data._id === chatRoomID ) {
-          chatRoom.mute.data = true;
-          break;
-        } else {
-          continue;
-        }
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].mute.data = true;
       }
 
       return {
@@ -191,15 +186,10 @@ const chatRoom = (state=initialState, action) => {
         activeChatRoom.mute.data = false;
       }
 
-      for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i];
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
 
-        if ( chatRoom.data._id === chatRoomID ) {
-          chatRoom.mute.data = false;
-          break;
-        } else {
-          continue;
-        }
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].mute.data = false;
       }
 
       return {
@@ -304,39 +294,29 @@ const chatRoom = (state=initialState, action) => {
         ...state,
         active: {...activeChatRoom}
       }
-    case `${FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES}_SUCCESS`:
-      var chatRoomID = action.meta;
+    case `${FETCH_NEW_MESSAGES}_SUCCESS`:
+      var activeChatRoom = {...state.active};
       var chatRooms = [...state.all];
 
-      for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i];
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === activeChatRoom.data._id);
 
-        if ( chatRoom.data._id === chatRoomID ) {
-          chatRoom.unReadMessages = 0;
-          break;
-        } else {
-          continue;
-        }
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].unReadMessages = 0;
+        activeChatRoom.unReadMessages = 0;
       }
 
       return {
         ...state,
         all: [...chatRooms]
       }
-    case `${FETCH_NEW_MESSAGES}_SUCCESS`:
-      var activeChatRoom = {...state.active};
+    case `${FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES}_SUCCESS`:
+      var chatRoomID = action.meta;
       var chatRooms = [...state.all];
 
-      for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i];
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
 
-        if ( chatRoom.data._id === activeChatRoom.data._id ) {
-          chatRoom.unReadMessages = 0;
-          activeChatRoom.unReadMessages = 0;
-          break;
-        } else {
-          continue;
-        }
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].unReadMessages = 0;
       }
 
       return {
@@ -347,16 +327,11 @@ const chatRoom = (state=initialState, action) => {
       var chatRooms = [...state.all];
       var chatRoomID = action.chatRoomID;
 
-      for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i];
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
 
-        if ( chatRoom.data._id === chatRoomID ) {
-          chatRoom.unReadMessages++;
-          chatRoom.data.latestMessageDate = new Date();
-          break;
-        } else {
-          continue;
-        }
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].unReadMessages++;
+        chatRooms[chatRoomIndex].data.latestMessageDate = new Date();
       }
 
       return {
