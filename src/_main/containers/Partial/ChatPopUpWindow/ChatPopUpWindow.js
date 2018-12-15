@@ -6,12 +6,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuidv4 from 'uuid/v4';
 import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
+import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { Avatar } from '../../../../components/Avatar';
 import './styles.scss';
 
 class ChatPopUpWindow extends Component {
   constructor(props) {
     super(props);
+  }
+  handleChatPopUpBodyRender() {
+    const { popUpChatRoom } = this.props;
+
+    if ( !popUpChatRoom.message.fetchNew.loading && popUpChatRoom.message.fetchNew.success ) {
+      return (
+        <div></div>
+      )
+    } else {
+      return (
+        <LoadingAnimation name="ball-clip-rotate" color="black" />
+      )
+    }
   }
   handleActiveChatPopUpWindow(event) {
     event.preventDefault();
@@ -65,7 +79,7 @@ class ChatPopUpWindow extends Component {
             </div>
           </div>
           <div className="popup-body">
-
+            {::this.handleChatPopUpBodyRender()}
           </div>
           <div className="popup-footer">
 

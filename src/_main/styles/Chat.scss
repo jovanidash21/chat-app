@@ -39,7 +39,35 @@ body.chat-page {
     flex-shrink: 0;
   }
   .chat-box-wrapper {
+    display: flex;
     flex: 1;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-height: calc(100vh - 129px);
+    position: relative;
+    @media screen and (max-width: $screen-mobile-max) {
+      max-height: calc(100vh - 127px);
+    }
+    @media screen and (max-width: $screen-small-mobile-max) {
+      max-height: calc(100vh - 121px);
+    }
+    &.audio-recorder-open {
+      max-height: calc(100vh - 184px);
+      @media screen and (max-width: $screen-mobile-max) {
+        max-height: calc(100vh - 172px);
+      }
+      @media screen and (max-width: $screen-small-mobile-max) {
+        max-height: calc(100vh - 166px);
+      }
+    }
+  }
+  .chat-popup-window-wrapper {
+    bottom: 0;
+    left: 0;
+    margin: 12px;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
   .chat-input-wrapper,
   .chat-audio-recorder {

@@ -10,6 +10,7 @@ import {
 } from '../Common';
 import {
   ChatBox,
+  ChatPopUpWindow,
   ActiveChatRoom,
   ChatRoomsList,
   MembersList
@@ -168,6 +169,7 @@ class Chat extends Component {
     const {
       user,
       chatRoom,
+      popUpChatRoom,
       message,
       isTyping,
       isNotTyping
@@ -197,13 +199,28 @@ class Chat extends Component {
             handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
           />
         </Header>
-        <ChatBox
-          activeChatPopUpWindow={activeChatPopUpWindow}
-          handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
-          isAudioRecorderOpen={isAudioRecorderOpen}
-          handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
-          isDragDropBoxOpen={isDragDropBoxOpen}
-        />
+        <div className={"chat-box-wrapper " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
+          <ChatBox
+            handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
+            isDragDropBoxOpen={isDragDropBoxOpen}
+          />
+          {
+            popUpChatRoom.all.length > 0 &&
+            <div className="chat-popup-window-wrapper">
+              {
+                popUpChatRoom.all.map((singlePopUpChatRoom, i) =>
+                  <ChatPopUpWindow
+                    key={i}
+                    index={i}
+                    popUpChatRoom={singlePopUpChatRoom}
+                    handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
+                    active={activeChatPopUpWindow === i}
+                  />
+                )
+              }
+            </div>
+          }
+        </div>
         {
           !isAudioRecorderOpen
             ?

@@ -14,7 +14,6 @@ import {
   ChatImageLightBox,
   ChatDragDropBox
 } from '../../../components/Chat';
-import { ChatPopUpWindow } from '../ChatPopUpWindow';
 import { DeleteMessageModal } from '../DeleteMessageModal';
 import './styles.scss';
 
@@ -360,13 +359,9 @@ class ChatBox extends Component {
       user,
       typer,
       chatRoom,
-      popUpChatRoom,
       message,
       isTyping,
-      isNotTyping,
-      activeChatPopUpWindow,
-      handleActiveChatPopUpWindow,
-      isAudioRecorderOpen
+      isNotTyping
     } = this.props;
     const {
       isModalOpen,
@@ -374,29 +369,11 @@ class ChatBox extends Component {
     } = this.state;
 
     return (
-      <div className={"chat-box-wrapper " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
-        <div
-          className={"chat-box " + (message.fetchNew.loading ? 'loading' : '')}
-          ref={(element) => { this.chatBox = element; }}
-        >
-          {::this.handleChatBoxRender()}
-          {
-            popUpChatRoom.all.length > 0 &&
-            <div className="chat-popup-window-wrapper">
-              {
-                popUpChatRoom.all.map((singlePopUpChatRoom, i) =>
-                  <ChatPopUpWindow
-                    key={i}
-                    index={i}
-                    popUpChatRoom={singlePopUpChatRoom}
-                    handleActiveChatPopUpWindow={handleActiveChatPopUpWindow}
-                    active={activeChatPopUpWindow === i}
-                  />
-                )
-              }
-            </div>
-          }
-        </div>
+      <div
+        className={"chat-box " + (message.fetchNew.loading ? 'loading' : '')}
+        ref={(element) => { this.chatBox = element; }}
+      >
+        {::this.handleChatBoxRender()}
         {::this.handleImageLightboxRender()}
         {::this.handleDragDropBoxRender()}
         {
@@ -417,22 +394,16 @@ const mapStateToProps = (state) => {
     user: state.user,
     typer: state.typer,
     chatRoom: state.chatRoom,
-    popUpChatRoom: state.popUpChatRoom,
     message: state.message
   }
 }
 
 ChatBox.propTypes = {
-  activeChatPopUpWindow: PropTypes.number,
-  handleActiveChatPopUpWindow: PropTypes.func.isRequired,
-  isAudioRecorderOpen: PropTypes.bool,
   handleDragDropBoxToggle: PropTypes.func.isRequired,
   isDragDropBoxOpen: PropTypes.bool
 }
 
 ChatBox.defaultProps = {
-  activeChatPopUpWindow: -1,
-  isAudioRecorderOpen: false,
   isDragDropBoxOpen: false
 }
 
