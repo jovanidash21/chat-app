@@ -42,8 +42,6 @@ const popUpChatRoom = (state=initialState, action) => {
 
       var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
 
-      console.log(chatRoomIndex);
-
       if ( chatRoomIndex > -1 ) {
         chatRooms[chatRoomIndex].message.fetchNew = {
           ...chatRooms[chatRoomIndex].message.fetchNew,
@@ -69,6 +67,7 @@ const popUpChatRoom = (state=initialState, action) => {
           error: false,
           message: action.payload.data.message
         };
+        chatRooms[chatRoomIndex].message.all = action.payload.data.messages;
       }
 
       return {

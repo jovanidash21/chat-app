@@ -29,6 +29,9 @@ export function openPopUpChatRoom(chatRoom, userID, activeChatRoomID) {
   const extraChatRoomData = {
     message: {
       fetchNew: {...commonStateFlags},
+      fetchOld: {...commonStateFlags},
+      send: {...commonStateFlags},
+      delete: {...commonStateFlags},
       all: []
     }
   };
