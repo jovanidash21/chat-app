@@ -41,7 +41,6 @@ class ChatBox extends Component {
   componentDidUpdate(prevProps) {
     if (
       ( prevProps.message.fetchNew.loading && !this.props.message.fetchNew.loading ) ||
-      ( !prevProps.message.send.loading && this.props.message.send.loading ) ||
       this.state.isChatBoxScrollToBottom
     ) {
       ::this.handleScrollToBottom();

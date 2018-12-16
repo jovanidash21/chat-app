@@ -18,7 +18,6 @@ const commonStateFlags = {
 const initialState = {
   fetchNew: {...commonStateFlags},
   fetchOld: {...commonStateFlags},
-  send: {...commonStateFlags},
   delete: {...commonStateFlags},
   activeChatRoom: {
     data: {}
@@ -41,14 +40,6 @@ const message = (state=initialState, action) => {
         ...state,
         fetchOld: {
           ...state.fetchOld,
-          loading: true
-        }
-      };
-    case `${SEND_MESSAGE}_LOADING`:
-      return {
-        ...state,
-        send: {
-          ...state.send,
           loading: true
         }
       };
@@ -89,22 +80,17 @@ const message = (state=initialState, action) => {
       };
     case `${SEND_MESSAGE}_SUCCESS`:
       var messages = [...state.all];
+      var activeChatRoom = {...state.activeChatRoom};
       var messageID = action.meta;
       var newMessage = action.payload.data.messageData;
 
-      messages = messages.filter((message) => message._id !== messageID);
-
-      newMessage.isSending = false;
+      if ( newMessage.chatRoom === activeChatRoom.data._id ) {
+        messages = messages.filter((message) => message._id !== messageID);
+        newMessage.isSending = false;
+      }
 
       return {
         ...state,
-        send: {
-          ...state.send,
-          loading: false,
-          success: true,
-          error: false,
-          message: action.payload.data.message
-        },
         all: [
           ...messages,
           newMessage
@@ -143,17 +129,6 @@ const message = (state=initialState, action) => {
         ...state,
         fetchOld: {
           ...state.fetchOld,
-          loading: false,
-          success: false,
-          error: true,
-          message: action.payload.response.data.message
-        }
-      };
-    case `${SEND_MESSAGE}_ERROR`:
-      return {
-        ...state,
-        send: {
-          ...state.send,
           loading: false,
           success: false,
           error: true,
