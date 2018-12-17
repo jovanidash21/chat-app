@@ -5,10 +5,10 @@ body.chat-page {
   display: flex;
   height: 100vh;
   flex-direction: column;
-  .header,
-  .chat-box-wrapper,
-  .chat-input-wrapper,
-  .chat-audio-recorder {
+  & > .header,
+  & > .chat-box-wrapper,
+  & > .chat-input-wrapper,
+  & > .chat-audio-recorder {
     @media screen and (min-width: $screen-tablet-min) {
       margin-left: 250px;
     }

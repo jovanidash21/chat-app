@@ -87,20 +87,22 @@ const message = (state=initialState, action) => {
       if ( newMessage.chatRoom === activeChatRoom.data._id ) {
         messages = messages.filter((message) => message._id !== messageID);
         newMessage.isSending = false;
+        messages.push(newMessage);
       }
 
       return {
         ...state,
-        all: [
-          ...messages,
-          newMessage
-        ]
+        all: [...messages]
       };
     case `${DELETE_MESSAGE}_SUCCESS`:
       var messages = [...state.all];
-      var messageID = action.meta;
+      var activeChatRoom = {...state.activeChatRoom};
+      var messageID = action.meta.messageID;
+      var chatRoomID = action.meta.chatRoomID;
 
-      messages = messages.filter((message) => message._id !== messageID);
+      if ( chatRoomID === activeChatRoom.data._id ) {
+        messages = messages.filter((message) => message._id !== messageID);
+      }
 
       return {
         ...state,
@@ -157,7 +159,7 @@ const message = (state=initialState, action) => {
       var activeChatRoom = {...state.activeChatRoom};
       var messages = [...state.all];
 
-      if ( activeChatRoom.data._id === message.chatRoom ) {
+      if ( message.chatRoom === activeChatRoom.data._id ) {
         messages.push(message);
       }
 
