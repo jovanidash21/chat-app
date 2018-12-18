@@ -200,26 +200,29 @@ class Chat extends Component {
           />
         </Header>
         <div className={"chat-box-wrapper " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
+          <MediaQuery query="(min-width: 768px)">
+            {
+              popUpChatRoom.all.length > 0 &&
+              <div className="chat-popup-window-wrapper">
+                {
+                  popUpChatRoom.all.map((singlePopUpChatRoom, i) =>
+                    <ChatPopUpWindow
+                      key={i}
+                      index={i}
+                      popUpChatRoom={singlePopUpChatRoom}
+                      handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
+                      active={activeChatPopUpWindow === i}
+                    />
+                  )
+                }
+              </div>
+            }
+          </MediaQuery>
           <ChatBox
-            handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
+            message={message}
+            handleDragDropBoxToggle={(::this.handleDragDropBoxToggle)}
             isDragDropBoxOpen={isDragDropBoxOpen}
           />
-          {
-            popUpChatRoom.all.length > 0 &&
-            <div className="chat-popup-window-wrapper">
-              {
-                popUpChatRoom.all.map((singlePopUpChatRoom, i) =>
-                  <ChatPopUpWindow
-                    key={i}
-                    index={i}
-                    popUpChatRoom={singlePopUpChatRoom}
-                    handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
-                    active={activeChatPopUpWindow === i}
-                  />
-                )
-              }
-            </div>
-          }
         </div>
         {
           !isAudioRecorderOpen
