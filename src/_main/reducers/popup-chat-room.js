@@ -3,6 +3,12 @@ import {
   CLOSE_POPUP_CHAT_ROOM,
   FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES
 } from '../constants/popup-chat-room';
+import {
+  SEND_MESSAGE,
+  SOCKET_BROADCAST_SEND_MESSAGE,
+  DELETE_MESSAGE,
+  SOCKET_BROADCAST_DELETE_MESSAGE
+} from '../constants/message';
 
 const initialState = {
   all: []
@@ -88,6 +94,68 @@ const popUpChatRoom = (state=initialState, action) => {
           error: true,
           message: action.payload.response.data.message
         };
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
+    case `${SEND_MESSAGE}_SUCCESS`:
+      var messageID = action.meta;
+      var newMessage = action.payload.data.messageData;
+      var chatRooms = [...state.all];
+
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === newMessage.chatRoom);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].message.all = chatRooms[chatRoomIndex].message.all.filter((message) => message._id !== messageID);
+        newMessage.isSending = false;
+        chatRooms[chatRoomIndex].message.all.push(newMessage);
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
+    case SEND_MESSAGE:
+    case SOCKET_BROADCAST_SEND_MESSAGE:
+      var message = action.message;
+      var chatRooms = [...state.all];
+
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === message.chatRoom);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].message.all.push(message);
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
+    case `${DELETE_MESSAGE}_SUCCESS`:
+      var messageID = action.meta.messageID;
+      var chatRoomID = action.meta.chatRoomID;
+      var chatRooms = [...state.all];
+
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].message.all = chatRooms[chatRoomIndex].message.all.filter((message) => message._id !== messageID);
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
+    case SOCKET_BROADCAST_DELETE_MESSAGE:
+      var messageID = action.messageID;
+      var chatRoomID = action.chatRoomID;
+      var chatRooms = [...state.all];
+
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].message.all = chatRooms[chatRoomIndex].message.all.filter((message) => message._id !== messageID);
       }
 
       return {
