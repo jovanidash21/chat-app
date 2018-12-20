@@ -112,6 +112,7 @@
     "react-popup": "^0.9.3",
     "react-redux": "^6.0.0",
     "react-redux-loading-bar": "^4.0.8",
+    "react-resize-detector": "^3.2.1",
     "react-responsive": "^6.0.1",
     "react-responsive-modal": "^3.2.0",
     "react-router": "^4.1.2",
