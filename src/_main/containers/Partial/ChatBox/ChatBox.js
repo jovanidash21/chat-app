@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container } from 'muicss/react';
+import ReactResizeDetector from 'react-resize-detector';
 import Popup from 'react-popup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuidv4 from 'uuid/v4';
@@ -368,22 +369,24 @@ class ChatBox extends Component {
     } = this.state;
 
     return (
-      <div
-        className={"chat-box " + (message.fetchNew.loading ? 'loading' : '')}
-        ref={(element) => { this.chatBox = element; }}
-      >
-        {::this.handleChatBoxRender()}
-        {::this.handleImageLightboxRender()}
-        {::this.handleDragDropBoxRender()}
-        {
-          isModalOpen &&
-          <DeleteMessageModal
-            isModalOpen={isModalOpen}
-            selectedMessageID={selectedMessageID}
-            handleCloseModal={::this.handleCloseModal}
-          />
-        }
-      </div>
+      <ReactResizeDetector handleHeight onResize={::this.handleScrollToBottom}>
+        <div
+          className={"chat-box " + (message.fetchNew.loading ? 'loading' : '')}
+          ref={(element) => { this.chatBox = element; }}
+        >
+          {::this.handleChatBoxRender()}
+          {::this.handleImageLightboxRender()}
+          {::this.handleDragDropBoxRender()}
+          {
+            isModalOpen &&
+            <DeleteMessageModal
+              isModalOpen={isModalOpen}
+              selectedMessageID={selectedMessageID}
+              handleCloseModal={::this.handleCloseModal}
+            />
+          }
+        </div>
+      </ReactResizeDetector>
     )
   }
 }
