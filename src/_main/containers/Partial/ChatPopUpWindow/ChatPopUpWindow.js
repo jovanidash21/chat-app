@@ -8,24 +8,20 @@ import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { Avatar } from '../../../../components/Avatar';
+import { ChatBox } from '../ChatBox';
+import {
+  ChatInput,
+  ChatAudioRecorder
+} from '../../../components/Chat';
 import './styles.scss';
 
 class ChatPopUpWindow extends Component {
   constructor(props) {
     super(props);
-  }
-  handleChatPopUpBodyRender() {
-    const { popUpChatRoom } = this.props;
 
-    if ( !popUpChatRoom.message.fetchNew.loading && popUpChatRoom.message.fetchNew.success ) {
-      return (
-        <div></div>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="black" />
-      )
-    }
+    this.state = {
+      isDragDropBoxOpen: false
+    };
   }
   handleActiveChatPopUpWindow(event) {
     event.preventDefault();
@@ -47,19 +43,21 @@ class ChatPopUpWindow extends Component {
 
     closePopUpChatRoom(popUpChatRoom.data._id);
   }
+  handleDragDropBoxToggle(openTheDragDropBox=false) {
+    this.setState({isDragDropBoxOpen: openTheDragDropBox});
+  }
   render() {
     const {
+      index,
       user,
       popUpChatRoom,
       active
     } = this.props;
+    const { isDragDropBoxOpe } = this.state;
 
     return (
-      <Draggable bounds="parent" handle=".popup-header">
-        <div
-          className={"chat-popup-window " + (active ? 'active' : '')}
-          onClick={::this.handleActiveChatPopUpWindow}
-        >
+      <Draggable bounds="parent" handle=".popup-header" onDrag={::this.handleActiveChatPopUpWindow}>
+        <div className={"chat-popup-window " + (active ? 'active' : '')}>
           <div className="popup-header">
             <Avatar
               image={popUpChatRoom.data.chatIcon}
@@ -79,7 +77,14 @@ class ChatPopUpWindow extends Component {
             </div>
           </div>
           <div className="popup-body">
-            {::this.handleChatPopUpBodyRender()}
+            <ChatBox
+              chatRoom={popUpChatRoom}
+              message={popUpChatRoom.message}
+              handleDragDropBoxToggle={(::this.handleDragDropBoxToggle)}
+              isDragDropBoxOpen={isDragDropBoxOpen}
+              loading={popUpChatRoom.message.fetchNew.loading}
+              small
+            />
           </div>
           <div className="popup-footer">
 

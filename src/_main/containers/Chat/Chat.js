@@ -180,6 +180,7 @@ class Chat extends Component {
       isAudioRecorderOpen,
       isDragDropBoxOpen
     } = this.state;
+    const activeChatRoom = chatRoom.active;
     const isChatInputDisabled = chatRoom.fetch.loading || message.fetchNew.loading || isDragDropBoxOpen;
 
     return (
@@ -219,9 +220,11 @@ class Chat extends Component {
             }
           </MediaQuery>
           <ChatBox
+            chatRoom={activeChatRoom}
             message={message}
             handleDragDropBoxToggle={(::this.handleDragDropBoxToggle)}
             isDragDropBoxOpen={isDragDropBoxOpen}
+            loading={message.fetchNew.loading}
           />
         </div>
         {

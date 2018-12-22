@@ -7,6 +7,7 @@ import Popup from 'react-popup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuidv4 from 'uuid/v4';
 import mapDispatchToProps from '../../../actions';
+import { isObjectEmpty } from '../../../../utils/object';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import {
   ChatDateTime,
@@ -41,13 +42,13 @@ class ChatBox extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.message.fetchNew.loading && !this.props.message.fetchNew.loading ) ||
+      ( prevProps.loading && !this.props.loading ) ||
       this.state.isChatBoxScrollToBottom
     ) {
       ::this.handleScrollToBottom();
     }
 
-    if ( prevProps.message.fetchNew.loading && !this.props.message.fetchNew.loading ) {
+    if ( prevProps.loading && !this.props.loading ) {
       this.setState({hasLoadedAllMessages: false});
     }
 
@@ -69,8 +70,8 @@ class ChatBox extends Component {
     }
 
     if (
-      ( prevProps.message.fetchNew.loading &&
-        !this.props.message.fetchNew.loading &&
+      ( prevProps.loading &&
+        !this.props.loading &&
         this.props.message.all.length < 50 ) ||
       ( prevProps.message.fetchOld.loading &&
         !this.props.message.fetchOld.loading &&
@@ -80,6 +81,7 @@ class ChatBox extends Component {
     }
   }
   handleScrollToBottom() {
+    console.log(this.chatBox.scrollHeight);
     this.chatBox.scrollTop = this.chatBox.scrollHeight;
   }
   handleChatBoxScroll() {
@@ -101,18 +103,20 @@ class ChatBox extends Component {
       user,
       typer,
       chatRoom,
-      message
+      message,
+      loading,
+      small
     } = this.props;
     const { hasLoadedAllMessages } = this.state;
     const isActiveUserAdmin = user.active.role === 'admin';
 
-    if (chatRoom.all.length === 0) {
+    if ( isObjectEmpty( chatRoom.data ) ) {
       return (
         <div className="user-no-chat-rooms">
           Hi! Welcome, create a Chat Room now.
         </div>
       )
-    } else if ( !message.fetchNew.loading && message.fetchNew.success ) {
+    } else if ( !loading ) {
       return (
         <Container fluid>
           {
@@ -172,12 +176,16 @@ class ChatBox extends Component {
     }
   }
   handleImageLightboxRender() {
-    const { message } = this.props;
+    const {
+      message,
+      loading
+    } = this.props;
     const {
       isImageLightboxOpen,
       imageIndex
     } = this.state;
-    if ( !message.fetchNew.loading && message.fetchNew.success ) {
+
+    if ( !loading ) {
       const imagesArray = [];
       const imageMessages = message.all.filter(imageMessage =>
         imageMessage.messageType === 'image'
@@ -247,7 +255,7 @@ class ChatBox extends Component {
         oldestMessageOffsetTop: oldestMessageOffsetTop
       });
 
-      fetchOldMessages(chatRoom.active.data._id, user.active._id, message.all.length);
+      fetchOldMessages(chatRoom.data._id, user.active._id, message.all.length);
     }
   }
   handleSendTextMessage(newMessageID, text) {
@@ -257,7 +265,7 @@ class ChatBox extends Component {
       sendTextMessage
     } = this.props;
 
-    sendTextMessage(newMessageID, text, user.active, chatRoom.active.data._id);
+    sendTextMessage(newMessageID, text, user.active, chatRoom.data._id);
   }
   handleImageLightboxToggle(messageID) {
     const { message } = this.props;
@@ -294,7 +302,7 @@ class ChatBox extends Component {
       sendFileMessage
     } = this.props;
 
-    sendFileMessage(newMessageID, text, file, user.active, chatRoom.active.data._id);
+    sendFileMessage(newMessageID, text, file, user.active, chatRoom.data._id);
   }
   handleFilesDrop(acceptedFiles, rejectedFiles) {
     const { handleDragDropBoxToggle } = this.props;
@@ -328,7 +336,7 @@ class ChatBox extends Component {
     const { audioIndex } = this.state;
 
     if ( audioIndex > -1 && audioIndex !== audioPlayingIndex ) {
-      var previousAudio = document.getElementsByClassName('react-plyr-' + audioIndex)[0];
+      var previousAudio = this.chatBox.getElementsByClassName('react-plyr-' + audioIndex)[0];
 
       if (
         previousAudio.currentTime > 0  &&
@@ -394,19 +402,23 @@ class ChatBox extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    typer: state.typer,
-    chatRoom: state.chatRoom,
-    message: state.message
+    typer: state.typer
   }
 }
 
 ChatBox.propTypes = {
+  chatRoom: PropTypes.object.isRequired,
+  message: PropTypes.object.isRequired,
   handleDragDropBoxToggle: PropTypes.func.isRequired,
-  isDragDropBoxOpen: PropTypes.bool
+  isDragDropBoxOpen: PropTypes.bool,
+  loading: PropTypes.bool,
+  small: PropTypes.bool
 }
 
 ChatBox.defaultProps = {
-  isDragDropBoxOpen: false
+  isDragDropBoxOpen: false,
+  loading: false,
+  small: false
 }
 
 export default connect(

@@ -44,12 +44,14 @@
     }
   }
   .popup-body {
-    @include scrollbar($color-mine-shaft);
+    display: flex;
     flex: 1;
-    overflow-x: hidden;
-    overflow-y: auto;
-    &.loading {
-      height: 100%;
+    flex-direction: column;
+    justify-content: flex-end;
+    max-height: 251px;
+    position: relative;
+    &.audio-recorder-open {
+      max-height: 221px;
     }
   }
   .popup-footer {
