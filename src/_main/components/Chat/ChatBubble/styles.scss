@@ -260,4 +260,42 @@
       }
     }
   }
+  &.small {
+    &.reverse {
+      .trash-icon {
+        margin-right: 0;
+      }
+    }
+    &:not(.reverse) {
+      &.no-avatar {
+        .chat-bubble {
+          margin-left: 35px;
+        }
+        .image-message {
+          margin-left: 25px;
+        }
+      }
+      .chat-message {
+        .trash-icon {
+          margin-left: 0;
+        }
+      }
+    }
+    .chat-details {
+      max-width: 80%;
+    }
+    .trash-icon {
+      font-size: 15px;
+      line-height: 15px;
+    }
+    .chat-text {
+      font-size: 12px;
+      padding: 9px 12px;
+      .plyr {
+        .plyr__controls {
+          width: 150px;
+        }
+      }
+    }
+  }
 }
