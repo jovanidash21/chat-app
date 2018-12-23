@@ -6,6 +6,7 @@
   height: 300px;
   position: absolute;
   width: 300px;
+  z-index: 400;
   @for $i from 0 to 5 {
     &:nth-child(#{$i + 1}) {
       left: #{$i * 15}px;
@@ -48,10 +49,10 @@
     flex: 1;
     flex-direction: column;
     justify-content: flex-end;
-    max-height: 251px;
+    max-height: 201px;
     position: relative;
     &.audio-recorder-open {
-      max-height: 221px;
+      max-height: 171px;
     }
   }
   .popup-footer {

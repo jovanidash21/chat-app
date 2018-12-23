@@ -52,11 +52,14 @@ class ChatAudioRecorder extends Component {
     }
   }
   render() {
-    const { handleAudioRecorderToggle } = this.props;
+    const {
+      handleAudioRecorderToggle,
+      small
+    } = this.props;
     const { isAudioRecording } = this.state;
 
     return (
-      <div className="chat-audio-recorder">
+      <div className={"chat-audio-recorder " + (small ? 'small' : '')}>
         <ReactMic
           className="sound-wave"
           record={isAudioRecording}
@@ -118,7 +121,12 @@ class ChatAudioRecorder extends Component {
 
 ChatAudioRecorder.propTypes = {
   handleAudioRecorderToggle: PropTypes.func.isRequired,
-  handleSendAudioMessage: PropTypes.func.isRequired
+  handleSendAudioMessage: PropTypes.func.isRequired,
+  small: PropTypes.bool
+}
+
+ChatAudioRecorder.defaultProps = {
+  small: false
 }
 
 export default ChatAudioRecorder;

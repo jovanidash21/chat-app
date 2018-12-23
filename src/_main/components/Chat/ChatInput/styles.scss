@@ -9,6 +9,36 @@
     opacity: 0.6;
     pointer-events: none;
   }
+  &.small {
+    height: 60px;
+    .chat-input {
+      .textfield[contenteditable=true] {
+        font-size: 14px;
+        line-height: 20px;
+        .emojione {
+          $emoji-size: 20px;
+          height: $emoji-size;
+          width: $emoji-size;
+        }
+      }
+      .extra-buttons {
+        .extra-button {
+          padding: 4px;
+        }
+      }
+    }
+    .emoji-dialog {
+      bottom: 60px;
+      left: 0;
+      width: 100% !important;
+    }
+    .send-button {
+      $size: 50px;
+      flex: 0 0 $size;
+      height: $size;
+      width: $size;
+    }
+  }
   .textfield[contenteditable=true],
   .extra-buttons,
   .emoji-dialog,
@@ -106,9 +136,7 @@
       display: flex;
       font-size: 17px;
       margin-right: 10px;
-      .audio-button,
-      .file-button,
-      .emoji-button {
+      .extra-button {
         align-items: center;
         backface-visibility: hidden;
         color: $color-emperor;

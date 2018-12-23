@@ -3,6 +3,19 @@
   bottom: 0;
   position: relative;
   right: 0;
+  &.small {
+    .sound-wave {
+      height: 40px;
+    }
+    .audio-controls {
+      .control {
+        $size: 20px;
+        font-size: 7px;
+        height: $size;
+        width: $size;
+      }
+    }
+  }  
   .sound-wave {
     height: 50px;
     width: 100%;

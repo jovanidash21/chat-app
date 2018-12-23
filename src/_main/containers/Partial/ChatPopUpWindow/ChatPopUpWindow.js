@@ -20,6 +20,7 @@ class ChatPopUpWindow extends Component {
     super(props);
 
     this.state = {
+      isAudioRecorderOpen: false,
       isDragDropBoxOpen: false
     };
   }
@@ -43,6 +44,11 @@ class ChatPopUpWindow extends Component {
 
     closePopUpChatRoom(popUpChatRoom.data._id);
   }
+  handleAudioRecorderToggle(event) {
+    event.preventDefault();
+
+    this.setState({isAudioRecorderOpen: !this.state.isAudioRecorderOpen});
+  }
   handleDragDropBoxToggle(openTheDragDropBox=false) {
     this.setState({isDragDropBoxOpen: openTheDragDropBox});
   }
@@ -50,10 +56,18 @@ class ChatPopUpWindow extends Component {
     const {
       index,
       user,
+      isTyping,
+      isNotTyping,
       popUpChatRoom,
+      handleSendTextMessage,
+      handleSendAudioMessage,
       active
     } = this.props;
-    const { isDragDropBoxOpe } = this.state;
+    const {
+      isAudioRecorderOpen,
+      isDragDropBoxOpen
+    } = this.state;
+    const isChatInputDisabled = popUpChatRoom.message.fetchNew.loading;
 
     return (
       <Draggable bounds="parent" handle=".popup-header" onDrag={::this.handleActiveChatPopUpWindow}>
@@ -76,7 +90,7 @@ class ChatPopUpWindow extends Component {
               <FontAwesomeIcon icon="times" />
             </div>
           </div>
-          <div className="popup-body">
+          <div className={"popup-body " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
             <ChatBox
               chatRoom={popUpChatRoom}
               message={popUpChatRoom.message}
@@ -87,7 +101,29 @@ class ChatPopUpWindow extends Component {
             />
           </div>
           <div className="popup-footer">
-
+            {
+              !isAudioRecorderOpen
+                ?
+                <ChatInput
+                  id={"popup-" + index}
+                  user={user.active}
+                  chatRoom={popUpChatRoom}
+                  handleIsTyping={isTyping}
+                  handleIsNotTyping={isNotTyping}
+                  handleSendTextMessage={handleSendTextMessage}
+                  handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
+                  handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
+                  disabled={isChatInputDisabled}
+                  small
+                />
+                :
+                <ChatAudioRecorder
+                  chatRoom={popUpChatRoom}
+                  handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
+                  handleSendAudioMessage={handleSendAudioMessage}
+                  small
+                />
+            }
           </div>
         </div>
       </Draggable>
@@ -98,15 +134,15 @@ class ChatPopUpWindow extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    typer: state.typer,
-    chatRoom: state.chatRoom,
-    message: state.message
+    typer: state.typer
   }
 }
 
 ChatPopUpWindow.propTypes = {
   index: PropTypes.number.isRequired,
   popUpChatRoom: PropTypes.object.isRequired,
+  handleSendTextMessage: PropTypes.func.isRequired,
+  handleSendAudioMessage: PropTypes.func.isRequired,
   handleActiveChatPopUpWindow: PropTypes.func.isRequired,
   active: PropTypes.bool
 }

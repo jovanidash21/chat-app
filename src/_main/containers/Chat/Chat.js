@@ -211,6 +211,9 @@ class Chat extends Component {
                       key={i}
                       index={i}
                       popUpChatRoom={singlePopUpChatRoom}
+                      handleSendTextMessage={::this.handleSendTextMessage}
+                      handleSendAudioMessage={::this.handleSendAudioMessage}
+                      handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
                       handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
                       active={activeChatPopUpWindow === i}
                     />
@@ -232,7 +235,7 @@ class Chat extends Component {
             ?
             <ChatInput
               user={user.active}
-              activeChatRoom={chatRoom.active}
+              chatRoom={chatRoom.active}
               handleIsTyping={isTyping}
               handleIsNotTyping={isNotTyping}
               handleSendTextMessage={::this.handleSendTextMessage}
