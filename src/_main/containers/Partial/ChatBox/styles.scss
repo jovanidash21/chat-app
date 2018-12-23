@@ -5,6 +5,11 @@
   &.loading {
     height: 100%;
   }
+  &.small {
+    .mui-container-fluid {
+      padding: 15px 5px;
+    }  
+  }
   .user-no-chat-rooms {
     font-size: 21px;
     left: 50%;

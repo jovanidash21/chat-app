@@ -81,7 +81,6 @@ class ChatBox extends Component {
     }
   }
   handleScrollToBottom() {
-    console.log(this.chatBox.scrollHeight);
     this.chatBox.scrollTop = this.chatBox.scrollHeight;
   }
   handleChatBoxScroll() {
@@ -133,6 +132,7 @@ class ChatBox extends Component {
                   <ChatDateTime
                     messageDate={singleMessage.createdAt}
                     previousMessageDate={i-1 !== -1 ? message.all[i-1].createdAt : ''}
+                    small={small}
                   />
                   <ChatBubble
                     index={i}
@@ -146,6 +146,7 @@ class ChatBox extends Component {
                     handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
                     isActiveUserAdmin={isActiveUserAdmin}
                     handleOpenModal={::this.handleOpenModal}
+                    small={small}
                   />
                 </div>
               )
@@ -369,7 +370,8 @@ class ChatBox extends Component {
       chatRoom,
       message,
       isTyping,
-      isNotTyping
+      isNotTyping,
+      small
     } = this.props;
     const {
       isModalOpen,
@@ -379,7 +381,11 @@ class ChatBox extends Component {
     return (
       <ReactResizeDetector handleHeight onResize={::this.handleScrollToBottom}>
         <div
-          className={"chat-box " + (message.fetchNew.loading ? 'loading' : '')}
+          className={
+            "chat-box" +
+            (message.fetchNew.loading ? ' loading' : '') +
+            (small ? ' small' : '')
+          }
           ref={(element) => { this.chatBox = element; }}
         >
           {::this.handleChatBoxRender()}
