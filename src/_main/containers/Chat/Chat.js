@@ -131,19 +131,17 @@ class Chat extends Component {
   handleDragDropBoxToggle(openTheDragDropBox=false) {
     this.setState({isDragDropBoxOpen: openTheDragDropBox});
   }
-  handleSendTextMessage(newMessageID, text) {
+  handleSendTextMessage(newMessageID, text, chatRoomID) {
     const {
       user,
-      chatRoom,
       sendTextMessage
     } = this.props;
 
-    sendTextMessage(newMessageID, text, user.active, chatRoom.active.data._id);
+    sendTextMessage(newMessageID, text, user.active, chatRoomID);
   }
-  handleSendAudioMessage(newMessageID, text, audio) {
+  handleSendAudioMessage(newMessageID, text, audio, chatRoomID) {
     const {
       user,
-      chatRoom,
       sendAudioMessage
     } = this.props;
     const audioLength = new Date(audio.stopTime) - new Date(audio.startTime);
@@ -151,7 +149,7 @@ class Chat extends Component {
     if ( audioLength > ( 60 * 1000 ) ) {
       Popup.alert('Maximum of 1 minute audio only');
     } else {
-      sendAudioMessage(newMessageID, text, audio.blob, user.active, chatRoom.active.data._id);
+      sendAudioMessage(newMessageID, text, audio.blob, user.active, chatRoomID);
     }
   }
   handleNotificationViewMessage(chatRoomObj) {
@@ -235,7 +233,7 @@ class Chat extends Component {
             ?
             <ChatInput
               user={user.active}
-              chatRoom={chatRoom.active}
+              chatRoom={activeChatRoom}
               handleIsTyping={isTyping}
               handleIsNotTyping={isNotTyping}
               handleSendTextMessage={::this.handleSendTextMessage}
@@ -245,6 +243,7 @@ class Chat extends Component {
             />
             :
             <ChatAudioRecorder
+              chatRoom={activeChatRoom}
               handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
               handleSendAudioMessage={::this.handleSendAudioMessage}
             />

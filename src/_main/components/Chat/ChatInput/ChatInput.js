@@ -258,7 +258,7 @@ class ChatInput extends Component {
 
     document.getElementById(::this.handleDivID()).innerHTML = '';
     handleIsNotTyping(user, chatRoom.data._id);
-    handleSendTextMessage(newMessageID, messageText);
+    handleSendTextMessage(newMessageID, messageText, chatRoom.data._id);
   }
   handleSendTextMessageOnClick(event) {
     event.preventDefault();
@@ -280,7 +280,7 @@ class ChatInput extends Component {
       document.getElementById(::this.handleDivID()).innerHTML = '';
       document.getElementById(::this.handleDivID()).focus();
       handleIsNotTyping(user, chatRoom.data._id);
-      handleSendTextMessage(newMessageID, messageText);
+      handleSendTextMessage(newMessageID, messageText, chatRoom.data._id);
 
       this.setState({
         message: '',
