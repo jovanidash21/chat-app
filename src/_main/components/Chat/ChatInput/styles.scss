@@ -12,6 +12,7 @@
   &.small {
     height: 60px;
     .chat-input {
+      margin-left: 2px;
       .textfield[contenteditable=true] {
         font-size: 14px;
         line-height: 20px;
@@ -36,6 +37,7 @@
       $size: 50px;
       flex: 0 0 $size;
       height: $size;
+      margin: 0 2px;
       width: $size;
     }
   }
