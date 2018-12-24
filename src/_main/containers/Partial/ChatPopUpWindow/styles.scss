@@ -3,7 +3,7 @@
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.16), 0 0 2px 0 rgba(0,0,0,.12);
   display: flex;
   flex-direction: column;
-  height: 300px;
+  height: 350px;
   position: absolute;
   width: 300px;
   z-index: 400;
@@ -49,14 +49,22 @@
     flex: 1;
     flex-direction: column;
     justify-content: flex-end;
-    max-height: 201px;
+    max-height: 251px;
     position: relative;
     &.audio-recorder-open {
-      max-height: 171px;
+      max-height: 221px;
     }
   }
   .popup-footer {
     background-color: $color-gallery;
     height: 40px;
+    .emoji-dialog {
+      box-shadow: none;
+      height: 251px !important;
+    }
+    .emoji-picker-overlay {
+      bottom: 60px;
+      top: 39px;
+    }
   }
 }

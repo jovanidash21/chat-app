@@ -43,7 +43,6 @@
   }
   .textfield[contenteditable=true],
   .extra-buttons,
-  .emoji-dialog,
   .send-button {
     z-index: 2;
   }
@@ -55,6 +54,7 @@
     left: 20px;
     position: absolute;
     width: 350px !important;
+    z-index: 1000;
     @media screen and (max-width: $screen-mobile-max) {
       left: 0;
       width: 100% !important;
