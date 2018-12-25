@@ -160,6 +160,9 @@
           color: $color-primary;
           transform: scale(1.25);
         }
+        &.active {
+          color: $color-primary;
+        }
       }
     }
     .extra-notes {

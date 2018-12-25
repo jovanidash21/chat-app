@@ -324,7 +324,10 @@ class ChatInput extends Component {
               emojiPicker &&
               <div>
                 <EmojiPicker onChange={::this.handleEmojiPickerSelect} search />
-                <div className="emoji-picker-overlay" onClick={::this.handleEmojiPickerToggle} />
+                {
+                  !small &&
+                  <div className="emoji-picker-overlay" onClick={::this.handleEmojiPickerToggle} />
+                }
               </div>
             }
           </div>
@@ -362,7 +365,7 @@ class ChatInput extends Component {
               </div>
               <MediaQuery query="(min-width: 768px)">
                 <div
-                  className="extra-button emoji-button"
+                  className={"extra-button emoji-button " + (emojiPicker ? 'active' : '')}
                   onClick={::this.handleEmojiPickerToggle}
                   title="Add Emoji"
                 >
