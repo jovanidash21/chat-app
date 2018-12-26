@@ -152,16 +152,20 @@ class Chat extends Component {
       sendAudioMessage(newMessageID, text, audio.blob, user.active, chatRoomID);
     }
   }
-  handleNotificationViewMessage(chatRoomObj) {
+  handleNotificationViewMessage(chatRoomObj, mobile) {
     const {
       user,
       chatRoom,
       changeChatRoom
     } = this.props;
 
-    changeChatRoom(chatRoomObj, user.active._id, chatRoom.active.data._id);
-    ::this.handleLeftSideDrawerToggleEvent();
-    ::this.handleRightSideDrawerToggleEvent();
+    if ( mobile ) {
+      changeChatRoom(chatRoomObj, user.active._id, chatRoom.active.data._id);
+      ::this.handleLeftSideDrawerToggleEvent();
+      ::this.handleRightSideDrawerToggleEvent();
+    } else {
+      ::this.handleOpenPopUpChatRoom(chatRoomObj);
+    }
   }
   render() {
     const {
@@ -248,7 +252,16 @@ class Chat extends Component {
               handleSendAudioMessage={::this.handleSendAudioMessage}
             />
         }
-        <NotificationPopUp handleViewMessage={::this.handleNotificationViewMessage} />
+        <MediaQuery query="(max-width: 767px)">
+          {(matches) => {
+            return (
+              <NotificationPopUp
+                handleViewMessage={::this.handleNotificationViewMessage}
+                mobile={matches}
+              />
+            )
+          }}
+        </MediaQuery>
       </div>
     )
   }
