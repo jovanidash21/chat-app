@@ -6,6 +6,8 @@ var cron = require('../cron');
 var connectedUsers = {};
 
 var sockets = function(io) {
+  io.sockets.setMaxListeners(0);
+
   io.sockets.on('connection', function (socket) {
     cron(socket);
 
@@ -172,23 +174,24 @@ var sockets = function(io) {
         default:
           break;
       }
-      socket.on('disconnect', function() {
-        User.findByIdAndUpdate(
-          connectedUsers[socket.id],
-          { $set: { isOnline: false, socketID: ''} },
-          { safe: true, upsert: true, new: true },
-        )
-        .then((user) => {
-          socket.broadcast.emit('action', {
-            type: 'SOCKET_BROADCAST_USER_LOGOUT',
-            userID: connectedUsers[socket.id]
-          });
+    });
 
-          delete connectedUsers[socket.id];
-        })
-        .catch((error) => {
-          console.log(error);
+    socket.on('disconnect', function() {
+      User.findByIdAndUpdate(
+        connectedUsers[socket.id],
+        { $set: { isOnline: false, socketID: ''} },
+        { safe: true, upsert: true, new: true },
+      )
+      .then((user) => {
+        socket.broadcast.emit('action', {
+          type: 'SOCKET_BROADCAST_USER_LOGOUT',
+          userID: connectedUsers[socket.id]
         });
+
+        delete connectedUsers[socket.id];
+      })
+      .catch((error) => {
+        console.log(error);
       });
     });
 
