@@ -72,7 +72,7 @@ class ChatPopUpWindow extends Component {
     return (
       <Draggable bounds="parent" handle=".popup-header" onDrag={::this.handleActiveChatPopUpWindow}>
         <div className={"chat-popup-window " + (active ? 'active' : '')}>
-          <div className="popup-header">
+          <div className="popup-header" onClick={::this.handleActiveChatPopUpWindow}>
             <Avatar
               image={popUpChatRoom.data.chatIcon}
               name={popUpChatRoom.data.name}
