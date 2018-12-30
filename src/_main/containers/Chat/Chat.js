@@ -195,7 +195,10 @@ class Chat extends Component {
           handleRightSideDrawerToggleState={::this.handleRightSideDrawerToggleState}
           isRightSideDrawerOpen={isRightSideDrawerOpen}
         >
-          <MembersList handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent} />
+          <MembersList
+            handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
+            handleOpenPopUpChatRoom={::this.handleOpenPopUpChatRoom}
+          />
         </RightSideDrawer>
         <Header
           handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}

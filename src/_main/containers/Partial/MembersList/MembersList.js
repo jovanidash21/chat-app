@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { isObjectEmpty } from '../../../../utils/object';
@@ -101,13 +102,19 @@ class MembersList extends Component {
               {member.all.length > 1 ? 'Members' : 'Member'}
             </h3>
           </div>
-          <SearchFilter
-            value={searchFilter}
-            onChange={::this.onMemberNameChange}
-            onKeyDown={::this.onMemberNameKeyDown}
-            handleClearSearchFilter={::this.handleClearSearchFilter}
-            light
-          />
+          <MediaQuery query="(max-width: 767px)">
+            {(matches) => {
+              return (
+                <SearchFilter
+                  value={searchFilter}
+                  onChange={::this.onMemberNameChange}
+                  onKeyDown={(e) => {::this.onMemberNameKeyDown(e, matches)}}
+                  handleClearSearchFilter={::this.handleClearSearchFilter}
+                  light
+                />
+              )
+            }}
+          </MediaQuery>
           <div className={"scroll-shadow " + (isMembersListScrolled ? 'scrolled' : '')} />
           <div
             className="members-list"
@@ -156,7 +163,7 @@ class MembersList extends Component {
 
     ::this.handleMembersListFilter(searchFilter);
   }
-  onMemberNameKeyDown(event) {
+  onMemberNameKeyDown(event, mobile) {
     const {
       members,
       selectedMemberIndex
@@ -182,17 +189,18 @@ class MembersList extends Component {
       if ( event.key === 'Enter' && selectedMemberIndex !== -1 ) {
         const selectedMember = members[selectedMemberIndex];
 
-        ::this.handleAddDirectChatRoom(selectedMember._id);
+        ::this.handleAddDirectChatRoom(selectedMember._id, mobile);
       }
     }
   }
-  handleAddDirectChatRoom(memberID) {
+  handleAddDirectChatRoom(memberID, mobile) {
     const {
       user,
       chatRoom,
       createDirectChatRoom,
       changeChatRoom,
-      handleRightSideDrawerToggleEvent
+      handleRightSideDrawerToggleEvent,
+      handleOpenPopUpChatRoom
     } = this.props;
     const userID = user.active._id;
     const chatRooms = chatRoom.all;
@@ -214,16 +222,28 @@ class MembersList extends Component {
     }
 
     if ( !chatRoomExists ) {
-      createDirectChatRoom(userID, memberID, activeChatRoom.data._id);
+      createDirectChatRoom(userID, memberID, activeChatRoom.data._id, !mobile)
+        .then((chatRoom) => {
+          if ( ! mobile ) {
+            handleOpenPopUpChatRoom(chatRoom);
+          }
+        });
     } else if ( !isObjectEmpty(existingChatRoomData) ) {
-      changeChatRoom(existingChatRoomData, userID, activeChatRoom.data._id);
+      if ( mobile ) {
+        changeChatRoom(existingChatRoomData, userID, activeChatRoom.data._id);
+      } else {
+        handleOpenPopUpChatRoom(existingChatRoomData);
+      }
+
       handleRightSideDrawerToggleEvent();
+      ::this.handleMembersListFilter();
       this.setState({
         searchFilter: '',
         selectedMemberIndex: -1
       });
     } else {
       handleRightSideDrawerToggleEvent();
+      ::this.handleMembersListFilter();
       this.setState({
         searchFilter: '',
         selectedMemberIndex: -1
@@ -248,7 +268,8 @@ const mapStateToProps = (state) => {
 }
 
 MembersList.propTypes = {
-  handleRightSideDrawerToggleEvent: PropTypes.func.isRequired
+  handleRightSideDrawerToggleEvent: PropTypes.func.isRequired,
+  handleOpenPopUpChatRoom: PropTypes.func.isRequired
 }
 
 export default connect(
