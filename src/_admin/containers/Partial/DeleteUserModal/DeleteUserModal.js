@@ -53,10 +53,10 @@ class DeleteUserModal extends Component {
     return (
       <Modal
         className="delete-user-modal"
-        isModalOpen={isModalOpen}
-        handleCloseModal={handleCloseModal}
-        isDanger
-        isLoading={isLoading}
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        danger
+        loading={isLoading}
       >
         <Form onSubmit={::this.handleDeleteUser}>
           <Modal.Header>

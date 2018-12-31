@@ -116,8 +116,8 @@ class CreateChatRoomModal extends Component {
     return (
       <Modal
         className="create-chat-room-modal"
-        isModalOpen={isModalOpen}
-        handleCloseModal={handleCloseModal}
+        open={isModalOpen}
+        onClose={handleCloseModal}
       >
         <Form onSubmit={::this.handleAddGroupChatRoom}>
           <Modal.Header>

@@ -54,10 +54,10 @@ class DeleteChatRoomModal extends Component {
     return (
       <Modal
         className="delete-chat-room-modal"
-        isModalOpen={isModalOpen}
-        handleCloseModal={handleCloseModal}
-        isDanger
-        isLoading={isLoading}
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        danger
+        loading={isLoading}
       >
         <Form onSubmit={::this.handleDeleteChatRoom}>
           <Modal.Header>
