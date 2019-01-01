@@ -173,6 +173,7 @@ class Chat extends Component {
   render() {
     const {
       user,
+      typer,
       chatRoom,
       popUpChatRoom,
       message,
@@ -233,6 +234,7 @@ class Chat extends Component {
           <ChatBox
             chatRoom={activeChatRoom}
             message={message}
+            typers={typer.all}
             handleDragDropBoxToggle={(::this.handleDragDropBoxToggle)}
             isDragDropBoxOpen={isDragDropBoxOpen}
             fetchNewLoading={message.fetchNew.loading}
@@ -277,6 +279,7 @@ class Chat extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    typer: state.typer,
     chatRoom: state.chatRoom,
     popUpChatRoom: state.popUpChatRoom,
     message: state.message

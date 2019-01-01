@@ -94,6 +94,7 @@ class ChatPopUpWindow extends Component {
             <ChatBox
               chatRoom={popUpChatRoom}
               message={popUpChatRoom.message}
+              typers={popUpChatRoom.typer.all}
               handleDragDropBoxToggle={(::this.handleDragDropBoxToggle)}
               isDragDropBoxOpen={isDragDropBoxOpen}
               fetchNewLoading={popUpChatRoom.message.fetchNew.loading}

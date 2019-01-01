@@ -100,9 +100,9 @@ class ChatBox extends Component {
   handleChatBoxRender() {
     const {
       user,
-      typer,
       chatRoom,
       message,
+      typers,
       fetchNewLoading,
       small
     } = this.props;
@@ -156,10 +156,10 @@ class ChatBox extends Component {
               </div>
           }
           {
-            typer.all.length > 0 &&
+            typers.length > 0 &&
             <div className="chat-typers">
               {
-                typer.all.map((singleTyper, i) =>
+                typers.map((singleTyper, i) =>
                   <ChatTyper
                     key={i}
                     typer={singleTyper}
@@ -367,7 +367,6 @@ class ChatBox extends Component {
   render() {
     const {
       user,
-      typer,
       chatRoom,
       message,
       isTyping,
@@ -409,14 +408,14 @@ class ChatBox extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
-    typer: state.typer
+    user: state.user
   }
 }
 
 ChatBox.propTypes = {
   chatRoom: PropTypes.object.isRequired,
   message: PropTypes.object.isRequired,
+  typers: PropTypes.array,
   handleDragDropBoxToggle: PropTypes.func.isRequired,
   isDragDropBoxOpen: PropTypes.bool,
   fetchNewLoading: PropTypes.bool,
@@ -425,6 +424,7 @@ ChatBox.propTypes = {
 }
 
 ChatBox.defaultProps = {
+  typers: [],
   isDragDropBoxOpen: false,
   fetchNewLoading: false,
   fetchOldLoading: false,
