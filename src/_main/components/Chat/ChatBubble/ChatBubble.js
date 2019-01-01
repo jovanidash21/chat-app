@@ -24,16 +24,18 @@ class ChatBubble extends Component {
   handleMessageText() {
     const {
       message,
-      isSender
+      isSender,
+      small
     } = this.props;
     var messageText = message.text;
 
     switch (message.messageType) {
       case 'text':
+        const emojiSize = !small ? 25 : 20;
         const options = {
           style: {
-            height: 25,
-            width: 25
+            height: emojiSize,
+            width: emojiSize
           }
         };
 
@@ -198,7 +200,8 @@ class ChatBubble extends Component {
       previousMessageSenderID,
       nextMessageSenderID,
       previousMessageDate,
-      nextMessageDate
+      nextMessageDate,
+      small
     } = this.props;
     const isThisAndPreviousDatesSameDay = isDatesSameDay(message.createdAt, previousMessageDate);
     const isThisAndNextDatesSameDay = isDatesSameDay(message.createdAt, nextMessageDate);
@@ -212,23 +215,24 @@ class ChatBubble extends Component {
           (isSender ? 'reverse ' : '') +
           (isPreviousMessageSameSender ? 'no-b-radius-top ' : '') +
           (isNextMessageSameSender ? 'no-b-radius-bottom ' : '') +
-          (!isSender && isPreviousMessageSameSender ? 'no-avatar' : '')
+          (!isSender && isPreviousMessageSameSender ? 'no-avatar ' : '') +
+          (small ? 'small' : '')
         }
       >
         {
           !isSender &&
           !isPreviousMessageSameSender &&
-          <MediaQuery query="(min-width: 768px)">
+          <MediaQuery query="(max-width: 767px)">
             {(matches) => {
               return (
                 <Avatar
                   image={message.user.profilePicture}
-                  size={matches ? '35px' : '25px'}
+                  size={matches || small ? '25px' : '35px'}
                   name={message.user.name}
                   username={message.user.username}
                   roleChatType={message.user.role}
                   accountType={message.user.accountType}
-                  badgeCloser={matches ? true : false}
+                  badgeCloser={matches || small ? false : true}
                   showUserTooltip
                 />
               )
@@ -259,12 +263,14 @@ ChatBubble.propTypes = {
   handleImageLightboxToggle: PropTypes.func.isRequired,
   handleAudioPlayingToggle: PropTypes.func.isRequired,
   isActiveUserAdmin: PropTypes.bool,
-  handleOpenModal: PropTypes.func
+  handleOpenModal: PropTypes.func,
+  small: PropTypes.bool
 }
 
 ChatBubble.defaultProps = {
   isActiveUserAdmin: false,
-  handleOpenModal: () => {}
+  handleOpenModal: () => {},
+  small: false
 }
 
 export default ChatBubble;

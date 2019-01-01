@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container } from 'muicss/react';
+import ReactResizeDetector from 'react-resize-detector';
 import Popup from 'react-popup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuidv4 from 'uuid/v4';
 import mapDispatchToProps from '../../../actions';
+import { isObjectEmpty } from '../../../../utils/object';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import {
   ChatDateTime,
@@ -40,18 +42,17 @@ class ChatBox extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.message.fetchNew.loading && !this.props.message.fetchNew.loading ) ||
-      ( !prevProps.message.send.loading && this.props.message.send.loading ) ||
+      ( prevProps.fetchNewLoading && !this.props.fetchNewLoading ) ||
       this.state.isChatBoxScrollToBottom
     ) {
       ::this.handleScrollToBottom();
     }
 
-    if ( prevProps.message.fetchNew.loading && !this.props.message.fetchNew.loading ) {
+    if ( prevProps.fetchNewLoading && !this.props.fetchNewLoading ) {
       this.setState({hasLoadedAllMessages: false});
     }
 
-    if ( prevProps.message.fetchOld.loading && !this.props.message.fetchOld.loading ) {
+    if ( prevProps.fetchOldLoading && !this.props.fetchOldLoading ) {
       const {
         scrollPosition,
         oldestMessageQuery,
@@ -69,11 +70,11 @@ class ChatBox extends Component {
     }
 
     if (
-      ( prevProps.message.fetchNew.loading &&
-        !this.props.message.fetchNew.loading &&
+      ( prevProps.fetchNewLoading &&
+        !this.props.fetchNewLoading &&
         this.props.message.all.length < 50 ) ||
-      ( prevProps.message.fetchOld.loading &&
-        !this.props.message.fetchOld.loading &&
+      ( prevProps.fetchOldLoading &&
+        !this.props.fetchOldLoading &&
         this.props.message.all.length - prevProps.message.all.length < 50 )
     ) {
       this.setState({hasLoadedAllMessages: true});
@@ -99,20 +100,22 @@ class ChatBox extends Component {
   handleChatBoxRender() {
     const {
       user,
-      typer,
       chatRoom,
-      message
+      message,
+      typers,
+      fetchNewLoading,
+      small
     } = this.props;
     const { hasLoadedAllMessages } = this.state;
     const isActiveUserAdmin = user.active.role === 'admin';
 
-    if (chatRoom.all.length === 0) {
+    if ( isObjectEmpty( chatRoom.data ) ) {
       return (
         <div className="user-no-chat-rooms">
           Hi! Welcome, create a Chat Room now.
         </div>
       )
-    } else if ( !message.fetchNew.loading && message.fetchNew.success ) {
+    } else if ( !fetchNewLoading ) {
       return (
         <Container fluid>
           {
@@ -129,6 +132,7 @@ class ChatBox extends Component {
                   <ChatDateTime
                     messageDate={singleMessage.createdAt}
                     previousMessageDate={i-1 !== -1 ? message.all[i-1].createdAt : ''}
+                    small={small}
                   />
                   <ChatBubble
                     index={i}
@@ -142,6 +146,7 @@ class ChatBox extends Component {
                     handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
                     isActiveUserAdmin={isActiveUserAdmin}
                     handleOpenModal={::this.handleOpenModal}
+                    small={small}
                   />
                 </div>
               )
@@ -151,10 +156,10 @@ class ChatBox extends Component {
               </div>
           }
           {
-            typer.all.length > 0 &&
+            typers.length > 0 &&
             <div className="chat-typers">
               {
-                typer.all.map((singleTyper, i) =>
+                typers.map((singleTyper, i) =>
                   <ChatTyper
                     key={i}
                     typer={singleTyper}
@@ -172,12 +177,16 @@ class ChatBox extends Component {
     }
   }
   handleImageLightboxRender() {
-    const { message } = this.props;
+    const {
+      message,
+      fetchNewLoading
+    } = this.props;
     const {
       isImageLightboxOpen,
       imageIndex
     } = this.state;
-    if ( !message.fetchNew.loading && message.fetchNew.success ) {
+
+    if ( !fetchNewLoading ) {
       const imagesArray = [];
       const imageMessages = message.all.filter(imageMessage =>
         imageMessage.messageType === 'image'
@@ -229,14 +238,15 @@ class ChatBox extends Component {
       user,
       chatRoom,
       message,
-      fetchOldMessages
+      fetchOldMessages,
+      fetchOldLoading
     } = this.props;
     const {
       hasLoadedAllMessages,
       isChatBoxScrollToTop
     } = this.state;
 
-    if ( !hasLoadedAllMessages && isChatBoxScrollToTop && !message.fetchOld.loading ) {
+    if ( !hasLoadedAllMessages && isChatBoxScrollToTop && !fetchOldLoading ) {
       const scrollPosition = this.chatBox.scrollTop;
       const oldestMessageQuery = document.querySelectorAll(".chat-box .chat-bubble-wrapper")[0];
       const oldestMessageOffsetTop = oldestMessageQuery.offsetTop;
@@ -247,7 +257,7 @@ class ChatBox extends Component {
         oldestMessageOffsetTop: oldestMessageOffsetTop
       });
 
-      fetchOldMessages(chatRoom.active.data._id, user.active._id, message.all.length);
+      fetchOldMessages(chatRoom.data._id, user.active._id, message.all.length);
     }
   }
   handleSendTextMessage(newMessageID, text) {
@@ -257,7 +267,7 @@ class ChatBox extends Component {
       sendTextMessage
     } = this.props;
 
-    sendTextMessage(newMessageID, text, user.active, chatRoom.active.data._id);
+    sendTextMessage(newMessageID, text, user.active, chatRoom.data._id);
   }
   handleImageLightboxToggle(messageID) {
     const { message } = this.props;
@@ -294,7 +304,7 @@ class ChatBox extends Component {
       sendFileMessage
     } = this.props;
 
-    sendFileMessage(newMessageID, text, file, user.active, chatRoom.active.data._id);
+    sendFileMessage(newMessageID, text, file, user.active, chatRoom.data._id);
   }
   handleFilesDrop(acceptedFiles, rejectedFiles) {
     const { handleDragDropBoxToggle } = this.props;
@@ -328,7 +338,7 @@ class ChatBox extends Component {
     const { audioIndex } = this.state;
 
     if ( audioIndex > -1 && audioIndex !== audioPlayingIndex ) {
-      var previousAudio = document.getElementsByClassName('react-plyr-' + audioIndex)[0];
+      var previousAudio = this.chatBox.getElementsByClassName('react-plyr-' + audioIndex)[0];
 
       if (
         previousAudio.currentTime > 0  &&
@@ -357,12 +367,12 @@ class ChatBox extends Component {
   render() {
     const {
       user,
-      typer,
       chatRoom,
       message,
       isTyping,
       isNotTyping,
-      isAudioRecorderOpen
+      fetchNewLoading,
+      small
     } = this.props;
     const {
       isModalOpen,
@@ -370,46 +380,55 @@ class ChatBox extends Component {
     } = this.state;
 
     return (
-      <div className={"chat-box-wrapper " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
+      <ReactResizeDetector handleHeight onResize={::this.handleScrollToBottom}>
         <div
-          className={"chat-box " + (message.fetchNew.loading ? 'loading' : '')}
+          className={
+            "chat-box" +
+            (fetchNewLoading ? ' loading' : '') +
+            (small ? ' small' : '')
+          }
           ref={(element) => { this.chatBox = element; }}
         >
           {::this.handleChatBoxRender()}
+          {::this.handleImageLightboxRender()}
+          {::this.handleDragDropBoxRender()}
+          {
+            isModalOpen &&
+            <DeleteMessageModal
+              isModalOpen={isModalOpen}
+              selectedMessageID={selectedMessageID}
+              handleCloseModal={::this.handleCloseModal}
+            />
+          }
         </div>
-        {::this.handleImageLightboxRender()}
-        {::this.handleDragDropBoxRender()}
-        {
-          isModalOpen &&
-          <DeleteMessageModal
-            isModalOpen={isModalOpen}
-            selectedMessageID={selectedMessageID}
-            handleCloseModal={::this.handleCloseModal}
-          />
-        }
-      </div>
+      </ReactResizeDetector>
     )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user,
-    typer: state.typer,
-    chatRoom: state.chatRoom,
-    message: state.message
+    user: state.user
   }
 }
 
 ChatBox.propTypes = {
-  isAudioRecorderOpen: PropTypes.bool,
+  chatRoom: PropTypes.object.isRequired,
+  message: PropTypes.object.isRequired,
+  typers: PropTypes.array,
   handleDragDropBoxToggle: PropTypes.func.isRequired,
-  isDragDropBoxOpen: PropTypes.bool
+  isDragDropBoxOpen: PropTypes.bool,
+  fetchNewLoading: PropTypes.bool,
+  fetchOldLoading: PropTypes.bool,
+  small: PropTypes.bool
 }
 
 ChatBox.defaultProps = {
-  isAudioRecorderOpen: false,
-  isDragDropBoxOpen: false
+  typers: [],
+  isDragDropBoxOpen: false,
+  fetchNewLoading: false,
+  fetchOldLoading: false,
+  small: false
 }
 
 export default connect(

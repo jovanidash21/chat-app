@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { handleChatRoomAvatarBadges } from '../../../utils/avatar';
 import { Avatar } from '../../../components/Avatar';
@@ -9,6 +10,20 @@ import './styles.scss';
 class ChatRoom extends Component {
   constructor(props) {
     super(props);
+  }
+  handleOpenPopUpChatRoom(event) {
+    event.preventDefault();
+
+    const {
+      chatRoom,
+      handleOpenPopUpChatRoom,
+      handleLeftSideDrawerToggleEvent
+    } = this.props;
+
+    if ( chatRoom.data.chatType !== 'public' ) {
+      handleOpenPopUpChatRoom(chatRoom);
+      handleLeftSideDrawerToggleEvent();
+    }
   }
   handleChangeChatRoom(event) {
     event.preventDefault();
@@ -33,44 +48,50 @@ class ChatRoom extends Component {
     } = this.props;
 
     return (
-      <div
-        className={
-          "chat-room " +
-          (isActive ? 'active ' : '') +
-          (isSelected ? 'selected ' : '') +
-          (!chatRoom.mute.data && chatRoom.unReadMessages > 0 ? 'new-message' : '')
-        }
-        onClick={::this.handleChangeChatRoom}
-        title={chatRoom.data.name}
-      >
-        <Avatar
-          image={chatRoom.data.chatIcon}
-          name={chatRoom.data.name}
-          roleChatType={handleChatRoomAvatarBadges(chatRoom.data, user, 'role-chat')}
-          accountType={handleChatRoomAvatarBadges(chatRoom.data, user)}
-        />
-        <div className="chat-room-name">
-          {chatRoom.data.name}
-          {
-            chatRoom.data.chatType === 'private' &&
-            <span className="you-label">(you)</span>
-          }
-        </div>
-        {
-          !chatRoom.mute.data &&
-          chatRoom.unReadMessages > 0 &&
-          <NotificationCount
-            count={chatRoom.unReadMessages}
-            title={chatRoom.unReadMessages + " New " + (chatRoom.unReadMessages > 1 ? 'Messages' : 'Message')}
-          />
-        }
-        {
-          chatRoom.mute.data &&
-          <div className="mute-icon" title="This Chat Room is muted">
-            <FontAwesomeIcon icon="bell-slash" />
-          </div>
-        }
-      </div>
+      <MediaQuery query="(max-width: 767px)">
+        {(matches) => {
+          return (
+            <div
+              className={
+                "chat-room " +
+                (isActive ? 'active ' : '') +
+                (isSelected ? 'selected ' : '') +
+                (!chatRoom.mute.data && chatRoom.unReadMessages > 0 ? 'new-message' : '')
+              }
+              onClick={!matches && chatRoom.data.chatType !== 'public' ? ::this.handleOpenPopUpChatRoom : ::this.handleChangeChatRoom}
+              title={chatRoom.data.name}
+            >
+              <Avatar
+                image={chatRoom.data.chatIcon}
+                name={chatRoom.data.name}
+                roleChatType={handleChatRoomAvatarBadges(chatRoom.data, user, 'role-chat')}
+                accountType={handleChatRoomAvatarBadges(chatRoom.data, user)}
+              />
+              <div className="chat-room-name">
+                {chatRoom.data.name}
+                {
+                  chatRoom.data.chatType === 'private' &&
+                  <span className="you-label">(you)</span>
+                }
+              </div>
+              {
+                !chatRoom.mute.data &&
+                chatRoom.unReadMessages > 0 &&
+                <NotificationCount
+                  count={chatRoom.unReadMessages}
+                  title={chatRoom.unReadMessages + " New " + (chatRoom.unReadMessages > 1 ? 'Messages' : 'Message')}
+                />
+              }
+              {
+                chatRoom.mute.data &&
+                <div className="mute-icon" title="This Chat Room is muted">
+                  <FontAwesomeIcon icon="bell-slash" />
+                </div>
+              }
+            </div>
+          )
+        }}
+      </MediaQuery>
     )
   }
 }
@@ -81,6 +102,7 @@ ChatRoom.propTypes = {
   activeChatRoom: PropTypes.object.isRequired,
   isActive: PropTypes.bool,
   isSelected: PropTypes.bool,
+  handleOpenPopUpChatRoom: PropTypes.func.isRequired,
   handleChangeChatRoom: PropTypes.func.isRequired,
   handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired
 }

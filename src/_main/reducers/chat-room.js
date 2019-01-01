@@ -156,15 +156,10 @@ const chatRoom = (state=initialState, action) => {
         activeChatRoom.mute.data = true;
       }
 
-      for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i];
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
 
-        if ( chatRoom.data._id === chatRoomID ) {
-          chatRoom.mute.data = true;
-          break;
-        } else {
-          continue;
-        }
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].mute.data = true;
       }
 
       return {
@@ -188,15 +183,10 @@ const chatRoom = (state=initialState, action) => {
         activeChatRoom.mute.data = false;
       }
 
-      for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i];
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
 
-        if ( chatRoom.data._id === chatRoomID ) {
-          chatRoom.mute.data = false;
-          break;
-        } else {
-          continue;
-        }
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].mute.data = false;
       }
 
       return {
@@ -302,18 +292,17 @@ const chatRoom = (state=initialState, action) => {
         active: {...activeChatRoom}
       }
     case `${FETCH_NEW_MESSAGES}_SUCCESS`:
+      var chatRoomID = action.meta;
       var activeChatRoom = {...state.active};
       var chatRooms = [...state.all];
 
-      for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i];
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
 
-        if ( chatRoom.data._id === activeChatRoom.data._id ) {
-          chatRoom.unReadMessages = 0;
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].unReadMessages = 0;
+
+        if ( chatRoomID === activeChatRoom.data._id ) {
           activeChatRoom.unReadMessages = 0;
-          break;
-        } else {
-          continue;
         }
       }
 
@@ -325,16 +314,11 @@ const chatRoom = (state=initialState, action) => {
       var chatRooms = [...state.all];
       var chatRoomID = action.chatRoomID;
 
-      for (var i = 0; i < chatRooms.length; i++) {
-        var chatRoom = chatRooms[i];
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
 
-        if ( chatRoom.data._id === chatRoomID ) {
-          chatRoom.unReadMessages++;
-          chatRoom.data.latestMessageDate = new Date();
-          break;
-        } else {
-          continue;
-        }
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].unReadMessages++;
+        chatRooms[chatRoomIndex].data.latestMessageDate = new Date();
       }
 
       return {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { OnlineIndicator } from '../OnlineIndicator';
 import { Avatar } from '../../../components/Avatar';
@@ -9,7 +10,7 @@ class ChatRoomMember extends Component {
   constructor(props) {
     super(props);
   }
-  handleAddDirectChatRoom(event) {
+  handleAddDirectChatRoom(event, mobile) {
     event.preventDefault();
 
     const {
@@ -17,7 +18,7 @@ class ChatRoomMember extends Component {
       handleAddDirectChatRoom
     } = this.props;
 
-    handleAddDirectChatRoom(chatRoomMember._id);
+    handleAddDirectChatRoom(chatRoomMember._id, mobile);
   }
   render() {
     const {
@@ -60,11 +61,17 @@ class ChatRoomMember extends Component {
                 <FontAwesomeIcon icon="ellipsis-v" />
               </div>
               <ul className="dropdown-menu mui-dropdown__menu mui-dropdown__menu--right">
-                <li>
-                  <a href="#" onClick={::this.handleAddDirectChatRoom}>
-                    Direct messages
-                  </a>
-                </li>
+                <MediaQuery query="(max-width: 767px)">
+                  {(matches) => {
+                    return (
+                     <li>
+                       <a href="#" onClick={(e) => {::this.handleAddDirectChatRoom(e, matches)}}>
+                         Direct messages
+                       </a>
+                     </li>
+                    )
+                  }}
+                </MediaQuery>
               </ul>
             </div>
           }

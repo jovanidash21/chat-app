@@ -24,6 +24,16 @@ class ChatInput extends Component {
       maxLengthReached: false
     };
   }
+  handleDivID() {
+    const { id } = this.props;
+    const chatInputID = 'chat-input';
+
+    if ( id.length > 0 ) {
+      return chatInputID + '-' + id;
+    } else {
+      return chatInputID;
+    }
+  }
   onMessageChange(event, value) {
     event.preventDefault();
 
@@ -47,7 +57,7 @@ class ChatInput extends Component {
   onMessageKeyUp(event) {
     const {
       user,
-      activeChatRoom,
+      chatRoom,
       handleIsTyping,
       handleIsNotTyping
     } = this.props;
@@ -57,7 +67,7 @@ class ChatInput extends Component {
       validMessage,
       maxLengthReached
     } = this.state;
-    const chatInputText = document.getElementById('chat-input').innerHTML;
+    const chatInputText = document.getElementById(::this.handleDivID()).innerHTML;
 
     if (
       message.trim().length > 0 &&
@@ -70,7 +80,7 @@ class ChatInput extends Component {
         validMessage: true
       });
 
-      handleIsTyping(user, activeChatRoom.data._id);
+      handleIsTyping(user, chatRoom.data._id);
     }
 
     if (
@@ -84,7 +94,7 @@ class ChatInput extends Component {
         validMessage: false
       });
 
-      handleIsNotTyping(user, activeChatRoom.data._id);
+      handleIsNotTyping(user, chatRoom.data._id);
     }
 
     if ( (event.key === 'Enter') && validMessage && !maxLengthReached ) {
@@ -129,7 +139,7 @@ class ChatInput extends Component {
   handleEmojiPickerSelect(emoji) {
     const {
       user,
-      activeChatRoom,
+      chatRoom,
       handleIsTyping
     } = this.props;
     const {
@@ -152,7 +162,7 @@ class ChatInput extends Component {
       }
     }
 
-    document.getElementById('chat-input').focus();
+    document.getElementById(::this.handleDivID()).focus();
 
     if ( maxLengthReached || messageTextLength >= 159 ) {
       Popup.alert('Sorry, maximum of 160 characters only!');
@@ -166,7 +176,7 @@ class ChatInput extends Component {
         validMessage: true
       });
 
-      handleIsTyping(user, activeChatRoom.data._id);
+      handleIsTyping(user, chatRoom.data._id);
     }
   }
   handleInsertEmoji(emoji) {
@@ -215,8 +225,8 @@ class ChatInput extends Component {
     }
   }
   handleMessageText(type) {
-    var emojis = document.getElementById('chat-input').getElementsByClassName('emojione');
-    var chatInputText = document.getElementById('chat-input').innerHTML;
+    var emojis = document.getElementById(::this.handleDivID()).getElementsByClassName('emojione');
+    var chatInputText = document.getElementById(::this.handleDivID()).innerHTML;
 
     var nth = 0;
     chatInputText = chatInputText.replace(/<img class="emojione" alt="(.*?)" title="(.*?)" src="(.*?)"[^>]*>/g, (match, i, original) => {
@@ -239,23 +249,23 @@ class ChatInput extends Component {
   handleSendTextMessageOnChange(event) {
     const {
       user,
-      activeChatRoom,
+      chatRoom,
       handleIsNotTyping,
       handleSendTextMessage
     } = this.props;
     const messageText = ::this.handleMessageText('text');
     const newMessageID = uuidv4();
 
-    document.getElementById('chat-input').innerHTML = '';
-    handleIsNotTyping(user, activeChatRoom.data._id);
-    handleSendTextMessage(newMessageID, messageText);
+    document.getElementById(::this.handleDivID()).innerHTML = '';
+    handleIsNotTyping(user, chatRoom.data._id);
+    handleSendTextMessage(newMessageID, messageText, chatRoom.data._id);
   }
   handleSendTextMessageOnClick(event) {
     event.preventDefault();
 
     const {
       user,
-      activeChatRoom,
+      chatRoom,
       handleIsNotTyping,
       handleSendTextMessage
     } = this.props;
@@ -267,10 +277,10 @@ class ChatInput extends Component {
     const newMessageID = uuidv4();
 
     if ( validMessage && !maxLengthReached ) {
-      document.getElementById('chat-input').innerHTML = '';
-      document.getElementById('chat-input').focus();
-      handleIsNotTyping(user, activeChatRoom.data._id);
-      handleSendTextMessage(newMessageID, messageText);
+      document.getElementById(::this.handleDivID()).innerHTML = '';
+      document.getElementById(::this.handleDivID()).focus();
+      handleIsNotTyping(user, chatRoom.data._id);
+      handleSendTextMessage(newMessageID, messageText, chatRoom.data._id);
 
       this.setState({
         message: '',
@@ -290,7 +300,8 @@ class ChatInput extends Component {
   render() {
     const {
       handleAudioRecorderToggle,
-      disabled
+      disabled,
+      small
     } = this.props;
     const {
       message,
@@ -300,14 +311,23 @@ class ChatInput extends Component {
     } = this.state;
 
     return (
-      <div className={"chat-input-wrapper " + (disabled ? 'disabled' : '')}>
+      <div
+        className={
+          "chat-input-wrapper" +
+          (disabled ? ' disabled' : '') +
+          (small ? ' small' : '')
+        }
+      >
         <MediaQuery query="(min-width: 768px)">
           <div>
             {
               emojiPicker &&
               <div>
                 <EmojiPicker onChange={::this.handleEmojiPickerSelect} search />
-                <div className="emoji-picker-overlay" onClick={::this.handleEmojiPickerToggle} />
+                {
+                  !small &&
+                  <div className="emoji-picker-overlay" onClick={::this.handleEmojiPickerToggle} />
+                }
               </div>
             }
           </div>
@@ -315,7 +335,7 @@ class ChatInput extends Component {
         <div className="chat-input">
           <ContentEditable
             className="textfield single-line"
-            id="chat-input"
+            id={::this.handleDivID()}
             placeholder="Type here"
             autoComplete="off"
             html={message}
@@ -330,14 +350,14 @@ class ChatInput extends Component {
           <div className="extras">
             <div className="extra-buttons">
               <div
-                className="audio-button"
+                className="extra-button audio-button"
                 onClick={handleAudioRecorderToggle}
                 title="Send Voice Message"
               >
                 <FontAwesomeIcon icon="microphone" />
               </div>
               <div
-                className="file-button"
+                className="extra-button file-button"
                 onClick={::this.handleDragDropBoxToggle}
                 title="Add a File"
               >
@@ -345,7 +365,7 @@ class ChatInput extends Component {
               </div>
               <MediaQuery query="(min-width: 768px)">
                 <div
-                  className="emoji-button"
+                  className={"extra-button emoji-button " + (emojiPicker ? 'active' : '')}
                   onClick={::this.handleEmojiPickerToggle}
                   title="Add Emoji"
                 >
@@ -353,23 +373,26 @@ class ChatInput extends Component {
                 </div>
               </MediaQuery>
             </div>
-            <div className="extra-notes">
-              <div className="note">
-                <b>*bold*</b>
+            {
+              !small &&
+              <div className="extra-notes">
+                <div className="note">
+                  <b>*bold*</b>
+                </div>
+                <div className="note">
+                  <i>_italic_</i>
+                </div>
+                <div className="note">
+                  ~strike~
+                </div>
+                <div className="note">
+                  <code>`code`</code>
+                </div>
+                <div className="note">
+                  <code>```preformatted```</code>
+                </div>
               </div>
-              <div className="note">
-                <i>_italic_</i>
-              </div>
-              <div className="note">
-                ~strike~
-              </div>
-              <div className="note">
-                <code>`code`</code>
-              </div>
-              <div className="note">
-                <code>```preformatted```</code>
-              </div>
-            </div>
+            }
           </div>
         </div>
         <Button
@@ -387,18 +410,22 @@ class ChatInput extends Component {
 }
 
 ChatInput.propTypes = {
+  id: PropTypes.string,
   user: PropTypes.object.isRequired,
-  activeChatRoom: PropTypes.object.isRequired,
+  chatRoom: PropTypes.object.isRequired,
   handleIsTyping: PropTypes.func.isRequired,
   handleIsNotTyping: PropTypes.func.isRequired,
   handleSendTextMessage: PropTypes.func.isRequired,
   handleAudioRecorderToggle: PropTypes.func.isRequired,
   handleDragDropBoxToggle: PropTypes.func.isRequired,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  small: PropTypes.bool
 }
 
 ChatInput.defaultProps = {
-  disabled: false
+  id: '',
+  disabled: false,
+  small: false
 }
 
 export default ChatInput;

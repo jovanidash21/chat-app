@@ -17,13 +17,18 @@ class NotificationPopUp extends Component {
     ::this.handleNotifyMessage();
   }
   handleNotifyMessage() {
-    const { handleViewMessage } = this.props;
+    const {
+      handleViewMessage,
+      mobile
+    } = this.props;
 
     socket.on('action', (action) => {
-      const chatRoom = action.chatRoom;
+      const chatRoom =  {...action.chatRoom};
 
       if ( action.type === SOCKET_BROADCAST_NOTIFY_MESSAGE ) {
         if ( !chatRoom.mute.data ) {
+          chatRoom.data.name = action.senderName;
+
           notificationSystem.addNotification({
             title: 'New message from ' +
               action.senderName +
@@ -32,7 +37,7 @@ class NotificationPopUp extends Component {
             action: {
               label: 'View Message',
               callback: function() {
-                handleViewMessage(chatRoom);
+                handleViewMessage(chatRoom, mobile);
               }
             }
           });
@@ -48,7 +53,12 @@ class NotificationPopUp extends Component {
 }
 
 NotificationPopUp.propTypes = {
-  handleViewMessage: PropTypes.func.isRequired
+  handleViewMessage: PropTypes.func.isRequired,
+  mobile: PropTypes.bool
+}
+
+NotificationPopUp.defaultProps = {
+  mobile: false
 }
 
 export default NotificationPopUp;

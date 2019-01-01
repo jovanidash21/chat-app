@@ -1,22 +1,25 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { connectRouter } from 'connected-react-router';
 import { loadingBarReducer } from 'react-redux-loading-bar';
+import history from '../../history';
 import auth from './auth';
 import user from './user';
 import email from './email';
 import typer from './typer';
 import chatRoom from './chat-room';
+import popUpChatRoom from './popup-chat-room';
 import message from './message';
 import member from './member';
 
 const appReducer = combineReducers({
-  router: routerReducer,
+  router: connectRouter(history),
   loadingBar: loadingBarReducer,
   auth,
   user,
   email,
   typer,
   chatRoom,
+  popUpChatRoom,
   message,
   member
 });

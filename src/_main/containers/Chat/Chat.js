@@ -10,6 +10,7 @@ import {
 } from '../Common';
 import {
   ChatBox,
+  ChatPopUpWindow,
   ActiveChatRoom,
   ChatRoomsList,
   MembersList
@@ -28,6 +29,7 @@ class Chat extends Component {
     this.state = {
       isLeftSideDrawerOpen: false,
       isRightSideDrawerOpen: false,
+      activeChatPopUpWindow: -1,
       isAudioRecorderOpen: false,
       isDragDropBoxOpen: false
     };
@@ -64,7 +66,10 @@ class Chat extends Component {
               isLeftSideDrawerOpen={matches ? true : isLeftSideDrawerOpen}
               noOverlay={matches ? true : false}
             >
-              <ChatRoomsList handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent} />
+              <ChatRoomsList
+                handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
+                handleOpenPopUpChatRoom={::this.handleOpenPopUpChatRoom}
+              />
             </LeftSideDrawer>
           )
         }}
@@ -83,6 +88,44 @@ class Chat extends Component {
   handleRightSideDrawerToggleState(state) {
     this.setState({isRightSideDrawerOpen: state.isOpen});
   }
+  handleOpenPopUpChatRoom(selectedChatRoom) {
+    const {
+      user,
+      chatRoom,
+      popUpChatRoom,
+      openPopUpChatRoom,
+      closePopUpChatRoom
+    } = this.props;
+    const activeUser = user.active;
+    const activeChatRoom = chatRoom.active;
+    const allPopUpChatRooms = popUpChatRoom.all;
+    var chatRoomFound = false;
+    var popUpIndex = -1;
+
+    for ( var i = 0; i < allPopUpChatRooms.length; i++ ) {
+      var singleChatRoom = allPopUpChatRooms[i];
+
+      if ( singleChatRoom.data._id === selectedChatRoom.data._id ) {
+        chatRoomFound = true;
+        popUpIndex = i;
+        break;
+      }
+    }
+
+    if ( ! chatRoomFound ) {
+      if ( allPopUpChatRooms.length >= 5 ) {
+        closePopUpChatRoom(allPopUpChatRooms[0].data._id);
+      }
+
+      openPopUpChatRoom(selectedChatRoom, activeUser._id, activeChatRoom.data._id);
+      this.setState({activeChatPopUpWindow: allPopUpChatRooms.length});
+    } else {
+      this.setState({activeChatPopUpWindow: popUpIndex});
+    }
+  }
+  handleActiveChatPopUpWindow(popUpIndex) {
+    this.setState({activeChatPopUpWindow: popUpIndex});
+  }
   handleAudioRecorderToggle(event) {
     event.preventDefault();
 
@@ -91,19 +134,17 @@ class Chat extends Component {
   handleDragDropBoxToggle(openTheDragDropBox=false) {
     this.setState({isDragDropBoxOpen: openTheDragDropBox});
   }
-  handleSendTextMessage(newMessageID, text) {
+  handleSendTextMessage(newMessageID, text, chatRoomID) {
     const {
       user,
-      chatRoom,
       sendTextMessage
     } = this.props;
 
-    sendTextMessage(newMessageID, text, user.active, chatRoom.active.data._id);
+    sendTextMessage(newMessageID, text, user.active, chatRoomID);
   }
-  handleSendAudioMessage(newMessageID, text, audio) {
+  handleSendAudioMessage(newMessageID, text, audio, chatRoomID) {
     const {
       user,
-      chatRoom,
       sendAudioMessage
     } = this.props;
     const audioLength = new Date(audio.stopTime) - new Date(audio.startTime);
@@ -111,33 +152,41 @@ class Chat extends Component {
     if ( audioLength > ( 60 * 1000 ) ) {
       Popup.alert('Maximum of 1 minute audio only');
     } else {
-      sendAudioMessage(newMessageID, text, audio.blob, user.active, chatRoom.active.data._id);
+      sendAudioMessage(newMessageID, text, audio.blob, user.active, chatRoomID);
     }
   }
-  handleNotificationViewMessage(chatRoomObj) {
+  handleNotificationViewMessage(chatRoomObj, mobile) {
     const {
       user,
       chatRoom,
       changeChatRoom
     } = this.props;
 
-    changeChatRoom(chatRoomObj, user.active._id, chatRoom.active.data._id);
-    ::this.handleLeftSideDrawerToggleEvent();
-    ::this.handleRightSideDrawerToggleEvent();
+    if ( mobile ) {
+      changeChatRoom(chatRoomObj, user.active._id, chatRoom.active.data._id);
+      ::this.handleLeftSideDrawerToggleEvent();
+      ::this.handleRightSideDrawerToggleEvent();
+    } else {
+      ::this.handleOpenPopUpChatRoom(chatRoomObj);
+    }
   }
   render() {
     const {
       user,
+      typer,
       chatRoom,
+      popUpChatRoom,
       message,
       isTyping,
       isNotTyping
     } = this.props;
     const {
       isRightSideDrawerOpen,
+      activeChatPopUpWindow,
       isAudioRecorderOpen,
       isDragDropBoxOpen
     } = this.state;
+    const activeChatRoom = chatRoom.active;
     const isChatInputDisabled = chatRoom.fetch.loading || message.fetchNew.loading || isDragDropBoxOpen;
 
     return (
@@ -147,24 +196,57 @@ class Chat extends Component {
           handleRightSideDrawerToggleState={::this.handleRightSideDrawerToggleState}
           isRightSideDrawerOpen={isRightSideDrawerOpen}
         >
-          <MembersList handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent} />
+          <MembersList
+            handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
+            handleOpenPopUpChatRoom={::this.handleOpenPopUpChatRoom}
+          />
         </RightSideDrawer>
-        <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}>
+        <Header
+          handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
+          handleOpenPopUpChatRoom={::this.handleOpenPopUpChatRoom}
+        >
           <ActiveChatRoom
             handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
           />
         </Header>
-        <ChatBox
-          isAudioRecorderOpen={isAudioRecorderOpen}
-          handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
-          isDragDropBoxOpen={isDragDropBoxOpen}
-        />
+        <div className={"chat-box-wrapper " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
+          <MediaQuery query="(min-width: 768px)">
+            {
+              popUpChatRoom.all.length > 0 &&
+              <div className="chat-popup-window-wrapper">
+                {
+                  popUpChatRoom.all.map((singlePopUpChatRoom, i) =>
+                    <ChatPopUpWindow
+                      key={i}
+                      index={i}
+                      popUpChatRoom={singlePopUpChatRoom}
+                      handleSendTextMessage={::this.handleSendTextMessage}
+                      handleSendAudioMessage={::this.handleSendAudioMessage}
+                      handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
+                      handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
+                      active={activeChatPopUpWindow === i}
+                    />
+                  )
+                }
+              </div>
+            }
+          </MediaQuery>
+          <ChatBox
+            chatRoom={activeChatRoom}
+            message={message}
+            typers={typer.all}
+            handleDragDropBoxToggle={(::this.handleDragDropBoxToggle)}
+            isDragDropBoxOpen={isDragDropBoxOpen}
+            fetchNewLoading={message.fetchNew.loading}
+            fetchOldLoading={message.fetchOld.loading}
+          />
+        </div>
         {
           !isAudioRecorderOpen
             ?
             <ChatInput
               user={user.active}
-              activeChatRoom={chatRoom.active}
+              chatRoom={activeChatRoom}
               handleIsTyping={isTyping}
               handleIsNotTyping={isNotTyping}
               handleSendTextMessage={::this.handleSendTextMessage}
@@ -174,11 +256,21 @@ class Chat extends Component {
             />
             :
             <ChatAudioRecorder
+              chatRoom={activeChatRoom}
               handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
               handleSendAudioMessage={::this.handleSendAudioMessage}
             />
         }
-        <NotificationPopUp handleViewMessage={::this.handleNotificationViewMessage} />
+        <MediaQuery query="(max-width: 767px)">
+          {(matches) => {
+            return (
+              <NotificationPopUp
+                handleViewMessage={::this.handleNotificationViewMessage}
+                mobile={matches}
+              />
+            )
+          }}
+        </MediaQuery>
       </div>
     )
   }
@@ -187,7 +279,9 @@ class Chat extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    typer: state.typer,
     chatRoom: state.chatRoom,
+    popUpChatRoom: state.popUpChatRoom,
     message: state.message
   }
 }

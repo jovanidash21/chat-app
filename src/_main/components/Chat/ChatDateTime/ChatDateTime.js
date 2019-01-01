@@ -52,11 +52,12 @@ class ChatDateTime extends Component {
     }
   }
   render() {
+    const { small } = this.props;
     const { dateTime } = this.state;
 
     if ( dateTime.length > 0 ) {
       return (
-        <div className="chat-date-time">
+        <div className={"chat-date-time " + (small ? 'small' : '')}>
           <span>
             {dateTime}
           </span>
@@ -70,7 +71,12 @@ class ChatDateTime extends Component {
 
 ChatDateTime.propTypes = {
   messageDate: PropTypes.string.isRequired,
-  previousMessageDate: PropTypes.string.isRequired
+  previousMessageDate: PropTypes.string.isRequired,
+  small: PropTypes.bool
+}
+
+ChatDateTime.defaultProps = {
+  small: false
 }
 
 export default ChatDateTime;

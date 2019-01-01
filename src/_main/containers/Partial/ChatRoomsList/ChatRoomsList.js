@@ -89,7 +89,8 @@ class ChatRoomsList extends Component {
       user,
       chatRoom,
       changeChatRoom,
-      handleLeftSideDrawerToggleEvent
+      handleLeftSideDrawerToggleEvent,
+      handleOpenPopUpChatRoom
     } = this.props;
     const {
       isChatBoxRoomsListScrolled,
@@ -149,6 +150,7 @@ class ChatRoomsList extends Component {
                   activeChatRoom={activeChatRoom}
                   isActive={(activeChatRoom.data._id === singleChatRoom.data._id) ? true : false}
                   isSelected={selectedChatRoomIndex === i}
+                  handleOpenPopUpChatRoom={handleOpenPopUpChatRoom}
                   handleChangeChatRoom={changeChatRoom}
                   handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
                 />
@@ -251,7 +253,8 @@ const mapStateToProps = (state) => {
 }
 
 ChatRoomsList.propTypes = {
-  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired
+  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
+  handleOpenPopUpChatRoom: PropTypes.func.isRequired
 }
 
 export default connect(

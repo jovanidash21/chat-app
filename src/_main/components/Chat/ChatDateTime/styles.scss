@@ -1,6 +1,7 @@
 .chat-date-time {
   align-items: center;
   display: flex;
+  font-size: 14px;
   justify-content: space-between;
   position: relative;
   text-align: center;
@@ -10,6 +11,9 @@
     content: "";
     height: 1px;
     width: 100%;
+  }
+  &.small {
+    font-size: 11px;
   }
   span {
     margin: 0 10px;
