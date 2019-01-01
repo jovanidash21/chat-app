@@ -52,8 +52,8 @@ class MuteUnmuteChatRoomModal extends Component {
     return (
       <Modal
         className="mute-message-modal"
-        isModalOpen={isModalOpen}
-        handleCloseModal={handleCloseModal}
+        open={isModalOpen}
+        onClose={handleCloseModal}
       >
         <Form onSubmit={::this.handleMuteUnmuteChatRoom}>
           <Modal.Header>

@@ -1,0 +1,23 @@
+/* Long Shadow
+ * @param {number} $length -Length
+ * @param {number} $color-1-r - Color 1 red level
+ * @param {number} $color-1-g - Color 1 green level
+ * @param {number} $color-1-b - Color 1 blue level
+ * @param {number} $color-2-r - Color 2 red level
+ * @param {number} $color-2-g - Color 2 green level
+ * @param {number} $color-2-b - Color 2 blue level
+ */
+@function long-shadow($length, $color-1-r, $color-1-g, $color-1-b, $color-2-r, $color-2-g, $color-2-b) {
+  $shadow: ();
+
+  @for $i from 2 through $length {
+    $color-3-r: $color-1-r - (($color-1-r - $color-2-r) * (1 / $length * $i));
+    $color-3-g: $color-1-g - (($color-1-g - $color-2-g) * (1 / $length * $i));
+    $color-3-b: $color-1-b - (($color-1-b - $color-2-b) * (1 / $length * $i));
+    $spread: $i * 1px;
+    $color: rgb($color-3-r, $color-3-g, $color-3-b);
+    $shadow: append($shadow, #{$spread} #{$spread} 3px #{$color}, comma);
+  }
+
+  @return $shadow;
+}

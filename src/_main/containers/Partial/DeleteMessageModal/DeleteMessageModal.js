@@ -42,9 +42,9 @@ class DeleteMessageModal extends Component {
     return (
       <Modal
         className="delete-message-modal"
-        isModalOpen={isModalOpen}
-        handleCloseModal={handleCloseModal}
-        isDanger
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        danger
       >
         <Form>
           <Modal.Header>

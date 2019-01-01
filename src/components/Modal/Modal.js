@@ -15,27 +15,30 @@ class Modal extends Component {
   render() {
     const {
       className,
-      isModalOpen,
-      handleCloseModal,
-      isDanger,
-      isLoading,
+      open,
+      onClose,
+      showCloseIcon,
+      danger,
+      loading,
       children
     } = this.props;
     const modalClassNames = {
-      modal: "modal " + ( isDanger ? 'modal-danger ' : '' ) + className,
+      modal: "modal " + ( danger ? 'modal-danger ' : '' ) + className,
       closeButton: "close-button"
     };
 
     return (
       <ReactModal
         classNames={modalClassNames}
-        open={isModalOpen}
-        onClose={handleCloseModal}
+        open={open}
+        onClose={onClose}
         center
-        showCloseIcon={!isLoading}
+        closeOnEsc={false}
+        closeOnOverlayClick={false}
+        showCloseIcon={showCloseIcon && !loading}
       >
         {
-          !isLoading
+          !loading
             ?
             children
             :
@@ -49,16 +52,21 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  isModalOpen: PropTypes.bool,
-  handleCloseModal: PropTypes.func.isRequired,
-  isDanger: PropTypes.bool,
-  isLoading: PropTypes.bool
+  className: PropTypes.string,
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  showCloseIcon: PropTypes.bool,
+  danger: PropTypes.bool,
+  loading: PropTypes.bool
 }
 
 Modal.defaultProps = {
-  isModalOpen: false,
-  isDanger: false,
-  isLoading: false
+  className: '',
+  open: false,
+  onClose: () => {},
+  showCloseIcon: true,
+  danger: false,
+  loading: false
 }
 
 Modal.Header = Header;
