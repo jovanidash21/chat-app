@@ -235,7 +235,8 @@ class Chat extends Component {
             message={message}
             handleDragDropBoxToggle={(::this.handleDragDropBoxToggle)}
             isDragDropBoxOpen={isDragDropBoxOpen}
-            loading={message.fetchNew.loading}
+            fetchNewLoading={message.fetchNew.loading}
+            fetchOldLoading={message.fetchOld.loading}
           />
         </div>
         {

@@ -42,17 +42,17 @@ class ChatBox extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.loading && !this.props.loading ) ||
+      ( prevProps.fetchNewLoading && !this.props.fetchNewLoading ) ||
       this.state.isChatBoxScrollToBottom
     ) {
       ::this.handleScrollToBottom();
     }
 
-    if ( prevProps.loading && !this.props.loading ) {
+    if ( prevProps.fetchNewLoading && !this.props.fetchNewLoading ) {
       this.setState({hasLoadedAllMessages: false});
     }
 
-    if ( prevProps.message.fetchOld.loading && !this.props.message.fetchOld.loading ) {
+    if ( prevProps.fetchOldLoading && !this.props.fetchOldLoading ) {
       const {
         scrollPosition,
         oldestMessageQuery,
@@ -70,11 +70,11 @@ class ChatBox extends Component {
     }
 
     if (
-      ( prevProps.loading &&
-        !this.props.loading &&
+      ( prevProps.fetchNewLoading &&
+        !this.props.fetchNewLoading &&
         this.props.message.all.length < 50 ) ||
-      ( prevProps.message.fetchOld.loading &&
-        !this.props.message.fetchOld.loading &&
+      ( prevProps.fetchOldLoading &&
+        !this.props.fetchOldLoading &&
         this.props.message.all.length - prevProps.message.all.length < 50 )
     ) {
       this.setState({hasLoadedAllMessages: true});
@@ -103,7 +103,7 @@ class ChatBox extends Component {
       typer,
       chatRoom,
       message,
-      loading,
+      fetchNewLoading,
       small
     } = this.props;
     const { hasLoadedAllMessages } = this.state;
@@ -115,7 +115,7 @@ class ChatBox extends Component {
           Hi! Welcome, create a Chat Room now.
         </div>
       )
-    } else if ( !loading ) {
+    } else if ( !fetchNewLoading ) {
       return (
         <Container fluid>
           {
@@ -179,14 +179,14 @@ class ChatBox extends Component {
   handleImageLightboxRender() {
     const {
       message,
-      loading
+      fetchNewLoading
     } = this.props;
     const {
       isImageLightboxOpen,
       imageIndex
     } = this.state;
 
-    if ( !loading ) {
+    if ( !fetchNewLoading ) {
       const imagesArray = [];
       const imageMessages = message.all.filter(imageMessage =>
         imageMessage.messageType === 'image'
@@ -238,14 +238,15 @@ class ChatBox extends Component {
       user,
       chatRoom,
       message,
-      fetchOldMessages
+      fetchOldMessages,
+      fetchOldLoading
     } = this.props;
     const {
       hasLoadedAllMessages,
       isChatBoxScrollToTop
     } = this.state;
 
-    if ( !hasLoadedAllMessages && isChatBoxScrollToTop && !message.fetchOld.loading ) {
+    if ( !hasLoadedAllMessages && isChatBoxScrollToTop && !fetchOldLoading ) {
       const scrollPosition = this.chatBox.scrollTop;
       const oldestMessageQuery = document.querySelectorAll(".chat-box .chat-bubble-wrapper")[0];
       const oldestMessageOffsetTop = oldestMessageQuery.offsetTop;
@@ -371,6 +372,7 @@ class ChatBox extends Component {
       message,
       isTyping,
       isNotTyping,
+      fetchNewLoading,
       small
     } = this.props;
     const {
@@ -383,7 +385,7 @@ class ChatBox extends Component {
         <div
           className={
             "chat-box" +
-            (message.fetchNew.loading ? ' loading' : '') +
+            (fetchNewLoading ? ' loading' : '') +
             (small ? ' small' : '')
           }
           ref={(element) => { this.chatBox = element; }}
@@ -417,13 +419,15 @@ ChatBox.propTypes = {
   message: PropTypes.object.isRequired,
   handleDragDropBoxToggle: PropTypes.func.isRequired,
   isDragDropBoxOpen: PropTypes.bool,
-  loading: PropTypes.bool,
+  fetchNewLoading: PropTypes.bool,
+  fetchOldLoading: PropTypes.bool,
   small: PropTypes.bool
 }
 
 ChatBox.defaultProps = {
   isDragDropBoxOpen: false,
-  loading: false,
+  fetchNewLoading: false,
+  fetchOldLoading: false,
   small: false
 }
 
