@@ -33,6 +33,9 @@ export function openPopUpChatRoom(chatRoom, userID, activeChatRoomID) {
       send: {...commonStateFlags},
       delete: {...commonStateFlags},
       all: []
+    },
+    typer: {
+      all: []
     }
   };
 

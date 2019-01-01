@@ -10,6 +10,10 @@ import {
   DELETE_MESSAGE,
   SOCKET_BROADCAST_DELETE_MESSAGE
 } from '../constants/message';
+import {
+  SOCKET_BROADCAST_IS_TYPING,
+  SOCKET_BROADCAST_IS_NOT_TYPING
+} from '../constants/typer';
 
 const initialState = {
   all: []
@@ -218,6 +222,37 @@ const popUpChatRoom = (state=initialState, action) => {
 
       if ( chatRoomIndex > -1 ) {
         chatRooms[chatRoomIndex].message.all = chatRooms[chatRoomIndex].message.all.filter((message) => message._id !== messageID);
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
+    case SOCKET_BROADCAST_IS_TYPING:
+      var typer = action.typer;
+      var chatRoomID = action.chatRoomID;
+      var chatRooms = [...state.all];
+
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].typer.all = chatRooms[chatRoomIndex].typer.all.filter((singleTyper) => singleTyper._id !== typer._id);
+        chatRooms[chatRoomIndex].typer.all.push(typer);
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
+    case SOCKET_BROADCAST_IS_NOT_TYPING:
+      var typer = action.typer;
+      var chatRoomID = action.chatRoomID;
+      var chatRooms = [...state.all];
+
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].typer.all = chatRooms[chatRoomIndex].typer.all.filter((singleTyper) => singleTyper._id !== typer._id);
       }
 
       return {
