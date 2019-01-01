@@ -1,9 +1,10 @@
 import {
   OPEN_POPUP_CHAT_ROOM,
-  CLOSE_POPUP_CHAT_ROOM,
-  FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES
+  CLOSE_POPUP_CHAT_ROOM
 } from '../constants/popup-chat-room';
 import {
+  FETCH_NEW_MESSAGES,
+  FETCH_OLD_MESSAGES,
   SEND_MESSAGE,
   SOCKET_BROADCAST_SEND_MESSAGE,
   DELETE_MESSAGE,
@@ -42,7 +43,7 @@ const popUpChatRoom = (state=initialState, action) => {
         ...state,
         all: [...chatRooms]
       };
-    case `${FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES}_LOADING`:
+    case `${FETCH_NEW_MESSAGES}_LOADING`:
       var chatRoomID = action.meta;
       var chatRooms = [...state.all];
 
@@ -59,7 +60,24 @@ const popUpChatRoom = (state=initialState, action) => {
         ...state,
         all: [...chatRooms]
       };
-    case `${FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES}_SUCCESS`:
+    case `${FETCH_OLD_MESSAGES}_LOADING`:
+      var chatRoomID = action.meta;
+      var chatRooms = [...state.all];
+
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].message.fetchOld = {
+          ...chatRooms[chatRoomIndex].message.fetchOld,
+          loading: true
+        };
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
+    case `${FETCH_NEW_MESSAGES}_SUCCESS`:
       var chatRoomID = action.meta;
       var chatRooms = [...state.all];
 
@@ -80,7 +98,31 @@ const popUpChatRoom = (state=initialState, action) => {
         ...state,
         all: [...chatRooms]
       };
-    case `${FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES}_ERROR`:
+    case `${FETCH_OLD_MESSAGES}_SUCCESS`:
+      var chatRoomID = action.meta;
+      var chatRooms = [...state.all];
+
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].message.fetchOld = {
+          ...chatRooms[chatRoomIndex].message.fetchOld,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        };
+        chatRooms[chatRoomIndex].message.all = [
+          ...action.payload.data.messages,
+          ...chatRooms[chatRoomIndex].message.all
+        ];
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
+    case `${FETCH_NEW_MESSAGES}_ERROR`:
       var chatRoomID = action.meta;
       var chatRooms = [...state.all];
 
@@ -89,6 +131,26 @@ const popUpChatRoom = (state=initialState, action) => {
       if ( chatRoomIndex > -1 ) {
         chatRooms[chatRoomIndex].message.fetchNew = {
           ...chatRooms[chatRoomIndex].message.fetchNew,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        };
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
+    case `${FETCH_OLD_MESSAGES}_ERROR`:
+      var chatRoomID = action.meta;
+      var chatRooms = [...state.all];
+
+      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+
+      if ( chatRoomIndex > -1 ) {
+        chatRooms[chatRoomIndex].message.fetchOld = {
+          ...chatRooms[chatRoomIndex].message.fetchOld,
           loading: false,
           success: false,
           error: true,

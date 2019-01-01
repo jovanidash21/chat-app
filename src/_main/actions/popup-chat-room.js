@@ -1,13 +1,13 @@
 import axios from 'axios';
 import {
   OPEN_POPUP_CHAT_ROOM,
-  CLOSE_POPUP_CHAT_ROOM,
-  FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES
+  CLOSE_POPUP_CHAT_ROOM
 } from '../constants/popup-chat-room';
 import {
   joinChatRoom,
   leaveChatRoom
 } from './chat-room';
+import { fetchNewMessages } from './message';
 import { getBaseURL } from '../../utils/url';
 
 const baseURL = getBaseURL();
@@ -45,7 +45,7 @@ export function openPopUpChatRoom(chatRoom, userID, activeChatRoomID) {
       }
     });
     dispatch(joinChatRoom(chatRoom.data._id));
-    dispatch(fetchPopUpChatRoomNewMessages(chatRoom.data._id, userID));
+    dispatch(fetchNewMessages(chatRoom.data._id, userID));
   }
 }
 
@@ -60,31 +60,5 @@ export function closePopUpChatRoom(chatRoomID) {
       chatRoomID: chatRoomID
     });
     dispatch(leaveChatRoom(chatRoomID));
-  }
-}
-
-/**
- * Fetch popup chat room new messages
- * @param {string} chatRoomID
- * @param {string} userID
- */
-export function fetchPopUpChatRoomNewMessages(chatRoomID, userID) {
-  let data = {
-    chatRoomID: chatRoomID,
-    userID: userID,
-    skipCount: 0
-  };
-
-  return dispatch => {
-    return dispatch({
-      type: FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES,
-      payload: axios.post(baseURL + '/api/message', data),
-      meta: chatRoomID
-    })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
-      }
-    });
   }
 }
