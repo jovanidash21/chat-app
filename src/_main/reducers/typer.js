@@ -18,20 +18,10 @@ const typer = (state=initialState, action) => {
       var chatRoomID = action.chatRoomID;
       var activeChatRoom = {...state.activeChatRoom};
       var typers = [...state.all];
-      var isTyperExist = false;
 
-      for (var i = 0; i < typers.length; i++) {
-        var singleTyper = typers[i];
+      var typerIndex = typers.findIndex(singleTyper => singleTyper._id === typer._id);
 
-        if ( singleTyper._id === typer._id ) {
-          isTyperExist = true;
-          break;
-        } else {
-          continue
-        }
-      }
-
-      if ( activeChatRoom.data._id === chatRoomID && !isTyperExist ) {
+      if ( activeChatRoom.data._id === chatRoomID && typerIndex === -1  ) {
         typers.push(typer);
       }
 

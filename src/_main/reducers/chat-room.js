@@ -10,9 +10,6 @@ import {
 } from '../constants/chat-room';
 import { SOCKET_BROADCAST_USER_LOGIN } from '../constants/auth';
 import {
-  FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES
-} from '../constants/popup-chat-room';
-import {
   FETCH_NEW_MESSAGES,
   SOCKET_BROADCAST_NOTIFY_MESSAGE
 } from '../constants/message';
@@ -295,28 +292,18 @@ const chatRoom = (state=initialState, action) => {
         active: {...activeChatRoom}
       }
     case `${FETCH_NEW_MESSAGES}_SUCCESS`:
-      var activeChatRoom = {...state.active};
-      var chatRooms = [...state.all];
-
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === activeChatRoom.data._id);
-
-      if ( chatRoomIndex > -1 ) {
-        chatRooms[chatRoomIndex].unReadMessages = 0;
-        activeChatRoom.unReadMessages = 0;
-      }
-
-      return {
-        ...state,
-        all: [...chatRooms]
-      }
-    case `${FETCH_POPUP_CHAT_ROOM_NEW_MESSAGES}_SUCCESS`:
       var chatRoomID = action.meta;
+      var activeChatRoom = {...state.active};
       var chatRooms = [...state.all];
 
       var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
 
       if ( chatRoomIndex > -1 ) {
         chatRooms[chatRoomIndex].unReadMessages = 0;
+
+        if ( chatRoomID === activeChatRoom.data._id ) {
+          activeChatRoom.unReadMessages = 0;
+        }
       }
 
       return {
