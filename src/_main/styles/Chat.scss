@@ -65,9 +65,13 @@ body.chat-page {
     bottom: 0;
     left: 0;
     margin: 12px;
+    pointer-events: none;
     position: absolute;
     right: 0;
     top: 0;
+    .chat-popup-window {
+      pointer-events: auto;
+    }
   }
   .chat-input-wrapper,
   .chat-audio-recorder {
