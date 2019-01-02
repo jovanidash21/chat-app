@@ -3,6 +3,7 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const postcssFlexbugsFixes = require('postcss-flexbugs-fixes');
+const adapter = require.resolve('webrtc-adapter');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const extractSassBundle = new ExtractTextPlugin({
@@ -96,6 +97,10 @@ module.exports = {
           ],
           fallback: 'style-loader',
         }),
+      },
+      {
+        test: adapter,
+        loader: 'expose-loader',
       },
     ],
   },
