@@ -33,6 +33,23 @@ class Header extends Component {
   handleCloseModal() {
     this.setState({isModalOpen: false});
   }
+  handleVideoCamRender() {
+    const { chatRoom } = this.props;
+    const activeChatRoom = chatRoom.active;
+
+    if (
+      !isObjectEmpty(activeChatRoom.data) &&
+      activeChatRoom.data.chatType === 'direct' &&
+      !chatRoom.fetch.loading &&
+      chatRoom.fetch.success
+    ) {
+      return (
+        <div className="header-item-icon video-cam-icon">
+          <FontAwesomeIcon icon="video" />
+        </div>
+      )
+    }
+  }
   handleNewMessagesDropdownRender() {
     const {
       user,
@@ -100,6 +117,7 @@ class Header extends Component {
         <div className="content">
           {children}
         </div>
+        {::this.handleVideoCamRender()}
         {::this.handleNewMessagesDropdownRender()}
         {
           !chatRoom.fetch.loading &&

@@ -86,9 +86,12 @@ class ChatPopUpWindow extends Component {
                 <span className="you-label">(you)</span>
               }
             </div>
-            <div className="popup-header-icon video-cam-icon">
-              <FontAwesomeIcon icon="video" />
-            </div>
+            {
+              popUpChatRoom.data.chatType === 'direct' &&
+              <div className="popup-header-icon video-cam-icon">
+                <FontAwesomeIcon icon="video" />
+              </div>
+            }
             <div className="popup-header-icon close-icon" onClick={::this.handleClosePopUpChatRoom}>
               <FontAwesomeIcon icon="times" />
             </div>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './styles.scss';
 
 class ChatRoomDropdown extends Component {
   constructor(props) {
