@@ -86,7 +86,10 @@ class ChatPopUpWindow extends Component {
                 <span className="you-label">(you)</span>
               }
             </div>
-            <div className="close-icon" onClick={::this.handleClosePopUpChatRoom}>
+            <div className="popup-header-icon video-cam-icon">
+              <FontAwesomeIcon icon="video" />
+            </div>
+            <div className="popup-header-icon close-icon" onClick={::this.handleClosePopUpChatRoom}>
               <FontAwesomeIcon icon="times" />
             </div>
           </div>
