@@ -114,6 +114,7 @@
       }
       &.single-line {
         overflow: hidden auto;
+        word-break: break-all;
         br {
           display: none;
         }
