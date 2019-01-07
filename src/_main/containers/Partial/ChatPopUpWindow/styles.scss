@@ -33,6 +33,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      .you-label {
+         color: $color-alto;
+         margin-left: 7px;
+      }
     }
     .popup-header-icon {
       color: #fff;
