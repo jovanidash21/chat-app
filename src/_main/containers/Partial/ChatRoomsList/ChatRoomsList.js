@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
@@ -116,13 +117,19 @@ class ChatRoomsList extends Component {
               <FontAwesomeIcon icon="plus" />
             </div>
           </div>
-          <SearchFilter
-            value={searchFilter}
-            onChange={::this.onChatRoomNameChange}
-            onKeyDown={::this.onChatRoomNameKeyDown}
-            handleClearSearchFilter={::this.handleClearSearchFilter}
-            light
-          />
+          <MediaQuery query="(max-width: 767px)">
+            {(matches) => {
+              return (
+                <SearchFilter
+                  value={searchFilter}
+                  onChange={::this.onChatRoomNameChange}
+                  onKeyDown={(e) => {::this.onChatRoomNameKeyDown(e, matches)}}
+                  handleClearSearchFilter={::this.handleClearSearchFilter}
+                  light
+                />
+              )
+            }}
+          </MediaQuery>
           <div className={"scroll-shadow " + (isChatBoxRoomsListScrolled ? 'scrolled' : '')} />
           <div
             className="chat-rooms-list"
@@ -186,11 +193,13 @@ class ChatRoomsList extends Component {
 
     ::this.handleChatRoomsListFilter(searchFilter);
   }
-  onChatRoomNameKeyDown(event) {
+  onChatRoomNameKeyDown(event, mobile) {
     const {
       user,
       chatRoom,
-      changeChatRoom
+      changeChatRoom,
+      handleLeftSideDrawerToggleEvent,
+      handleOpenPopUpChatRoom
     } = this.props;
     const {
       chatRooms,
@@ -217,7 +226,14 @@ class ChatRoomsList extends Component {
       if ( event.key === 'Enter' && selectedChatRoomIndex !== -1 ) {
         const selectedChatRoom = chatRooms[selectedChatRoomIndex];
 
-        changeChatRoom(selectedChatRoom, user.active._id, chatRoom.active.data._id);
+        if ( mobile ) {
+          changeChatRoom(selectedChatRoom, user.active._id, chatRoom.active.data._id);
+          handleLeftSideDrawerToggleEvent();
+        } else {
+          handleOpenPopUpChatRoom(selectedChatRoom);
+        }
+
+        ::this.handleClearSearchFilter();
       }
     }
   }
