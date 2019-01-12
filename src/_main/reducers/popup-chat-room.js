@@ -14,6 +14,10 @@ import {
   SOCKET_BROADCAST_IS_TYPING,
   SOCKET_BROADCAST_IS_NOT_TYPING
 } from '../constants/typer';
+import {
+  SOCKET_BROADCAST_USER_LOGIN,
+  SOCKET_BROADCAST_USER_LOGOUT
+} from '../constants/auth';
 
 const initialState = {
   all: []
@@ -253,6 +257,53 @@ const popUpChatRoom = (state=initialState, action) => {
 
       if ( chatRoomIndex > -1 ) {
         chatRooms[chatRoomIndex].typer.all = chatRooms[chatRoomIndex].typer.all.filter((singleTyper) => singleTyper._id !== typer._id);
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
+    case SOCKET_BROADCAST_USER_LOGIN:
+      var user = action.user;
+      var userID = user._id;
+      var chatRooms = [...state.all];
+
+      if ( chatRooms.length > 0 ) {
+        for (var i = 0; i < chatRooms.length; i++) {
+          var chatRoom = chatRooms[i];
+          var members = chatRoom.data.members;
+
+          if ( members.length > 0 ) {
+            var memberIndex = members.findIndex(singleMember => singleMember._id === userID);
+
+            if ( memberIndex > -1 ) {
+              members[memberIndex].isOnline = true;
+            }
+          }
+        }
+      }
+
+      return {
+        ...state,
+        all: [...chatRooms]
+      };
+    case SOCKET_BROADCAST_USER_LOGOUT:
+      var userID = action.userID;
+      var chatRooms = [...state.all];
+
+      if ( chatRooms.length > 0 ) {
+        for (var i = 0; i < chatRooms.length; i++) {
+          var chatRoom = chatRooms[i];
+          var members = chatRoom.data.members;
+
+          if ( members.length > 0 ) {
+            var memberIndex = members.findIndex(singleMember => singleMember._id === userID);
+
+            if ( memberIndex > -1 ) {
+              members[memberIndex].isOnline = false;
+            }
+          }
+        }
       }
 
       return {

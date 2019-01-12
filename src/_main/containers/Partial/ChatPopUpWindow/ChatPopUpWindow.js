@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuidv4 from 'uuid/v4';
 import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
+import { isDirectChatRoomMemberOnline } from '../../../../utils/member';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { Avatar } from '../../../../components/Avatar';
 import { ChatBox } from '../ChatBox';
@@ -88,6 +89,7 @@ class ChatPopUpWindow extends Component {
             </div>
             {
               popUpChatRoom.data.chatType === 'direct' &&
+              isDirectChatRoomMemberOnline(popUpChatRoom.data.members, user.active._id) &&
               <div className="popup-header-icon video-cam-icon">
                 <FontAwesomeIcon icon="video" />
               </div>

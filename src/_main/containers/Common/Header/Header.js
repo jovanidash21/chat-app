@@ -5,6 +5,7 @@ import { Appbar } from 'muicss/react/';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { isObjectEmpty } from '../../../../utils/object';
+import { isDirectChatRoomMemberOnline } from '../../../../utils/member';
 import { MuteUnmuteChatRoomModal } from '../../Partial';
 import {
   NewMessagesDropdown,
@@ -34,14 +35,19 @@ class Header extends Component {
     this.setState({isModalOpen: false});
   }
   handleVideoCamRender() {
-    const { chatRoom } = this.props;
+    const {
+      user,
+      chatRoom
+    } = this.props;
+    const activeUser = user.active;
     const activeChatRoom = chatRoom.active;
 
     if (
       !isObjectEmpty(activeChatRoom.data) &&
       activeChatRoom.data.chatType === 'direct' &&
       !chatRoom.fetch.loading &&
-      chatRoom.fetch.success
+      chatRoom.fetch.success &&
+      isDirectChatRoomMemberOnline(activeChatRoom.data.members, activeUser._id)
     ) {
       return (
         <div className="header-item-icon video-cam-icon">

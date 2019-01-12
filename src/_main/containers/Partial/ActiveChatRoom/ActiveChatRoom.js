@@ -30,7 +30,7 @@ class ActiveChatRoom extends Component {
     ) {
       const activeUser = user.active;
       const activeChatRoom = chatRoom.active;
-      const isOtherMemberOnline = isDirectChatRoomMemberOnline(member.all, activeUser._id);
+      const isOtherMemberOnline = isDirectChatRoomMemberOnline(activeChatRoom.data.members, activeUser._id);
 
       return (
         <div className="chat-room-detail-wrapper">
@@ -65,8 +65,6 @@ class ActiveChatRoom extends Component {
               }
               {
                 activeChatRoom.data.chatType === 'direct' &&
-                !member.fetch.loading &&
-                member.fetch.success &&
                 <div className="online-indicator-wrapper">
                   <OnlineIndicator isOnline={isOtherMemberOnline} />
                   {isOtherMemberOnline ? 'online' : 'offline'}
