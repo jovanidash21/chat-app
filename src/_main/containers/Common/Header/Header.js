@@ -50,7 +50,7 @@ class Header extends Component {
       isDirectChatRoomMemberOnline(activeChatRoom.data.members, activeUser._id)
     ) {
       return (
-        <div className="header-item-icon video-cam-icon">
+        <div className="header-item-icon video-cam-icon" onClick={::this.handleRequestVideoCall}>
           <FontAwesomeIcon icon="video" />
         </div>
       )
@@ -94,6 +94,18 @@ class Header extends Component {
           handleClearChatRoomUnreadMessages={::this.handleClearChatRoomUnreadMessages}
         />
       )
+    }
+  }
+  handleRequestVideoCall(event) {
+    event.preventDefault();
+
+    const {
+      chatRoom,
+      handleRequestVideoCall
+    } = this.props;
+
+    if ( chatRoom.active.data.chatType === 'direct' ) {
+      handleRequestVideoCall(chatRoom.active);
     }
   }
   handleClearChatRoomUnreadMessages(chatRoomIDs) {
@@ -156,7 +168,8 @@ const mapStateToProps = (state) => {
 
 Header.propTypes = {
   handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
-  handleOpenPopUpChatRoom: PropTypes.func.isRequired
+  handleOpenPopUpChatRoom: PropTypes.func.isRequired,
+  handleRequestVideoCall: PropTypes.func.isRequired
 }
 
 export default connect(

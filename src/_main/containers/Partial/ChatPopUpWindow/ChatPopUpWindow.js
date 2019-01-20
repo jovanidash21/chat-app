@@ -35,6 +35,22 @@ class ChatPopUpWindow extends Component {
 
     handleActiveChatPopUpWindow(index);
   }
+  handleRequestVideoCall(event) {
+    event.preventDefault();
+
+    if ( event.stopPropagation ) {
+      event.stopPropagation();
+    }
+
+    const {
+      popUpChatRoom,
+      handleRequestVideoCall
+    } = this.props;
+
+    if ( popUpChatRoom.data.chatType === 'direct' ) {
+      handleRequestVideoCall(popUpChatRoom);
+    }
+  }
   handleClosePopUpChatRoom(event) {
     event.preventDefault();
 
@@ -90,7 +106,7 @@ class ChatPopUpWindow extends Component {
             {
               popUpChatRoom.data.chatType === 'direct' &&
               isDirectChatRoomMemberOnline(popUpChatRoom.data.members, user.active._id) &&
-              <div className="popup-header-icon video-cam-icon">
+              <div className="popup-header-icon video-cam-icon" onClick={::this.handleRequestVideoCall}>
                 <FontAwesomeIcon icon="video" />
               </div>
             }
@@ -153,6 +169,7 @@ ChatPopUpWindow.propTypes = {
   popUpChatRoom: PropTypes.object.isRequired,
   handleSendTextMessage: PropTypes.func.isRequired,
   handleSendAudioMessage: PropTypes.func.isRequired,
+  handleRequestVideoCall: PropTypes.func.isRequired,
   handleActiveChatPopUpWindow: PropTypes.func.isRequired,
   active: PropTypes.bool
 }

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import Popup from 'react-popup';
+import Peer from 'simple-peer';
 import mapDispatchToProps from '../../actions';
+import { getMedia } from '../../../utils/media';
 import {
   Header,
   LeftSideDrawer,
@@ -13,25 +15,42 @@ import {
   ChatPopUpWindow,
   ActiveChatRoom,
   ChatRoomsList,
-  MembersList
+  MembersList,
+  VideoCallRequestModal,
+  VideoCallWindow
 } from '../Partial';
 import {
   ChatInput,
   ChatAudioRecorder
 } from '../../components/Chat';
 import { NotificationPopUp } from '../../components/NotificationPopUp';
+import {
+  SOCKET_BROADCAST_REQUEST_VIDEO_CALL,
+  SOCKET_BROADCAST_CANCEL_REQUEST_VIDEO_CALL,
+  SOCKET_BROADCAST_REJECT_VIDEO_CALL,
+  SOCKET_BROADCAST_ACCEPT_VIDEO_CALL,
+  SOCKET_BROADCAST_END_VIDEO_CALL
+} from '../../constants/video-call';
+import socket from '../../../socket';
 import '../../styles/Chat.scss';
 
 class Chat extends Component {
   constructor(props) {
     super(props);
 
+    this.peer = null;
+    this.callerPeerID = null;
+
     this.state = {
       isLeftSideDrawerOpen: false,
       isRightSideDrawerOpen: false,
       activeChatPopUpWindow: -1,
       isAudioRecorderOpen: false,
-      isDragDropBoxOpen: false
+      isDragDropBoxOpen: false,
+      localVideoSource: {},
+      remoteVideoSource: {},
+      isVideoCallRequestModalOpen: false,
+      isVideoCallWindowOpen: false
     };
   }
   componentWillMount() {
@@ -48,6 +67,25 @@ class Chat extends Component {
     ::this.calculateViewportHeight();
     window.addEventListener('onorientationchange', ::this.calculateViewportHeight, true);
     window.addEventListener('resize', ::this.calculateViewportHeight, true);
+
+    socket.on('action', (action) => {
+      switch (action.type) {
+        case SOCKET_BROADCAST_REQUEST_VIDEO_CALL:
+          this.callerPeerID = action.peerID;
+          this.setState({isVideoCallRequestModalOpen: true});
+          break;
+        case SOCKET_BROADCAST_CANCEL_REQUEST_VIDEO_CALL:
+          this.setState({isVideoCallRequestModalOpen: false});
+          break;
+        case SOCKET_BROADCAST_REJECT_VIDEO_CALL:
+        case SOCKET_BROADCAST_END_VIDEO_CALL :
+          this.setState({isVideoCallWindowOpen: false});
+          break;
+        case SOCKET_BROADCAST_ACCEPT_VIDEO_CALL:
+          ::this.handleSignalPeer(action.peerID);
+          break;
+      }
+    });
   }
   calculateViewportHeight() {
     var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -155,6 +193,104 @@ class Chat extends Component {
       sendAudioMessage(newMessageID, text, audio.blob, user.active, chatRoomID);
     }
   }
+  handleVideoCallError() {
+    Popup.alert('Camera is not supported on your device!');
+  }
+  handleSignalPeer(peerID) {
+    if ( this.peer ) {
+      this.peer.signal(peerID);
+
+      this.peer.on('stream', (remoteStream) => {
+        this.setState({remoteVideoSource: remoteStream});
+      });
+    }
+  }
+  handleRequestVideoCall(chatRoom) {
+    const {
+      user,
+      requestVideoCall
+    } = this.props;
+    const activeUser = user.active;
+    const chatRoomMembers = chatRoom.data.members;
+
+    if ( chatRoom.data.chatType === 'direct' ) {
+      var memberIndex = chatRoomMembers.findIndex(singleMember => singleMember._id !== activeUser._id);
+
+      if ( memberIndex > -1 ) {
+        getMedia(
+          (stream) => {
+            this.peer = new Peer({
+              initiator: true,
+              trickle: false,
+              stream: stream
+            });
+
+            this.peer.on('signal', (signal) => {
+              requestVideoCall(activeUser._id, chatRoomMembers[memberIndex], signal);
+            });
+
+            this.setState({
+              localVideoSource: stream,
+              remoteVideoSource: {},
+              isVideoCallWindowOpen: true
+            });
+          },
+          ::this.handleVideoCallError
+        );
+      }
+    }
+  }
+  handleCancelRequestVideoCall(receiverID) {
+    const { cancelRequestVideoCall } = this.props;
+
+    cancelRequestVideoCall(receiverID);
+    this.setState({isVideoCallWindowOpen: false});
+  }
+  handleAcceptVideoCall(callerID) {
+    const { acceptVideoCall } = this.props;
+
+    getMedia(
+      (stream) => {
+        this.peer = new Peer({
+          initiator: false,
+          trickle: false,
+          stream: stream
+        });
+
+        ::this.handleSignalPeer(this.callerPeerID);
+
+        this.peer.on('signal', (signal) => {
+          acceptVideoCall(callerID, signal);
+        });
+
+        this.setState({
+          localVideoSource: stream,
+          isVideoCallRequestModalOpen: false,
+          isVideoCallWindowOpen: true
+        });
+      },
+      () => {
+        ::this.handleRejectVideoCall();
+        ::this.handleVideoCallError();
+      }
+    );
+  }
+  handleRejectVideoCall() {
+    const {
+      videoCall,
+      rejectVideoCall
+    } = this.props;
+    const peerUser = videoCall.peerUser;
+
+    rejectVideoCall(peerUser._id);
+    this.setState({isVideoCallRequestModalOpen: false});
+  }
+  handleEndVideoCall(peerUserID) {
+    const { endVideoCall } = this.props;
+
+    endVideoCall(peerUserID);
+    this.setState({isVideoCallWindowOpen: false});
+  }
   handleNotificationViewMessage(chatRoomObj, mobile) {
     const {
       user,
@@ -177,6 +313,7 @@ class Chat extends Component {
       chatRoom,
       popUpChatRoom,
       message,
+      videoCall,
       isTyping,
       isNotTyping
     } = this.props;
@@ -184,7 +321,11 @@ class Chat extends Component {
       isRightSideDrawerOpen,
       activeChatPopUpWindow,
       isAudioRecorderOpen,
-      isDragDropBoxOpen
+      isDragDropBoxOpen,
+      localVideoSource,
+      remoteVideoSource,
+      isVideoCallRequestModalOpen,
+      isVideoCallWindowOpen
     } = this.state;
     const activeChatRoom = chatRoom.active;
     const isChatInputDisabled = chatRoom.fetch.loading || message.fetchNew.loading || isDragDropBoxOpen;
@@ -204,6 +345,7 @@ class Chat extends Component {
         <Header
           handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
           handleOpenPopUpChatRoom={::this.handleOpenPopUpChatRoom}
+          handleRequestVideoCall={::this.handleRequestVideoCall}
         >
           <ActiveChatRoom
             handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
@@ -223,6 +365,7 @@ class Chat extends Component {
                       handleSendTextMessage={::this.handleSendTextMessage}
                       handleSendAudioMessage={::this.handleSendAudioMessage}
                       handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
+                      handleRequestVideoCall={::this.handleRequestVideoCall}
                       handleActiveChatPopUpWindow={::this.handleActiveChatPopUpWindow}
                       active={activeChatPopUpWindow === i}
                     />
@@ -271,6 +414,23 @@ class Chat extends Component {
             )
           }}
         </MediaQuery>
+        {
+          isVideoCallRequestModalOpen &&
+          <VideoCallRequestModal
+            isModalOpen={isVideoCallRequestModalOpen}
+            handleAcceptVideoCall={::this.handleAcceptVideoCall}
+            handleRejectVideoCall={::this.handleRejectVideoCall}
+          />
+        }
+        {
+          isVideoCallWindowOpen &&
+          <VideoCallWindow
+            localVideoSource={localVideoSource}
+            remoteVideoSource={remoteVideoSource}
+            handleCancelRequestVideoCall={::this.handleCancelRequestVideoCall}
+            handleEndVideoCall={::this.handleEndVideoCall}
+          />
+        }
       </div>
     )
   }
@@ -282,7 +442,8 @@ const mapStateToProps = (state) => {
     typer: state.typer,
     chatRoom: state.chatRoom,
     popUpChatRoom: state.popUpChatRoom,
-    message: state.message
+    message: state.message,
+    videoCall: state.videoCall
   }
 }
 
