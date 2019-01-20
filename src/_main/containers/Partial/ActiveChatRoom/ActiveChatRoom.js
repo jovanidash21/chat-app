@@ -6,6 +6,7 @@ import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
 import { isObjectEmpty } from '../../../../utils/object';
 import { formatNumber } from '../../../../utils/number';
+import { isDirectChatRoomMemberOnline } from '../../../../utils/member';
 import { Avatar } from '../../../../components/Avatar';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { OnlineIndicator } from '../../../components/OnlineIndicator';
@@ -27,7 +28,9 @@ class ActiveChatRoom extends Component {
       chatRoom.fetch.success &&
       !isObjectEmpty(chatRoom.active.data)
     ) {
+      const activeUser = user.active;
       const activeChatRoom = chatRoom.active;
+      const isOtherMemberOnline = isDirectChatRoomMemberOnline(activeChatRoom.data.members, activeUser._id);
 
       return (
         <div className="chat-room-detail-wrapper">
@@ -35,8 +38,8 @@ class ActiveChatRoom extends Component {
             image={activeChatRoom.data.chatIcon}
             size="32px"
             name={activeChatRoom.data.name}
-            roleChatType={handleChatRoomAvatarBadges(activeChatRoom.data, user.active, 'role-chat')}
-            accountType={handleChatRoomAvatarBadges(activeChatRoom.data, user.active)}
+            roleChatType={handleChatRoomAvatarBadges(activeChatRoom.data, activeUser, 'role-chat')}
+            accountType={handleChatRoomAvatarBadges(activeChatRoom.data, activeUser)}
             badgeCloser
           />
           <div className="chat-room-detail">
@@ -62,16 +65,10 @@ class ActiveChatRoom extends Component {
               }
               {
                 activeChatRoom.data.chatType === 'direct' &&
-                !member.fetch.loading &&
-                member.fetch.success &&
-                member.all.filter(singleMember =>
-                  singleMember._id !== user.active._id
-                ).map((singleMember, i) =>
-                  <div key={i} className="online-indicator-wrapper">
-                    <OnlineIndicator isOnline={singleMember.isOnline} />
-                    {singleMember.isOnline ? 'online' : 'offline'}
-                  </div>
-                )
+                <div className="online-indicator-wrapper">
+                  <OnlineIndicator isOnline={isOtherMemberOnline} />
+                  {isOtherMemberOnline ? 'online' : 'offline'}
+                </div>
               }
               {
                 activeChatRoom.data.chatType === 'private' &&

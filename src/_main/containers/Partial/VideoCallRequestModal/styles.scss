@@ -1,0 +1,47 @@
+.video-call-request-modal {
+  text-align: center;
+  .avatar-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .user-name {
+    font-weight: bold;
+  }
+  .video-call-controls {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    .video-call-button {
+      $size: 50px;
+      align-items: center;
+      border: 2px solid;
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      height: $size;
+      justify-content: center;
+      transition: all 0.2s ease;
+      width: $size;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+    .accept-call-button {
+      background-color: $color-limeade;
+      border-color: $color-limeade;
+      &:hover {
+        color: $color-limeade;
+      }
+    }
+    .end-call-button {
+      background-color: $color-torch-red;
+      border-color: $color-torch-red;
+      transform: rotate(-135deg);
+      &:hover {
+        color: $color-torch-red;
+      }
+    }
+  }
+}

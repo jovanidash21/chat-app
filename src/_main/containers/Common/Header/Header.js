@@ -5,6 +5,7 @@ import { Appbar } from 'muicss/react/';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { isObjectEmpty } from '../../../../utils/object';
+import { isDirectChatRoomMemberOnline } from '../../../../utils/member';
 import { MuteUnmuteChatRoomModal } from '../../Partial';
 import {
   NewMessagesDropdown,
@@ -32,6 +33,28 @@ class Header extends Component {
   }
   handleCloseModal() {
     this.setState({isModalOpen: false});
+  }
+  handleVideoCamRender() {
+    const {
+      user,
+      chatRoom
+    } = this.props;
+    const activeUser = user.active;
+    const activeChatRoom = chatRoom.active;
+
+    if (
+      !isObjectEmpty(activeChatRoom.data) &&
+      activeChatRoom.data.chatType === 'direct' &&
+      !chatRoom.fetch.loading &&
+      chatRoom.fetch.success &&
+      isDirectChatRoomMemberOnline(activeChatRoom.data.members, activeUser._id)
+    ) {
+      return (
+        <div className="header-item-icon video-cam-icon" onClick={::this.handleRequestVideoCall}>
+          <FontAwesomeIcon icon="video" />
+        </div>
+      )
+    }
   }
   handleNewMessagesDropdownRender() {
     const {
@@ -73,6 +96,18 @@ class Header extends Component {
       )
     }
   }
+  handleRequestVideoCall(event) {
+    event.preventDefault();
+
+    const {
+      chatRoom,
+      handleRequestVideoCall
+    } = this.props;
+
+    if ( chatRoom.active.data.chatType === 'direct' ) {
+      handleRequestVideoCall(chatRoom.active);
+    }
+  }
   handleClearChatRoomUnreadMessages(chatRoomIDs) {
     const {
       user,
@@ -100,6 +135,7 @@ class Header extends Component {
         <div className="content">
           {children}
         </div>
+        {::this.handleVideoCamRender()}
         {::this.handleNewMessagesDropdownRender()}
         {
           !chatRoom.fetch.loading &&
@@ -132,7 +168,8 @@ const mapStateToProps = (state) => {
 
 Header.propTypes = {
   handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
-  handleOpenPopUpChatRoom: PropTypes.func.isRequired
+  handleOpenPopUpChatRoom: PropTypes.func.isRequired,
+  handleRequestVideoCall: PropTypes.func.isRequired
 }
 
 export default connect(

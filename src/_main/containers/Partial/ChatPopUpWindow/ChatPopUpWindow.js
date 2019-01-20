@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuidv4 from 'uuid/v4';
 import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
+import { isDirectChatRoomMemberOnline } from '../../../../utils/member';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { Avatar } from '../../../../components/Avatar';
 import { ChatBox } from '../ChatBox';
@@ -33,6 +34,22 @@ class ChatPopUpWindow extends Component {
     } = this.props;
 
     handleActiveChatPopUpWindow(index);
+  }
+  handleRequestVideoCall(event) {
+    event.preventDefault();
+
+    if ( event.stopPropagation ) {
+      event.stopPropagation();
+    }
+
+    const {
+      popUpChatRoom,
+      handleRequestVideoCall
+    } = this.props;
+
+    if ( popUpChatRoom.data.chatType === 'direct' ) {
+      handleRequestVideoCall(popUpChatRoom);
+    }
   }
   handleClosePopUpChatRoom(event) {
     event.preventDefault();
@@ -87,7 +104,14 @@ class ChatPopUpWindow extends Component {
                 <span className="you-label">(you)</span>
               }
             </div>
-            <div className="close-icon" onClick={::this.handleClosePopUpChatRoom}>
+            {
+              popUpChatRoom.data.chatType === 'direct' &&
+              isDirectChatRoomMemberOnline(popUpChatRoom.data.members, user.active._id) &&
+              <div className="popup-header-icon video-cam-icon" onClick={::this.handleRequestVideoCall}>
+                <FontAwesomeIcon icon="video" />
+              </div>
+            }
+            <div className="popup-header-icon close-icon" onClick={::this.handleClosePopUpChatRoom}>
               <FontAwesomeIcon icon="times" />
             </div>
           </div>
@@ -146,6 +170,7 @@ ChatPopUpWindow.propTypes = {
   popUpChatRoom: PropTypes.object.isRequired,
   handleSendTextMessage: PropTypes.func.isRequired,
   handleSendAudioMessage: PropTypes.func.isRequired,
+  handleRequestVideoCall: PropTypes.func.isRequired,
   handleActiveChatPopUpWindow: PropTypes.func.isRequired,
   active: PropTypes.bool
 }

@@ -171,6 +171,71 @@ var sockets = function(io) {
               console.log(error);
             });
           break;
+        case 'SOCKET_REQUEST_VIDEO_CALL':
+          var callerUser = {};
+
+          User.findById(action.callerID)
+            .then((user) => {
+              callerUser = user;
+
+              return User.findById(action.receiverID);
+            })
+            .then((user) => {
+              socket.broadcast.to(user.socketID).emit('action', {
+                type: 'SOCKET_BROADCAST_REQUEST_VIDEO_CALL',
+                user: callerUser,
+                peerID: action.peerID
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          break;
+        case 'SOCKET_CANCEL_REQUEST_VIDEO_CALL':
+          User.findById(action.receiverID)
+            .then((user) => {
+              socket.broadcast.to(user.socketID).emit('action', {
+                type: 'SOCKET_BROADCAST_CANCEL_REQUEST_VIDEO_CALL'
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          break;
+        case 'SOCKET_REJECT_VIDEO_CALL':
+          User.findById(action.callerID)
+            .then((user) => {
+              socket.broadcast.to(user.socketID).emit('action', {
+                type: 'SOCKET_BROADCAST_REJECT_VIDEO_CALL'
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          break;
+        case 'SOCKET_ACCEPT_VIDEO_CALL':
+          User.findById(action.callerID)
+            .then((user) => {
+              socket.broadcast.to(user.socketID).emit('action', {
+                type: 'SOCKET_BROADCAST_ACCEPT_VIDEO_CALL',
+                peerID: action.peerID
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          break;
+        case 'SOCKET_END_VIDEO_CALL':
+          User.findById(action.callerID)
+            .then((user) => {
+              socket.broadcast.to(user.socketID).emit('action', {
+                type: 'SOCKET_BROADCAST_END_VIDEO_CALL'
+              });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+          break;
         default:
           break;
       }

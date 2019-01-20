@@ -1,0 +1,56 @@
+.video-call-window {
+  background-color: $color-primary;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1500;
+  .remote-video {
+    height: 100%;
+    width: 100%;
+  }
+  .local-video {
+    height: auto;
+    position: absolute;
+    right: 15px;
+    top: 30px;
+    width: 180px;
+    @media screen and (max-width: $screen-mobile-max) {
+      width: 100px;
+    }
+  }
+  .video-call-controls {
+    align-items: center;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    .video-call-button {
+      $size: 50px;
+      align-items: center;
+      border: 2px solid;
+      border-radius: 50%;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      height: $size;
+      justify-content: center;
+      margin: 0 20px;
+      transition: all 0.2s ease;
+      width: $size;
+      &:hover {
+        background-color: transparent;
+      }
+    }
+    .end-call-button {
+      background-color: $color-torch-red;
+      border-color: $color-torch-red;
+      transform: rotate(-135deg);
+      &:hover {
+        color: $color-torch-red;
+      }
+    }
+  }
+}
