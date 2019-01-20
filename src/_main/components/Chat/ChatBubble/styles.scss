@@ -21,6 +21,7 @@
   .chat-message {
     align-items: center;
     display: flex;
+    position: relative;
     .trash-icon {
       align-items: center;
       color: $color-torch-red;
@@ -29,9 +30,12 @@
       justify-content: center;
       font-size: 17px;
       height: 21px;
+      left: 100%;
       line-height: 17px;
       opacity: 0;
       overflow-x: hidden;
+      position: absolute;
+      right: auto;
       transition: all 0.3s cubic-bezier(0.1, 0.9, 0.5, 1);
       width: 0;
       @media screen and (max-width: $screen-mobile-max) {
@@ -200,7 +204,9 @@
     .chat-message {
       flex-direction: row;
       .trash-icon {
+        left: auto;
         margin-right: 5px;
+        right: 100%;
         @media screen and (max-width: $screen-mobile-max) {
           margin-right: 0;
         }

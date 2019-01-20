@@ -236,18 +236,10 @@ class MembersList extends Component {
       }
 
       handleRightSideDrawerToggleEvent();
-      ::this.handleMembersListFilter();
-      this.setState({
-        searchFilter: '',
-        selectedMemberIndex: -1
-      });
+      ::this.handleClearSearchFilter();
     } else {
       handleRightSideDrawerToggleEvent();
-      ::this.handleMembersListFilter();
-      this.setState({
-        searchFilter: '',
-        selectedMemberIndex: -1
-      });
+      ::this.handleClearSearchFilter();
     }
   }
   render() {
