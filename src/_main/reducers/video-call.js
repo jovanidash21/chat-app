@@ -1,6 +1,10 @@
 import {
   SOCKET_REQUEST_VIDEO_CALL,
   SOCKET_BROADCAST_REQUEST_VIDEO_CALL,
+  SOCKET_CANCEL_REQUEST_VIDEO_CALL,
+  SOCKET_BROADCAST_CANCEL_REQUEST_VIDEO_CALL,
+  SOCKET_REJECT_VIDEO_CALL,
+  SOCKET_BROADCAST_REJECT_VIDEO_CALL,
   SOCKET_ACCEPT_VIDEO_CALL,
   SOCKET_BROADCAST_ACCEPT_VIDEO_CALL,
   SOCKET_END_VIDEO_CALL,
@@ -38,11 +42,16 @@ const videoCall = (state=initialState, action) => {
         ...state,
         active: true
       };
+    case SOCKET_CANCEL_REQUEST_VIDEO_CALL:
+    case SOCKET_BROADCAST_CANCEL_REQUEST_VIDEO_CALL:
+    case SOCKET_REJECT_VIDEO_CALL:
+    case SOCKET_BROADCAST_REJECT_VIDEO_CALL:
     case SOCKET_END_VIDEO_CALL:
     case SOCKET_BROADCAST_END_VIDEO_CALL:
       return {
         ...state,
-        active: false
+        active: false,
+        peerUser: {}
       };
     default:
       return state;
