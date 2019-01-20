@@ -37,6 +37,13 @@ import {
   sendAudioMessage,
   deleteMessage
 } from './message';
+import {
+  requestVideoCall,
+  cancelRequestVideoCall,
+  rejectVideoCall,
+  acceptVideoCall,
+  endVideoCall
+} from './video-call';
 
 const actions = (dispatch) => {
   return bindActionCreators({
@@ -65,7 +72,12 @@ const actions = (dispatch) => {
     sendTextMessage,
     sendFileMessage,
     sendAudioMessage,
-    deleteMessage
+    deleteMessage,
+    requestVideoCall,
+    cancelRequestVideoCall,
+    rejectVideoCall,
+    acceptVideoCall,
+    endVideoCall
   }, dispatch);
 }
 
