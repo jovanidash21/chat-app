@@ -96,6 +96,23 @@ class Header extends Component {
       )
     }
   }
+  handleChatRoomDropdownRender() {
+    const { chatRoom } = this.props;
+    const activeChatRoom = chatRoom.active;
+
+    if (
+      !isObjectEmpty(activeChatRoom.data) &&
+      !chatRoom.fetch.loading &&
+      chatRoom.fetch.success
+    ) {
+      return (
+        <ChatRoomDropdown
+          activeChatRoom={activeChatRoom}
+          handleOpenMuteUnmuteModal={::this.handleOpenModal}
+        />
+      )
+    }
+  }
   handleRequestVideoCall(event) {
     event.preventDefault();
 
@@ -137,15 +154,7 @@ class Header extends Component {
         </div>
         {::this.handleVideoCamRender()}
         {::this.handleNewMessagesDropdownRender()}
-        {
-          !chatRoom.fetch.loading &&
-          chatRoom.fetch.success &&
-          !isObjectEmpty(chatRoom.active.data) &&
-          <ChatRoomDropdown
-            activeChatRoom={chatRoom.active}
-            handleOpenMuteUnmuteModal={::this.handleOpenModal}
-          />
-        }
+        {::this.handleChatRoomDropdownRender()}
         <UserDropdown user={user.active} />
         {
           isModalOpen &&
