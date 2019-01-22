@@ -13,7 +13,7 @@ class VideoCallWindow extends Component {
   componentDidMount() {
     ::this.handleLocalVideoSource();
   }
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     if ( !isObjectEmpty(this.props.remoteVideoSource) && !this.remoteVideo.srcObject ) {
       this.remoteVideo.srcObject = this.props.remoteVideoSource;
     }

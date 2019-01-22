@@ -22,11 +22,17 @@
   }
   .video-call-controls {
     align-items: center;
-    bottom: 20px;
+    bottom: 0;
     display: flex;
     justify-content: center;
+    padding: 20px 0;
     position: absolute;
     width: 100%;
+    &:hover {
+      .video-call-button {
+        opacity: 1;
+      }
+    }
     .video-call-button {
       $size: 50px;
       align-items: center;
@@ -38,8 +44,12 @@
       height: $size;
       justify-content: center;
       margin: 0 20px;
-      transition: all 0.2s ease;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.1, 0.9, 0.5, 1);
       width: $size;
+      @media screen and (max-width: $screen-mobile-max) {
+        opacity: 1;
+      }
       &:hover {
         background-color: transparent;
       }
