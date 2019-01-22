@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Draggable from 'react-draggable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import uuidv4 from 'uuid/v4';
 import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
 import { isDirectChatRoomMemberOnline } from '../../../../utils/member';
