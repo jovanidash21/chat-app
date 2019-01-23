@@ -106,11 +106,19 @@ class ChatPopUpWindow extends Component {
             {
               popUpChatRoom.data.chatType === 'direct' &&
               isDirectChatRoomMemberOnline(popUpChatRoom.data.members, user.active._id) &&
-              <div className="popup-header-icon video-cam-icon" onClick={::this.handleRequestVideoCall}>
+              <div
+                className="popup-header-icon video-cam-icon"
+                title="Start Video Call"
+                onClick={::this.handleRequestVideoCall}
+              >
                 <FontAwesomeIcon icon="video" />
               </div>
             }
-            <div className="popup-header-icon close-icon" onClick={::this.handleClosePopUpChatRoom}>
+            <div
+              className="popup-header-icon close-icon"
+              title="Close"
+              onClick={::this.handleClosePopUpChatRoom}
+            >
               <FontAwesomeIcon icon="times" />
             </div>
           </div>
