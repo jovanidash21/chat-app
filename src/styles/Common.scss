@@ -101,11 +101,11 @@ pre {
       content: '';
       height: 0;
       position: absolute;
-      right: 10px;
+      right: 15px;
       top: -8px;
       width: 0;
       @media screen and (max-width: $screen-mobile-max) {
-        right: 3px;
+        right: 9px;
       }
     }
   }
