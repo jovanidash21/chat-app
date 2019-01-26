@@ -79,7 +79,7 @@ class Pagination extends Component {
             }
             variant="flat"
             size="small"
-            onClick={number !== '...' ? (e) => ::this.handleChangePage(e, number) : false}
+            onClick={number !== '...' ? (e) => ::this.handleChangePage(e, number) : () => {}}
             disabled={number === '...'}
           >
             {number}
@@ -105,7 +105,7 @@ class Pagination extends Component {
             className="pagination-button arrow-button"
             variant="flat"
             size="small"
-            onClick={!isPrevButtonDisabled ? (e) => ::this.handleChangePage(e, 1) : false}
+            onClick={!isPrevButtonDisabled ? (e) => ::this.handleChangePage(e, 1) : () => {}}
             title="First Page"
             disabled={isPrevButtonDisabled}
           >
@@ -117,7 +117,7 @@ class Pagination extends Component {
             className="pagination-button arrow-button"
             variant="flat"
             size="small"
-            onClick={!isPrevButtonDisabled ? (e) => ::this.handleChangePage(e, activePage - 1) : false}
+            onClick={!isPrevButtonDisabled ? (e) => ::this.handleChangePage(e, activePage - 1) : () => {}}
             title="Previous Page"
             disabled={isPrevButtonDisabled}
           >
@@ -130,7 +130,7 @@ class Pagination extends Component {
             className="pagination-button arrow-button"
             variant="flat"
             size="small"
-            onClick={!isNextButtonDisabled ? (e) => ::this.handleChangePage(e, activePage + 1) : false}
+            onClick={!isNextButtonDisabled ? (e) => ::this.handleChangePage(e, activePage + 1) : () => {}}
             title="Next Page"
             disabled={isNextButtonDisabled}
           >
@@ -142,7 +142,7 @@ class Pagination extends Component {
             className="pagination-button arrow-button"
             variant="flat"
             size="small"
-            onClick={!isNextButtonDisabled ? (e) => ::this.handleChangePage(e, numberOfPages) : false}
+            onClick={!isNextButtonDisabled ? (e) => ::this.handleChangePage(e, numberOfPages) : () => {}}
             title="Last Page"
             disabled={isNextButtonDisabled}
           >
