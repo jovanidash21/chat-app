@@ -45,6 +45,14 @@ class UserDropdown extends Component {
             <div className="divider" />
           </li>
           <li>
+            <a href="#">
+              <div className="option-icon">
+                <FontAwesomeIcon icon="user-edit" />
+              </div>
+              Edit profile
+            </a>
+          </li>
+          <li>
             <a href="/logout">
               <div className="option-icon">
                 <FontAwesomeIcon icon="sign-out-alt" />
