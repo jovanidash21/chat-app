@@ -125,9 +125,11 @@ pre {
     margin: 5px 0;
   }
   .option-icon {
+    align-items: center;
     color: $color-primary;
-    display: inline-block;
+    display: inline-flex;
     font-size: 15px;
+    justify-content: start;
     margin-right: 5px;
     width: 21px;
     transition: $transition;
