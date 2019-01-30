@@ -27,7 +27,7 @@
     transform: translateY(-50%);
   }
   .search-icon {
-    left: 10px;
+    left: 17px;
     pointer-events: none;
   }
   .clear-icon {
@@ -38,7 +38,7 @@
     justify-content: center;
     opacity: 0.5;
     overflow-x: hidden;
-    right: 5px;
+    right: 9px;
     transition: all 0.2s ease-in-out;
     width: 0;
     &:hover {
@@ -46,8 +46,8 @@
     }
   }
   .mui-textfield {
-    border: 1px solid $color-alto;
-    border-radius: 3px;
+    border: 2px solid $color-alto;
+    border-radius: 40px;
     margin: 0;
     padding: 0;
     input {
@@ -55,7 +55,7 @@
       color: $color-mine-shaft;
       font-size: 16px;
       height: 33px;
-      padding: 3px 30px 3px 24px;
+      padding: 3px 30px 3px 30px;
       &::placeholder {
         color: $color-dusty-gray;
       }
