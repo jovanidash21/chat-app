@@ -4,6 +4,7 @@
   color: #fff;
   position: relative;
   text-align: center;
+  user-select: none;
   word-break: break-all;
   &.avatar-tooltip-toggle {
     cursor: pointer;
