@@ -46,15 +46,16 @@
     }
   }
   .mui-textfield {
+    $height: 33px;
     border: 2px solid $color-alto;
-    border-radius: 40px;
+    border-radius: $height;
     margin: 0;
     padding: 0;
     input {
       border: none;
       color: $color-mine-shaft;
       font-size: 16px;
-      height: 33px;
+      height: $height;
       padding: 3px 30px 3px 30px;
       &::placeholder {
         color: $color-dusty-gray;

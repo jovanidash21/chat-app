@@ -14,10 +14,11 @@
     .chat-input {
       margin-left: 2px;
       .textfield[contenteditable=true] {
-        border-radius: 30px;
+        $height: 30px;
+        border-radius: $height;
         font-size: 14px;
         line-height: 20px;
-        max-height: 30px;
+        max-height: $height;
         padding: 3px 10px;
         .emojione {
           $emoji-size: 20px;
@@ -95,14 +96,15 @@
     flex: 19;
     margin-left: 10px;
     .textfield[contenteditable=true] {
+      $height: 34px;
       border: 2px solid $color-primary;
-      border-radius: 40px;
+      border-radius: $height;
       box-sizing: border-box;
       color: #000;
       cursor: text;
       font-size: 15px;
       line-height: 24px;
-      max-height: 34px;
+      max-height: $height;
       padding: 3px 15px;
       user-select: text;
       width: 100%;
