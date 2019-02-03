@@ -1,9 +1,10 @@
 .user-select-wrapper {
   .users-list {
+    $height: 20px;
     border: 1px solid $color-dusty-gray;
-    border-radius: 20px;
+    border-radius: $height;
     margin-bottom: 10px;
-    min-height: 20px;
+    min-height: $height;
     padding: 4px;
     &[disabled] {
       cursor: not-allowed;
@@ -88,10 +89,12 @@
       position: relative;
     }
     .react-autosuggest__input {
+      $height: 30px;
       border: 1px solid $color-dusty-gray;
-      border-radius: 30px;
+      border-radius: $height;
       box-sizing: border-box;
       font-size: 16px;
+      height: $height;
       padding: 5px 30px;
       width: 100%;
       &:focus {
