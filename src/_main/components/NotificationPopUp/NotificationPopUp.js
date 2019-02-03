@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import NotificationSystem from 'react-notification-system';
 import { SOCKET_BROADCAST_NOTIFY_MESSAGE } from '../../constants/message';
+import {
+  SOCKET_BROADCAST_REJECT_VIDEO_CALL,
+  SOCKET_BROADCAST_ACCEPT_VIDEO_CALL
+} from '../../constants/video-call';
 import socket from '../../../socket';
 import './styles.scss';
-
-var notificationSystem = null;
 
 class NotificationPopUp extends Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    notificationSystem = this.refs.notificationSystem;
-
     ::this.handleNotifyMessage();
   }
   handleNotifyMessage() {
@@ -25,29 +25,43 @@ class NotificationPopUp extends Component {
     socket.on('action', (action) => {
       const chatRoom =  {...action.chatRoom};
 
-      if ( action.type === SOCKET_BROADCAST_NOTIFY_MESSAGE ) {
-        if ( !chatRoom.mute.data ) {
-          chatRoom.data.name = action.senderName;
+      switch (action.type) {
+        case SOCKET_BROADCAST_NOTIFY_MESSAGE:
+          if ( !chatRoom.mute.data ) {
+            chatRoom.data.name = action.senderName;
 
-          notificationSystem.addNotification({
-            title: 'New message from ' +
-              action.senderName +
-              (chatRoom.data.chatType !== 'direct' ? ` on ${action.chatRoomName}` : ''),
-            level: 'success',
-            action: {
-              label: 'View Message',
-              callback: function() {
-                handleViewMessage(chatRoom, mobile);
+            this.notificationSystem.addNotification({
+              title: 'New message from ' +
+                action.senderName +
+                (chatRoom.data.chatType !== 'direct' ? ` on ${action.chatRoomName}` : ''),
+              level: 'success',
+              action: {
+                label: 'View Message',
+                callback: function() {
+                  handleViewMessage(chatRoom, mobile);
+                }
               }
-            }
+            });
+          }
+          break;
+        case SOCKET_BROADCAST_REJECT_VIDEO_CALL:
+          this.notificationSystem.addNotification({
+            title: 'Your video call is not accepted',
+            level: 'error'
           });
-        }
+          break;
+        case SOCKET_BROADCAST_ACCEPT_VIDEO_CALL:
+          this.notificationSystem.addNotification({
+            title: 'Your video call is accepted',
+            level: 'success'
+          });
+          break;
       }
     });
   }
   render() {
     return (
-      <NotificationSystem ref="notificationSystem" />
+      <NotificationSystem ref={(element) => { this.notificationSystem = element; }} />
     )
   }
 }
