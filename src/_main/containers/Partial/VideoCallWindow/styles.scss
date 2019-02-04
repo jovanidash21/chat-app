@@ -1,14 +1,21 @@
 .video-call-window {
+  align-items: center;
   background-color: $color-primary;
+  display: flex;
   height: 100%;
+  justify-content: center;
   left: 0;
   position: absolute;
   top: 0;
   width: 100%;
   z-index: 1500;
   .remote-video {
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 90%;
+    @media screen and (max-width: $screen-mobile-max) {
+      height: 100%;
+      width: 100%;
+    }
   }
   .local-video {
     height: auto;
