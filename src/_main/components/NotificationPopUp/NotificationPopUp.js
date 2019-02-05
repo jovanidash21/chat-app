@@ -23,10 +23,9 @@ class NotificationPopUp extends Component {
     } = this.props;
 
     socket.on('action', (action) => {
-      const chatRoom =  {...action.chatRoom};
-
       switch (action.type) {
         case SOCKET_BROADCAST_NOTIFY_MESSAGE:
+          var chatRoom =  {...action.chatRoom};
           if ( !chatRoom.mute.data ) {
             chatRoom.data.name = action.senderName;
 
