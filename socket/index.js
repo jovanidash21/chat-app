@@ -6,8 +6,6 @@ var cron = require('../cron');
 var connectedUsers = {};
 
 var sockets = function(io) {
-  io.sockets.setMaxListeners(0);
-
   io.sockets.on('connection', function (socket) {
     cron(socket);
 
