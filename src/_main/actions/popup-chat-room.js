@@ -8,9 +8,6 @@ import {
   leaveChatRoom
 } from './chat-room';
 import { fetchNewMessages } from './message';
-import { getBaseURL } from '../../utils/url';
-
-const baseURL = getBaseURL();
 
 /**
  * Open popup chat room

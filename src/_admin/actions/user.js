@@ -10,9 +10,6 @@ import {
   EDIT_USER,
   DELETE_USER
 } from '../constants/user';
-import { getBaseURL } from '../../utils/url';
-
-const baseURL = getBaseURL();
 
 /**
  * Fetch active user
@@ -21,7 +18,7 @@ export function fetchActiveUser() {
   return dispatch => {
     return dispatch({
       type: FETCH_ACTIVE_USER,
-      payload: axios.get(baseURL + '/api/user')
+      payload: axios.get('user')
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -38,7 +35,7 @@ export function fetchUsersCount() {
   return dispatch => {
     return dispatch({
       type: FETCH_USERS_COUNT,
-      payload: axios.get(baseURL + '/api/user/count')
+      payload: axios.get('user/count')
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -55,7 +52,7 @@ export function fetchUsersGraph() {
   return dispatch => {
     return dispatch({
       type: FETCH_USERS_GRAPH,
-      payload: axios.get(baseURL + '/api/user/graph')
+      payload: axios.get('user/graph')
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -75,7 +72,7 @@ export function fetchSelectedUser(userID) {
   return dispatch => {
     return dispatch({
       type: FETCH_SELECTED_USER,
-      payload: axios.post(baseURL + '/api/user/select', data)
+      payload: axios.post('user/select', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -92,7 +89,7 @@ export function fetchUsers() {
   return dispatch => {
     return dispatch({
       type: FETCH_USERS,
-      payload: axios.get(baseURL + '/api/user/all')
+      payload: axios.get('user/all')
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -111,7 +108,7 @@ export function searchUser(query) {
   return dispatch => {
     return dispatch({
       type: SEARCH_USER,
-      payload: axios.post(baseURL + '/api/user/search', data)
+      payload: axios.post('user/search', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -143,7 +140,7 @@ export function createUser(username, name, email, role, password, profilePicture
   return dispatch => {
     return dispatch({
       type: CREATE_USER,
-      payload: axios.post(baseURL + '/api/user/create', data)
+      payload: axios.post('user/create', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -175,7 +172,7 @@ export function editUser(userID, username, name, email, role, profilePicture) {
   return dispatch => {
     return dispatch({
       type: EDIT_USER,
-      payload: axios.post(baseURL + '/api/user/edit', data)
+      payload: axios.post('user/edit', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -195,7 +192,7 @@ export function deleteUser(userID) {
   return dispatch => {
     return dispatch({
       type: DELETE_USER,
-      payload: axios.post(baseURL + '/api/user/delete', data),
+      payload: axios.post('user/delete', data),
       meta: userID
     })
     .catch((error) => {

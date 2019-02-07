@@ -8,9 +8,6 @@ import {
   REGISTER,
   SOCKET_USER_LOGIN
 } from '../constants/auth';
-import { getBaseURL } from '../../utils/url';
-
-const baseURL = getBaseURL();
 
 /**
  * Socket user login
@@ -39,7 +36,7 @@ export function localLogin(username, password) {
 
     return dispatch({
       type: LOGIN,
-      payload: axios.post(baseURL + '/api/login/local', data)
+      payload: axios.post('login/local', data)
     })
     .then(() => {
       dispatch(hideLoading());
@@ -61,7 +58,7 @@ export function facebookLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup(baseURL + '/api/login/facebook', 'Facebook Login', {}, function (err, res) {
+        popupTools.popup('login/facebook', 'Facebook Login', {}, function (err, res) {
           if (!err) {
             resolve(res);
           } else {
@@ -89,7 +86,7 @@ export function googleLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup(baseURL + '/api/login/google', 'Google Login', {}, function (err, res) {
+        popupTools.popup('login/google', 'Google Login', {}, function (err, res) {
           if (!err) {
             resolve(res);
           } else {
@@ -117,7 +114,7 @@ export function twitterLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup(baseURL + '/api/login/twitter', 'Twitter Login', {}, function (err, res) {
+        popupTools.popup('login/twitter', 'Twitter Login', {}, function (err, res) {
           if (!err) {
             resolve(res);
           } else {
@@ -145,7 +142,7 @@ export function instagramLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup(baseURL + '/api/login/instagram', 'Instagram Login', {}, function (err, res) {
+        popupTools.popup('login/instagram', 'Instagram Login', {}, function (err, res) {
           if (!err) {
             resolve(res);
           } else {
@@ -173,7 +170,7 @@ export function linkedinLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup(baseURL + '/api/login/linkedin', 'LinkedIn Login', {}, function (err, res) {
+        popupTools.popup('login/linkedin', 'LinkedIn Login', {}, function (err, res) {
           if (!err) {
             resolve(res);
           } else {
@@ -201,7 +198,7 @@ export function githubLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise((resolve, reject) => {
-        popupTools.popup(baseURL + '/api/login/github', 'GitHub Login', {}, function (err, res) {
+        popupTools.popup('login/github', 'GitHub Login', {}, function (err, res) {
           if (!err) {
             resolve(res);
           } else {
@@ -241,7 +238,7 @@ export function register(email, name, username, password) {
 
     return dispatch({
       type: REGISTER,
-      payload: axios.post(baseURL + '/api/register', data)
+      payload: axios.post('register', data)
     })
     .then(() => {
       dispatch(hideLoading());

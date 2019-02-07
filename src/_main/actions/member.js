@@ -1,8 +1,5 @@
 import axios from 'axios';
 import { FETCH_MEMBERS } from '../constants/member';
-import { getBaseURL } from '../../utils/url';
-
-const baseURL = getBaseURL();
 
 /**
  * Fetch members
@@ -18,7 +15,7 @@ export function fetchMembers(chatRoomID, userID) {
   return dispatch => {
     return dispatch({
       type: FETCH_MEMBERS,
-      payload: axios.post(baseURL + '/api/member', data)
+      payload: axios.post('member', data)
     })
     .catch((error) => {
       if (error instanceof Error) {

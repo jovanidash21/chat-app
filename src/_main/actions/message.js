@@ -7,9 +7,6 @@ import {
   DELETE_MESSAGE,
   SOCKET_DELETE_MESSAGE
 } from '../constants/message';
-import { getBaseURL } from '../../utils/url';
-
-const baseURL = getBaseURL();
 
 /**
  * Fetch new messages
@@ -26,7 +23,7 @@ export function fetchNewMessages(chatRoomID, userID) {
   return dispatch => {
     return dispatch({
       type: FETCH_NEW_MESSAGES,
-      payload: axios.post(baseURL + '/api/message', data),
+      payload: axios.post('message', data),
       meta: chatRoomID
     })
     .catch((error) => {
@@ -53,7 +50,7 @@ export function fetchOldMessages(chatRoomID, userID, skipCount) {
   return dispatch => {
     return dispatch({
       type: FETCH_OLD_MESSAGES,
-      payload: axios.post(baseURL + '/api/message', data),
+      payload: axios.post('message', data),
       meta: chatRoomID
     })
     .catch((error) => {
@@ -93,7 +90,7 @@ export function sendTextMessage(newMessageID, text, user, chatRoomID) {
     });
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post(baseURL + '/api/message/text', data),
+      payload: axios.post('message/text', data),
       meta: newMessageID
     })
     .then((response) => {
@@ -155,7 +152,7 @@ export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post(baseURL + '/api/message/file', data, config),
+      payload: axios.post('message/file', data, config),
       meta: newMessageID
     })
     .then((response) => {
@@ -213,7 +210,7 @@ export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post(baseURL + '/api/message/audio', data, config),
+      payload: axios.post('message/audio', data, config),
       meta: newMessageID
     })
     .then((response) => {
@@ -245,7 +242,7 @@ export function deleteMessage(messageID, chatRoomID) {
   return dispatch => {
     return dispatch({
       type: DELETE_MESSAGE,
-      payload: axios.post(baseURL + '/api/message/delete', data),
+      payload: axios.post('message/delete', data),
       meta: {
         messageID: messageID,
         chatRoomID: chatRoomID

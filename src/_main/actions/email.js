@@ -1,8 +1,5 @@
 import axios from 'axios';
 import { SEND_EMAIL } from '../constants/email';
-import { getBaseURL } from '../../utils/url';
-
-const baseURL = getBaseURL();
 
 /**
  * Send email
@@ -18,7 +15,7 @@ export function sendEmail(email, name) {
   return dispatch => {
     return dispatch({
       type: SEND_EMAIL,
-      payload: axios.post(baseURL + '/api/email', data)
+      payload: axios.post('email', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
