@@ -238,6 +238,7 @@ class ChatBox extends Component {
       user,
       chatRoom,
       message,
+      fetchNewLoading,
       fetchOldMessages,
       fetchOldLoading
     } = this.props;
@@ -246,7 +247,7 @@ class ChatBox extends Component {
       isChatBoxScrollToTop
     } = this.state;
 
-    if ( !hasLoadedAllMessages && isChatBoxScrollToTop && !fetchOldLoading ) {
+    if ( !hasLoadedAllMessages && isChatBoxScrollToTop && !fetchNewLoading && !fetchOldLoading ) {
       const scrollPosition = this.chatBox.scrollTop;
       const oldestMessageQuery = document.querySelectorAll(".chat-box .chat-bubble-wrapper")[0];
       const oldestMessageOffsetTop = oldestMessageQuery.offsetTop;
