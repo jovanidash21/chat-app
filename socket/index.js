@@ -246,7 +246,7 @@ var sockets = function(io) {
         { safe: true, upsert: true, new: true },
       )
       .then((user) => {
-        socket.broadcast.emit('action', {
+        socket.emit('action', {
           type: 'SOCKET_BROADCAST_USER_LOGOUT',
           userID: connectedUsers[socket.id]
         });
