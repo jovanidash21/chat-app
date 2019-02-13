@@ -94,7 +94,7 @@ var sockets = function(io) {
                         { safe: true }
                       ).exec();
 
-                      User.update(
+                      User.updateOne(
                         { _id: user._id, 'chatRooms.data': action.chatRoomID },
                         { $set: { 'chatRooms.$.unReadMessages': 0 } },
                         { safe: true, upsert: true, new: true }
@@ -242,16 +242,24 @@ var sockets = function(io) {
     socket.on('disconnect', function() {
       User.findByIdAndUpdate(
         connectedUsers[socket.id],
-        { $set: { isOnline: false, socketID: ''} },
-        { safe: true, upsert: true, new: true },
+        { $set: { isOnline: false, socketID: '' } },
+        { safe: true },
       )
       .then((user) => {
-        socket.broadcast.emit('action', {
-          type: 'SOCKET_BROADCAST_USER_LOGOUT',
-          userID: connectedUsers[socket.id]
-        });
+        if (
+          user !== null &&
+          user !== 'undefined' &&
+          Object.keys(user).length > 0 &&
+          user.constructor === Object &&
+          user._id !== null
+        ) {
+          socket.broadcast.emit('action', {
+            type: 'SOCKET_BROADCAST_USER_LOGOUT',
+            userID: user._id
+          });
 
-        delete connectedUsers[socket.id];
+          delete connectedUsers[socket.id];
+        }
       })
       .catch((error) => {
         console.log(error);
