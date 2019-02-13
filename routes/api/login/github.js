@@ -39,7 +39,7 @@ passport.use(new Strategy({
   User.findOne({username: username}, (err, user) => {
     if (!err) {
       if (user !== null) {
-        user.update(userData, (err) => {
+        user.updateOne(userData, (err) => {
           if (!err) {
             return done(null, user);
           } else {

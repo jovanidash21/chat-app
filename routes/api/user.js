@@ -281,7 +281,7 @@ router.post('/edit', (req, res, next) => {
           userData.profilePicture = req.body.profilePicture
         }
 
-        User.update(
+        User.updateOne(
           { _id: userID },
           { $set: userData },
           { safe: true, upsert: true, new: true },
@@ -341,7 +341,7 @@ router.post('/delete', (req, res, next) => {
           var chatRoomID = chatRoom._id;
 
           Message.deleteMany({user: userID, chatRoom: chatRoomID}).exec();
-          Message.update(
+          Message.updateMany(
             { user: {$ne: userID}, chatRoom: chatRoomID },
             { $pull: {readBy: userID} },
             { safe: true }
