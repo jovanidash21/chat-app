@@ -109,13 +109,7 @@ class ChatBox extends Component {
     const { hasLoadedAllMessages } = this.state;
     const isActiveUserAdmin = user.active.role === 'admin';
 
-    if ( isObjectEmpty( chatRoom.data ) ) {
-      return (
-        <div className="user-no-chat-rooms">
-          Hi! Welcome, create a Chat Room now.
-        </div>
-      )
-    } else if ( !fetchNewLoading ) {
+    if ( ! isObjectEmpty( chatRoom.data ) && ! fetchNewLoading ) {
       return (
         <Container fluid>
           {
@@ -172,7 +166,18 @@ class ChatBox extends Component {
       )
     } else {
       return (
-        <LoadingAnimation name="ball-clip-rotate" color="black" />
+        <div className="user-no-chat-rooms">
+          {
+            !small &&
+            <p>
+              Hi! Welcome, create a Chat Room now.
+            </p>
+          }
+          {
+            ! hasLoadedAllMessages &&
+            <LoadingAnimation name={!small ? 'ball-pulse-sync' : 'double-bounce'} color="#26a69a" />
+          }
+        </div>
       )
     }
   }
