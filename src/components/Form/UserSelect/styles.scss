@@ -1,8 +1,10 @@
 .user-select-wrapper {
   .users-list {
+    $height: 20px;
     border: 1px solid $color-dusty-gray;
+    border-radius: $height;
     margin-bottom: 10px;
-    min-height: 20px;
+    min-height: $height;
     padding: 4px;
     &[disabled] {
       cursor: not-allowed;
@@ -43,22 +45,30 @@
   }
   .user-select {
     position: relative;
+    .search-icon,
     .loading-icon,
     .clear-icon {
-      font-size: 17px;
+      font-size: 14px;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
     }
+    .search-icon,
     .loading-icon {
       pointer-events: none;
-      right: 5px;
+    }
+    .search-icon {
+      left: 7px;
+      z-index: 1;
+    }
+    .loading-icon {
+      right: 10px;
     }
     .clear-icon {
       cursor: pointer;
       opacity: 0.5;
       padding: 0 7px;
-      right: 0;
+      right: 5px;
       transition: all 0.2s ease-in-out;
       &:hover {
         opacity: 1;
@@ -79,10 +89,13 @@
       position: relative;
     }
     .react-autosuggest__input {
+      $height: 30px;
       border: 1px solid $color-dusty-gray;
+      border-radius: $height;
       box-sizing: border-box;
       font-size: 16px;
-      padding: 5px 25px 5px 5px;
+      height: $height;
+      padding: 5px 30px;
       width: 100%;
       &:focus {
         outline: none;

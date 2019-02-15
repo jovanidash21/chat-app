@@ -5,6 +5,7 @@
   justify-content: space-between;
   position: relative;
   text-align: center;
+  user-select: none;
   &:before,
   &:after {
     background-color: $color-alto;

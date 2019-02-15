@@ -66,6 +66,9 @@ class ChatRoomMember extends Component {
                     return (
                      <li>
                        <a href="#" onClick={(e) => {::this.handleAddDirectChatRoom(e, matches)}}>
+                         <div className="option-icon">
+                           <FontAwesomeIcon icon={["far", "envelope"]} />
+                         </div>
                          Direct messages
                        </a>
                      </li>

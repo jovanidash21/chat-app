@@ -151,6 +151,9 @@ class UserSelect extends Component {
           </div>
         }
         <div className="user-select">
+          <div className="search-icon">
+            <FontAwesomeIcon icon="search" />
+          </div>
           <Autosuggest
             suggestions={suggestions}
             onSuggestionsFetchRequested={::this.onSuggestionsFetchRequested}

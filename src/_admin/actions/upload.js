@@ -1,8 +1,5 @@
 import axios from 'axios';
 import { UPLOAD_IMAGE } from '../constants/upload';
-import { getBaseURL } from '../../utils/url';
-
-const baseURL = getBaseURL();
 
 /**
  * Upload image
@@ -21,7 +18,7 @@ export function uploadImage(image) {
   return dispatch => {
     return dispatch({
       type: UPLOAD_IMAGE,
-      payload: axios.post(baseURL + '/api/upload/image', data, config)
+      payload: axios.post('upload/image', data, config)
     })
     .catch((error) => {
       if (error instanceof Error) {

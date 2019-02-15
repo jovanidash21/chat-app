@@ -78,7 +78,7 @@ class Chat extends Component {
           this.setState({isVideoCallRequestModalOpen: false});
           break;
         case SOCKET_BROADCAST_REJECT_VIDEO_CALL:
-        case SOCKET_BROADCAST_END_VIDEO_CALL :
+        case SOCKET_BROADCAST_END_VIDEO_CALL:
           this.setState({isVideoCallWindowOpen: false});
           break;
         case SOCKET_BROADCAST_ACCEPT_VIDEO_CALL:

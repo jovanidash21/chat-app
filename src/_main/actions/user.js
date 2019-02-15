@@ -4,9 +4,6 @@ import {
   SEARCH_USER
 } from '../constants/user';
 import { fetchChatRooms } from './chat-room';
-import { getBaseURL } from '../../utils/url';
-
-const baseURL = getBaseURL();
 
 /**
  * Fetch active user
@@ -15,7 +12,7 @@ export function fetchActiveUser() {
   return dispatch => {
     return dispatch({
       type: FETCH_ACTIVE_USER,
-      payload: axios.get(baseURL + '/api/user')
+      payload: axios.get('user')
     })
     .then((response) => {
       dispatch(fetchChatRooms(response.value.data.user._id));
@@ -37,7 +34,7 @@ export function searchUser(query) {
   return dispatch => {
     return dispatch({
       type: SEARCH_USER,
-      payload: axios.post(baseURL + '/api/user/search', data)
+      payload: axios.post('user/search', data)
     })
     .catch((error) => {
       if (error instanceof Error) {

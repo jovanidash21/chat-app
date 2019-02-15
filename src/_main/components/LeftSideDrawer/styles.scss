@@ -7,7 +7,9 @@
   padding: 7px 15px;
   transition: all 0.2s ease;
   &:not(:last-child) {
-    border-bottom: 1px solid $color-millbrook;
+    @media screen and (max-width: $screen-mobile-max) {
+      border-bottom: 1px solid $color-millbrook;
+    }
   }
   &:active,
   &:focus,

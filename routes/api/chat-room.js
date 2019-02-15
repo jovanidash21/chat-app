@@ -166,7 +166,7 @@ router.post('/clear-unread', (req, res, next) => {
         for (var i = 0; i < chatRoomIDs.length; i++) {
           var chatRoomID = chatRoomIDs[i];
 
-          User.update(
+          User.updateOne(
             { _id: userID, 'chatRooms.data': chatRoomID },
             { $set: { 'chatRooms.$.unReadMessages': 0 } },
             { safe: true, upsert: true, new: true }
@@ -198,7 +198,7 @@ router.post('/mute', (req, res, next) => {
     var userID = req.body.userID;
     var chatRoomID = req.body.chatRoomID;
 
-    User.update(
+    User.updateOne(
       { _id: userID, 'chatRooms.data': chatRoomID },
       { $set: { 'chatRooms.$.mute.data': true, 'chatRooms.$.mute.endDate': new Date() } },
       { safe: true, upsert: true, new: true }
@@ -229,7 +229,7 @@ router.post('/unmute', (req, res, next) => {
     var userID = req.body.userID;
     var chatRoomID = req.body.chatRoomID;
 
-    User.update(
+    User.updateOne(
       { _id: userID, 'chatRooms.data': chatRoomID },
       { $set: { 'chatRooms.$.mute.data': false, 'chatRooms.$.mute.endDate': new Date() } },
       { safe: true, upsert: true, new: true }
@@ -425,7 +425,7 @@ router.post('/edit', (req, res, next) => {
             }
           }
 
-          ChatRoom.update(
+          ChatRoom.updateOne(
             { _id: chatRoomID },
             { $set: chatRoomData },
             { safe: true, upsert: true, new: true },

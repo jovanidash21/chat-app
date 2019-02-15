@@ -6,7 +6,9 @@
   position: relative;
   transition: all 0.2s ease;
   &:not(:last-child) {
-    border-bottom: 1px solid $color-outer-space;
+    @media screen and (max-width: $screen-mobile-max) {
+      border-bottom: 1px solid $color-outer-space;
+    }
   }
   &:active,
   &:focus,
