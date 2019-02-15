@@ -246,20 +246,14 @@ var sockets = function(io) {
         { safe: true },
       )
       .then((user) => {
-        if (
-          user !== null &&
-          user !== 'undefined' &&
-          Object.keys(user).length > 0 &&
-          user.constructor === Object &&
-          user._id !== null
-        ) {
+        if ( user !== null && user._id !== null ) {
           socket.broadcast.emit('action', {
             type: 'SOCKET_BROADCAST_USER_LOGOUT',
             userID: user._id
           });
-
-          delete connectedUsers[socket.id];
         }
+
+        delete connectedUsers[socket.id];
       })
       .catch((error) => {
         console.log(error);
