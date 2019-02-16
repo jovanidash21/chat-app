@@ -37,7 +37,7 @@ class Dashboard extends Component {
 
     return (
       <div className="dahsboard-section">
-        <Container fluid={true}>
+        <Container fluid>
           <Row>
             <Col lg="4" md="6" xs="12">
               <CardBanner

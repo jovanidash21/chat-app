@@ -18,7 +18,7 @@ class CreateChatRoom extends Component {
 
     return (
       <div className="create-chat-room-section">
-        <Container fluid={true}>
+        <Container fluid>
           <Row>
             <Col xs="12">
               {

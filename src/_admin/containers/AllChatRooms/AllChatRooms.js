@@ -103,7 +103,7 @@ class AllChatRooms extends Component {
 
     return (
       <div className="all-chat-rooms-section">
-        <Container fluid={true}>
+        <Container fluid>
           <Row>
             <Col xs="12">
               <div className="admin-menu-section">

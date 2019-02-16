@@ -18,7 +18,7 @@ class CreateUser extends Component {
 
     return (
       <div className="create-user-section">
-        <Container fluid={true}>
+        <Container fluid>
           <Row>
             <Col xs="12">
               {

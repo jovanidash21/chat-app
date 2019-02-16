@@ -162,7 +162,7 @@ class UserSelect extends Component {
             renderSuggestion={::this.handleRenderSuggestion}
             inputProps={inputProps}
             onSuggestionSelected={::this.onSuggestionSelected}
-            highlightFirstSuggestion={true}
+            highlightFirstSuggestion
             ref={(element) => { this.inputSelect = element; }}
           />
           {

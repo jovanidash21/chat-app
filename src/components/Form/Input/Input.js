@@ -12,8 +12,8 @@ const InputComponent = (props) => {
       type={props.type}
       name={props.name}
       autoComplete="off"
-      floatingLabel={true}
-      required={true}
+      floatingLabel
+      required
       onChange={props.onChange}
       disabled={props.disabled}
     />
