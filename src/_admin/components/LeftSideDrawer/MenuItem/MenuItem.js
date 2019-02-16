@@ -38,7 +38,7 @@ class MenuItem extends Component {
             (isSubMenuActive ? 'active ' : '') +
             (isOpen ? 'selected' : '')
           }
-          onClick={(link.length === 0 ? ::this.handleOpenMenuItem : false)}
+          onClick={(link.length === 0 ? ::this.handleOpenMenuItem : () => {})}
         >
           <div className="menu-icon">
             <FontAwesomeIcon icon={icon} />
