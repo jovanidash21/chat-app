@@ -260,38 +260,53 @@ router.post('/create', (req, res, next) => {
 });
 
 router.post('/edit', (req, res, next) => {
-  if (req.user === undefined || req.user.role !== 'admin') {
+  if (req.user === undefined) {
     res.status(401).send({
       success: false,
       message: 'Unauthorized'
     });
   } else {
     var userID = req.body.userID;
+    var username = req.body.username;
     var userData = {
-      username: req.body.username,
+      username: username,
       name: req.body.name,
       email: req.body.email,
       role: req.body.role
     };
 
-    User.findById(userID)
-      .exec()
+    User.findOne({username: username})
       .then((user) => {
-        if (user.accountType === 'local') {
-          userData.profilePicture = req.body.profilePicture
-        }
+        if (user != null && user._id != userID) {
+          res.status(401).send({
+            success: false,
+            message: 'Username already exist'
+          });
+        } else {
+          User.findById(userID)
+            .then((user) => {
+              if (user.accountType === 'local') {
+                userData.profilePicture = req.body.profilePicture
+              }
 
-        User.updateOne(
-          { _id: userID },
-          { $set: userData },
-          { safe: true, upsert: true, new: true },
-        ).exec();
-      })
-      .then((user) => {
-        res.status(200).send({
-          success: true,
-          message: 'User Edited'
-        });
+              User.updateOne(
+                { _id: userID },
+                { $set: userData },
+                { safe: true, upsert: true, new: true },
+              ).exec();
+
+              res.status(200).send({
+                success: true,
+                message: 'User Edited'
+              });
+            })
+            .catch((error) => {
+              res.status(500).send({
+                success: false,
+                message: 'Server Error!'
+              });
+            });
+        }
       })
       .catch((error) => {
         res.status(500).send({
