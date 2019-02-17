@@ -23,7 +23,7 @@ class CreateUser extends Component {
             <Col xs="12">
               {
                 ( user.create.success || user.create.error ) &&
-                <Alert label={user.create.message} type={(user.create.success ? 'success' : 'error')} />
+                <Alert label={user.create.message} type={(user.create.success ? 'success' : 'danger')} />
               }
             </Col>
           </Row>

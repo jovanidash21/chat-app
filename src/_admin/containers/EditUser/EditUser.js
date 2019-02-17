@@ -47,7 +47,7 @@ class EditUser extends Component {
             <Col xs="12">
               {
                 ( user.edit.success || user.edit.error ) &&
-                <Alert label={user.edit.message} type={(user.edit.success ? 'success' : 'error')} />
+                <Alert label={user.edit.message} type={(user.edit.success ? 'success' : 'danger')} />
               }
             </Col>
           </Row>
