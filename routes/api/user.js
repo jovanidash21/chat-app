@@ -52,7 +52,7 @@ router.get('/count', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    User.count({_id: {$ne: null}})
+    User.countDocuments({_id: {$ne: null}})
       .then((usersCount) => {
         res.status(200).send({
           success: true,
