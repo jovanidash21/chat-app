@@ -6,14 +6,13 @@ import './styles.scss';
 const InputComponent = (props) => {
   return (
     <Input
-      className="input"
+      className={"input " + (props.invalid ? 'invalid' : '')}
       value={props.value}
       label={props.label}
       type={props.type}
       name={props.name}
       autoComplete="off"
       floatingLabel
-      required
       onChange={props.onChange}
       disabled={props.disabled}
     />
@@ -26,7 +25,8 @@ InputComponent.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string,
   onChange: PropTypes.func,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  invalid: PropTypes.bool
 }
 
 InputComponent.defaultProps = {
@@ -35,7 +35,8 @@ InputComponent.defaultProps = {
   type: 'text',
   name: '',
   onChange: () => {},
-  disabled: false
+  disabled: false,
+  invalid: false
 }
 
 export default InputComponent;
