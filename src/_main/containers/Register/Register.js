@@ -8,6 +8,7 @@ import {
   Divider
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
+import { isEmailValid } from '../../../utils/form';
 import { Input } from '../../../components/Form';
 import {
   RegisterButton,
@@ -23,21 +24,78 @@ class Register extends Component {
       email: '',
       name: '',
       username: '',
-      password: ''
+      password: '',
+      emailValid: true,
+      nameValid: true,
+      usernameValid: true,
+      passwordValid: true,
+      errorMessage: ''
     };
   }
   componentWillMount() {
     document.body.className = '';
     document.body.classList.add('register-page');
   }
+  componentDidUpdate(prevProps) {
+    if ( prevProps.auth.register.loading && ! this.props.auth.register.loading && this.props.auth.register.error ) {
+      this.setState({errorMessage: this.props.auth.register.message});
+    }
+  }
   onInputChange(event) {
     event.preventDefault();
 
     this.setState({[event.target.name]: event.target.value});
   }
-  handleRegister(event) {
+  handleRegisterValidation(event) {
     event.preventDefault();
 
+    const {
+      email,
+      name,
+      username,
+      password
+    } = this.state;
+    var emailValid = true;
+    var nameValid = true;
+    var usernameValid = true;
+    var passwordValid = true;
+    var errorMessage = '';
+
+    if ( ! isEmailValid( email ) ) {
+      emailValid = false;
+    }
+
+    if ( name.trim().length === 0 ) {
+      nameValid = false;
+    }
+
+    if ( username.trim().length === 0 ) {
+      usernameValid = false;
+    }
+
+    if ( password.trim().length === 0 ) {
+      passwordValid = false;
+    }
+
+    if ( ! nameValid || ! usernameValid || ! passwordValid ) {
+      errorMessage = 'All fields are required. Please check and try again.';
+    } else if ( ! emailValid ) {
+      errorMessage = 'Please enter a valid email address';
+    }
+
+    this.setState({
+      emailValid: emailValid,
+      nameValid: nameValid,
+      usernameValid: usernameValid,
+      passwordValid: passwordValid,
+      errorMessage: errorMessage
+    });
+
+    if ( emailValid && nameValid && usernameValid && passwordValid && errorMessage.length === 0 ) {
+      ::this.handleRegister();
+    }
+  }
+  handleRegister() {
     const { register } = this.props;
     const {
       email,
@@ -57,7 +115,12 @@ class Register extends Component {
       email,
       name,
       username,
-      password
+      password,
+      emailValid,
+      nameValid,
+      usernameValid,
+      passwordValid,
+      errorMessage
     } = this.state;
 
     return (
@@ -67,13 +130,13 @@ class Register extends Component {
             <h1 className="form-title mui--text-center">Create an Account</h1>
           </Col>
           {
-            auth.register.error &&
+            errorMessage.length > 0 &&
             <Col md="12">
-              <Alert label={auth.register.message} center />
+              <Alert label={errorMessage} center />
             </Col>
           }
           <Col md="12">
-            <Form onSubmit={::this.handleRegister}>
+            <Form onSubmit={::this.handleRegisterValidation}>
               <Input
                 value={email}
                 label="Email"
@@ -81,6 +144,7 @@ class Register extends Component {
                 name="email"
                 onChange={::this.onInputChange}
                 disabled={auth.register.loading}
+                invalid={!emailValid}
               />
               <Input
                 value={name}
@@ -88,6 +152,7 @@ class Register extends Component {
                 name="name"
                 onChange={::this.onInputChange}
                 disabled={auth.register.loading}
+                invalid={!nameValid}
               />
               <Input
                 value={username}
@@ -95,6 +160,7 @@ class Register extends Component {
                 name="username"
                 onChange={::this.onInputChange}
                 disabled={auth.register.loading}
+                invalid={!usernameValid}
               />
               <Input
                 value={password}
@@ -103,6 +169,7 @@ class Register extends Component {
                 name="password"
                 onChange={::this.onInputChange}
                 disabled={auth.register.loading}
+                invalid={!passwordValid}
               />
               <RegisterButton disabled={auth.register.loading} />
             </Form>
