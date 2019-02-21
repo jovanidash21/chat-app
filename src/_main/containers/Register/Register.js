@@ -25,10 +25,12 @@ class Register extends Component {
       name: '',
       username: '',
       password: '',
+      confirmPassword: '',
       emailValid: true,
       nameValid: true,
       usernameValid: true,
       passwordValid: true,
+      confirmPasswordValid: true,
       errorMessage: ''
     };
   }
@@ -53,12 +55,14 @@ class Register extends Component {
       email,
       name,
       username,
-      password
+      password,
+      confirmPassword
     } = this.state;
     var emailValid = true;
     var nameValid = true;
     var usernameValid = true;
     var passwordValid = true;
+    var confirmPasswordValid = true;
     var errorMessage = '';
 
     if ( ! isEmailValid( email ) ) {
@@ -77,10 +81,16 @@ class Register extends Component {
       passwordValid = false;
     }
 
+    if ( password.trim().length > 0 && password !== confirmPassword ) {
+      confirmPasswordValid = false;
+    }
+
     if ( ! nameValid || ! usernameValid || ! passwordValid ) {
       errorMessage = 'All fields are required. Please check and try again.';
     } else if ( ! emailValid ) {
       errorMessage = 'Please enter a valid email address';
+    } else if ( ! confirmPasswordValid ) {
+      errorMessage = 'Password do not match';
     }
 
     this.setState({
@@ -88,10 +98,11 @@ class Register extends Component {
       nameValid: nameValid,
       usernameValid: usernameValid,
       passwordValid: passwordValid,
+      confirmPasswordValid: confirmPasswordValid,
       errorMessage: errorMessage
     });
 
-    if ( emailValid && nameValid && usernameValid && passwordValid && errorMessage.length === 0 ) {
+    if ( emailValid && nameValid && usernameValid && passwordValid && confirmPasswordValid && errorMessage.length === 0 ) {
       ::this.handleRegister();
     }
   }
@@ -116,10 +127,12 @@ class Register extends Component {
       name,
       username,
       password,
+      confirmPassword,
       emailValid,
       nameValid,
       usernameValid,
       passwordValid,
+      confirmPasswordValid,
       errorMessage
     } = this.state;
 
@@ -140,7 +153,7 @@ class Register extends Component {
               <Input
                 value={email}
                 label="Email"
-                type="email"
+                type="text"
                 name="email"
                 onChange={::this.onInputChange}
                 disabled={auth.register.loading}
@@ -170,6 +183,15 @@ class Register extends Component {
                 onChange={::this.onInputChange}
                 disabled={auth.register.loading}
                 invalid={!passwordValid}
+              />
+              <Input
+                value={confirmPassword}
+                label="Confirm Password"
+                type="password"
+                name="confirmPassword"
+                onChange={::this.onInputChange}
+                disabled={auth.register.loading}
+                invalid={!confirmPasswordValid}
               />
               <RegisterButton disabled={auth.register.loading} />
             </Form>
