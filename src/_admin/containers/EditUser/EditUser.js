@@ -1,27 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Container,
-  Row,
-  Col
-} from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import { UserForm } from '../Partial';
 import { MenuButton } from '../../components/MenuButton';
-import { Alert } from '../../../components/Alert';
 
 class EditUser extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isLoading: true
+      errorMessage: '',
+      successMessage: ''
     };
   }
   componentWillMount() {
-    ::this.handleFetchSelectedtUser();
+    ::this.handleFetchSelectedUser();
   }
-  handleFetchSelectedtUser() {
+  componentDidUpdate(prevProps) {
+    if ( ! prevProps.user.edit.loading && this.props.user.edit.loading ) {
+      this.setState({
+        errorMessage: '',
+        successMessage: ''
+      });
+    }
+
+    if ( prevProps.user.edit.loading && ! this.props.user.edit.loading ) {
+      if ( this.props.user.edit.error ) {
+        this.setState({
+          errorMessage: this.props.user.edit.message,
+          successMessage: ''
+        });
+      } else if ( this.props.user.edit.success ) {
+        this.setState({
+          errorMessage: '',
+          successMessage: this.props.user.edit.message
+        });
+      }
+    }
+  }
+  handleFetchSelectedUser() {
     const {
       match,
       fetchSelectedUser
@@ -31,28 +48,18 @@ class EditUser extends Component {
     fetchSelectedUser(userID);
   }
   render() {
-    const { user } = this.props;
+    const {
+      errorMessage,
+      successMessage
+    } = this.state;
 
     return (
       <div className="create-user-section">
-        <Container fluid>
-          <Row>
-            <Col xs="12">
-              <div className="admin-menu-section">
-                <MenuButton label="Create New" link="/create-user" />
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs="12">
-              {
-                ( user.edit.success || user.edit.error ) &&
-                <Alert label={user.edit.message} type={(user.edit.success ? 'success' : 'danger')} />
-              }
-            </Col>
-          </Row>
-          <UserForm mode="edit" />
-        </Container>
+        <UserForm
+          mode="edit"
+          errorMessage={errorMessage}
+          successMessage={successMessage}
+        />
       </div>
     )
   }

@@ -14,6 +14,7 @@ import {
 import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
+import { Alert } from '../../../../components/Alert';
 import { Input } from '../../../../components/Form';
 import {
   PasswordInput,
@@ -319,22 +320,43 @@ class UserForm extends Component {
     );
   }
   render() {
+    const {
+      errorMessage,
+      successMessage
+    } = this.props;
+
     return (
       <div className="user-form">
-        <Form onSubmit={::this.handleSubmitUserForm}>
+        <Container fluid>
           <Row>
-            <Col md="8">
-              <Panel>
-                {::this.handleUserFormRender()}
-              </Panel>
+            <Col xs="12">
+              {
+                errorMessage.length > 0 &&
+                <Alert label={errorMessage} type="danger" />
+              }
+              {
+                successMessage.length > 0 > 0 &&
+                <Alert label={successMessage} type="success" />
+              }
             </Col>
-            <Col md="4">
-              <Panel>
-                {::this.handleAvatarUploadRender()}
-              </Panel>
+            <Col xs="12">
+              <Form onSubmit={::this.handleSubmitUserForm}>
+                <Row>
+                  <Col md="8">
+                    <Panel>
+                      {::this.handleUserFormRender()}
+                    </Panel>
+                  </Col>
+                  <Col md="4">
+                    <Panel>
+                      {::this.handleAvatarUploadRender()}
+                    </Panel>
+                  </Col>
+                </Row>
+              </Form>
             </Col>
           </Row>
-        </Form>
+        </Container>
       </div>
     )
   }
@@ -348,11 +370,15 @@ const mapStateToProps = (state) => {
 }
 
 UserForm.propTypes = {
-  mode: PropTypes.string
+  mode: PropTypes.string,
+  errorMessage: PropTypes.string,
+  successMessage: PropTypes.string
 }
 
 UserForm.defaultProps = {
-  mode: 'create'
+  mode: 'create',
+  errorMessage: '',
+  successMessage: ''
 }
 
 export default connect(
