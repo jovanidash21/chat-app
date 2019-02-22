@@ -13,6 +13,7 @@ import {
 } from 'muicss/react';
 import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
+import { isEmailValid } from '../../../../utils/form';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { Alert } from '../../../../components/Alert';
 import { Input } from '../../../../components/Form';
@@ -33,7 +34,12 @@ class UserForm extends Component {
       email: '',
       role: 'ordinary',
       password: '',
-      profilePicture: ''
+      profilePicture: '',
+      usernameValid: true,
+      nameValid: true,
+      emailValid: true,
+      passwordValid: true,
+      errorMessage: ''
     };
   }
   componentWillMount() {
@@ -122,7 +128,11 @@ class UserForm extends Component {
       name,
       email,
       role,
-      password
+      password,
+      usernameValid,
+      nameValid,
+      emailValid,
+      passwordValid,
     } = this.state;
 
     if ( !isLoading ) {
@@ -135,6 +145,7 @@ class UserForm extends Component {
             name="username"
             onChange={::this.handleChange}
             disabled={isDisabled}
+            invalid={!usernameValid}
           />
           <Input
             value={name}
@@ -143,14 +154,16 @@ class UserForm extends Component {
             name="name"
             onChange={::this.handleChange}
             disabled={isDisabled}
+            invalid={!nameValid}
           />
           <Input
             value={email}
             label="Email"
-            type="email"
+            type="text"
             name="email"
             onChange={::this.handleChange}
             disabled={isDisabled}
+            invalid={!emailValid}
           />
           <Select
             value={role}
@@ -169,6 +182,7 @@ class UserForm extends Component {
               handleChange={::this.handleChange}
               handleGeneratePassword={::this.handleGeneratePassword}
               disabled={isDisabled}
+              invalid={!passwordValid}
             />
           }
           <Button
@@ -260,9 +274,58 @@ class UserForm extends Component {
   handleRemoveImage() {
     this.setState({profilePicture: ''});
   }
-  handleSubmitUserForm(event) {
+  handleUserFormValidation(event) {
     event.preventDefault();
 
+    const { mode } = this.props;
+    const {
+      username,
+      name,
+      email,
+      role,
+      password
+    } = this.state;
+    var usernameValid = true;
+    var nameValid = true;
+    var emailValid = true;
+    var passwordValid = true;
+    var errorMessage = '';
+
+    if ( username.trim().length === 0 ) {
+      usernameValid = false;
+    }
+
+    if ( name.trim().length === 0 ) {
+      nameValid = false;
+    }
+
+    if ( ! isEmailValid( email ) ) {
+      emailValid = false;
+    }
+
+    if ( mode === 'create' && password.trim().length === 0 ) {
+      passwordValid = false;
+    }
+
+    if ( ! usernameValid || ! nameValid || ! passwordValid ) {
+      errorMessage = 'All fields are required. Please check and try again.';
+    } else if ( ! emailValid ) {
+      errorMessage = 'Please enter a valid email address';
+    }
+
+    this.setState({
+      usernameValid: usernameValid,
+      nameValid: nameValid,
+      emailValid: emailValid,
+      passwordValid: passwordValid,
+      errorMessage: errorMessage
+    });
+
+    if ( usernameValid && nameValid && emailValid && passwordValid && errorMessage.length === 0 ) {
+      ::this.handleSubmitUserForm();
+    }
+  }
+  handleSubmitUserForm() {
     const { mode } = this.props;
 
     switch(mode) {
@@ -320,10 +383,9 @@ class UserForm extends Component {
     );
   }
   render() {
-    const {
-      errorMessage,
-      successMessage
-    } = this.props;
+    const { successMessage } = this.props;
+
+    const errorMessage = this.props.errorMessage || this.state.errorMessage;
 
     return (
       <div className="user-form">
@@ -335,12 +397,12 @@ class UserForm extends Component {
                 <Alert label={errorMessage} type="danger" />
               }
               {
-                successMessage.length > 0 > 0 &&
+                errorMessage.length === 0 && successMessage.length > 0 &&
                 <Alert label={successMessage} type="success" />
               }
             </Col>
             <Col xs="12">
-              <Form onSubmit={::this.handleSubmitUserForm}>
+              <Form onSubmit={::this.handleUserFormValidation}>
                 <Row>
                   <Col md="8">
                     <Panel>
