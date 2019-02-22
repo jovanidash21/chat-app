@@ -1,34 +1,51 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Container,
-  Row,
-  Col
-} from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import { ChatRoomForm } from '../Partial';
-import { Alert } from '../../../components/Alert';
 
 class CreateChatRoom extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      errorMessage: '',
+      successMessage: ''
+    };
+  }
+  componentDidUpdate(prevProps) {
+    if ( ! prevProps.chatRoom.create.loading && this.props.chatRoom.create.loading ) {
+      this.setState({
+        errorMessage: '',
+        successMessage: ''
+      });
+    }
+
+    if ( prevProps.chatRoom.create.loading && ! this.props.chatRoom.create.loading ) {
+      if ( this.props.chatRoom.create.error ) {
+        this.setState({
+          errorMessage: this.props.chatRoom.create.message,
+          successMessage: ''
+        });
+      } else if ( this.props.chatRoom.create.success ) {
+        this.setState({
+          errorMessage: '',
+          successMessage: this.props.chatRoom.create.message
+        });
+      }
+    }
   }
   render() {
-    const { chatRoom } = this.props;
+    const {
+      errorMessage,
+      successMessage
+    } = this.state;
 
     return (
       <div className="create-chat-room-section">
-        <Container fluid>
-          <Row>
-            <Col xs="12">
-              {
-                ( chatRoom.create.success || chatRoom.create.error ) &&
-                <Alert label={chatRoom.create.message} type={(chatRoom.create.success ? 'success' : 'danger')} />
-              }
-            </Col>
-          </Row>
-          <ChatRoomForm />
-        </Container>
+        <ChatRoomForm
+          errorMessage={errorMessage}
+          successMessage={successMessage}
+        />
       </div>
     )
   }

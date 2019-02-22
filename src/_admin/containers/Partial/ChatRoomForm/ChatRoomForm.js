@@ -15,6 +15,7 @@ import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
+import { Alert } from '../../../../components/Alert';
 import {
   Input,
   UserSelect
@@ -381,22 +382,43 @@ class ChatRoomForm extends Component {
     );
   }
   render() {
+    const {
+      errorMessage,
+      successMessage
+    } = this.props;
+
     return (
       <div className="chat-room-form">
-        <Form onSubmit={::this.handleSubmitChatRoomForm}>
+        <Container fluid>
           <Row>
-            <Col md="8">
-              <Panel>
-                {::this.handleChatRoomFormRender()}
-              </Panel>
+            <Col xs="12">
+              {
+                errorMessage.length > 0 &&
+                <Alert label={errorMessage} type="danger" />
+              }
+              {
+                successMessage.length > 0 > 0 &&
+                <Alert label={successMessage} type="success" />
+              }
             </Col>
-            <Col md="4">
-              <Panel>
-                {::this.handleAvatarUploadRender()}
-              </Panel>
+            <Col xs="12">
+              <Form onSubmit={::this.handleSubmitChatRoomForm}>
+                <Row>
+                  <Col md="8">
+                    <Panel>
+                      {::this.handleChatRoomFormRender()}
+                    </Panel>
+                  </Col>
+                  <Col md="4">
+                    <Panel>
+                      {::this.handleAvatarUploadRender()}
+                    </Panel>
+                  </Col>
+                </Row>
+              </Form>
             </Col>
           </Row>
-        </Form>
+        </Container>
       </div>
     )
   }
@@ -411,11 +433,15 @@ const mapStateToProps = (state) => {
 }
 
 ChatRoomForm.propTypes = {
-  mode: PropTypes.string
+  mode: PropTypes.string,
+  errorMessage: PropTypes.string,
+  successMessage: PropTypes.string
 }
 
 ChatRoomForm.defaultProps = {
-  mode: 'create'
+  mode: 'create',
+  errorMessage: '',
+  successMessage: ''
 }
 
 export default connect(
