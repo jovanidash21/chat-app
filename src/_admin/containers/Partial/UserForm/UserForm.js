@@ -384,8 +384,11 @@ class UserForm extends Component {
   }
   render() {
     const { successMessage } = this.props;
+    let errorMessage = this.props.errorMessage;
 
-    const errorMessage = this.props.errorMessage || this.state.errorMessage;
+    if ( this.state.errorMessage.length > 0 ) {
+      errorMessage = this.state.errorMessage;
+    }
 
     return (
       <div className="user-form">
