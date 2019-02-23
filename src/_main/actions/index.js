@@ -12,6 +12,7 @@ import {
 } from './auth';
 import {
   fetchActiveUser,
+  editActiveUser,
   searchUser
 } from './user';
 import {
@@ -57,6 +58,7 @@ const actions = (dispatch) => {
     githubLogin,
     register,
     fetchActiveUser,
+    editActiveUser,
     searchUser,
     isTyping,
     isNotTyping,
