@@ -4,7 +4,9 @@ import {
   Form,
   Button
 } from 'muicss/react';
+import { isEmailValid } from '../../../utils/form';
 import { Modal } from '../../Modal';
+import { Alert } from '../../Alert';
 import { Input } from '../../Form';
 import './styles.scss';
 
@@ -20,7 +22,13 @@ class EditProfileModal extends Component {
       email: '',
       password: '',
       confirmPassword: '',
-      profilePicture: ''
+      profilePicture: '',
+      usernameValid: true,
+      nameValid: true,
+      emailValid: true,
+      passwordValid: true,
+      confirmPasswordValid: true,
+      errorMessage: ''
     };
   }
   onInputChange(event) {
@@ -28,9 +36,65 @@ class EditProfileModal extends Component {
 
     this.setState({[event.target.name]: event.target.value});
   }
-  handleEditProfile(event) {
+  handleEditProfileValidation(event) {
     event.preventDefault();
 
+    const {
+      username,
+      name,
+      email,
+      password,
+      confirmPassword
+    } = this.state;
+    var usernameValid = true;
+    var nameValid = true;
+    var emailValid = true;
+    var passwordValid = true;
+    var confirmPasswordValid = true;
+    var errorMessage = '';
+
+    if ( username.trim().length === 0 ) {
+      usernameValid = false;
+    }
+
+    if ( name.trim().length === 0 ) {
+      nameValid = false;
+    }
+
+    if ( ! isEmailValid( email ) ) {
+      emailValid = false;
+    }
+
+    if ( password.trim().length === 0 ) {
+      passwordValid = false;
+    }
+
+    if ( password.trim().length > 0 && password !== confirmPassword ) {
+      confirmPasswordValid = false;
+    }
+
+    if ( ! usernameValid || ! nameValid || ! passwordValid ) {
+      errorMessage = 'All fields are required. Please check and try again.';
+    } else if ( ! emailValid ) {
+      errorMessage = 'Please enter a valid email address';
+    } else if ( ! confirmPasswordValid ) {
+      errorMessage = 'Password do not match';
+    }
+
+    this.setState({
+      usernameValid: usernameValid,
+      nameValid: nameValid,
+      emailValid: emailValid,
+      passwordValid: passwordValid,
+      confirmPasswordValid: confirmPasswordValid,
+      errorMessage: errorMessage
+    });
+
+    if ( usernameValid && nameValid && emailValid && passwordValid && confirmPasswordValid && errorMessage.length === 0 ) {
+      ::this.handleEditProfile();
+    }
+  }
+  handleEditProfile() {
     const { handleEditProfile } = this.props;
 
     handleEditProfile();
@@ -49,7 +113,13 @@ class EditProfileModal extends Component {
       email,
       password,
       confirmPassword,
-      profilePicture
+      profilePicture,
+      usernameValid,
+      nameValid,
+      emailValid,
+      passwordValid,
+      confirmPasswordValid,
+      errorMessage
     } = this.state;
 
     return (
@@ -74,6 +144,7 @@ class EditProfileModal extends Component {
               name="username"
               onChange={::this.onInputChange}
               disabled={disabled}
+              invalid={!usernameValid}
             />
             <Input
               value={name}
@@ -82,6 +153,7 @@ class EditProfileModal extends Component {
               name="name"
               onChange={::this.onInputChange}
               disabled={disabled}
+              invalid={!nameValid}
             />
             <Input
               value={email}
@@ -90,6 +162,7 @@ class EditProfileModal extends Component {
               name="email"
               onChange={::this.onInputChange}
               disabled={disabled}
+              invalid={!emailValid}
             />
             <Input
               value={password}
@@ -98,6 +171,7 @@ class EditProfileModal extends Component {
               name="password"
               onChange={::this.onInputChange}
               disabled={disabled}
+              invalid={!passwordValid}
             />
             <Input
               value={confirmPassword}
@@ -106,6 +180,7 @@ class EditProfileModal extends Component {
               name="confirm_password"
               onChange={::this.onInputChange}
               disabled={disabled}
+              invalid={!confirmPasswordValid}
             />
           </Modal.Body>
           <Modal.Footer>
@@ -118,7 +193,7 @@ class EditProfileModal extends Component {
             </Button>
             <Button
               className="button button-primary"
-              onClick={::this.handleEditProfile}
+              onClick={::this.handleEditProfileValidation}
               disabled={userEdit.loading}
             >
               Update
