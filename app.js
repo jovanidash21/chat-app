@@ -6,12 +6,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('express-session');
+var cookieSession = require('cookie-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 var mongoose = require('mongoose');
-var MongoStore = require('connect-mongo')(session);
 var Promise = require('bluebird');
 
 var index = require('./routes/index');
@@ -49,14 +48,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // session configuration
-var mongosStoreOptions = {
-  mongooseConnection: mongoose.connection
-}
-app.use(session({
+app.use(cookieSession({
   secret: process.env.SESSION_SECRET,
-  saveUninitialized: true,
-  resave: false,
-  store: new MongoStore(mongosStoreOptions)
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
 // passport configuration
