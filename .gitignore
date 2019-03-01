@@ -33,7 +33,7 @@ uploads/audio/*
 !uploads/audio/.gitkeep
 
 # Webpack build
-# public/build/
+public/build/
 
 # Windows thumbnail cache files
 Thumbs.db
