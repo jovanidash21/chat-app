@@ -103,7 +103,13 @@ passport.use(new Strategy({
 router.get('/', passport.authenticate('twitter'));
 
 router.get('/callback', passport.authenticate('twitter'), (req, res) => {
-  res.send(popupTools.popupResponse({userData: req.user}));
+  res.send(popupTools.popupResponse({
+    data: {
+      success: true,
+      message: 'Login Successful',
+      userData: req.user
+    }
+  }));
 });
 
 module.exports = router;
