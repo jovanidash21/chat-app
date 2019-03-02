@@ -104,7 +104,13 @@ router.get('/', passport.authenticate('facebook', {
 }));
 
 router.get('/callback', passport.authenticate('facebook'), (req, res) => {
-  res.send(popupTools.popupResponse({userData: req.user}));
+  res.send(popupTools.popupResponse({
+    data: {
+      success: true,
+      message: 'Login Successful',
+      userData: req.user
+    }
+  }));
 });
 
 module.exports = router;

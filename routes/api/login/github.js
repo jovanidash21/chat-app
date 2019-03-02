@@ -102,7 +102,13 @@ passport.use(new Strategy({
 router.get('/', passport.authenticate('github'));
 
 router.get('/callback', passport.authenticate('github'), (req, res) => {
-  res.send(popupTools.popupResponse({userData: req.user}));
+  res.send(popupTools.popupResponse({
+    data: {
+      success: true,
+      message: 'Login Successful',
+      userData: req.user
+    }
+  }));
 });
 
 module.exports = router;

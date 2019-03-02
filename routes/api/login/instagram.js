@@ -87,7 +87,13 @@ passport.use(new Strategy({
 router.get('/', passport.authenticate('instagram'));
 
 router.get('/callback', passport.authenticate('instagram'), (req, res) => {
-  res.send(popupTools.popupResponse({userData: req.user}));
+  res.send(popupTools.popupResponse({
+    data: {
+      success: true,
+      message: 'Login Successful',
+      userData: req.user
+    }
+  }));
 });
 
 module.exports = router;

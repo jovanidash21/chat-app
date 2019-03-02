@@ -101,7 +101,13 @@ router.get('/', passport.authenticate('google', {
 }));
 
 router.get('/callback', passport.authenticate('google'), (req, res) => {
-  res.send(popupTools.popupResponse({userData: req.user}));
+  res.send(popupTools.popupResponse({
+    data: {
+      success: true,
+      message: 'Login Successful',
+      userData: req.user
+    }
+  }));
 });
 
 module.exports = router;
