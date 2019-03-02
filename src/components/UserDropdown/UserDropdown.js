@@ -21,6 +21,7 @@ class UserDropdown extends Component {
       user,
       children
     } = this.props;
+    const isLocalUser = user.accountType === 'local';
 
     return (
       <div className="mui-dropdown user-dropdown">
@@ -58,9 +59,9 @@ class UserDropdown extends Component {
           <li>
             <a href="#" onClick={::this.handleOpenEditProfileModal}>
               <div className="option-icon">
-                <FontAwesomeIcon icon="user-edit" />
+                <FontAwesomeIcon icon={isLocalUser ? 'user-edit' : 'user'} />
               </div>
-              Edit profile
+              {isLocalUser ? 'Edit ' : 'View '}profile
             </a>
           </li>
           <li>

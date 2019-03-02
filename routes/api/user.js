@@ -320,7 +320,11 @@ router.post('/edit', (req, res, next) => {
 router.post('/edit-profile', (req, res, next) => {
   var userID = req.body.userID;
 
-  if ((req.user === undefined) || (req.user._id != userID)) {
+  if (
+    req.user === undefined ||
+    req.user._id != userID ||
+    req.user.accountType !== 'local'
+  ) {
     res.status(401).send({
       success: false,
       message: 'Unauthorized'
@@ -330,7 +334,8 @@ router.post('/edit-profile', (req, res, next) => {
     var userData = {
       username: username,
       name: req.body.name,
-      email: req.body.email
+      email: req.body.email,
+      profilePicture: req.body.profilePicture
     };
 
     User.findOne({username: username})
@@ -341,29 +346,24 @@ router.post('/edit-profile', (req, res, next) => {
             message: 'Username already exist'
           });
         } else {
-          User.findById(userID)
-            .then((user) => {
-              if (user.accountType === 'local') {
-                userData.profilePicture = req.body.profilePicture
-              }
-
-              User.updateOne(
-                { _id: userID },
-                { $set: userData },
-                { safe: true, upsert: true, new: true },
-              ).exec();
-
-              res.status(200).send({
-                success: true,
-                message: 'User Edited'
-              });
-            })
-            .catch((error) => {
-              res.status(500).send({
-                success: false,
-                message: 'Server Error!'
-              });
+          User.findByIdAndUpdate(
+            userID,
+            { $set: userData },
+            { safe: true, upsert: true, new: true }
+          )
+          .then((user) => {
+            res.status(200).send({
+              success: true,
+              message: 'User Edited',
+              user: user
             });
+          })
+          .catch((error) => {
+            res.status(500).send({
+              success: false,
+              message: 'Server Error!'
+            });
+          });
         }
       })
       .catch((error) => {

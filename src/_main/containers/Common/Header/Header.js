@@ -121,6 +121,17 @@ class Header extends Component {
       )
     }
   }
+  handleEditProfile(username, name, email, profilePicture) {
+    const {
+      user,
+      editActiveUser
+    } = this.props;
+    const activeUser = user.active;
+
+    if ( activeUser.accountType === 'local' ) {
+      editActiveUser(activeUser._id, username, name, email, profilePicture);
+    }
+  }
   handleRequestVideoCall(event) {
     event.preventDefault();
 
@@ -145,6 +156,8 @@ class Header extends Component {
     const {
       user,
       chatRoom,
+      upload,
+      uploadImage,
       children
     } = this.props;
     const {
@@ -174,8 +187,10 @@ class Header extends Component {
             editProfileModalOpen &&
             <UserDropdown.EditProfileModal
               user={user.active}
-              handleEditProfile={() => {}}
-              userEdit={{}}
+              upload={upload}
+              handleImageUpload={uploadImage}
+              handleEditProfile={::this.handleEditProfile}
+              userEdit={user.editActive}
               open={editProfileModalOpen}
               onClose={::this.handleCloseEditProfileModal}
             />
@@ -196,7 +211,8 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
+    upload: state.upload
   }
 }
 

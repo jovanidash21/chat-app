@@ -4,11 +4,14 @@ import {
   Form,
   Button
 } from 'muicss/react';
+import Popup from 'react-popup';
 import { isEmailValid } from '../../../utils/form';
 import { Modal } from '../../Modal';
 import { Alert } from '../../Alert';
-import { Avatar } from '../../Avatar';
-import { Input } from '../../Form';
+import {
+  AvatarUploader,
+  Input
+} from '../../Form';
 import './styles.scss';
 
 class EditProfileModal extends Component {
@@ -16,8 +19,6 @@ class EditProfileModal extends Component {
     super(props);
 
     this.state = {
-      loading: true,
-      disabled: false,
       username: '',
       name: '',
       email: '',
@@ -25,11 +26,35 @@ class EditProfileModal extends Component {
       usernameValid: true,
       nameValid: true,
       emailValid: true,
-      errorMessage: ''
+      errorMessage: '',
+      successMessage: ''
     };
   }
   componentWillMount() {
     ::this.handleUserDetails();
+  }
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.upload.image.loading &&
+      !this.props.upload.image.loading &&
+      this.props.upload.image.success
+    ) {
+      this.setState({profilePicture: this.props.upload.imageLink});
+    }
+
+    if ( prevProps.userEdit.loading && ! this.props.userEdit.loading ) {
+      if ( this.props.userEdit.error ) {
+        this.setState({
+          errorMessage: this.props.userEdit.message,
+          successMessage: ''
+        });
+      } else if ( this.props.userEdit.success ) {
+        this.setState({
+          errorMessage: '',
+          successMessage: this.props.userEdit.message
+        });
+      }
+    }
   }
   handleUserDetails() {
     const { user } = this.props;
@@ -40,6 +65,20 @@ class EditProfileModal extends Component {
       email: user.email,
       profilePicture: user.profilePicture
     });
+  }
+  handleImageUpload(image) {
+    const { handleImageUpload } = this.props;
+
+    if ( image.type.indexOf('image/') === -1 ) {
+      Popup.alert('Please select an image file');
+    } else if ( image.size > 1024 * 1024 * 2 ) {
+      Popup.alert('Maximum upload file size is 2MB only');
+    } else {
+      handleImageUpload(image);
+    }
+  }
+  handleRemoveImage() {
+    this.setState({profilePicture: ''});
   }
   onInputChange(event) {
     event.preventDefault();
@@ -90,8 +129,14 @@ class EditProfileModal extends Component {
   }
   handleEditProfile() {
     const { handleEditProfile } = this.props;
+    const {
+      username,
+      name,
+      email,
+      profilePicture
+    } = this.state;
 
-    handleEditProfile();
+    handleEditProfile(username, name, email, profilePicture);
   }
   render() {
     const {
@@ -101,8 +146,6 @@ class EditProfileModal extends Component {
       onClose
     } = this.props;
     const {
-      loading,
-      disabled,
       username,
       name,
       email,
@@ -110,8 +153,10 @@ class EditProfileModal extends Component {
       usernameValid,
       nameValid,
       emailValid,
-      errorMessage
+      errorMessage,
+      successMessage
     } = this.state;
+    const isLocalUser = user.accountType === 'local';
 
     return (
       <Modal
@@ -121,68 +166,78 @@ class EditProfileModal extends Component {
       >
         <Form>
           <Modal.Header>
-            <h3 className="modal-title">Edit Profile</h3>
+            <h3 className="modal-title">{isLocalUser ? 'Edit ' : ''}Profile</h3>
           </Modal.Header>
           <Modal.Body>
             {
-              userEdit.error &&
-              <Alert label={userEdit.message} />
+              errorMessage.length > 0 &&
+              <Alert label={errorMessage} type="danger" />
+            }
+            {
+              errorMessage.length === 0 && successMessage.length > 0 &&
+              <Alert label={successMessage} type="success" />
             }
             <div className="avatar-wrapper">
-              <Avatar
-                image={user.profilePicture}
-                size="100px"
-                name={user.name}
+              <AvatarUploader
+                imageLink={profilePicture}
+                name={name}
                 roleChatType={user.role}
                 accountType={user.accountType}
-                badgeBigger
-                badgeCloser
+                handleImageUpload={::this.handleImageUpload}
+                handleRemoveImage={::this.handleRemoveImage}
+                disabled={userEdit.loading}
               />
             </div>
-            <Input
-              value={username}
-              label="Username"
-              type="text"
-              name="username"
-              onChange={::this.onInputChange}
-              disabled={disabled}
-              invalid={!usernameValid}
-            />
+            {
+              isLocalUser &&
+              <Input
+                value={username}
+                label="Username"
+                type="text"
+                name="username"
+                onChange={::this.onInputChange}
+                disabled={userEdit.loading}
+                invalid={!usernameValid}
+              />
+            }
             <Input
               value={name}
               label="Name"
               type="text"
               name="name"
               onChange={::this.onInputChange}
-              disabled={disabled}
+              disabled={userEdit.loading || !isLocalUser}
               invalid={!nameValid}
             />
             <Input
               value={email}
               label="Email"
-              type="email"
+              type="text"
               name="email"
               onChange={::this.onInputChange}
-              disabled={disabled}
+              disabled={userEdit.loading || !isLocalUser}
               invalid={!emailValid}
             />
           </Modal.Body>
-          <Modal.Footer>
-            <Button
-              className="button button-default"
-              onClick={onClose}
-              disabled={userEdit.loading}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="button button-primary"
-              onClick={::this.handleEditProfileValidation}
-              disabled={userEdit.loading}
-            >
-              Update
-            </Button>
-          </Modal.Footer>
+          {
+            isLocalUser &&
+            <Modal.Footer>
+              <Button
+                className="button button-default"
+                onClick={onClose}
+                disabled={userEdit.loading}
+              >
+                Cancel
+              </Button>
+              <Button
+                className="button button-primary"
+                onClick={::this.handleEditProfileValidation}
+                disabled={userEdit.loading}
+              >
+                Update
+              </Button>
+            </Modal.Footer>
+          }
         </Form>
       </Modal>
     );
@@ -191,6 +246,8 @@ class EditProfileModal extends Component {
 
 EditProfileModal.propTypes = {
   user: PropTypes.object.isRequired,
+  upload: PropTypes.object.isRequired,
+  handleImageUpload: PropTypes.func.isRequired,
   handleEditProfile: PropTypes.func.isRequired,
   userEdit: PropTypes.object.isRequired,
   open: PropTypes.bool,

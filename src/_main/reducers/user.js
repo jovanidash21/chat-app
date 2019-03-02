@@ -67,7 +67,8 @@ const user = (state=initialState, action) => {
           success: true,
           error: false,
           message: action.payload.data.message
-        }
+        },
+        active: action.payload.data.user
       };
     case `${SEARCH_USER}_SUCCESS`:
       return {
