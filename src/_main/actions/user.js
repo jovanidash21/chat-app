@@ -32,23 +32,21 @@ export function fetchActiveUser() {
  * @param {string} username
  * @param {string} name
  * @param {string} email
- * @param {string} password
  * @param {string} profilePicture
  */
-export function editActiveUser(userID, username, name, email, password, profilePicture) {
+export function editActiveUser(userID, username, name, email, profilePicture) {
   let data = {
     userID,
     username,
     name,
     email,
-    password,
     profilePicture
   };
 
   return dispatch => {
     return dispatch({
       type: EDIT_ACTIVE_USER,
-      payload: axios.post('user/edit', data)
+      payload: axios.post('user/edit-profile', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
