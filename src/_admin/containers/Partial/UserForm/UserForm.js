@@ -76,15 +76,18 @@ class UserForm extends Component {
         });
       }
 
-      if ( !prevProps.user.isCreating && this.props.user.isCreating ) {
+      if (
+        !prevProps.user.create.loading &&
+        this.props.user.create.loading
+      ) {
         this.setState({
           isDisabled: true
         });
       }
 
       if (
-        prevProps.user.isCreating &&
-        !this.props.user.isCreating
+        prevProps.user.create.loading &&
+        !this.props.user.create.loading
       ) {
         this.setState({
           isDisabled: false
@@ -100,7 +103,10 @@ class UserForm extends Component {
         ::this.handleDisplayeSelectedUser();
       }
 
-      if ( !prevProps.user.edit.loading && this.props.user.edit.loading ) {
+      if (
+        !prevProps.user.edit.loading &&
+        this.props.user.edit.loading
+      ) {
         this.setState({
           isDisabled: true
         });

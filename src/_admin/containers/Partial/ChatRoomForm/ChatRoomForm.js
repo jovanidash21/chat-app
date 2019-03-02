@@ -69,7 +69,10 @@ class ChatRoomForm extends Component {
         });
       }
 
-      if ( !prevProps.chatRoom.create.loading && this.props.chatRoom.create.loading ) {
+      if (
+        !prevProps.chatRoom.create.loading &&
+        this.props.chatRoom.create.loading
+      ) {
         this.setState({
           isDisabled: true
         });
@@ -93,7 +96,10 @@ class ChatRoomForm extends Component {
         ::this.handleDisplayeSelectedChatRoom();
       }
 
-      if ( !prevProps.chatRoom.edit.loading && this.props.chatRoom.edit.loading ) {
+      if (
+        !prevProps.chatRoom.edit.loading &&
+        this.props.chatRoom.edit.loading
+      ) {
         this.setState({
           isDisabled: true
         });
