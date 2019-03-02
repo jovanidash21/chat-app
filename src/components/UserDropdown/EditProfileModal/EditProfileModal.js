@@ -7,6 +7,7 @@ import {
 import { isEmailValid } from '../../../utils/form';
 import { Modal } from '../../Modal';
 import { Alert } from '../../Alert';
+import { Avatar } from '../../Avatar';
 import { Input } from '../../Form';
 import './styles.scss';
 
@@ -20,16 +21,25 @@ class EditProfileModal extends Component {
       username: '',
       name: '',
       email: '',
-      password: '',
-      confirmPassword: '',
       profilePicture: '',
       usernameValid: true,
       nameValid: true,
       emailValid: true,
-      passwordValid: true,
-      confirmPasswordValid: true,
       errorMessage: ''
     };
+  }
+  componentWillMount() {
+    ::this.handleUserDetails();
+  }
+  handleUserDetails() {
+    const { user } = this.props;
+
+    this.setState({
+      username: user.username,
+      name: user.name,
+      email: user.email,
+      profilePicture: user.profilePicture
+    });
   }
   onInputChange(event) {
     event.preventDefault();
@@ -42,15 +52,11 @@ class EditProfileModal extends Component {
     const {
       username,
       name,
-      email,
-      password,
-      confirmPassword
+      email
     } = this.state;
     var usernameValid = true;
     var nameValid = true;
     var emailValid = true;
-    var passwordValid = true;
-    var confirmPasswordValid = true;
     var errorMessage = '';
 
     if ( username.trim().length === 0 ) {
@@ -65,32 +71,20 @@ class EditProfileModal extends Component {
       emailValid = false;
     }
 
-    if ( password.trim().length === 0 ) {
-      passwordValid = false;
-    }
-
-    if ( password.trim().length > 0 && password !== confirmPassword ) {
-      confirmPasswordValid = false;
-    }
-
-    if ( ! usernameValid || ! nameValid || ! passwordValid ) {
+    if ( ! usernameValid || ! nameValid ) {
       errorMessage = 'All fields are required. Please check and try again.';
     } else if ( ! emailValid ) {
       errorMessage = 'Please enter a valid email address';
-    } else if ( ! confirmPasswordValid ) {
-      errorMessage = 'Password do not match';
     }
 
     this.setState({
       usernameValid: usernameValid,
       nameValid: nameValid,
       emailValid: emailValid,
-      passwordValid: passwordValid,
-      confirmPasswordValid: confirmPasswordValid,
       errorMessage: errorMessage
     });
 
-    if ( usernameValid && nameValid && emailValid && passwordValid && confirmPasswordValid && errorMessage.length === 0 ) {
+    if ( usernameValid && nameValid && emailValid && errorMessage.length === 0 ) {
       ::this.handleEditProfile();
     }
   }
@@ -101,6 +95,7 @@ class EditProfileModal extends Component {
   }
   render() {
     const {
+      user,
       userEdit,
       open,
       onClose
@@ -111,14 +106,10 @@ class EditProfileModal extends Component {
       username,
       name,
       email,
-      password,
-      confirmPassword,
       profilePicture,
       usernameValid,
       nameValid,
       emailValid,
-      passwordValid,
-      confirmPasswordValid,
       errorMessage
     } = this.state;
 
@@ -137,6 +128,17 @@ class EditProfileModal extends Component {
               userEdit.error &&
               <Alert label={userEdit.message} />
             }
+            <div className="avatar-wrapper">
+              <Avatar
+                image={user.profilePicture}
+                size="100px"
+                name={user.name}
+                roleChatType={user.role}
+                accountType={user.accountType}
+                badgeBigger
+                badgeCloser
+              />
+            </div>
             <Input
               value={username}
               label="Username"
@@ -164,24 +166,6 @@ class EditProfileModal extends Component {
               disabled={disabled}
               invalid={!emailValid}
             />
-            <Input
-              value={password}
-              label="Password"
-              type="password"
-              name="password"
-              onChange={::this.onInputChange}
-              disabled={disabled}
-              invalid={!passwordValid}
-            />
-            <Input
-              value={confirmPassword}
-              label="Confirm Passsword"
-              type="password"
-              name="confirm_password"
-              onChange={::this.onInputChange}
-              disabled={disabled}
-              invalid={!confirmPasswordValid}
-            />
           </Modal.Body>
           <Modal.Footer>
             <Button
@@ -206,6 +190,7 @@ class EditProfileModal extends Component {
 }
 
 EditProfileModal.propTypes = {
+  user: PropTypes.object.isRequired,
   handleEditProfile: PropTypes.func.isRequired,
   userEdit: PropTypes.object.isRequired,
   open: PropTypes.bool,

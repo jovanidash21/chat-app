@@ -18,7 +18,8 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      isModalOpen: false
+      muteUnmuteModalOpen: false,
+      editProfileModalOpen: false
     }
   }
   handleLeftSideDrawerToggleEvent(event) {
@@ -28,11 +29,18 @@ class Header extends Component {
 
     handleLeftSideDrawerToggleEvent(true);
   }
-  handleOpenModal() {
-    this.setState({isModalOpen: true});
+  handleOpenMuteUnmuteModal() {
+    this.setState({muteUnmuteModalOpen: true});
   }
-  handleCloseModal() {
-    this.setState({isModalOpen: false});
+  handleCloseMuteUnmuteModal() {
+    this.setState({muteUnmuteModalOpen: false});
+  }
+  handleOpenEditProfileModal() {
+    console.log('hello');
+    this.setState({editProfileModalOpen: true});
+  }
+  handleCloseEditProfileModal() {
+    this.setState({editProfileModalOpen: false});
   }
   handleVideoCamRender() {
     const {
@@ -108,7 +116,7 @@ class Header extends Component {
       return (
         <ChatRoomDropdown
           activeChatRoom={activeChatRoom}
-          handleOpenMuteUnmuteModal={::this.handleOpenModal}
+          handleOpenMuteUnmuteModal={::this.handleOpenMuteUnmuteModal}
         />
       )
     }
@@ -139,7 +147,10 @@ class Header extends Component {
       chatRoom,
       children
     } = this.props;
-    const { isModalOpen } = this.state;
+    const {
+      muteUnmuteModalOpen,
+      editProfileModalOpen
+    } = this.state;
 
     return (
       <Appbar className="header">
@@ -155,12 +166,26 @@ class Header extends Component {
         {::this.handleVideoCamRender()}
         {::this.handleNewMessagesDropdownRender()}
         {::this.handleChatRoomDropdownRender()}
-        <UserDropdown user={user.active} />
+        <UserDropdown
+          user={user.active}
+          handleOpenEditProfileModal={::this.handleOpenEditProfileModal}
+        >
+          {
+            editProfileModalOpen &&
+            <UserDropdown.EditProfileModal
+              user={user.active}
+              handleEditProfile={() => {}}
+              userEdit={{}}
+              open={editProfileModalOpen}
+              onClose={::this.handleCloseEditProfileModal}
+            />
+          }
+        </UserDropdown>
         {
-          isModalOpen &&
+          muteUnmuteModalOpen &&
           <MuteUnmuteChatRoomModal
-            isModalOpen={isModalOpen}
-            handleCloseModal={::this.handleCloseModal}
+            isModalOpen={muteUnmuteModalOpen}
+            handleCloseModal={::this.handleCloseMuteUnmuteModal}
           />
         }
       </Appbar>
