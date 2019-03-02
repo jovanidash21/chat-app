@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'muicss/react';
-import { Avatar } from '../../../../components/Avatar';
-import { Modal } from '../../../../components/Modal';
+import { Avatar } from '../../Avatar';
+import { Modal } from '../../Modal';
 import './styles.scss';
 
 class AvatarUploader extends Component {

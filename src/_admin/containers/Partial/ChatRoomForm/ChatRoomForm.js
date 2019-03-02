@@ -18,9 +18,9 @@ import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { Alert } from '../../../../components/Alert';
 import {
   Input,
-  UserSelect
+  UserSelect,
+  AvatarUploader
 } from '../../../../components/Form';
-import { AvatarUploader } from '../../../components/Form';
 
 class ChatRoomForm extends Component {
   constructor(props) {

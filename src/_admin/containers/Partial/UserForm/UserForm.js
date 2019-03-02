@@ -16,11 +16,11 @@ import mapDispatchToProps from '../../../actions';
 import { isEmailValid } from '../../../../utils/form';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { Alert } from '../../../../components/Alert';
-import { Input } from '../../../../components/Form';
 import {
-  PasswordInput,
+  Input,
   AvatarUploader
-} from '../../../components/Form';
+} from '../../../../components/Form';
+import { PasswordInput } from '../../../components/Form';
 
 class UserForm extends Component {
   constructor(props) {
