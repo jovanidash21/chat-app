@@ -11,6 +11,7 @@ import popUpChatRoom from './popup-chat-room';
 import message from './message';
 import member from './member';
 import videoCall from './video-call';
+import upload from './upload';
 
 const appReducer = combineReducers({
   router: connectRouter(history),
@@ -23,7 +24,8 @@ const appReducer = combineReducers({
   popUpChatRoom,
   message,
   member,
-  videoCall
+  videoCall,
+  upload
 });
 
 const rootReducer = (state, action) => {

@@ -45,6 +45,7 @@ import {
   acceptVideoCall,
   endVideoCall
 } from './video-call';
+import { uploadImage } from './upload';
 
 const actions = (dispatch) => {
   return bindActionCreators({
@@ -79,7 +80,8 @@ const actions = (dispatch) => {
     cancelRequestVideoCall,
     rejectVideoCall,
     acceptVideoCall,
-    endVideoCall
+    endVideoCall,
+    uploadImage
   }, dispatch);
 }
 
