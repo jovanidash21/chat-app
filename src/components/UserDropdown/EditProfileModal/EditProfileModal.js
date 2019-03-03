@@ -42,6 +42,13 @@ class EditProfileModal extends Component {
       this.setState({profilePicture: this.props.upload.imageLink});
     }
 
+    if ( ! prevProps.userEdit.loading && this.props.userEdit.loading ) {
+      this.setState({
+        errorMessage: '',
+        successMessage: ''
+      });
+    }
+
     if ( prevProps.userEdit.loading && ! this.props.userEdit.loading ) {
       if ( this.props.userEdit.error ) {
         this.setState({
