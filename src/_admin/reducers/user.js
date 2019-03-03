@@ -4,6 +4,7 @@ import {
   FETCH_USERS_GRAPH,
   FETCH_SELECTED_USER,
   FETCH_USERS,
+  EDIT_ACTIVE_USER,
   SEARCH_USER,
   CREATE_USER,
   EDIT_USER,
@@ -23,6 +24,7 @@ const initialState = {
   fetchGraph: {...commonStateFlags},
   fetchSelect: {...commonStateFlags},
   fetchAll: {...commonStateFlags},
+  editActive: {...commonStateFlags},
   search: {...commonStateFlags},
   create: {...commonStateFlags},
   edit: {...commonStateFlags},
@@ -74,6 +76,14 @@ const user = (state=initialState, action) => {
         ...state,
         fetchAll: {
           ...state.fetchAll,
+          loading: true
+        }
+      };
+    case `${EDIT_ACTIVE_USER}_LOADING`:
+      return {
+        ...state,
+        editActive: {
+          ...state.editActive,
           loading: true
         }
       };
@@ -169,6 +179,18 @@ const user = (state=initialState, action) => {
           message: action.payload.data.message
         },
         all: action.payload.data.users
+      };
+    case `${EDIT_ACTIVE_USER}_SUCCESS`:
+      return {
+        ...state,
+        editActive: {
+          ...state.editActive,
+          loading: false,
+          success: true,
+          error: false,
+          message: action.payload.data.message
+        },
+        active: action.payload.data.user
       };
     case `${SEARCH_USER}_SUCCESS`:
       return {
@@ -276,6 +298,17 @@ const user = (state=initialState, action) => {
           message: action.payload.response.data.message
         }
       };
+    case `${EDIT_ACTIVE_USER}_ERROR`:
+      return {
+        ...state,
+        editActive: {
+          ...state.editActive,
+          loading: false,
+          success: false,
+          error: true,
+          message: action.payload.response.data.message
+        }
+      };  
     case `${SEARCH_USER}_ERROR`:
       return {
         ...state,

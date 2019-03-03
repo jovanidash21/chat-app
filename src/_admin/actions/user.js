@@ -5,6 +5,7 @@ import {
   FETCH_USERS_GRAPH,
   FETCH_SELECTED_USER,
   FETCH_USERS,
+  EDIT_ACTIVE_USER,
   SEARCH_USER,
   CREATE_USER,
   EDIT_USER,
@@ -90,6 +91,36 @@ export function fetchUsers() {
     return dispatch({
       type: FETCH_USERS,
       payload: axios.get('user/all')
+    })
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
+      }
+    });
+  }
+}
+
+/**
+ * Edit active user
+ * @param {string} userID
+ * @param {string} username
+ * @param {string} name
+ * @param {string} email
+ * @param {string} profilePicture
+ */
+export function editActiveUser(userID, username, name, email, profilePicture) {
+  let data = {
+    userID,
+    username,
+    name,
+    email,
+    profilePicture
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: EDIT_ACTIVE_USER,
+      payload: axios.post('user/edit-profile', data)
     })
     .catch((error) => {
       if (error instanceof Error) {
