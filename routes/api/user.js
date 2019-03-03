@@ -354,7 +354,7 @@ router.post('/edit-profile', (req, res, next) => {
           .then((user) => {
             res.status(200).send({
               success: true,
-              message: 'User Edited',
+              message: 'Your profile is updated successfully',
               user: user
             });
           })

@@ -118,10 +118,7 @@ class Register extends Component {
     register(email, name, username, password);
   }
   render() {
-    const {
-      auth,
-      register
-    } = this.props;
+    const { auth } = this.props;
     const {
       email,
       name,
