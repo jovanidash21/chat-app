@@ -33,7 +33,7 @@ class ChatRoomForm extends Component {
       name: '',
       members: [],
       chatIcon: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg',
-      nameValid: '',
+      nameValid: true,
       errorMessage: ''
     };
   }
