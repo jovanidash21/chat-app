@@ -260,7 +260,7 @@ router.post('/create', (req, res, next) => {
 });
 
 router.post('/edit', (req, res, next) => {
-  if (req.user === undefined) {
+  if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
       success: false,
       message: 'Unauthorized'
