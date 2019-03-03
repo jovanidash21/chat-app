@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import MediaQuery from 'react-responsive';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'muicss/react';
 import { Avatar } from '../../Avatar';
 import './styles.scss';
@@ -50,26 +52,58 @@ class AvatarUploader extends Component {
               accept="image/*"
               onChange={::this.handleImageUploadSelect}
             />
-            <label
-              htmlFor="avatar-uploader-button"
-              className={
-                "mui-btn mui-btn--small button button-default " +
-                (disabled ? 'disabled' : '')
-              }
-            >
-              Change
-            </label>
-            {
-              imageLink !== defaultImageLink &&
-              <Button
-                color="danger"
-                size="small"
-                onClick={::this.handleRemoveImage}
-                disabled={disabled}
-              >
-                Remove
-              </Button>
-            }
+            <MediaQuery query="(max-width: 767px)">
+              {(matches) => {
+                return (
+                  <React.Fragment>
+                    <label
+                      htmlFor="avatar-uploader-button"
+                      className={
+                        (
+                          matches
+                            ? 'change-avatar-button mui-btn mui-btn--small button button-default '
+                            : 'change-avatar-cover '
+                        ) +
+                        (disabled ? 'disabled' : '')
+                      }
+                    >
+                      {
+                        ! matches &&
+                        <div className="camera-icon">
+                          <FontAwesomeIcon icon="camera" />
+                        </div>
+                      }
+                      Change
+                    </label>
+                    {
+                      ! matches &&
+                      imageLink !== defaultImageLink &&
+                      <div
+                        className="remove-avatar-button"
+                        onClick={::this.handleRemoveImage}
+                        title="Remove image"
+                      >
+                        <div className="remove-icon">
+                          <FontAwesomeIcon icon="times" />
+                        </div>
+                      </div>
+                    }
+                    {
+                      matches &&
+                      imageLink !== defaultImageLink &&
+                      <Button
+                        color="danger"
+                        size="small"
+                        onClick={::this.handleRemoveImage}
+                        disabled={disabled}
+                      >
+                        Remove
+                      </Button>
+                    }
+                  </React.Fragment>
+                )
+              }}
+            </MediaQuery>
           </div>
         }
       </div>
