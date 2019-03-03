@@ -257,7 +257,7 @@ router.get('/count', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    ChatRoom.count({_id: {$ne: null}})
+    ChatRoom.countDocuments({_id: {$ne: null}})
       .then((chatRoomsCount) => {
         res.status(200).send({
           success: true,

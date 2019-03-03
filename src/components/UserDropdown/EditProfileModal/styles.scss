@@ -1,0 +1,11 @@
+.edit-profile-modal {
+  max-width: 450px;
+  @media screen and (max-width: $screen-mobile-max) {
+    max-width: 350px;
+  }
+  .avatar-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+}

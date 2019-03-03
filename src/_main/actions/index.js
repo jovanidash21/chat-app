@@ -12,6 +12,7 @@ import {
 } from './auth';
 import {
   fetchActiveUser,
+  editActiveUser,
   searchUser
 } from './user';
 import {
@@ -44,6 +45,7 @@ import {
   acceptVideoCall,
   endVideoCall
 } from './video-call';
+import { uploadImage } from './upload';
 
 const actions = (dispatch) => {
   return bindActionCreators({
@@ -57,6 +59,7 @@ const actions = (dispatch) => {
     githubLogin,
     register,
     fetchActiveUser,
+    editActiveUser,
     searchUser,
     isTyping,
     isNotTyping,
@@ -77,7 +80,8 @@ const actions = (dispatch) => {
     cancelRequestVideoCall,
     rejectVideoCall,
     acceptVideoCall,
-    endVideoCall
+    endVideoCall,
+    uploadImage
   }, dispatch);
 }
 

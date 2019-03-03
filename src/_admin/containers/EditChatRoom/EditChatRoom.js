@@ -1,25 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Container,
-  Row,
-  Col
-} from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import { ChatRoomForm } from '../Partial';
 import { MenuButton } from '../../components/MenuButton';
-import { Alert } from '../../../components/Alert';
 
 class EditChatRoom extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isLoading: true
+      errorMessage: '',
+      successMessage: ''
     };
   }
   componentWillMount() {
     ::this.handleFetchSelectedtChatRoom();
+  }
+  componentDidUpdate(prevProps) {
+    if ( ! prevProps.chatRoom.edit.loading && this.props.chatRoom.edit.loading ) {
+      this.setState({
+        errorMessage: '',
+        successMessage: ''
+      });
+    }
+
+    if ( prevProps.chatRoom.edit.loading && ! this.props.chatRoom.edit.loading ) {
+      if ( this.props.chatRoom.edit.error ) {
+        this.setState({
+          errorMessage: this.props.chatRoom.edit.message,
+          successMessage: ''
+        });
+      } else if ( this.props.chatRoom.edit.success ) {
+        this.setState({
+          errorMessage: '',
+          successMessage: this.props.chatRoom.edit.message
+        });
+      }
+    }
   }
   handleFetchSelectedtChatRoom() {
     const {
@@ -31,28 +48,18 @@ class EditChatRoom extends Component {
     fetchSelectedChatRoom(chatRoomID);
   }
   render() {
-    const { chatRoom } = this.props;
+    const {
+      errorMessage,
+      successMessage
+    } = this.state;
 
     return (
       <div className="create-chat-room-section">
-        <Container fluid={true}>
-          <Row>
-            <Col xs="12">
-              <div className="admin-menu-section">
-                <MenuButton label="Create New" link="/create-chat-room" />
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs="12">
-              {
-                ( chatRoom.edit.success || chatRoom.edit.error ) &&
-                <Alert label={chatRoom.edit.message} type={(chatRoom.create.success ? 'success' : 'error')} />
-              }
-            </Col>
-          </Row>
-          <ChatRoomForm mode="edit" />
-        </Container>
+        <ChatRoomForm
+          mode="edit"
+          errorMessage={errorMessage}
+          successMessage={successMessage}
+        />
       </div>
     )
   }

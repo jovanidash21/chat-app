@@ -304,7 +304,7 @@ router.get('/count', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    Message.count({_id: {$ne: null}})
+    Message.countDocuments({_id: {$ne: null}})
       .then((messagesCount) => {
         res.status(200).send({
           success: true,

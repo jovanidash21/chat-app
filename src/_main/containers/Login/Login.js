@@ -22,21 +22,64 @@ class Login extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      usernameValid: true,
+      passwordValid: true,
+      errorMessage: ''
     };
   }
   componentWillMount() {
     document.body.className = '';
     document.body.classList.add('login-page');
   }
+  componentDidUpdate(prevProps) {
+    if ( prevProps.auth.login.loading && ! this.props.auth.login.loading && this.props.auth.login.error ) {
+      this.setState({errorMessage: this.props.auth.login.message});
+    }
+  }
   onInputChange(event) {
     event.preventDefault();
 
     this.setState({[event.target.name]: event.target.value});
   }
-  handleLocalLogin(event) {
+  handleLocalLoginValidation(event) {
     event.preventDefault();
 
+    const {
+      username,
+      password
+    } = this.state;
+    var usernameValid = true;
+    var passwordValid = true;
+    var errorMessage = '';
+
+    if ( username.trim().length === 0 ) {
+      usernameValid = false;
+    }
+
+    if ( password.trim().length === 0 ) {
+      passwordValid = false;
+    }
+
+    if ( ! usernameValid && ! passwordValid ) {
+      errorMessage = 'Username and password are required';
+    } else if ( ! usernameValid ) {
+      errorMessage = 'Username is required';
+    } else if ( ! passwordValid ) {
+      errorMessage = 'Password is required';
+    }
+
+    this.setState({
+      usernameValid: usernameValid,
+      passwordValid: passwordValid,
+      errorMessage: errorMessage
+    });
+
+    if ( usernameValid && passwordValid && errorMessage.length === 0 ) {
+      ::this.handleLocalLogin();
+    }
+  }
+  handleLocalLogin() {
     const { localLogin } = this.props;
     const {
       username,
@@ -57,7 +100,10 @@ class Login extends Component {
     } = this.props;
     const {
       username,
-      password
+      password,
+      usernameValid,
+      passwordValid,
+      errorMessage
     } = this.state;
 
     return (
@@ -67,19 +113,20 @@ class Login extends Component {
             <h1 className="form-title mui--text-center">Chat App</h1>
           </Col>
           {
-            auth.login.error &&
+            errorMessage.length > 0 &&
             <Col md="12">
-              <Alert label={auth.login.message} center />
+              <Alert label={errorMessage} center />
             </Col>
           }
           <Col md="12">
-            <Form onSubmit={::this.handleLocalLogin}>
+            <Form onSubmit={::this.handleLocalLoginValidation}>
               <Input
                 value={username}
                 label="Username"
                 name="username"
                 onChange={::this.onInputChange}
                 disabled={auth.login.loading}
+                invalid={!usernameValid}
               />
               <Input
                 value={password}
@@ -88,6 +135,7 @@ class Login extends Component {
                 name="password"
                 onChange={::this.onInputChange}
                 disabled={auth.login.loading}
+                invalid={!passwordValid}
               />
               <LoginButton disabled={auth.login.loading} />
             </Form>

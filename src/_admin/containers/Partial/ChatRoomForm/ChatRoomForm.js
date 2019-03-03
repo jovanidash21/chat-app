@@ -15,11 +15,12 @@ import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
+import { Alert } from '../../../../components/Alert';
 import {
   Input,
-  UserSelect
+  UserSelect,
+  AvatarUploader
 } from '../../../../components/Form';
-import { AvatarUploader } from '../../../components/Form';
 
 class ChatRoomForm extends Component {
   constructor(props) {
@@ -31,7 +32,9 @@ class ChatRoomForm extends Component {
       chatType: 'direct',
       name: '',
       members: [],
-      chatIcon: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg'
+      chatIcon: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg',
+      nameValid: '',
+      errorMessage: ''
     };
   }
   componentWillMount() {
@@ -66,7 +69,10 @@ class ChatRoomForm extends Component {
         });
       }
 
-      if ( !prevProps.chatRoom.create.loading && this.props.chatRoom.create.loading ) {
+      if (
+        !prevProps.chatRoom.create.loading &&
+        this.props.chatRoom.create.loading
+      ) {
         this.setState({
           isDisabled: true
         });
@@ -90,7 +96,10 @@ class ChatRoomForm extends Component {
         ::this.handleDisplayeSelectedChatRoom();
       }
 
-      if ( !prevProps.chatRoom.edit.loading && this.props.chatRoom.edit.loading ) {
+      if (
+        !prevProps.chatRoom.edit.loading &&
+        this.props.chatRoom.edit.loading
+      ) {
         this.setState({
           isDisabled: true
         });
@@ -181,7 +190,8 @@ class ChatRoomForm extends Component {
       name,
       chatType,
       members,
-      chatIcon
+      chatIcon,
+      nameValid
     } = this.state;
     const searchedUsers = user.searched.filter((singleUser) => {
       return !members.some((singleMember) => singleMember._id === singleUser._id);
@@ -214,6 +224,7 @@ class ChatRoomForm extends Component {
               name="name"
               onChange={::this.handleChange}
               disabled={isDisabled}
+              invalid={!nameValid}
             />
           }
           <UserSelect
@@ -317,30 +328,51 @@ class ChatRoomForm extends Component {
   handleRemoveImage() {
     this.setState({chatIcon: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg'});
   }
-  handleSubmitChatRoomForm(event) {
+  handleChatRoomFormValidation(event) {
     event.preventDefault();
 
     const { mode } = this.props;
     const {
       chatType,
+      name,
       members
-    } = this.state
+    } = this.state;
+    var nameValid = true;
+    var errorMessage = '';
 
-    if ( chatType === 'direct' && members.length !== 2 ) {
-      Popup.alert('Please select 2 members on Direct Chat Room');
+    if ( chatType === 'group' && name.trim().length === 0 ) {
+      nameValid = false;
+    }
+
+    if ( ! nameValid ) {
+      errorMessage = 'Name is required';
+    } else if ( chatType === 'direct' && members.length !== 2 ) {
+      errorMessage = 'Please select 2 members on Direct Chat Room';
     } else if ( chatType === 'group' && members.length < 3 ) {
-      Popup.alert('Please select at least 3 members');
-    } else {
-      switch(mode) {
-        case 'create':
-          ::this.handleCreateChatRoom();
-          break;
-        case 'edit':
-          ::this.handleEditChatRoom();
-          break;
-        default:
-          break;
-      }
+      errorMessage = 'Please select at least 3 members';
+    }
+
+    this.setState({
+      nameValid: nameValid,
+      errorMessage: errorMessage
+    });
+
+    if ( nameValid && errorMessage.length === 0 ) {
+      ::this.handleSubmitChatRoomForm();
+    }
+  }
+  handleSubmitChatRoomForm() {
+    const { mode } = this.props;
+
+    switch(mode) {
+      case 'create':
+        ::this.handleCreateChatRoom();
+        break;
+      case 'edit':
+        ::this.handleEditChatRoom();
+        break;
+      default:
+        break;
     }
   }
   handleCreateChatRoom() {
@@ -381,22 +413,45 @@ class ChatRoomForm extends Component {
     );
   }
   render() {
+    const { successMessage } = this.props;
+    let errorMessage = this.props.errorMessage;
+
+    if ( this.state.errorMessage.length > 0 ) {
+      errorMessage = this.state.errorMessage;
+    }
+
     return (
       <div className="chat-room-form">
-        <Form onSubmit={::this.handleSubmitChatRoomForm}>
+        <Container fluid>
           <Row>
-            <Col md="8">
-              <Panel>
-                {::this.handleChatRoomFormRender()}
-              </Panel>
+            <Col xs="12">
+              {
+                errorMessage.length > 0 &&
+                <Alert label={errorMessage} type="danger" />
+              }
+              {
+                errorMessage.length === 0 && successMessage.length > 0 &&
+                <Alert label={successMessage} type="success" />
+              }
             </Col>
-            <Col md="4">
-              <Panel>
-                {::this.handleAvatarUploadRender()}
-              </Panel>
+            <Col xs="12">
+              <Form onSubmit={::this.handleChatRoomFormValidation}>
+                <Row>
+                  <Col md="8">
+                    <Panel>
+                      {::this.handleChatRoomFormRender()}
+                    </Panel>
+                  </Col>
+                  <Col md="4">
+                    <Panel>
+                      {::this.handleAvatarUploadRender()}
+                    </Panel>
+                  </Col>
+                </Row>
+              </Form>
             </Col>
           </Row>
-        </Form>
+        </Container>
       </div>
     )
   }
@@ -411,11 +466,15 @@ const mapStateToProps = (state) => {
 }
 
 ChatRoomForm.propTypes = {
-  mode: PropTypes.string
+  mode: PropTypes.string,
+  errorMessage: PropTypes.string,
+  successMessage: PropTypes.string
 }
 
 ChatRoomForm.defaultProps = {
-  mode: 'create'
+  mode: 'create',
+  errorMessage: '',
+  successMessage: ''
 }
 
 export default connect(

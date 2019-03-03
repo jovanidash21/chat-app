@@ -73,7 +73,7 @@ class ActiveChatRoom extends Component {
               {
                 activeChatRoom.data.chatType === 'private' &&
                 <div className="online-indicator-wrapper">
-                  <OnlineIndicator isOnline={true} />
+                  <OnlineIndicator isOnline />
                   online
                 </div>
               }

@@ -18,7 +18,8 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      isModalOpen: false
+      muteUnmuteModalOpen: false,
+      editProfileModalOpen: false
     }
   }
   handleLeftSideDrawerToggleEvent(event) {
@@ -28,11 +29,17 @@ class Header extends Component {
 
     handleLeftSideDrawerToggleEvent(true);
   }
-  handleOpenModal() {
-    this.setState({isModalOpen: true});
+  handleOpenMuteUnmuteModal() {
+    this.setState({muteUnmuteModalOpen: true});
   }
-  handleCloseModal() {
-    this.setState({isModalOpen: false});
+  handleCloseMuteUnmuteModal() {
+    this.setState({muteUnmuteModalOpen: false});
+  }
+  handleOpenEditProfileModal() {
+    this.setState({editProfileModalOpen: true});
+  }
+  handleCloseEditProfileModal() {
+    this.setState({editProfileModalOpen: false});
   }
   handleVideoCamRender() {
     const {
@@ -108,9 +115,20 @@ class Header extends Component {
       return (
         <ChatRoomDropdown
           activeChatRoom={activeChatRoom}
-          handleOpenMuteUnmuteModal={::this.handleOpenModal}
+          handleOpenMuteUnmuteModal={::this.handleOpenMuteUnmuteModal}
         />
       )
+    }
+  }
+  handleEditProfile(username, name, email, profilePicture) {
+    const {
+      user,
+      editActiveUser
+    } = this.props;
+    const activeUser = user.active;
+
+    if ( activeUser.accountType === 'local' ) {
+      editActiveUser(activeUser._id, username, name, email, profilePicture);
     }
   }
   handleRequestVideoCall(event) {
@@ -137,9 +155,14 @@ class Header extends Component {
     const {
       user,
       chatRoom,
+      upload,
+      uploadImage,
       children
     } = this.props;
-    const { isModalOpen } = this.state;
+    const {
+      muteUnmuteModalOpen,
+      editProfileModalOpen
+    } = this.state;
 
     return (
       <Appbar className="header">
@@ -155,12 +178,28 @@ class Header extends Component {
         {::this.handleVideoCamRender()}
         {::this.handleNewMessagesDropdownRender()}
         {::this.handleChatRoomDropdownRender()}
-        <UserDropdown user={user.active} />
+        <UserDropdown
+          user={user.active}
+          handleOpenEditProfileModal={::this.handleOpenEditProfileModal}
+        >
+          {
+            editProfileModalOpen &&
+            <UserDropdown.EditProfileModal
+              user={user.active}
+              upload={upload}
+              handleImageUpload={uploadImage}
+              handleEditProfile={::this.handleEditProfile}
+              userEdit={user.editActive}
+              open={editProfileModalOpen}
+              onClose={::this.handleCloseEditProfileModal}
+            />
+          }
+        </UserDropdown>
         {
-          isModalOpen &&
+          muteUnmuteModalOpen &&
           <MuteUnmuteChatRoomModal
-            isModalOpen={isModalOpen}
-            handleCloseModal={::this.handleCloseModal}
+            isModalOpen={muteUnmuteModalOpen}
+            handleCloseModal={::this.handleCloseMuteUnmuteModal}
           />
         }
       </Appbar>
@@ -171,7 +210,8 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
+    upload: state.upload
   }
 }
 

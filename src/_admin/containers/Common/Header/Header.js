@@ -9,6 +9,10 @@ import { UserDropdown } from '../../../../components/UserDropdown';
 class Header extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      editProfileModalOpen: false
+    }
   }
   handleLeftSideDrawerToggleEvent(event) {
     event.preventDefault();
@@ -17,11 +21,31 @@ class Header extends Component {
 
     handleLeftSideDrawerToggleEvent(true);
   }
+  handleOpenEditProfileModal() {
+    this.setState({editProfileModalOpen: true});
+  }
+  handleCloseEditProfileModal() {
+    this.setState({editProfileModalOpen: false});
+  }
+  handleEditProfile(username, name, email, profilePicture) {
+    const {
+      user,
+      editActiveUser
+    } = this.props;
+    const activeUser = user.active;
+
+    if ( activeUser.accountType === 'local' ) {
+      editActiveUser(activeUser._id, username, name, email, profilePicture);
+    }
+  }
   render() {
     const {
       user,
+      upload,
+      uploadImage,
       children
     } = this.props;
+    const { editProfileModalOpen } = this.state;
 
     return (
       <Appbar className="header">
@@ -34,7 +58,23 @@ class Header extends Component {
         <div className="content">
           {children}
         </div>
-        <UserDropdown user={user.active} />
+        <UserDropdown
+          user={user.active}
+          handleOpenEditProfileModal={::this.handleOpenEditProfileModal}
+        >
+          {
+            editProfileModalOpen &&
+            <UserDropdown.EditProfileModal
+              user={user.active}
+              upload={upload}
+              handleImageUpload={uploadImage}
+              handleEditProfile={::this.handleEditProfile}
+              userEdit={user.editActive}
+              open={editProfileModalOpen}
+              onClose={::this.handleCloseEditProfileModal}
+            />
+          }
+        </UserDropdown>
       </Appbar>
     )
   }
@@ -42,7 +82,8 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    upload: state.upload
   }
 }
 

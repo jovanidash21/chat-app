@@ -52,7 +52,7 @@ router.get('/count', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    User.count({_id: {$ne: null}})
+    User.countDocuments({_id: {$ne: null}})
       .then((usersCount) => {
         res.status(200).send({
           success: true,
@@ -267,31 +267,104 @@ router.post('/edit', (req, res, next) => {
     });
   } else {
     var userID = req.body.userID;
+    var username = req.body.username;
     var userData = {
-      username: req.body.username,
+      username: username,
       name: req.body.name,
       email: req.body.email,
       role: req.body.role
     };
 
-    User.findById(userID)
-      .exec()
+    User.findOne({username: username})
       .then((user) => {
-        if (user.accountType === 'local') {
-          userData.profilePicture = req.body.profilePicture
-        }
+        if (user != null && user._id != userID) {
+          res.status(401).send({
+            success: false,
+            message: 'Username already exist'
+          });
+        } else {
+          User.findById(userID)
+            .then((user) => {
+              if (user.accountType === 'local') {
+                userData.profilePicture = req.body.profilePicture
+              }
 
-        User.updateOne(
-          { _id: userID },
-          { $set: userData },
-          { safe: true, upsert: true, new: true },
-        ).exec();
+              User.updateOne(
+                { _id: userID },
+                { $set: userData },
+                { safe: true, upsert: true, new: true },
+              ).exec();
+
+              res.status(200).send({
+                success: true,
+                message: 'User Edited'
+              });
+            })
+            .catch((error) => {
+              res.status(500).send({
+                success: false,
+                message: 'Server Error!'
+              });
+            });
+        }
       })
-      .then((user) => {
-        res.status(200).send({
-          success: true,
-          message: 'User Edited'
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
         });
+      });
+  }
+});
+
+router.post('/edit-profile', (req, res, next) => {
+  var userID = req.body.userID;
+
+  if (
+    req.user === undefined ||
+    req.user._id != userID ||
+    req.user.accountType !== 'local'
+  ) {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var username = req.body.username;
+    var userData = {
+      username: username,
+      name: req.body.name,
+      email: req.body.email,
+      profilePicture: req.body.profilePicture
+    };
+
+    User.findOne({username: username})
+      .then((user) => {
+        if (user != null && user._id != userID) {
+          res.status(401).send({
+            success: false,
+            message: 'Username already exist'
+          });
+        } else {
+          User.findByIdAndUpdate(
+            userID,
+            { $set: userData },
+            { safe: true, upsert: true, new: true }
+          )
+          .then((user) => {
+            res.status(200).send({
+              success: true,
+              message: 'Your profile is updated successfully',
+              user: user
+            });
+          })
+          .catch((error) => {
+            res.status(500).send({
+              success: false,
+              message: 'Server Error!'
+            });
+          });
+        }
       })
       .catch((error) => {
         res.status(500).send({

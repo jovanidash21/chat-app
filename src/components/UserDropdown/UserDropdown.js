@@ -2,14 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar } from '../Avatar';
+import { EditProfileModal } from './EditProfileModal';
 import './styles.scss';
 
 class UserDropdown extends Component {
   constructor(props) {
     super(props);
   }
+  handleOpenEditProfileModal(event) {
+    event.preventDefault();
+
+    const { handleOpenEditProfileModal } = this.props;
+
+    handleOpenEditProfileModal();
+  }
   render() {
-    const { user } = this.props;
+    const {
+      user,
+      children
+    } = this.props;
+    const isLocalUser = user.accountType === 'local';
 
     return (
       <div className="mui-dropdown user-dropdown">
@@ -45,6 +57,14 @@ class UserDropdown extends Component {
             <div className="divider" />
           </li>
           <li>
+            <a href="#" onClick={::this.handleOpenEditProfileModal}>
+              <div className="option-icon">
+                <FontAwesomeIcon icon={isLocalUser ? 'user-edit' : 'user'} />
+              </div>
+              {isLocalUser ? 'Edit ' : 'View '}profile
+            </a>
+          </li>
+          <li>
             <a href="/logout">
               <div className="option-icon">
                 <FontAwesomeIcon icon="sign-out-alt" />
@@ -53,13 +73,17 @@ class UserDropdown extends Component {
             </a>
           </li>
         </ul>
+        {children}
       </div>
     )
   }
 }
 
+UserDropdown.EditProfileModal = EditProfileModal;
+
 UserDropdown.propTypes = {
-  user: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired,
+  handleOpenEditProfileModal: PropTypes.func.isRequired
 }
 
 export default UserDropdown;

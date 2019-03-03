@@ -104,7 +104,7 @@ class AllUsers extends Component {
 
     return (
       <div className="all-users-section">
-        <Container fluid={true}>
+        <Container fluid>
           <Row>
             <Col xs="12">
               <div className="admin-menu-section">
