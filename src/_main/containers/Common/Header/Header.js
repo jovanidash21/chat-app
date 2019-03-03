@@ -36,7 +36,6 @@ class Header extends Component {
     this.setState({muteUnmuteModalOpen: false});
   }
   handleOpenEditProfileModal() {
-    console.log('hello');
     this.setState({editProfileModalOpen: true});
   }
   handleCloseEditProfileModal() {
