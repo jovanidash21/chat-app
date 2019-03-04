@@ -1,14 +1,23 @@
+@keyframes shine {
+	0% {
+		background-position: -1000px 0;
+	}
+	100% {
+		background-position: 1000px 0;
+	}
+}
+
 @keyframes zoom-in-out {
 	25% {
-    transform: scale(0.95);
-  }
+		transform: scale(0.95);
+	}
 	50% {
-    transform: scale(1);
-  }
+		transform: scale(1);
+	}
 	75% {
-    transform: scale(0.95);
-  }
+		transform: scale(0.95);
+	}
 	100% {
-    transform: scale(1);
-  }
+		transform: scale(1);
+	}
 }
