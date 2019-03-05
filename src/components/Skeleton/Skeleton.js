@@ -10,20 +10,28 @@ const Skeleton = (props) => {
 
   return (
     <div
-      className="skeleton"
+      className={
+        "skeleton " +
+        ( props.circle ? 'circle-skeleton ' : '' ) +
+        props.className
+      }
       style={skeletonStyles}
     />
   );
 }
 
 Skeleton.propTypes = {
+  className: PropTypes.string,
   height: PropTypes.number,
-  width: PropTypes.number
+  width: PropTypes.number,
+  cirlce: PropTypes.bool
 }
 
 Skeleton.defaultProps = {
+  className: '',
   height: 20,
-  width: 100
+  width: 100,
+  circle: false
 }
 
 export default Skeleton;
