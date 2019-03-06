@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router';
 import mapDispatchToProps from '../actions';
 import Head from '../../components/Head';
-import { LoadingAnimation } from '../../components/LoadingAnimation';
 
 class Layout extends Component {
   constructor(props) {
@@ -18,20 +17,13 @@ class Layout extends Component {
   handleComponentRender(matchProps) {
     const {
       component: Content,
-      title,
-      user
+      title
     } = this.props;
 
     return (
       <div>
         <Head title={"Chat App " + (title.length > 0 ? '| ' + title : '')} />
-        {
-          !user.fetchActive.loading && user.fetchActive.success
-            ?
-            <Content {...matchProps} />
-            :
-            <LoadingAnimation name="ball-pulse-sync" color="#26a69a" fullScreen />
-        }
+        <Content {...matchProps} />
       </div>
     )
   }
@@ -45,9 +37,7 @@ class Layout extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  }
+  return {}
 }
 
 Layout.propTypes = {
