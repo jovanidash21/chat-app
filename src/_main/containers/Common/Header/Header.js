@@ -11,6 +11,7 @@ import {
   NewMessagesDropdown,
   ChatRoomDropdown
 } from '../../../components/Header';
+import { Skeleton } from '../../../../components/Skeleton';
 import { UserDropdown } from '../../../../components/UserDropdown';
 
 class Header extends Component {
@@ -163,6 +164,9 @@ class Header extends Component {
       muteUnmuteModalOpen,
       editProfileModalOpen
     } = this.state;
+    const activeUser = user.active;
+    const activeUserEmpty = isObjectEmpty( activeUser );
+    const userFetchActiveLoading = user.fetchActive.loading;
 
     return (
       <Appbar className="header">
@@ -178,23 +182,44 @@ class Header extends Component {
         {::this.handleVideoCamRender()}
         {::this.handleNewMessagesDropdownRender()}
         {::this.handleChatRoomDropdownRender()}
-        <UserDropdown
-          user={user.active}
-          handleOpenEditProfileModal={::this.handleOpenEditProfileModal}
-        >
-          {
-            editProfileModalOpen &&
-            <UserDropdown.EditProfileModal
-              user={user.active}
-              upload={upload}
-              handleImageUpload={uploadImage}
-              handleEditProfile={::this.handleEditProfile}
-              userEdit={user.editActive}
-              open={editProfileModalOpen}
-              onClose={::this.handleCloseEditProfileModal}
-            />
-          }
-        </UserDropdown>
+        {
+          userFetchActiveLoading &&
+          <div className="user-dropdown">
+            <div className="dropdown-toggle">
+              <Skeleton
+                className="avatar"
+                height={32}
+                width={32}
+                circle
+              />
+              <div className="arrow-down-icon">
+                <FontAwesomeIcon icon="caret-down" />
+              </div>
+            </div>
+          </div>
+        }
+        {
+          ! userFetchActiveLoading &&
+          ! activeUserEmpty &&
+          <UserDropdown
+            user={activeUser}
+            handleOpenEditProfileModal={::this.handleOpenEditProfileModal}
+            loading={userFetchActiveLoading}
+          >
+            {
+              editProfileModalOpen &&
+              <UserDropdown.EditProfileModal
+                user={activeUser}
+                upload={upload}
+                handleImageUpload={uploadImage}
+                handleEditProfile={::this.handleEditProfile}
+                userEdit={user.editActive}
+                open={editProfileModalOpen}
+                onClose={::this.handleCloseEditProfileModal}
+              />
+            }
+          </UserDropdown>
+        }
         {
           muteUnmuteModalOpen &&
           <MuteUnmuteChatRoomModal
