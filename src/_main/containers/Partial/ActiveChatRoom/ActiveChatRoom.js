@@ -8,7 +8,6 @@ import { isObjectEmpty } from '../../../../utils/object';
 import { formatNumber } from '../../../../utils/number';
 import { isDirectChatRoomMemberOnline } from '../../../../utils/member';
 import { Avatar } from '../../../../components/Avatar';
-import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { OnlineIndicator } from '../../../components/OnlineIndicator';
 import { Skeleton } from '../../../../components/Skeleton';
 import './styles.scss';
@@ -54,8 +53,8 @@ class ActiveChatRoom extends Component {
             chatRoomFetchLoading &&
             <Skeleton
               className="avatar"
-              height={32}
-              width={32}
+              height="32px"
+              width="32px"
               circle
             />
           }
@@ -76,8 +75,8 @@ class ActiveChatRoom extends Component {
               chatRoomFetchLoading &&
               <Skeleton
                 className="chat-room-name"
-                height={32}
-                width={150}
+                height="32px"
+                width="150px"
               />
             }
             {
@@ -88,14 +87,6 @@ class ActiveChatRoom extends Component {
               </h2>
             }
             <div className="chat-room-info">
-              {
-                ( chatRoomFetchLoading || memberFetchLoading ) &&
-                <Skeleton
-                  className="members-count"
-                  height={20}
-                  width={35}
-                />
-              }
               {
                 ! chatRoomFetchLoading &&
                 ! memberFetchLoading &&

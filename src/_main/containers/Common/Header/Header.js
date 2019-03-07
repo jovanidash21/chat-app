@@ -188,8 +188,8 @@ class Header extends Component {
             <div className="dropdown-toggle">
               <Skeleton
                 className="avatar"
-                height={32}
-                width={32}
+                height="32px"
+                width="32px"
                 circle
               />
               <div className="arrow-down-icon">

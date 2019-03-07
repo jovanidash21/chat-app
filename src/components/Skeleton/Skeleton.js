@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import './styles.scss';
 
 const Skeleton = (props) => {
-  const skeletonStyles ={
-    height: props.height + 'px',
-    width: props.width + 'px'
+  const skeletonStyles = {
+    height: props.height,
+    width: props.width
   };
 
   return (
@@ -22,15 +22,15 @@ const Skeleton = (props) => {
 
 Skeleton.propTypes = {
   className: PropTypes.string,
-  height: PropTypes.number,
-  width: PropTypes.number,
+  height: PropTypes.string,
+  width: PropTypes.string,
   cirlce: PropTypes.bool
 }
 
 Skeleton.defaultProps = {
   className: '',
-  height: 20,
-  width: 100,
+  height: '20px',
+  width: '100px',
   circle: false
 }
 
