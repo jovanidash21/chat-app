@@ -40,8 +40,7 @@ class ActiveChatRoom extends Component {
     const activeUser = user.active;
     const activeChatRoom = chatRoom.active;
     const activeChatRoomEmpty = isObjectEmpty( activeChatRoom );
-    const chatRoomFetchLoading = chatRoom.fetch.loading;
-    const memberFetchLoading = member.fetch.loading;
+    const loading = user.fetchActive.loading || chatRoom.fetch.loading;
     const isOtherMemberOnline = ! activeChatRoomEmpty &&
       activeChatRoom.data.chatType === 'direct' &&
       isDirectChatRoomMemberOnline(activeChatRoom.data.members, activeUser._id);
@@ -50,7 +49,7 @@ class ActiveChatRoom extends Component {
       <div className="active-chat-room">
         <div className="chat-room-detail-wrapper">
           {
-            chatRoomFetchLoading &&
+            loading &&
             <Skeleton
               className="avatar"
               height="32px"
@@ -59,7 +58,7 @@ class ActiveChatRoom extends Component {
             />
           }
           {
-            ! chatRoomFetchLoading &&
+            ! loading &&
             ! activeChatRoomEmpty &&
             <Avatar
               image={activeChatRoom.data.chatIcon}
@@ -72,7 +71,7 @@ class ActiveChatRoom extends Component {
           }
           <div className="chat-room-detail">
             {
-              chatRoomFetchLoading &&
+              loading &&
               <Skeleton
                 className="chat-room-name"
                 height="32px"
@@ -80,7 +79,7 @@ class ActiveChatRoom extends Component {
               />
             }
             {
-              ! chatRoomFetchLoading &&
+              ! loading &&
               ! activeChatRoomEmpty &&
               <h2 className="chat-room-name" title={activeChatRoom.data.name}>
                 {activeChatRoom.data.name}
@@ -88,8 +87,7 @@ class ActiveChatRoom extends Component {
             }
             <div className="chat-room-info">
               {
-                ! chatRoomFetchLoading &&
-                ! memberFetchLoading &&
+                ! loading &&
                 ! activeChatRoomEmpty &&
                 <React.Fragment>
                   {
