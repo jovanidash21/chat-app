@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { SearchFilter } from '../../../../components/SearchFilter';
+import { Skeleton } from '../../../../components/Skeleton';
 import { ChatRoom } from '../../../components/LeftSideDrawer';
 import { CreateChatRoomModal } from '../CreateChatRoomModal';
 import './styles.scss';
@@ -85,99 +86,6 @@ class ChatRoomsList extends Component {
     this.setState({searchFilter: ''});
     ::this.handleChatRoomsListFilter();
   }
-  handleChatRoomsListRender() {
-    const {
-      user,
-      chatRoom,
-      changeChatRoom,
-      handleLeftSideDrawerToggleEvent,
-      handleOpenPopUpChatRoom
-    } = this.props;
-    const {
-      isChatBoxRoomsListScrolled,
-      chatRooms,
-      searchFilter,
-      selectedChatRoomIndex
-    } = this.state;
-
-    if ( !chatRoom.fetch.loading && chatRoom.fetch.success ) {
-      const activeChatRoom = chatRoom.active;
-
-      return (
-        <div className="chat-rooms-list-wrapper">
-          <div className="chat-rooms-options">
-            <div className="door-icon">
-              <FontAwesomeIcon icon="door-closed" size="2x" />
-            </div>
-            <h3>Chat Rooms</h3>
-            <div className="plus-icon"
-              onClick={::this.handleOpenModal}
-              title="Create Chat Room"
-            >
-              <FontAwesomeIcon icon="plus" />
-            </div>
-          </div>
-          <MediaQuery query="(max-width: 767px)">
-            {(matches) => {
-              return (
-                <SearchFilter
-                  value={searchFilter}
-                  onChange={::this.onChatRoomNameChange}
-                  onKeyDown={(e) => {::this.onChatRoomNameKeyDown(e, matches)}}
-                  handleClearSearchFilter={::this.handleClearSearchFilter}
-                  light
-                />
-              )
-            }}
-          </MediaQuery>
-          <div className={"scroll-shadow " + (isChatBoxRoomsListScrolled ? 'scrolled' : '')} />
-          <div
-            className="chat-rooms-list"
-            ref={(element) => { this.chatRoomsList = element; }}
-          >
-            {
-              chatRooms.length > 0 &&
-              chatRooms.sort((a, b) => {
-                var priority = a.priority - b.priority;
-                var name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
-                var date = new Date(b.data.createdAt) - new Date(a.data.createdAt);
-
-                if (priority !== 0) {
-                  return priority;
-                } else if ( name !== 0 ) {
-                  return name
-                } else {
-                  return date;
-                }
-              }).map((singleChatRoom, i) =>
-                <ChatRoom
-                  key={i}
-                  user={user.active}
-                  chatRoom={singleChatRoom}
-                  activeChatRoom={activeChatRoom}
-                  isActive={(activeChatRoom.data._id === singleChatRoom.data._id) ? true : false}
-                  isSelected={selectedChatRoomIndex === i}
-                  handleOpenPopUpChatRoom={handleOpenPopUpChatRoom}
-                  handleChangeChatRoom={changeChatRoom}
-                  handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
-                />
-              )
-            }
-            {
-              chatRooms.length === 0 &&
-              <div className="no-results">
-                No results found
-              </div>
-            }
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="white" />
-      )
-    }
-  }
   handleOpenModal(event) {
     event.preventDefault();
 
@@ -241,13 +149,146 @@ class ChatRoomsList extends Component {
     const {
       user,
       chatRoom,
-      handleLeftSideDrawerToggleEvent
+      changeChatRoom,
+      handleLeftSideDrawerToggleEvent,
+      handleOpenPopUpChatRoom
     } = this.props;
-    const { isModalOpen } = this.state;
+    const {
+      isChatBoxRoomsListScrolled,
+      isModalOpen,
+      chatRooms,
+      searchFilter,
+      selectedChatRoomIndex
+    } = this.state;
+    const activeChatRoom = chatRoom.active;
+    const loading = user.fetchActive.loading || chatRoom.fetch.loading;
 
     return (
       <div style={{height: '100%'}}>
-        {::this.handleChatRoomsListRender()}
+        <div className="chat-rooms-list-wrapper">
+          <div className="chat-rooms-options">
+            {
+              loading
+                ?
+                <React.Fragment>
+                  <Skeleton
+                    className="door-icon"
+                    height="30px"
+                    width="35px"
+                  />
+                  <Skeleton
+                    height="28px"
+                    width="110px"
+                  />
+                </React.Fragment>
+                :
+                <React.Fragment>
+                  <div className="door-icon">
+                    <FontAwesomeIcon icon="door-closed" size="2x" />
+                  </div>
+                  <h3>Chat Rooms</h3>
+                  <div className="plus-icon"
+                    onClick={::this.handleOpenModal}
+                    title="Create Chat Room"
+                  >
+                    <FontAwesomeIcon icon="plus" />
+                  </div>
+                </React.Fragment>
+            }
+          </div>
+          <MediaQuery query="(max-width: 767px)">
+            {(matches) => {
+              return (
+                <React.Fragment>
+                  {
+                    loading
+                      ?
+                      <div className="search-filter">
+                        <Skeleton
+                          height="37px"
+                          width="auto"
+                        />
+                      </div>
+                      :
+                      <SearchFilter
+                        value={searchFilter}
+                        onChange={::this.onChatRoomNameChange}
+                        onKeyDown={(e) => {::this.onChatRoomNameKeyDown(e, matches)}}
+                        handleClearSearchFilter={::this.handleClearSearchFilter}
+                        light
+                      />
+                  }
+                </React.Fragment>
+              )
+            }}
+          </MediaQuery>
+          <div className={"scroll-shadow " + (isChatBoxRoomsListScrolled ? 'scrolled' : '')} />
+          <div
+            className="chat-rooms-list"
+            ref={(element) => { this.chatRoomsList = element; }}
+          >
+            {
+              loading &&
+              <React.Fragment>
+                {
+                  Array.from(Array(2).keys()).map((i) =>
+                    <div
+                      key={i}
+                      class={"chat-room " + (i === 0 ? 'active' : '')}
+                    >
+                      <Skeleton
+                        className="avatar"
+                        height="25px"
+                        width="25px"
+                        circle
+                      />
+                      <Skeleton
+                        height="20px"
+                        width={(i === 0 ? '110px' : '80px')}
+                      />
+                    </div>
+                  )
+                }
+              </React.Fragment>
+            }
+            {
+              ! loading &&
+              chatRooms.length > 0 &&
+              chatRooms.sort((a, b) => {
+                var priority = a.priority - b.priority;
+                var name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
+                var date = new Date(b.data.createdAt) - new Date(a.data.createdAt);
+
+                if (priority !== 0) {
+                  return priority;
+                } else if ( name !== 0 ) {
+                  return name
+                } else {
+                  return date;
+                }
+              }).map((singleChatRoom, i) =>
+                <ChatRoom
+                  key={i}
+                  user={user.active}
+                  chatRoom={singleChatRoom}
+                  activeChatRoom={activeChatRoom}
+                  isActive={(activeChatRoom.data._id === singleChatRoom.data._id) ? true : false}
+                  isSelected={selectedChatRoomIndex === i}
+                  handleOpenPopUpChatRoom={handleOpenPopUpChatRoom}
+                  handleChangeChatRoom={changeChatRoom}
+                  handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
+                />
+              )
+            }
+            {
+              ! loading &&
+              chatRooms.length === 0 &&
+              <div className="no-results">
+                No results found
+              </div>
+            }
+          </div>
+        </div>
         {
           isModalOpen &&
           <CreateChatRoomModal
