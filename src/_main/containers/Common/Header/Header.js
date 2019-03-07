@@ -166,7 +166,7 @@ class Header extends Component {
     } = this.state;
     const activeUser = user.active;
     const activeUserEmpty = isObjectEmpty( activeUser );
-    const userFetchActiveLoading = user.fetchActive.loading;
+    const loading = user.fetchActive.loading || chatRoom.fetch.loading;
 
     return (
       <Appbar className="header">
@@ -183,7 +183,7 @@ class Header extends Component {
         {::this.handleNewMessagesDropdownRender()}
         {::this.handleChatRoomDropdownRender()}
         {
-          userFetchActiveLoading &&
+          loading &&
           <div className="user-dropdown">
             <div className="dropdown-toggle">
               <Skeleton
@@ -199,12 +199,12 @@ class Header extends Component {
           </div>
         }
         {
-          ! userFetchActiveLoading &&
+          ! loading &&
           ! activeUserEmpty &&
           <UserDropdown
             user={activeUser}
             handleOpenEditProfileModal={::this.handleOpenEditProfileModal}
-            loading={userFetchActiveLoading}
+            loading={loading}
           >
             {
               editProfileModalOpen &&
