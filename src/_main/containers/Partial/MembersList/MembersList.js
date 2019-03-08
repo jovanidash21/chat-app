@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
 import { isObjectEmpty } from '../../../../utils/object';
 import { formatNumber } from '../../../../utils/number';
-import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { SearchFilter } from '../../../../components/SearchFilter';
+import { Skeleton } from '../../../../components/Skeleton';
 import { ChatRoomMember } from '../../../components/RightSideDrawer';
 import './styles.scss';
 
@@ -77,84 +77,6 @@ class MembersList extends Component {
   handleClearSearchFilter() {
     this.setState({searchFilter: ''});
     ::this.handleMembersListFilter();
-  }
-  handleMembersListRender() {
-    const {
-      user,
-      member
-    } = this.props;
-    const {
-      isMembersListScrolled,
-      members,
-      searchFilter,
-      selectedMemberIndex
-    } = this.state;
-
-    if ( !member.fetch.loading && member.fetch.success ) {
-      return (
-        <div className="members-list-wrapper">
-          <div className="members-count">
-            <div className="user-icon">
-              <FontAwesomeIcon icon={["far", "user"]} size="2x" />
-            </div>
-            <h3>
-              {formatNumber(member.all.length)}&nbsp;
-              {member.all.length > 1 ? 'Members' : 'Member'}
-            </h3>
-          </div>
-          <MediaQuery query="(max-width: 767px)">
-            {(matches) => {
-              return (
-                <SearchFilter
-                  value={searchFilter}
-                  onChange={::this.onMemberNameChange}
-                  onKeyDown={(e) => {::this.onMemberNameKeyDown(e, matches)}}
-                  handleClearSearchFilter={::this.handleClearSearchFilter}
-                  light
-                />
-              )
-            }}
-          </MediaQuery>
-          <div className={"scroll-shadow " + (isMembersListScrolled ? 'scrolled' : '')} />
-          <div
-            className="members-list"
-            ref={(element) => { this.membersList = element; }}
-          >
-            {
-              members.length > 0 &&
-              members.sort((a, b) => {
-                var name = a.name.toLowerCase().localeCompare(b.name.toLowerCase());
-                var date = new Date(b.createdAt) - new Date(a.createdAt);
-
-                if ( name !== 0 ) {
-                  return name;
-                } else {
-                  return date;
-                }
-              }).map((chatRoomMember, i) =>
-                <ChatRoomMember
-                  key={i}
-                  user={user.active}
-                  chatRoomMember={chatRoomMember}
-                  handleAddDirectChatRoom={::this.handleAddDirectChatRoom}
-                  isActive={selectedMemberIndex === i}
-                />
-              )
-            }
-            {
-              members.length === 0 &&
-              <div className="no-results">
-                No results found
-              </div>
-            }
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="white" />
-      )
-    }
   }
   onMemberNameChange(event) {
     const searchFilter = event.target.value;
@@ -243,9 +165,141 @@ class MembersList extends Component {
     }
   }
   render() {
+    const {
+      user,
+      chatRoom,
+      member
+    } = this.props;
+    const {
+      isMembersListScrolled,
+      members,
+      searchFilter,
+      selectedMemberIndex
+    } = this.state;
+    const loading = user.fetchActive.loading || chatRoom.fetch.loading || member.fetch.loading;
+
     return (
       <div style={{height: '100%'}}>
-        {::this.handleMembersListRender()}
+        <div className="members-list-wrapper">
+          <div className="members-count">
+            {
+              loading
+                ?
+                <React.Fragment>
+                  <Skeleton
+                    className="user-icon"
+                    height="30px"
+                    width="25px"
+                  />
+                  <Skeleton
+                    height="28px"
+                    width="110px"
+                  />
+                </React.Fragment>
+                :
+                <React.Fragment>
+                  <div className="user-icon">
+                    <FontAwesomeIcon icon={["far", "user"]} size="2x" />
+                  </div>
+                  <h3>
+                    {formatNumber(member.all.length)}&nbsp;
+                    {member.all.length > 1 ? 'Members' : 'Member'}
+                  </h3>
+                </React.Fragment>
+            }
+          </div>
+          <MediaQuery query="(max-width: 767px)">
+            {(matches) => {
+              return (
+                <React.Fragment>
+                  {
+                    loading
+                      ?
+                      <div className="search-filter">
+                        <Skeleton
+                          height="37px"
+                          width="auto"
+                        />
+                      </div>
+                      :
+                      <SearchFilter
+                        value={searchFilter}
+                        onChange={::this.onMemberNameChange}
+                        onKeyDown={(e) => {::this.onMemberNameKeyDown(e, matches)}}
+                        handleClearSearchFilter={::this.handleClearSearchFilter}
+                        light
+                      />
+                  }
+                </React.Fragment>
+              )
+            }}
+          </MediaQuery>
+          <div className={"scroll-shadow " + (isMembersListScrolled ? 'scrolled' : '')} />
+          <div
+            className="members-list"
+            ref={(element) => { this.membersList = element; }}
+          >
+            {
+              loading &&
+              <React.Fragment>
+                {
+                  Array.from(Array(2).keys()).map((i) =>
+                    <div
+                      key={i}
+                      className="chat-room-member"
+                    >
+                      <Skeleton
+                        className="online-indicator"
+                        height="10px"
+                        width="10px"
+                        circle
+                      />
+                      <Skeleton
+                        className="avatar"
+                        height="23px"
+                        width="23px"
+                        circle
+                      />
+                      <Skeleton
+                        height="20px"
+                        width="80px"
+                      />
+                    </div>
+                  )
+                }
+              </React.Fragment>
+            }
+            {
+              ! loading &&
+              members.length > 0 &&
+              members.sort((a, b) => {
+                var name = a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+                var date = new Date(b.createdAt) - new Date(a.createdAt);
+
+                if ( name !== 0 ) {
+                  return name;
+                } else {
+                  return date;
+                }
+              }).map((chatRoomMember, i) =>
+                <ChatRoomMember
+                  key={i}
+                  user={user.active}
+                  chatRoomMember={chatRoomMember}
+                  handleAddDirectChatRoom={::this.handleAddDirectChatRoom}
+                  isActive={selectedMemberIndex === i}
+                />
+              )
+            }
+            {
+              ! loading &&
+              members.length === 0 &&
+              <div className="no-results">
+                No results found
+              </div>
+            }
+          </div>
+        </div>
       </div>
     );
   }
