@@ -20,7 +20,7 @@ class AllUsers extends Component {
     super(props);
 
     this.state = {
-      isLoading: true,
+      loading: true,
       isModalOpen: false,
       columns: [
         { key: 'name', label: 'Name' },
@@ -71,7 +71,7 @@ class AllUsers extends Component {
     }
 
     this.setState({
-      isLoading: false,
+      loading: false,
       rows: userRows
     });
   }
@@ -88,7 +88,7 @@ class AllUsers extends Component {
   render() {
     const { user } = this.props;
     const {
-      isLoading,
+      loading,
       columns,
       rows,
       isModalOpen
@@ -124,7 +124,7 @@ class AllUsers extends Component {
                 label={label}
                 columns={columns}
                 rows={rows}
-                isLoading={isLoading}
+                loading={loading}
                 editLink="/edit-user"
                 deleteModal={modal}
                 isDeleteModalOpen={isModalOpen}

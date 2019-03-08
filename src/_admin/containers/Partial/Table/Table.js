@@ -33,11 +33,11 @@ class Table extends Component {
     };
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.isLoading && !this.props.isLoading ) {
+    if ( prevProps.loading && !this.props.loading ) {
       ::this.handleSortTable(this.props.columns[0].key);
     }
 
-    if ( !prevProps.isLoading && prevProps.rows.length !== this.props.rows.length ) {
+    if ( !prevProps.loading && prevProps.rows.length !== this.props.rows.length ) {
       const {
         activePage,
         searchFilter,
@@ -101,7 +101,7 @@ class Table extends Component {
       label,
       columns,
       rows,
-      isLoading,
+      loading,
       editLink
     } = this.props;
     const {
@@ -115,7 +115,7 @@ class Table extends Component {
     const capitalizeSingularLabel = label.singular.charAt(0).toUpperCase() + label.singular.slice(1);
     const capitalizePluralLabel = label.plural.charAt(0).toUpperCase() + label.plural.slice(1);
 
-    if ( !isLoading ) {
+    if ( !loading ) {
       return (
         <div className="table-wrapper">
           <div className="search-filter-wrapper">
@@ -330,7 +330,7 @@ Table.propTypes = {
   label: PropTypes.object,
   columns: PropTypes.array.isRequired,
   rows: PropTypes.array.isRequired,
-  isLoading: PropTypes.bool,
+  loading: PropTypes.bool,
   editLink: PropTypes.string,
   deleteModal: PropTypes.element,
   isDeleteModalOpen: PropTypes.bool,
@@ -343,7 +343,7 @@ Table.defaultProps = {
     singular: 'item',
     plural: 'items'
   },
-  isLoading: false,
+  loading: false,
   editLink: '',
   deleteModal: React.createElement('div'),
   isDeleteModalOpen: false,

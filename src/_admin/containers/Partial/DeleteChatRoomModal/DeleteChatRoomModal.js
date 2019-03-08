@@ -17,13 +17,13 @@ class DeleteChatRoomModal extends Component {
     super(props);
 
     this.state = {
-      isLoading: true
+      loading: true
     };
   }
   componentDidUpdate(prevProps) {
     if ( prevProps.chatRoom.fetchSelect.loading && !this.props.chatRoom.fetchSelect.loading ) {
       this.setState({
-        isLoading: false
+        loading: false
       });
     }
 
@@ -48,7 +48,7 @@ class DeleteChatRoomModal extends Component {
       isModalOpen,
       handleCloseModal
     } = this.props;
-    const { isLoading } = this.state;
+    const { loading } = this.state;
     const selectedChatRoom = chatRoom.selected;
 
     return (
@@ -57,7 +57,7 @@ class DeleteChatRoomModal extends Component {
         open={isModalOpen}
         onClose={handleCloseModal}
         danger
-        loading={isLoading}
+        loading={loading}
       >
         <Form onSubmit={::this.handleDeleteChatRoom}>
           <Modal.Header>

@@ -27,7 +27,7 @@ class UserForm extends Component {
     super(props);
 
     this.state = {
-      isLoading: true,
+      loading: true,
       isDisabled: false,
       username: '',
       name: '',
@@ -45,7 +45,7 @@ class UserForm extends Component {
   componentWillMount() {
     if ( this.props.mode === 'create' ) {
       this.setState({
-        isLoading: false
+        loading: false
       });
     }
   }
@@ -128,7 +128,7 @@ class UserForm extends Component {
       mode
     } = this.props;
     const {
-      isLoading,
+      loading,
       isDisabled,
       username,
       name,
@@ -141,7 +141,7 @@ class UserForm extends Component {
       passwordValid,
     } = this.state;
 
-    if ( !isLoading ) {
+    if ( !loading ) {
       return (
         <div>
           <Input
@@ -213,7 +213,7 @@ class UserForm extends Component {
   handleAvatarUploadRender() {
     const { user } = this.props;
     const {
-      isLoading,
+      loading,
       isDisabled,
       name,
       role,
@@ -221,7 +221,7 @@ class UserForm extends Component {
     } = this.state;
     const selectedUser = user.selected;
 
-    if ( !isLoading ) {
+    if ( !loading ) {
       return (
         <AvatarUploader
           imageLink={profilePicture}
@@ -249,7 +249,7 @@ class UserForm extends Component {
       const selectedUser = user.selected;
 
       this.setState({
-        isLoading: false,
+        loading: false,
         username: selectedUser.username,
         name: selectedUser.name,
         email: selectedUser.email,

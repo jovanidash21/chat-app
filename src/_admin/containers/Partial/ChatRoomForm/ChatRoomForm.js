@@ -27,7 +27,7 @@ class ChatRoomForm extends Component {
     super(props);
 
     this.state = {
-      isLoading: true,
+      loading: true,
       isDisabled: false,
       chatType: 'direct',
       name: '',
@@ -40,7 +40,7 @@ class ChatRoomForm extends Component {
   componentWillMount() {
     if ( this.props.mode === 'create' ) {
       this.setState({
-        isLoading: false
+        loading: false
       });
     }
   }
@@ -185,7 +185,7 @@ class ChatRoomForm extends Component {
       mode
     } = this.props;
     const {
-      isLoading,
+      loading,
       isDisabled,
       name,
       chatType,
@@ -199,7 +199,7 @@ class ChatRoomForm extends Component {
     const isListDisabled = chatRoom.create.loading;
     const isInputDisabled = (chatType === 'direct' && members.length === 2) || chatRoom.create.loading;
 
-    if ( !isLoading ) {
+    if ( !loading ) {
       return (
         <div>
           {
@@ -237,7 +237,7 @@ class ChatRoomForm extends Component {
             handleDeselectUser={::this.handleDeselectMember}
             isListDisabled={isListDisabled}
             isInputDisabled={isInputDisabled}
-            isLoading={user.search.loading}
+            loading={user.search.loading}
           />
           <Button
             className="button button-primary"
@@ -261,7 +261,7 @@ class ChatRoomForm extends Component {
   handleAvatarUploadRender() {
     const { chatRoom } = this.props;
     const {
-      isLoading,
+      loading,
       isDisabled,
       chatType,
       name,
@@ -269,7 +269,7 @@ class ChatRoomForm extends Component {
     } = this.state;
     const selectedChatRoom = chatRoom.selected;
 
-    if ( !isLoading ) {
+    if ( !loading ) {
       return (
         <AvatarUploader
           imageLink={chatIcon}
@@ -298,7 +298,7 @@ class ChatRoomForm extends Component {
       const selectedChatRoom = chatRoom.selected;
 
       this.setState({
-        isLoading: false,
+        loading: false,
         chatType: selectedChatRoom.chatType,
         name: selectedChatRoom.name,
         members: selectedChatRoom.members,

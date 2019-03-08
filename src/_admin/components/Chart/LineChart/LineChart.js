@@ -23,10 +23,10 @@ class LineChartComponent extends Component {
       data,
       xAxisKey,
       yAxisKey,
-      isLoading
+      loading
     } = this.props;
 
-    if ( !isLoading ) {
+    if ( !loading ) {
       return (
         <div className="line-chart-wrapper">
           {
@@ -68,7 +68,7 @@ LineChartComponent.propTypes = {
   data: PropTypes.array,
   xAxisKey: PropTypes.string,
   yAxisKey: PropTypes.string,
-  isLoading: PropTypes.bool
+  loading: PropTypes.bool
 }
 
 LineChartComponent.defaultProps = {
@@ -76,7 +76,7 @@ LineChartComponent.defaultProps = {
   data: [],
   xAxisKey: '',
   yAxisKey: '',
-  isLoading: false
+  loading: false
 }
 
 export default LineChartComponent;

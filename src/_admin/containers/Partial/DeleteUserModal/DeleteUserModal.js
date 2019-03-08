@@ -16,13 +16,13 @@ class DeleteUserModal extends Component {
     super(props);
 
     this.state = {
-      isLoading: true
+      loading: true
     };
   }
   componentDidUpdate(prevProps) {
     if ( prevProps.user.fetchSelect.loading && !this.props.user.fetchSelect.loading ) {
       this.setState({
-        isLoading: false
+        loading: false
       });
     }
 
@@ -47,7 +47,7 @@ class DeleteUserModal extends Component {
       isModalOpen,
       handleCloseModal
     } = this.props;
-    const { isLoading } = this.state;
+    const { loading } = this.state;
     const selectedUser = user.selected;
 
     return (
@@ -56,7 +56,7 @@ class DeleteUserModal extends Component {
         open={isModalOpen}
         onClose={handleCloseModal}
         danger
-        loading={isLoading}
+        loading={loading}
       >
         <Form onSubmit={::this.handleDeleteUser}>
           <Modal.Header>
