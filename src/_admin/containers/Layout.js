@@ -11,7 +11,6 @@ import {
   LeftSideDrawer,
   Footer
 } from './Common';
-import { LoadingAnimation } from '../../components/LoadingAnimation';
 import '../styles/Admin.scss';
 
 class Layout extends Component {
@@ -59,31 +58,22 @@ class Layout extends Component {
   handleComponentRender(matchProps) {
     const {
       component: Content,
-      title,
-      user
+      title
     } = this.props;
 
     return (
       <div className="admin-section">
         <Head title={"Chat App " + (title.length > 0 ? '| ' + title : '')} />
-        {
-          !user.fetchActive.loading && user.fetchActive.success
-            ?
-            <div>
-              {::this.handleLeftSideDrawerRender()}
-              <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}>
-                <div className="page-title">
-                  {title}
-                </div>
-              </Header>
-              <div className="admin-content">
-                <Content {...matchProps} />
-              </div>
-              <Footer />
-            </div>
-            :
-            <LoadingAnimation name="ball-pulse-sync" color="#26a69a" fullScreen />
-        }
+        {::this.handleLeftSideDrawerRender()}
+        <Header handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}>
+          <div className="page-title">
+            {title}
+          </div>
+        </Header>
+        <div className="admin-content">
+          <Content {...matchProps} />
+        </div>
+        <Footer />
       </div>
     )
   }
@@ -97,9 +87,7 @@ class Layout extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  }
+  return {}
 }
 
 Layout.propTypes = {
