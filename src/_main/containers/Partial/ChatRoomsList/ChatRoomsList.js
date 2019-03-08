@@ -234,7 +234,7 @@ class ChatRoomsList extends Component {
                   Array.from(Array(2).keys()).map((i) =>
                     <div
                       key={i}
-                      class={"chat-room " + (i === 0 ? 'active' : '')}
+                      className={"chat-room " + (i === 0 ? 'active' : '')}
                     >
                       <Skeleton
                         className="avatar"

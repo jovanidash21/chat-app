@@ -89,6 +89,8 @@ class ActiveChatRoom extends Component {
               {
                 ! loading &&
                 ! activeChatRoomEmpty &&
+                ! member.fetch.loading &&
+                member.fetch.success &&
                 <React.Fragment>
                   {
                     ( activeChatRoom.data.chatType === 'public' ||
