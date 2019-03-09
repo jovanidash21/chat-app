@@ -10,14 +10,14 @@ import {
   YAxis,
   Tooltip
 } from 'recharts';
-import { LoadingAnimation } from '../../../../components/LoadingAnimation';
+import { Skeleton } from '../../../../components/Skeleton';
 import './styles.scss';
 
 class LineChartComponent extends Component {
   constructor(props) {
     super(props);
   }
-  handleLineChartRender() {
+  render() {
     const {
       title,
       data,
@@ -26,38 +26,49 @@ class LineChartComponent extends Component {
       loading
     } = this.props;
 
-    if ( !loading ) {
-      return (
+    return (
+      <Panel>
         <div className="line-chart-wrapper">
           {
             title.length > 0 &&
-            <div className="line-chart-title">
-              {title}
-            </div>
+            <React.Fragment>
+              {
+                loading
+                  ?
+                  <Skeleton
+                    className="line-chart-title"
+                    height="21px"
+                    width="100px"
+                  />
+                  :
+                  <div className="line-chart-title">
+                    {title}
+                  </div>
+              }
+            </React.Fragment>
           }
-          <div className="line-chart">
-            <ResponsiveContainer>
-              <LineChart data={data}>
-                <Line type="monotone" dataKey={yAxisKey} stroke="#26a69a" strokeWidth={4} />
-                <CartesianGrid stroke="#ccc" strokeDasharray="3 3" tick={{fill: '#000'}} />
-                <XAxis dataKey={xAxisKey} />
-                <YAxis />
-                <Tooltip />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
+          {
+            loading
+              ?
+              <Skeleton
+                className="line-chart"
+                height="300px"
+                width="100%"
+              />
+              :
+              <div className="line-chart">
+                <ResponsiveContainer>
+                  <LineChart data={data}>
+                    <Line type="monotone" dataKey={yAxisKey} stroke="#26a69a" strokeWidth={4} />
+                    <CartesianGrid stroke="#ccc" strokeDasharray="3 3" tick={{fill: '#000'}} />
+                    <XAxis dataKey={xAxisKey} />
+                    <YAxis />
+                    <Tooltip />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+          }
         </div>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="black" />
-      )
-    }
-  }
-  render() {
-    return (
-      <Panel>
-        {::this.handleLineChartRender()}
       </Panel>
     )
   }

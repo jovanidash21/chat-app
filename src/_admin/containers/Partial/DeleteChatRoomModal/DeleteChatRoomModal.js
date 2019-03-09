@@ -10,6 +10,7 @@ import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
 import { Modal } from '../../../../components/Modal';
 import { Avatar } from '../../../../components/Avatar';
 import { Alert } from '../../../../components/Alert';
+import { Skeleton } from '../../../../components/Skeleton';
 import './styles.scss';
 
 class DeleteChatRoomModal extends Component {
@@ -68,37 +69,86 @@ class DeleteChatRoomModal extends Component {
               <Alert label={chatRoom.delete.message} />
             }
             <div className="avatar-wrapper">
-              <Avatar
-                image={selectedChatRoom.chatIcon}
-                size="100px"
-                name={selectedChatRoom.name}
-                roleChatType={handleChatRoomAvatarBadges(selectedChatRoom, {}, 'role-chat')}
-                accountType={handleChatRoomAvatarBadges(selectedChatRoom)}
-                badgeBigger
-                badgeCloser
-              />
+              {
+                loading
+                  ?
+                  <Skeleton
+                    className="avatar"
+                    height="100px"
+                    width="100px"
+                    circle
+                  />
+                  :
+                  <Avatar
+                    image={selectedChatRoom.chatIcon}
+                    size="100px"
+                    name={selectedChatRoom.name}
+                    roleChatType={handleChatRoomAvatarBadges(selectedChatRoom, {}, 'role-chat')}
+                    accountType={handleChatRoomAvatarBadges(selectedChatRoom)}
+                    badgeBigger
+                    badgeCloser
+                  />
+              }
             </div>
-            <p>
-              <span className="chatRoom-name mui--text-danger">{selectedChatRoom.name}</span>&nbsp;
-              will be deleted. This will permanently delete all of messages on the chat room.
-            </p>
-            <p>This action cannot be undone. Are you sure you want to delete this chat room?</p>
+            {
+              loading
+                ?
+                <React.Fragment>
+                  {
+                    Array.from(Array(2).keys()).map((i) =>
+                      <p key={i}>
+                        <Skeleton
+                          height="20px"
+                          width={(i === 0 ? '100%' : '75%')}
+                        />
+                      </p>
+                    )
+                  }
+                </React.Fragment>
+                :
+                <React.Fragment>
+                  <p>
+                    <span className="chatRoom-name mui--text-danger">{selectedChatRoom.name}</span>&nbsp;
+                    will be deleted. This will permanently delete all of messages on the chat room.
+                  </p>
+                  <p>This action cannot be undone. Are you sure you want to delete this chat room?</p>
+                </React.Fragment>
+            }
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              className="button button-default"
-              onClick={handleCloseModal}
-              disabled={chatRoom.delete.loading}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="button button-danger"
-              type="submit"
-              disabled={chatRoom.delete.loading}
-            >
-              Yes, Delete ChatRoom
-            </Button>
+            {
+              loading
+                ?
+                <React.Fragment>
+                  {
+                    Array.from(Array(2).keys()).map((i) =>
+                      <Skeleton
+                        key={i}
+                        className="mui-btn"
+                        height="36px"
+                        width="110px"
+                      />
+                    )
+                  }
+                </React.Fragment>
+                :
+                <React.Fragment>
+                  <Button
+                    className="button button-default"
+                    onClick={handleCloseModal}
+                    disabled={chatRoom.delete.loading}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className="button button-danger"
+                    type="submit"
+                    disabled={chatRoom.delete.loading}
+                  >
+                    Yes, Delete ChatRoom
+                  </Button>
+                </React.Fragment>
+            }
           </Modal.Footer>
         </Form>
       </Modal>

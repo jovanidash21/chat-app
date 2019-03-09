@@ -8,8 +8,8 @@ import {
 } from 'muicss/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
-import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { SearchFilter } from '../../../../components/SearchFilter';
+import { Skeleton } from '../../../../components/Skeleton';
 import {
   TableColumn,
   Pagination
@@ -96,138 +96,6 @@ class Table extends Component {
 
     this.setState({dataRows: dataRows});
   }
-  handleTableRender() {
-    const {
-      label,
-      columns,
-      rows,
-      loading,
-      editLink
-    } = this.props;
-    const {
-      totalRows,
-      activePage,
-      itemsCountPerPage,
-      searchFilter,
-      sort,
-      dataRows
-    } = this.state;
-    const capitalizeSingularLabel = label.singular.charAt(0).toUpperCase() + label.singular.slice(1);
-    const capitalizePluralLabel = label.plural.charAt(0).toUpperCase() + label.plural.slice(1);
-
-    if ( !loading ) {
-      return (
-        <div className="table-wrapper">
-          <div className="search-filter-wrapper">
-            <SearchFilter
-              value={searchFilter}
-              placeholder={"Search " + capitalizePluralLabel}
-              onChange={::this.onSearchFilterChange}
-              handleClearSearchFilter={::this.handleClearSearchFilter}
-            />
-          </div>
-          <div className="table">
-            <table className="mui-table mui-table--bordered">
-              <thead>
-                <tr>
-                  {
-                    columns.length > 0 &&
-                    columns.map((singleColumn, i) =>
-                      <TableColumn
-                        key={i}
-                        columnKey={singleColumn.key}
-                        label={singleColumn.label}
-                        isSortActive={sort.column === singleColumn.key}
-                        sortOrder={sort.direction}
-                        handleSortTable={::this.handleSortTable}
-                      />
-                    )
-                  }
-                  <th className="actions-column">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  columns.length > 0 &&
-                  dataRows.length > 0 &&
-                  dataRows.map((singleRow, i) =>
-                    <tr key={i} className="table-row">
-                      {
-                        columns.map((singleColumn, i) =>
-                          <td key={i}>
-                            <div className="table-data">
-                              {
-                                i === 0 &&
-                                <div className="row-image">
-                                  {singleRow.image}
-                                </div>
-                              }
-                              <span>
-                                {singleRow[singleColumn.key]}
-                              </span>
-                            </div>
-                          </td>
-                        )
-                      }
-                      <td>
-                        <div className="data-actions">
-                          {
-                            editLink.length > 0 &&
-                            singleRow.isEditable &&
-                            <Link
-                              to={editLink + "/" + singleRow._id}
-                              className="mui-btn mui-btn--small button button-primary"
-                              title={"Edit " + capitalizeSingularLabel}
-                            >
-                              <FontAwesomeIcon icon={["far", "edit"]} />
-                            </Link>
-                          }
-                          <Button
-                            className="button button-danger"
-                            size="small"
-                            title={"Delete " + capitalizeSingularLabel}
-                            onClick={(e) => {::this.handleOpenDeleteModal(e, singleRow)}}
-                          >
-                            <FontAwesomeIcon icon={["far", "trash-alt"]} />
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  )
-                }
-                {
-                  searchFilter.length > 0 &&
-                  dataRows.length === 0 &&
-                  <tr className="no-items-row">
-                    <td colSpan={columns.length + 2}>
-                      No {label.plural} found
-                    </td>
-                  </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-          {
-            totalRows > itemsCountPerPage &&
-            <div className="pagination-wrapper">
-              <Pagination
-                handleChangePage={::this.handleChangePage}
-                activePage={activePage}
-                totalCount={totalRows}
-                itemsCountPerPage={itemsCountPerPage}
-              />
-            </div>
-          }
-        </div>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="black" />
-      )
-    }
-  }
   onSearchFilterChange(event) {
     const {
       activePage,
@@ -306,13 +174,206 @@ class Table extends Component {
   }
   render() {
     const {
+      label,
+      columns,
+      rows,
+      loading,
+      editLink,
       deleteModal,
       isDeleteModalOpen
     } = this.props;
+    const {
+      totalRows,
+      activePage,
+      itemsCountPerPage,
+      searchFilter,
+      sort,
+      dataRows
+    } = this.state;
+    const capitalizeSingularLabel = label.singular.charAt(0).toUpperCase() + label.singular.slice(1);
+    const capitalizePluralLabel = label.plural.charAt(0).toUpperCase() + label.plural.slice(1);
 
     return (
       <Panel>
-        {::this.handleTableRender()}
+        <div className="table-wrapper">
+          <div className="search-filter-wrapper">
+            {
+              loading
+                ?
+                <div className="search-filter">
+                  <Skeleton
+                    height="37px"
+                    width="245px"
+                  />
+                </div>
+                :
+                <SearchFilter
+                  value={searchFilter}
+                  placeholder={"Search " + capitalizePluralLabel}
+                  onChange={::this.onSearchFilterChange}
+                  handleClearSearchFilter={::this.handleClearSearchFilter}
+                />
+            }
+          </div>
+          <div className="table">
+            <table className="mui-table mui-table--bordered">
+              <thead>
+                <tr>
+                  {
+                    columns.length > 0 &&
+                    columns.map((singleColumn, i) =>
+                      <TableColumn
+                        key={i}
+                        columnKey={singleColumn.key}
+                        label={singleColumn.label}
+                        isSortActive={sort.column === singleColumn.key}
+                        sortOrder={sort.direction}
+                        handleSortTable={::this.handleSortTable}
+                      />
+                    )
+                  }
+                  <th className="actions-column">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  loading &&
+                  columns.length > 0 &&
+                  <React.Fragment>
+                    {
+                      Array.from(Array(10).keys()).map((i) =>
+                        <tr key={i} className="table-row">
+                          {
+                            columns.map((singleColumn, i) =>
+                              <td key={i}>
+                                <div className="table-data">
+                                  {
+                                    i === 0 &&
+                                    <div className="row-image">
+                                      <Skeleton
+                                        className="avatar"
+                                        height="32px"
+                                        width="32px"
+                                        circle
+                                      />
+                                    </div>
+                                  }
+                                  <span>
+                                    <Skeleton
+                                      height="20px"
+                                      width="100px"
+                                    />
+                                  </span>
+                                </div>
+                              </td>
+                            )
+                          }
+                          <td>
+                            <div className="data-actions">
+                              {
+                                Array.from(Array(2).keys()).map((i) =>
+                                  <Skeleton
+                                    key={i}
+                                    className="mui-btn mui-btn--small"
+                                    height="31px"
+                                    width="44px"
+                                  />
+                                )
+                              }
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    }
+                  </React.Fragment>
+                }
+                {
+                  ! loading &&
+                  columns.length > 0 &&
+                  dataRows.length > 0 &&
+                  dataRows.map((singleRow, i) =>
+                    <tr key={i} className="table-row">
+                      {
+                        columns.map((singleColumn, i) =>
+                          <td key={i}>
+                            <div className="table-data">
+                              {
+                                i === 0 &&
+                                <div className="row-image">
+                                  {singleRow.image}
+                                </div>
+                              }
+                              <span>
+                                {singleRow[singleColumn.key]}
+                              </span>
+                            </div>
+                          </td>
+                        )
+                      }
+                      <td>
+                        <div className="data-actions">
+                          {
+                            editLink.length > 0 &&
+                            singleRow.isEditable &&
+                            <Link
+                              to={editLink + "/" + singleRow._id}
+                              className="mui-btn mui-btn--small button button-primary"
+                              title={"Edit " + capitalizeSingularLabel}
+                            >
+                              <FontAwesomeIcon icon={["far", "edit"]} />
+                            </Link>
+                          }
+                          <Button
+                            className="button button-danger"
+                            size="small"
+                            title={"Delete " + capitalizeSingularLabel}
+                            onClick={(e) => {::this.handleOpenDeleteModal(e, singleRow)}}
+                          >
+                            <FontAwesomeIcon icon={["far", "trash-alt"]} />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  )
+                }
+                {
+                  ! loading &&
+                  searchFilter.length > 0 &&
+                  dataRows.length === 0 &&
+                  <tr className="no-items-row">
+                    <td colSpan={columns.length + 2}>
+                      No {label.plural} found
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          {
+            loading &&
+            <div className="pagination-wrapper">
+              <Skeleton
+                className="mui-btn mui-btn--small"
+                height="31px"
+                width="250px"
+              />
+            </div>
+          }
+          {
+            ! loading &&
+            totalRows > itemsCountPerPage &&
+            <div className="pagination-wrapper">
+              <Pagination
+                handleChangePage={::this.handleChangePage}
+                activePage={activePage}
+                totalCount={totalRows}
+                itemsCountPerPage={itemsCountPerPage}
+              />
+            </div>
+          }
+        </div>
         {
           isDeleteModalOpen &&
           deleteModal
