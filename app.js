@@ -49,8 +49,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // session configuration
 app.use(cookieSession({
-  secret: process.env.SESSION_SECRET,
-  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  secret: process.env.SESSION_SECRET
 }));
 
 // passport configuration
