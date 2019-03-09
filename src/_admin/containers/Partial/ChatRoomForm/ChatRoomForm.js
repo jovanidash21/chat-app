@@ -14,8 +14,8 @@ import {
 import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
-import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { Alert } from '../../../../components/Alert';
+import { Skeleton } from '../../../../components/Skeleton';
 import {
   Input,
   UserSelect,
@@ -27,7 +27,7 @@ class ChatRoomForm extends Component {
     super(props);
 
     this.state = {
-      isLoading: true,
+      loading: true,
       isDisabled: false,
       chatType: 'direct',
       name: '',
@@ -40,7 +40,7 @@ class ChatRoomForm extends Component {
   componentWillMount() {
     if ( this.props.mode === 'create' ) {
       this.setState({
-        isLoading: false
+        loading: false
       });
     }
   }
@@ -177,117 +177,6 @@ class ChatRoomForm extends Component {
       ]
     });
   }
-  handleChatRoomFormRender() {
-    const {
-      user,
-      chatRoom,
-      searchUser,
-      mode
-    } = this.props;
-    const {
-      isLoading,
-      isDisabled,
-      name,
-      chatType,
-      members,
-      chatIcon,
-      nameValid
-    } = this.state;
-    const searchedUsers = user.searched.filter((singleUser) => {
-      return !members.some((singleMember) => singleMember._id === singleUser._id);
-    });
-    const isListDisabled = chatRoom.create.loading;
-    const isInputDisabled = (chatType === 'direct' && members.length === 2) || chatRoom.create.loading;
-
-    if ( !isLoading ) {
-      return (
-        <div>
-          {
-            mode === 'create' &&
-            <Select
-              value={chatType}
-              label="Chat Type"
-              name="chatType"
-              onChange={::this.handleChange}
-              disabled={isDisabled}
-            >
-              <Option value="direct" label="Direct" />
-              <Option value="group" label="Group" />
-            </Select>
-          }
-          {
-            chatType === 'group' &&
-            <Input
-              value={name}
-              label="Name"
-              type="text"
-              name="name"
-              onChange={::this.handleChange}
-              disabled={isDisabled}
-              invalid={!nameValid}
-            />
-          }
-          <UserSelect
-            label="Members"
-            placeholder="Select a member"
-            handleSearchUser={searchUser}
-            selectedUsers={members}
-            searchedUsers={searchedUsers}
-            onSuggestionSelected={::this.onSuggestionSelected}
-            handleDeselectUser={::this.handleDeselectMember}
-            isListDisabled={isListDisabled}
-            isInputDisabled={isInputDisabled}
-            isLoading={user.search.loading}
-          />
-          <Button
-            className="button button-primary"
-            type="submit"
-            disabled={isDisabled}
-          >
-            {
-              mode === 'create'
-                ? 'Create Chat Room'
-                : 'Update Chat Room'
-            }
-          </Button>
-        </div>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="black" />
-      )
-    }
-  }
-  handleAvatarUploadRender() {
-    const { chatRoom } = this.props;
-    const {
-      isLoading,
-      isDisabled,
-      chatType,
-      name,
-      chatIcon
-    } = this.state;
-    const selectedChatRoom = chatRoom.selected;
-
-    if ( !isLoading ) {
-      return (
-        <AvatarUploader
-          imageLink={chatIcon}
-          defaultImageLink="https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg"
-          name={name}
-          roleChatType={handleChatRoomAvatarBadges(selectedChatRoom, {}, 'role-chat')}
-          accountType={handleChatRoomAvatarBadges(selectedChatRoom)}
-          handleImageUpload={::this.handleImageUpload}
-          handleRemoveImage={::this.handleRemoveImage}
-          disabled={isDisabled}
-        />
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="black" />
-      )
-    }
-  }
   handleDisplayeSelectedChatRoom() {
     const {
       chatRoom,
@@ -298,7 +187,7 @@ class ChatRoomForm extends Component {
       const selectedChatRoom = chatRoom.selected;
 
       this.setState({
-        isLoading: false,
+        loading: false,
         chatType: selectedChatRoom.chatType,
         name: selectedChatRoom.name,
         members: selectedChatRoom.members,
@@ -413,7 +302,28 @@ class ChatRoomForm extends Component {
     );
   }
   render() {
-    const { successMessage } = this.props;
+    const {
+      user,
+      chatRoom,
+      searchUser,
+      mode,
+      successMessage
+    } = this.props;
+    const {
+      loading,
+      isDisabled,
+      name,
+      chatType,
+      members,
+      chatIcon,
+      nameValid
+    } = this.state;
+    const selectedChatRoom = chatRoom.selected;
+    const searchedUsers = user.searched.filter((singleUser) => {
+      return !members.some((singleMember) => singleMember._id === singleUser._id);
+    });
+    const isListDisabled = chatRoom.create.loading;
+    const isInputDisabled = (chatType === 'direct' && members.length === 2) || chatRoom.create.loading;
     let errorMessage = this.props.errorMessage;
 
     if ( this.state.errorMessage.length > 0 ) {
@@ -439,12 +349,117 @@ class ChatRoomForm extends Component {
                 <Row>
                   <Col md="8">
                     <Panel>
-                      {::this.handleChatRoomFormRender()}
+                      {
+                        loading
+                          ?
+                          <React.Fragment>
+                            <Skeleton
+                              className="mui-textfield"
+                              height="47px"
+                              width="100%"
+                            />
+                            <div className="user-select-wrapper">
+                              <Skeleton
+                                className="users-list-label"
+                                height="14px"
+                                width="100px"
+                              />
+                              <Skeleton
+                                className="users-list"
+                                height="34px"
+                                width="100%"
+                              />
+                              <Skeleton
+                                className="user-select"
+                                height="30px"
+                                width="100%"
+                              />
+                            </div>
+                            <Skeleton
+                              className="mui-btn"
+                              height="36px"
+                              width="146px"
+                            />
+                          </React.Fragment>
+                          :
+                          <React.Fragment>
+                            {
+                              mode === 'create' &&
+                              <Select
+                                value={chatType}
+                                label="Chat Type"
+                                name="chatType"
+                                onChange={::this.handleChange}
+                                disabled={isDisabled}
+                              >
+                                <Option value="direct" label="Direct" />
+                                <Option value="group" label="Group" />
+                              </Select>
+                            }
+                            {
+                              chatType === 'group' &&
+                              <Input
+                                value={name}
+                                label="Name"
+                                type="text"
+                                name="name"
+                                onChange={::this.handleChange}
+                                disabled={isDisabled}
+                                invalid={!nameValid}
+                              />
+                            }
+                            <UserSelect
+                              label="Members"
+                              placeholder="Select a member"
+                              handleSearchUser={searchUser}
+                              selectedUsers={members}
+                              searchedUsers={searchedUsers}
+                              onSuggestionSelected={::this.onSuggestionSelected}
+                              handleDeselectUser={::this.handleDeselectMember}
+                              isListDisabled={isListDisabled}
+                              isInputDisabled={isInputDisabled}
+                              loading={user.search.loading}
+                            />
+                            <Button
+                              className="button button-primary"
+                              type="submit"
+                              disabled={isDisabled}
+                            >
+                              {
+                                mode === 'create'
+                                  ? 'Create Chat Room'
+                                  : 'Update Chat Room'
+                              }
+                            </Button>
+                          </React.Fragment>
+                      }
                     </Panel>
                   </Col>
                   <Col md="4">
                     <Panel>
-                      {::this.handleAvatarUploadRender()}
+                      {
+                        loading
+                          ?
+                          <div className="avatar-uploader-wrapper">
+                            <Skeleton
+                              className="avatar"
+                              height="120px"
+                              width="120px"
+                              circle
+                            />
+                          </div>
+                          :
+                          <AvatarUploader
+                            imageLink={chatIcon}
+                            defaultImageLink="https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg"
+                            name={name}
+                            roleChatType={handleChatRoomAvatarBadges(selectedChatRoom, {}, 'role-chat')}
+                            accountType={handleChatRoomAvatarBadges(selectedChatRoom)}
+                            handleImageUpload={::this.handleImageUpload}
+                            handleRemoveImage={::this.handleRemoveImage}
+                            disabled={isDisabled}
+                          />
+                      }
                     </Panel>
                   </Col>
                 </Row>

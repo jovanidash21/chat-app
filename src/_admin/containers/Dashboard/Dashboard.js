@@ -46,7 +46,7 @@ class Dashboard extends Component {
                 icon="user"
                 color="green"
                 link="/all-users"
-                isLoading={user.fetchCount.loading}
+                loading={user.fetchCount.loading}
               />
             </Col>
             <Col lg="4" md="6" xs="12">
@@ -56,7 +56,7 @@ class Dashboard extends Component {
                 icon="door-closed"
                 color="yellow"
                 link="/all-chat-rooms"
-                isLoading={chatRoom.fetchCount.loading}
+                loading={chatRoom.fetchCount.loading}
               />
             </Col>
             <Col lg="4" md="6" xs="12">
@@ -65,7 +65,7 @@ class Dashboard extends Component {
                 count={formatNumber(message.count)}
                 icon="comment"
                 color="red"
-                isLoading={message.fetchCount.loading}
+                loading={message.fetchCount.loading}
               />
             </Col>
           </Row>
@@ -76,7 +76,7 @@ class Dashboard extends Component {
                 data={user.graph}
                 xAxisKey="month"
                 yAxisKey="users"
-                isLoading={user.fetchGraph.loading}
+                loading={user.fetchGraph.loading}
               />
             </Col>
           </Row>

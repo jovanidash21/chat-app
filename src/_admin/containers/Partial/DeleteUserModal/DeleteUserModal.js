@@ -9,6 +9,7 @@ import mapDispatchToProps from '../../../actions';
 import { Modal } from '../../../../components/Modal';
 import { Avatar } from '../../../../components/Avatar';
 import { Alert } from '../../../../components/Alert';
+import { Skeleton } from '../../../../components/Skeleton';
 import './styles.scss';
 
 class DeleteUserModal extends Component {
@@ -16,13 +17,13 @@ class DeleteUserModal extends Component {
     super(props);
 
     this.state = {
-      isLoading: true
+      loading: true
     };
   }
   componentDidUpdate(prevProps) {
     if ( prevProps.user.fetchSelect.loading && !this.props.user.fetchSelect.loading ) {
       this.setState({
-        isLoading: false
+        loading: false
       });
     }
 
@@ -47,7 +48,7 @@ class DeleteUserModal extends Component {
       isModalOpen,
       handleCloseModal
     } = this.props;
-    const { isLoading } = this.state;
+    const { loading } = this.state;
     const selectedUser = user.selected;
 
     return (
@@ -56,7 +57,6 @@ class DeleteUserModal extends Component {
         open={isModalOpen}
         onClose={handleCloseModal}
         danger
-        loading={isLoading}
       >
         <Form onSubmit={::this.handleDeleteUser}>
           <Modal.Header>
@@ -68,38 +68,88 @@ class DeleteUserModal extends Component {
               <Alert label={user.delete.message} />
             }
             <div className="avatar-wrapper">
-              <Avatar
-                image={selectedUser.profilePicture}
-                size="100px"
-                name={selectedUser.name}
-                roleChatType={selectedUser.role}
-                accountType={selectedUser.accountType}
-                badgeBigger
-                badgeCloser
-              />
+              {
+                loading
+                  ?
+                  <Skeleton
+                    className="avatar"
+                    height="100px"
+                    width="100px"
+                    circle
+                  />
+                  :
+                  <Avatar
+                    image={selectedUser.profilePicture}
+                    size="100px"
+                    name={selectedUser.name}
+                    roleChatType={selectedUser.role}
+                    accountType={selectedUser.accountType}
+                    badgeBigger
+                    badgeCloser
+                  />
+              }
             </div>
-            <p>
-              <span className="user-name mui--text-danger">{selectedUser.name}</span>&nbsp;
-              will be deleted. This will permanently delete all of his/her
-              messages including all the private/direct chat rooms.
-            </p>
-            <p>This action cannot be undone. Are you sure you want to delete this user?</p>
+            {
+              loading
+                ?
+                <React.Fragment>
+                  {
+                    Array.from(Array(2).keys()).map((i) =>
+                      <p key={i}>
+                        <Skeleton
+                          height="20px"
+                          width={(i === 0 ? '100%' : '75%')}
+                        />
+                      </p>
+                    )
+                  }
+                </React.Fragment>
+                :
+                <React.Fragment>
+                  <p>
+                    <span className="user-name mui--text-danger">{selectedUser.name}</span>&nbsp;
+                    will be deleted. This will permanently delete all of his/her
+                    messages including all the private/direct chat rooms.
+                  </p>
+                  <p>This action cannot be undone. Are you sure you want to delete this user?</p>
+                </React.Fragment>
+            }
+
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              className="button button-default"
-              onClick={handleCloseModal}
-              disabled={user.delete.loading}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="button button-danger"
-              type="submit"
-              disabled={user.delete.loading}
-            >
-              Yes, Delete User
-            </Button>
+            {
+              loading
+                ?
+                <React.Fragment>
+                  {
+                    Array.from(Array(2).keys()).map((i) =>
+                      <Skeleton
+                        key={i}
+                        className="mui-btn"
+                        height="36px"
+                        width="110px"
+                      />
+                    )
+                  }
+                </React.Fragment>
+                :
+                <React.Fragment>
+                  <Button
+                    className="button button-default"
+                    onClick={handleCloseModal}
+                    disabled={user.delete.loading}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    className="button button-danger"
+                    type="submit"
+                    disabled={user.delete.loading}
+                  >
+                    Yes, Delete User
+                  </Button>
+                </React.Fragment>
+            }
           </Modal.Footer>
         </Form>
       </Modal>

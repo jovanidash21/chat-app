@@ -14,8 +14,8 @@ import {
 import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
 import { isEmailValid } from '../../../../utils/form';
-import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { Alert } from '../../../../components/Alert';
+import { Skeleton } from '../../../../components/Skeleton';
 import {
   Input,
   AvatarUploader
@@ -27,7 +27,7 @@ class UserForm extends Component {
     super(props);
 
     this.state = {
-      isLoading: true,
+      loading: true,
       isDisabled: false,
       username: '',
       name: '',
@@ -45,7 +45,7 @@ class UserForm extends Component {
   componentWillMount() {
     if ( this.props.mode === 'create' ) {
       this.setState({
-        isLoading: false
+        loading: false
       });
     }
   }
@@ -122,123 +122,6 @@ class UserForm extends Component {
       }
     }
   }
-  handleUserFormRender() {
-    const {
-      user,
-      mode
-    } = this.props;
-    const {
-      isLoading,
-      isDisabled,
-      username,
-      name,
-      email,
-      role,
-      password,
-      usernameValid,
-      nameValid,
-      emailValid,
-      passwordValid,
-    } = this.state;
-
-    if ( !isLoading ) {
-      return (
-        <div>
-          <Input
-            value={username}
-            label="Username"
-            type="text"
-            name="username"
-            onChange={::this.handleChange}
-            disabled={isDisabled}
-            invalid={!usernameValid}
-          />
-          <Input
-            value={name}
-            label="Name"
-            type="text"
-            name="name"
-            onChange={::this.handleChange}
-            disabled={isDisabled}
-            invalid={!nameValid}
-          />
-          <Input
-            value={email}
-            label="Email"
-            type="text"
-            name="email"
-            onChange={::this.handleChange}
-            disabled={isDisabled}
-            invalid={!emailValid}
-          />
-          <Select
-            value={role}
-            label="Role"
-            name="role"
-            onChange={::this.handleChange}
-            disabled={isDisabled}
-          >
-            <Option value="ordinary" label="Ordinary" />
-            <Option value="admin" label="Admin" />
-          </Select>
-          {
-            mode === 'create' &&
-            <PasswordInput
-              value={password}
-              handleChange={::this.handleChange}
-              handleGeneratePassword={::this.handleGeneratePassword}
-              disabled={isDisabled}
-              invalid={!passwordValid}
-            />
-          }
-          <Button
-            className="button button-primary"
-            type="submit"
-            disabled={isDisabled}
-          >
-            {
-              mode === 'create'
-                ? 'Create User'
-                : 'Update User'
-            }
-          </Button>
-        </div>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="black" />
-      )
-    }
-  }
-  handleAvatarUploadRender() {
-    const { user } = this.props;
-    const {
-      isLoading,
-      isDisabled,
-      name,
-      role,
-      profilePicture
-    } = this.state;
-    const selectedUser = user.selected;
-
-    if ( !isLoading ) {
-      return (
-        <AvatarUploader
-          imageLink={profilePicture}
-          name={name}
-          roleChatType={role}
-          accountType={selectedUser.accountType}
-          handleImageUpload={::this.handleImageUpload}
-          handleRemoveImage={::this.handleRemoveImage}
-          disabled={isDisabled}
-        />
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="black" />
-      )
-    }
-  }
   handleDisplayeSelectedUser() {
     const {
       user,
@@ -249,7 +132,7 @@ class UserForm extends Component {
       const selectedUser = user.selected;
 
       this.setState({
-        isLoading: false,
+        loading: false,
         username: selectedUser.username,
         name: selectedUser.name,
         email: selectedUser.email,
@@ -389,7 +272,26 @@ class UserForm extends Component {
     );
   }
   render() {
-    const { successMessage } = this.props;
+    const {
+      user,
+      mode,
+      successMessage
+    } = this.props;
+    const {
+      loading,
+      isDisabled,
+      username,
+      name,
+      email,
+      role,
+      password,
+      profilePicture,
+      usernameValid,
+      nameValid,
+      emailValid,
+      passwordValid,
+    } = this.state;
+    const selectedUser = user.selected;
     let errorMessage = this.props.errorMessage;
 
     if ( this.state.errorMessage.length > 0 ) {
@@ -415,12 +317,120 @@ class UserForm extends Component {
                 <Row>
                   <Col md="8">
                     <Panel>
-                      {::this.handleUserFormRender()}
+                      {
+                        loading
+                          ?
+                          <React.Fragment>
+                            {
+                              Array.from(Array(4).keys()).map((i) =>
+                                <Skeleton
+                                  key={i}
+                                  className="mui-textfield"
+                                  height="47px"
+                                  width="100%"
+                                />
+                              )
+                            }
+                          </React.Fragment>
+                          :
+                          <React.Fragment>
+                            <Input
+                              value={username}
+                              label="Username"
+                              type="text"
+                              name="username"
+                              onChange={::this.handleChange}
+                              disabled={isDisabled}
+                              invalid={!usernameValid}
+                            />
+                            <Input
+                              value={name}
+                              label="Name"
+                              type="text"
+                              name="name"
+                              onChange={::this.handleChange}
+                              disabled={isDisabled}
+                              invalid={!nameValid}
+                            />
+                            <Input
+                              value={email}
+                              label="Email"
+                              type="text"
+                              name="email"
+                              onChange={::this.handleChange}
+                              disabled={isDisabled}
+                              invalid={!emailValid}
+                            />
+                            <Select
+                              value={role}
+                              label="Role"
+                              name="role"
+                              onChange={::this.handleChange}
+                              disabled={isDisabled}
+                            >
+                              <Option value="ordinary" label="Ordinary" />
+                              <Option value="admin" label="Admin" />
+                            </Select>
+                          </React.Fragment>
+                      }
+                      {
+                        ! loading &&
+                        mode === 'create' &&
+                        <PasswordInput
+                          value={password}
+                          handleChange={::this.handleChange}
+                          handleGeneratePassword={::this.handleGeneratePassword}
+                          disabled={isDisabled}
+                          invalid={!passwordValid}
+                        />
+                      }
+                      {
+                        loading
+                          ?
+                          <Skeleton
+                            className="mui-btn"
+                            height="36px"
+                            width="146px"
+                          />
+                          :
+                          <Button
+                            className="button button-primary"
+                            type="submit"
+                            disabled={isDisabled}
+                          >
+                            {
+                              mode === 'create'
+                                ? 'Create User'
+                                : 'Update User'
+                            }
+                          </Button>
+                      }
                     </Panel>
                   </Col>
                   <Col md="4">
                     <Panel>
-                      {::this.handleAvatarUploadRender()}
+                      {
+                        loading
+                          ?
+                          <div className="avatar-uploader-wrapper">
+                            <Skeleton
+                              className="avatar"
+                              height="120px"
+                              width="120px"
+                              circle
+                            />
+                          </div>
+                          :
+                          <AvatarUploader
+                            imageLink={profilePicture}
+                            name={name}
+                            roleChatType={role}
+                            accountType={selectedUser.accountType}
+                            handleImageUpload={::this.handleImageUpload}
+                            handleRemoveImage={::this.handleRemoveImage}
+                            disabled={isDisabled}
+                          />
+                      }
                     </Panel>
                   </Col>
                 </Row>

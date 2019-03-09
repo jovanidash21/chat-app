@@ -15,7 +15,7 @@ const CardBanner = (props) => {
       </div>
       <div className="card-content">
         <div className="count">
-          {!props.isLoading ? props.count : '-'}
+          {!props.loading ? props.count : '-'}
         </div>
         <div className="label">
           {props.label}
@@ -45,7 +45,7 @@ CardBanner.propTypes = {
   icon: PropTypes.string,
   color: PropTypes.string,
   link: PropTypes.string,
-  isLoading: PropTypes.bool
+  loading: PropTypes.bool
 }
 
 CardBanner.defaultProps = {
@@ -54,7 +54,7 @@ CardBanner.defaultProps = {
   icon: '',
   color: 'black',
   link : '',
-  isLoading: false
+  loading: false
 }
 
 export default CardBanner;

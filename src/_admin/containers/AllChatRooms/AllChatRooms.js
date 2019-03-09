@@ -21,7 +21,7 @@ class AllChatRooms extends Component {
     super(props);
 
     this.state = {
-      isLoading: true,
+      loading: true,
       isModalOpen: false,
       columns: [
         { key: 'name', label: 'Name' },
@@ -70,7 +70,7 @@ class AllChatRooms extends Component {
     }
 
     this.setState({
-      isLoading: false,
+      loading: false,
       rows: chatRoomRows
     });
   }
@@ -87,7 +87,7 @@ class AllChatRooms extends Component {
   render() {
     const { chatRoom } = this.props;
     const {
-      isLoading,
+      loading,
       columns,
       rows,
       isModalOpen
@@ -123,7 +123,7 @@ class AllChatRooms extends Component {
                 label={label}
                 columns={columns}
                 rows={rows}
-                isLoading={isLoading}
+                loading={loading}
                 editLink="/edit-chat-room"
                 deleteModal={modal}
                 isDeleteModalOpen={isModalOpen}

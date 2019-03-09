@@ -1,0 +1,22 @@
+.skeleton {
+  animation: 'shine' 1.5s infinite ease-in-out;
+  background-color: $color-wild-sand;
+  background-image: linear-gradient(
+    to right,
+    $color-wild-sand 0%,
+    rgba($color-silver, 0.9) 20%,
+    $color-wild-sand 60%,
+    $color-wild-sand 100%,
+  );
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  background-size: 500px 100%;
+  border: none !important;
+  border-radius: 7px !important;
+  cursor: default !important;
+  padding: 0;
+  pointer-events: none;
+  &.circle-skeleton {
+    border-radius: 50% !important;
+  }
+}

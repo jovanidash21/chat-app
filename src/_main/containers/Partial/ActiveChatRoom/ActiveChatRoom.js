@@ -8,84 +8,13 @@ import { isObjectEmpty } from '../../../../utils/object';
 import { formatNumber } from '../../../../utils/number';
 import { isDirectChatRoomMemberOnline } from '../../../../utils/member';
 import { Avatar } from '../../../../components/Avatar';
-import { LoadingAnimation } from '../../../../components/LoadingAnimation';
 import { OnlineIndicator } from '../../../components/OnlineIndicator';
+import { Skeleton } from '../../../../components/Skeleton';
 import './styles.scss';
 
 class ActiveChatRoom extends Component {
   constructor(props) {
     super(props);
-  }
-  handleActiveChatRoomRender() {
-    const {
-      user,
-      chatRoom,
-      member
-    } = this.props;
-
-    if (
-      !chatRoom.fetch.loading &&
-      chatRoom.fetch.success &&
-      !isObjectEmpty(chatRoom.active.data)
-    ) {
-      const activeUser = user.active;
-      const activeChatRoom = chatRoom.active;
-      const isOtherMemberOnline = isDirectChatRoomMemberOnline(activeChatRoom.data.members, activeUser._id);
-
-      return (
-        <div className="chat-room-detail-wrapper">
-          <Avatar
-            image={activeChatRoom.data.chatIcon}
-            size="32px"
-            name={activeChatRoom.data.name}
-            roleChatType={handleChatRoomAvatarBadges(activeChatRoom.data, activeUser, 'role-chat')}
-            accountType={handleChatRoomAvatarBadges(activeChatRoom.data, activeUser)}
-            badgeCloser
-          />
-          <div className="chat-room-detail">
-            <h2 className="chat-room-name" title={activeChatRoom.data.name}>
-              {activeChatRoom.data.name}
-            </h2>
-            <div className="chat-room-info">
-              {
-                ( activeChatRoom.data.chatType === 'public' ||
-                activeChatRoom.data.chatType === 'group' ) &&
-                !member.fetch.loading &&
-                member.fetch.success &&
-                <div
-                  className="members-count"
-                  onClick={::this.handleRightSideDrawerToggleEvent}
-                  title="View Members List"
-                >
-                  <div className="user-icon">
-                    <FontAwesomeIcon icon={["far", "user"]} />
-                  </div>
-                  {formatNumber(member.all.length)}
-                </div>
-              }
-              {
-                activeChatRoom.data.chatType === 'direct' &&
-                <div className="online-indicator-wrapper">
-                  <OnlineIndicator isOnline={isOtherMemberOnline} />
-                  {isOtherMemberOnline ? 'online' : 'offline'}
-                </div>
-              }
-              {
-                activeChatRoom.data.chatType === 'private' &&
-                <div className="online-indicator-wrapper">
-                  <OnlineIndicator isOnline />
-                  online
-                </div>
-              }
-            </div>
-          </div>
-        </div>
-      )
-    } else {
-      return (
-        <LoadingAnimation name="ball-clip-rotate" color="white" />
-      )
-    }
   }
   handleRightSideDrawerToggleEvent(event) {
     event.preventDefault();
@@ -106,12 +35,96 @@ class ActiveChatRoom extends Component {
     const {
       user,
       chatRoom,
-      logout
+      member
     } = this.props;
+    const activeUser = user.active;
+    const activeChatRoom = chatRoom.active;
+    const activeChatRoomEmpty = isObjectEmpty( activeChatRoom );
+    const loading = user.fetchActive.loading || chatRoom.fetch.loading;
+    const isOtherMemberOnline = ! activeChatRoomEmpty &&
+      activeChatRoom.data.chatType === 'direct' &&
+      isDirectChatRoomMemberOnline(activeChatRoom.data.members, activeUser._id);
 
     return (
-      <div className={"active-chat-room " + (chatRoom.fetch.loading ? 'loading' : '')}>
-        {::this.handleActiveChatRoomRender()}
+      <div className="active-chat-room">
+        <div className="chat-room-detail-wrapper">
+          {
+            loading &&
+            <Skeleton
+              className="avatar"
+              height="32px"
+              width="32px"
+              circle
+            />
+          }
+          {
+            ! loading &&
+            ! activeChatRoomEmpty &&
+            <Avatar
+              image={activeChatRoom.data.chatIcon}
+              size="32px"
+              name={activeChatRoom.data.name}
+              roleChatType={handleChatRoomAvatarBadges(activeChatRoom.data, activeUser, 'role-chat')}
+              accountType={handleChatRoomAvatarBadges(activeChatRoom.data, activeUser)}
+              badgeCloser
+            />
+          }
+          <div className="chat-room-detail">
+            {
+              loading &&
+              <Skeleton
+                className="chat-room-name"
+                height="32px"
+                width="150px"
+              />
+            }
+            {
+              ! loading &&
+              ! activeChatRoomEmpty &&
+              <h2 className="chat-room-name" title={activeChatRoom.data.name}>
+                {activeChatRoom.data.name}
+              </h2>
+            }
+            <div className="chat-room-info">
+              {
+                ! loading &&
+                ! activeChatRoomEmpty &&
+                ! member.fetch.loading &&
+                member.fetch.success &&
+                <React.Fragment>
+                  {
+                    ( activeChatRoom.data.chatType === 'public' ||
+                    activeChatRoom.data.chatType === 'group' ) &&
+                    <div
+                      className="members-count"
+                      onClick={::this.handleRightSideDrawerToggleEvent}
+                      title="View Members List"
+                    >
+                      <div className="user-icon">
+                        <FontAwesomeIcon icon={["far", "user"]} />
+                      </div>
+                      {formatNumber(member.all.length)}
+                    </div>
+                  }
+                  {
+                    activeChatRoom.data.chatType === 'direct' &&
+                    <div className="online-indicator-wrapper">
+                      <OnlineIndicator isOnline={isOtherMemberOnline} />
+                      {isOtherMemberOnline ? 'online' : 'offline'}
+                    </div>
+                  }
+                  {
+                    activeChatRoom.data.chatType === 'private' &&
+                    <div className="online-indicator-wrapper">
+                      <OnlineIndicator isOnline />
+                      online
+                    </div>
+                  }
+                </React.Fragment>
+              }
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

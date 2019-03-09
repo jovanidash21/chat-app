@@ -328,7 +328,8 @@ class Chat extends Component {
       isVideoCallWindowOpen
     } = this.state;
     const activeChatRoom = chatRoom.active;
-    const isChatInputDisabled = chatRoom.fetch.loading || message.fetchNew.loading || isDragDropBoxOpen;
+    const loading = user.fetchActive.loading || chatRoom.fetch.loading;
+    const isChatInputDisabled = message.fetchNew.loading || isDragDropBoxOpen;
 
     return (
       <div className="chat-section" ref={(element) => { this.chatSection = element; }}>
@@ -385,24 +386,29 @@ class Chat extends Component {
           />
         </div>
         {
-          !isAudioRecorderOpen
-            ?
-            <ChatInput
-              user={user.active}
-              chatRoom={activeChatRoom}
-              handleIsTyping={isTyping}
-              handleIsNotTyping={isNotTyping}
-              handleSendTextMessage={::this.handleSendTextMessage}
-              handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
-              handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
-              disabled={isChatInputDisabled}
-            />
-            :
-            <ChatAudioRecorder
-              chatRoom={activeChatRoom}
-              handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
-              handleSendAudioMessage={::this.handleSendAudioMessage}
-            />
+          ! loading &&
+          <React.Fragment>
+            {
+              ! isAudioRecorderOpen
+                ?
+                <ChatInput
+                  user={user.active}
+                  chatRoom={activeChatRoom}
+                  handleIsTyping={isTyping}
+                  handleIsNotTyping={isNotTyping}
+                  handleSendTextMessage={::this.handleSendTextMessage}
+                  handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
+                  handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
+                  disabled={isChatInputDisabled}
+                />
+                :
+                <ChatAudioRecorder
+                  chatRoom={activeChatRoom}
+                  handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
+                  handleSendAudioMessage={::this.handleSendAudioMessage}
+                />
+            }
+          </React.Fragment>
         }
         <MediaQuery query="(max-width: 767px)">
           {(matches) => {

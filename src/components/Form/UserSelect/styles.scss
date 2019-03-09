@@ -1,4 +1,9 @@
 .user-select-wrapper {
+  .users-list-label {
+    font-size: 14px;
+    line-height: 15px;
+    margin-bottom: 3px;
+  }
   .users-list {
     $height: 20px;
     border: 1px solid $color-dusty-gray;
