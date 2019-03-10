@@ -75,6 +75,15 @@ export function sendTextMessage(newMessageID, text, user, chatRoomID) {
     chatRoomID: chatRoomID,
   };
 
+  const messageUser = {
+    _id: user._id,
+    username: user.username,
+    name: user.name,
+    profilePicture: user.profilePicture,
+    role: user.role,
+    accountType: user.accountType
+  };
+
   return dispatch => {
     dispatch({
       type: SEND_MESSAGE,
@@ -82,7 +91,7 @@ export function sendTextMessage(newMessageID, text, user, chatRoomID) {
         _id: newMessageID,
         createdAt: (new Date()).toString(),
         text: text,
-        user: user,
+        user: messageUser,
         chatRoom: chatRoomID,
         messageType: 'text',
         isSending: true
@@ -123,6 +132,15 @@ export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
   data.append('userID', user._id);
   data.append('chatRoomID', chatRoomID);
 
+  const messageUser = {
+    _id: user._id,
+    username: user.username,
+    name: user.name,
+    profilePicture: user.profilePicture,
+    role: user.role,
+    accountType: user.accountType
+  };
+
   let config = {
     headers: {
       'content-type': 'multipart/form-data',
@@ -142,7 +160,7 @@ export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
         _id: newMessageID,
         createdAt: (new Date()).toString(),
         text: text,
-        user: user,
+        user: messageUser,
         chatRoom: chatRoomID,
         messageType: messageType,
         fileLink: '',
@@ -187,6 +205,15 @@ export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID
   data.append('userID', user._id);
   data.append('chatRoomID', chatRoomID);
 
+  const messageUser = {
+    _id: user._id,
+    username: user.username,
+    name: user.name,
+    profilePicture: user.profilePicture,
+    role: user.role,
+    accountType: user.accountType
+  };
+
   let config = {
     headers: {
       'content-type': 'multipart/form-data',
@@ -200,7 +227,7 @@ export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID
         _id: newMessageID,
         createdAt: (new Date()).toString(),
         text: text,
-        user: user,
+        user: messageUser,
         chatRoom: chatRoomID,
         messageType: 'audio',
         fileLink: '',
