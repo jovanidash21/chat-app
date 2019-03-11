@@ -226,9 +226,10 @@ class Table extends Component {
                         key={i}
                         columnKey={singleColumn.key}
                         label={singleColumn.label}
-                        isSortActive={sort.column === singleColumn.key}
+                        sortActive={sort.column === singleColumn.key}
                         sortOrder={sort.direction}
                         handleSortTable={::this.handleSortTable}
+                        disabled={loading}
                       />
                     )
                   }

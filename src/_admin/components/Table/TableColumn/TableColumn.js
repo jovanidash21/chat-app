@@ -9,11 +9,11 @@ class TableColumn extends Component {
   }
   handleSortIcon() {
     const {
-      isSortActive,
+      sortActive,
       sortOrder
     } = this.props;
 
-    if ( !isSortActive ) {
+    if ( !sortActive ) {
       return "exchange-alt";
     } else if ( sortOrder === 'asc' ) {
       return "sort-amount-down";
@@ -26,28 +26,36 @@ class TableColumn extends Component {
 
     const {
       columnKey,
-      handleSortTable
+      handleSortTable,
+      disabled
     } = this.props;
 
-    handleSortTable(columnKey);
+    if ( ! disabled ) {
+      handleSortTable(columnKey);
+    }
   }
   render() {
     const {
       label,
-      isSortActive,
-      sortOrder
+      sortActive,
+      sortOrder,
+      disabled
     } = this.props;
     var sortTitle = '';
 
-    if ( isSortActive && sortOrder === 'asc' ) {
+    if ( sortActive && sortOrder === 'asc' ) {
       sortTitle = 'Ascending';
-    } else if ( isSortActive && sortOrder === 'desc' ) {
+    } else if ( sortActive && sortOrder === 'desc' ) {
       sortTitle = 'Descending';
     }
 
     return (
       <th
-        className={"table-column " + (isSortActive ? 'active' : '')}
+        className={
+          "table-column " +
+          (sortActive ? 'active ' : '') +
+          (disabled ? 'disabled' : '')
+        }
         onClick={::this.handleSortTable}
       >
         {label}
@@ -62,14 +70,16 @@ class TableColumn extends Component {
 TableColumn.propTypes = {
   columnKey: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  isSortActive: PropTypes.bool,
+  sortActive: PropTypes.bool,
   sortOrder: PropTypes.string,
-  handleSortTable: PropTypes.func.isRequired
+  handleSortTable: PropTypes.func.isRequired,
+  disabled: PropTypes.bool
 }
 
 TableColumn.defaultProps = {
-  isSortActive: false,
-  sortOrder: 'asc'
+  sortActive: false,
+  sortOrder: 'asc',
+  disabled: false
 }
 
 export default TableColumn;
