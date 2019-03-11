@@ -14,6 +14,11 @@ class Layout extends Component {
 
     fetchActiveUser();
   }
+  componentDidUpdate(prevProps) {
+    if ( prevProps.user.fetchActive.loading && ! this.props.user.fetchActive.loading) {
+      this.props.socketUserLogin(this.props.user.active);
+    }
+  }
   handleComponentRender(matchProps) {
     const {
       component: Content,
@@ -37,7 +42,9 @@ class Layout extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    user: state.user
+  }
 }
 
 Layout.propTypes = {

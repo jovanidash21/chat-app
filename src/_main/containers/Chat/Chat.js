@@ -54,12 +54,6 @@ class Chat extends Component {
     };
   }
   componentWillMount() {
-    const {
-      user,
-      socketUserLogin
-    } = this.props;
-
-    socketUserLogin(user.active);
     document.body.className = '';
     document.body.classList.add('chat-page');
   }
@@ -88,9 +82,11 @@ class Chat extends Component {
     });
   }
   calculateViewportHeight() {
-    var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    if ( this.chatSection ) {
+      var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-    this.chatSection.setAttribute('style', 'height:' + viewportHeight + 'px;');
+      this.chatSection.setAttribute('style', 'height:' + viewportHeight + 'px;');
+    }
   }
   handleLeftSideDrawerRender() {
     const { isLeftSideDrawerOpen } = this.state;
