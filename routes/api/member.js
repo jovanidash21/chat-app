@@ -14,7 +14,7 @@ router.post('/', (req, res, next) => {
     var chatRoomID = req.body.chatRoomID;
 
     ChatRoom.findById(chatRoomID)
-      .populate('members')
+      .populate('members', '-chatRooms -socketID')
       .exec()
       .then((chatRoom) => {
         res.status(200).send({
