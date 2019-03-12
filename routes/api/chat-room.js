@@ -17,7 +17,8 @@ router.post('/', (req, res, next) => {
       .populate({
         path: 'chatRooms.data',
         populate: {
-          path: 'members'
+          path: 'members',
+          select: '-chatRooms -socketID'
         }
       })
       .exec()
@@ -118,7 +119,7 @@ router.post('/create', (req, res, next) => {
                 }
 
                 return ChatRoom.findById(chatRoomData._id)
-                  .populate('members');
+                  .populate('members', '-chatRooms -socketID');
               })
               .then((chatRoomData) => {
                 res.status(200).send({
@@ -284,7 +285,7 @@ router.post('/select', (req, res, next) => {
     var chatRoomID = req.body.chatRoomID;
 
     ChatRoom.findById(chatRoomID)
-      .populate({path: 'members'})
+      .populate('members', '-chatRooms -socketID')
       .exec()
       .then((chatRoom) => {
         for (var i = 0; i < chatRoom.members.length; i++) {
@@ -327,7 +328,7 @@ router.get('/all', (req, res, next) => {
     });
   } else {
     ChatRoom.find({_id: {$ne: null}})
-      .populate({path: 'members'})
+      .populate('members', '-chatRooms -socketID')
       .exec()
       .then((chatRooms) => {
         for (var i = 0; i < chatRooms.length; i++) {
