@@ -77,7 +77,7 @@ router.post('/', (req, res, next) => {
           ).exec();
         }
 
-        return Message.find({chatRoom: chatRoomID})
+        return Message.find({chatRoom: chatRoomID}, '-readBy')
           .sort({createdAt: 'descending'})
           .skip(skipCount)
           .limit(50)
@@ -148,7 +148,7 @@ router.post('/text', (req, res, next) => {
           }
         }
 
-        return Message.findById(message._id)
+        return Message.findById(message._id, '-readBy')
           .populate('user', '-chatRooms -socketID');
       })
       .then((messageData) => {
@@ -216,7 +216,7 @@ router.post('/file', fileUpload.single('file'), (req, res, next) => {
           }
         }
 
-        return Message.findById(message._id)
+        return Message.findById(message._id, '-readBy')
           .populate('user', '-chatRooms -socketID');
       })
       .then((messageData) => {
@@ -278,7 +278,7 @@ router.post('/audio', audioUpload.single('audio'), (req, res, next) => {
           }
         }
 
-        return Message.findById(message._id)
+        return Message.findById(message._id, '-readBy')
           .populate('user', '-chatRooms -socketID');
       })
       .then((messageData) => {
