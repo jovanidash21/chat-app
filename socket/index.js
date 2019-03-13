@@ -15,14 +15,14 @@ var sockets = function(io) {
           User.findByIdAndUpdate(
             action.user._id,
             { $set: { isOnline: true, socketID: socket.id } },
-            { safe: true, upsert: true, new: true },
+            { safe: true, upsert: true, new: true, select: '-chatRooms -socketID' },
           )
           .then((user) => {
-            connectedUsers[socket.id] = action.user._id;
+            connectedUsers[socket.id] = user._id;
 
             socket.broadcast.emit('action', {
               type: 'SOCKET_BROADCAST_USER_LOGIN',
-              user: action.user
+              user: user
             });
           })
           .catch((error) => {
@@ -172,7 +172,7 @@ var sockets = function(io) {
         case 'SOCKET_REQUEST_VIDEO_CALL':
           var callerUser = {};
 
-          User.findById(action.callerID)
+          User.findById(action.callerID, select: '-chatRooms -socketID')
             .then((user) => {
               callerUser = user;
 
