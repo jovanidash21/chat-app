@@ -172,7 +172,7 @@ var sockets = function(io) {
         case 'SOCKET_REQUEST_VIDEO_CALL':
           var callerUser = {};
 
-          User.findById(action.callerID, select: '-chatRooms -socketID')
+          User.findById(action.callerID, '-chatRooms -socketID')
             .then((user) => {
               callerUser = user;
 
