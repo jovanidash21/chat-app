@@ -3,8 +3,8 @@ import { SEND_EMAIL } from '../constants/email';
 
 /**
  * Send email
- * @param {string} username
  * @param {string} email
+ * @param {string} name
  */
 export function sendEmail(email, name) {
   let data = {
