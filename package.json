@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "node bin/www",
-    "build": "run-s clean-webpack:prod node:prod",
+    "build": "run-s clean webpack:prod",
     "dev": "run-p clean-webpack:dev node:dev",
     "clean-webpack:prod": "run-s clean webpack:prod",
     "clean-webpack:dev": "run-s clean webpack:dev",
