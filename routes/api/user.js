@@ -414,11 +414,6 @@ router.post('/delete', (req, res, next) => {
           var chatRoomID = chatRoom._id;
 
           Message.deleteMany({user: userID, chatRoom: chatRoomID}).exec();
-          Message.updateMany(
-            { user: {$ne: userID}, chatRoom: chatRoomID },
-            { $pull: {readBy: userID} },
-            { safe: true }
-          ).exec();
           ChatRoom.findByIdAndUpdate(
             chatRoomID,
             { $pull: {members: userID} },

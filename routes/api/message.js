@@ -59,30 +59,11 @@ router.post('/', (req, res, next) => {
     var chatRoomID = req.body.chatRoomID;
     var skipCount = req.body.skipCount;
 
-    Message.find(
-      {
-        chatRoom: chatRoomID,
-        readBy: {
-          $ne: userID
-        }
-      })
-      .then((messages) => {
-        for (var i = 0; i < messages.length; i++) {
-          var message = messages[i];
-
-          Message.findByIdAndUpdate(
-            message._id,
-            { $addToSet: { readBy: userID } },
-            { safe: true, upsert: true, new: true }
-          ).exec();
-        }
-
-        return Message.find({chatRoom: chatRoomID}, '-readBy')
-          .sort({createdAt: 'descending'})
-          .skip(skipCount)
-          .limit(50)
-          .populate('user', '-chatRooms -socketID');
-      })
+    Message.find({chatRoom: chatRoomID})
+      .sort({createdAt: 'descending'})
+      .skip(skipCount)
+      .limit(50)
+      .populate('user', '-chatRooms -socketID')
       .then((messages) => {
         var chatRoomMessages = messages.reverse();
 
@@ -121,7 +102,6 @@ router.post('/text', (req, res, next) => {
       text: req.body.text,
       user: userID,
       chatRoom: chatRoomID,
-      readBy: [userID],
       messageType: 'text'
     };
     var message = new Message(messageData);
@@ -148,7 +128,7 @@ router.post('/text', (req, res, next) => {
           }
         }
 
-        return Message.findById(message._id, '-readBy')
+        return Message.findById(message._id)
           .populate('user', '-chatRooms -socketID');
       })
       .then((messageData) => {
@@ -188,7 +168,6 @@ router.post('/file', fileUpload.single('file'), (req, res, next) => {
       text: req.file.originalname,
       user: userID,
       chatRoom: chatRoomID,
-      readBy: [userID],
       messageType: messageType,
       fileLink: fileLink
     };
@@ -216,7 +195,7 @@ router.post('/file', fileUpload.single('file'), (req, res, next) => {
           }
         }
 
-        return Message.findById(message._id, '-readBy')
+        return Message.findById(message._id)
           .populate('user', '-chatRooms -socketID');
       })
       .then((messageData) => {
@@ -250,7 +229,6 @@ router.post('/audio', audioUpload.single('audio'), (req, res, next) => {
       text: req.file.originalname,
       user: userID,
       chatRoom: chatRoomID,
-      readBy: [userID],
       messageType: 'audio',
       fileLink: fileLink
     };
@@ -278,7 +256,7 @@ router.post('/audio', audioUpload.single('audio'), (req, res, next) => {
           }
         }
 
-        return Message.findById(message._id, '-readBy')
+        return Message.findById(message._id)
           .populate('user', '-chatRooms -socketID');
       })
       .then((messageData) => {
