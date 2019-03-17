@@ -28,7 +28,7 @@ class UserForm extends Component {
 
     this.state = {
       loading: true,
-      isDisabled: false,
+      disabled: false,
       username: '',
       name: '',
       email: '',
@@ -80,18 +80,14 @@ class UserForm extends Component {
         !prevProps.user.create.loading &&
         this.props.user.create.loading
       ) {
-        this.setState({
-          isDisabled: true
-        });
+        this.setState({disabled: true});
       }
 
       if (
         prevProps.user.create.loading &&
         !this.props.user.create.loading
       ) {
-        this.setState({
-          isDisabled: false
-        });
+        this.setState({disabled: false});
       }
     }
 
@@ -107,18 +103,14 @@ class UserForm extends Component {
         !prevProps.user.edit.loading &&
         this.props.user.edit.loading
       ) {
-        this.setState({
-          isDisabled: true
-        });
+        this.setState({disabled: true});
       }
 
       if (
         prevProps.user.edit.loading &&
         !this.props.user.edit.loading
       ) {
-        this.setState({
-          isDisabled: false
-        });
+        this.setState({disabled: false});
       }
     }
   }
@@ -279,7 +271,7 @@ class UserForm extends Component {
     } = this.props;
     const {
       loading,
-      isDisabled,
+      disabled,
       username,
       name,
       email,
@@ -340,7 +332,7 @@ class UserForm extends Component {
                               type="text"
                               name="username"
                               onChange={::this.handleChange}
-                              disabled={isDisabled}
+                              disabled={disabled}
                               invalid={!usernameValid}
                             />
                             <Input
@@ -349,7 +341,7 @@ class UserForm extends Component {
                               type="text"
                               name="name"
                               onChange={::this.handleChange}
-                              disabled={isDisabled}
+                              disabled={disabled}
                               invalid={!nameValid}
                             />
                             <Input
@@ -358,7 +350,7 @@ class UserForm extends Component {
                               type="text"
                               name="email"
                               onChange={::this.handleChange}
-                              disabled={isDisabled}
+                              disabled={disabled}
                               invalid={!emailValid}
                             />
                             <Select
@@ -366,7 +358,7 @@ class UserForm extends Component {
                               label="Role"
                               name="role"
                               onChange={::this.handleChange}
-                              disabled={isDisabled}
+                              disabled={disabled}
                             >
                               <Option value="ordinary" label="Ordinary" />
                               <Option value="admin" label="Admin" />
@@ -380,7 +372,7 @@ class UserForm extends Component {
                           value={password}
                           handleChange={::this.handleChange}
                           handleGeneratePassword={::this.handleGeneratePassword}
-                          disabled={isDisabled}
+                          disabled={disabled}
                           invalid={!passwordValid}
                         />
                       }
@@ -396,7 +388,7 @@ class UserForm extends Component {
                           <Button
                             className="button button-primary"
                             type="submit"
-                            disabled={isDisabled}
+                            disabled={disabled}
                           >
                             {
                               mode === 'create'
@@ -428,7 +420,7 @@ class UserForm extends Component {
                             accountType={selectedUser.accountType}
                             handleImageUpload={::this.handleImageUpload}
                             handleRemoveImage={::this.handleRemoveImage}
-                            disabled={isDisabled}
+                            disabled={disabled}
                           />
                       }
                     </Panel>

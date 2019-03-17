@@ -28,7 +28,7 @@ class ChatRoomForm extends Component {
 
     this.state = {
       loading: true,
-      isDisabled: false,
+      disabled: false,
       chatType: 'direct',
       name: '',
       members: [],
@@ -73,18 +73,14 @@ class ChatRoomForm extends Component {
         !prevProps.chatRoom.create.loading &&
         this.props.chatRoom.create.loading
       ) {
-        this.setState({
-          isDisabled: true
-        });
+        this.setState({disabled: true});
       }
 
       if (
         prevProps.chatRoom.create.loading &&
         !this.props.chatRoom.create.loading
       ) {
-        this.setState({
-          isDisabled: false
-        });
+        this.setState({disabled: false});
       }
     }
 
@@ -100,18 +96,14 @@ class ChatRoomForm extends Component {
         !prevProps.chatRoom.edit.loading &&
         this.props.chatRoom.edit.loading
       ) {
-        this.setState({
-          isDisabled: true
-        });
+        this.setState({disabled: true});
       }
 
       if (
         prevProps.chatRoom.edit.loading &&
         !this.props.chatRoom.edit.loading
       ) {
-        this.setState({
-          isDisabled: false
-        });
+        this.setState({disabled: false});
       }
     }
   }
@@ -311,7 +303,7 @@ class ChatRoomForm extends Component {
     } = this.props;
     const {
       loading,
-      isDisabled,
+      disabled,
       name,
       chatType,
       members,
@@ -390,7 +382,7 @@ class ChatRoomForm extends Component {
                                 label="Chat Type"
                                 name="chatType"
                                 onChange={::this.handleChange}
-                                disabled={isDisabled}
+                                disabled={disabled}
                               >
                                 <Option value="direct" label="Direct" />
                                 <Option value="group" label="Group" />
@@ -404,7 +396,7 @@ class ChatRoomForm extends Component {
                                 type="text"
                                 name="name"
                                 onChange={::this.handleChange}
-                                disabled={isDisabled}
+                                disabled={disabled}
                                 invalid={!nameValid}
                               />
                             }
@@ -423,7 +415,7 @@ class ChatRoomForm extends Component {
                             <Button
                               className="button button-primary"
                               type="submit"
-                              disabled={isDisabled}
+                              disabled={disabled}
                             >
                               {
                                 mode === 'create'
@@ -457,7 +449,7 @@ class ChatRoomForm extends Component {
                             accountType={handleChatRoomAvatarBadges(selectedChatRoom)}
                             handleImageUpload={::this.handleImageUpload}
                             handleRemoveImage={::this.handleRemoveImage}
-                            disabled={isDisabled}
+                            disabled={disabled}
                           />
                       }
                     </Panel>
