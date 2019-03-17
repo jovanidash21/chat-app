@@ -2,13 +2,16 @@ body {
   &.login-page,
   &.register-page {
     background-color: $color-primary;
+    @media screen and (max-width: $screen-mobile-max) {
+      background-color: #fff;
+    }
   }
 }
 .auth-form {
   margin: 50px auto;
   max-width: 400px;
   @media screen and (max-width: $screen-mobile-max) {
-    margin: 0 auto;
+    margin: 25px auto;
   }
   a {
     &:hover {
