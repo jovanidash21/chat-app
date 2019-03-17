@@ -314,8 +314,8 @@ class ChatRoomForm extends Component {
     const searchedUsers = user.searched.filter((singleUser) => {
       return !members.some((singleMember) => singleMember._id === singleUser._id);
     });
-    const isListDisabled = chatRoom.create.loading;
-    const isInputDisabled = (chatType === 'direct' && members.length === 2) || chatRoom.create.loading;
+    const listDisabled = chatRoom.create.loading;
+    const inputDisabled = (chatType === 'direct' && members.length === 2) || chatRoom.create.loading;
     let errorMessage = this.props.errorMessage;
 
     if ( this.state.errorMessage.length > 0 ) {
@@ -408,8 +408,8 @@ class ChatRoomForm extends Component {
                               searchedUsers={searchedUsers}
                               onSuggestionSelected={::this.onSuggestionSelected}
                               handleDeselectUser={::this.handleDeselectMember}
-                              isListDisabled={isListDisabled}
-                              isInputDisabled={isInputDisabled}
+                              listDisabled={listDisabled}
+                              inputDisabled={inputDisabled}
                               loading={user.search.loading}
                             />
                             <Button

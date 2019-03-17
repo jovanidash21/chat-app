@@ -99,8 +99,8 @@ class UserSelect extends Component {
       handleSearchUser,
       selectedUsers,
       searchedUsers,
-      isListDisabled,
-      isInputDisabled,
+      listDisabled,
+      inputDisabled,
       loading
     } = this.props;
     const {
@@ -111,7 +111,7 @@ class UserSelect extends Component {
       placeholder: placeholder,
       value: searchSelect,
       onChange: ::this.onSearchSelect,
-      disabled: isInputDisabled
+      disabled: inputDisabled
     };
 
     return (
@@ -124,7 +124,7 @@ class UserSelect extends Component {
         }
         {
           showUsersList &&
-          <div className="users-list" disabled={isListDisabled}>
+          <div className="users-list" disabled={listDisabled}>
             {
               selectedUsers.map((user, i) =>
                 <div
@@ -201,8 +201,8 @@ UserSelect.propTypes = {
   searchedUsers: PropTypes.array,
   onSuggestionSelected: PropTypes.func.isRequired,
   handleDeselectUser: PropTypes.func,
-  isListDisabled: PropTypes.bool,
-  isInputDisabled: PropTypes.bool,
+  listDisabled: PropTypes.bool,
+  inputDisabled: PropTypes.bool,
   loading: PropTypes.bool
 }
 
@@ -213,8 +213,8 @@ UserSelect.defaultProps = {
   selectedUsers: [],
   searchUsers: [],
   handleDeselectUser: () => {},
-  isListDisabled: false,
-  isInputDisabled: false,
+  listDisabled: false,
+  inputDisabled: false,
   loading: false
 }
 

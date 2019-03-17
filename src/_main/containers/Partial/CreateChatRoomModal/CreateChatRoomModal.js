@@ -143,8 +143,8 @@ class CreateChatRoomModal extends Component {
               searchedUsers={searchedUsers}
               onSuggestionSelected={::this.onSuggestionSelected}
               handleDeselectUser={::this.handleDeselectMember}
-              isListDisabled={chatRoom.create.loading}
-              isInputDisabled={chatRoom.create.loading}
+              listDisabled={chatRoom.create.loading}
+              inputDisabled={chatRoom.create.loading}
               loading={user.search.loading}
             />
           </Modal.Body>
