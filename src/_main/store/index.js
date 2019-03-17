@@ -8,8 +8,15 @@ import socket from '../../socket';
 import history from '../../history';
 import reducers from '../reducers';
 
+function optimisticExecute(action, emit, next) {
+  if ( action.type.indexOf( 'SOCKET_BROADCAST' ) === -1 ) {
+    emit('action', action);
+  }
+  next(action);
+}
+
 const reactRouterMiddleware = routerMiddleware(history);
-let socketIoMiddleware = createSocketIoMiddleware(socket, 'SOCKET_');
+let socketIoMiddleware = createSocketIoMiddleware(socket, 'SOCKET_', { execute: optimisticExecute });
 
 var middlewares = [
   thunk,
