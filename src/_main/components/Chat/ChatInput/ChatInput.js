@@ -319,18 +319,18 @@ class ChatInput extends Component {
         }
       >
         <MediaQuery query="(min-width: 768px)">
-          <div>
+          <React.Fragment>
             {
               emojiPicker &&
-              <div>
+              <React.Fragment>
                 <EmojiPicker onChange={::this.handleEmojiPickerSelect} search />
                 {
                   !small &&
                   <div className="emoji-picker-overlay" onClick={::this.handleEmojiPickerToggle} />
                 }
-              </div>
+              </React.Fragment>
             }
-          </div>
+          </React.Fragment>
         </MediaQuery>
         <div className="chat-input">
           <ContentEditable

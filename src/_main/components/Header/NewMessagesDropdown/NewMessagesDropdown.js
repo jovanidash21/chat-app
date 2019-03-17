@@ -51,7 +51,7 @@ class NewMessagesDropdown extends Component {
           {
             chatRooms.length > 0
               ?
-              <div>
+              <React.Fragment>
                 <div className="clear-all-button" onClick={::this.handleClearChatRoomUnreadMessages}>
                   <div
                     className="trash-icon"
@@ -77,7 +77,7 @@ class NewMessagesDropdown extends Component {
                     )
                   }
                 </div>
-              </div>
+              </React.Fragment>
               :
               <div className="no-new-messages">
                 No New Messages

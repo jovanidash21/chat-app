@@ -32,9 +32,9 @@ const CardBanner = (props) => {
     )
   } else {
     return (
-      <div>
+      <React.Fragment>
         {cardBannerComponent}
-      </div>
+      </React.Fragment>
     )
   }
 }

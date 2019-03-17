@@ -31,7 +31,7 @@ class MenuItem extends Component {
     } = this.props;
 
     return (
-      <div>
+      <React.Fragment>
         <div
           className={
             "menu-item " +
@@ -59,7 +59,7 @@ class MenuItem extends Component {
             {children}
           </div>
         }
-      </div>
+      </React.Fragment>
     )
   }
   handleOpenMenuItem(event) {

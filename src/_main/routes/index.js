@@ -13,7 +13,7 @@ import '../../styles/Common.scss';
 import '../styles/Common.scss';
 
 const routes = (
-  <div>
+  <React.Fragment>
     <LoadingBar className="loading-bar" />
     <Popup />
     <Switch>
@@ -22,7 +22,7 @@ const routes = (
       <Layout exact path="/chat" component={Chat} />
       <Layout path="*" component={NotFound} title="Page not found" />
     </Switch>
-  </div>
+  </React.Fragment>
 );
 
 export default routes;

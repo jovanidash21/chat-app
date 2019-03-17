@@ -56,7 +56,7 @@ class ChatRoomMember extends Component {
         <div className="member-options-button">
           {
             user._id !== chatRoomMember._id &&
-            <div>
+            <React.Fragment>
               <div className="ellipsis-icon" data-mui-toggle="dropdown">
                 <FontAwesomeIcon icon="ellipsis-v" />
               </div>
@@ -76,7 +76,7 @@ class ChatRoomMember extends Component {
                   }}
                 </MediaQuery>
               </ul>
-            </div>
+            </React.Fragment>
           }
         </div>
       </div>

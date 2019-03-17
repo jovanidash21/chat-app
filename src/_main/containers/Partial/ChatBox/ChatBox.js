@@ -207,7 +207,7 @@ class ChatBox extends Component {
       }
 
       return (
-        <div>
+        <React.Fragment>
           {
             isImageLightboxOpen &&
             <ChatImageLightBox
@@ -218,7 +218,7 @@ class ChatBox extends Component {
               handleNextImage={::this.handleNextImage}
             />
           }
-        </div>
+        </React.Fragment>
       )
     }
   }

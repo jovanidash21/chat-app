@@ -26,10 +26,10 @@ class Layout extends Component {
     } = this.props;
 
     return (
-      <div>
+      <React.Fragment>
         <Head title={"Chat App " + (title.length > 0 ? '| ' + title : '')} />
         <Content {...matchProps} />
-      </div>
+      </React.Fragment>
     )
   }
   render() {
