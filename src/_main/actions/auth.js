@@ -14,12 +14,12 @@ const baseURL = localtionArr[0] + "//" + localtionArr[2];
 
 /**
  * Socket user login
- * @param {Object} user
+ * @param {string} userID
  */
-export function socketUserLogin(user) {
+export function socketUserLogin(userID) {
   return {
     type: SOCKET_USER_LOGIN,
-    user: user,
+    userID: userID,
   }
 }
 

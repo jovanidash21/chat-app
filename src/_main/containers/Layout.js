@@ -16,7 +16,7 @@ class Layout extends Component {
   }
   componentDidUpdate(prevProps) {
     if ( prevProps.user.fetchActive.loading && ! this.props.user.fetchActive.loading) {
-      this.props.socketUserLogin(this.props.user.active);
+      this.props.socketUserLogin(this.props.user.active._id);
     }
   }
   handleComponentRender(matchProps) {

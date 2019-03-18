@@ -13,7 +13,7 @@ var sockets = function(io) {
       switch(action.type) {
         case 'SOCKET_USER_LOGIN':
           User.findByIdAndUpdate(
-            action.user._id,
+            action.userID,
             { $set: { isOnline: true, socketID: socket.id } },
             { safe: true, upsert: true, new: true, select: '-chatRooms -socketID' },
           )
