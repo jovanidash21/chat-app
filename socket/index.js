@@ -88,12 +88,6 @@ var sockets = function(io) {
                   .exec()
                   .then((user) => {
                     if (chatRoomClients.indexOf(user.socketID) > -1) {
-                      Message.findOneAndUpdate(
-                        { _id: action.message._id, readBy: { $ne: user._id } },
-                        { $addToSet: { readBy: user._id } },
-                        { safe: true }
-                      ).exec();
-
                       User.updateOne(
                         { _id: user._id, 'chatRooms.data': action.chatRoomID },
                         { $set: { 'chatRooms.$.unReadMessages': 0 } },
