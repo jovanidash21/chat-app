@@ -125,7 +125,7 @@ class ChatPopUpWindow extends Component {
           <div className={"popup-body " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
             <ChatBox
               chatRoom={popUpChatRoom}
-              message={popUpChatRoom.message}
+              messages={popUpChatRoom.message.all}
               typers={popUpChatRoom.typer.all}
               handleDragDropBoxToggle={(::this.handleDragDropBoxToggle)}
               isDragDropBoxOpen={isDragDropBoxOpen}

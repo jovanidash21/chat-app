@@ -373,7 +373,7 @@ class Chat extends Component {
           </MediaQuery>
           <ChatBox
             chatRoom={activeChatRoom}
-            message={message}
+            messages={message.all}
             typers={typer.all}
             handleDragDropBoxToggle={(::this.handleDragDropBoxToggle)}
             isDragDropBoxOpen={isDragDropBoxOpen}

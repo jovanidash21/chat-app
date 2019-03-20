@@ -72,10 +72,10 @@ class ChatBox extends Component {
     if (
       ( prevProps.fetchNewLoading &&
         !this.props.fetchNewLoading &&
-        this.props.message.all.length < 50 ) ||
+        this.props.messages.length < 50 ) ||
       ( prevProps.fetchOldLoading &&
         !this.props.fetchOldLoading &&
-        this.props.message.all.length - prevProps.message.all.length < 50 )
+        this.props.messages.length - prevProps.messages.length < 50 )
     ) {
       this.setState({hasLoadedAllMessages: true});
     }
@@ -101,7 +101,7 @@ class ChatBox extends Component {
     const {
       user,
       chatRoom,
-      message,
+      messages,
       typers,
       fetchNewLoading,
       small
@@ -119,23 +119,23 @@ class ChatBox extends Component {
             </div>
           }
           {
-            message.all.length > 0
+            messages.length > 0
               ?
-              message.all.map((singleMessage, i) =>
+              messages.map((singleMessage, i) =>
                 <div key={singleMessage._id}>
                   <ChatDateTime
                     messageDate={singleMessage.createdAt}
-                    previousMessageDate={i-1 !== -1 ? message.all[i-1].createdAt : ''}
+                    previousMessageDate={i-1 !== -1 ? messages[i-1].createdAt : ''}
                     small={small}
                   />
                   <ChatBubble
                     index={i}
                     message={singleMessage}
                     isSender={(singleMessage.user._id === user.active._id) ? true : false }
-                    previousMessageSenderID={i-1 !== -1 ? message.all[i-1].user._id : ''}
-                    nextMessageSenderID={i !== message.all.length-1 ? message.all[i+1].user._id : ''}
-                    previousMessageDate={i-1 !== -1 ? message.all[i-1].createdAt : ''}
-                    nextMessageDate={i !== message.all.length-1 ? message.all[i+1].createdAt : ''}
+                    previousMessageSenderID={i-1 !== -1 ? messages[i-1].user._id : ''}
+                    nextMessageSenderID={i !== messages.length-1 ? messages[i+1].user._id : ''}
+                    previousMessageDate={i-1 !== -1 ? messages[i-1].createdAt : ''}
+                    nextMessageDate={i !== messages.length-1 ? messages[i+1].createdAt : ''}
                     handleImageLightboxToggle={::this.handleImageLightboxToggle}
                     handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
                     isActiveUserAdmin={isActiveUserAdmin}
@@ -183,7 +183,7 @@ class ChatBox extends Component {
   }
   handleImageLightboxRender() {
     const {
-      message,
+      messages,
       fetchNewLoading
     } = this.props;
     const {
@@ -193,7 +193,7 @@ class ChatBox extends Component {
 
     if ( !fetchNewLoading ) {
       const imagesArray = [];
-      const imageMessages = message.all.filter(imageMessage =>
+      const imageMessages = messages.filter(imageMessage =>
         imageMessage.messageType === 'image'
       );
 
@@ -263,7 +263,7 @@ class ChatBox extends Component {
         oldestMessageOffsetTop: oldestMessageOffsetTop
       });
 
-      fetchOldMessages(chatRoom.data._id, user.active._id, message.all.length);
+      fetchOldMessages(chatRoom.data._id, user.active._id, messages.length);
     }
   }
   handleSendTextMessage(newMessageID, text) {
@@ -279,7 +279,7 @@ class ChatBox extends Component {
     const { message } = this.props;
     var index = -1;
 
-    const imageMessages = message.all.filter(imageMessage =>
+    const imageMessages = messages.filter(imageMessage =>
       imageMessage.messageType === 'image'
     );
 
@@ -420,7 +420,7 @@ const mapStateToProps = (state) => {
 
 ChatBox.propTypes = {
   chatRoom: PropTypes.object.isRequired,
-  message: PropTypes.object.isRequired,
+  messages: PropTypes.array.isRequired,
   typers: PropTypes.array,
   handleDragDropBoxToggle: PropTypes.func.isRequired,
   isDragDropBoxOpen: PropTypes.bool,
