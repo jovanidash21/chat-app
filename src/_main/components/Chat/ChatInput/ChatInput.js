@@ -57,7 +57,7 @@ class ChatInput extends Component {
   onMessageKeyUp(event) {
     const {
       user,
-      chatRoom,
+      chatRoomID,
       handleIsTyping,
       handleIsNotTyping
     } = this.props;
@@ -80,7 +80,7 @@ class ChatInput extends Component {
         validMessage: true
       });
 
-      handleIsTyping(user, chatRoom.data._id);
+      handleIsTyping(user, chatRoomID);
     }
 
     if (
@@ -94,7 +94,7 @@ class ChatInput extends Component {
         validMessage: false
       });
 
-      handleIsNotTyping(user, chatRoom.data._id);
+      handleIsNotTyping(user, chatRoomID);
     }
 
     if ( (event.key === 'Enter') && validMessage && !maxLengthReached ) {
@@ -139,7 +139,7 @@ class ChatInput extends Component {
   handleEmojiPickerSelect(emoji) {
     const {
       user,
-      chatRoom,
+      chatRoomID,
       handleIsTyping
     } = this.props;
     const {
@@ -176,7 +176,7 @@ class ChatInput extends Component {
         validMessage: true
       });
 
-      handleIsTyping(user, chatRoom.data._id);
+      handleIsTyping(user, chatRoomID);
     }
   }
   handleInsertEmoji(emoji) {
@@ -249,7 +249,7 @@ class ChatInput extends Component {
   handleSendTextMessageOnChange(event) {
     const {
       user,
-      chatRoom,
+      chatRoomID,
       handleIsNotTyping,
       handleSendTextMessage
     } = this.props;
@@ -257,15 +257,15 @@ class ChatInput extends Component {
     const newMessageID = uuidv4();
 
     document.getElementById(::this.handleDivID()).innerHTML = '';
-    handleIsNotTyping(user, chatRoom.data._id);
-    handleSendTextMessage(newMessageID, messageText, chatRoom.data._id);
+    handleIsNotTyping(user, chatRoomID);
+    handleSendTextMessage(newMessageID, messageText, chatRoomID);
   }
   handleSendTextMessageOnClick(event) {
     event.preventDefault();
 
     const {
       user,
-      chatRoom,
+      chatRoomID,
       handleIsNotTyping,
       handleSendTextMessage
     } = this.props;
@@ -279,8 +279,8 @@ class ChatInput extends Component {
     if ( validMessage && !maxLengthReached ) {
       document.getElementById(::this.handleDivID()).innerHTML = '';
       document.getElementById(::this.handleDivID()).focus();
-      handleIsNotTyping(user, chatRoom.data._id);
-      handleSendTextMessage(newMessageID, messageText, chatRoom.data._id);
+      handleIsNotTyping(user, chatRoomID);
+      handleSendTextMessage(newMessageID, messageText, chatRoomID);
 
       this.setState({
         message: '',
@@ -412,7 +412,7 @@ class ChatInput extends Component {
 ChatInput.propTypes = {
   id: PropTypes.string,
   user: PropTypes.object.isRequired,
-  chatRoom: PropTypes.object.isRequired,
+  chatRoomID: PropTypes.string.isRequired,
   handleIsTyping: PropTypes.func.isRequired,
   handleIsNotTyping: PropTypes.func.isRequired,
   handleSendTextMessage: PropTypes.func.isRequired,

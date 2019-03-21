@@ -141,7 +141,7 @@ class ChatPopUpWindow extends Component {
                 <ChatInput
                   id={"popup-" + index}
                   user={user.active}
-                  chatRoom={popUpChatRoom}
+                  chatRoomID={popUpChatRoom.data._id}
                   handleIsTyping={isTyping}
                   handleIsNotTyping={isNotTyping}
                   handleSendTextMessage={handleSendTextMessage}
@@ -152,7 +152,7 @@ class ChatPopUpWindow extends Component {
                 />
                 :
                 <ChatAudioRecorder
-                  chatRoom={popUpChatRoom}
+                  chatRoomID={popUpChatRoom.data._id}
                   handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
                   handleSendAudioMessage={handleSendAudioMessage}
                   small

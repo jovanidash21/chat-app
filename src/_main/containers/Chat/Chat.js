@@ -389,7 +389,7 @@ class Chat extends Component {
                 ?
                 <ChatInput
                   user={user.active}
-                  chatRoom={activeChatRoom}
+                  chatRoomID={activeChatRoom.data._id}
                   handleIsTyping={isTyping}
                   handleIsNotTyping={isNotTyping}
                   handleSendTextMessage={::this.handleSendTextMessage}
@@ -399,7 +399,7 @@ class Chat extends Component {
                 />
                 :
                 <ChatAudioRecorder
-                  chatRoom={activeChatRoom}
+                  chatRoomID={activeChatRoom.data._id}
                   handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
                   handleSendAudioMessage={::this.handleSendAudioMessage}
                 />
