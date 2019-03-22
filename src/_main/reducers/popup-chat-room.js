@@ -178,9 +178,13 @@ const popUpChatRoom = (state=initialState, action) => {
       var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === newMessage.chatRoom);
 
       if ( chatRoomIndex > -1 ) {
-        chatRooms[chatRoomIndex].message.all = chatRooms[chatRoomIndex].message.all.filter((message) => message._id !== messageID);
+        var messages = [...chatRooms[chatRoomIndex].message.all];
+
+        messages = messages.filter((message) => message._id !== messageID);
         newMessage.isSending = false;
-        chatRooms[chatRoomIndex].message.all.push(newMessage);
+        messages.push(newMessage);
+
+        chatRooms[chatRoomIndex].message.all = messages;
       }
 
       return {
@@ -195,7 +199,11 @@ const popUpChatRoom = (state=initialState, action) => {
       var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === message.chatRoom);
 
       if ( chatRoomIndex > -1 ) {
-        chatRooms[chatRoomIndex].message.all.push(message);
+        var messages = [...chatRooms[chatRoomIndex].message.all];
+
+        messages.push(message);
+
+        chatRooms[chatRoomIndex].message.all = messages;
       }
 
       return {
