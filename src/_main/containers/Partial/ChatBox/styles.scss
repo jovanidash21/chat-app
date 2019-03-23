@@ -15,6 +15,9 @@
     .chat-no-messages {
       font-size: 12px;
     }
+    .chat-typers {
+      margin-top: 0;
+    }
   }
   .user-no-chat-rooms {
     font-size: 21px;
@@ -47,5 +50,8 @@
   .chat-typers {
     display: flex;
     margin-top: 15px;
+    @media screen and (max-width: $screen-mobile-max) {
+      margin-top: 0;
+    }
   }
 }
