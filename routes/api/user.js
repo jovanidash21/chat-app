@@ -225,14 +225,14 @@ router.post('/create', (req, res, next) => {
 
               User.findByIdAndUpdate(
                 userID,
-                { $push: { chatRooms: { data: chatLoungeID, unReadMessages: 0 } } },
+                { $push: { chatRooms: { data: chatLoungeID, mute: {} } } },
                 { safe: true, upsert: true, new: true }
               ).exec();
             }
 
             return User.findByIdAndUpdate(
               userID,
-              { $push: { chatRooms: { data: chatRoomID, unReadMessages: 0 } } },
+              { $push: { chatRooms: { data: chatRoomID, mute: {} } } },
               { safe: true, upsert: true, new: true, select: '-chatRooms -socketID' }
             ).exec();
           })

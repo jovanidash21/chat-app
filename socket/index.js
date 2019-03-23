@@ -83,7 +83,8 @@ var sockets = function(io) {
 
                 User.findById(chatRoomMember)
                   .populate({
-                    path: 'chatRooms.data'
+                    path: 'chatRooms.data',
+                    select: '-members'
                   })
                   .exec()
                   .then((user) => {
