@@ -26,9 +26,8 @@ class NotificationPopUp extends Component {
       switch (action.type) {
         case SOCKET_BROADCAST_NOTIFY_MESSAGE:
           var chatRoom =  {...action.chatRoom};
-          if ( ! chatRoom.mute.data ) {
-            chatRoom.data.name = action.senderName;
 
+          if ( ! chatRoom.mute.data ) {
             this.notificationSystem.addNotification({
               title: 'New message from ' +
                 action.senderName +
