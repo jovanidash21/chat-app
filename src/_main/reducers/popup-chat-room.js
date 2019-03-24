@@ -179,10 +179,12 @@ const popUpChatRoom = (state=initialState, action) => {
 
       if ( chatRoomIndex > -1 ) {
         var messages = [...chatRooms[chatRoomIndex].message.all];
+        var messageIndex = messages.findIndex(singleMessage => singleMessage._id === messageID);
 
-        messages = messages.filter((message) => message._id !== messageID);
-        newMessage.isSending = false;
-        messages.push(newMessage);
+        if ( messageIndex > -1 ) {
+          newMessage.isSending = false;
+          messages[messageIndex] = newMessage;
+        }
 
         chatRooms[chatRoomIndex].message.all = messages;
       }

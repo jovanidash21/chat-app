@@ -121,9 +121,12 @@ const message = (state=initialState, action) => {
       var newMessage = action.payload.data.messageData;
 
       if ( newMessage.chatRoom === activeChatRoom.data._id ) {
-        messages = messages.filter((message) => message._id !== messageID);
-        newMessage.isSending = false;
-        messages.push(newMessage);
+        var messageIndex = messages.findIndex(singleMessage => singleMessage._id === messageID);
+
+        if ( messageIndex > -1 ) {
+          newMessage.isSending = false;
+          messages[messageIndex] = newMessage;
+        }
       }
 
       return {
