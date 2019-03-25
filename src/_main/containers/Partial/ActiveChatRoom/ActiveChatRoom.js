@@ -85,44 +85,42 @@ class ActiveChatRoom extends Component {
                 {activeChatRoom.data.name}
               </h2>
             }
-            <div className="chat-room-info">
-              {
-                ! loading &&
-                ! activeChatRoomEmpty &&
-                ! member.fetch.loading &&
-                member.fetch.success &&
-                <React.Fragment>
-                  {
-                    ( activeChatRoom.data.chatType === 'public' ||
-                    activeChatRoom.data.chatType === 'group' ) &&
-                    <div
-                      className="members-count"
-                      onClick={::this.handleRightSideDrawerToggleEvent}
-                      title="View Members List"
-                    >
-                      <div className="user-icon">
-                        <FontAwesomeIcon icon={["far", "user"]} />
-                      </div>
-                      {formatNumber(member.all.length)}
+            {
+              ! loading &&
+              ! activeChatRoomEmpty &&
+              ! member.fetch.loading &&
+              member.fetch.success &&
+              <div className="chat-room-info">
+                {
+                  ( activeChatRoom.data.chatType === 'public' ||
+                  activeChatRoom.data.chatType === 'group' ) &&
+                  <div
+                    className="members-count"
+                    onClick={::this.handleRightSideDrawerToggleEvent}
+                    title="View Members List"
+                  >
+                    <div className="user-icon">
+                      <FontAwesomeIcon icon={["far", "user"]} />
                     </div>
-                  }
-                  {
-                    activeChatRoom.data.chatType === 'direct' &&
-                    <div className="online-indicator-wrapper">
-                      <OnlineIndicator isOnline={isOtherMemberOnline} />
-                      {isOtherMemberOnline ? 'online' : 'offline'}
-                    </div>
-                  }
-                  {
-                    activeChatRoom.data.chatType === 'private' &&
-                    <div className="online-indicator-wrapper">
-                      <OnlineIndicator isOnline />
-                      online
-                    </div>
-                  }
-                </React.Fragment>
-              }
-            </div>
+                    {formatNumber(member.all.length)}
+                  </div>
+                }
+                {
+                  activeChatRoom.data.chatType === 'direct' &&
+                  <div className="online-indicator-wrapper">
+                    <OnlineIndicator isOnline={isOtherMemberOnline} />
+                    {isOtherMemberOnline ? 'online' : 'offline'}
+                  </div>
+                }
+                {
+                  activeChatRoom.data.chatType === 'private' &&
+                  <div className="online-indicator-wrapper">
+                    <OnlineIndicator isOnline />
+                    online
+                  </div>
+                }
+              </div>
+            }
           </div>
         </div>
       </div>
