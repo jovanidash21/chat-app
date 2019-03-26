@@ -21,6 +21,7 @@ import {
   UserSelect,
   AvatarUploader
 } from '../../../../components/Form';
+import './styles.scss';
 
 class ChatRoomForm extends Component {
   constructor(props) {
@@ -429,29 +430,29 @@ class ChatRoomForm extends Component {
                   </Col>
                   <Col md="4">
                     <Panel>
-                      {
-                        loading
-                          ?
-                          <div className="avatar-uploader-wrapper">
+                      <div className="avatar-wrapper">
+                        {
+                          loading
+                            ?
                             <Skeleton
                               className="avatar"
                               height="120px"
                               width="120px"
                               circle
                             />
-                          </div>
-                          :
-                          <AvatarUploader
-                            imageLink={chatIcon}
-                            defaultImageLink="https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg"
-                            name={name}
-                            roleChatType={handleChatRoomAvatarBadges(selectedChatRoom, {}, 'role-chat')}
-                            accountType={handleChatRoomAvatarBadges(selectedChatRoom)}
-                            handleImageUpload={::this.handleImageUpload}
-                            handleRemoveImage={::this.handleRemoveImage}
-                            disabled={disabled}
-                          />
-                      }
+                            :
+                            <AvatarUploader
+                              imageLink={chatIcon}
+                              defaultImageLink="https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg"
+                              name={name}
+                              roleChatType={handleChatRoomAvatarBadges(selectedChatRoom, {}, 'role-chat')}
+                              accountType={handleChatRoomAvatarBadges(selectedChatRoom)}
+                              handleImageUpload={::this.handleImageUpload}
+                              handleRemoveImage={::this.handleRemoveImage}
+                              disabled={disabled}
+                            />
+                        }
+                      </div>
                     </Panel>
                   </Col>
                 </Row>

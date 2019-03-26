@@ -21,6 +21,7 @@ import {
   AvatarUploader
 } from '../../../../components/Form';
 import { PasswordInput } from '../../../components/Form';
+import './styles.scss';
 
 class UserForm extends Component {
   constructor(props) {
@@ -401,28 +402,28 @@ class UserForm extends Component {
                   </Col>
                   <Col md="4">
                     <Panel>
-                      {
-                        loading
-                          ?
-                          <div className="avatar-uploader-wrapper">
+                      <div className="avatar-wrapper">
+                        {
+                          loading
+                            ?
                             <Skeleton
                               className="avatar"
                               height="120px"
                               width="120px"
                               circle
                             />
-                          </div>
-                          :
-                          <AvatarUploader
-                            imageLink={profilePicture}
-                            name={name}
-                            roleChatType={role}
-                            accountType={selectedUser.accountType}
-                            handleImageUpload={::this.handleImageUpload}
-                            handleRemoveImage={::this.handleRemoveImage}
-                            disabled={disabled}
-                          />
-                      }
+                            :
+                            <AvatarUploader
+                              imageLink={profilePicture}
+                              name={name}
+                              roleChatType={role}
+                              accountType={selectedUser.accountType}
+                              handleImageUpload={::this.handleImageUpload}
+                              handleRemoveImage={::this.handleRemoveImage}
+                              disabled={disabled}
+                            />
+                        }
+                      </div>
                     </Panel>
                   </Col>
                 </Row>
