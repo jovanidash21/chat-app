@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
@@ -32,9 +32,9 @@ const CardBanner = (props) => {
     )
   } else {
     return (
-      <React.Fragment>
+      <Fragment>
         {cardBannerComponent}
-      </React.Fragment>
+      </Fragment>
     )
   }
 }

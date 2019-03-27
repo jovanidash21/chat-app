@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Container } from 'muicss/react';
@@ -207,7 +207,7 @@ class ChatBox extends Component {
       }
 
       return (
-        <React.Fragment>
+        <Fragment>
           {
             isImageLightboxOpen &&
             <ChatImageLightBox
@@ -218,7 +218,7 @@ class ChatBox extends Component {
               handleNextImage={::this.handleNextImage}
             />
           }
-        </React.Fragment>
+        </Fragment>
       )
     }
   }

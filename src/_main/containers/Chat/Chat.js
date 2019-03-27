@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import Popup from 'react-popup';
@@ -383,7 +383,7 @@ class Chat extends Component {
         </div>
         {
           ! loading &&
-          <React.Fragment>
+          <Fragment>
             {
               ! isAudioRecorderOpen
                 ?
@@ -404,7 +404,7 @@ class Chat extends Component {
                   handleSendAudioMessage={::this.handleSendAudioMessage}
                 />
             }
-          </React.Fragment>
+          </Fragment>
         }
         <MediaQuery query="(max-width: 767px)">
           {(matches) => {

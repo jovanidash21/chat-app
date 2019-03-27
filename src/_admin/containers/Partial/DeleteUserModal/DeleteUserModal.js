@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -92,7 +92,7 @@ class DeleteUserModal extends Component {
             {
               loading
                 ?
-                <React.Fragment>
+                <Fragment>
                   {
                     Array.from(Array(2).keys()).map((i) =>
                       <p key={i}>
@@ -103,16 +103,16 @@ class DeleteUserModal extends Component {
                       </p>
                     )
                   }
-                </React.Fragment>
+                </Fragment>
                 :
-                <React.Fragment>
+                <Fragment>
                   <p>
                     <span className="user-name mui--text-danger">{selectedUser.name}</span>&nbsp;
                     will be deleted. This will permanently delete all of his/her
                     messages including all the private/direct chat rooms.
                   </p>
                   <p>This action cannot be undone. Are you sure you want to delete this user?</p>
-                </React.Fragment>
+                </Fragment>
             }
 
           </Modal.Body>
@@ -120,7 +120,7 @@ class DeleteUserModal extends Component {
             {
               loading
                 ?
-                <React.Fragment>
+                <Fragment>
                   {
                     Array.from(Array(2).keys()).map((i) =>
                       <Skeleton
@@ -131,9 +131,9 @@ class DeleteUserModal extends Component {
                       />
                     )
                   }
-                </React.Fragment>
+                </Fragment>
                 :
-                <React.Fragment>
+                <Fragment>
                   <Button
                     className="button button-default"
                     onClick={handleCloseModal}
@@ -148,7 +148,7 @@ class DeleteUserModal extends Component {
                   >
                     Yes, Delete User
                   </Button>
-                </React.Fragment>
+                </Fragment>
             }
           </Modal.Footer>
         </Form>

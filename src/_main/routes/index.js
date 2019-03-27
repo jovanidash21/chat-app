@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Switch } from 'react-router';
 import LoadingBar from 'react-redux-loading-bar';
 import Popup from 'react-popup';
@@ -13,7 +13,7 @@ import '../../styles/Common.scss';
 import '../styles/Common.scss';
 
 const routes = (
-  <React.Fragment>
+  <Fragment>
     <LoadingBar className="loading-bar" />
     <Popup />
     <Switch>
@@ -22,7 +22,7 @@ const routes = (
       <Layout exact path="/chat" component={Chat} />
       <Layout path="*" component={NotFound} title="Page not found" />
     </Switch>
-  </React.Fragment>
+  </Fragment>
 );
 
 export default routes;

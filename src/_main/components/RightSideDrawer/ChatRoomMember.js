@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -56,7 +56,7 @@ class ChatRoomMember extends Component {
         <div className="member-options-button">
           {
             user._id !== chatRoomMember._id &&
-            <React.Fragment>
+            <Fragment>
               <div className="ellipsis-icon" data-mui-toggle="dropdown">
                 <FontAwesomeIcon icon="ellipsis-v" />
               </div>
@@ -76,7 +76,7 @@ class ChatRoomMember extends Component {
                   }}
                 </MediaQuery>
               </ul>
-            </React.Fragment>
+            </Fragment>
           }
         </div>
       </div>

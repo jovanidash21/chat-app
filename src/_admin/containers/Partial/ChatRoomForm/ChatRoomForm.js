@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -345,7 +345,7 @@ class ChatRoomForm extends Component {
                       {
                         loading
                           ?
-                          <React.Fragment>
+                          <Fragment>
                             <Skeleton
                               className="mui-textfield"
                               height="47px"
@@ -373,9 +373,9 @@ class ChatRoomForm extends Component {
                               height="36px"
                               width="146px"
                             />
-                          </React.Fragment>
+                          </Fragment>
                           :
-                          <React.Fragment>
+                          <Fragment>
                             {
                               mode === 'create' &&
                               <Select
@@ -424,7 +424,7 @@ class ChatRoomForm extends Component {
                                   : 'Update Chat Room'
                               }
                             </Button>
-                          </React.Fragment>
+                          </Fragment>
                       }
                     </Panel>
                   </Col>

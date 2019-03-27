@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
@@ -185,7 +185,7 @@ class MembersList extends Component {
             {
               loading
                 ?
-                <React.Fragment>
+                <Fragment>
                   <Skeleton
                     className="user-icon"
                     height="30px"
@@ -195,9 +195,9 @@ class MembersList extends Component {
                     height="28px"
                     width="110px"
                   />
-                </React.Fragment>
+                </Fragment>
                 :
-                <React.Fragment>
+                <Fragment>
                   <div className="user-icon">
                     <FontAwesomeIcon icon={["far", "user"]} size="2x" />
                   </div>
@@ -205,13 +205,13 @@ class MembersList extends Component {
                     {formatNumber(member.all.length)}&nbsp;
                     {member.all.length > 1 ? 'Members' : 'Member'}
                   </h3>
-                </React.Fragment>
+                </Fragment>
             }
           </div>
           <MediaQuery query="(max-width: 767px)">
             {(matches) => {
               return (
-                <React.Fragment>
+                <Fragment>
                   {
                     loading
                       ?
@@ -230,7 +230,7 @@ class MembersList extends Component {
                         light
                       />
                   }
-                </React.Fragment>
+                </Fragment>
               )
             }}
           </MediaQuery>
@@ -241,7 +241,7 @@ class MembersList extends Component {
           >
             {
               loading &&
-              <React.Fragment>
+              <Fragment>
                 {
                   Array.from(Array(2).keys()).map((i) =>
                     <div
@@ -267,7 +267,7 @@ class MembersList extends Component {
                     </div>
                   )
                 }
-              </React.Fragment>
+              </Fragment>
             }
             {
               ! loading &&

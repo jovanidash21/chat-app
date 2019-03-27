@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
@@ -170,7 +170,7 @@ class ChatRoomsList extends Component {
             {
               loading
                 ?
-                <React.Fragment>
+                <Fragment>
                   <Skeleton
                     className="door-icon"
                     height="30px"
@@ -180,9 +180,9 @@ class ChatRoomsList extends Component {
                     height="28px"
                     width="110px"
                   />
-                </React.Fragment>
+                </Fragment>
                 :
-                <React.Fragment>
+                <Fragment>
                   <div className="door-icon">
                     <FontAwesomeIcon icon="door-closed" size="2x" />
                   </div>
@@ -193,13 +193,13 @@ class ChatRoomsList extends Component {
                   >
                     <FontAwesomeIcon icon="plus" />
                   </div>
-                </React.Fragment>
+                </Fragment>
             }
           </div>
           <MediaQuery query="(max-width: 767px)">
             {(matches) => {
               return (
-                <React.Fragment>
+                <Fragment>
                   {
                     loading
                       ?
@@ -218,7 +218,7 @@ class ChatRoomsList extends Component {
                         light
                       />
                   }
-                </React.Fragment>
+                </Fragment>
               )
             }}
           </MediaQuery>
@@ -229,7 +229,7 @@ class ChatRoomsList extends Component {
           >
             {
               loading &&
-              <React.Fragment>
+              <Fragment>
                 {
                   Array.from(Array(2).keys()).map((i) =>
                     <div
@@ -249,7 +249,7 @@ class ChatRoomsList extends Component {
                     </div>
                   )
                 }
-              </React.Fragment>
+              </Fragment>
             }
             {
               ! loading &&

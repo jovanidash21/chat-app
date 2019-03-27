@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Switch } from 'react-router';
 import LoadingBar from 'react-redux-loading-bar';
 import Popup from 'react-popup';
@@ -16,7 +16,7 @@ import '../../styles/Common.scss';
 import '../styles/Common.scss';
 
 const routes = (
-  <React.Fragment>
+  <Fragment>
     <LoadingBar className="loading-bar" />
     <Popup />
     <Switch>
@@ -29,7 +29,7 @@ const routes = (
       <Layout exact path="/edit-chat-room/:chatRoomID" component={EditChatRoom} title="Edit Chat Room" />
       <Layout path="*" component={NotFound} title="Chat App | Page not found" />
     </Switch>
-  </React.Fragment>
+  </Fragment>
 );
 
 export default routes;

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -31,7 +31,7 @@ class MenuItem extends Component {
     } = this.props;
 
     return (
-      <React.Fragment>
+      <Fragment>
         <div
           className={
             "menu-item " +
@@ -59,7 +59,7 @@ class MenuItem extends Component {
             {children}
           </div>
         }
-      </React.Fragment>
+      </Fragment>
     )
   }
   handleOpenMenuItem(event) {

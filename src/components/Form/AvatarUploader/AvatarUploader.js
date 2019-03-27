@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -55,7 +55,7 @@ class AvatarUploader extends Component {
             <MediaQuery query="(max-width: 767px)">
               {(matches) => {
                 return (
-                  <React.Fragment>
+                  <Fragment>
                     <label
                       htmlFor="avatar-uploader-button"
                       className={
@@ -100,7 +100,7 @@ class AvatarUploader extends Component {
                         Remove
                       </Button>
                     }
-                  </React.Fragment>
+                  </Fragment>
                 )
               }}
             </MediaQuery>

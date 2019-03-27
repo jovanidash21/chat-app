@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -93,7 +93,7 @@ class DeleteChatRoomModal extends Component {
             {
               loading
                 ?
-                <React.Fragment>
+                <Fragment>
                   {
                     Array.from(Array(2).keys()).map((i) =>
                       <p key={i}>
@@ -104,22 +104,22 @@ class DeleteChatRoomModal extends Component {
                       </p>
                     )
                   }
-                </React.Fragment>
+                </Fragment>
                 :
-                <React.Fragment>
+                <Fragment>
                   <p>
                     <span className="chatRoom-name mui--text-danger">{selectedChatRoom.name}</span>&nbsp;
                     will be deleted. This will permanently delete all of messages on the chat room.
                   </p>
                   <p>This action cannot be undone. Are you sure you want to delete this chat room?</p>
-                </React.Fragment>
+                </Fragment>
             }
           </Modal.Body>
           <Modal.Footer>
             {
               loading
                 ?
-                <React.Fragment>
+                <Fragment>
                   {
                     Array.from(Array(2).keys()).map((i) =>
                       <Skeleton
@@ -130,9 +130,9 @@ class DeleteChatRoomModal extends Component {
                       />
                     )
                   }
-                </React.Fragment>
+                </Fragment>
                 :
-                <React.Fragment>
+                <Fragment>
                   <Button
                     className="button button-default"
                     onClick={handleCloseModal}
@@ -147,7 +147,7 @@ class DeleteChatRoomModal extends Component {
                   >
                     Yes, Delete ChatRoom
                   </Button>
-                </React.Fragment>
+                </Fragment>
             }
           </Modal.Footer>
         </Form>

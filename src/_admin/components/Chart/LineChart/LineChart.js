@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Panel } from 'muicss/react';
 import {
@@ -31,7 +31,7 @@ class LineChartComponent extends Component {
         <div className="line-chart-wrapper">
           {
             title.length > 0 &&
-            <React.Fragment>
+            <Fragment>
               {
                 loading
                   ?
@@ -45,7 +45,7 @@ class LineChartComponent extends Component {
                     {title}
                   </div>
               }
-            </React.Fragment>
+            </Fragment>
           }
           {
             loading

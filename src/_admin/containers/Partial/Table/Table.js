@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -242,7 +242,7 @@ class Table extends Component {
                 {
                   loading &&
                   columns.length > 0 &&
-                  <React.Fragment>
+                  <Fragment>
                     {
                       Array.from(Array(10).keys()).map((i) =>
                         <tr key={i} className="table-row">
@@ -288,7 +288,7 @@ class Table extends Component {
                         </tr>
                       )
                     }
-                  </React.Fragment>
+                  </Fragment>
                 }
                 {
                   ! loading &&

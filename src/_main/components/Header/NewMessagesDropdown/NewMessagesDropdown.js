@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ChatRoom } from './ChatRoom';
@@ -51,7 +51,7 @@ class NewMessagesDropdown extends Component {
           {
             chatRooms.length > 0
               ?
-              <React.Fragment>
+              <Fragment>
                 <div className="clear-all-button" onClick={::this.handleClearChatRoomUnreadMessages}>
                   <div
                     className="trash-icon"
@@ -77,7 +77,7 @@ class NewMessagesDropdown extends Component {
                     )
                   }
                 </div>
-              </React.Fragment>
+              </Fragment>
               :
               <div className="no-new-messages">
                 No New Messages

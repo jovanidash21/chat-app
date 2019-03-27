@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -313,7 +313,7 @@ class UserForm extends Component {
                       {
                         loading
                           ?
-                          <React.Fragment>
+                          <Fragment>
                             {
                               Array.from(Array(4).keys()).map((i) =>
                                 <Skeleton
@@ -324,9 +324,9 @@ class UserForm extends Component {
                                 />
                               )
                             }
-                          </React.Fragment>
+                          </Fragment>
                           :
-                          <React.Fragment>
+                          <Fragment>
                             <Input
                               value={username}
                               label="Username"
@@ -364,7 +364,7 @@ class UserForm extends Component {
                               <Option value="ordinary" label="Ordinary" />
                               <Option value="admin" label="Admin" />
                             </Select>
-                          </React.Fragment>
+                          </Fragment>
                       }
                       {
                         ! loading &&

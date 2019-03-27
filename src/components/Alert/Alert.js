@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import './styles.scss';
 
 const Alert = (props) => {
   return (
-    <React.Fragment>
+    <Fragment>
       {
         props.label.length > 0 &&
         <div className={
@@ -16,7 +16,7 @@ const Alert = (props) => {
           {props.label}
         </div>
       }
-    </React.Fragment>
+    </Fragment>
   );
 }
 
