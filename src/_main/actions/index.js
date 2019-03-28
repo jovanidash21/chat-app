@@ -8,16 +8,16 @@ import {
   instagramLogin,
   linkedinLogin,
   githubLogin,
-  register
+  register,
 } from './auth';
 import {
   fetchActiveUser,
   editActiveUser,
-  searchUser
+  searchUser,
 } from './user';
 import {
   isTyping,
-  isNotTyping
+  isNotTyping,
 } from './typer';
 import {
   changeChatRoom,
@@ -25,29 +25,29 @@ import {
   createDirectChatRoom,
   clearChatRoomUnreadMessages,
   muteChatRoom,
-  unmuteChatRoom
+  unmuteChatRoom,
 } from './chat-room';
 import {
   openPopUpChatRoom,
-  closePopUpChatRoom
+  closePopUpChatRoom,
 } from './popup-chat-room';
 import {
   fetchOldMessages,
   sendTextMessage,
   sendFileMessage,
   sendAudioMessage,
-  deleteMessage
+  deleteMessage,
 } from './message';
 import {
   requestVideoCall,
   cancelRequestVideoCall,
   rejectVideoCall,
   acceptVideoCall,
-  endVideoCall
+  endVideoCall,
 } from './video-call';
 import { uploadImage } from './upload';
 
-const actions = (dispatch) => {
+const actions = ( dispatch ) => {
   return bindActionCreators({
     socketUserLogin,
     localLogin,
@@ -81,7 +81,7 @@ const actions = (dispatch) => {
     rejectVideoCall,
     acceptVideoCall,
     endVideoCall,
-    uploadImage
+    uploadImage,
   }, dispatch);
 }
 

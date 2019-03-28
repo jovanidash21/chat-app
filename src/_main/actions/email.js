@@ -3,23 +3,24 @@ import { SEND_EMAIL } from '../constants/email';
 
 /**
  * Send email
+ *
  * @param {string} email
  * @param {string} name
  */
-export function sendEmail(email, name) {
+export function sendEmail( email, name ) {
   let data = {
-    email,
-    name,
+    email: email,
+    name: name,
   };
 
   return dispatch => {
     return dispatch({
       type: SEND_EMAIL,
-      payload: axios.post('email', data)
+      payload: axios.post( 'email', data ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }

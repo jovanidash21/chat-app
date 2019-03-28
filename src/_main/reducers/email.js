@@ -4,22 +4,22 @@ const commonStateFlags = {
   loading: false,
   success: false,
   error: false,
-  message: ''
+  message: '',
 };
 
 const initialState = {
-  send: {...commonStateFlags}
+  send: { ...commonStateFlags },
 };
 
-const email = (state=initialState, action) => {
+const email = ( state=initialState, action ) => {
   switch(action.type) {
     case `${SEND_EMAIL}_LOADING`:
       return {
         ...state,
         send: {
           ...state.send,
-          loading: true
-        }
+          loading: true,
+        },
       };
     case `${SEND_EMAIL}_SUCCESS`:
       return {

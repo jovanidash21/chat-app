@@ -5,30 +5,31 @@ import {
   SEND_MESSAGE,
   SOCKET_SEND_MESSAGE,
   DELETE_MESSAGE,
-  SOCKET_DELETE_MESSAGE
+  SOCKET_DELETE_MESSAGE,
 } from '../constants/message';
 
 /**
  * Fetch new messages
+ *
  * @param {string} chatRoomID
  * @param {string} userID
  */
-export function fetchNewMessages(chatRoomID, userID) {
+export function fetchNewMessages( chatRoomID, userID ) {
   let data = {
     chatRoomID: chatRoomID,
     userID: userID,
-    skipCount: 0
+    skipCount: 0,
   };
 
   return dispatch => {
     return dispatch({
       type: FETCH_NEW_MESSAGES,
-      payload: axios.post('message', data),
-      meta: chatRoomID
+      payload: axios.post( 'message', data ),
+      meta: chatRoomID,
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -36,11 +37,12 @@ export function fetchNewMessages(chatRoomID, userID) {
 
 /**
  * Fetch old messages
+ *
  * @param {string} chatRoomID
  * @param {string} userID
  * @param {number} skipCount
  */
-export function fetchOldMessages(chatRoomID, userID, skipCount) {
+export function fetchOldMessages( chatRoomID, userID, skipCount ) {
   let data = {
     chatRoomID: chatRoomID,
     userID: userID,
@@ -50,12 +52,12 @@ export function fetchOldMessages(chatRoomID, userID, skipCount) {
   return dispatch => {
     return dispatch({
       type: FETCH_OLD_MESSAGES,
-      payload: axios.post('message', data),
-      meta: chatRoomID
+      payload: axios.post( 'message', data ),
+      meta: chatRoomID,
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -63,12 +65,13 @@ export function fetchOldMessages(chatRoomID, userID, skipCount) {
 
 /**
  * Send text message
+ *
  * @param {string} newMessageID
  * @param {string} text
  * @param {Object} user
  * @param {string} chatRoomID
  */
-export function sendTextMessage(newMessageID, text, user, chatRoomID) {
+export function sendTextMessage( newMessageID, text, user, chatRoomID ) {
   let data = {
     text: text,
     userID: user._id,
@@ -81,7 +84,7 @@ export function sendTextMessage(newMessageID, text, user, chatRoomID) {
     name: user.name,
     profilePicture: user.profilePicture,
     role: user.role,
-    accountType: user.accountType
+    accountType: user.accountType,
   };
 
   return dispatch => {
@@ -89,29 +92,29 @@ export function sendTextMessage(newMessageID, text, user, chatRoomID) {
       type: SEND_MESSAGE,
       message: {
         _id: newMessageID,
-        createdAt: (new Date()).toString(),
+        createdAt: ( new Date() ).toString(),
         text: text,
         user: messageUser,
         chatRoom: chatRoomID,
         messageType: 'text',
-        isSending: true
+        isSending: true,
       }
     });
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post('message/text', data),
-      meta: newMessageID
+      payload: axios.post( 'message/text', data ),
+      meta: newMessageID,
     })
-    .then((response) => {
+    .then(( response ) => {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
-        chatRoomID: chatRoomID
+        chatRoomID: chatRoomID,
       });
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -119,13 +122,14 @@ export function sendTextMessage(newMessageID, text, user, chatRoomID) {
 
 /**
  * Send file message
+ *
  * @param {string} newMessageID
  * @param {string} text
  * @param {Object} file
  * @param {Object} user
  * @param {string} chatRoomID
  */
-export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
+export function sendFileMessage( newMessageID, text, file, user, chatRoomID ) {
   let data = new FormData();
   data.append('text', text);
   data.append('file', file);
@@ -138,7 +142,7 @@ export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
     name: user.name,
     profilePicture: user.profilePicture,
     role: user.role,
-    accountType: user.accountType
+    accountType: user.accountType,
   };
 
   let config = {
@@ -147,7 +151,7 @@ export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
     }
   };
 
-  var messageType = 'file';
+  let messageType = 'file';
 
   if ( file.type.indexOf('image/') > -1 ) {
     messageType = 'image';
@@ -164,25 +168,25 @@ export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
         chatRoom: chatRoomID,
         messageType: messageType,
         fileLink: '',
-        isSending: true
-      }
+        isSending: true,
+      },
     });
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post('message/file', data, config),
-      meta: newMessageID
+      payload: axios.post( 'message/file', data, config ),
+      meta: newMessageID,
     })
-    .then((response) => {
+    .then(( response ) => {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
-        chatRoomID: chatRoomID
+        chatRoomID: chatRoomID,
       });
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -190,13 +194,14 @@ export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
 
 /**
  * Send audio message
+ *
  * @param {string} newMessageID
  * @param {string} text
  * @param {Object} audioBlob
  * @param {Object} user
  * @param {string} chatRoomID
  */
-export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID) {
+export function sendAudioMessage( newMessageID, text, audioBlob, user, chatRoomID ) {
   let audio = new Blob([audioBlob], {type: "audio/webm"});
 
   let data = new FormData();
@@ -211,7 +216,7 @@ export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID
     name: user.name,
     profilePicture: user.profilePicture,
     role: user.role,
-    accountType: user.accountType
+    accountType: user.accountType,
   };
 
   let config = {
@@ -225,31 +230,31 @@ export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID
       type: SEND_MESSAGE,
       message: {
         _id: newMessageID,
-        createdAt: (new Date()).toString(),
+        createdAt: ( new Date() ).toString(),
         text: text,
         user: messageUser,
         chatRoom: chatRoomID,
         messageType: 'audio',
         fileLink: '',
-        isSending: true
-      }
+        isSending: true,
+      },
     });
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post('message/audio', data, config),
-      meta: newMessageID
+      payload: axios.post( 'message/audio', data, config ),
+      meta: newMessageID,
     })
-    .then((response) => {
+    .then(( response ) => {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
-        chatRoomID: chatRoomID
+        chatRoomID: chatRoomID,
       });
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -257,34 +262,35 @@ export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID
 
 /**
  * Delete message
+ *
  * @param {string} messageID
  * @param {string} chatRoomID
  */
-export function deleteMessage(messageID, chatRoomID) {
+export function deleteMessage( messageID, chatRoomID ) {
   let data = {
     messageID,
-    chatRoomID
+    chatRoomID,
   };
 
   return dispatch => {
     return dispatch({
       type: DELETE_MESSAGE,
-      payload: axios.post('message/delete', data),
+      payload: axios.post( 'message/delete', data ),
       meta: {
         messageID: messageID,
-        chatRoomID: chatRoomID
-      }
+        chatRoomID: chatRoomID,
+      },
     })
-    .then((response) => {
+    .then(( response ) => {
       dispatch({
         type: SOCKET_DELETE_MESSAGE,
         messageID: messageID,
-        chatRoomID: chatRoomID
+        chatRoomID: chatRoomID,
       });
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }

@@ -8,26 +8,29 @@ import {
   SOCKET_LEAVE_CHAT_ROOM,
   CLEAR_CHAT_ROOM_UNREAD_MESSAGES,
   MUTE_CHAT_ROOM,
-  UNMUTE_CHAT_ROOM
+  UNMUTE_CHAT_ROOM,
 } from '../constants/chat-room';
 import { fetchNewMessages } from './message';
 import { fetchMembers } from './member';
 
 /**
  * Fetch chat rooms
+ *
  * @param {string} userID
  */
-export function fetchChatRooms(userID) {
-  let data = { userID };
+export function fetchChatRooms( userID ) {
+  let data = {
+    userID: userID,
+  };
 
   return dispatch => {
     return dispatch({
       type: FETCH_CHAT_ROOMS,
-      payload: axios.post('chat-room', data)
+      payload: axios.post( 'chat-room', data ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -35,58 +38,52 @@ export function fetchChatRooms(userID) {
 
 /**
  * Change chat room
+ *
  * @param {Object} chatRoom
  * @param {string} userID
  * @param {string} activeChatRoomID
  */
-export function changeChatRoom(chatRoom, userID, activeChatRoomID) {
+export function changeChatRoom( chatRoom, userID, activeChatRoomID ) {
   return dispatch => {
     dispatch({
       type: CHANGE_CHAT_ROOM,
-      chatRoom: chatRoom
+      chatRoom: chatRoom,
     });
-    dispatch(leaveChatRoom(activeChatRoomID));
-    dispatch(joinChatRoom(chatRoom.data._id));
-    dispatch(fetchNewMessages(chatRoom.data._id, userID));
-    dispatch(fetchMembers(chatRoom.data._id, userID));
+    dispatch( leaveChatRoom( activeChatRoomID ) );
+    dispatch( joinChatRoom( chatRoom.data._id ) );
+    dispatch( fetchNewMessages( chatRoom.data._id, userID ) );
+    dispatch( fetchMembers( chatRoom.data._id, userID ) );
   }
 }
 
 /**
  * Create chat room
+ *
  * @param {string} userID
  * @param {Object} chatRoom
  * @param {string} activeChatRoomID
  * @param {boolean} noChangeChatRoom
  */
-function createChatRoom(userID, chatRoom, activeChatRoomID, noChangeChatRoom=false) {
+function createChatRoom( userID, chatRoom, activeChatRoomID, noChangeChatRoom = false ) {
   return dispatch => {
-    var chatRoomBroadcast = {...chatRoom};
-    var membersBroadcast = chatRoomBroadcast.data.members.slice();
-    var index = -1;
+    let chatRoomBroadcast = { ...chatRoom };
+    let membersBroadcast = chatRoomBroadcast.data.members.slice();
 
-    for (var i = 0; i < membersBroadcast.length; i++) {
-      var member = membersBroadcast[i];
+    const userIndex = membersBroadcast.findIndex(singleMember => {
+      return singleMember._id === userID;
+    });
 
-      if (member._id == userID) {
-        index = i;
-        break;
-      } else {
-        continue;
-      }
+    if ( userIndex > -1 ) {
+    	membersBroadcast.splice( userIndex, 1 );
     }
 
-    if ( index != -1 ) {
-    	membersBroadcast.splice(index, 1);
-    }
+    let chatRoomData = { ...chatRoom.data };
 
-    var chatRoomData = {...chatRoom.data};
+    if ( chatRoom.data.chatType === 'direct' ) {
+      for ( let j = 0; j < chatRoom.data.members.length; j++ ) {
+        const member = chatRoom.data.members[j];
 
-    if (chatRoom.data.chatType === 'direct') {
-      for (var j = 0; j < chatRoom.data.members.length; j++) {
-        var member = chatRoom.data.members[j];
-
-        if (member._id != userID) {
+        if ( member._id != userID ) {
           chatRoomData.name = member.name;
           chatRoomData.chatIcon = member.profilePicture;
         } else {
@@ -102,40 +99,41 @@ function createChatRoom(userID, chatRoom, activeChatRoomID, noChangeChatRoom=fal
       type: SOCKET_CREATE_CHAT_ROOM,
       chatRoom: chatRoom,
       chatRoomBroadcast: chatRoomBroadcast,
-      members: membersBroadcast
+      members: membersBroadcast,
     });
 
     if ( ! noChangeChatRoom ) {
-      dispatch(changeChatRoom(chatRoom, userID, activeChatRoomID));
+      dispatch( changeChatRoom( chatRoom, userID, activeChatRoomID ) );
     }
   }
 }
 
 /**
  * Create group chat room
+ *
  * @param {string} name
  * @param {Array} members
  * @param {string} userID
  * @param {string} activeChatRoomID
  */
-export function createGroupChatRoom(name, members, userID, activeChatRoomID) {
+export function createGroupChatRoom( name, members, userID, activeChatRoomID ) {
   let data = {
     chatType: 'group',
-    name,
-    members
+    name: name,
+    members: members,
   };
 
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post('chat-room/create', data)
+      payload: axios.post( 'chat-room/create', data ),
     })
-    .then((response) => {
-      dispatch(createChatRoom(userID, response.action.payload.data.chatRoom, activeChatRoomID));
+    .then(( response ) => {
+      dispatch( createChatRoom( userID, response.action.payload.data.chatRoom, activeChatRoomID ) );
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -143,12 +141,13 @@ export function createGroupChatRoom(name, members, userID, activeChatRoomID) {
 
 /**
  * Create direct chat room
+ *
  * @param {string} userID
  * @param {string} memberID
  * @param {string} activeChatRoomID
  * @param {boolean} noChangeChatRoom
  */
-export function createDirectChatRoom(userID, memberID, activeChatRoomID, noChangeChatRoom=false) {
+export function createDirectChatRoom( userID, memberID, activeChatRoomID, noChangeChatRoom = false ) {
   let data = {
     chatType: 'direct',
     name: '',
@@ -158,18 +157,18 @@ export function createDirectChatRoom(userID, memberID, activeChatRoomID, noChang
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post('chat-room/create', data)
+      payload: axios.post( 'chat-room/create', data ),
     })
-    .then((response) => {
+    .then(( response ) => {
       const chatRoom = response.action.payload.data.chatRoom;
 
-      dispatch(createChatRoom(userID, chatRoom, activeChatRoomID, noChangeChatRoom));
+      dispatch( createChatRoom( userID, chatRoom, activeChatRoomID, noChangeChatRoom ) );
 
       return chatRoom;
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -177,45 +176,48 @@ export function createDirectChatRoom(userID, memberID, activeChatRoomID, noChang
 
 /**
  * Socket join chat room
+ *
  * @param {string} chatRoomID
  */
-export function joinChatRoom(chatRoomID) {
+export function joinChatRoom( chatRoomID ) {
   return {
     type: SOCKET_JOIN_CHAT_ROOM,
-    chatRoomID: chatRoomID
+    chatRoomID: chatRoomID,
   };
 }
 
 /**
  * Socket leave chat room
+ *
  * @param {string} chatRoomID
  */
-export function leaveChatRoom(chatRoomID) {
+export function leaveChatRoom( chatRoomID ) {
   return {
     type: SOCKET_LEAVE_CHAT_ROOM,
-    chatRoomID: chatRoomID
+    chatRoomID: chatRoomID,
   };
 }
 
 /**
  * Clear chat room unread messages
+ *
  * @param {string} userID
  * @param {Array} chatRoomIDs
  */
-export function clearChatRoomUnreadMessages(userID, chatRoomIDs) {
+export function clearChatRoomUnreadMessages( userID, chatRoomIDs ) {
   let data = {
-    userID,
-    chatRoomIDs
+    userID: userID,
+    chatRoomIDs: chatRoomIDs,
   };
 
   return dispatch => {
     return dispatch({
       type: CLEAR_CHAT_ROOM_UNREAD_MESSAGES,
-      payload: axios.post('chat-room/clear-unread', data)
+      payload: axios.post( 'chat-room/clear-unread', data ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -223,23 +225,24 @@ export function clearChatRoomUnreadMessages(userID, chatRoomIDs) {
 
 /**
  * Mute chat room
+ *
  * @param {string} userID
  * @param {string} chatRoomID
  */
-export function muteChatRoom(userID, chatRoomID) {
+export function muteChatRoom( userID, chatRoomID ) {
   let data = {
-    userID,
-    chatRoomID
+    userID: userID,
+    chatRoomID: chatRoomID,
   };
 
   return dispatch => {
     return dispatch({
       type: MUTE_CHAT_ROOM,
-      payload: axios.post('chat-room/mute', data)
+      payload: axios.post( 'chat-room/mute', data ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -247,23 +250,24 @@ export function muteChatRoom(userID, chatRoomID) {
 
 /**
  * Unmute chat room
+ *
  * @param {string} userID
  * @param {string} chatRoomID
  */
 export function unmuteChatRoom(userID, chatRoomID) {
   let data = {
-    userID,
-    chatRoomID
+    userID: userID,
+    chatRoomID: chatRoomID,
   };
 
   return dispatch => {
     return dispatch({
       type: UNMUTE_CHAT_ROOM,
-      payload: axios.post('chat-room/unmute', data)
+      payload: axios.post( 'chat-room/unmute', data ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
