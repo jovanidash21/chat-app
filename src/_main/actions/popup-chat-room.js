@@ -59,7 +59,7 @@ export function closePopUpChatRoom( chatRoomID ) {
   return dispatch => {
     dispatch({
       type: CLOSE_POPUP_CHAT_ROOM,
-      chatRoomID: chatRoomID,
+      chatRoomID,
     });
     dispatch( leaveChatRoom( chatRoomID ) );
   }

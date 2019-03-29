@@ -9,8 +9,8 @@ import { FETCH_MEMBERS } from '../constants/member';
  */
 export function fetchMembers( chatRoomID, userID ) {
   let data = {
-    chatRoomID: chatRoomID,
-    userID: userID,
+    chatRoomID,
+    userID,
   };
 
   return dispatch => {

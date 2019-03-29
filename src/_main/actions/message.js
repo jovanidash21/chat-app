@@ -16,8 +16,8 @@ import {
  */
 export function fetchNewMessages( chatRoomID, userID ) {
   let data = {
-    chatRoomID: chatRoomID,
-    userID: userID,
+    chatRoomID,
+    userID,
     skipCount: 0,
   };
 
@@ -44,9 +44,9 @@ export function fetchNewMessages( chatRoomID, userID ) {
  */
 export function fetchOldMessages( chatRoomID, userID, skipCount ) {
   let data = {
-    chatRoomID: chatRoomID,
-    userID: userID,
-    skipCount: skipCount
+    chatRoomID,
+    userID,
+    skipCount,
   };
 
   return dispatch => {
@@ -73,9 +73,9 @@ export function fetchOldMessages( chatRoomID, userID, skipCount ) {
  */
 export function sendTextMessage( newMessageID, text, user, chatRoomID ) {
   let data = {
-    text: text,
+    text,
     userID: user._id,
-    chatRoomID: chatRoomID,
+    chatRoomID,
   };
 
   const messageUser = {
@@ -131,10 +131,10 @@ export function sendTextMessage( newMessageID, text, user, chatRoomID ) {
  */
 export function sendFileMessage( newMessageID, text, file, user, chatRoomID ) {
   let data = new FormData();
-  data.append('text', text);
-  data.append('file', file);
-  data.append('userID', user._id);
-  data.append('chatRoomID', chatRoomID);
+  data.append( 'text', text );
+  data.append( 'file', file );
+  data.append( 'userID', user._id );
+  data.append( 'chatRoomID', chatRoomID );
 
   const messageUser = {
     _id: user._id,
@@ -148,12 +148,12 @@ export function sendFileMessage( newMessageID, text, file, user, chatRoomID ) {
   let config = {
     headers: {
       'content-type': 'multipart/form-data',
-    }
+    },
   };
 
   let messageType = 'file';
 
-  if ( file.type.indexOf('image/') > -1 ) {
+  if ( file.type.indexOf( 'image/' ) > -1 ) {
     messageType = 'image';
   }
 
@@ -205,10 +205,10 @@ export function sendAudioMessage( newMessageID, text, audioBlob, user, chatRoomI
   let audio = new Blob([audioBlob], {type: "audio/webm"});
 
   let data = new FormData();
-  data.append('text', text);
-  data.append('audio', audio);
-  data.append('userID', user._id);
-  data.append('chatRoomID', chatRoomID);
+  data.append( 'text', text );
+  data.append( 'audio', audio );
+  data.append( 'userID', user._id );
+  data.append( 'chatRoomID', chatRoomID );
 
   const messageUser = {
     _id: user._id,
@@ -222,7 +222,7 @@ export function sendAudioMessage( newMessageID, text, audioBlob, user, chatRoomI
   let config = {
     headers: {
       'content-type': 'multipart/form-data',
-    }
+    },
   };
 
   return dispatch => {

@@ -12,8 +12,8 @@ import {
 export function isTyping( typer, chatRoomID ) {
   return {
     type: SOCKET_IS_TYPING,
-    typer: typer,
-    chatRoomID: chatRoomID,
+    typer,
+    chatRoomID,
   };
 }
 
@@ -26,7 +26,7 @@ export function isTyping( typer, chatRoomID ) {
 export function isNotTyping( typer, chatRoomID ) {
   return {
     type: SOCKET_IS_NOT_TYPING,
-    typer: typer,
-    chatRoomID: chatRoomID,
+    typer,
+    chatRoomID,
   };
 }

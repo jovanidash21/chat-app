@@ -9,7 +9,7 @@ import {
   searchUser,
   createUser,
   editUser,
-  deleteUser
+  deleteUser,
 } from './user';
 import {
   fetchChatRoomsCount,
@@ -17,7 +17,7 @@ import {
   fetchChatRooms,
   createChatRoom,
   editChatRoom,
-  deleteChatRoom
+  deleteChatRoom,
 } from './chat-room';
 import { fetchMessagesCount } from './message';
 import { uploadImage } from './upload';
@@ -41,7 +41,7 @@ const actions = (dispatch) => {
     editChatRoom,
     deleteChatRoom,
     fetchMessagesCount,
-    uploadImage
+    uploadImage,
   }, dispatch);
 }
 

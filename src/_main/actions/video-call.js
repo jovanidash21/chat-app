@@ -16,10 +16,10 @@ import {
 export function requestVideoCall( callerID, receiver, peerID ) {
   return {
     type: SOCKET_REQUEST_VIDEO_CALL,
-    callerID: callerID,
+    callerID,
     receiverID: receiver._id,
     user: receiver,
-    peerID: peerID,
+    peerID,
   };
 }
 
@@ -31,7 +31,7 @@ export function requestVideoCall( callerID, receiver, peerID ) {
 export function cancelRequestVideoCall( receiverID ) {
   return {
     type: SOCKET_CANCEL_REQUEST_VIDEO_CALL,
-    receiverID: receiverID,
+    receiverID,
   };
 }
 
@@ -44,7 +44,7 @@ export function cancelRequestVideoCall( receiverID ) {
 export function rejectVideoCall( callerID ) {
   return {
     type: SOCKET_REJECT_VIDEO_CALL,
-    callerID: callerID,
+    callerID,
   };
 }
 
@@ -57,8 +57,8 @@ export function rejectVideoCall( callerID ) {
 export function acceptVideoCall( callerID, peerID ) {
   return {
     type: SOCKET_ACCEPT_VIDEO_CALL,
-    callerID: callerID,
-    peerID: peerID,
+    callerID,
+    peerID,
   };
 }
 
@@ -70,6 +70,6 @@ export function acceptVideoCall( callerID, peerID ) {
 export function endVideoCall( callerID ) {
   return {
     type: SOCKET_END_VIDEO_CALL,
-    callerID: callerID,
+    callerID,
   };
 }

@@ -8,11 +8,11 @@ export function fetchMessagesCount() {
   return dispatch => {
     return dispatch({
       type: FETCH_MESSAGES_COUNT,
-      payload: axios.get('message/count')
+      payload: axios.get( 'message/count' ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }

@@ -37,11 +37,11 @@ export function fetchActiveUser() {
  */
 export function editActiveUser( userID, username, name, email, profilePicture ) {
   let data = {
-    userID: userID,
-    username: username,
-    name: name,
-    email: email,
-    profilePicture: profilePicture,
+    userID,
+    username,
+    name,
+    email,
+    profilePicture,
   };
 
   return dispatch => {

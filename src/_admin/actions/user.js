@@ -9,7 +9,7 @@ import {
   SEARCH_USER,
   CREATE_USER,
   EDIT_USER,
-  DELETE_USER
+  DELETE_USER,
 } from '../constants/user';
 
 /**
@@ -19,11 +19,11 @@ export function fetchActiveUser() {
   return dispatch => {
     return dispatch({
       type: FETCH_ACTIVE_USER,
-      payload: axios.get('user')
+      payload: axios.get( 'user' ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -36,11 +36,11 @@ export function fetchUsersCount() {
   return dispatch => {
     return dispatch({
       type: FETCH_USERS_COUNT,
-      payload: axios.get('user/count')
+      payload: axios.get( 'user/count' ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -53,11 +53,11 @@ export function fetchUsersGraph() {
   return dispatch => {
     return dispatch({
       type: FETCH_USERS_GRAPH,
-      payload: axios.get('user/graph')
+      payload: axios.get( 'user/graph' ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -65,19 +65,20 @@ export function fetchUsersGraph() {
 
 /**
  * Fetch selected user
+ *
  * @param {string} userID
  */
-export function fetchSelectedUser(userID) {
+export function fetchSelectedUser( userID ) {
   let data = { userID };
 
   return dispatch => {
     return dispatch({
       type: FETCH_SELECTED_USER,
-      payload: axios.post('user/select', data)
+      payload: axios.post( 'user/select', data ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -90,11 +91,11 @@ export function fetchUsers() {
   return dispatch => {
     return dispatch({
       type: FETCH_USERS,
-      payload: axios.get('user/all')
+      payload: axios.get( 'user/all' ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -102,29 +103,30 @@ export function fetchUsers() {
 
 /**
  * Edit active user
+ *
  * @param {string} userID
  * @param {string} username
  * @param {string} name
  * @param {string} email
  * @param {string} profilePicture
  */
-export function editActiveUser(userID, username, name, email, profilePicture) {
+export function editActiveUser( userID, username, name, email, profilePicture ) {
   let data = {
     userID,
     username,
     name,
     email,
-    profilePicture
+    profilePicture,
   };
 
   return dispatch => {
     return dispatch({
       type: EDIT_ACTIVE_USER,
-      payload: axios.post('user/edit-profile', data)
+      payload: axios.post( 'user/edit-profile', data ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -132,18 +134,20 @@ export function editActiveUser(userID, username, name, email, profilePicture) {
 
 /**
  * Search user
+ *
+ * @param {string} query
  */
-export function searchUser(query) {
+export function searchUser( query ) {
   let data = { query };
 
   return dispatch => {
     return dispatch({
       type: SEARCH_USER,
-      payload: axios.post('user/search', data)
+      payload: axios.post( 'user/search', data ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -151,6 +155,7 @@ export function searchUser(query) {
 
 /**
  * Create user
+ *
  * @param {string} username
  * @param {string} name
  * @param {string} email
@@ -158,24 +163,24 @@ export function searchUser(query) {
  * @param {string} password
  * @param {string} profilePicture
  */
-export function createUser(username, name, email, role, password, profilePicture) {
+export function createUser( username, name, email, role, password, profilePicture ) {
   let data = {
     username,
     name,
     email,
     role,
     password,
-    profilePicture
+    profilePicture,
   };
 
   return dispatch => {
     return dispatch({
       type: CREATE_USER,
-      payload: axios.post('user/create', data)
+      payload: axios.post( 'user/create', data ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -183,6 +188,7 @@ export function createUser(username, name, email, role, password, profilePicture
 
 /**
  * Edit user
+ *
  * @param {string} userID
  * @param {string} username
  * @param {string} name
@@ -190,24 +196,24 @@ export function createUser(username, name, email, role, password, profilePicture
  * @param {string} role
  * @param {string} profilePicture
  */
-export function editUser(userID, username, name, email, role, profilePicture) {
+export function editUser( userID, username, name, email, role, profilePicture ) {
   let data = {
     userID,
     username,
     name,
     email,
     role,
-    profilePicture
+    profilePicture,
   };
 
   return dispatch => {
     return dispatch({
       type: EDIT_USER,
-      payload: axios.post('user/edit', data)
+      payload: axios.post( 'user/edit', data ),
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }
@@ -215,20 +221,21 @@ export function editUser(userID, username, name, email, role, profilePicture) {
 
 /**
  * Delete user
+ *
  * @param {string} userID
  */
-export function deleteUser(userID) {
+export function deleteUser( userID ) {
   let data = { userID };
 
   return dispatch => {
     return dispatch({
       type: DELETE_USER,
-      payload: axios.post('user/delete', data),
-      meta: userID
+      payload: axios.post( 'user/delete', data ),
+      meta: userID,
     })
-    .catch((error) => {
-      if (error instanceof Error) {
-        console.log(error);
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
       }
     });
   }

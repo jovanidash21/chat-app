@@ -13,7 +13,7 @@ import {
 } from '../constants/auth';
 
 const localtionArr = window.location.href.split( '/' );
-const baseURL = localtionArr[0] + '//' + localtionArr[2];
+const baseURL = `${localtionArr[0]}//${localtionArr[2]}`;
 
 /**
  * Socket user login
@@ -23,7 +23,7 @@ const baseURL = localtionArr[0] + '//' + localtionArr[2];
 export function socketUserLogin( userID ) {
   return {
     type: SOCKET_USER_LOGIN,
-    userID: userID,
+    userID,
   }
 }
 
@@ -35,8 +35,8 @@ export function socketUserLogin( userID ) {
  */
 export function localLogin( username, password ) {
   let data = {
-    username: username,
-    password: password,
+    username,
+    password,
   };
 
   return dispatch => {
@@ -66,7 +66,7 @@ export function facebookLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( baseURL + '/api/login/facebook', 'Facebook Login', {}, ( err, res ) => {
+        popupTools.popup( `${baseURL}/api/login/facebook`, 'Facebook Login', {}, ( err, res ) => {
           if ( ! err ) {
             resolve( res );
           } else {
@@ -94,7 +94,7 @@ export function googleLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( baseURL + '/api/login/google', 'Google Login', {}, ( err, res ) => {
+        popupTools.popup( `${baseURL}/api/login/google`, 'Google Login', {}, ( err, res ) => {
           if ( ! err ) {
             resolve( res );
           } else {
@@ -122,7 +122,7 @@ export function twitterLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( baseURL + '/api/login/twitter', 'Twitter Login', {}, ( err, res ) => {
+        popupTools.popup( `${baseURL}/api/login/twitter`, 'Twitter Login', {}, ( err, res ) => {
           if ( ! err ) {
             resolve( res );
           } else {
@@ -150,7 +150,7 @@ export function instagramLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( baseURL + '/api/login/instagram', 'Instagram Login', {}, ( err, res ) => {
+        popupTools.popup( `${baseURL}/api/login/instagram`, 'Instagram Login', {}, ( err, res ) => {
           if ( ! err ) {
             resolve( res );
           } else {
@@ -178,7 +178,7 @@ export function linkedinLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( baseURL + '/api/login/linkedin', 'LinkedIn Login', {}, ( err, res ) => {
+        popupTools.popup( `${baseURL}/api/login/linkedin`, 'LinkedIn Login', {}, ( err, res ) => {
           if ( ! err ) {
             resolve( res );
           } else {
@@ -206,7 +206,7 @@ export function githubLogin() {
     return dispatch({
       type: LOGIN,
       payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( baseURL + '/api/login/github', 'GitHub Login', {}, ( err, res ) => {
+        popupTools.popup( `${baseURL}/api/login/github]`, 'GitHub Login', {}, ( err, res ) => {
           if ( ! err ) {
             resolve( res );
           } else {
@@ -234,12 +234,12 @@ export function githubLogin() {
  * @param {string} username
  * @param {string} password
  */
-export function register(email, name, username, password) {
+export function register( email, name, username, password ) {
   let data = {
-    email: email,
-    name: name,
-    username: username,
-    password: password,
+    email,
+    name,
+    username,
+    password,
   };
 
   return dispatch => {

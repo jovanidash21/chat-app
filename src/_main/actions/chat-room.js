@@ -19,9 +19,7 @@ import { fetchMembers } from './member';
  * @param {string} userID
  */
 export function fetchChatRooms( userID ) {
-  let data = {
-    userID: userID,
-  };
+  let data = { userID };
 
   return dispatch => {
     return dispatch({
@@ -47,7 +45,7 @@ export function changeChatRoom( chatRoom, userID, activeChatRoomID ) {
   return dispatch => {
     dispatch({
       type: CHANGE_CHAT_ROOM,
-      chatRoom: chatRoom,
+      chatRoom,
     });
     dispatch( leaveChatRoom( activeChatRoomID ) );
     dispatch( joinChatRoom( chatRoom.data._id ) );
@@ -119,8 +117,8 @@ function createChatRoom( userID, chatRoom, activeChatRoomID, noChangeChatRoom = 
 export function createGroupChatRoom( name, members, userID, activeChatRoomID ) {
   let data = {
     chatType: 'group',
-    name: name,
-    members: members,
+    name,
+    members,
   };
 
   return dispatch => {
@@ -182,7 +180,7 @@ export function createDirectChatRoom( userID, memberID, activeChatRoomID, noChan
 export function joinChatRoom( chatRoomID ) {
   return {
     type: SOCKET_JOIN_CHAT_ROOM,
-    chatRoomID: chatRoomID,
+    chatRoomID,
   };
 }
 
@@ -194,7 +192,7 @@ export function joinChatRoom( chatRoomID ) {
 export function leaveChatRoom( chatRoomID ) {
   return {
     type: SOCKET_LEAVE_CHAT_ROOM,
-    chatRoomID: chatRoomID,
+    chatRoomID,
   };
 }
 
@@ -206,8 +204,8 @@ export function leaveChatRoom( chatRoomID ) {
  */
 export function clearChatRoomUnreadMessages( userID, chatRoomIDs ) {
   let data = {
-    userID: userID,
-    chatRoomIDs: chatRoomIDs,
+    userID,
+    chatRoomIDs,
   };
 
   return dispatch => {
@@ -231,8 +229,8 @@ export function clearChatRoomUnreadMessages( userID, chatRoomIDs ) {
  */
 export function muteChatRoom( userID, chatRoomID ) {
   let data = {
-    userID: userID,
-    chatRoomID: chatRoomID,
+    userID,
+    chatRoomID,
   };
 
   return dispatch => {
@@ -256,8 +254,8 @@ export function muteChatRoom( userID, chatRoomID ) {
  */
 export function unmuteChatRoom(userID, chatRoomID) {
   let data = {
-    userID: userID,
-    chatRoomID: chatRoomID,
+    userID,
+    chatRoomID,
   };
 
   return dispatch => {

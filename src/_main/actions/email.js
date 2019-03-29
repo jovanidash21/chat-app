@@ -9,8 +9,8 @@ import { SEND_EMAIL } from '../constants/email';
  */
 export function sendEmail( email, name ) {
   let data = {
-    email: email,
-    name: name,
+    email,
+    name,
   };
 
   return dispatch => {
