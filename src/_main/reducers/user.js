@@ -1,52 +1,55 @@
 import {
   FETCH_ACTIVE_USER,
   EDIT_ACTIVE_USER,
-  SEARCH_USER
+  SEARCH_USER,
 } from '../constants/user';
 
 const commonStateFlags = {
   loading: false,
   success: false,
   error: false,
-  message: ''
+  message: '',
 };
 
 const initialState = {
-  fetchActive: {...commonStateFlags},
-  editActive: {...commonStateFlags},
-  search: {...commonStateFlags},
+  fetchActive: { ...commonStateFlags },
+  editActive: { ...commonStateFlags },
+  search: { ...commonStateFlags },
   active: {},
-  searched: []
+  searched: [],
 };
 
-const user = (state=initialState, action) => {
-  switch(action.type) {
-    case `${FETCH_ACTIVE_USER}_LOADING`:
+const user = ( state = initialState, action ) => {
+  switch( action.type ) {
+    case `${FETCH_ACTIVE_USER}_LOADING`: {
       return {
         ...state,
         fetchActive: {
           ...state.fetchActive,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${EDIT_ACTIVE_USER}_LOADING`:
+    }
+    case `${EDIT_ACTIVE_USER}_LOADING`: {
       return {
         ...state,
         editActive: {
           ...state.editActive,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${SEARCH_USER}_LOADING`:
+    }
+    case `${SEARCH_USER}_LOADING`: {
       return {
         ...state,
         search: {
           ...state.search,
-          loading: true
+          loading: true,
         },
-        searched: []
+        searched: [],
       };
-    case `${FETCH_ACTIVE_USER}_SUCCESS`:
+    }
+    case `${FETCH_ACTIVE_USER}_SUCCESS`: {
       return {
         ...state,
         fetchActive: {
@@ -54,11 +57,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        active: action.payload.data.user
+        active: action.payload.data.user,
       };
-    case `${EDIT_ACTIVE_USER}_SUCCESS`:
+    }
+    case `${EDIT_ACTIVE_USER}_SUCCESS`: {
       return {
         ...state,
         editActive: {
@@ -66,11 +70,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        active: action.payload.data.user
+        active: action.payload.data.user,
       };
-    case `${SEARCH_USER}_SUCCESS`:
+    }
+    case `${SEARCH_USER}_SUCCESS`: {
       return {
         ...state,
         search: {
@@ -78,11 +83,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        searched: action.payload.data.users
+        searched: action.payload.data.users,
       };
-    case `${FETCH_ACTIVE_USER}_ERROR`:
+    }
+    case `${FETCH_ACTIVE_USER}_ERROR`: {
       return {
         ...state,
         fetchActive: {
@@ -90,10 +96,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${EDIT_ACTIVE_USER}_ERROR`:
+    }
+    case `${EDIT_ACTIVE_USER}_ERROR`: {
       return {
         ...state,
         editActive: {
@@ -101,10 +108,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${SEARCH_USER}_ERROR`:
+    }
+    case `${SEARCH_USER}_ERROR`: {
       return {
         ...state,
         search: {
@@ -112,10 +120,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
+          message: action.payload.response.data.message,
         },
-        searched: []
+        searched: [],
       };
+    }
     default:
       return state;
   }

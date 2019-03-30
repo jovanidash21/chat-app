@@ -3,44 +3,46 @@ import { FETCH_MEMBERS } from '../constants/member';
 import { CHANGE_CHAT_ROOM } from '../constants/chat-room';
 import {
   SOCKET_BROADCAST_USER_LOGIN,
-  SOCKET_BROADCAST_USER_LOGOUT
+  SOCKET_BROADCAST_USER_LOGOUT,
 } from '../constants/auth';
 
 const commonStateFlags = {
   loading: false,
   success: false,
   error: false,
-  message: ''
+  message: '',
 };
 
 const initialState = {
-  fetch: {...commonStateFlags},
+  fetch: { ...commonStateFlags },
   activeUser: {},
   activeChatRoom: {
-    data: {}
+    data: {},
   },
-  all: []
+  all: [],
 };
 
-const member = (state=initialState, action) => {
-  switch(action.type) {
-    case `${FETCH_MEMBERS}_LOADING`:
+const member = ( state = initialState, action ) => {
+  switch( action.type ) {
+    case `${FETCH_MEMBERS}_LOADING`: {
       return {
         ...state,
         fetch: {
           ...state.fetch,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${FETCH_MEMBERS}_SUCCESS`:
-      var members = [...action.payload.data.members];
-      var activeUser = {...state.activeUser};
+    }
+    case `${FETCH_MEMBERS}_SUCCESS`: {
+      let members = [ ...action.payload.data.members ];
+      const activeUser = { ...state.activeUser };
 
-      members = members.filter(singleMember =>
-        singleMember._id !== activeUser._id
-      );
+      members = members.filter(( singleMember ) => {
+        return singleMember._id !== activeUser._id;
+      });
+
       activeUser.isOnline = true;
-      members.push(activeUser);
+      members.push( activeUser );
 
       return {
         ...state,
@@ -49,11 +51,12 @@ const member = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        all: members
+        all: members,
       };
-    case `${FETCH_MEMBERS}_ERROR`:
+    }
+    case `${FETCH_MEMBERS}_ERROR`: {
       return {
         ...state,
         fetch: {
@@ -61,26 +64,31 @@ const member = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${FETCH_ACTIVE_USER}_SUCCESS`:
+    }
+    case `${FETCH_ACTIVE_USER}_SUCCESS`: {
       return {
         ...state,
-        activeUser: action.payload.data.user
+        activeUser: action.payload.data.user,
       };
-    case CHANGE_CHAT_ROOM:
+    }
+    case CHANGE_CHAT_ROOM: {
       return {
         ...state,
-        activeChatRoom: action.chatRoom
+        activeChatRoom: action.chatRoom,
       };
-    case SOCKET_BROADCAST_USER_LOGIN:
-      var user = action.user;
-      var userID = user._id;
-      var activeChatRoom = {...state.activeChatRoom};
-      var members = [...state.all];
+    }
+    case SOCKET_BROADCAST_USER_LOGIN: {
+      const user = action.user;
+      const userID = user._id;
+      const activeChatRoom = { ...state.activeChatRoom };
+      const members = [...state.all];
 
-      var memberIndex = members.findIndex(singleMember => singleMember._id === userID);
+      const memberIndex = members.findIndex(( singleMember ) => {
+        return singleMember._id === userID;
+      });
 
       if ( memberIndex > -1 ) {
         members[memberIndex].isOnline = true;
@@ -88,18 +96,21 @@ const member = (state=initialState, action) => {
 
       if ( activeChatRoom.data.chatType === 'public' && memberIndex === -1 ) {
         user.isOnline = true;
-        members.push(user);
+        members.push( user );
       }
 
       return {
         ...state,
-        all: [...members]
+        all: [ ...members ],
       }
-    case SOCKET_BROADCAST_USER_LOGOUT:
-      var userID = action.userID;
-      var members = [...state.all]
+    }
+    case SOCKET_BROADCAST_USER_LOGOUT: {
+      const userID = action.userID;
+      const members = [ ...state.all ];
 
-      var memberIndex = members.findIndex(singleMember => singleMember._id === userID);
+      const memberIndex = members.findIndex(( singleMember ) => {
+        return singleMember._id === userID;
+      });
 
       if ( memberIndex > -1 ) {
         members[memberIndex].isOnline = false;
@@ -107,8 +118,9 @@ const member = (state=initialState, action) => {
 
       return {
         ...state,
-        all: [...members]
+        all: [ ...members ],
       }
+    }
     default:
       return state;
   }

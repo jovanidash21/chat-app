@@ -4,79 +4,85 @@ import {
   FETCH_CHAT_ROOMS,
   CREATE_CHAT_ROOM,
   EDIT_CHAT_ROOM,
-  DELETE_CHAT_ROOM
+  DELETE_CHAT_ROOM,
 } from '../constants/chat-room';
 
 const commonStateFlags = {
   loading: false,
   success: false,
   error: false,
-  message: ''
+  message: '',
 };
 
 const initialState = {
-  fetchCount: {...commonStateFlags},
-  fetchSelect: {...commonStateFlags},
-  fetchAll: {...commonStateFlags},
-  create: {...commonStateFlags},
-  edit: {...commonStateFlags},
-  delete: {...commonStateFlags},
+  fetchCount: { ...commonStateFlags },
+  fetchSelect: { ...commonStateFlags },
+  fetchAll: { ...commonStateFlags },
+  create: { ...commonStateFlags },
+  edit: { ...commonStateFlags },
+  delete: { ...commonStateFlags },
   count: 0,
   all: [],
-  selected: {}
+  selected: {},
 };
 
-const chatRoom = (state=initialState, action) => {
-  switch(action.type) {
-    case `${FETCH_CHAT_ROOMS_COUNT}_LOADING`:
+const chatRoom = ( state = initialState, action ) => {
+  switch( action.type ) {
+    case `${FETCH_CHAT_ROOMS_COUNT}_LOADING`: {
       return {
         ...state,
         fetchCount: {
           ...state.fetchCount,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${FETCH_SELECTED_CHAT_ROOM}_LOADING`:
+    }
+    case `${FETCH_SELECTED_CHAT_ROOM}_LOADING`: {
       return {
         ...state,
         fetchSelect: {
           ...state.fetchSelect,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${FETCH_CHAT_ROOMS}_LOADING`:
+    }
+    case `${FETCH_CHAT_ROOMS}_LOADING`: {
       return {
         ...state,
         fetchAll: {
           ...state.fetchAll,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${CREATE_CHAT_ROOM}_LOADING`:
+    }
+    case `${CREATE_CHAT_ROOM}_LOADING`: {
       return {
         ...state,
         create: {
           ...state.create,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${EDIT_CHAT_ROOM}_LOADING`:
+    }
+    case `${EDIT_CHAT_ROOM}_LOADING`: {
       return {
         ...state,
         edit: {
           ...state.edit,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${DELETE_CHAT_ROOM}_LOADING`:
+    }
+    case `${DELETE_CHAT_ROOM}_LOADING`: {
       return {
         ...state,
         delete: {
           ...state.delete,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${FETCH_CHAT_ROOMS_COUNT}_SUCCESS`:
+    }
+    case `${FETCH_CHAT_ROOMS_COUNT}_SUCCESS`: {
       return {
         ...state,
         fetchCount: {
@@ -84,11 +90,12 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        count: action.payload.data.count
+        count: action.payload.data.count,
       };
-    case `${FETCH_SELECTED_CHAT_ROOM}_SUCCESS`:
+    }
+    case `${FETCH_SELECTED_CHAT_ROOM}_SUCCESS`: {
       return {
         ...state,
         fetchSelect: {
@@ -96,11 +103,12 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        selected: action.payload.data.chatRoom
+        selected: action.payload.data.chatRoom,
       };
-    case `${FETCH_CHAT_ROOMS}_SUCCESS`:
+    }
+    case `${FETCH_CHAT_ROOMS}_SUCCESS`: {
       return {
         ...state,
         fetchAll: {
@@ -108,11 +116,12 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        all: action.payload.data.chatRooms
+        all: action.payload.data.chatRooms,
       };
-    case `${CREATE_CHAT_ROOM}_SUCCESS`:
+    }
+    case `${CREATE_CHAT_ROOM}_SUCCESS`: {
       return {
         ...state,
         create: {
@@ -120,10 +129,11 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
-        }
+          message: action.payload.data.message,
+        },
       };
-    case `${EDIT_CHAT_ROOM}_SUCCESS`:
+    }
+    case `${EDIT_CHAT_ROOM}_SUCCESS`: {
       return {
         ...state,
         edit: {
@@ -131,14 +141,17 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
-        }
+          message: action.payload.data.message,
+        },
       };
-    case `${DELETE_CHAT_ROOM}_SUCCESS`:
-      var chatRooms = [...state.all];
-      var chatRoomID = action.meta;
+    }
+    case `${DELETE_CHAT_ROOM}_SUCCESS`: {
+      let chatRooms = [...state.all];
+      const chatRoomID = action.meta;
 
-      chatRooms = chatRooms.filter((chatRoom) => chatRoom._id !== chatRoomID);
+      chatRooms = chatRooms.filter(( chatRoom ) => {
+        return chatRoom._id !== chatRoomID;
+      });
 
       return {
         ...state,
@@ -147,11 +160,12 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case `${FETCH_CHAT_ROOMS_COUNT}_ERROR`:
+    }
+    case `${FETCH_CHAT_ROOMS_COUNT}_ERROR`: {
       return {
         ...state,
         fetchCount: {
@@ -159,10 +173,11 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${FETCH_SELECTED_CHAT_ROOM}_ERROR`:
+    }
+    case `${FETCH_SELECTED_CHAT_ROOM}_ERROR`: {
       return {
         ...state,
         fetchSelect: {
@@ -170,10 +185,11 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${FETCH_CHAT_ROOMS}_ERROR`:
+    }
+    case `${FETCH_CHAT_ROOMS}_ERROR`: {
       return {
         ...state,
         fetchAll: {
@@ -181,10 +197,11 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${CREATE_CHAT_ROOM}_ERROR`:
+    }
+    case `${CREATE_CHAT_ROOM}_ERROR`: {
       return {
         ...state,
         create: {
@@ -192,10 +209,11 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${EDIT_CHAT_ROOM}_ERROR`:
+    }
+    case `${EDIT_CHAT_ROOM}_ERROR`: {
       return {
         ...state,
         edit: {
@@ -203,10 +221,11 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${DELETE_CHAT_ROOM}_ERROR`:
+    }
+    case `${DELETE_CHAT_ROOM}_ERROR`: {
       return {
         ...state,
         delete: {
@@ -214,9 +233,10 @@ const chatRoom = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
+    }
     default:
       return state;
   }

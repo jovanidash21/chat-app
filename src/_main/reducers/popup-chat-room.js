@@ -1,6 +1,6 @@
 import {
   OPEN_POPUP_CHAT_ROOM,
-  CLOSE_POPUP_CHAT_ROOM
+  CLOSE_POPUP_CHAT_ROOM,
 } from '../constants/popup-chat-room';
 import {
   FETCH_NEW_MESSAGES,
@@ -8,88 +8,100 @@ import {
   SEND_MESSAGE,
   SOCKET_BROADCAST_SEND_MESSAGE,
   DELETE_MESSAGE,
-  SOCKET_BROADCAST_DELETE_MESSAGE
+  SOCKET_BROADCAST_DELETE_MESSAGE,
 } from '../constants/message';
 import {
   SOCKET_BROADCAST_IS_TYPING,
-  SOCKET_BROADCAST_IS_NOT_TYPING
+  SOCKET_BROADCAST_IS_NOT_TYPING,
 } from '../constants/typer';
 import {
   SOCKET_BROADCAST_USER_LOGIN,
-  SOCKET_BROADCAST_USER_LOGOUT
+  SOCKET_BROADCAST_USER_LOGOUT,
 } from '../constants/auth';
 
 const initialState = {
-  all: []
+  all: [],
 };
 
-const popUpChatRoom = (state=initialState, action) => {
-  switch(action.type) {
-    case OPEN_POPUP_CHAT_ROOM:
-      var chatRoom = action.chatRoom;
-      var chatRooms = [...state.all];
+const popUpChatRoom = ( state = initialState, action ) => {
+  switch( action.type ) {
+    case OPEN_POPUP_CHAT_ROOM: {
+      const chatRoom = action.chatRoom;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoom.data._id);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === chatRoom.data._id;
+      });
 
-      if ( chatRoomIndex === -1  ) {
-        chatRooms.push(chatRoom);
+      if ( chatRoomIndex === -1 ) {
+        chatRooms.push( chatRoom );
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case CLOSE_POPUP_CHAT_ROOM:
-      var chatRoomID = action.chatRoomID;
-      var chatRooms = [...state.all];
+    }
+    case CLOSE_POPUP_CHAT_ROOM: {
+      const chatRoomID = action.chatRoomID;
+      let chatRooms = [ ...state.all ];
 
-      chatRooms = chatRooms.filter(singlChatRoom =>
-        singlChatRoom.data._id !== chatRoomID
-      );
+      chatRooms = chatRooms.filter(( singlChatRoom ) => {
+        return singlChatRoom.data._id !== chatRoomID;
+      });
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case `${FETCH_NEW_MESSAGES}_LOADING`:
-      var chatRoomID = action.meta;
-      var chatRooms = [...state.all];
+    }
+    case `${FETCH_NEW_MESSAGES}_LOADING`: {
+      const chatRoomID = action.meta;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === chatRoomID;
+      });
 
       if ( chatRoomIndex > -1 ) {
         chatRooms[chatRoomIndex].message.fetchNew = {
           ...chatRooms[chatRoomIndex].message.fetchNew,
-          loading: true
+          loading: true,
         };
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case `${FETCH_OLD_MESSAGES}_LOADING`:
-      var chatRoomID = action.meta;
-      var chatRooms = [...state.all];
+    }
+    case `${FETCH_OLD_MESSAGES}_LOADING`: {
+      const chatRoomID = action.meta;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === chatRoomID;
+      });
 
       if ( chatRoomIndex > -1 ) {
         chatRooms[chatRoomIndex].message.fetchOld = {
           ...chatRooms[chatRoomIndex].message.fetchOld,
-          loading: true
+          loading: true,
         };
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case `${FETCH_NEW_MESSAGES}_SUCCESS`:
-      var chatRoomID = action.meta;
-      var chatRooms = [...state.all];
+    }
+    case `${FETCH_NEW_MESSAGES}_SUCCESS`: {
+      const chatRoomID = action.meta;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === chatRoomID;
+      });
 
       if ( chatRoomIndex > -1 ) {
         chatRooms[chatRoomIndex].message.fetchNew = {
@@ -97,20 +109,23 @@ const popUpChatRoom = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         };
         chatRooms[chatRoomIndex].message.all = action.payload.data.messages;
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case `${FETCH_OLD_MESSAGES}_SUCCESS`:
-      var chatRoomID = action.meta;
-      var chatRooms = [...state.all];
+    }
+    case `${FETCH_OLD_MESSAGES}_SUCCESS`: {
+      const chatRoomID = action.meta;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === chatRoomID;
+      });
 
       if ( chatRoomIndex > -1 ) {
         chatRooms[chatRoomIndex].message.fetchOld = {
@@ -118,23 +133,26 @@ const popUpChatRoom = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         };
         chatRooms[chatRoomIndex].message.all = [
           ...action.payload.data.messages,
-          ...chatRooms[chatRoomIndex].message.all
+          ...chatRooms[chatRoomIndex].message.all,
         ];
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case `${FETCH_NEW_MESSAGES}_ERROR`:
-      var chatRoomID = action.meta;
-      var chatRooms = [...state.all];
+    }
+    case `${FETCH_NEW_MESSAGES}_ERROR`: {
+      const chatRoomID = action.meta;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === chatRoomID;
+      });
 
       if ( chatRoomIndex > -1 ) {
         chatRooms[chatRoomIndex].message.fetchNew = {
@@ -142,19 +160,22 @@ const popUpChatRoom = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
+          message: action.payload.response.data.message,
         };
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case `${FETCH_OLD_MESSAGES}_ERROR`:
-      var chatRoomID = action.meta;
-      var chatRooms = [...state.all];
+    }
+    case `${FETCH_OLD_MESSAGES}_ERROR`: {
+      const chatRoomID = action.meta;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === chatRoomID;
+      });
 
       if ( chatRoomIndex > -1 ) {
         chatRooms[chatRoomIndex].message.fetchOld = {
@@ -162,24 +183,29 @@ const popUpChatRoom = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
+          message: action.payload.response.data.message,
         };
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case `${SEND_MESSAGE}_SUCCESS`:
-      var messageID = action.meta;
-      var newMessage = action.payload.data.messageData;
-      var chatRooms = [...state.all];
+    }
+    case `${SEND_MESSAGE}_SUCCESS`: {
+      const messageID = action.meta;
+      const newMessage = action.payload.data.messageData;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === newMessage.chatRoom);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === newMessage.chatRoom;
+      });
 
       if ( chatRoomIndex > -1 ) {
-        var messages = [...chatRooms[chatRoomIndex].message.all];
-        var messageIndex = messages.findIndex(singleMessage => singleMessage._id === messageID);
+        const messages = [ ...chatRooms[chatRoomIndex].message.all ];
+        const messageIndex = messages.findIndex(( singleMessage ) => {
+          return singleMessage._id === messageID;
+        });
 
         if ( messageIndex > -1 ) {
           newMessage.isSending = false;
@@ -191,100 +217,126 @@ const popUpChatRoom = (state=initialState, action) => {
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
+    }
     case SEND_MESSAGE:
-    case SOCKET_BROADCAST_SEND_MESSAGE:
-      var message = action.message;
-      var chatRooms = [...state.all];
+    case SOCKET_BROADCAST_SEND_MESSAGE: {
+      const message = action.message;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === message.chatRoom);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === message.chatRoom;
+      });
 
       if ( chatRoomIndex > -1 ) {
-        var messages = [...chatRooms[chatRoomIndex].message.all];
+        const messages = [ ...chatRooms[chatRoomIndex].message.all ];
 
-        messages.push(message);
+        messages.push( message );
 
         chatRooms[chatRoomIndex].message.all = messages;
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case `${DELETE_MESSAGE}_SUCCESS`:
-      var messageID = action.meta.messageID;
-      var chatRoomID = action.meta.chatRoomID;
-      var chatRooms = [...state.all];
+    }
+    case `${DELETE_MESSAGE}_SUCCESS`: {
+      const messageID = action.meta.messageID;
+      const chatRoomID = action.meta.chatRoomID;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === chatRoomID;
+      });
 
       if ( chatRoomIndex > -1 ) {
-        chatRooms[chatRoomIndex].message.all = chatRooms[chatRoomIndex].message.all.filter((message) => message._id !== messageID);
+        chatRooms[chatRoomIndex].message.all = chatRooms[chatRoomIndex].message.all.filter(( message ) => {
+          return message._id !== messageID;
+        });
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case SOCKET_BROADCAST_DELETE_MESSAGE:
-      var messageID = action.messageID;
-      var chatRoomID = action.chatRoomID;
-      var chatRooms = [...state.all];
+    }
+    case SOCKET_BROADCAST_DELETE_MESSAGE: {
+      const messageID = action.messageID;
+      const chatRoomID = action.chatRoomID;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === chatRoomID;
+      });
 
       if ( chatRoomIndex > -1 ) {
-        chatRooms[chatRoomIndex].message.all = chatRooms[chatRoomIndex].message.all.filter((message) => message._id !== messageID);
+        chatRooms[chatRoomIndex].message.all = chatRooms[chatRoomIndex].message.all.filter(( message ) => {
+          return message._id !== messageID;
+        });
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case SOCKET_BROADCAST_IS_TYPING:
-      var typer = action.typer;
-      var chatRoomID = action.chatRoomID;
-      var chatRooms = [...state.all];
+    }
+    case SOCKET_BROADCAST_IS_TYPING: {
+      const typer = action.typer;
+      const chatRoomID = action.chatRoomID;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === chatRoomID;
+      });
 
       if ( chatRoomIndex > -1 ) {
-        chatRooms[chatRoomIndex].typer.all = chatRooms[chatRoomIndex].typer.all.filter((singleTyper) => singleTyper._id !== typer._id);
-        chatRooms[chatRoomIndex].typer.all.push(typer);
+        chatRooms[chatRoomIndex].typer.all = chatRooms[chatRoomIndex].typer.all.filter(( singleTyper ) => {
+          return singleTyper._id !== typer._id;
+        });
+        chatRooms[chatRoomIndex].typer.all.push( typer );
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case SOCKET_BROADCAST_IS_NOT_TYPING:
-      var typer = action.typer;
-      var chatRoomID = action.chatRoomID;
-      var chatRooms = [...state.all];
+    }
+    case SOCKET_BROADCAST_IS_NOT_TYPING: {
+      const typer = action.typer;
+      const chatRoomID = action.chatRoomID;
+      const chatRooms = [ ...state.all ];
 
-      var chatRoomIndex = chatRooms.findIndex(singleChatRoom => singleChatRoom.data._id === chatRoomID);
+      const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+        return singleChatRoom.data._id === chatRoomID;
+      });
 
       if ( chatRoomIndex > -1 ) {
-        chatRooms[chatRoomIndex].typer.all = chatRooms[chatRoomIndex].typer.all.filter((singleTyper) => singleTyper._id !== typer._id);
+        chatRooms[chatRoomIndex].typer.all = chatRooms[chatRoomIndex].typer.all.filter(( singleTyper ) => {
+          return singleTyper._id !== typer._id;
+        });
       }
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case SOCKET_BROADCAST_USER_LOGIN:
-      var user = action.user;
-      var userID = user._id;
-      var chatRooms = [...state.all];
+    }
+    case SOCKET_BROADCAST_USER_LOGIN: {
+      const user = action.user;
+      const userID = user._id;
+      const chatRooms = [...state.all];
 
       if ( chatRooms.length > 0 ) {
-        for (var i = 0; i < chatRooms.length; i++) {
-          var chatRoom = chatRooms[i];
-          var members = chatRoom.data.members;
+        for ( let i = 0; i < chatRooms.length; i += 1 ) {
+          const chatRoom = chatRooms[i];
+          const members = chatRoom.data.members;
 
           if ( members.length > 0 ) {
-            var memberIndex = members.findIndex(singleMember => singleMember._id === userID);
+            const memberIndex = members.findIndex(( singleMember ) => {
+              return singleMember._id === userID;
+            });
 
             if ( memberIndex > -1 ) {
               members[memberIndex].isOnline = true;
@@ -295,19 +347,22 @@ const popUpChatRoom = (state=initialState, action) => {
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
-    case SOCKET_BROADCAST_USER_LOGOUT:
-      var userID = action.userID;
-      var chatRooms = [...state.all];
+    }
+    case SOCKET_BROADCAST_USER_LOGOUT: {
+      const userID = action.userID;
+      const chatRooms = [...state.all];
 
       if ( chatRooms.length > 0 ) {
-        for (var i = 0; i < chatRooms.length; i++) {
-          var chatRoom = chatRooms[i];
-          var members = chatRoom.data.members;
+        for ( let i = 0; i < chatRooms.length; i += 1 ) {
+          const chatRoom = chatRooms[i];
+          const members = chatRoom.data.members;
 
           if ( members.length > 0 ) {
-            var memberIndex = members.findIndex(singleMember => singleMember._id === userID);
+            const memberIndex = members.findIndex(( singleMember ) => {
+              return singleMember._id === userID;
+            });
 
             if ( memberIndex > -1 ) {
               members[memberIndex].isOnline = false;
@@ -318,8 +373,9 @@ const popUpChatRoom = (state=initialState, action) => {
 
       return {
         ...state,
-        all: [...chatRooms]
+        all: [ ...chatRooms ],
       };
+    }
     default:
       return state;
   }

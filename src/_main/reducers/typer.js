@@ -6,51 +6,56 @@ import { CHANGE_CHAT_ROOM } from '../constants/chat-room';
 
 const initialState = {
   activeChatRoom: {
-    data: {}
+    data: {},
   },
-  all: []
+  all: [],
 };
 
-const typer = (state=initialState, action) => {
-  switch(action.type) {
-    case SOCKET_BROADCAST_IS_TYPING:
-      var typer = action.typer;
-      var chatRoomID = action.chatRoomID;
-      var activeChatRoom = {...state.activeChatRoom};
-      var typers = [...state.all];
+const typer = ( state = initialState, action ) => {
+  switch( action.type ) {
+    case SOCKET_BROADCAST_IS_TYPING: {
+      const typer = action.typer;
+      const chatRoomID = action.chatRoomID;
+      const activeChatRoom = {...state.activeChatRoom};
+      const typers = [...state.all];
 
-      var typerIndex = typers.findIndex(singleTyper => singleTyper._id === typer._id);
+      const typerIndex = typers.findIndex(( singleTyper ) => {
+        return singleTyper._id === typer._id;
+      });
 
       if ( activeChatRoom.data._id === chatRoomID && typerIndex === -1  ) {
-        typers.push(typer);
+        typers.push( typer );
       }
 
       return {
         ...state,
-        all: [...typers]
+        all: [ ...typers ],
       };
-    case SOCKET_BROADCAST_IS_NOT_TYPING:
-      var typer = action.typer;
-      var chatRoomID = action.chatRoomID;
-      var activeChatRoom = {...state.activeChatRoom};
-      var typers = [...state.all];
+    }
+    case SOCKET_BROADCAST_IS_NOT_TYPING: {
+      const typer = action.typer;
+      const chatRoomID = action.chatRoomID;
+      const activeChatRoom = { ...state.activeChatRoom };
+      let typers = [ ...state.all ];
 
       if ( activeChatRoom.data._id === chatRoomID ) {
-        typers = typers.filter(singleTyper =>
-          singleTyper._id !== typer._id
-        );
+        typers = typers.filter(( singleTyper ) => {
+          return singleTyper._id !== typer._id;
+        });
       }
 
       return {
         ...state,
-        all: [...typers]
+        all: [ ...typers ],
       };
-    case CHANGE_CHAT_ROOM:
+    }
+    case CHANGE_CHAT_ROOM: {
       return {
         ...state,
         activeChatRoom: action.chatRoom,
-        all: []
+        all: [],
       };
+    }
     default:
       return state;
   }

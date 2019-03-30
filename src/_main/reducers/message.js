@@ -4,7 +4,7 @@ import {
   SEND_MESSAGE,
   SOCKET_BROADCAST_SEND_MESSAGE,
   DELETE_MESSAGE,
-  SOCKET_BROADCAST_DELETE_MESSAGE
+  SOCKET_BROADCAST_DELETE_MESSAGE,
 } from '../constants/message';
 import { CHANGE_CHAT_ROOM } from '../constants/chat-room';
 
@@ -12,66 +12,69 @@ const commonStateFlags = {
   loading: false,
   success: false,
   error: false,
-  message: ''
+  message: '',
 };
 
 const initialState = {
-  fetchNew: {...commonStateFlags},
-  fetchOld: {...commonStateFlags},
-  delete: {...commonStateFlags},
+  fetchNew: { ...commonStateFlags },
+  fetchOld: { ...commonStateFlags },
+  delete: { ...commonStateFlags },
   activeChatRoom: {
-    data: {}
+    data: {},
   },
-  all: []
+  all: [],
 };
 
-const message = (state=initialState, action) => {
-  switch(action.type) {
-    case `${FETCH_NEW_MESSAGES}_LOADING`:
-      var activeChatRoom = {...state.activeChatRoom};
-      var chatRoomID = action.meta;
+const message = ( state = initialState, action ) => {
+  switch( action.type ) {
+    case `${FETCH_NEW_MESSAGES}_LOADING`: {
+      const activeChatRoom = { ...state.activeChatRoom };
+      const chatRoomID = action.meta;
 
       if ( chatRoomID === activeChatRoom.data._id ) {
         return {
           ...state,
           fetchNew: {
             ...state.fetchNew,
-            loading: true
-          }
+            loading: true,
+          },
         };
       }
 
       return {
-        ...state
+        ...state,
       };
-    case `${FETCH_OLD_MESSAGES}_LOADING`:
-      var activeChatRoom = {...state.activeChatRoom};
-      var chatRoomID = action.meta;
+    }
+    case `${FETCH_OLD_MESSAGES}_LOADING`: {
+      const activeChatRoom = { ...state.activeChatRoom };
+      const chatRoomID = action.meta;
 
       if ( chatRoomID === activeChatRoom.data._id ) {
         return {
           ...state,
           fetchOld: {
             ...state.fetchOld,
-            loading: true
-          }
+            loading: true,
+          },
         };
       }
 
       return {
-        ...state
+        ...state,
       };
-    case `${DELETE_MESSAGE}_LOADING`:
+    }
+    case `${DELETE_MESSAGE}_LOADING`: {
       return {
         ...state,
         delete: {
           ...state.delete,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${FETCH_NEW_MESSAGES}_SUCCESS`:
-      var activeChatRoom = {...state.activeChatRoom};
-      var chatRoomID = action.meta;
+    }
+    case `${FETCH_NEW_MESSAGES}_SUCCESS`: {
+      const activeChatRoom = { ...state.activeChatRoom };
+      const chatRoomID = action.meta;
 
       if ( chatRoomID === activeChatRoom.data._id ) {
         return {
@@ -81,18 +84,19 @@ const message = (state=initialState, action) => {
             loading: false,
             success: true,
             error: false,
-            message: action.payload.data.message
+            message: action.payload.data.message,
           },
-          all: action.payload.data.messages
+          all: action.payload.data.messages,
         };
       }
 
       return {
-        ...state
+        ...state,
       };
-    case `${FETCH_OLD_MESSAGES}_SUCCESS`:
-      var activeChatRoom = {...state.activeChatRoom};
-      var chatRoomID = action.meta;
+    }
+    case `${FETCH_OLD_MESSAGES}_SUCCESS`: {
+      const activeChatRoom = { ...state.activeChatRoom };
+      const chatRoomID = action.meta;
 
       if ( chatRoomID === activeChatRoom.data._id ) {
         return {
@@ -106,22 +110,25 @@ const message = (state=initialState, action) => {
           },
           all: [
             ...action.payload.data.messages,
-            ...state.all
-          ]
+            ...state.all,
+          ],
         };
       }
 
       return {
-        ...state
+        ...state,
       };
-    case `${SEND_MESSAGE}_SUCCESS`:
-      var messages = [...state.all];
-      var activeChatRoom = {...state.activeChatRoom};
-      var messageID = action.meta;
-      var newMessage = action.payload.data.messageData;
+    }
+    case `${SEND_MESSAGE}_SUCCESS`: {
+      const messages = [ ...state.all ];
+      const activeChatRoom = { ...state.activeChatRoom };
+      const messageID = action.meta;
+      const newMessage = action.payload.data.messageData;
 
       if ( newMessage.chatRoom === activeChatRoom.data._id ) {
-        var messageIndex = messages.findIndex(singleMessage => singleMessage._id === messageID);
+        const messageIndex = messages.findIndex(( singleMessage ) => {
+          return singleMessage._id === messageID;
+        });
 
         if ( messageIndex > -1 ) {
           newMessage.isSending = false;
@@ -131,16 +138,19 @@ const message = (state=initialState, action) => {
 
       return {
         ...state,
-        all: [...messages]
+        all: [ ...messages ],
       };
-    case `${DELETE_MESSAGE}_SUCCESS`:
-      var messages = [...state.all];
-      var activeChatRoom = {...state.activeChatRoom};
-      var messageID = action.meta.messageID;
-      var chatRoomID = action.meta.chatRoomID;
+    }
+    case `${DELETE_MESSAGE}_SUCCESS`: {
+      let messages = [ ...state.all ];
+      const activeChatRoom = { ...state.activeChatRoom };
+      const messageID = action.meta.messageID;
+      const chatRoomID = action.meta.chatRoomID;
 
       if ( chatRoomID === activeChatRoom.data._id ) {
-        messages = messages.filter((message) => message._id !== messageID);
+        messages = messages.filter(( message ) => {
+          return message._id !== messageID;
+        });
       }
 
       return {
@@ -150,13 +160,14 @@ const message = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        all: messages
+        all: [ ...messages ],
       };
-    case `${FETCH_NEW_MESSAGES}_ERROR`:
-      var activeChatRoom = {...state.activeChatRoom};
-      var chatRoomID = action.meta;
+    }
+    case `${FETCH_NEW_MESSAGES}_ERROR`: {
+      const activeChatRoom = { ...state.activeChatRoom };
+      const chatRoomID = action.meta;
 
       if ( chatRoomID === activeChatRoom.data._id ) {
         return {
@@ -166,17 +177,18 @@ const message = (state=initialState, action) => {
             loading: false,
             success: false,
             error: true,
-            message: action.payload.response.data.message
-          }
+            message: action.payload.response.data.message,
+          },
         };
       }
 
       return {
-        ...state
+        ...state,
       };
-    case `${FETCH_OLD_MESSAGES}_ERROR`:
-      var activeChatRoom = {...state.activeChatRoom};
-      var chatRoomID = action.meta;
+    }
+    case `${FETCH_OLD_MESSAGES}_ERROR`: {
+      const activeChatRoom = { ...state.activeChatRoom };
+      const chatRoomID = action.meta;
 
       if ( chatRoomID === activeChatRoom.data._id ) {
         return {
@@ -186,15 +198,16 @@ const message = (state=initialState, action) => {
             loading: false,
             success: false,
             error: true,
-            message: action.payload.response.data.message
-          }
+            message: action.payload.response.data.message,
+          },
         };
       }
 
       return {
-        ...state
+        ...state,
       };
-    case `${DELETE_MESSAGE}_ERROR`:
+    }
+    case `${DELETE_MESSAGE}_ERROR`: {
       return {
         ...state,
         delete: {
@@ -202,42 +215,48 @@ const message = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case CHANGE_CHAT_ROOM:
+    }
+    case CHANGE_CHAT_ROOM: {
       return {
         ...state,
-        activeChatRoom: action.chatRoom
+        activeChatRoom: action.chatRoom,
       };
+    }
     case SEND_MESSAGE:
-    case SOCKET_BROADCAST_SEND_MESSAGE:
-      var message = action.message;
-      var activeChatRoom = {...state.activeChatRoom};
-      var messages = [...state.all];
+    case SOCKET_BROADCAST_SEND_MESSAGE: {
+      const message = action.message;
+      const activeChatRoom = { ...state.activeChatRoom };
+      const messages = [...state.all ];
 
       if ( message.chatRoom === activeChatRoom.data._id ) {
-        messages.push(message);
+        messages.push( message );
       }
 
       return {
         ...state,
-        all: [...messages]
+        all: [ ...messages ],
       };
-    case SOCKET_BROADCAST_DELETE_MESSAGE:
-      var messageID = action.messageID;
-      var chatRoomID = action.chatRoomID;
-      var activeChatRoom = {...state.activeChatRoom};
-      var messages = [...state.all];
+    }
+    case SOCKET_BROADCAST_DELETE_MESSAGE: {
+      const messageID = action.messageID;
+      const chatRoomID = action.chatRoomID;
+      const activeChatRoom = { ...state.activeChatRoom };
+      let messages = [ ...state.all ];
 
       if ( activeChatRoom.data._id === chatRoomID ) {
-        messages = messages.filter((message) => message._id !== messageID);
+        messages = messages.filter(( message ) => {
+          return message._id !== messageID;
+        });
       }
 
       return {
         ...state,
-        all: [...messages]
+        all: [ ...messages ],
       };
+    }
     default:
       return state;
   }

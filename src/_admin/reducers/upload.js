@@ -1,28 +1,29 @@
-export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
+import { UPLOAD_IMAGE } from '../constants/upload';
 
 const commonStateFlags = {
   loading: false,
   success: false,
   error: false,
-  message: ''
+  message: '',
 };
 
 const initialState = {
-  image: {...commonStateFlags},
-  imageLink: ''
+  image: { ...commonStateFlags },
+  imageLink: '',
 };
 
-const upload = (state=initialState, action) => {
-  switch(action.type) {
-    case `${UPLOAD_IMAGE}_LOADING`:
+const upload = ( state = initialState, action ) => {
+  switch( action.type ) {
+    case `${UPLOAD_IMAGE}_LOADING`: {
       return {
         ...state,
         image: {
           ...state.image,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${UPLOAD_IMAGE}_SUCCESS`:
+    }
+    case `${UPLOAD_IMAGE}_SUCCESS`: {
       return {
         ...state,
         image: {
@@ -30,11 +31,12 @@ const upload = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        imageLink: action.payload.data.imageLink
+        imageLink: action.payload.data.imageLink,
       };
-    case `${UPLOAD_IMAGE}_ERROR`:
+    }
+    case `${UPLOAD_IMAGE}_ERROR`: {
       return {
         ...state,
         image: {
@@ -42,9 +44,10 @@ const upload = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.data.message
-        }
+          message: action.payload.data.message,
+        },
       };
+    }
     default:
       return state;
   }

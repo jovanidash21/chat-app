@@ -8,119 +8,129 @@ import {
   SEARCH_USER,
   CREATE_USER,
   EDIT_USER,
-  DELETE_USER
+  DELETE_USER,
 } from '../constants/user';
 
 const commonStateFlags = {
   loading: false,
   success: false,
   error: false,
-  message: ''
+  message: '',
 };
 
 const initialState = {
-  fetchActive: {...commonStateFlags},
-  fetchCount: {...commonStateFlags},
-  fetchGraph: {...commonStateFlags},
-  fetchSelect: {...commonStateFlags},
-  fetchAll: {...commonStateFlags},
-  editActive: {...commonStateFlags},
-  search: {...commonStateFlags},
-  create: {...commonStateFlags},
-  edit: {...commonStateFlags},
-  delete: {...commonStateFlags},
+  fetchActive: { ...commonStateFlags },
+  fetchCount: { ...commonStateFlags },
+  fetchGraph: { ...commonStateFlags },
+  fetchSelect: { ...commonStateFlags },
+  fetchAll: { ...commonStateFlags },
+  editActive: { ...commonStateFlags },
+  search: { ...commonStateFlags },
+  create: { ...commonStateFlags },
+  edit: { ...commonStateFlags },
+  delete: { ...commonStateFlags },
   count: 0,
   active: {},
   graph: [],
   all: [],
   selected: {},
-  searched: []
+  searched: [],
 };
 
-const user = (state=initialState, action) => {
-  switch(action.type) {
-    case `${FETCH_ACTIVE_USER}_LOADING`:
+const user = ( state = initialState, action ) => {
+  switch( action.type ) {
+    case `${FETCH_ACTIVE_USER}_LOADING`: {
       return {
         ...state,
         fetchActive: {
           ...state.fetchActive,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${FETCH_USERS_COUNT}_LOADING`:
+    }
+    case `${FETCH_USERS_COUNT}_LOADING`: {
       return {
         ...state,
         fetchCount: {
           ...state.fetchCount,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${FETCH_USERS_GRAPH}_LOADING`:
+    }
+    case `${FETCH_USERS_GRAPH}_LOADING`: {
       return {
         ...state,
         fetchGraph: {
           ...state.fetchGraph,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${FETCH_SELECTED_USER}_LOADING`:
+    }
+    case `${FETCH_SELECTED_USER}_LOADING`: {
       return {
         ...state,
         fetchSelect: {
           ...state.fetchSelect,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${FETCH_USERS}_LOADING`:
+    }
+    case `${FETCH_USERS}_LOADING`: {
       return {
         ...state,
         fetchAll: {
           ...state.fetchAll,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${EDIT_ACTIVE_USER}_LOADING`:
+    }
+    case `${EDIT_ACTIVE_USER}_LOADING`: {
       return {
         ...state,
         editActive: {
           ...state.editActive,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${SEARCH_USER}_LOADING`:
+    }
+    case `${SEARCH_USER}_LOADING`: {
       return {
         ...state,
         search: {
           ...state.search,
-          loading: true
+          loading: true,
         },
-        searched: []
+        searched: [],
       };
-    case `${CREATE_USER}_LOADING`:
+    }
+    case `${CREATE_USER}_LOADING`: {
       return {
         ...state,
         create: {
           ...state.create,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${EDIT_USER}_LOADING`:
+    }
+    case `${EDIT_USER}_LOADING`: {
       return {
         ...state,
         edit: {
           ...state.edit,
-          loading: true
-        }
+          loading: true,
+        },
       };
+    }
     case `${DELETE_USER}_LOADING`:
       return {
         ...state,
         delete: {
           ...state.delete,
-          loading: true
-        }
+          loading: true,
+        },
       };
-    case `${FETCH_ACTIVE_USER}_SUCCESS`:
+
+    case `${FETCH_ACTIVE_USER}_SUCCESS`: {
       return {
         ...state,
         fetchActive: {
@@ -128,11 +138,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        active: action.payload.data.user
+        active: action.payload.data.user,
       };
-    case `${FETCH_USERS_COUNT}_SUCCESS`:
+    }
+    case `${FETCH_USERS_COUNT}_SUCCESS`: {
       return {
         ...state,
         fetchCount: {
@@ -140,11 +151,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        count: action.payload.data.count
+        count: action.payload.data.count,
       };
-    case `${FETCH_USERS_GRAPH}_SUCCESS`:
+    }
+    case `${FETCH_USERS_GRAPH}_SUCCESS`: {
       return {
         ...state,
         fetchGraph: {
@@ -152,11 +164,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        graph: action.payload.data.graph
+        graph: action.payload.data.graph,
       };
-    case `${FETCH_SELECTED_USER}_SUCCESS`:
+    }
+    case `${FETCH_SELECTED_USER}_SUCCESS`: {
       return {
         ...state,
         fetchSelect: {
@@ -164,11 +177,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        selected: action.payload.data.user
+        selected: action.payload.data.user,
       };
-    case `${FETCH_USERS}_SUCCESS`:
+    }
+    case `${FETCH_USERS}_SUCCESS`: {
       return {
         ...state,
         fetchAll: {
@@ -176,11 +190,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        all: action.payload.data.users
+        all: action.payload.data.users,
       };
-    case `${EDIT_ACTIVE_USER}_SUCCESS`:
+    }
+    case `${EDIT_ACTIVE_USER}_SUCCESS`: {
       return {
         ...state,
         editActive: {
@@ -188,11 +203,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        active: action.payload.data.user
+        active: action.payload.data.user,
       };
-    case `${SEARCH_USER}_SUCCESS`:
+    }
+    case `${SEARCH_USER}_SUCCESS`: {
       return {
         ...state,
         search: {
@@ -200,11 +216,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        searched: action.payload.data.users
+        searched: action.payload.data.users,
       };
-    case `${CREATE_USER}_SUCCESS`:
+    }
+    case `${CREATE_USER}_SUCCESS`: {
       return {
         ...state,
         create: {
@@ -212,10 +229,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
-        }
+          message: action.payload.data.message,
+        },
       };
-    case `${EDIT_USER}_SUCCESS`:
+    }
+    case `${EDIT_USER}_SUCCESS`: {
       return {
         ...state,
         edit: {
@@ -223,14 +241,17 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
-        }
+          message: action.payload.data.message,
+        },
       };
-    case `${DELETE_USER}_SUCCESS`:
-      var users = [...state.all];
-      var userID = action.meta;
+    }
+    case `${DELETE_USER}_SUCCESS`: {
+      let users = [ ...state.all ];
+      const userID = action.meta;
 
-      users = users.filter((user) => user._id !== userID);
+      users = users.filter(( user ) => {
+        return user._id !== userID;
+      });
 
       return {
         ...state,
@@ -239,11 +260,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: true,
           error: false,
-          message: action.payload.data.message
+          message: action.payload.data.message,
         },
-        all: [...users]
+        all: [ ...users ],
       };
-    case `${FETCH_ACTIVE_USER}_ERROR`:
+    }
+    case `${FETCH_ACTIVE_USER}_ERROR`: {
       return {
         ...state,
         fetchActive: {
@@ -251,10 +273,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${FETCH_USERS_COUNT}_ERROR`:
+    }
+    case `${FETCH_USERS_COUNT}_ERROR`: {
       return {
         ...state,
         fetchCount: {
@@ -262,10 +285,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${FETCH_USERS_GRAPH}_ERROR`:
+    }
+    case `${FETCH_USERS_GRAPH}_ERROR`: {
       return {
         ...state,
         fetchGraph: {
@@ -273,10 +297,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${FETCH_SELECTED_USER}_ERROR`:
+    }
+    case `${FETCH_SELECTED_USER}_ERROR`: {
       return {
         ...state,
         fetchSelect: {
@@ -284,10 +309,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${FETCH_USERS}_ERROR`:
+    }
+    case `${FETCH_USERS}_ERROR`: {
       return {
         ...state,
         fetchAll: {
@@ -295,10 +321,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${EDIT_ACTIVE_USER}_ERROR`:
+    }
+    case `${EDIT_ACTIVE_USER}_ERROR`: {
       return {
         ...state,
         editActive: {
@@ -306,10 +333,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
-      };  
-    case `${SEARCH_USER}_ERROR`:
+          message: action.payload.response.data.message,
+        },
+      };
+    }
+    case `${SEARCH_USER}_ERROR`: {
       return {
         ...state,
         search: {
@@ -317,11 +345,12 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
+          message: action.payload.response.data.message,
         },
-        searched: []
+        searched: [],
       };
-    case `${CREATE_USER}_ERROR`:
+    }
+    case `${CREATE_USER}_ERROR`: {
       return {
         ...state,
         create: {
@@ -329,10 +358,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${EDIT_USER}_ERROR`:
+    }
+    case `${EDIT_USER}_ERROR`: {
       return {
         ...state,
         edit: {
@@ -340,10 +370,11 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
-    case `${DELETE_USER}_ERROR`:
+    }
+    case `${DELETE_USER}_ERROR`: {
       return {
         ...state,
         delete: {
@@ -351,9 +382,10 @@ const user = (state=initialState, action) => {
           loading: false,
           success: false,
           error: true,
-          message: action.payload.response.data.message
-        }
+          message: action.payload.response.data.message,
+        },
       };
+    }
     default:
       return state;
   }

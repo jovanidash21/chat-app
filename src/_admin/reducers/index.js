@@ -8,16 +8,16 @@ import message from './message';
 import upload from './upload';
 
 const appReducer = combineReducers({
-  router: connectRouter(history),
+  router: connectRouter( history ),
   loadingBar: loadingBarReducer,
   user,
   chatRoom,
   message,
-  upload
+  upload,
 });
 
-const rootReducer = (state, action) => {
-  return appReducer(state, action);
+const rootReducer = ( state, action ) => {
+  return appReducer( state, action );
 }
 
 export default rootReducer;
