@@ -4,6 +4,7 @@ import MediaQuery from 'react-responsive';
 import Popup from 'react-popup';
 import Peer from 'simple-peer';
 import mapDispatchToProps from '../../actions';
+import { isObjectEmpty } from '../../../utils/object';
 import { getMedia } from '../../../utils/media';
 import {
   Header,
@@ -383,6 +384,7 @@ class Chat extends Component {
         </div>
         {
           ! loading &&
+          ! isObjectEmpty( activeChatRoom.data ) &&
           <Fragment>
             {
               ! isAudioRecorderOpen

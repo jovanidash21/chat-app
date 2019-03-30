@@ -242,7 +242,7 @@ class ChatBox extends Component {
     const {
       user,
       chatRoom,
-      message,
+      messages,
       fetchNewLoading,
       fetchOldMessages,
       fetchOldLoading
@@ -374,7 +374,6 @@ class ChatBox extends Component {
     const {
       user,
       chatRoom,
-      message,
       isTyping,
       isNotTyping,
       fetchNewLoading,
