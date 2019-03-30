@@ -2,22 +2,23 @@ import { isObjectEmpty } from './object';
 
 /**
  * Handle chat room avatar badges
+ *
  * @param {Object} chatRoom
  * @param {Object} user
  * @param {string} type
  */
-export function handleChatRoomAvatarBadges(chatRoom={}, user={}, type="account") {
-  const isChatRoomEmpty = isObjectEmpty(chatRoom);
-  const isUserEmpty = isObjectEmpty(user);
+export function handleChatRoomAvatarBadges( chatRoom={}, user={}, type='account' ) {
+  const isChatRoomEmpty = isObjectEmpty( chatRoom );
+  const isUserEmpty = isObjectEmpty( user );
 
   if ( isChatRoomEmpty && isUserEmpty ) {
     return '';
   }
 
-  var roleChatType = '';
-  var accountType = '';
+  let roleChatType = '';
+  let accountType = '';
 
-  if ( !isChatRoomEmpty ) {
+  if ( ! isChatRoomEmpty ) {
     switch ( chatRoom.chatType ) {
       case 'private':
         if ( chatRoom.members.length > 0 ) {
@@ -26,9 +27,11 @@ export function handleChatRoomAvatarBadges(chatRoom={}, user={}, type="account")
         }
         break;
       case 'direct':
-        if ( !isUserEmpty ) {
-          var members = chatRoom.members;
-          var memberIndex = members.findIndex(singleMember => singleMember._id !== user._id);
+        if ( ! isUserEmpty ) {
+          const members = chatRoom.members;
+          const memberIndex = members.findIndex(( singleMember ) => {
+            return singleMember._id !== user._id;
+          });
 
           if ( memberIndex > -1 ) {
             roleChatType = members[memberIndex].role;
