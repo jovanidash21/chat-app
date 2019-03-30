@@ -8,35 +8,35 @@ import socket from '../../socket';
 import history from '../../history';
 import reducers from '../reducers';
 
-function optimisticExecute(action, emit, next) {
+const optimisticExecute = ( action, emit, next ) => {
   if ( action.type.indexOf( 'SOCKET_BROADCAST' ) === -1 ) {
-    emit('action', action);
+    emit( 'action', action );
   }
-  next(action);
+  next( action );
 }
 
-const reactRouterMiddleware = routerMiddleware(history);
-let socketIoMiddleware = createSocketIoMiddleware(socket, 'SOCKET_', { execute: optimisticExecute });
+const reactRouterMiddleware = routerMiddleware( history );
+let socketIoMiddleware = createSocketIoMiddleware( socket, 'SOCKET_', { execute: optimisticExecute } );
 
-var middlewares = [
+const middlewares = [
   thunk,
   promiseMiddleware({
-    promiseTypeSuffixes: ['LOADING', 'SUCCESS', 'ERROR']
+    promiseTypeSuffixes: ['LOADING', 'SUCCESS', 'ERROR'],
   }),
   reactRouterMiddleware,
   loadingBarMiddleware(),
-  socketIoMiddleware
+  socketIoMiddleware,
 ];
 
 if ( process.env.NODE_ENV === 'development' ) {
   const { logger } = require('redux-logger');
 
-  middlewares.push(logger);
+  middlewares.push( logger );
 }
 
 const store = createStore(
   reducers,
-  applyMiddleware( ...middlewares )
+  applyMiddleware( ...middlewares ),
 );
 
 export default store;
