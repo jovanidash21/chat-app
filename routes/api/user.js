@@ -29,6 +29,7 @@ router.post('/search', (req, res, next) => {
     var query = req.body.query;
 
     User.find({_id: {$ne: null}, name: {$regex: '\\b' + query, $options: 'i'}}, '-chatRooms -socketID')
+      .limit(5)
       .then((users) => {
         res.status(200).send({
           success: true,
