@@ -47,18 +47,19 @@
   }
   .textfield[contenteditable=true],
   .extra-buttons,
+  .emoji-dialog,
+  .autocomplete-box,
   .send-button {
     z-index: 2;
   }
   .emoji-dialog {
     border-radius: 0;
     bottom: 65px;
-    box-shadow: 0 5px 5px -5px #000;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.16), 0 0 2px 0 rgba(0,0,0,.12);
     height: 300px !important;
     left: 20px;
     position: absolute;
     width: 350px !important;
-    z-index: 1000;
     @media screen and (max-width: $screen-mobile-max) {
       left: 0;
       width: 100% !important;
@@ -89,6 +90,16 @@
     top: 0;
     width: 100%;
     z-index: 1;
+  }
+  .autocomplete-box {
+    bottom: 65px;
+    left: 20px;
+    position: absolute;
+    width: auto;
+    @media screen and (max-width: $screen-mobile-max) {
+      left: 0;
+      width: 100% !important;
+    }
   }
   .chat-input {
     display: flex;

@@ -72,6 +72,7 @@ class ChatPopUpWindow extends Component {
     const {
       index,
       user,
+      searchUser,
       isTyping,
       isNotTyping,
       popUpChatRoom,
@@ -144,10 +145,13 @@ class ChatPopUpWindow extends Component {
                   chatRoomID={popUpChatRoom.data._id}
                   handleIsTyping={isTyping}
                   handleIsNotTyping={isNotTyping}
+                  handleSearchUser={searchUser}
                   handleSendTextMessage={handleSendTextMessage}
                   handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
                   handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
+                  userTagSuggestions={user.searched}
                   disabled={isChatInputDisabled}
+                  userTagLoading={user.search.loading}
                   small
                 />
                 :

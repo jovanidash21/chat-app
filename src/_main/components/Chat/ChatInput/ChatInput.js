@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Popup from 'react-popup';
 import uuidv4 from 'uuid/v4';
 import 'emojione-picker/css/picker.css';
+import { AutocompleteBox } from './AutocompleteBox';
 import './styles.scss';
 
 class ChatInput extends Component {
@@ -20,8 +21,9 @@ class ChatInput extends Component {
       message: '',
       typing: false,
       emojiPicker: false,
+      userTagging: false,
       validMessage: false,
-      maxLengthReached: false
+      maxLengthReached: false,
     };
   }
   handleDivID() {
@@ -64,6 +66,7 @@ class ChatInput extends Component {
     const {
       message,
       typing,
+      userTagging,
       validMessage,
       maxLengthReached
     } = this.state;
@@ -95,6 +98,21 @@ class ChatInput extends Component {
       });
 
       handleIsNotTyping(user, chatRoomID);
+    }
+
+    if ( ! userTagging && event.key === '@' ) {
+      this.setState({userTagging: true});
+    }
+
+    if (
+      userTagging &&
+      ( event.key === 'ArrowRight' || event.key === 'ArrowLeft' )
+    ) {
+      this.setState({userTagging: false});
+    }
+
+    if ( userTagging ) {
+      ::this.handleSearchUser();
     }
 
     if ( (event.key === 'Enter') && validMessage && !maxLengthReached ) {
@@ -215,6 +233,23 @@ class ChatInput extends Component {
       this.setState({caretPosition: document.selection.createRange()});
     }
   }
+  handleSearchUser() {
+    const { handleSearchUser } = this.props;
+    const {
+      message,
+      userTagging,
+    } = this.state;
+    const tagIndex = message.lastIndexOf('@');
+    let userTagQuery = '';
+
+    if ( tagIndex > -1 ) {
+      userTagQuery = message.slice(tagIndex + 1, message.length);
+    }
+
+    if ( userTagging && userTagQuery.length > 0 ) {
+      handleSearchUser(userTagQuery);
+    }
+  }
   handleMessageTextLength() {
     const messageTextLength = ::this.handleMessageText('length');
 
@@ -300,12 +335,15 @@ class ChatInput extends Component {
   render() {
     const {
       handleAudioRecorderToggle,
+      userTagSuggestions,
       disabled,
+      userTagLoading,
       small
     } = this.props;
     const {
       message,
       emojiPicker,
+      userTagging,
       validMessage,
       maxLengthReached
     } = this.state;
@@ -332,6 +370,13 @@ class ChatInput extends Component {
             }
           </Fragment>
         </MediaQuery>
+        {
+          userTagging &&
+          <AutocompleteBox
+            suggestions={userTagSuggestions}
+            loading={userTagLoading}
+          />
+        }
         <div className="chat-input">
           <ContentEditable
             className="textfield single-line"
@@ -415,16 +460,21 @@ ChatInput.propTypes = {
   chatRoomID: PropTypes.string.isRequired,
   handleIsTyping: PropTypes.func.isRequired,
   handleIsNotTyping: PropTypes.func.isRequired,
+  handleSearchUser: PropTypes.func.isRequired,
   handleSendTextMessage: PropTypes.func.isRequired,
   handleAudioRecorderToggle: PropTypes.func.isRequired,
   handleDragDropBoxToggle: PropTypes.func.isRequired,
+  userTagSuggestions: PropTypes.array,
   disabled: PropTypes.bool,
+  userTagLoading: PropTypes.bool,
   small: PropTypes.bool
 }
 
 ChatInput.defaultProps = {
   id: '',
+  userTagSuggestions: [],
   disabled: false,
+  userTagLoading: false,
   small: false
 }
 
