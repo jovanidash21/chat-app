@@ -92,7 +92,7 @@ class MembersList extends Component {
     } = this.state;
 
     if ( members.length > 0 ) {
-      if ( event.keyCode === 38 ) {
+      if ( event.key === 'ArrowUp' ) {
         if ( selectedMemberIndex === -1 ) {
           this.setState({selectedMemberIndex: members.length - 1});
         } else {
@@ -100,7 +100,7 @@ class MembersList extends Component {
         }
       }
 
-      if ( event.keyCode === 40 ) {
+      if ( event.key === 'ArrowDown' ) {
         if ( selectedMemberIndex === members.length - 1 ) {
           this.setState({selectedMemberIndex: -1});
         } else {
