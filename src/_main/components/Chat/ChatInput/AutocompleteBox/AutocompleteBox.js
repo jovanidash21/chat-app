@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Avatar } from '../../../../../components/Avatar';
 import './styles.scss';
 
@@ -17,9 +18,18 @@ class AutocompleteBox extends Component {
     return (
       <div className="autocomplete-box">
         {
+          loading &&
+          <div className="loading-container">
+            <div className="loading-icon">
+              <FontAwesomeIcon icon="spinner" pulse />
+            </div>
+            <span>Loading...</span>
+          </div>
+        }
+        {
           suggestions.length > 0 &&
           suggestions.map((suggestion, i) =>
-            <div className="suggestion-item">
+            <div className="suggestion-item" key={i}>
               <MediaQuery query="(max-width: 767px)">
                 {(matches) => {
                   return (

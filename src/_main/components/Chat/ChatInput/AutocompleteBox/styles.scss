@@ -2,6 +2,15 @@
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,.16), 0 0 2px 0 rgba(0,0,0,.12);
+  .loading-container {
+    align-items: center;
+    display: flex;
+    padding: 10px;
+    .loading-icon {
+      font-size: 14px;
+      margin-right: 10px;
+    }
+  }
   .suggestion-item {
     align-items: center;
     cursor: pointer;
