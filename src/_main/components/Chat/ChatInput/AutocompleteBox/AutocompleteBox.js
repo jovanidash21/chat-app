@@ -16,40 +16,42 @@ class AutocompleteBox extends Component {
     } = this.props;
 
     return (
-      <div className="autocomplete-box">
-        {
-          loading &&
-          <div className="loading-container">
-            <div className="loading-icon">
-              <FontAwesomeIcon icon="spinner" pulse />
-            </div>
-            <span>Loading...</span>
-          </div>
-        }
-        {
-          suggestions.length > 0 &&
-          suggestions.map((suggestion, i) =>
-            <div className="suggestion-item" key={i}>
-              <MediaQuery query="(max-width: 767px)">
-                {(matches) => {
-                  return (
-                    <Avatar
-                      image={suggestion.profilePicture}
-                      size={matches ? '25px' : '23px'}
-                      name={suggestion.name}
-                      username={suggestion.username}
-                      roleChatType={suggestion.role}
-                      accountType={suggestion.accountType}
-                    />
-                  )
-                }}
-              </MediaQuery>
-              <div className="suggestion-name">
-                {suggestion.name}
+      <div className="autocomplete-box-wrapper">
+        <div className="autocomplete-box">
+          {
+            loading &&
+            <div className="loading-container">
+              <div className="loading-icon">
+                <FontAwesomeIcon icon="spinner" pulse />
               </div>
+              <span>Loading...</span>
             </div>
-          )
-        }
+          }
+          {
+            suggestions.length > 0 &&
+            suggestions.map((suggestion, i) =>
+              <div className="suggestion-item" key={i}>
+                <MediaQuery query="(max-width: 767px)">
+                  {(matches) => {
+                    return (
+                      <Avatar
+                        image={suggestion.profilePicture}
+                        size={matches ? '25px' : '23px'}
+                        name={suggestion.name}
+                        username={suggestion.username}
+                        roleChatType={suggestion.role}
+                        accountType={suggestion.accountType}
+                      />
+                    )
+                  }}
+                </MediaQuery>
+                <div className="suggestion-name">
+                  {suggestion.name}
+                </div>
+              </div>
+            )
+          }
+        </div>
       </div>
     )
   }

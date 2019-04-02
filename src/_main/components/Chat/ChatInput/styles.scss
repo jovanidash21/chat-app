@@ -48,7 +48,7 @@
   .textfield[contenteditable=true],
   .extra-buttons,
   .emoji-dialog,
-  .autocomplete-box,
+  .autocomplete-box-wrapper,
   .send-button {
     z-index: 2;
   }
@@ -91,10 +91,11 @@
     width: 100%;
     z-index: 1;
   }
-  .autocomplete-box {
+  .autocomplete-box-wrapper {
     bottom: 65px;
     left: 20px;
     position: absolute;
+    right: 20px;
     width: auto;
     @media screen and (max-width: $screen-mobile-max) {
       left: 0;
