@@ -92,7 +92,6 @@
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.6.3",
-    "react-at": "^0.1.0",
     "react-autosuggest": "^9.4.2",
     "react-burger-menu": "^2.5.4",
     "react-dom": "^16.6.3",
