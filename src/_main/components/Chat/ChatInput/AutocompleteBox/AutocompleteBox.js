@@ -9,6 +9,13 @@ class AutocompleteBox extends Component {
   constructor(props) {
     super(props);
   }
+  handleSelectSuggestion(event, suggestion) {
+    event.preventDefault();
+
+    const { handleSelectSuggestion } = this.props;
+
+    handleSelectSuggestion(suggestion);
+  }
   render() {
     const {
       suggestions,
@@ -30,7 +37,11 @@ class AutocompleteBox extends Component {
           {
             suggestions.length > 0 &&
             suggestions.map((suggestion, i) =>
-              <div className="suggestion-item" key={i}>
+              <div
+                className="suggestion-item"
+                key={i}
+                onClick={(e) => {::this.handleSelectSuggestion(e, suggestion)}}
+              >
                 <MediaQuery query="(max-width: 767px)">
                   {(matches) => {
                     return (
@@ -60,6 +71,7 @@ class AutocompleteBox extends Component {
 AutocompleteBox.propTypes = {
   suggestions: PropTypes.array,
   loading: PropTypes.bool,
+  handleSelectSuggestion: PropTypes.func.isRequired,
 }
 
 AutocompleteBox.defaultProps = {

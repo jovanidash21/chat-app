@@ -100,15 +100,11 @@ class ChatInput extends Component {
       handleIsNotTyping(user, chatRoomID);
     }
 
-    if ( ! userTagging && event.key === '@' ) {
-      this.setState({userTagging: true});
-    }
-
-    if (
-      userTagging &&
-      ( event.key === 'ArrowRight' || event.key === 'ArrowLeft' )
-    ) {
-      this.setState({userTagging: false});
+    if ( event.key === 'Escape' ) {
+      this.setState({
+        emojiPicker: false,
+        userTagging: false,
+      });
     }
 
     if ( userTagging ) {
@@ -167,8 +163,7 @@ class ChatInput extends Component {
       maxLengthReached
     } = this.state;
     const messageTextLength = ::this.handleMessageText('length');
-
-    var emojiSelect = emojione.toImage(emoji.shortname);
+    const emojiSelect = emojione.toImage(emoji.shortname);
 
     if ( caretPosition ) {
       if ( window.getSelection ) {
@@ -185,7 +180,7 @@ class ChatInput extends Component {
     if ( maxLengthReached || messageTextLength >= 159 ) {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } else {
-      ::this.handleInsertEmoji(emojiSelect);
+      ::this.handleInsertHTMLContentEditable(emojiSelect);
     }
 
     if ( !typing && !validMessage ) {
@@ -197,7 +192,50 @@ class ChatInput extends Component {
       handleIsTyping(user, chatRoomID);
     }
   }
-  handleInsertEmoji(emoji) {
+  handleUserTaggingSelect(selectedUser) {
+    const {
+      user,
+      chatRoomID,
+      handleIsTyping
+    } = this.props;
+    const {
+      caretPosition,
+      typing,
+      validMessage,
+      maxLengthReached
+    } = this.state;
+    const messageTextLength = ::this.handleMessageText('length');
+
+    if ( caretPosition ) {
+      if ( window.getSelection ) {
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(caretPosition);
+      } else if ( document.selection && caretPosition.select ) {
+        caretPosition.select();
+      }
+    }
+
+    document.getElementById(::this.handleDivID()).focus();
+
+    if ( maxLengthReached || messageTextLength >= ( 161 - selectedUser.username ) ) {
+      Popup.alert('Sorry, maximum of 160 characters only!');
+    } else {
+      ::this.handleInsertHTMLContentEditable(`@${selectedUser.username}`);
+    }
+
+    this.setState({userTagging: false});
+
+    if ( !typing && !validMessage ) {
+      this.setState({
+        typing: true,
+        validMessage: true
+      });
+
+      handleIsTyping(user, chatRoomID);
+    }
+  }
+  handleInsertHTMLContentEditable(html) {
     if ( window.getSelection ) {
       var selection = window.getSelection();
       if ( selection.getRangeAt && selection.rangeCount ) {
@@ -205,7 +243,7 @@ class ChatInput extends Component {
         range.deleteContents();
 
         var element = document.createElement("div");
-        element.innerHTML = emoji;
+        element.innerHTML = html;
 
         var fragment = document.createDocumentFragment(), node, lastNode;
         while ( (node = element.firstChild) ) {
@@ -227,7 +265,7 @@ class ChatInput extends Component {
       }
     } else if ( document.selection && document.selection.createRange ) {
       var range = document.selection.createRange();
-      range.pasteHTML(emoji);
+      range.pasteHTML(html);
       range.select();
 
       this.setState({caretPosition: document.selection.createRange()});
@@ -375,6 +413,7 @@ class ChatInput extends Component {
           <AutocompleteBox
             suggestions={userTagSuggestions}
             loading={userTagLoading}
+            handleSelectSuggestion={::this.handleUserTaggingSelect}
           />
         }
         <div className="chat-input">
