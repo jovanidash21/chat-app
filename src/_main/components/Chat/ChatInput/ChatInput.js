@@ -26,6 +26,12 @@ class ChatInput extends Component {
       maxLengthReached: false,
     };
   }
+  componentWillMount() {
+    document.addEventListener('mousedown', ::this.handleClick, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', ::this.handleClick, false);
+  }
   handleDivID() {
     const { id } = this.props;
     const chatInputID = 'chat-input';
@@ -34,6 +40,13 @@ class ChatInput extends Component {
       return chatInputID + '-' + id;
     } else {
       return chatInputID;
+    }
+  }
+  handleClick(event) {
+    if ( this.emojiPicker ) {
+      if ( ! this.emojiPicker.contains(event.target) ) {
+        this.setState({emojiPicker: false})
+      }
     }
   }
   onMessageChange(event, value) {
@@ -398,13 +411,9 @@ class ChatInput extends Component {
           <Fragment>
             {
               emojiPicker &&
-              <Fragment>
+              <div ref={(element) => { this.emojiPicker = element; }}>
                 <EmojiPicker onChange={::this.handleEmojiPickerSelect} search />
-                {
-                  !small &&
-                  <div className="emoji-picker-overlay" onClick={::this.handleEmojiPickerToggle} />
-                }
-              </Fragment>
+              </div>
             }
           </Fragment>
         </MediaQuery>
