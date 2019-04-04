@@ -43,10 +43,12 @@ class ChatInput extends Component {
     }
   }
   handleClick(event) {
-    if ( this.emojiPicker ) {
-      if ( ! this.emojiPicker.contains(event.target) ) {
-        this.setState({emojiPicker: false})
-      }
+    if ( this.emojiPicker && ! this.emojiPicker.contains(event.target) ) {
+      this.setState({emojiPicker: false});
+    }
+
+    if ( this.autocompleteBox && ! this.autocompleteBox.contains(event.target) ) {
+      this.setState({userTagging: false});
     }
   }
   onMessageChange(event, value) {
@@ -419,11 +421,13 @@ class ChatInput extends Component {
         </MediaQuery>
         {
           userTagging &&
-          <AutocompleteBox
-            suggestions={userTagSuggestions}
-            loading={userTagLoading}
-            handleSelectSuggestion={::this.handleUserTaggingSelect}
-          />
+          <div ref={(element) => { this.autocompleteBox = element; }}>
+            <AutocompleteBox
+              suggestions={userTagSuggestions}
+              loading={userTagLoading}
+              handleSelectSuggestion={::this.handleUserTaggingSelect}
+            />
+          </div>
         }
         <div className="chat-input">
           <ContentEditable
