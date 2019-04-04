@@ -10,6 +10,7 @@ import Popup from 'react-popup';
 import uuidv4 from 'uuid/v4';
 import 'emojione-picker/css/picker.css';
 import { AutocompleteBox } from './AutocompleteBox';
+import { getCaretPosition } from '../../../../utils/input';
 import './styles.scss';
 
 class ChatInput extends Component {
@@ -122,10 +123,6 @@ class ChatInput extends Component {
       });
     }
 
-    if ( userTagging ) {
-      ::this.handleSearchUser();
-    }
-
     if ( (event.key === 'Enter') && validMessage && !maxLengthReached ) {
       ::this.handleSendTextMessageOnChange(event);
 
@@ -133,10 +130,18 @@ class ChatInput extends Component {
         message: '',
         typing: false,
         emojiPicker: false,
-        validMessage: false
+        validMessage: false,
       });
     }
-    ::this.handleSaveCaretPosition(event);
+
+    ::this.handleUserTaggingToggle();
+    ::this.handleSaveCaretPosition();
+  }
+  onMessageClick(event) {
+    event.preventDefault();
+
+    ::this.handleUserTaggingToggle();
+    ::this.handleSaveCaretPosition();
   }
   onMessagePaste(event) {
     const messageTextLength = ::this.handleMessageText('length');
@@ -146,9 +151,7 @@ class ChatInput extends Component {
       Popup.alert('Sorry, maximum of 160 characters only!');
     }
   }
-  handleSaveCaretPosition(event) {
-    event.preventDefault();
-
+  handleSaveCaretPosition() {
     if ( window.getSelection ) {
       var selection = window.getSelection();
       if ( selection.getRangeAt && selection.rangeCount ) {
@@ -164,6 +167,43 @@ class ChatInput extends Component {
     event.preventDefault();
 
     this.setState({emojiPicker: !this.state.emojiPicker});
+  }
+  handleUserTaggingToggle() {
+    const { handleSearchUser } = this.props;
+    const {
+      message,
+      userTagging,
+    } = this.state;
+    let selectedWord = '';
+    const messageText = ::this.handleMessageText('text');
+    const caretPosition = getCaretPosition(document.getElementById(::this.handleDivID()));
+    const start = /@/ig;
+    const word = /@(\w+)/ig;
+    const leftCaretText = messageText.substring(0, caretPosition);
+    const rightCaretText = messageText.substring(caretPosition);
+    const leftCaretWords = leftCaretText.split(' ');
+    const leftCaretWordsLength = leftCaretWords.length;
+    const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
+    const rightCaretWords = rightCaretText.split(' ');
+    const rightCaretFirstWord = rightCaretWords[0];
+
+    selectedWord = leftCaretLastWord + rightCaretFirstWord;
+
+    const leftCaretLastWordLength = leftCaretLastWord.length - 1;
+    const rightCaretFirstWordLength = rightCaretFirstWord.length;
+
+    const go = selectedWord.match( start );
+    const name = selectedWord.match( word );
+
+    if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
+      const userTagQuery = name[0].substr(1);
+
+      this.setState({userTagging: true});
+
+      handleSearchUser(userTagQuery);
+    } else {
+      this.setState({userTagging: false});
+    }
   }
   handleEmojiPickerSelect(emoji) {
     const {
@@ -284,23 +324,6 @@ class ChatInput extends Component {
       range.select();
 
       this.setState({caretPosition: document.selection.createRange()});
-    }
-  }
-  handleSearchUser() {
-    const { handleSearchUser } = this.props;
-    const {
-      message,
-      userTagging,
-    } = this.state;
-    const tagIndex = message.lastIndexOf('@');
-    let userTagQuery = '';
-
-    if ( tagIndex > -1 ) {
-      userTagQuery = message.slice(tagIndex + 1, message.length);
-    }
-
-    if ( userTagging && userTagQuery.length > 0 ) {
-      handleSearchUser(userTagQuery);
     }
   }
   handleMessageTextLength() {
@@ -437,7 +460,7 @@ class ChatInput extends Component {
             autoComplete="off"
             html={message}
             tagName="span"
-            onClick={::this.handleSaveCaretPosition}
+            onClick={::this.onMessageClick}
             onChange={::this.onMessageChange}
             onKeyPress={::this.onMessageKeyPress}
             onKeyUp={::this.onMessageKeyUp}
