@@ -166,7 +166,10 @@ class ChatInput extends Component {
   handleEmojiPickerToggle(event) {
     event.preventDefault();
 
-    this.setState({emojiPicker: !this.state.emojiPicker});
+    this.setState({
+      emojiPicker: !this.state.emojiPicker,
+      userTagging: false,
+    });
   }
   handleUserTaggingToggle() {
     const { handleSearchUser } = this.props;
@@ -198,7 +201,10 @@ class ChatInput extends Component {
     if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
       const userTagQuery = name[0].substr(1);
 
-      this.setState({userTagging: true});
+      this.setState({
+        emojiPircker: false,
+        userTagging: true,
+      });
 
       handleSearchUser(userTagQuery);
     } else {
