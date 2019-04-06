@@ -276,7 +276,7 @@ class ChatInput extends Component {
     if ( maxLengthReached || messageTextLength >= ( 161 - selectedUser.username ) ) {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } else {
-      ::this.handleInsertHTMLContentEditable(`@${selectedUser.username}`);
+      ::this.handleInsertHTMLContentEditable(`<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
     }
 
     this.setState({userTagging: false});

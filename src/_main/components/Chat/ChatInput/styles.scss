@@ -137,6 +137,12 @@
         vertical-align: bottom;
         width: $emoji-size;
       }
+      .user-username-tag {
+        background-color: rgba($color-primary, 0.1);
+        border-radius: 3px;
+        color: $color-primary;
+        padding: 2px 5px;
+      }
     }
     .extras {
       align-items: center;
