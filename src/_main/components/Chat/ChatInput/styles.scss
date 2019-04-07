@@ -37,6 +37,11 @@
       left: 0;
       width: 100% !important;
     }
+    .autocomplete-box-wrapper {
+      bottom: 60px;
+      left: 10px;
+      right: 10px;
+    }
     .send-button {
       $size: 50px;
       flex: 0 0 $size;

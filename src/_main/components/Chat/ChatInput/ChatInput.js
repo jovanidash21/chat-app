@@ -10,7 +10,7 @@ import Popup from 'react-popup';
 import uuidv4 from 'uuid/v4';
 import 'emojione-picker/css/picker.css';
 import { AutocompleteBox } from './AutocompleteBox';
-import { getCaretPosition } from '../../../../utils/input';
+import { getAutoCompleteTextQuery } from '../../../../utils/input';
 import './styles.scss';
 
 class ChatInput extends Component {
@@ -173,34 +173,10 @@ class ChatInput extends Component {
   }
   handleUserTaggingToggle() {
     const { handleSearchUser } = this.props;
-    const {
-      message,
-      userTagging,
-    } = this.state;
-    let selectedWord = '';
     const messageText = ::this.handleMessageText('text');
-    const caretPosition = getCaretPosition(document.getElementById(::this.handleDivID()));
-    const start = /@/ig;
-    const word = /@(\w+)/ig;
-    const leftCaretText = messageText.substring(0, caretPosition);
-    const rightCaretText = messageText.substring(caretPosition);
-    const leftCaretWords = leftCaretText.split(' ');
-    const leftCaretWordsLength = leftCaretWords.length;
-    const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
-    const rightCaretWords = rightCaretText.split(' ');
-    const rightCaretFirstWord = rightCaretWords[0];
+    const userTagQuery = getAutoCompleteTextQuery(document.getElementById(::this.handleDivID()), messageText);
 
-    selectedWord = leftCaretLastWord + rightCaretFirstWord;
-
-    const leftCaretLastWordLength = leftCaretLastWord.length - 1;
-    const rightCaretFirstWordLength = rightCaretFirstWord.length;
-
-    const go = selectedWord.match( start );
-    const name = selectedWord.match( word );
-
-    if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
-      const userTagQuery = name[0].substr(1);
-
+    if ( userTagQuery.length > 0 ) {
       this.setState({
         emojiPircker: false,
         userTagging: true,
