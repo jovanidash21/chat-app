@@ -56,9 +56,6 @@ export function getAutoCompleteTextQuery( element, text ) {
 
   selectedWord = leftCaretLastWord + rightCaretFirstWord;
 
-  const leftCaretLastWordLength = leftCaretLastWord.length - 1;
-  const rightCaretFirstWordLength = rightCaretFirstWord.length;
-
   const go = selectedWord.match( start );
   const name = selectedWord.match( word );
 
@@ -69,4 +66,43 @@ export function getAutoCompleteTextQuery( element, text ) {
   }
 
   return '';
+}
+
+/**
+ * Insert autocomplete text
+ *
+ * @param {object} element
+ */
+export function insertAutocompleteText( element, text ) {
+  const inputHTML = element.innerHTML;
+  let selectedWord = '';
+  let newInputHTML = '';
+  const caretPosition = getCaretPosition(element);
+  const start = /@/ig;
+  const word = /@(\w+)/ig;
+  const leftCaretText = inputHTML.substring(0, caretPosition);
+  const rightCaretText = inputHTML.substring(caretPosition);
+  const leftCaretWords = leftCaretText.split(' ');
+  const leftCaretWordsLength = leftCaretWords.length;
+  const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
+  const rightCaretWords = rightCaretText.split(' ');
+  const rightCaretFirstWord = rightCaretWords[0];
+
+  selectedWord = leftCaretLastWord + rightCaretFirstWord;
+
+  const leftCaretLastWordLength = leftCaretLastWord.length - 1;
+  const rightCaretFirstWordLength = rightCaretFirstWord.length;
+  const firstPartWordsPosition = caretPosition - leftCaretLastWordLength - 1;
+  const lastPartWordsPosition = caretPosition + rightCaretFirstWordLength;
+  const firstPartWords = inputHTML.substring(0, firstPartWordsPosition);
+  const lastPartWords = inputHTML.substring(lastPartWordsPosition);
+
+  const go = selectedWord.match( start );
+  const name = selectedWord.match( word );
+
+  if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
+    newInputHTML = firstPartWords + text + lastPartWords;
+  }
+
+  element.innerHTML = newInputHTML;
 }

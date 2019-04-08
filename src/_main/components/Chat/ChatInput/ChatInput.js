@@ -10,7 +10,10 @@ import Popup from 'react-popup';
 import uuidv4 from 'uuid/v4';
 import 'emojione-picker/css/picker.css';
 import { AutocompleteBox } from './AutocompleteBox';
-import { getAutoCompleteTextQuery } from '../../../../utils/input';
+import {
+  getAutoCompleteTextQuery,
+  insertAutocompleteText,
+} from '../../../../utils/input';
 import './styles.scss';
 
 class ChatInput extends Component {
@@ -178,7 +181,7 @@ class ChatInput extends Component {
 
     if ( userTagQuery.length > 0 ) {
       this.setState({
-        emojiPircker: false,
+        emojiPicker: false,
         userTagging: true,
       });
 
@@ -258,7 +261,7 @@ class ChatInput extends Component {
     if ( maxLengthReached || messageTextLength >= ( 161 - selectedUser.username ) ) {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } else {
-      ::this.handleInsertHTMLContentEditable(`<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
+      insertAutocompleteText(document.getElementById(::this.handleDivID()), `<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
     }
 
     this.setState({userTagging: false});
@@ -287,7 +290,6 @@ class ChatInput extends Component {
           lastNode = fragment.appendChild(node);
         }
 
-        var firstNode = fragment.firstChild;
         range.insertNode(fragment);
 
         if ( lastNode ) {
