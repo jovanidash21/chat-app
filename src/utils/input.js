@@ -101,7 +101,7 @@ export function insertAutocompleteText( element, text ) {
   const name = selectedWord.match( word );
 
   if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
-    newInputHTML = firstPartWords + text + lastPartWords;
+    newInputHTML = `${firstPartWords}&nbsp;${text}&nbsp;${lastPartWords}`;
   }
 
   element.innerHTML = newInputHTML;
