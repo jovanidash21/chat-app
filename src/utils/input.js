@@ -42,27 +42,37 @@ export function getCaretPosition( element ) {
  * @param {string} text
  */
 export function getAutoCompleteTextQuery( element, text ) {
-  let selectedWord = '';
-  const caretPosition = getCaretPosition(element);
-  const start = /@/ig;
-  const word = /@(\w+)/ig;
-  const leftCaretText = text.substring(0, caretPosition);
-  const rightCaretText = text.substring(caretPosition);
-  const leftCaretWords = leftCaretText.split(' ');
-  const leftCaretWordsLength = leftCaretWords.length;
-  const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
-  const rightCaretWords = rightCaretText.split(' ');
-  const rightCaretFirstWord = rightCaretWords[0];
+  let parentElement = null;
 
-  selectedWord = leftCaretLastWord + rightCaretFirstWord;
+  if ( window.getSelection ) {
+    parentElement = window.getSelection().anchorNode.parentNode;
+  } else if ( document.selection && document.selection.createRange ) {
+    parentElement = document.selection.createRange().parentElement();
+  }
 
-  const go = selectedWord.match( start );
-  const name = selectedWord.match( word );
+  if ( parentElement && ! parentElement.classList.contains( 'user-username-tag' ) ) {
+    let selectedWord = '';
+    const caretPosition = getCaretPosition(element);
+    const start = /@/ig;
+    const word = /@(\w+)/ig;
+    const leftCaretText = text.substring(0, caretPosition);
+    const rightCaretText = text.substring(caretPosition);
+    const leftCaretWords = leftCaretText.split(' ');
+    const leftCaretWordsLength = leftCaretWords.length;
+    const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
+    const rightCaretWords = rightCaretText.split(' ');
+    const rightCaretFirstWord = rightCaretWords[0];
 
-  if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
-    const textQuery = name[0].substr(1);
+    selectedWord = leftCaretLastWord + rightCaretFirstWord;
 
-    return textQuery;
+    const go = selectedWord.match( start );
+    const name = selectedWord.match( word );
+
+    if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
+      const textQuery = name[0].substr(1);
+
+      return textQuery;
+    }
   }
 
   return '';
@@ -72,6 +82,7 @@ export function getAutoCompleteTextQuery( element, text ) {
  * Insert autocomplete text
  *
  * @param {object} element
+ * @param {string} text
  */
 export function insertAutocompleteText( element, text ) {
   const inputHTML = element.innerHTML;
