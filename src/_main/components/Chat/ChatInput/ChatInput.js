@@ -13,6 +13,7 @@ import { AutocompleteBox } from './AutocompleteBox';
 import {
   getAutoCompleteTextQuery,
   insertAutocompleteText,
+  removeAutocompleteText,
 } from '../../../../utils/input';
 import './styles.scss';
 
@@ -136,6 +137,8 @@ class ChatInput extends Component {
         validMessage: false,
       });
     }
+
+    removeAutocompleteText();
 
     ::this.handleUserTaggingToggle();
     ::this.handleSaveCaretPosition();

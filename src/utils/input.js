@@ -117,3 +117,21 @@ export function insertAutocompleteText( element, text ) {
 
   element.innerHTML = newInputHTML;
 }
+
+/**
+ * Remove autocomplete text
+ *
+ */
+export function removeAutocompleteText() {
+  let parentElement = null;
+
+  if ( window.getSelection ) {
+    parentElement = window.getSelection().anchorNode.parentNode;
+  } else if ( document.selection && document.selection.createRange ) {
+    parentElement = document.selection.createRange().parentElement();
+  }
+
+  if ( parentElement && parentElement.classList.contains( 'user-username-tag' ) ) {
+    parentElement.outerHTML = parentElement.innerHTML;
+  }
+}
