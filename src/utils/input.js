@@ -5,31 +5,26 @@
  */
 export function getCaretPosition( element ) {
   let caretPosition = 0;
+  const document = element.ownerDocument || element.document;
+  const windown = document.defaultView || document.parentWindow;
+  let selection;
 
-  if ( window.getSelection ) {
-    const selection = window.getSelection();
+  if ( typeof window.getSelection != 'undefined' ) {
+    selection = window.getSelection();
 
-    if ( selection.getRangeAt && selection.rangeCount ) {
-      const range = selection.getRangeAt(0);
-
-      if ( range.commonAncestorContainer.parentNode === element ) {
-        caretPosition = range.endOffset;
-      }
+    if ( selection.rangeCount > 0 ) {
+      const range = window.getSelection().getRangeAt(0);
+      const preCaretRange = range.cloneRange();
+      preCaretRange.selectNodeContents( element );
+      preCaretRange.setEnd( range.endContainer, range.endOffset );
+      caretPosition = preCaretRange.toString().length;
     }
-  } else if ( document.selection && document.selection.createRange ) {
-    const range = document.selection.createRange();
-
-    if ( range.parentElement() == element ) {
-      const tempElement = document.createElement('span');
-
-      element.insertBefore( tempElement, element.firstChild );
-
-      const tempRange = range.duplicate();
-
-      tempRange.moveToElementText( tempElement );
-      tempRange.setEndPoint( 'EndToEnd', range );
-      caretPosition = tempRange.text.length;
-    }
+  } else if ( ( selection = document.selection ) && selection.type != 'Control' ) {
+    const textRange = selection.createRange();
+    const preCaretTextRange = document.body.createTextRange();
+    preCaretTextRange.moveToElementText(element);
+    preCaretTextRange.setEndPoint( 'EndToEnd', textRange );
+    caretPosition = preCaretTextRange.text.length;
   }
 
   return caretPosition;
@@ -115,6 +110,7 @@ export function insertAutocompleteText( element, text ) {
     newInputHTML = `${firstPartWords}&nbsp;${text}&nbsp;${lastPartWords}`;
   }
 
+  element.focus();
   element.innerHTML = newInputHTML;
 }
 
