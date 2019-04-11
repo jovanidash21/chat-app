@@ -180,7 +180,7 @@ class ChatInput extends Component {
   handleUserTaggingToggle() {
     const { handleSearchUser } = this.props;
     const messageText = ::this.handleMessageText('text');
-    const userTagQuery = getAutoCompleteTextQuery(document.getElementById(::this.handleDivID()), messageText);
+    const userTagQuery = getAutoCompleteTextQuery(document.getElementById(::this.handleDivID()));
 
     if ( userTagQuery.length > 0 ) {
       this.setState({
@@ -285,7 +285,7 @@ class ChatInput extends Component {
         var range = selection.getRangeAt(0);
         range.deleteContents();
 
-        var element = document.createElement("div");
+        var element = document.createElement('div');
         element.innerHTML = html;
 
         var fragment = document.createDocumentFragment(), node, lastNode;

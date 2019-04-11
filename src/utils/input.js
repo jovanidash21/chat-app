@@ -34,10 +34,10 @@ export function getCaretPosition( element ) {
  * Get autocomplete text query
  *
  * @param {object} element
- * @param {string} text
  */
-export function getAutoCompleteTextQuery( element, text ) {
+export function getAutoCompleteTextQuery( element ) {
   let parentElement = null;
+  const inputHTML = element.innerHTML;
 
   if ( window.getSelection ) {
     parentElement = window.getSelection().anchorNode.parentNode;
@@ -50,8 +50,8 @@ export function getAutoCompleteTextQuery( element, text ) {
     const caretPosition = getCaretPosition(element);
     const start = /@/ig;
     const word = /@(\w+)/ig;
-    const leftCaretText = text.substring(0, caretPosition);
-    const rightCaretText = text.substring(caretPosition);
+    const leftCaretText = inputHTML.substring(0, caretPosition);
+    const rightCaretText = inputHTML.substring(caretPosition);
     const leftCaretWords = leftCaretText.split(' ');
     const leftCaretWordsLength = leftCaretWords.length;
     const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
