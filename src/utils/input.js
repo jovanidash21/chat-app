@@ -110,8 +110,7 @@ export function insertAutocompleteText( element, text, autocompleteText ) {
     newInputHTML = `${firstPartWords}&nbsp;${autocompleteText}&nbsp;${lastPartWords}`;
   }
 
-  element.focus();
-  element.innerHTML = newInputHTML;
+  return newInputHTML;
 }
 
 /**

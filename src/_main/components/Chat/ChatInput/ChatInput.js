@@ -248,6 +248,7 @@ class ChatInput extends Component {
       maxLengthReached
     } = this.state;
     const messageTextLength = ::this.handleMessageText('length');
+    let message = '';
 
     if ( caretPosition ) {
       if ( window.getSelection ) {
@@ -265,10 +266,13 @@ class ChatInput extends Component {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } else {
       const messageText = ::this.handleMessageText('text');
-      insertAutocompleteText(document.getElementById(::this.handleDivID()), messageText, `<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
+      message = insertAutocompleteText(document.getElementById(::this.handleDivID()), messageText, `<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
     }
 
-    this.setState({userTagging: false});
+    this.setState({
+      message: message,
+      userTagging: false,
+    });
 
     if ( !typing && !validMessage ) {
       this.setState({
