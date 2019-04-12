@@ -34,10 +34,10 @@ export function getCaretPosition( element ) {
  * Get autocomplete text query
  *
  * @param {object} element
+ * @param {string} text
  */
-export function getAutoCompleteTextQuery( element ) {
+export function getAutoCompleteTextQuery( element, text ) {
   let parentElement = null;
-  const inputHTML = element.innerHTML;
 
   if ( window.getSelection ) {
     parentElement = window.getSelection().anchorNode.parentNode;
@@ -50,8 +50,8 @@ export function getAutoCompleteTextQuery( element ) {
     const caretPosition = getCaretPosition(element);
     const start = /@/ig;
     const word = /@(\w+)/ig;
-    const leftCaretText = inputHTML.substring(0, caretPosition);
-    const rightCaretText = inputHTML.substring(caretPosition);
+    const leftCaretText = text.substring(0, caretPosition);
+    const rightCaretText = text.substring(caretPosition);
     const leftCaretWords = leftCaretText.split(' ');
     const leftCaretWordsLength = leftCaretWords.length;
     const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
@@ -78,16 +78,16 @@ export function getAutoCompleteTextQuery( element ) {
  *
  * @param {object} element
  * @param {string} text
+ * @param {string} autocompleteText
  */
-export function insertAutocompleteText( element, text ) {
-  const inputHTML = element.innerHTML;
+export function insertAutocompleteText( element, text, autocompleteText ) {
   let selectedWord = '';
   let newInputHTML = '';
   const caretPosition = getCaretPosition(element);
   const start = /@/ig;
   const word = /@(\w+)/ig;
-  const leftCaretText = inputHTML.substring(0, caretPosition);
-  const rightCaretText = inputHTML.substring(caretPosition);
+  const leftCaretText = text.substring(0, caretPosition);
+  const rightCaretText = text.substring(caretPosition);
   const leftCaretWords = leftCaretText.split(' ');
   const leftCaretWordsLength = leftCaretWords.length;
   const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
@@ -100,14 +100,14 @@ export function insertAutocompleteText( element, text ) {
   const rightCaretFirstWordLength = rightCaretFirstWord.length;
   const firstPartWordsPosition = caretPosition - leftCaretLastWordLength - 1;
   const lastPartWordsPosition = caretPosition + rightCaretFirstWordLength;
-  const firstPartWords = inputHTML.substring(0, firstPartWordsPosition);
-  const lastPartWords = inputHTML.substring(lastPartWordsPosition);
+  const firstPartWords = text.substring(0, firstPartWordsPosition);
+  const lastPartWords = text.substring(lastPartWordsPosition);
 
   const go = selectedWord.match( start );
   const name = selectedWord.match( word );
 
   if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
-    newInputHTML = `${firstPartWords}&nbsp;${text}&nbsp;${lastPartWords}`;
+    newInputHTML = `${firstPartWords}&nbsp;${autocompleteText}&nbsp;${lastPartWords}`;
   }
 
   element.focus();

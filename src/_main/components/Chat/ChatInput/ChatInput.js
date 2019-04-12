@@ -180,7 +180,7 @@ class ChatInput extends Component {
   handleUserTaggingToggle() {
     const { handleSearchUser } = this.props;
     const messageText = ::this.handleMessageText('text');
-    const userTagQuery = getAutoCompleteTextQuery(document.getElementById(::this.handleDivID()));
+    const userTagQuery = getAutoCompleteTextQuery(document.getElementById(::this.handleDivID()), messageText);
 
     if ( userTagQuery.length > 0 ) {
       this.setState({
@@ -264,7 +264,8 @@ class ChatInput extends Component {
     if ( maxLengthReached || messageTextLength >= ( 161 - selectedUser.username ) ) {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } else {
-      insertAutocompleteText(document.getElementById(::this.handleDivID()), `<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
+      const messageText = ::this.handleMessageText('text');
+      insertAutocompleteText(document.getElementById(::this.handleDivID()), messageText, `<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
     }
 
     this.setState({userTagging: false});
