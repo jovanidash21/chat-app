@@ -4,30 +4,84 @@
  * @param {object} element
  */
 export function getCaretPosition( element ) {
-  let caretPosition = 0;
+  let caretPosition = null;
   const document = element.ownerDocument || element.document;
-  const windown = document.defaultView || document.parentWindow;
+  const window = document.defaultView || document.parentWindow;
   let selection;
 
   if ( typeof window.getSelection != 'undefined' ) {
     selection = window.getSelection();
 
     if ( selection.rangeCount > 0 ) {
-      const range = window.getSelection().getRangeAt(0);
-      const preCaretRange = range.cloneRange();
-      preCaretRange.selectNodeContents( element );
-      preCaretRange.setEnd( range.endContainer, range.endOffset );
-      caretPosition = preCaretRange.toString().length;
+      caretPosition = window.getSelection().getRangeAt(0);
     }
   } else if ( ( selection = document.selection ) && selection.type != 'Control' ) {
-    const textRange = selection.createRange();
-    const preCaretTextRange = document.body.createTextRange();
-    preCaretTextRange.moveToElementText(element);
-    preCaretTextRange.setEndPoint( 'EndToEnd', textRange );
-    caretPosition = preCaretTextRange.text.length;
+    caretPosition = selection.createRange();
   }
 
   return caretPosition;
+}
+
+/**
+ * Insert HTML on input
+ *
+ * @param {object} element
+ * @param {object} caretPosition
+ * @param {string} html
+ */
+export function insertHTML( element, caretPosition, html ) {
+  const document = element.ownerDocument || element.document;
+  const window = document.defaultView || document.parentWindow;
+  let selection;
+
+  if ( caretPosition ) {
+    if ( typeof window.getSelection != 'undefined' ) {
+      selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(caretPosition);
+    } else if ( ( selection = document.selection ) && selection.type != 'Control' ) {
+      caretPosition.select();
+    }
+  }
+
+  element.focus();
+
+  if ( typeof window.getSelection != 'undefined' ) {
+    selection = window.getSelection();
+
+    if ( selection.getRangeAt && selection.rangeCount ) {
+      let range = selection.getRangeAt(0);
+      range.deleteContents();
+
+      const el = document.createElement('div');
+      el.innerHTML = html;
+
+      const fragment = document.createDocumentFragment();
+      let node;
+      let lastNode;
+      while ( ( node = el.firstChild ) ) {
+        lastNode = fragment.appendChild(node);
+      }
+
+      range.insertNode(fragment);
+
+      if ( lastNode ) {
+        range = range.cloneRange();
+        range.setStartAfter(lastNode);
+        range.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+
+      return selection.getRangeAt(0);
+    }
+  } else if ( ( selection = document.selection ) && selection.type != 'Control' ) {
+    const range = document.selection.createRange();
+    range.pasteHTML(html);
+    range.select();
+
+    return document.selection.createRange();
+  }
 }
 
 /**
@@ -37,38 +91,38 @@ export function getCaretPosition( element ) {
  * @param {string} text
  */
 export function getAutoCompleteTextQuery( element, text ) {
-  let parentElement = null;
-
-  if ( window.getSelection ) {
-    parentElement = window.getSelection().anchorNode.parentNode;
-  } else if ( document.selection && document.selection.createRange ) {
-    parentElement = document.selection.createRange().parentElement();
-  }
-
-  if ( parentElement && ! parentElement.classList.contains( 'user-username-tag' ) ) {
-    let selectedWord = '';
-    const caretPosition = getCaretPosition(element);
-    const start = /@/ig;
-    const word = /@(\w+)/ig;
-    const leftCaretText = text.substring(0, caretPosition);
-    const rightCaretText = text.substring(caretPosition);
-    const leftCaretWords = leftCaretText.split(' ');
-    const leftCaretWordsLength = leftCaretWords.length;
-    const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
-    const rightCaretWords = rightCaretText.split(' ');
-    const rightCaretFirstWord = rightCaretWords[0];
-
-    selectedWord = leftCaretLastWord + rightCaretFirstWord;
-
-    const go = selectedWord.match( start );
-    const name = selectedWord.match( word );
-
-    if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
-      const textQuery = name[0].substr(1);
-
-      return textQuery;
-    }
-  }
+  // let parentElement = null;
+  //
+  // if ( window.getSelection ) {
+  //   parentElement = window.getSelection().anchorNode.parentNode;
+  // } else if ( document.selection && document.selection.createRange ) {
+  //   parentElement = document.selection.createRange().parentElement();
+  // }
+  //
+  // if ( parentElement && ! parentElement.classList.contains( 'user-username-tag' ) ) {
+  //   let selectedWord = '';
+  //   const caretPosition = getCaretPosition(element);
+  //   const start = /@/ig;
+  //   const word = /@(\w+)/ig;
+  //   const leftCaretText = text.substring(0, caretPosition);
+  //   const rightCaretText = text.substring(caretPosition);
+  //   const leftCaretWords = leftCaretText.split(' ');
+  //   const leftCaretWordsLength = leftCaretWords.length;
+  //   const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
+  //   const rightCaretWords = rightCaretText.split(' ');
+  //   const rightCaretFirstWord = rightCaretWords[0];
+  //
+  //   selectedWord = leftCaretLastWord + rightCaretFirstWord;
+  //
+  //   const go = selectedWord.match( start );
+  //   const name = selectedWord.match( word );
+  //
+  //   if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
+  //     const textQuery = name[0].substr(1);
+  //
+  //     return textQuery;
+  //   }
+  // }
 
   return '';
 }
@@ -127,6 +181,6 @@ export function removeAutocompleteText() {
   }
 
   if ( parentElement && parentElement.classList.contains( 'user-username-tag' ) ) {
-    parentElement.outerHTML = parentElement.innerHTML;
+    // parentElement.outerHTML = parentElement.innerHTML;
   }
 }

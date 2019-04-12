@@ -11,6 +11,8 @@ import uuidv4 from 'uuid/v4';
 import 'emojione-picker/css/picker.css';
 import { AutocompleteBox } from './AutocompleteBox';
 import {
+  getCaretPosition,
+  insertHTML,
   getAutoCompleteTextQuery,
   insertAutocompleteText,
   removeAutocompleteText,
@@ -158,22 +160,15 @@ class ChatInput extends Component {
     }
   }
   handleSaveCaretPosition() {
-    if ( window.getSelection ) {
-      var selection = window.getSelection();
-      if ( selection.getRangeAt && selection.rangeCount ) {
-        this.setState({caretPosition: selection.getRangeAt(0)});
-      }
-    } else if ( document.selection && document.selection.createRange ) {
-      this.setState({caretPosition: document.selection.createRange()});
-    } else {
-      this.setState({caretPosition: null});
-    }
+    const caretPosition = getCaretPosition( document.getElementById(::this.handleDivID()) );
+
+    this.setState({caretPosition: caretPosition});
   }
   handleEmojiPickerToggle(event) {
     event.preventDefault();
 
     this.setState({
-      emojiPicker: !this.state.emojiPicker,
+      emojiPicker: ! this.state.emojiPicker,
       userTagging: false,
     });
   }
@@ -207,24 +202,15 @@ class ChatInput extends Component {
     } = this.state;
     const messageTextLength = ::this.handleMessageText('length');
     const emojiSelect = emojione.toImage(emoji.shortname);
-
-    if ( caretPosition ) {
-      if ( window.getSelection ) {
-        var selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(caretPosition);
-      } else if ( document.selection && caretPosition.select ) {
-        caretPosition.select();
-      }
-    }
-
-    document.getElementById(::this.handleDivID()).focus();
+    let newCaretPosition = caretPosition;
 
     if ( maxLengthReached || messageTextLength >= 159 ) {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } else {
-      ::this.handleInsertHTMLContentEditable(emojiSelect);
+      newCaretPosition = insertHTML(document.getElementById(::this.handleDivID()), caretPosition, emojiSelect);
     }
+
+    this.setState({caretPosition: newCaretPosition});
 
     if ( !typing && !validMessage ) {
       this.setState({
@@ -248,31 +234,14 @@ class ChatInput extends Component {
       maxLengthReached
     } = this.state;
     const messageTextLength = ::this.handleMessageText('length');
-    let message = '';
-
-    if ( caretPosition ) {
-      if ( window.getSelection ) {
-        var selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(caretPosition);
-      } else if ( document.selection && caretPosition.select ) {
-        caretPosition.select();
-      }
-    }
-
-    document.getElementById(::this.handleDivID()).focus();
 
     if ( maxLengthReached || messageTextLength >= ( 161 - selectedUser.username ) ) {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } else {
-      const messageText = ::this.handleMessageText('text');
-      message = insertAutocompleteText(document.getElementById(::this.handleDivID()), messageText, `<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
+      insertAutocompleteText(document.getElementById(::this.handleDivID()), `<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
     }
 
-    this.setState({
-      message: message,
-      userTagging: false,
-    });
+    this.setState({userTagging: false});
 
     if ( !typing && !validMessage ) {
       this.setState({
@@ -281,41 +250,6 @@ class ChatInput extends Component {
       });
 
       handleIsTyping(user, chatRoomID);
-    }
-  }
-  handleInsertHTMLContentEditable(html) {
-    if ( window.getSelection ) {
-      var selection = window.getSelection();
-      if ( selection.getRangeAt && selection.rangeCount ) {
-        var range = selection.getRangeAt(0);
-        range.deleteContents();
-
-        var element = document.createElement('div');
-        element.innerHTML = html;
-
-        var fragment = document.createDocumentFragment(), node, lastNode;
-        while ( (node = element.firstChild) ) {
-          lastNode = fragment.appendChild(node);
-        }
-
-        range.insertNode(fragment);
-
-        if ( lastNode ) {
-          range = range.cloneRange();
-          range.setStartAfter(lastNode);
-          range.collapse(true);
-          selection.removeAllRanges();
-          selection.addRange(range);
-        }
-
-        this.setState({caretPosition: selection.getRangeAt(0)});
-      }
-    } else if ( document.selection && document.selection.createRange ) {
-      var range = document.selection.createRange();
-      range.pasteHTML(html);
-      range.select();
-
-      this.setState({caretPosition: document.selection.createRange()});
     }
   }
   handleMessageTextLength() {
