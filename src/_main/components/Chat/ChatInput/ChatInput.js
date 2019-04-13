@@ -142,14 +142,14 @@ class ChatInput extends Component {
 
     removeAutocompleteText();
 
-    ::this.handleUserTaggingToggle();
     ::this.handleSaveCaretPosition();
+    ::this.handleUserTaggingToggle();
   }
   onMessageClick(event) {
     event.preventDefault();
 
-    ::this.handleUserTaggingToggle();
     ::this.handleSaveCaretPosition();
+    ::this.handleUserTaggingToggle();
   }
   onMessagePaste(event) {
     const messageTextLength = ::this.handleMessageText('length');
@@ -174,8 +174,7 @@ class ChatInput extends Component {
   }
   handleUserTaggingToggle() {
     const { handleSearchUser } = this.props;
-    const messageText = ::this.handleMessageText('text');
-    const userTagQuery = getAutoCompleteTextQuery(document.getElementById(::this.handleDivID()), messageText);
+    const userTagQuery = getAutoCompleteTextQuery( document.getElementById(::this.handleDivID()) );
 
     if ( userTagQuery.length > 0 ) {
       this.setState({

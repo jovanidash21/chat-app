@@ -88,41 +88,37 @@ export function insertHTML( element, caretPosition, html ) {
  * Get autocomplete text query
  *
  * @param {object} element
- * @param {string} text
  */
-export function getAutoCompleteTextQuery( element, text ) {
-  // let parentElement = null;
-  //
-  // if ( window.getSelection ) {
-  //   parentElement = window.getSelection().anchorNode.parentNode;
-  // } else if ( document.selection && document.selection.createRange ) {
-  //   parentElement = document.selection.createRange().parentElement();
-  // }
-  //
-  // if ( parentElement && ! parentElement.classList.contains( 'user-username-tag' ) ) {
-  //   let selectedWord = '';
-  //   const caretPosition = getCaretPosition(element);
-  //   const start = /@/ig;
-  //   const word = /@(\w+)/ig;
-  //   const leftCaretText = text.substring(0, caretPosition);
-  //   const rightCaretText = text.substring(caretPosition);
-  //   const leftCaretWords = leftCaretText.split(' ');
-  //   const leftCaretWordsLength = leftCaretWords.length;
-  //   const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
-  //   const rightCaretWords = rightCaretText.split(' ');
-  //   const rightCaretFirstWord = rightCaretWords[0];
-  //
-  //   selectedWord = leftCaretLastWord + rightCaretFirstWord;
-  //
-  //   const go = selectedWord.match( start );
-  //   const name = selectedWord.match( word );
-  //
-  //   if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
-  //     const textQuery = name[0].substr(1);
-  //
-  //     return textQuery;
-  //   }
-  // }
+export function getAutoCompleteTextQuery( element ) {
+  const caretPosition = getCaretPosition( element );
+
+  if ( caretPosition ) {
+    const caretWords = caretPosition.commonAncestorContainer.data;
+    const offset = caretPosition.startOffset;
+    const start = /@/ig;
+    const word = /@(\w+)/ig;
+
+    if ( caretWords ) {
+      const leftCaretText = caretWords.substring(0, offset);
+      const rightCaretText = caretWords.substring(offset);
+      const leftCaretWords = leftCaretText.split(' ');
+      const leftCaretWordsLength = leftCaretWords.length;
+      const leftCaretLastWord = leftCaretWords[ leftCaretWordsLength - 1 ];
+      const rightCaretWords = rightCaretText.split(' ');
+      const rightCaretFirstWord = rightCaretWords[0];
+
+      const selectedWord = leftCaretLastWord + rightCaretFirstWord;
+
+      const go = selectedWord.match( start );
+      const name = selectedWord.match( word );
+
+      if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
+        const textQuery = name[0].substr(1);
+
+        return textQuery;
+      }
+    }
+  }
 
   return '';
 }
@@ -181,6 +177,6 @@ export function removeAutocompleteText() {
   }
 
   if ( parentElement && parentElement.classList.contains( 'user-username-tag' ) ) {
-    // parentElement.outerHTML = parentElement.innerHTML;
+    parentElement.outerHTML = parentElement.innerHTML;
   }
 }
