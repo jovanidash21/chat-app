@@ -14,8 +14,8 @@ import {
   getCaretPosition,
   insertHTML,
   getAutoCompleteTextQuery,
-  insertAutocompleteText,
-  removeAutocompleteText,
+  insertAutocompleteHTML,
+  removeAutocompleteHTML,
 } from '../../../../utils/input';
 import './styles.scss';
 
@@ -140,7 +140,7 @@ class ChatInput extends Component {
       });
     }
 
-    removeAutocompleteText();
+    removeAutocompleteHTML();
 
     ::this.handleSaveCaretPosition();
     ::this.handleUserTaggingToggle();
@@ -233,14 +233,21 @@ class ChatInput extends Component {
       maxLengthReached
     } = this.state;
     const messageTextLength = ::this.handleMessageText('length');
+    let newCaretPosition = caretPosition;
+    let message = '';
 
     if ( maxLengthReached || messageTextLength >= ( 161 - selectedUser.username ) ) {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } else {
-      insertAutocompleteText(document.getElementById(::this.handleDivID()), `<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
+      newCaretPosition = insertAutocompleteHTML(document.getElementById(::this.handleDivID()), caretPosition, `<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
+      message = document.getElementById(::this.handleDivID()).innerHTML;
     }
 
-    this.setState({userTagging: false});
+    this.setState({
+      caretPosition: newCaretPosition,
+      message: message,
+      userTagging: false,
+    });
 
     if ( !typing && !validMessage ) {
       this.setState({
