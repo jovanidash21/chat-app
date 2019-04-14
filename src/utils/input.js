@@ -259,6 +259,43 @@ export function removeAutocompleteHTML() {
   }
 
   if ( parentElement && parentElement.classList.contains( 'user-username-tag' ) ) {
-    // parentElement.outerHTML = parentElement.innerHTML;
+    parentElement.outerHTML = parentElement.innerHTML;
   }
+}
+
+/**
+ * Get input plain text
+ *
+ * @param {object} element
+ */
+export function getPlainText( element ) {
+  const emojis = element.getElementsByClassName('emojione');
+  const usernames = element.getElementsByClassName('user-username-tag');
+  let inputText = element.innerHTML;
+
+  // Replace emojis
+  let emojiIndex = 0;
+  inputText = inputText.replace(/<img class="emojione" alt="(.*?)" title="(.*?)" src="(.*?)"[^>]*>/g, (match, i, original) => {
+    const emojiAlt = emojis[emojiIndex].alt;
+    emojiIndex += 1;
+
+    return emojiAlt;
+  });
+
+  // Replace tagged usernames
+  let usernameIndex = 0;
+  inputText = inputText.replace(/<span data-id="(.*?)" class="user-username-tag">@(.*?)<\/span>/g, (match, i, original) => {
+    const username = usernames[usernameIndex].innerText;
+    usernameIndex += 1;
+
+    return `<${username}>`;
+  });
+
+  const el = document.createElement('div');
+  el.innerHTML = inputText;
+
+  let plainText = el.textContent || el.innerText || '';
+  plainText = plainText.trim();
+
+  return plainText;
 }

@@ -16,6 +16,7 @@ import {
   getAutoCompleteTextQuery,
   insertAutocompleteHTML,
   removeAutocompleteHTML,
+  getPlainText,
 } from '../../../../utils/input';
 import './styles.scss';
 
@@ -268,20 +269,7 @@ class ChatInput extends Component {
     }
   }
   handleMessageText(type) {
-    var emojis = document.getElementById(::this.handleDivID()).getElementsByClassName('emojione');
-    var chatInputText = document.getElementById(::this.handleDivID()).innerHTML;
-
-    var nth = 0;
-    chatInputText = chatInputText.replace(/<img class="emojione" alt="(.*?)" title="(.*?)" src="(.*?)"[^>]*>/g, (match, i, original) => {
-      nth++;
-      return emojis[nth - 1].alt;
-    });
-
-    var element = document.createElement('div');
-    element.innerHTML = chatInputText;
-
-    var messageText = element.textContent || element.innerText || "";
-    messageText = messageText.trim();
+    const messageText = getPlainText( document.getElementById(::this.handleDivID()) );
 
     if ( type === 'text' ) {
       return messageText;
