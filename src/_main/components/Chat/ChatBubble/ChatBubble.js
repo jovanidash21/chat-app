@@ -10,13 +10,14 @@ import TimeAgo from 'react-timeago';
 import moment from 'moment';
 import { isDatesSameDay } from '../../../../utils/date';
 import { Avatar } from '../../../../components/Avatar';
+import { UserTooltip } from '../../../../components/UserTooltip';
 import './styles.scss';
 
 class ChatBubble extends Component {
   constructor(props) {
     super(props);
   }
-  handleTextFormat(text, tag, slice=1) {
+  handleTextFormat(text, tag, slice = 1) {
     if ( tag !== '' ) {
       return ReactHtmlParser('<' + tag + '>' + text.slice(slice, -slice) + '</' + tag + '>')[0];
     }
@@ -40,13 +41,15 @@ class ChatBubble extends Component {
         };
 
         messageText = messageText.replace(/ /g, "\u00a0");
-        messageText = messageText.split(/(\*[A-z0-9\s\.\,\:\(\)\-\_\^]+\*|\_[A-z0-9\s\.\,\:\(\)\-\_\^]+\_|\~[A-z0-9\s\.\,\:\(\)\-\_\^]+\~|\`\`\`[A-z0-9\s\.\,\:\(\)\-\_\^]+\`\`\`|\`[A-z0-9\s\.\,\:\(\)\-\_\^]+\`)/);
+        messageText = messageText.split(/(\<@[A-z0-9\s\.\,\:\(\)\-\_\^]+\>|\*[A-z0-9\s\.\,\:\(\)\-\_\^]+\*|\_[A-z0-9\s\.\,\:\(\)\-\_\^]+\_|\~[A-z0-9\s\.\,\:\(\)\-\_\^]+\~|\`\`\`[A-z0-9\s\.\,\:\(\)\-\_\^]+\`\`\`|\`[A-z0-9\s\.\,\:\(\)\-\_\^]+\`)/);
 
         for (var i = 0; i < messageText.length; i++) {
           var tag = '';
           var slice = 1;
 
-          if ( /\*[A-z0-9\s\.\,\:\(\)\-\_\^]+\*/gi.test(messageText[i]) ) {
+          if ( /\<@[A-z0-9\s\.\,\:\(\)\-\_\^]+\>/gi.test(messageText[i]) ) {
+            tag = 'b';
+          } else if ( /\*[A-z0-9\s\.\,\:\(\)\-\_\^]+\*/gi.test(messageText[i]) ) {
             tag = 'b';
           } else if ( /\_[A-z0-9\s\.\,\:\(\)\-\_\^]+\_/gi.test(messageText[i]) ) {
             tag = 'i';
