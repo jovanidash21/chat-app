@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { emojify } from 'react-emojione';
 import MediaQuery from 'react-responsive';
@@ -47,9 +47,7 @@ class ChatBubble extends Component {
           var tag = '';
           var slice = 1;
 
-          if ( /\<@[A-z0-9\s\.\,\:\(\)\-\_\^]+\>/gi.test(messageText[i]) ) {
-            tag = 'b';
-          } else if ( /\*[A-z0-9\s\.\,\:\(\)\-\_\^]+\*/gi.test(messageText[i]) ) {
+          if ( /\*[A-z0-9\s\.\,\:\(\)\-\_\^]+\*/gi.test(messageText[i]) ) {
             tag = 'b';
           } else if ( /\_[A-z0-9\s\.\,\:\(\)\-\_\^]+\_/gi.test(messageText[i]) ) {
             tag = 'i';
@@ -67,6 +65,18 @@ class ChatBubble extends Component {
 
             messageText[i] = {...formatText};
             messageText[i].key = i;
+          } else if ( /\<@[A-z0-9\s\.\,\:\(\)\-\_\^]+\>/gi.test(messageText[i]) ) {
+            const taggedUsername = messageText[i].slice(1, -1);
+
+            messageText[i] = (
+              <b className="mui-dropdown" key={i}>
+                <span data-mui-toggle="dropdown">{taggedUsername}</span>
+                <UserTooltip
+                  username={taggedUsername}
+                  right={isSender}
+                />
+              </b>
+            );
           } else {
             messageText[i] = emojify(messageText[i], options);
             messageText[i] = (<Linkify key={i} properties={{target: '_blank'}}>{messageText[i]}</Linkify>);
