@@ -85,7 +85,7 @@ export function insertHTML( element, caretPosition, html ) {
 }
 
 /**
- * Get autocomplete text query
+ * Get autocomplete text query on input
  *
  * @param {object} element
  */
@@ -134,7 +134,7 @@ export function getAutoCompleteTextQuery( element ) {
 }
 
 /**
- * Insert autocomplete text
+ * Insert autocomplete HTML on input
  *
  * @param {object} element
  * @param {object} caretPosition
@@ -185,8 +185,26 @@ export function insertAutocompleteHTML( element, caretPosition, html ) {
 
           if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
             const textQuery = name[0];
+            const textQueryIndeces = [];
+            let startIndex = 0;
+            let textFirstLetterIndex = 0;
+            let textQueryIndex;
 
-            const textFirstLetterIndex = caretWords.indexOf(textQuery);
+            while ( ( textQueryIndex = caretWords.indexOf( textQuery, startIndex ) ) > -1 ) {
+              textQueryIndeces.push(textQueryIndex);
+              startIndex = textQueryIndex + textQuery.length;
+            }
+
+            if ( textQueryIndeces.length > 0 ) {
+              for ( let i = 0; i < textQueryIndeces.length; i += 1 ) {
+                if ( textQueryIndeces[i] < offset ) {
+                  textFirstLetterIndex = textQueryIndeces[i];
+                } else {
+                  break;
+                }
+              }
+            }
+
             const textLastLetterIndex = textFirstLetterIndex + textQuery.length;
 
             range.setStart(range.endContainer, textFirstLetterIndex);
@@ -228,7 +246,7 @@ export function insertAutocompleteHTML( element, caretPosition, html ) {
 }
 
 /**
- * Remove autocomplete text
+ * Remove autocomplete HTML
  *
  */
 export function removeAutocompleteHTML() {
@@ -241,6 +259,6 @@ export function removeAutocompleteHTML() {
   }
 
   if ( parentElement && parentElement.classList.contains( 'user-username-tag' ) ) {
-    parentElement.outerHTML = parentElement.innerHTML;
+    // parentElement.outerHTML = parentElement.innerHTML;
   }
 }
