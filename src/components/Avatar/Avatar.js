@@ -196,7 +196,7 @@ class Avatar extends Component {
             username={username}
             roleChatType={roleChatType}
             accountType={accountType}
-            isSmall={parseInt(size, 10) <= 25 ? true : false}
+            small={parseInt(size, 10) <= 25 ? true : false}
           />
         }
       </div>
