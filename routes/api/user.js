@@ -19,6 +19,32 @@ router.get('/', (req, res, next) => {
   }
 });
 
+router.post('/fetch', (req, res, next) => {
+  if (req.user === undefined) {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var username = req.body.username;
+
+    User.find({_id: {$ne: null}, username: username}, '-chatRooms -socketID')
+      .then((user) => {
+        res.status(200).send({
+          success: true,
+          message: 'User Fetched',
+          user: user
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          success: false,
+          message: 'Server Error!'
+        });
+      });
+  }
+});
+
 router.post('/search', (req, res, next) => {
   if (req.user === undefined) {
     res.status(401).send({

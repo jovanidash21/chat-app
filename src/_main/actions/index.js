@@ -13,6 +13,7 @@ import {
 import {
   fetchActiveUser,
   editActiveUser,
+  fetchUser,
   searchUser,
 } from './user';
 import {
@@ -60,6 +61,7 @@ const actions = ( dispatch ) => {
     register,
     fetchActiveUser,
     editActiveUser,
+    fetchUser,
     searchUser,
     isTyping,
     isNotTyping,
