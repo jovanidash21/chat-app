@@ -49,7 +49,7 @@ const user = ( state = initialState, action ) => {
           ...state.fetch,
           loading: true,
         },
-        fetched: [],
+        fetched: {},
       };
     }
     case `${SEARCH_USER}_LOADING`: {
@@ -148,7 +148,7 @@ const user = ( state = initialState, action ) => {
           error: true,
           message: action.payload.response.data.message,
         },
-        fetched: [],
+        fetched: {},
       };
     }
     case `${SEARCH_USER}_ERROR`: {

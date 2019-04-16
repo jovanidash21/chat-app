@@ -28,7 +28,7 @@ router.post('/fetch', (req, res, next) => {
   } else {
     var username = req.body.username;
 
-    User.find({_id: {$ne: null}, username: username}, '-chatRooms -socketID')
+    User.findOne({_id: {$ne: null}, username: username}, '-chatRooms -socketID')
       .then((user) => {
         res.status(200).send({
           success: true,
