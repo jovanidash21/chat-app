@@ -85,10 +85,12 @@ export function fetchUser( username ) {
  * Search user
  *
  * @param {string} query
+ * @param {string} chatRoomID
  */
-export function searchUser( query ) {
+export function searchUser( query, chatRoomID = '' ) {
   let data = {
     query,
+    chatRoomID,
   };
 
   return dispatch => {

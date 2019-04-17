@@ -174,7 +174,10 @@ class ChatInput extends Component {
     });
   }
   handleUserTaggingToggle() {
-    const { handleSearchUser } = this.props;
+    const {
+      chatRoomID,
+      handleSearchUser
+    } = this.props;
     const userTagQuery = getAutoCompleteTextQuery( document.getElementById(::this.handleDivID()) );
 
     if ( userTagQuery.length > 0 ) {
@@ -183,7 +186,7 @@ class ChatInput extends Component {
         userTagging: true,
       });
 
-      handleSearchUser(userTagQuery);
+      handleSearchUser(userTagQuery, chatRoomID);
     } else {
       this.setState({userTagging: false});
     }

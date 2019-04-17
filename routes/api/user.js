@@ -53,8 +53,16 @@ router.post('/search', (req, res, next) => {
     });
   } else {
     var query = req.body.query;
+    var userQuery = {
+      _id: { $ne: null },
+      name: { $regex: '\\b' + query, $options: 'i' }
+    };
 
-    User.find({_id: {$ne: null}, name: {$regex: '\\b' + query, $options: 'i'}}, '-chatRooms -socketID')
+    if (req.body.chatRoomID && req.body.chatRoomID.length > 0) {
+      userQuery['chatRooms.data'] = req.body.chatRoomID;
+    }
+
+    User.find(userQuery, '-chatRooms -socketID')
       .then((users) => {
         res.status(200).send({
           success: true,
