@@ -55,7 +55,10 @@ router.post('/search', (req, res, next) => {
     var query = req.body.query;
     var userQuery = {
       _id: { $ne: null },
-      name: { $regex: '\\b' + query, $options: 'i' }
+      $or: [
+        { username: { $regex: '\\b' + query, $options: 'i' } },
+        { name: { $regex: '\\b' + query, $options: 'i' } }
+      ]
     };
 
     if (req.body.chatRoomID && req.body.chatRoomID.length > 0) {
