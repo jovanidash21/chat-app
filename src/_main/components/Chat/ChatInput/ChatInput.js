@@ -232,24 +232,25 @@ class ChatInput extends Component {
     } = this.props;
     const {
       caretPosition,
+      message,
       typing,
       validMessage,
       maxLengthReached
     } = this.state;
     const messageTextLength = ::this.handleMessageText('length');
     let newCaretPosition = caretPosition;
-    let message = '';
+    let newMessage = message;
 
-    if ( maxLengthReached || messageTextLength >= ( 161 - selectedUser.username ) ) {
+    if ( maxLengthReached || messageTextLength >= ( 160 - selectedUser.username.length ) ) {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } else {
       newCaretPosition = insertAutocompleteHTML(document.getElementById(::this.handleDivID()), caretPosition, `<span data-id="${selectedUser._id}" class="user-username-tag">@${selectedUser.username}</span>`);
-      message = document.getElementById(::this.handleDivID()).innerHTML;
+      newMessage = document.getElementById(::this.handleDivID()).innerHTML;
     }
 
     this.setState({
       caretPosition: newCaretPosition,
-      message: message,
+      message: newMessage,
       userTagging: false,
     });
 
