@@ -78,6 +78,16 @@ var sockets = function(io) {
             .populate('members')
             .exec()
             .then((chatRoom) => {
+              const usernames = [];
+
+              if (action.message.text.length > 0) {
+                const taggedUsernames = action.message.text.match(/<@(\w+)>/ig);
+
+                for (var i = 0; i < taggedUsernames.length; i++) {
+                  usernames.push(taggedUsernames[i].slice(2, -1));
+                }
+              }
+
               for (var i = 0; i < chatRoom.members.length; i++) {
                 var chatRoomMember = chatRoom.members[i];
 
@@ -106,6 +116,7 @@ var sockets = function(io) {
 
                       if (chatRoomIndex > -1) {
                         var singleChatRoom = user.chatRooms[chatRoomIndex];
+                        var socketNotifyType = 'SOCKET_BROADCAST_NOTIFY_MESSAGE';
 
                         if (singleChatRoom.data.chatType === 'direct') {
                           singleChatRoom.data.name = action.message.user.name;
@@ -113,8 +124,12 @@ var sockets = function(io) {
                           singleChatRoom.data.members = chatRoom.members;
                         }
 
+                        if (usernames.length > 0 && usernames.indexOf(user.username) > -1) {
+                          socketNotifyType = 'SOCKET_BROADCAST_NOTIFY_MESSAGE_MENTION';
+                        }
+
                         socket.broadcast.to(user.socketID).emit('action', {
-                          type: 'SOCKET_BROADCAST_NOTIFY_MESSAGE',
+                          type: socketNotifyType,
                           chatRoom: singleChatRoom,
                           chatRoomID: action.chatRoomID,
                           chatRoomName: singleChatRoom.data.name,
