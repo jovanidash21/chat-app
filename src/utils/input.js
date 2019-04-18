@@ -260,7 +260,11 @@ export function removeAutocompleteHTML() {
 
   if ( parentElement && parentElement.classList.contains( 'user-username-tag' ) ) {
     parentElement.outerHTML = parentElement.innerHTML;
+
+    return true;
   }
+
+  return false;
 }
 
 /**

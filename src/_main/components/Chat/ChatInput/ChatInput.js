@@ -141,7 +141,9 @@ class ChatInput extends Component {
       });
     }
 
-    removeAutocompleteHTML();
+    if ( removeAutocompleteHTML() ) {
+      this.setState({message: document.getElementById(::this.handleDivID()).innerHTML});
+    }
 
     ::this.handleSaveCaretPosition();
     ::this.handleUserTaggingToggle();
@@ -199,6 +201,7 @@ class ChatInput extends Component {
     } = this.props;
     const {
       caretPosition,
+      message,
       typing,
       validMessage,
       maxLengthReached
@@ -206,14 +209,19 @@ class ChatInput extends Component {
     const messageTextLength = ::this.handleMessageText('length');
     const emojiSelect = emojione.toImage(emoji.shortname);
     let newCaretPosition = caretPosition;
+    let newMessage = message;
 
     if ( maxLengthReached || messageTextLength >= 159 ) {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } else {
       newCaretPosition = insertHTML(document.getElementById(::this.handleDivID()), caretPosition, emojiSelect);
+      newMessage = document.getElementById(::this.handleDivID()).innerHTML;
     }
 
-    this.setState({caretPosition: newCaretPosition});
+    this.setState({
+      caretPosition: newCaretPosition,
+      message: newMessage
+    });
 
     if ( !typing && !validMessage ) {
       this.setState({
@@ -389,7 +397,6 @@ class ChatInput extends Component {
             onKeyPress={::this.onMessageKeyPress}
             onKeyUp={::this.onMessageKeyUp}
             onPaste={::this.onMessagePaste}
-            contentEditable="plaintext-only"
           />
           <div className="extras">
             <div className="extra-buttons">
