@@ -83,8 +83,10 @@ var sockets = function(io) {
               if (action.message.text.length > 0) {
                 const taggedUsernames = action.message.text.match(/<@(\w+)>/ig);
 
-                for (var i = 0; i < taggedUsernames.length; i++) {
-                  usernames.push(taggedUsernames[i].slice(2, -1));
+                if (taggedUsernames !== null && taggedUsernames.length > 0) {
+                  for (var i = 0; i < taggedUsernames.length; i++) {
+                    usernames.push(taggedUsernames[i].slice(2, -1));
+                  }
                 }
               }
 

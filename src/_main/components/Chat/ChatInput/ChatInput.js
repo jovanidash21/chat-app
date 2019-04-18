@@ -8,7 +8,6 @@ import EmojiPicker from 'emojione-picker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Popup from 'react-popup';
 import uuidv4 from 'uuid/v4';
-import 'emojione-picker/css/picker.css';
 import { AutocompleteBox } from './AutocompleteBox';
 import {
   getCaretPosition,
@@ -18,6 +17,7 @@ import {
   removeAutocompleteHTML,
   getPlainText,
 } from '../../../../utils/input';
+import 'emojione-picker/css/picker.css';
 import './styles.scss';
 
 class ChatInput extends Component {
