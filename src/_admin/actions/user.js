@@ -136,9 +136,13 @@ export function editActiveUser( userID, username, name, email, profilePicture ) 
  * Search user
  *
  * @param {string} query
+ * @param {string} chatRoomID
  */
-export function searchUser( query ) {
-  let data = { query };
+export function searchUser( query, chatRoomID = '' ) {
+  let data = {
+    query,
+    chatRoomID,
+  };
 
   return dispatch => {
     return dispatch({

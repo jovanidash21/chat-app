@@ -115,7 +115,7 @@ class ChatRoomsList extends Component {
     } = this.state;
 
     if ( chatRooms.length > 0 ) {
-      if ( event.keyCode === 38 ) {
+      if ( event.key === 'ArrowUp' ) {
         if ( selectedChatRoomIndex === -1 ) {
           this.setState({selectedChatRoomIndex: chatRooms.length - 1});
         } else {
@@ -123,7 +123,7 @@ class ChatRoomsList extends Component {
         }
       }
 
-      if ( event.keyCode === 40 ) {
+      if ( event.key === 'ArrowDown' ) {
         if ( selectedChatRoomIndex === chatRooms.length - 1 ) {
           this.setState({selectedChatRoomIndex: -1});
         } else {

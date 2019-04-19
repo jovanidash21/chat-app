@@ -311,6 +311,7 @@ class Chat extends Component {
       popUpChatRoom,
       message,
       videoCall,
+      searchUser,
       isTyping,
       isNotTyping
     } = this.props;
@@ -394,10 +395,13 @@ class Chat extends Component {
                   chatRoomID={activeChatRoom.data._id}
                   handleIsTyping={isTyping}
                   handleIsNotTyping={isNotTyping}
+                  handleSearchUser={searchUser}
                   handleSendTextMessage={::this.handleSendTextMessage}
                   handleAudioRecorderToggle={::this.handleAudioRecorderToggle}
                   handleDragDropBoxToggle={::this.handleDragDropBoxToggle}
+                  userTagSuggestions={user.searched}
                   disabled={isChatInputDisabled}
+                  userTagLoading={user.search.loading}
                 />
                 :
                 <ChatAudioRecorder

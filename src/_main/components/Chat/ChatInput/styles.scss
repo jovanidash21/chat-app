@@ -37,6 +37,11 @@
       left: 0;
       width: 100% !important;
     }
+    .autocomplete-box-wrapper {
+      bottom: 60px;
+      left: 10px;
+      right: 10px;
+    }
     .send-button {
       $size: 50px;
       flex: 0 0 $size;
@@ -47,18 +52,19 @@
   }
   .textfield[contenteditable=true],
   .extra-buttons,
+  .emoji-dialog,
+  .autocomplete-box-wrapper,
   .send-button {
     z-index: 2;
   }
   .emoji-dialog {
     border-radius: 0;
     bottom: 65px;
-    box-shadow: 0 5px 5px -5px #000;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.16), 0 0 2px 0 rgba(0,0,0,.12);
     height: 300px !important;
     left: 20px;
     position: absolute;
     width: 350px !important;
-    z-index: 1000;
     @media screen and (max-width: $screen-mobile-max) {
       left: 0;
       width: 100% !important;
@@ -82,13 +88,16 @@
       }
     }
   }
-  .emoji-picker-overlay {
-    height: 100%;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1;
+  .autocomplete-box-wrapper {
+    bottom: 65px;
+    left: 20px;
+    position: absolute;
+    right: 20px;
+    width: auto;
+    @media screen and (max-width: $screen-mobile-max) {
+      left: 0;
+      width: 100% !important;
+    }
   }
   .chat-input {
     display: flex;
@@ -132,6 +141,12 @@
         height: $emoji-size;
         vertical-align: bottom;
         width: $emoji-size;
+      }
+      .user-username-tag {
+        background-color: rgba($color-primary, 0.1);
+        border-radius: 3px;
+        color: $color-primary;
+        padding: 2px 5px;
       }
     }
     .extras {

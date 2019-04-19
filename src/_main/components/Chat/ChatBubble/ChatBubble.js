@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { emojify } from 'react-emojione';
 import MediaQuery from 'react-responsive';
@@ -16,7 +16,7 @@ class ChatBubble extends Component {
   constructor(props) {
     super(props);
   }
-  handleTextFormat(text, tag, slice=1) {
+  handleTextFormat(text, tag, slice = 1) {
     if ( tag !== '' ) {
       return ReactHtmlParser('<' + tag + '>' + text.slice(slice, -slice) + '</' + tag + '>')[0];
     }
@@ -40,13 +40,15 @@ class ChatBubble extends Component {
         };
 
         messageText = messageText.replace(/ /g, "\u00a0");
-        messageText = messageText.split(/(\*[A-z0-9\s\.\,\:\(\)\-\_\^]+\*|\_[A-z0-9\s\.\,\:\(\)\-\_\^]+\_|\~[A-z0-9\s\.\,\:\(\)\-\_\^]+\~|\`\`\`[A-z0-9\s\.\,\:\(\)\-\_\^]+\`\`\`|\`[A-z0-9\s\.\,\:\(\)\-\_\^]+\`)/);
+        messageText = messageText.split(/(\<@[A-z0-9\s\.\,\:\(\)\-\_\^]+\>|\*[A-z0-9\s\.\,\:\(\)\-\_\^]+\*|\_[A-z0-9\s\.\,\:\(\)\-\_\^]+\_|\~[A-z0-9\s\.\,\:\(\)\-\_\^]+\~|\`\`\`[A-z0-9\s\.\,\:\(\)\-\_\^]+\`\`\`|\`[A-z0-9\s\.\,\:\(\)\-\_\^]+\`)/);
 
         for (var i = 0; i < messageText.length; i++) {
           var tag = '';
           var slice = 1;
 
-          if ( /\*[A-z0-9\s\.\,\:\(\)\-\_\^]+\*/gi.test(messageText[i]) ) {
+          if ( /\<@[A-z0-9\s\.\,\:\(\)\-\_\^]+\>/gi.test(messageText[i]) ) {
+            tag = 'b';
+          } else if ( /\*[A-z0-9\s\.\,\:\(\)\-\_\^]+\*/gi.test(messageText[i]) ) {
             tag = 'b';
           } else if ( /\_[A-z0-9\s\.\,\:\(\)\-\_\^]+\_/gi.test(messageText[i]) ) {
             tag = 'i';

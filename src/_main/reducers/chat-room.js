@@ -15,6 +15,7 @@ import {
 import {
   FETCH_NEW_MESSAGES,
   SOCKET_BROADCAST_NOTIFY_MESSAGE,
+  SOCKET_BROADCAST_NOTIFY_MESSAGE_MENTION
 } from '../constants/message';
 
 const chatRoomPriority = ( chatRoom ) => {
@@ -413,7 +414,8 @@ const chatRoom = ( state = initialState, action ) => {
         all: [ ...chatRooms ],
       }
     }
-    case SOCKET_BROADCAST_NOTIFY_MESSAGE: {
+    case SOCKET_BROADCAST_NOTIFY_MESSAGE:
+    case SOCKET_BROADCAST_NOTIFY_MESSAGE_MENTION: {
       const chatRooms = [ ...state.all ];
       const chatRoomID = action.chatRoomID;
 

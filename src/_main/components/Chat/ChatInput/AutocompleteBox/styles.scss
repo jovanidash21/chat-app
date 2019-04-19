@@ -1,0 +1,41 @@
+.autocomplete-box-wrapper {
+  @include scrollbar($color-dusty-gray, rgba($color-dusty-gray, 0.2));
+  border-radius: 4px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.16), 0 0 2px 0 rgba(0,0,0,.12);
+  max-height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  .autocomplete-box {
+    background-color: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .loading-container {
+    align-items: center;
+    display: flex;
+    padding: 10px;
+    .loading-icon {
+      font-size: 14px;
+      margin-right: 10px;
+    }
+  }
+  .suggestion-item {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    font-size: 16px;
+    padding: 7px 10px;
+    position: relative;
+    transition: all 0.2s ease;
+    @media screen and (max-width: $screen-mobile-max) {
+      font-size: 14px;
+    }
+    &:hover {
+      background-color: $color-primary;
+      color: #fff;
+    }
+    .avatar {
+      margin-right: 12px;
+    }
+  }
+}
