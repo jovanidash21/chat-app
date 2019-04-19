@@ -2,7 +2,6 @@ import axios from 'axios';
 import {
   FETCH_ACTIVE_USER,
   EDIT_ACTIVE_USER,
-  FETCH_USER,
   SEARCH_USER,
 } from '../constants/user';
 import { fetchChatRooms } from './chat-room';
@@ -49,29 +48,6 @@ export function editActiveUser( userID, username, name, email, profilePicture ) 
     return dispatch({
       type: EDIT_ACTIVE_USER,
       payload: axios.post( 'user/edit-profile', data ),
-    })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
-      }
-    });
-  }
-}
-
-/**
- * Fetch user
- *
- * @param {string} username
- */
-export function fetchUser( username ) {
-  let data = {
-    username,
-  };
-
-  return dispatch => {
-    return dispatch({
-      type: FETCH_USER,
-      payload: axios.post( 'user/fetch', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
