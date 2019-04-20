@@ -9,7 +9,7 @@ import { getMedia } from '../../../utils/media';
 import {
   Header,
   LeftSideDrawer,
-  RightSideDrawer
+  RightSideDrawer,
 } from '../Common';
 import {
   ChatBox,
@@ -18,11 +18,11 @@ import {
   ChatRoomsList,
   MembersList,
   VideoCallRequestModal,
-  VideoCallWindow
+  VideoCallWindow,
 } from '../Partial';
 import {
   ChatInput,
-  ChatAudioRecorder
+  ChatAudioRecorder,
 } from '../../components/Chat';
 import { NotificationPopUp } from '../../components/NotificationPopUp';
 import {
@@ -30,7 +30,7 @@ import {
   SOCKET_BROADCAST_CANCEL_REQUEST_VIDEO_CALL,
   SOCKET_BROADCAST_REJECT_VIDEO_CALL,
   SOCKET_BROADCAST_ACCEPT_VIDEO_CALL,
-  SOCKET_BROADCAST_END_VIDEO_CALL
+  SOCKET_BROADCAST_END_VIDEO_CALL,
 } from '../../constants/video-call';
 import socket from '../../../socket';
 import '../../styles/Chat.scss';
@@ -51,7 +51,7 @@ class Chat extends Component {
       localVideoSource: {},
       remoteVideoSource: {},
       isVideoCallRequestModalOpen: false,
-      isVideoCallWindowOpen: false
+      isVideoCallWindowOpen: false,
     };
   }
   componentWillMount() {
@@ -60,11 +60,11 @@ class Chat extends Component {
   }
   componentDidMount() {
     ::this.calculateViewportHeight();
-    window.addEventListener('onorientationchange', ::this.calculateViewportHeight, true);
-    window.addEventListener('resize', ::this.calculateViewportHeight, true);
+    window.addEventListener( 'onorientationchange', ::this.calculateViewportHeight, true );
+    window.addEventListener( 'resize', ::this.calculateViewportHeight, true );
 
-    socket.on('action', (action) => {
-      switch (action.type) {
+    socket.on( 'action', ( action ) => {
+      switch ( action.type ) {
         case SOCKET_BROADCAST_REQUEST_VIDEO_CALL:
           this.callerPeerID = action.peerID;
           this.setState({isVideoCallRequestModalOpen: true});
@@ -84,9 +84,9 @@ class Chat extends Component {
   }
   calculateViewportHeight() {
     if ( this.chatSection ) {
-      var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      const viewportHeight = Math.max( document.documentElement.clientHeight, window.innerHeight || 0 );
 
-      this.chatSection.setAttribute('style', 'height:' + viewportHeight + 'px;');
+      this.chatSection.setAttribute( 'style', 'height:' + viewportHeight + 'px;' );
     }
   }
   handleLeftSideDrawerRender() {
@@ -99,7 +99,7 @@ class Chat extends Component {
             <LeftSideDrawer
               handleLeftSideDrawerToggleState={::this.handleLeftSideDrawerToggleState}
               isLeftSideDrawerOpen={matches ? true : isLeftSideDrawerOpen}
-              noOverlay={matches ? true : false}
+              noOverlay={matches}
             >
               <ChatRoomsList
                 handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent}
@@ -111,43 +111,35 @@ class Chat extends Component {
       </MediaQuery>
     )
   }
-  handleLeftSideDrawerToggleEvent(openTheDrawer=false) {
+  handleLeftSideDrawerToggleEvent( openTheDrawer = false ) {
     this.setState({isLeftSideDrawerOpen: openTheDrawer});
   }
-  handleLeftSideDrawerToggleState(state) {
+  handleLeftSideDrawerToggleState( state ) {
     this.setState({isLeftSideDrawerOpen: state.isOpen});
   }
-  handleRightSideDrawerToggleEvent(openTheDrawer=false) {
+  handleRightSideDrawerToggleEvent( openTheDrawer = false ) {
     this.setState({isRightSideDrawerOpen: openTheDrawer});
   }
-  handleRightSideDrawerToggleState(state) {
+  handleRightSideDrawerToggleState( state ) {
     this.setState({isRightSideDrawerOpen: state.isOpen});
   }
-  handleOpenPopUpChatRoom(selectedChatRoom) {
+  handleOpenPopUpChatRoom( selectedChatRoom ) {
     const {
       user,
       chatRoom,
       popUpChatRoom,
       openPopUpChatRoom,
-      closePopUpChatRoom
+      closePopUpChatRoom,
     } = this.props;
     const activeUser = user.active;
     const activeChatRoom = chatRoom.active;
     const allPopUpChatRooms = popUpChatRoom.all;
-    var chatRoomFound = false;
-    var popUpIndex = -1;
 
-    for ( var i = 0; i < allPopUpChatRooms.length; i++ ) {
-      var singleChatRoom = allPopUpChatRooms[i];
+    const popUpIndex = allPopUpChatRooms.findIndex(( singleChatRoom ) => {
+      return singleChatRoom.data._id === selectedChatRoom.data._id;
+    });
 
-      if ( singleChatRoom.data._id === selectedChatRoom.data._id ) {
-        chatRoomFound = true;
-        popUpIndex = i;
-        break;
-      }
-    }
-
-    if ( ! chatRoomFound ) {
+    if ( popUpIndex === -1 ) {
       if ( allPopUpChatRooms.length >= 5 ) {
         closePopUpChatRoom(allPopUpChatRooms[0].data._id);
       }
@@ -158,36 +150,36 @@ class Chat extends Component {
       this.setState({activeChatPopUpWindow: popUpIndex});
     }
   }
-  handleActiveChatPopUpWindow(popUpIndex) {
+  handleActiveChatPopUpWindow( popUpIndex ) {
     this.setState({activeChatPopUpWindow: popUpIndex});
   }
   handleAudioRecorderToggle(event) {
     event.preventDefault();
 
-    this.setState({isAudioRecorderOpen: !this.state.isAudioRecorderOpen});
+    this.setState({isAudioRecorderOpen: ! this.state.isAudioRecorderOpen});
   }
-  handleDragDropBoxToggle(openTheDragDropBox=false) {
+  handleDragDropBoxToggle( openTheDragDropBox = false ) {
     this.setState({isDragDropBoxOpen: openTheDragDropBox});
   }
-  handleSendTextMessage(newMessageID, text, chatRoomID) {
+  handleSendTextMessage( newMessageID, text, chatRoomID ) {
     const {
       user,
-      sendTextMessage
+      sendTextMessage,
     } = this.props;
 
-    sendTextMessage(newMessageID, text, user.active, chatRoomID);
+    sendTextMessage( newMessageID, text, user.active, chatRoomID );
   }
-  handleSendAudioMessage(newMessageID, text, audio, chatRoomID) {
+  handleSendAudioMessage( newMessageID, text, audio, chatRoomID ) {
     const {
       user,
-      sendAudioMessage
+      sendAudioMessage,
     } = this.props;
-    const audioLength = new Date(audio.stopTime) - new Date(audio.startTime);
+    const audioLength = new Date( audio.stopTime ) - new Date( audio.startTime );
 
     if ( audioLength > ( 60 * 1000 ) ) {
       Popup.alert('Maximum of 1 minute audio only');
     } else {
-      sendAudioMessage(newMessageID, text, audio.blob, user.active, chatRoomID);
+      sendAudioMessage( newMessageID, text, audio.blob, user.active, chatRoomID );
     }
   }
   handleVideoCallError() {
@@ -197,21 +189,23 @@ class Chat extends Component {
     if ( this.peer ) {
       this.peer.signal(peerID);
 
-      this.peer.on('stream', (remoteStream) => {
+      this.peer.on('stream', ( remoteStream ) => {
         this.setState({remoteVideoSource: remoteStream});
       });
     }
   }
-  handleRequestVideoCall(chatRoom) {
+  handleRequestVideoCall( chatRoom ) {
     const {
       user,
-      requestVideoCall
+      requestVideoCall,
     } = this.props;
     const activeUser = user.active;
     const chatRoomMembers = chatRoom.data.members;
 
     if ( chatRoom.data.chatType === 'direct' ) {
-      var memberIndex = chatRoomMembers.findIndex(singleMember => singleMember._id !== activeUser._id);
+      const memberIndex = chatRoomMembers.findIndex(( singleMember ) => {
+        return singleMember._id !== activeUser._id;
+      });
 
       if ( memberIndex > -1 ) {
         getMedia(
@@ -229,7 +223,7 @@ class Chat extends Component {
             this.setState({
               localVideoSource: stream,
               remoteVideoSource: {},
-              isVideoCallWindowOpen: true
+              isVideoCallWindowOpen: true,
             });
           },
           ::this.handleVideoCallError
@@ -237,13 +231,13 @@ class Chat extends Component {
       }
     }
   }
-  handleCancelRequestVideoCall(receiverID) {
+  handleCancelRequestVideoCall( receiverID ) {
     const { cancelRequestVideoCall } = this.props;
 
     cancelRequestVideoCall(receiverID);
     this.setState({isVideoCallWindowOpen: false});
   }
-  handleAcceptVideoCall(callerID) {
+  handleAcceptVideoCall( callerID ) {
     const { acceptVideoCall } = this.props;
 
     getMedia(
@@ -263,7 +257,7 @@ class Chat extends Component {
         this.setState({
           localVideoSource: stream,
           isVideoCallRequestModalOpen: false,
-          isVideoCallWindowOpen: true
+          isVideoCallWindowOpen: true,
         });
       },
       () => {
@@ -275,7 +269,7 @@ class Chat extends Component {
   handleRejectVideoCall() {
     const {
       videoCall,
-      rejectVideoCall
+      rejectVideoCall,
     } = this.props;
     const peerUser = videoCall.peerUser;
 
@@ -292,7 +286,7 @@ class Chat extends Component {
     const {
       user,
       chatRoom,
-      changeChatRoom
+      changeChatRoom,
     } = this.props;
 
     if ( mobile ) {
@@ -313,7 +307,7 @@ class Chat extends Component {
       videoCall,
       searchUser,
       isTyping,
-      isNotTyping
+      isNotTyping,
     } = this.props;
     const {
       isRightSideDrawerOpen,
@@ -323,7 +317,7 @@ class Chat extends Component {
       localVideoSource,
       remoteVideoSource,
       isVideoCallRequestModalOpen,
-      isVideoCallWindowOpen
+      isVideoCallWindowOpen,
     } = this.state;
     const activeChatRoom = chatRoom.active;
     const loading = user.fetchActive.loading || chatRoom.fetch.loading;
@@ -451,11 +445,11 @@ const mapStateToProps = (state) => {
     chatRoom: state.chatRoom,
     popUpChatRoom: state.popUpChatRoom,
     message: state.message,
-    videoCall: state.videoCall
+    videoCall: state.videoCall,
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Chat);
