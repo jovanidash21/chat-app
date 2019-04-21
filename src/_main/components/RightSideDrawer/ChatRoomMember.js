@@ -20,11 +20,21 @@ class ChatRoomMember extends Component {
 
     handleAddDirectChatRoom(chatRoomMember._id, mobile);
   }
+  handleOpenBlockUnblockUserModal(event) {
+    event.preventDefault();
+
+    const {
+      chatRoomMember,
+      handleOpenBlockUnblockUserModal,
+    } = this.props;
+
+    handleOpenBlockUnblockUserModal(chatRoomMember);
+  }
   render() {
     const {
       user,
       chatRoomMember,
-      isActive
+      active
     } = this.props;
 
     return (
@@ -32,7 +42,7 @@ class ChatRoomMember extends Component {
         className={
           "chat-room-member " +
           (chatRoomMember.isOnline ? 'online ' : 'offline ') +
-          (isActive ? 'active' : '')
+          (active ? 'active' : '')
         }
         title={chatRoomMember.name}
       >
@@ -64,14 +74,24 @@ class ChatRoomMember extends Component {
                 <MediaQuery query="(max-width: 767px)">
                   {(matches) => {
                     return (
-                     <li>
-                       <a href="#" onClick={(e) => {::this.handleAddDirectChatRoom(e, matches)}}>
-                         <div className="option-icon">
-                           <FontAwesomeIcon icon={["far", "envelope"]} />
-                         </div>
-                         Direct messages
-                       </a>
-                     </li>
+                      <Fragment>
+                        <li>
+                          <a href="#" onClick={(e) => {::this.handleAddDirectChatRoom(e, matches)}}>
+                            <div className="option-icon">
+                              <FontAwesomeIcon icon={["far", "envelope"]} />
+                            </div>
+                            Direct messages
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" onClick={::this.handleOpenBlockUnblockUserModal}>
+                            <div className="option-icon">
+                              <FontAwesomeIcon icon="user-slash" />
+                            </div>
+                            Block user
+                          </a>
+                        </li>
+                      </Fragment>
                     )
                   }}
                 </MediaQuery>
@@ -88,11 +108,12 @@ ChatRoomMember.propTypes = {
   user: PropTypes.object.isRequired,
   chatRoomMember: PropTypes.object.isRequired,
   handleAddDirectChatRoom: PropTypes.func.isRequired,
-  isActive: PropTypes.bool
+  handleOpenBlockUnblockUserModal: PropTypes.func.isRequired,
+  active: PropTypes.bool,
 }
 
 ChatRoomMember.defaultProps = {
-  isActive: false
+  active: false,
 }
 
 export default ChatRoomMember;

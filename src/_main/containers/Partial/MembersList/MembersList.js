@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
-import { isObjectEmpty } from '../../../../utils/object';
 import { formatNumber } from '../../../../utils/number';
+import { BlockUnblockUserModal } from '../BlockUnblockUserModal';
 import { SearchFilter } from '../../../../components/SearchFilter';
 import { Skeleton } from '../../../../components/Skeleton';
 import { ChatRoomMember } from '../../../components/RightSideDrawer';
@@ -19,7 +19,9 @@ class MembersList extends Component {
       isMembersListScrolled: false,
       members: [],
       searchFilter: '',
-      selectedMemberIndex: -1
+      selectedMemberIndex: -1,
+      blockUnblockUserModalOpen: false,
+      selectedUser: {},
     }
   }
   componentDidUpdate(prevProps) {
@@ -39,7 +41,7 @@ class MembersList extends Component {
       handleRightSideDrawerToggleEvent();
       this.setState({
         searchFilter: '',
-        selectedMemberIndex: -1
+        selectedMemberIndex: -1,
       });
     }
   }
@@ -53,8 +55,8 @@ class MembersList extends Component {
   handleMembersListFilter(searchFilter='') {
     const { member } = this.props;
     const { selectedMemberIndex } = this.state;
-    var allMembers = [...member.all];
-    var memberIndex = selectedMemberIndex;
+    let allMembers = [...member.all];
+    let memberIndex = selectedMemberIndex;
 
     if ( searchFilter.length > 0 ) {
       allMembers = allMembers.filter((singleMember) => {
@@ -88,7 +90,7 @@ class MembersList extends Component {
   onMemberNameKeyDown(event, mobile) {
     const {
       members,
-      selectedMemberIndex
+      selectedMemberIndex,
     } = this.state;
 
     if ( members.length > 0 ) {
@@ -127,54 +129,57 @@ class MembersList extends Component {
     const userID = user.active._id;
     const chatRooms = chatRoom.all;
     const activeChatRoom = chatRoom.active;
-    var chatRoomExists = false;
-    var existingChatRoomData = {};
 
-    for ( var i = 0; i < chatRooms.length; i++ ) {
-      var singleChatRoom = chatRooms[i];
-
-      if (
+    const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
+      return (
         ( singleChatRoom.data.chatType === 'private' && userID === memberID ) ||
         ( singleChatRoom.data.chatType === 'direct' && singleChatRoom.data.members.some(member => member._id === memberID) )
-      ) {
-        chatRoomExists = true;
-        existingChatRoomData = singleChatRoom;
-        break;
-      }
-    }
+      );
+    });
 
-    if ( !chatRoomExists ) {
+    if ( chatRoomIndex === -1 ) {
       createDirectChatRoom(userID, memberID, activeChatRoom.data._id, !mobile)
         .then((chatRoom) => {
           if ( ! mobile ) {
             handleOpenPopUpChatRoom(chatRoom);
           }
         });
-    } else if ( !isObjectEmpty(existingChatRoomData) ) {
+    } else {
       if ( mobile ) {
         changeChatRoom(existingChatRoomData, userID, activeChatRoom.data._id);
       } else {
-        handleOpenPopUpChatRoom(existingChatRoomData);
+        handleOpenPopUpChatRoom(chatRooms[chatRoomIndex]);
       }
 
       handleRightSideDrawerToggleEvent();
       ::this.handleClearSearchFilter();
-    } else {
-      handleRightSideDrawerToggleEvent();
-      ::this.handleClearSearchFilter();
     }
+  }
+  handleOpenBlockUnblockUserModal(selectedUser) {
+    this.setState({
+      blockUnblockUserModalOpen: true,
+      selectedUser,
+    });
+  }
+  handleCloseBlockUnblockUserModal() {
+    this.setState({
+      blockUnblockUserModalOpen: false,
+      selectedUser: {},
+    });
   }
   render() {
     const {
       user,
       chatRoom,
-      member
+      member,
     } = this.props;
     const {
       isMembersListScrolled,
       members,
       searchFilter,
-      selectedMemberIndex
+      selectedMemberIndex,
+      blockUnblockUserModalOpen,
+      selectedUser,
     } = this.state;
     const loading = user.fetchActive.loading || chatRoom.fetch.loading || member.fetch.loading;
 
@@ -273,8 +278,8 @@ class MembersList extends Component {
               ! loading &&
               members.length > 0 &&
               members.sort((a, b) => {
-                var name = a.name.toLowerCase().localeCompare(b.name.toLowerCase());
-                var date = new Date(b.createdAt) - new Date(a.createdAt);
+                const name = a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+                const date = new Date(b.createdAt) - new Date(a.createdAt);
 
                 if ( name !== 0 ) {
                   return name;
@@ -287,7 +292,8 @@ class MembersList extends Component {
                   user={user.active}
                   chatRoomMember={chatRoomMember}
                   handleAddDirectChatRoom={::this.handleAddDirectChatRoom}
-                  isActive={selectedMemberIndex === i}
+                  handleOpenBlockUnblockUserModal={::this.handleOpenBlockUnblockUserModal}
+                  active={selectedMemberIndex === i}
                 />
               )
             }
@@ -300,6 +306,14 @@ class MembersList extends Component {
             }
           </div>
         </div>
+        {
+          blockUnblockUserModalOpen &&
+          <BlockUnblockUserModal
+            open={blockUnblockUserModalOpen}
+            selectedUser={selectedUser}
+            handleCloseModal={::this.handleCloseBlockUnblockUserModal}
+          />
+        }
       </div>
     );
   }
