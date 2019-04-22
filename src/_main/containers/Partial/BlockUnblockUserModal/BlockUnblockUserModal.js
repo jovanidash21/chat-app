@@ -7,7 +7,9 @@ import {
 } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
 import { Modal } from '../../../../components/Modal';
+import { Avatar } from '../../../../components/Avatar';
 import { Alert } from '../../../../components/Alert';
+import './styles.scss';
 
 class BlockUnblockUserModal extends Component {
   constructor(props) {
@@ -19,7 +21,8 @@ class BlockUnblockUserModal extends Component {
   render() {
     const {
       open,
-      handleCloseModal
+      selectedUser,
+      handleCloseModal,
     } = this.props;
 
     return (
@@ -33,8 +36,20 @@ class BlockUnblockUserModal extends Component {
             <h3 className="modal-title">Block User</h3>
           </Modal.Header>
           <Modal.Body>
+            <div className="avatar-wrapper">
+              <Avatar
+                image={selectedUser.profilePicture}
+                size="100px"
+                name={selectedUser.name}
+                roleChatType={selectedUser.role}
+                accountType={selectedUser.accountType}
+                badgeBigger
+                badgeCloser
+              />
+            </div>
             <p>
-              This user will not be able to send you a message 
+              <span className="user-name mui--text-danger">{selectedUser.name}</span>&nbsp;
+              will be blocked. This user will not be able to send you a message.
             </p>
           </Modal.Body>
           <Modal.Footer>
