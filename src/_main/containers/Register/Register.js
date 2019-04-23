@@ -58,12 +58,12 @@ class Register extends Component {
       password,
       confirmPassword
     } = this.state;
-    var emailValid = true;
-    var nameValid = true;
-    var usernameValid = true;
-    var passwordValid = true;
-    var confirmPasswordValid = true;
-    var errorMessage = '';
+    let emailValid = true;
+    let nameValid = true;
+    let usernameValid = true;
+    let passwordValid = true;
+    let confirmPasswordValid = true;
+    let errorMessage = '';
 
     if ( ! isEmailValid( email ) ) {
       emailValid = false;
