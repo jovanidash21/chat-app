@@ -56,6 +56,70 @@ router.post('/search', (req, res, next) => {
   }
 });
 
+router.post('/block', (req, res, next) => {
+  var userID = req.body.userID;
+
+  if (req.user === undefined || req.user._id != userID) {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var blockUserID = req.body.blockUserID;
+
+    User.findByIdAndUpdate(
+      userID,
+      { $push: { blockedUsers: blockUserID }},
+      { safe: true, upsert: true, new: true, select: '-chatRooms -socketID' }
+    )
+    .then((user) => {
+      res.status(200).send({
+        success: true,
+        message: 'User Blocked',
+        user: user
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        success: false,
+        message: 'Server Error!'
+      });
+    });
+  }
+});
+
+router.post('/unblock', (req, res, next) => {
+  var userID = req.body.userID;
+
+  if (req.user === undefined || req.user._id != userID) {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var unblockUserID = req.body.unblockUserID;
+
+    User.findByIdAndUpdate(
+      userID,
+      { $pull: { blockedUsers: unblockUserID }},
+      { new: true, upsert: true, select: '-chatRooms -socketID' }
+    )
+    .then((user) => {
+      res.status(200).send({
+        success: true,
+        message: 'User Unblocked',
+        user: user
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        success: false,
+        message: 'Server Error!'
+      });
+    });
+  }
+});
+
 router.get('/count', (req, res, next) => {
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
