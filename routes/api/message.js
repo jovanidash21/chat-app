@@ -63,7 +63,7 @@ router.post('/', (req, res, next) => {
       .sort({createdAt: 'descending'})
       .skip(skipCount)
       .limit(50)
-      .populate('user', '-chatRooms -socketID')
+      .populate('user', '-chatRooms -blockedUsers -socketID')
       .then((messages) => {
         var chatRoomMessages = messages.reverse();
 
@@ -129,7 +129,7 @@ router.post('/text', (req, res, next) => {
         }
 
         return Message.findById(message._id)
-          .populate('user', '-chatRooms -socketID');
+          .populate('user', '-chatRooms -blockedUsers socketID');
       })
       .then((messageData) => {
         res.status(200).send({
@@ -196,7 +196,7 @@ router.post('/file', fileUpload.single('file'), (req, res, next) => {
         }
 
         return Message.findById(message._id)
-          .populate('user', '-chatRooms -socketID');
+          .populate('user', '-chatRooms -blockedUsers -socketID');
       })
       .then((messageData) => {
         res.status(200).send({
@@ -257,7 +257,7 @@ router.post('/audio', audioUpload.single('audio'), (req, res, next) => {
         }
 
         return Message.findById(message._id)
-          .populate('user', '-chatRooms -socketID');
+          .populate('user', '-chatRooms -blockedUsers -socketID');
       })
       .then((messageData) => {
         res.status(200).send({

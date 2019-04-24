@@ -39,7 +39,7 @@ router.post('/search', (req, res, next) => {
       userQuery['chatRooms.data'] = req.body.chatRoomID;
     }
 
-    User.find(userQuery, '-chatRooms -socketID')
+    User.find(userQuery, '-chatRooms -blockedUsers -socketID')
       .then((users) => {
         res.status(200).send({
           success: true,
@@ -153,7 +153,7 @@ router.post('/select', (req, res, next) => {
   } else {
     var userID = req.body.userID;
 
-    User.findById(userID, '-chatRooms -socketID')
+    User.findById(userID, '-chatRooms -blockedUsers -socketID')
       .then((user) => {
         res.status(200).send({
           success: true,
@@ -177,7 +177,7 @@ router.get('/all', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    User.find({_id: {$ne: null}}, '-chatRooms -socketID')
+    User.find({_id: {$ne: null}}, '-chatRooms -blockedUsers -socketID')
       .then((users) => {
         res.status(200).send({
           success: true,
@@ -244,7 +244,7 @@ router.post('/create', (req, res, next) => {
             return User.findByIdAndUpdate(
               userID,
               { $push: { chatRooms: { data: chatRoomID, mute: {} } } },
-              { safe: true, upsert: true, new: true, select: '-chatRooms -socketID' }
+              { safe: true, upsert: true, new: true, select: '-chatRooms -blockedUsers -socketID' }
             ).exec();
           })
           .then((user) => {
@@ -360,7 +360,7 @@ router.post('/edit-profile', (req, res, next) => {
           User.findByIdAndUpdate(
             userID,
             { $set: userData },
-            { safe: true, upsert: true, new: true, select: '-chatRooms -socketID' }
+            { safe: true, upsert: true, new: true, select: '-chatRooms -blockedUsers -socketID' }
           )
           .then((user) => {
             res.status(200).send({

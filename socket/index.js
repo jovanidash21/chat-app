@@ -15,7 +15,7 @@ var sockets = function(io) {
           User.findByIdAndUpdate(
             action.userID,
             { $set: { isOnline: true, socketID: socket.id } },
-            { safe: true, upsert: true, new: true, select: '-chatRooms -socketID' },
+            { safe: true, upsert: true, new: true, select: '-chatRooms -blockedUsers -socketID' },
           )
           .then((user) => {
             connectedUsers[socket.id] = user._id;
@@ -187,7 +187,7 @@ var sockets = function(io) {
         case 'SOCKET_REQUEST_VIDEO_CALL':
           var callerUser = {};
 
-          User.findById(action.callerID, '-chatRooms -socketID')
+          User.findById(action.callerID, '-chatRooms -blockedUsers -socketID')
             .then((user) => {
               callerUser = user;
 
