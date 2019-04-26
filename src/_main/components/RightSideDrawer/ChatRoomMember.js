@@ -88,7 +88,7 @@ class ChatRoomMember extends Component {
                             <div className="option-icon">
                               <FontAwesomeIcon icon="user-slash" />
                             </div>
-                            Block user
+                            {!chatRoomMember.blocked ? 'Block' : 'Unblock'} user
                           </a>
                         </li>
                       </Fragment>
