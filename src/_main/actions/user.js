@@ -100,6 +100,7 @@ export function blockUser( userID, blockUserID ) {
     return dispatch({
       type: BLOCK_USER,
       payload: axios.post( 'user/block', data ),
+      meta: blockUserID,
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
@@ -125,6 +126,7 @@ export function unblockUser( userID, unblockUserID ) {
     return dispatch({
       type: UNBLOCK_USER,
       payload: axios.post( 'user/unblock', data ),
+      meta: unblockUserID,
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
