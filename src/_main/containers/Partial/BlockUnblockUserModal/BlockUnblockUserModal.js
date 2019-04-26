@@ -15,15 +15,40 @@ class BlockUnblockUserModal extends Component {
   constructor(props) {
     super(props);
   }
-  handleBlockUser(event) {
+  componentDidUpdate(prevProps) {
+    if (
+      ( prevProps.user.block.loading && this.props.user.block.success ) ||
+      ( prevProps.user.unblock.loading && this.props.user.unblock.success  )
+    ) {
+      this.props.handleCloseModal();
+    }
+  }
+  handleBlockUnblockUser(event) {
     event.preventDefault();
+
+    const {
+      user,
+      blockUser,
+      unblockUser,
+      selectedUser,
+    } = this.props;
+    const activeUser = user.active;
+    const isBlocked = selectedUser.blocked;
+
+    if ( ! isBlocked ) {
+      blockUser( activeUser._id, selectedUser._id );
+    } else {
+      unblockUser( activeUser._id, selectedUser._id );
+    }
   }
   render() {
     const {
+      user,
       open,
       selectedUser,
       handleCloseModal,
     } = this.props;
+    const isBlocked = selectedUser.blocked;
 
     return (
       <Modal
@@ -31,9 +56,9 @@ class BlockUnblockUserModal extends Component {
         open={open}
         onClose={handleCloseModal}
       >
-        <Form>
+        <Form onSubmit={::this.handleBlockUnblockUser}>
           <Modal.Header>
-            <h3 className="modal-title">Block User</h3>
+            <h3 className="modal-title">{!isBlocked ? 'Block' : 'Unblock'} User</h3>
           </Modal.Header>
           <Modal.Body>
             <div className="avatar-wrapper">
@@ -49,23 +74,27 @@ class BlockUnblockUserModal extends Component {
             </div>
             <p>
               <span className="user-name mui--text-danger">{selectedUser.name}</span>&nbsp;
-              will be blocked. This user will not be able to send you a message.
+              {
+                ! isBlocked
+                  ? 'will be blocked. This user will not be able to send you a message.'
+                  : 'will be unblocked. This user will now be able to send you a message.'
+              }
             </p>
           </Modal.Body>
           <Modal.Footer>
             <Button
               className="button button-default"
               onClick={handleCloseModal}
-              disabled={false}
+              disabled={user.block.loading || user.unblock.loading}
             >
               Cancel
             </Button>
             <Button
               className="button button-primary"
-              onClick={::this.handleBlockUser}
-              disabled={false}
+              type="submit"
+              disabled={user.block.loading || user.unblock.loading}
             >
-              Block User
+              {!isBlocked ? 'Block' : 'Unblock'}
             </Button>
           </Modal.Footer>
         </Form>
@@ -76,7 +105,7 @@ class BlockUnblockUserModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-
+    user: state.user,
   }
 }
 
