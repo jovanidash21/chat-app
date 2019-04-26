@@ -27,12 +27,13 @@ router.post('/', (req, res, next) => {
       .then((chatRoom) => {
         for (var i = 0; i < chatRoom.members.length; i++) {
           var member = chatRoom.members[i];
+          var blocked = false;
 
-          member.blocked = false;
-
-          if (blockedUsers.includes(member._id)) {
-            member.blocked = true;
+          if (blockedUsers.indexOf(member._id) > -1) {
+            blocked = true;
           }
+
+          member.blocked = blocked;
         }
 
         res.status(200).send({

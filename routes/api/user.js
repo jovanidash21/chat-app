@@ -69,7 +69,7 @@ router.post('/block', (req, res, next) => {
 
     User.findByIdAndUpdate(
       userID,
-      { $push: { blockedUsers: blockUserID }},
+      { $addToSet: { blockedUsers: blockUserID }},
       { safe: true, upsert: true, new: true, select: '-chatRooms -socketID' }
     )
     .then((user) => {
