@@ -129,7 +129,7 @@ router.post('/text', (req, res, next) => {
         }
 
         return Message.findById(message._id)
-          .populate('user', '-chatRooms -blockedUsers socketID');
+          .populate('user', '-chatRooms -blockedUsers -socketID');
       })
       .then((messageData) => {
         res.status(200).send({
