@@ -32,7 +32,11 @@ if ( process.env.NODE_ENV != 'production' ) {
 }
 
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true});
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
