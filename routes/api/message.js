@@ -59,11 +59,15 @@ router.post('/', (req, res, next) => {
     var chatRoomID = req.body.chatRoomID;
     var skipCount = req.body.skipCount;
 
-    Message.find({chatRoom: chatRoomID})
-      .sort({createdAt: 'descending'})
-      .skip(skipCount)
-      .limit(50)
-      .populate('user', '-chatRooms -blockedUsers -socketID')
+    User.findById(userID, 'blockedUsers')
+      .then((user) => {
+        return Message.find({user: {$nin: user.blockedUsers}, chatRoom: chatRoomID})
+          .sort({createdAt: 'descending'})
+          .skip(skipCount)
+          .limit(50)
+          .populate('user', '-chatRooms -blockedUsers -socketID')
+          .exec();
+      })
       .then((messages) => {
         var chatRoomMessages = messages.reverse();
 

@@ -100,7 +100,6 @@ var sockets = function(io) {
                 var chatRoomMember = chatRoom.members[i];
 
                 if (blockedUsers.indexOf(chatRoomMember._id) === -1) {
-                  console.log('not');
                   User.findById(chatRoomMember._id)
                     .populate({
                       path: 'chatRooms.data',
@@ -173,8 +172,6 @@ var sockets = function(io) {
             .then((chatRoom) => {
               for (var i = 0; i < chatRoom.members.length; i++) {
                 var chatRoomMember = chatRoom.members[i];
-
-                console.log('not');
 
                 User.findById(chatRoomMember._id)
                   .then((user) => {
