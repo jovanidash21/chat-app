@@ -58,10 +58,21 @@ router.post('/', (req, res, next) => {
   } else {
     var chatRoomID = req.body.chatRoomID;
     var skipCount = req.body.skipCount;
+    var blockedUsers = [];
 
-    User.findById(userID, 'blockedUsers')
+    User.find({'chatRooms.data': chatRoomID, blockedUsers: {$eq: userID}})
+      .distinct('_id')
+      .then((userIDs) => {
+        blockedUsers = userIDs;
+
+        return User.findById(userID, 'blockedUsers');
+      })
       .then((user) => {
-        return Message.find({user: {$nin: user.blockedUsers}, chatRoom: chatRoomID})
+        return Message.find({
+          $and: [
+            { user: { $nin: user.blockedUsers } },
+            { user: { $nin: blockedUsers } }
+          ], chatRoom: chatRoomID})
           .sort({createdAt: 'descending'})
           .skip(skipCount)
           .limit(50)
