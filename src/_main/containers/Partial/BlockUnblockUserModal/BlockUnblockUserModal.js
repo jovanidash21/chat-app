@@ -76,8 +76,8 @@ class BlockUnblockUserModal extends Component {
               <span className="user-name mui--text-danger">{selectedUser.name}</span>&nbsp;
               {
                 ! isBlocked
-                  ? 'will be blocked. This user will not be able to send you a message.'
-                  : 'will be unblocked. This user will now be able to send you a message.'
+                  ? 'will be blocked. This user will not be able to send you a message and view their messages.'
+                  : 'will be unblocked. This user will now be able to send you a message and view their messages.'
               }
             </p>
           </Modal.Body>
