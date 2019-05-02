@@ -11,10 +11,16 @@ router.get('/', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
+    var user = req.user.toObject();
+
+    delete user['chatRooms'];
+    delete user['blockedUsers'];
+    delete user['socketID'];
+
     res.status(200).send({
       success: true,
       message: 'User Fetched',
-      user: req.user
+      user: user
     });
   }
 });
