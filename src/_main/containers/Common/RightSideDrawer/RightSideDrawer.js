@@ -14,7 +14,7 @@ class RightSideDrawer extends Component {
       handleRightSideDrawerToggleState,
       isRightSideDrawerOpen,
       noOverlay,
-      children
+      children,
     } = this.props;
 
     return (
@@ -41,15 +41,15 @@ const mapStateToProps = (state) => {
 RightSideDrawer.propTypes = {
   handleRightSideDrawerToggleState: PropTypes.func.isRequired,
   isRightSideDrawerOpen: PropTypes.bool,
-  noOverlay: PropTypes.bool
+  noOverlay: PropTypes.bool,
 }
 
 RightSideDrawer.defaultProps = {
   isRightSideDrawerOpen: false,
-  noOverlay: false
+  noOverlay: false,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(RightSideDrawer);

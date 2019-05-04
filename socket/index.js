@@ -15,7 +15,7 @@ var sockets = function(io) {
           User.findByIdAndUpdate(
             action.userID,
             { $set: { isOnline: true, socketID: socket.id } },
-            { safe: true, upsert: true, new: true, select: '-chatRooms -socketID' },
+            { safe: true, upsert: true, new: true, select: '-chatRooms -blockedUsers -socketID' },
           )
           .then((user) => {
             connectedUsers[socket.id] = user._id;
@@ -67,6 +67,7 @@ var sockets = function(io) {
           break;
         case 'SOCKET_SEND_MESSAGE':
           var chatRoomClients = [];
+          var blockedUsers = [];
 
           io.in(action.chatRoomID).clients((err, clients) => {
             if (!err) {
@@ -74,9 +75,14 @@ var sockets = function(io) {
             }
           });
 
-          ChatRoom.findById(action.chatRoomID)
-            .populate('members')
-            .exec()
+          User.findById(action.userID, 'blockedUsers')
+            .then((user) => {
+              blockedUsers = user.blockedUsers;
+
+              return ChatRoom.findById(action.chatRoomID)
+                .populate('members')
+                .exec();
+            })
             .then((chatRoom) => {
               const usernames = [];
 
@@ -93,56 +99,60 @@ var sockets = function(io) {
               for (var i = 0; i < chatRoom.members.length; i++) {
                 var chatRoomMember = chatRoom.members[i];
 
-                User.findById(chatRoomMember)
-                  .populate({
-                    path: 'chatRooms.data',
-                    select: '-members'
-                  })
-                  .exec()
-                  .then((user) => {
-                    if (chatRoomClients.indexOf(user.socketID) > -1) {
-                      User.updateOne(
-                        { _id: user._id, 'chatRooms.data': action.chatRoomID },
-                        { $set: { 'chatRooms.$.unReadMessages': 0 } },
-                        { safe: true, upsert: true, new: true }
-                      ).exec();
+                if (blockedUsers.indexOf(chatRoomMember._id) === -1) {
+                  User.findById(chatRoomMember._id)
+                    .populate({
+                      path: 'chatRooms.data',
+                      select: '-members'
+                    })
+                    .exec()
+                    .then((user) => {
+                      if (user.blockedUsers.indexOf(action.userID) === -1) {
+                        if (chatRoomClients.indexOf(user.socketID) > -1) {
+                          User.updateOne(
+                            { _id: user._id, 'chatRooms.data': action.chatRoomID },
+                            { $set: { 'chatRooms.$.unReadMessages': 0 } },
+                            { safe: true, upsert: true, new: true }
+                          ).exec();
 
-                      socket.broadcast.to(user.socketID).emit('action', {
-                        type: 'SOCKET_BROADCAST_SEND_MESSAGE',
-                        message: action.message
-                      });
-                    } else {
-                      var chatRoomIndex = user.chatRooms.findIndex(singleChatRoom => {
-                        return singleChatRoom.data._id == action.chatRoomID && !singleChatRoom.mute.data;
-                      });
+                          socket.broadcast.to(user.socketID).emit('action', {
+                            type: 'SOCKET_BROADCAST_SEND_MESSAGE',
+                            message: action.message
+                          });
+                        } else {
+                          var chatRoomIndex = user.chatRooms.findIndex(singleChatRoom => {
+                            return singleChatRoom.data._id == action.chatRoomID && !singleChatRoom.mute.data;
+                          });
 
-                      if (chatRoomIndex > -1) {
-                        var singleChatRoom = user.chatRooms[chatRoomIndex];
-                        var socketNotifyType = 'SOCKET_BROADCAST_NOTIFY_MESSAGE';
+                          if (chatRoomIndex > -1) {
+                            var singleChatRoom = user.chatRooms[chatRoomIndex];
+                            var socketNotifyType = 'SOCKET_BROADCAST_NOTIFY_MESSAGE';
 
-                        if (singleChatRoom.data.chatType === 'direct') {
-                          singleChatRoom.data.name = action.message.user.name;
-                          singleChatRoom.data.chatIcon = action.message.user.profilePicture;
-                          singleChatRoom.data.members = chatRoom.members;
+                            if (singleChatRoom.data.chatType === 'direct') {
+                              singleChatRoom.data.name = action.message.user.name;
+                              singleChatRoom.data.chatIcon = action.message.user.profilePicture;
+                              singleChatRoom.data.members = chatRoom.members;
+                            }
+
+                            if (usernames.length > 0 && usernames.indexOf(user.username) > -1) {
+                              socketNotifyType = 'SOCKET_BROADCAST_NOTIFY_MESSAGE_MENTION';
+                            }
+
+                            socket.broadcast.to(user.socketID).emit('action', {
+                              type: socketNotifyType,
+                              chatRoom: singleChatRoom,
+                              chatRoomID: action.chatRoomID,
+                              chatRoomName: singleChatRoom.data.name,
+                              senderName: action.message.user.name
+                            });
+                          }
                         }
-
-                        if (usernames.length > 0 && usernames.indexOf(user.username) > -1) {
-                          socketNotifyType = 'SOCKET_BROADCAST_NOTIFY_MESSAGE_MENTION';
-                        }
-
-                        socket.broadcast.to(user.socketID).emit('action', {
-                          type: socketNotifyType,
-                          chatRoom: singleChatRoom,
-                          chatRoomID: action.chatRoomID,
-                          chatRoomName: singleChatRoom.data.name,
-                          senderName: action.message.user.name
-                        });
                       }
-                    }
-                  })
-                  .catch((error) => {
-                    console.log(error);
-                  });
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
+                }
               }
             })
             .catch((error) => {
@@ -165,7 +175,7 @@ var sockets = function(io) {
               for (var i = 0; i < chatRoom.members.length; i++) {
                 var chatRoomMember = chatRoom.members[i];
 
-                User.findById(chatRoomMember)
+                User.findById(chatRoomMember._id)
                   .then((user) => {
                     if (chatRoomClients.indexOf(user.socketID) > -1) {
                       socket.broadcast.to(user.socketID).emit('action', {
@@ -187,7 +197,7 @@ var sockets = function(io) {
         case 'SOCKET_REQUEST_VIDEO_CALL':
           var callerUser = {};
 
-          User.findById(action.callerID, '-chatRooms -socketID')
+          User.findById(action.callerID, '-chatRooms -blockedUsers -socketID')
             .then((user) => {
               callerUser = user;
 

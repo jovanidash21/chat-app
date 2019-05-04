@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router({mergeParams: true});
+var User = require('../../models/User');
 var ChatRoom = require('../../models/ChatRoom');
 
 router.post('/', (req, res, next) => {
@@ -12,11 +13,29 @@ router.post('/', (req, res, next) => {
     });
   } else {
     var chatRoomID = req.body.chatRoomID;
+    var blockedUsers = [];
 
-    ChatRoom.findById(chatRoomID)
-      .populate('members', '-chatRooms -socketID')
-      .exec()
+    User.findById(userID, 'blockedUsers')
+      .then((user) => {
+        blockedUsers = user.blockedUsers;
+
+        return ChatRoom.findById(chatRoomID)
+          .populate('members', '-chatRooms -blockedUsers -socketID')
+          .lean()
+          .exec();
+      })
       .then((chatRoom) => {
+        for (var i = 0; i < chatRoom.members.length; i++) {
+          var member = chatRoom.members[i];
+          var blocked = false;
+
+          if (blockedUsers.indexOf(member._id) > -1) {
+            blocked = true;
+          }
+
+          member.blocked = blocked;
+        }
+
         res.status(200).send({
           success: true,
           message: 'Members Fetched',

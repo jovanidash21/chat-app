@@ -111,19 +111,19 @@ class Chat extends Component {
       </MediaQuery>
     )
   }
-  handleLeftSideDrawerToggleEvent( openTheDrawer = false ) {
+  handleLeftSideDrawerToggleEvent(openTheDrawer = false) {
     this.setState({isLeftSideDrawerOpen: openTheDrawer});
   }
-  handleLeftSideDrawerToggleState( state ) {
+  handleLeftSideDrawerToggleState(state) {
     this.setState({isLeftSideDrawerOpen: state.isOpen});
   }
-  handleRightSideDrawerToggleEvent( openTheDrawer = false ) {
+  handleRightSideDrawerToggleEvent(openTheDrawer = false) {
     this.setState({isRightSideDrawerOpen: openTheDrawer});
   }
-  handleRightSideDrawerToggleState( state ) {
+  handleRightSideDrawerToggleState(state) {
     this.setState({isRightSideDrawerOpen: state.isOpen});
   }
-  handleOpenPopUpChatRoom( selectedChatRoom ) {
+  handleOpenPopUpChatRoom(selectedChatRoom) {
     const {
       user,
       chatRoom,
@@ -150,7 +150,7 @@ class Chat extends Component {
       this.setState({activeChatPopUpWindow: popUpIndex});
     }
   }
-  handleActiveChatPopUpWindow( popUpIndex ) {
+  handleActiveChatPopUpWindow(popUpIndex) {
     this.setState({activeChatPopUpWindow: popUpIndex});
   }
   handleAudioRecorderToggle(event) {
@@ -158,18 +158,18 @@ class Chat extends Component {
 
     this.setState({isAudioRecorderOpen: ! this.state.isAudioRecorderOpen});
   }
-  handleDragDropBoxToggle( openTheDragDropBox = false ) {
+  handleDragDropBoxToggle(openTheDragDropBox = false) {
     this.setState({isDragDropBoxOpen: openTheDragDropBox});
   }
-  handleSendTextMessage( newMessageID, text, chatRoomID ) {
+  handleSendTextMessage(newMessageID, text, chatRoomID) {
     const {
       user,
       sendTextMessage,
     } = this.props;
 
-    sendTextMessage( newMessageID, text, user.active, chatRoomID );
+    sendTextMessage(newMessageID, text, user.active, chatRoomID);
   }
-  handleSendAudioMessage( newMessageID, text, audio, chatRoomID ) {
+  handleSendAudioMessage(newMessageID, text, audio, chatRoomID) {
     const {
       user,
       sendAudioMessage,
@@ -194,7 +194,7 @@ class Chat extends Component {
       });
     }
   }
-  handleRequestVideoCall( chatRoom ) {
+  handleRequestVideoCall(chatRoom) {
     const {
       user,
       requestVideoCall,
@@ -231,13 +231,13 @@ class Chat extends Component {
       }
     }
   }
-  handleCancelRequestVideoCall( receiverID ) {
+  handleCancelRequestVideoCall(receiverID) {
     const { cancelRequestVideoCall } = this.props;
 
     cancelRequestVideoCall(receiverID);
     this.setState({isVideoCallWindowOpen: false});
   }
-  handleAcceptVideoCall( callerID ) {
+  handleAcceptVideoCall(callerID) {
     const { acceptVideoCall } = this.props;
 
     getMedia(

@@ -9,7 +9,7 @@ import { isDirectChatRoomMemberOnline } from '../../../../utils/member';
 import { MuteUnmuteChatRoomModal } from '../../Partial';
 import {
   NewMessagesDropdown,
-  ChatRoomDropdown
+  ChatRoomDropdown,
 } from '../../../components/Header';
 import { Skeleton } from '../../../../components/Skeleton';
 import { UserDropdown } from '../../../../components/UserDropdown';
@@ -70,7 +70,7 @@ class Header extends Component {
       chatRoom,
       changeChatRoom,
       handleOpenPopUpChatRoom,
-      children
+      children,
     } = this.props;
     const newMessagesChatRooms = chatRoom.all.filter((singleChatRoom) =>
       singleChatRoom.data.chatType !== 'public' &&
@@ -78,9 +78,9 @@ class Header extends Component {
       !singleChatRoom.mute.data &&
       singleChatRoom.unReadMessages > 0
     ).sort((a, b) => {
-      var date = new Date(b.data.latestMessageDate) - new Date(a.data.latestMessageDate);
-      var name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
-      var priority = a.priority - b.priority;
+      const date = new Date(b.data.latestMessageDate) - new Date(a.data.latestMessageDate);
+      const name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
+      const priority = a.priority - b.priority;
 
       if ( date !== 0 ) {
         return date;
@@ -124,7 +124,7 @@ class Header extends Component {
   handleEditProfile(username, name, email, profilePicture) {
     const {
       user,
-      editActiveUser
+      editActiveUser,
     } = this.props;
     const activeUser = user.active;
 
@@ -137,7 +137,7 @@ class Header extends Component {
 
     const {
       chatRoom,
-      handleRequestVideoCall
+      handleRequestVideoCall,
     } = this.props;
 
     if ( chatRoom.active.data.chatType === 'direct' ) {
@@ -147,7 +147,7 @@ class Header extends Component {
   handleClearChatRoomUnreadMessages(chatRoomIDs) {
     const {
       user,
-      clearChatRoomUnreadMessages
+      clearChatRoomUnreadMessages,
     } = this.props;
 
     clearChatRoomUnreadMessages(user.active._id, chatRoomIDs);
@@ -158,11 +158,11 @@ class Header extends Component {
       chatRoom,
       upload,
       uploadImage,
-      children
+      children,
     } = this.props;
     const {
       muteUnmuteModalOpen,
-      editProfileModalOpen
+      editProfileModalOpen,
     } = this.state;
     const activeUser = user.active;
     const activeUserEmpty = isObjectEmpty( activeUser );
@@ -236,17 +236,17 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     chatRoom: state.chatRoom,
-    upload: state.upload
+    upload: state.upload,
   }
 }
 
 Header.propTypes = {
   handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
   handleOpenPopUpChatRoom: PropTypes.func.isRequired,
-  handleRequestVideoCall: PropTypes.func.isRequired
+  handleRequestVideoCall: PropTypes.func.isRequired,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Header);

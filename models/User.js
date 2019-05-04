@@ -69,6 +69,12 @@ var userSchema = new Schema (
       ],
       default: 'ordinary',
     },
+    blockedUsers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
     isOnline: {
       type: Boolean,
       default: false,

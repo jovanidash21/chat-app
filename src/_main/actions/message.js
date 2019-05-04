@@ -109,6 +109,7 @@ export function sendTextMessage( newMessageID, text, user, chatRoomID ) {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
+        userID: user._id,
         chatRoomID: chatRoomID,
       });
     })
@@ -181,6 +182,7 @@ export function sendFileMessage( newMessageID, text, file, user, chatRoomID ) {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
+        userID: user._id,
         chatRoomID: chatRoomID,
       });
     })
@@ -249,6 +251,7 @@ export function sendAudioMessage( newMessageID, text, audioBlob, user, chatRoomI
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
+        userID: user._id,
         chatRoomID: chatRoomID,
       });
     })
@@ -277,15 +280,15 @@ export function deleteMessage( messageID, chatRoomID ) {
       type: DELETE_MESSAGE,
       payload: axios.post( 'message/delete', data ),
       meta: {
-        messageID: messageID,
-        chatRoomID: chatRoomID,
+        messageID,
+        chatRoomID,
       },
     })
     .then(( response ) => {
       dispatch({
         type: SOCKET_DELETE_MESSAGE,
-        messageID: messageID,
-        chatRoomID: chatRoomID,
+        messageID,
+        chatRoomID,
       });
     })
     .catch(( error ) => {

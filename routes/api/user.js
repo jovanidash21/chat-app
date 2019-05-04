@@ -11,10 +11,16 @@ router.get('/', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
+    var user = req.user.toObject();
+
+    delete user['chatRooms'];
+    delete user['blockedUsers'];
+    delete user['socketID'];
+
     res.status(200).send({
       success: true,
       message: 'User Fetched',
-      user: req.user
+      user: user
     });
   }
 });
@@ -39,7 +45,7 @@ router.post('/search', (req, res, next) => {
       userQuery['chatRooms.data'] = req.body.chatRoomID;
     }
 
-    User.find(userQuery, '-chatRooms -socketID')
+    User.find(userQuery, '-chatRooms -blockedUsers -socketID')
       .then((users) => {
         res.status(200).send({
           success: true,
@@ -53,6 +59,68 @@ router.post('/search', (req, res, next) => {
           message: 'Server Error!'
         });
       });
+  }
+});
+
+router.post('/block', (req, res, next) => {
+  var userID = req.body.userID;
+
+  if (req.user === undefined || req.user._id != userID) {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var blockUserID = req.body.blockUserID;
+
+    User.findByIdAndUpdate(
+      userID,
+      { $addToSet: { blockedUsers: blockUserID }},
+      { safe: true, upsert: true, new: true, select: '-chatRooms -blockedUsers -socketID' }
+    )
+    .then((user) => {
+      res.status(200).send({
+        success: true,
+        message: 'User Blocked'
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        success: false,
+        message: 'Server Error!'
+      });
+    });
+  }
+});
+
+router.post('/unblock', (req, res, next) => {
+  var userID = req.body.userID;
+
+  if (req.user === undefined || req.user._id != userID) {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    var unblockUserID = req.body.unblockUserID;
+
+    User.findByIdAndUpdate(
+      userID,
+      { $pull: { blockedUsers: unblockUserID }},
+      { new: true, upsert: true, select: '-chatRooms -blockedUsers -socketID' }
+    )
+    .then((user) => {
+      res.status(200).send({
+        success: true,
+        message: 'User Unblocked'
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        success: false,
+        message: 'Server Error!'
+      });
+    });
   }
 });
 
@@ -153,7 +221,7 @@ router.post('/select', (req, res, next) => {
   } else {
     var userID = req.body.userID;
 
-    User.findById(userID, '-chatRooms -socketID')
+    User.findById(userID, '-chatRooms -blockedUsers -socketID')
       .then((user) => {
         res.status(200).send({
           success: true,
@@ -177,7 +245,7 @@ router.get('/all', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    User.find({_id: {$ne: null}}, '-chatRooms -socketID')
+    User.find({_id: {$ne: null}}, '-chatRooms -blockedUsers -socketID')
       .then((users) => {
         res.status(200).send({
           success: true,
@@ -244,7 +312,7 @@ router.post('/create', (req, res, next) => {
             return User.findByIdAndUpdate(
               userID,
               { $push: { chatRooms: { data: chatRoomID, mute: {} } } },
-              { safe: true, upsert: true, new: true, select: '-chatRooms -socketID' }
+              { safe: true, upsert: true, new: true, select: '-chatRooms -blockedUsers -socketID' }
             ).exec();
           })
           .then((user) => {
@@ -360,7 +428,7 @@ router.post('/edit-profile', (req, res, next) => {
           User.findByIdAndUpdate(
             userID,
             { $set: userData },
-            { safe: true, upsert: true, new: true, select: '-chatRooms -socketID' }
+            { safe: true, upsert: true, new: true, select: '-chatRooms -blockedUsers -socketID' }
           )
           .then((user) => {
             res.status(200).send({

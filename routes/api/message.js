@@ -58,12 +58,27 @@ router.post('/', (req, res, next) => {
   } else {
     var chatRoomID = req.body.chatRoomID;
     var skipCount = req.body.skipCount;
+    var blockedUsers = [];
 
-    Message.find({chatRoom: chatRoomID})
-      .sort({createdAt: 'descending'})
-      .skip(skipCount)
-      .limit(50)
-      .populate('user', '-chatRooms -socketID')
+    User.find({'chatRooms.data': chatRoomID, blockedUsers: {$eq: userID}})
+      .distinct('_id')
+      .then((userIDs) => {
+        blockedUsers = userIDs;
+
+        return User.findById(userID, 'blockedUsers');
+      })
+      .then((user) => {
+        return Message.find({
+          $and: [
+            { user: { $nin: user.blockedUsers } },
+            { user: { $nin: blockedUsers } }
+          ], chatRoom: chatRoomID})
+          .sort({createdAt: 'descending'})
+          .skip(skipCount)
+          .limit(50)
+          .populate('user', '-chatRooms -blockedUsers -socketID')
+          .exec();
+      })
       .then((messages) => {
         var chatRoomMessages = messages.reverse();
 
@@ -129,7 +144,7 @@ router.post('/text', (req, res, next) => {
         }
 
         return Message.findById(message._id)
-          .populate('user', '-chatRooms -socketID');
+          .populate('user', '-chatRooms -blockedUsers -socketID');
       })
       .then((messageData) => {
         res.status(200).send({
@@ -196,7 +211,7 @@ router.post('/file', fileUpload.single('file'), (req, res, next) => {
         }
 
         return Message.findById(message._id)
-          .populate('user', '-chatRooms -socketID');
+          .populate('user', '-chatRooms -blockedUsers -socketID');
       })
       .then((messageData) => {
         res.status(200).send({
@@ -257,7 +272,7 @@ router.post('/audio', audioUpload.single('audio'), (req, res, next) => {
         }
 
         return Message.findById(message._id)
-          .populate('user', '-chatRooms -socketID');
+          .populate('user', '-chatRooms -blockedUsers -socketID');
       })
       .then((messageData) => {
         res.status(200).send({

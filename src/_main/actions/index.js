@@ -14,6 +14,8 @@ import {
   fetchActiveUser,
   editActiveUser,
   searchUser,
+  blockUser,
+  unblockUser,
 } from './user';
 import {
   isTyping,
@@ -61,6 +63,8 @@ const actions = ( dispatch ) => {
     fetchActiveUser,
     editActiveUser,
     searchUser,
+    blockUser,
+    unblockUser,
     isTyping,
     isNotTyping,
     changeChatRoom,

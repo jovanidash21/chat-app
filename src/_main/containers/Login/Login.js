@@ -49,9 +49,9 @@ class Login extends Component {
       username,
       password
     } = this.state;
-    var usernameValid = true;
-    var passwordValid = true;
-    var errorMessage = '';
+    let usernameValid = true;
+    let passwordValid = true;
+    let errorMessage = '';
 
     if ( username.trim().length === 0 ) {
       usernameValid = false;
