@@ -11,6 +11,7 @@ import popUpChatRoom from './popup-chat-room';
 import message from './message';
 import member from './member';
 import videoCall from './video-call';
+import blockedUser from './blocked-user';
 import upload from './upload';
 
 const appReducer = combineReducers({
@@ -25,6 +26,7 @@ const appReducer = combineReducers({
   message,
   member,
   videoCall,
+  blockedUser,
   upload,
 });
 

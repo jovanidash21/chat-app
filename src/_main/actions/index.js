@@ -47,6 +47,7 @@ import {
   acceptVideoCall,
   endVideoCall,
 } from './video-call';
+import { fetchBlockedUsers } from './blocked-user';
 import { uploadImage } from './upload';
 
 const actions = ( dispatch ) => {
@@ -85,6 +86,7 @@ const actions = ( dispatch ) => {
     rejectVideoCall,
     acceptVideoCall,
     endVideoCall,
+    fetchBlockedUsers,
     uploadImage,
   }, dispatch);
 }
