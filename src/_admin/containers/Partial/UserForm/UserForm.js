@@ -9,7 +9,7 @@ import {
   Form,
   Select,
   Option,
-  Button
+  Button,
 } from 'muicss/react';
 import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
@@ -18,7 +18,7 @@ import { Alert } from '../../../../components/Alert';
 import { Skeleton } from '../../../../components/Skeleton';
 import {
   Input,
-  AvatarUploader
+  AvatarUploader,
 } from '../../../../components/Form';
 import { PasswordInput } from '../../../components/Form';
 import './styles.scss';
@@ -40,14 +40,12 @@ class UserForm extends Component {
       nameValid: true,
       emailValid: true,
       passwordValid: true,
-      errorMessage: ''
+      errorMessage: '',
     };
   }
   componentWillMount() {
     if ( this.props.mode === 'create' ) {
-      this.setState({
-        loading: false
-      });
+      this.setState({loading: false});
     }
   }
   componentDidUpdate(prevProps) {
@@ -73,7 +71,7 @@ class UserForm extends Component {
           email: '',
           role: 'ordinary',
           password: '',
-          profilePicture: ''
+          profilePicture: '',
         });
       }
 
@@ -118,7 +116,7 @@ class UserForm extends Component {
   handleDisplayeSelectedUser() {
     const {
       user,
-      mode
+      mode,
     } = this.props;
 
     if ( mode === 'edit' ) {
@@ -130,7 +128,7 @@ class UserForm extends Component {
         name: selectedUser.name,
         email: selectedUser.email,
         role: selectedUser.role,
-        profilePicture: selectedUser.profilePicture
+        profilePicture: selectedUser.profilePicture,
       });
     }
   }
@@ -165,13 +163,13 @@ class UserForm extends Component {
       name,
       email,
       role,
-      password
+      password,
     } = this.state;
-    var usernameValid = true;
-    var nameValid = true;
-    var emailValid = true;
-    var passwordValid = true;
-    var errorMessage = '';
+    let usernameValid = true;
+    let nameValid = true;
+    let emailValid = true;
+    let passwordValid = true;
+    let errorMessage = '';
 
     if ( username.trim().length === 0 ) {
       usernameValid = false;
@@ -229,7 +227,7 @@ class UserForm extends Component {
       email,
       role,
       password,
-      profilePicture
+      profilePicture,
     } = this.state;
 
     createUser(
@@ -251,7 +249,7 @@ class UserForm extends Component {
       name,
       email,
       role,
-      profilePicture
+      profilePicture,
     } = this.state;
     const selectedUser = user.selected;
 
@@ -268,7 +266,7 @@ class UserForm extends Component {
     const {
       user,
       mode,
-      successMessage
+      successMessage,
     } = this.props;
     const {
       loading,
@@ -439,23 +437,23 @@ class UserForm extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    upload: state.upload
+    upload: state.upload,
   }
 }
 
 UserForm.propTypes = {
   mode: PropTypes.string,
   errorMessage: PropTypes.string,
-  successMessage: PropTypes.string
+  successMessage: PropTypes.string,
 }
 
 UserForm.defaultProps = {
   mode: 'create',
   errorMessage: '',
-  successMessage: ''
+  successMessage: '',
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(UserForm);

@@ -12,7 +12,7 @@ import { SearchFilter } from '../../../../components/SearchFilter';
 import { Skeleton } from '../../../../components/Skeleton';
 import {
   TableColumn,
-  Pagination
+  Pagination,
 } from '../../../components/Table';
 import './styles.scss';
 
@@ -27,9 +27,9 @@ class Table extends Component {
       searchFilter: '',
       sort: {
         column: null,
-        direction: 'asc'
+        direction: 'asc',
       },
-      dataRows: []
+      dataRows: [],
     };
   }
   componentDidUpdate(prevProps) {
@@ -41,7 +41,7 @@ class Table extends Component {
       const {
         activePage,
         searchFilter,
-        sort
+        sort,
       } = this.state;
 
       ::this.handleDataRowsChange(searchFilter, sort.column, sort.direction, activePage);
@@ -50,18 +50,18 @@ class Table extends Component {
   handleDataRowsChange(filter, column, direction, page) {
     const {
       columns,
-      rows
+      rows,
     } = this.props;
     const { itemsCountPerPage } = this.state;
-    var dataRows = [...rows];
+    let dataRows = [...rows];
 
     if ( filter.length > 0 ) {
-      var filteredData = [];
+      const filteredData = [];
 
-      for (var i = 0; i < dataRows.length; i++) {
-        var singleDataRow = dataRows[i];
+      for ( let i = 0; i < dataRows.length; i += 1 ) {
+        const singleDataRow = dataRows[i];
 
-        for ( var key in singleDataRow ) {
+        for ( let key in singleDataRow ) {
           if (
             columns.some((singleColumn) => singleColumn.key === key) &&
             singleDataRow[key].length > 0 &&
@@ -83,9 +83,7 @@ class Table extends Component {
     this.setState({totalRows: dataRows.length});
 
     dataRows = dataRows.sort((a, b) => {
-      var sortKey = a[column].toString().toLowerCase().localeCompare(b[column].toString().toLowerCase());
-
-      return sortKey;
+      return a[column].toString().toLowerCase().localeCompare(b[column].toString().toLowerCase());
     });
 
     if ( direction === 'desc' ) {
@@ -125,7 +123,7 @@ class Table extends Component {
       searchFilter,
       sort
     } = this.state;
-    var direction = 'desc';
+    let direction = 'desc';
 
     if ( sort.column !== null ) {
       if ( sort.column !== column ) {
@@ -397,7 +395,7 @@ Table.propTypes = {
   deleteModal: PropTypes.element,
   isDeleteModalOpen: PropTypes.bool,
   handleOpenDeleteModal: PropTypes.func,
-  handleCloseDeleteModal: PropTypes.func
+  handleCloseDeleteModal: PropTypes.func,
 }
 
 Table.defaultProps = {
@@ -410,10 +408,10 @@ Table.defaultProps = {
   deleteModal: React.createElement('div'),
   isDeleteModalOpen: false,
   handleOpenDeleteModal: () => {},
-  handleCloseDeleteModal: () => {}
+  handleCloseDeleteModal: () => {},
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Table);

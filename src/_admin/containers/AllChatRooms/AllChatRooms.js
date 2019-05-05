@@ -10,7 +10,7 @@ import mapDispatchToProps from '../../actions';
 import { handleChatRoomAvatarBadges } from '../../../utils/avatar';
 import {
   Table,
-  DeleteChatRoomModal
+  DeleteChatRoomModal,
 } from '../Partial';
 import { MenuButton } from '../../components/MenuButton';
 import { Alert } from '../../../components/Alert';
@@ -28,7 +28,7 @@ class AllChatRooms extends Component {
         { key: 'members', label: 'Members' },
         { key: 'chatType', label: 'Chat Type' }
       ],
-      rows: []
+      rows: [],
     };
   }
   componentWillMount() {
@@ -48,7 +48,7 @@ class AllChatRooms extends Component {
     const { chatRoom } = this.props;
     const chatRoomRows = [];
 
-    for ( var i = 0; i < chatRoom.all.length; i++ ) {
+    for ( let i = 0; i < chatRoom.all.length; i += 1 ) {
       const singleChatRoom = chatRoom.all[i];
       const image = (<Avatar
           image={singleChatRoom.chatIcon}
@@ -65,13 +65,13 @@ class AllChatRooms extends Component {
         name: singleChatRoom.name,
         members: singleChatRoom.members.length,
         chatType: singleChatRoom.chatType,
-        isEditable: singleChatRoom.chatType === 'group'
+        isEditable: singleChatRoom.chatType === 'group',
       });
     }
 
     this.setState({
       loading: false,
-      rows: chatRoomRows
+      rows: chatRoomRows,
     });
   }
   handleOpenModal(selecedtChatRoomID) {
@@ -90,11 +90,11 @@ class AllChatRooms extends Component {
       loading,
       columns,
       rows,
-      isModalOpen
+      isModalOpen,
     } = this.state;
     const label = {
       singular: 'chat room',
-      plural: 'chat rooms'
+      plural: 'chat rooms',
     };
     const modal = (<DeleteChatRoomModal
         isModalOpen={isModalOpen}
@@ -140,11 +140,11 @@ class AllChatRooms extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(AllChatRooms);

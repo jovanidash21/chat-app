@@ -9,14 +9,14 @@ class CreateChatRoom extends Component {
 
     this.state = {
       errorMessage: '',
-      successMessage: ''
+      successMessage: '',
     };
   }
   componentDidUpdate(prevProps) {
     if ( ! prevProps.chatRoom.create.loading && this.props.chatRoom.create.loading ) {
       this.setState({
         errorMessage: '',
-        successMessage: ''
+        successMessage: '',
       });
     }
 
@@ -24,12 +24,12 @@ class CreateChatRoom extends Component {
       if ( this.props.chatRoom.create.error ) {
         this.setState({
           errorMessage: this.props.chatRoom.create.message,
-          successMessage: ''
+          successMessage: '',
         });
       } else if ( this.props.chatRoom.create.success ) {
         this.setState({
           errorMessage: '',
-          successMessage: this.props.chatRoom.create.message
+          successMessage: this.props.chatRoom.create.message,
         });
       }
     }
@@ -37,7 +37,7 @@ class CreateChatRoom extends Component {
   render() {
     const {
       errorMessage,
-      successMessage
+      successMessage,
     } = this.state;
 
     return (
@@ -53,11 +53,11 @@ class CreateChatRoom extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(CreateChatRoom);

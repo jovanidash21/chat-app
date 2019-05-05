@@ -48,7 +48,7 @@ class AllUsers extends Component {
     const { user } = this.props;
     const userRows = [];
 
-    for ( var i = 0; i < user.all.length; i++ ) {
+    for ( let i = 0; i < user.all.length; i += 1 ) {
       const singleUser = user.all[i];
       const image = (<Avatar
           image={singleUser.profilePicture}
@@ -91,11 +91,11 @@ class AllUsers extends Component {
       loading,
       columns,
       rows,
-      isModalOpen
+      isModalOpen,
     } = this.state;
     const label = {
       singular: 'user',
-      plural: 'users'
+      plural: 'users',
     };
     const modal = (<DeleteUserModal
         isModalOpen={isModalOpen}
@@ -141,11 +141,11 @@ class AllUsers extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(AllUsers);

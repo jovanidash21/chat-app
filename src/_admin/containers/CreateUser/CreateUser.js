@@ -9,14 +9,14 @@ class CreateUser extends Component {
 
     this.state = {
       errorMessage: '',
-      successMessage: ''
+      successMessage: '',
     };
   }
   componentDidUpdate(prevProps) {
     if ( ! prevProps.user.create.loading && this.props.user.create.loading ) {
       this.setState({
         errorMessage: '',
-        successMessage: ''
+        successMessage: '',
       });
     }
 
@@ -24,12 +24,12 @@ class CreateUser extends Component {
       if ( this.props.user.create.error ) {
         this.setState({
           errorMessage: this.props.user.create.message,
-          successMessage: ''
+          successMessage: '',
         });
       } else if ( this.props.user.create.success ) {
         this.setState({
           errorMessage: '',
-          successMessage: this.props.user.create.message
+          successMessage: this.props.user.create.message,
         });
       }
     }
@@ -37,7 +37,7 @@ class CreateUser extends Component {
   render() {
     const {
       errorMessage,
-      successMessage
+      successMessage,
     } = this.state;
 
     return (
@@ -53,11 +53,11 @@ class CreateUser extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(CreateUser);

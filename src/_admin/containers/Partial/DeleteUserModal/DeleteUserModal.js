@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   Form,
-  Button
+  Button,
 } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
 import { Modal } from '../../../../components/Modal';
@@ -17,13 +17,13 @@ class DeleteUserModal extends Component {
     super(props);
 
     this.state = {
-      loading: true
+      loading: true,
     };
   }
   componentDidUpdate(prevProps) {
     if ( prevProps.user.fetchSelect.loading && !this.props.user.fetchSelect.loading ) {
       this.setState({
-        loading: false
+        loading: false,
       });
     }
 
@@ -36,7 +36,7 @@ class DeleteUserModal extends Component {
 
     const {
       user,
-      deleteUser
+      deleteUser,
     } = this.props;
     const selectedUser = user.selected;
 
@@ -46,7 +46,7 @@ class DeleteUserModal extends Component {
     const {
       user,
       isModalOpen,
-      handleCloseModal
+      handleCloseModal,
     } = this.props;
     const { loading } = this.state;
     const selectedUser = user.selected;
@@ -159,20 +159,20 @@ class DeleteUserModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   }
 }
 
 DeleteUserModal.propTypes = {
   isModalOpen: PropTypes.bool,
-  handleCloseModal: PropTypes.func.isRequired
+  handleCloseModal: PropTypes.func.isRequired,
 }
 
 DeleteUserModal.defaultProps = {
-  isModalOpen: false
+  isModalOpen: false,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(DeleteUserModal);

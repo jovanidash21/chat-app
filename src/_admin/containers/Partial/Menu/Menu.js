@@ -9,23 +9,23 @@ const menuItems = [
   {
     icon: "tachometer-alt",
     title: "Dashboard",
-    link: "/dashboard"
+    link: "/dashboard",
   },
   {
     icon: "user",
     title: "User",
     subMenuItems: [
       { title: "All Users", link: "/all-users" },
-      { title: "Create User", link: "/create-user" }
-    ]
+      { title: "Create User", link: "/create-user" },
+    ],
   },
   {
     icon: "door-closed",
     title: "Chat Room",
     subMenuItems: [
       { title: "All Chat Rooms", link: "/all-chat-rooms" },
-      { title: "Create Chat Room", link: "/create-chat-room" }
-    ]
+      { title: "Create Chat Room", link: "/create-chat-room" },
+    ],
   }
 ];
 
@@ -35,7 +35,7 @@ class Menu extends Component {
 
     this.state = {
       isMenusListScrolled: false,
-      openMenuItem: -1
+      openMenuItem: -1,
     };
   }
   componentDidMount() {
@@ -66,7 +66,7 @@ class Menu extends Component {
     const { router } = this.props;
     const {
       isMenusListScrolled,
-      openMenuItem
+      openMenuItem,
     } = this.state;
 
     return (
@@ -83,7 +83,7 @@ class Menu extends Component {
             {
               menuItems.length > 0 &&
               menuItems.map((singleMenuItem, i) => {
-                var isSubMenuActive = false;
+                let isSubMenuActive = false;
 
                 if (
                   'subMenuItems' in singleMenuItem &&
@@ -132,15 +132,15 @@ const mapStateToProps = (state) => {
   return {
     router: state.router,
     user: state.user,
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
   }
 }
 
 Menu.propTypes = {
-  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired
+  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Menu);

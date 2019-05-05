@@ -9,7 +9,7 @@ import {
   Form,
   Select,
   Option,
-  Button
+  Button,
 } from 'muicss/react';
 import Popup from 'react-popup';
 import mapDispatchToProps from '../../../actions';
@@ -19,7 +19,7 @@ import { Skeleton } from '../../../../components/Skeleton';
 import {
   Input,
   UserSelect,
-  AvatarUploader
+  AvatarUploader,
 } from '../../../../components/Form';
 import './styles.scss';
 
@@ -35,13 +35,13 @@ class ChatRoomForm extends Component {
       members: [],
       chatIcon: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg',
       nameValid: true,
-      errorMessage: ''
+      errorMessage: '',
     };
   }
   componentWillMount() {
     if ( this.props.mode === 'create' ) {
       this.setState({
-        loading: false
+        loading: false,
       });
     }
   }
@@ -66,7 +66,7 @@ class ChatRoomForm extends Component {
           chatType: '',
           name: '',
           members: [],
-          chatIcon: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg'
+          chatIcon: 'https://raw.githubusercontent.com/jovanidash21/chat-app/master/public/images/default-chat-icon.jpg',
         });
       }
 
@@ -173,7 +173,7 @@ class ChatRoomForm extends Component {
   handleDisplayeSelectedChatRoom() {
     const {
       chatRoom,
-      mode
+      mode,
     } = this.props;
 
     if ( mode === 'edit' ) {
@@ -184,7 +184,7 @@ class ChatRoomForm extends Component {
         chatType: selectedChatRoom.chatType,
         name: selectedChatRoom.name,
         members: selectedChatRoom.members,
-        chatIcon: selectedChatRoom.chatIcon
+        chatIcon: selectedChatRoom.chatIcon,
       });
     }
   }
@@ -219,8 +219,8 @@ class ChatRoomForm extends Component {
       name,
       members
     } = this.state;
-    var nameValid = true;
-    var errorMessage = '';
+    let nameValid = true;
+    let errorMessage = '';
 
     if ( chatType === 'group' && name.trim().length === 0 ) {
       nameValid = false;
@@ -263,26 +263,26 @@ class ChatRoomForm extends Component {
       chatType,
       name,
       members,
-      chatIcon
+      chatIcon,
     } = this.state;
 
     createChatRoom(
       chatType,
       name,
       members,
-      chatIcon
+      chatIcon,
     );
   }
   handleEditChatRoom() {
     const {
       chatRoom,
-      editChatRoom
+      editChatRoom,
     } = this.props;
     const {
       chatType,
       name,
       members,
-      chatIcon
+      chatIcon,
     } = this.state;
     const selectedChatRoom = chatRoom.selected;
 
@@ -291,7 +291,7 @@ class ChatRoomForm extends Component {
       chatType,
       name,
       members,
-      chatIcon
+      chatIcon,
     );
   }
   render() {
@@ -300,7 +300,7 @@ class ChatRoomForm extends Component {
       chatRoom,
       searchUser,
       mode,
-      successMessage
+      successMessage,
     } = this.props;
     const {
       loading,
@@ -309,7 +309,7 @@ class ChatRoomForm extends Component {
       chatType,
       members,
       chatIcon,
-      nameValid
+      nameValid,
     } = this.state;
     const selectedChatRoom = chatRoom.selected;
     const searchedUsers = user.searched.filter((singleUser) => {
@@ -469,23 +469,23 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     chatRoom: state.chatRoom,
-    upload: state.upload
+    upload: state.upload,
   }
 }
 
 ChatRoomForm.propTypes = {
   mode: PropTypes.string,
   errorMessage: PropTypes.string,
-  successMessage: PropTypes.string
+  successMessage: PropTypes.string,
 }
 
 ChatRoomForm.defaultProps = {
   mode: 'create',
   errorMessage: '',
-  successMessage: ''
+  successMessage: '',
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ChatRoomForm);

@@ -10,7 +10,7 @@ class EditUser extends Component {
 
     this.state = {
       errorMessage: '',
-      successMessage: ''
+      successMessage: '',
     };
   }
   componentWillMount() {
@@ -20,7 +20,7 @@ class EditUser extends Component {
     if ( ! prevProps.user.edit.loading && this.props.user.edit.loading ) {
       this.setState({
         errorMessage: '',
-        successMessage: ''
+        successMessage: '',
       });
     }
 
@@ -28,12 +28,12 @@ class EditUser extends Component {
       if ( this.props.user.edit.error ) {
         this.setState({
           errorMessage: this.props.user.edit.message,
-          successMessage: ''
+          successMessage: '',
         });
       } else if ( this.props.user.edit.success ) {
         this.setState({
           errorMessage: '',
-          successMessage: this.props.user.edit.message
+          successMessage: this.props.user.edit.message,
         });
       }
     }
@@ -41,7 +41,7 @@ class EditUser extends Component {
   handleFetchSelectedUser() {
     const {
       match,
-      fetchSelectedUser
+      fetchSelectedUser,
     } = this.props;
     const userID = match.params.userID;
 
@@ -50,7 +50,7 @@ class EditUser extends Component {
   render() {
     const {
       errorMessage,
-      successMessage
+      successMessage,
     } = this.state;
 
     return (
@@ -67,11 +67,11 @@ class EditUser extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(EditUser);

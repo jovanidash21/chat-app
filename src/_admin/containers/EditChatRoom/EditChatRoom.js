@@ -10,7 +10,7 @@ class EditChatRoom extends Component {
 
     this.state = {
       errorMessage: '',
-      successMessage: ''
+      successMessage: '',
     };
   }
   componentWillMount() {
@@ -20,7 +20,7 @@ class EditChatRoom extends Component {
     if ( ! prevProps.chatRoom.edit.loading && this.props.chatRoom.edit.loading ) {
       this.setState({
         errorMessage: '',
-        successMessage: ''
+        successMessage: '',
       });
     }
 
@@ -28,12 +28,12 @@ class EditChatRoom extends Component {
       if ( this.props.chatRoom.edit.error ) {
         this.setState({
           errorMessage: this.props.chatRoom.edit.message,
-          successMessage: ''
+          successMessage: '',
         });
       } else if ( this.props.chatRoom.edit.success ) {
         this.setState({
           errorMessage: '',
-          successMessage: this.props.chatRoom.edit.message
+          successMessage: this.props.chatRoom.edit.message,
         });
       }
     }
@@ -41,7 +41,7 @@ class EditChatRoom extends Component {
   handleFetchSelectedtChatRoom() {
     const {
       match,
-      fetchSelectedChatRoom
+      fetchSelectedChatRoom,
     } = this.props;
     const chatRoomID = match.params.chatRoomID;
 
@@ -50,7 +50,7 @@ class EditChatRoom extends Component {
   render() {
     const {
       errorMessage,
-      successMessage
+      successMessage,
     } = this.state;
 
     return (
@@ -67,11 +67,11 @@ class EditChatRoom extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(EditChatRoom);

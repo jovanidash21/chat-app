@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
   Form,
-  Button
+  Button,
 } from 'muicss/react';
 import mapDispatchToProps from '../../../actions';
 import { handleChatRoomAvatarBadges } from '../../../../utils/avatar';
@@ -18,13 +18,13 @@ class DeleteChatRoomModal extends Component {
     super(props);
 
     this.state = {
-      loading: true
+      loading: true,
     };
   }
   componentDidUpdate(prevProps) {
     if ( prevProps.chatRoom.fetchSelect.loading && !this.props.chatRoom.fetchSelect.loading ) {
       this.setState({
-        loading: false
+        loading: false,
       });
     }
 
@@ -37,7 +37,7 @@ class DeleteChatRoomModal extends Component {
 
     const {
       chatRoom,
-      deleteChatRoom
+      deleteChatRoom,
     } = this.props;
     const selectedChatRoom = chatRoom.selected;
 
@@ -47,7 +47,7 @@ class DeleteChatRoomModal extends Component {
     const {
       chatRoom,
       isModalOpen,
-      handleCloseModal
+      handleCloseModal,
     } = this.props;
     const { loading } = this.state;
     const selectedChatRoom = chatRoom.selected;
@@ -158,20 +158,20 @@ class DeleteChatRoomModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
   }
 }
 
 DeleteChatRoomModal.propTypes = {
   isModalOpen: PropTypes.bool,
-  handleCloseModal: PropTypes.func.isRequired
+  handleCloseModal: PropTypes.func.isRequired,
 }
 
 DeleteChatRoomModal.defaultProps = {
-  isModalOpen: false
+  isModalOpen: false,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(DeleteChatRoomModal);

@@ -32,7 +32,7 @@ class Header extends Component {
   handleEditProfile(username, name, email, profilePicture) {
     const {
       user,
-      editActiveUser
+      editActiveUser,
     } = this.props;
     const activeUser = user.active;
 
@@ -45,7 +45,7 @@ class Header extends Component {
       user,
       upload,
       uploadImage,
-      children
+      children,
     } = this.props;
     const { editProfileModalOpen } = this.state;
     const activeUser = user.active;
@@ -108,12 +108,12 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    upload: state.upload
+    upload: state.upload,
   }
 }
 
 Header.propTypes = {
-  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired
+  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
 }
 
 export default connect(

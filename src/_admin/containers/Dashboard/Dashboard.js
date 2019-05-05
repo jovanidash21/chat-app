@@ -20,7 +20,7 @@ class Dashboard extends Component {
       fetchUsersCount,
       fetchUsersGraph,
       fetchChatRoomsCount,
-      fetchMessagesCount
+      fetchMessagesCount,
     } = this.props;
 
     fetchUsersCount();
@@ -32,7 +32,7 @@ class Dashboard extends Component {
     const {
       user,
       chatRoom,
-      message
+      message,
     } = this.props;
 
     return (
@@ -90,11 +90,11 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     chatRoom: state.chatRoom,
-    message: state.message
+    message: state.message,
   }
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Dashboard);
