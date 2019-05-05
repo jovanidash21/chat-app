@@ -10,7 +10,7 @@ class TableColumn extends Component {
   handleSortIcon() {
     const {
       sortActive,
-      sortOrder
+      sortOrder,
     } = this.props;
 
     if ( !sortActive ) {
@@ -27,7 +27,7 @@ class TableColumn extends Component {
     const {
       columnKey,
       handleSortTable,
-      disabled
+      disabled,
     } = this.props;
 
     if ( ! disabled ) {
@@ -39,9 +39,9 @@ class TableColumn extends Component {
       label,
       sortActive,
       sortOrder,
-      disabled
+      disabled,
     } = this.props;
-    var sortTitle = '';
+    let sortTitle = '';
 
     if ( sortActive && sortOrder === 'asc' ) {
       sortTitle = 'Ascending';
@@ -73,13 +73,13 @@ TableColumn.propTypes = {
   sortActive: PropTypes.bool,
   sortOrder: PropTypes.string,
   handleSortTable: PropTypes.func.isRequired,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 }
 
 TableColumn.defaultProps = {
   sortActive: false,
   sortOrder: 'asc',
-  disabled: false
+  disabled: false,
 }
 
 export default TableColumn;

@@ -45,7 +45,7 @@ CardBanner.propTypes = {
   icon: PropTypes.string,
   color: PropTypes.string,
   link: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 }
 
 CardBanner.defaultProps = {
@@ -54,7 +54,7 @@ CardBanner.defaultProps = {
   icon: '',
   color: 'black',
   link : '',
-  loading: false
+  loading: false,
 }
 
 export default CardBanner;

@@ -23,7 +23,7 @@ class Pagination extends Component {
   handleNumberOfPages() {
     const {
       totalCount,
-      itemsCountPerPage
+      itemsCountPerPage,
     } = this.props;
     const numberOfPages = Math.ceil(totalCount / itemsCountPerPage);
 
@@ -40,27 +40,27 @@ class Pagination extends Component {
     const {
       activePage,
       totalCount,
-      itemsCountPerPage
+      itemsCountPerPage,
     } = this.props;
     const { numberOfPages } = this.state;
     const pageNumbers = [];
     const pageNumbersWithDots = [];
-    var delta = 1;
-    var left = activePage - delta;
-    var right = activePage + delta + 1;
-    var j;
+    const delta = 1;
+    const left = activePage - delta;
+    const right = activePage + delta + 1;
+    let j;
 
-    for ( var i = 1; i <= numberOfPages; i++ ) {
+    for ( let i = 1; i <= numberOfPages; i += 1 ) {
       if (i == 1 || i == numberOfPages || i >= left && i < right) {
         pageNumbers.push(i);
       }
     }
 
-    for ( var i of pageNumbers ) {
-      if (j) {
-        if (i - j === 2) {
+    for ( let i of pageNumbers ) {
+      if ( j ) {
+        if  (i - j === 2 ) {
           pageNumbersWithDots.push(j + 1);
-        } else if (i - j !== 1) {
+        } else if ( i - j !== 1 ) {
           pageNumbersWithDots.push('...');
         }
       }

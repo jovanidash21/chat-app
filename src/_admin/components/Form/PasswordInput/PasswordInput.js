@@ -32,7 +32,7 @@ class PasswordInput extends Component {
       value,
       handleChange,
       disabled,
-      invalid
+      invalid,
     } = this.props;
     const { showPassword } = this.state;
 
@@ -75,13 +75,13 @@ PasswordInput.propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleGeneratePassword: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
-  invalid: PropTypes.bool
+  invalid: PropTypes.bool,
 }
 
 PasswordInput.defaultProps = {
   value: '',
   disabled: false,
-  invalid: false
+  invalid: false,
 }
 
 export default PasswordInput;

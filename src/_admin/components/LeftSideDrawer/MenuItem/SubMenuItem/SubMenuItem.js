@@ -39,12 +39,12 @@ class SubMenuItem extends Component {
 
 SubMenuItem.propTypes = {
   title: PropTypes.string,
-  link: PropTypes.string
+  link: PropTypes.string,
 }
 
 SubMenuItem.defaultProps = {
   title: 'Menu Item',
-  link: ''
+  link: '',
 }
 
 export default SubMenuItem;

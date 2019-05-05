@@ -11,11 +11,11 @@ class MenuItem extends Component {
   }
   componentDidUpdate(prevProps) {
     if ( this.props.children.length > 0 ) {
-      if ( !prevProps.isOpen && this.props.isOpen ) {
-        this.subMenuItems.style.maxHeight = this.subMenuItems.scrollHeight + "px";
+      if ( !prevProps.open && this.props.open ) {
+        this.subMenuItems.style.maxHeight = this.subMenuItems.scrollHeight + 'px';
       }
 
-      if ( prevProps.isOpen && !this.props.isOpen ) {
+      if ( prevProps.open && !this.props.open ) {
         this.subMenuItems.style.maxHeight = 0;
       }
     }
@@ -25,9 +25,9 @@ class MenuItem extends Component {
       icon,
       title,
       link,
-      isOpen,
-      isSubMenuActive,
-      children
+      open,
+      subMenuActive,
+      children,
     } = this.props;
 
     return (
@@ -35,8 +35,8 @@ class MenuItem extends Component {
         <div
           className={
             "menu-item " +
-            (isSubMenuActive ? 'active ' : '') +
-            (isOpen ? 'selected' : '')
+            (subMenuActive ? 'active ' : '') +
+            (open ? 'selected' : '')
           }
           onClick={(link.length === 0 ? ::this.handleOpenMenuItem : () => {})}
         >
@@ -67,7 +67,7 @@ class MenuItem extends Component {
 
     const {
       index,
-      handleOpenMenuItem
+      handleOpenMenuItem,
     } = this.props;
 
     handleOpenMenuItem(index);
@@ -96,17 +96,17 @@ MenuItem.propTypes = {
   icon: PropTypes.string,
   title: PropTypes.string,
   link: PropTypes.string,
-  isOpen: PropTypes.bool,
-  isSubMenuActive: PropTypes.bool,
-  handleOpenMenuItem: PropTypes.func.isRequired
+  open: PropTypes.bool,
+  subMenuActive: PropTypes.bool,
+  handleOpenMenuItem: PropTypes.func.isRequired,
 }
 
 MenuItem.defaultProps = {
   icon: 'flag',
   title: 'Menu Item',
   link: '',
-  isOpen: false,
-  isSubMenuActive: false
+  open: false,
+  subMenuActive: false,
 }
 
 MenuItem.SubMenuItem = SubMenuItem;

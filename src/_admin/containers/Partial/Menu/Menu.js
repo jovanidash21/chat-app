@@ -102,8 +102,8 @@ class Menu extends Component {
                     icon={singleMenuItem.icon}
                     title={singleMenuItem.title}
                     link={('link' in singleMenuItem ? singleMenuItem.link : '')}
-                    isSubMenuActive={isSubMenuActive}
-                    isOpen={openMenuItem === i}
+                    open={openMenuItem === i}
+                    subMenuActive={isSubMenuActive}
                     handleOpenMenuItem={::this.handleOpenMenuItem}
                   >
                     {

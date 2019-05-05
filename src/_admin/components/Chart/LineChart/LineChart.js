@@ -8,7 +8,7 @@ import {
   CartesianGrid,
   XAxis,
   YAxis,
-  Tooltip
+  Tooltip,
 } from 'recharts';
 import { Skeleton } from '../../../../components/Skeleton';
 import './styles.scss';
@@ -23,7 +23,7 @@ class LineChartComponent extends Component {
       data,
       xAxisKey,
       yAxisKey,
-      loading
+      loading,
     } = this.props;
 
     return (
@@ -79,7 +79,7 @@ LineChartComponent.propTypes = {
   data: PropTypes.array,
   xAxisKey: PropTypes.string,
   yAxisKey: PropTypes.string,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 }
 
 LineChartComponent.defaultProps = {
@@ -87,7 +87,7 @@ LineChartComponent.defaultProps = {
   data: [],
   xAxisKey: '',
   yAxisKey: '',
-  loading: false
+  loading: false,
 }
 
 export default LineChartComponent;

@@ -14,12 +14,12 @@ const MenuButton = (props) => {
 
 MenuButton.propTypes = {
   label: PropTypes.string,
-  link: PropTypes.string
+  link: PropTypes.string,
 }
 
 MenuButton.defaultProps = {
   label: '',
-  link : '/'
+  link : '/',
 }
 
 export default MenuButton;
