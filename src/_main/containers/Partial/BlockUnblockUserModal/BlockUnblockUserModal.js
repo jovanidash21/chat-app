@@ -20,7 +20,7 @@ class BlockUnblockUserModal extends Component {
       ( prevProps.blockedUser.block.loading && this.props.blockedUser.block.success ) ||
       ( prevProps.blockedUser.unblock.loading && this.props.blockedUser.unblock.success  )
     ) {
-      this.props.handleCloseModal();
+      this.props.onClose();
     }
   }
   handleBlockUnblockUser(event) {
@@ -47,7 +47,7 @@ class BlockUnblockUserModal extends Component {
       blockedUser,
       open,
       selectedUser,
-      handleCloseModal,
+      onClose,
     } = this.props;
     const isBlocked = selectedUser.blocked;
 
@@ -55,7 +55,7 @@ class BlockUnblockUserModal extends Component {
       <Modal
         className="block-unblock-user-modal"
         open={open}
-        onClose={handleCloseModal}
+        onClose={onClose}
       >
         <Form onSubmit={::this.handleBlockUnblockUser}>
           <Modal.Header>
@@ -85,7 +85,7 @@ class BlockUnblockUserModal extends Component {
           <Modal.Footer>
             <Button
               className="button button-default"
-              onClick={handleCloseModal}
+              onClick={onClose}
               disabled={blockedUser.block.loading || blockedUser.unblock.loading}
             >
               Cancel
@@ -114,7 +114,7 @@ const mapStateToProps = (state) => {
 BlockUnblockUserModal.propTypes = {
   open: PropTypes.bool,
   selectedUser: PropTypes.object.isRequired,
-  handleCloseModal: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 }
 
 BlockUnblockUserModal.defaultProps = {
