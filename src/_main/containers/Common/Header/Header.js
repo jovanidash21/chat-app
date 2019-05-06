@@ -20,7 +20,8 @@ class Header extends Component {
 
     this.state = {
       muteUnmuteModalOpen: false,
-      editProfileModalOpen: false
+      editProfileModalOpen: false,
+      blockedUsersListModalOpen: false,
     }
   }
   handleLeftSideDrawerToggleEvent(event) {
@@ -41,6 +42,12 @@ class Header extends Component {
   }
   handleCloseEditProfileModal() {
     this.setState({editProfileModalOpen: false});
+  }
+  handleOpenBlockedUsersListModal() {
+    this.setState({blockedUsersListModalOpen: true});
+  }
+  handleCloseBlockedUsersListModal() {
+    this.setState({blockedUsersListModalOpen: false});
   }
   handleVideoCamRender() {
     const {
@@ -163,6 +170,7 @@ class Header extends Component {
     const {
       muteUnmuteModalOpen,
       editProfileModalOpen,
+      blockedUsersListModalOpen,
     } = this.state;
     const activeUser = user.active;
     const activeUserEmpty = isObjectEmpty( activeUser );
@@ -204,6 +212,7 @@ class Header extends Component {
           <UserDropdown
             user={activeUser}
             handleOpenEditProfileModal={::this.handleOpenEditProfileModal}
+            handleOpenBlockedUsersListModal={::this.handleOpenBlockedUsersListModal}
             loading={loading}
           >
             {
@@ -216,6 +225,13 @@ class Header extends Component {
                 userEdit={user.editActive}
                 open={editProfileModalOpen}
                 onClose={::this.handleCloseEditProfileModal}
+              />
+            }
+            {
+              blockedUsersListModalOpen &&
+              <UserDropdown.BlockedUsersListModal
+                open={blockedUsersListModalOpen}
+                onClose={::this.handleCloseBlockedUsersListModal}
               />
             }
           </UserDropdown>
