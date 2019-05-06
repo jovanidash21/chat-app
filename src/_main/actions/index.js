@@ -14,8 +14,6 @@ import {
   fetchActiveUser,
   editActiveUser,
   searchUser,
-  blockUser,
-  unblockUser,
 } from './user';
 import {
   isTyping,
@@ -47,7 +45,11 @@ import {
   acceptVideoCall,
   endVideoCall,
 } from './video-call';
-import { fetchBlockedUsers } from './blocked-user';
+import {
+  fetchBlockedUsers,
+  blockUser,
+  unblockUser,
+} from './blocked-user';
 import { uploadImage } from './upload';
 
 const actions = ( dispatch ) => {
@@ -64,8 +66,6 @@ const actions = ( dispatch ) => {
     fetchActiveUser,
     editActiveUser,
     searchUser,
-    blockUser,
-    unblockUser,
     isTyping,
     isNotTyping,
     changeChatRoom,
@@ -87,6 +87,8 @@ const actions = ( dispatch ) => {
     acceptVideoCall,
     endVideoCall,
     fetchBlockedUsers,
+    blockUser,
+    unblockUser,
     uploadImage,
   }, dispatch);
 }

@@ -17,8 +17,8 @@ class BlockUnblockUserModal extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.user.block.loading && this.props.user.block.success ) ||
-      ( prevProps.user.unblock.loading && this.props.user.unblock.success  )
+      ( prevProps.blockedUser.block.loading && this.props.blockedUser.block.success ) ||
+      ( prevProps.blockedUser.unblock.loading && this.props.blockedUser.unblock.success  )
     ) {
       this.props.handleCloseModal();
     }
@@ -44,6 +44,7 @@ class BlockUnblockUserModal extends Component {
   render() {
     const {
       user,
+      blockedUser,
       open,
       selectedUser,
       handleCloseModal,
@@ -85,14 +86,14 @@ class BlockUnblockUserModal extends Component {
             <Button
               className="button button-default"
               onClick={handleCloseModal}
-              disabled={user.block.loading || user.unblock.loading}
+              disabled={blockedUser.block.loading || blockedUser.unblock.loading}
             >
               Cancel
             </Button>
             <Button
               className="button button-primary"
               type="submit"
-              disabled={user.block.loading || user.unblock.loading}
+              disabled={blockedUser.block.loading || blockedUser.unblock.loading}
             >
               {!isBlocked ? 'Block' : 'Unblock'}
             </Button>
@@ -106,6 +107,7 @@ class BlockUnblockUserModal extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
+    blockedUser: state.blockedUser,
   }
 }
 

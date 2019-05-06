@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { FETCH_BLOCKED_USERS } from '../constants/blocked-user';
+import {
+  FETCH_BLOCKED_USERS,
+  BLOCK_USER,
+  UNBLOCK_USER,
+} from '../constants/blocked-user';
 
 /**
  * Fetch blocked users
@@ -15,6 +19,58 @@ export function fetchBlockedUsers( userID ) {
     return dispatch({
       type: FETCH_BLOCKED_USERS,
       payload: axios.post( 'blocked-user', data ),
+    })
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
+      }
+    });
+  }
+}
+
+/**
+ * Block user
+ *
+ * @param {string} userID
+ * @param {string} blockUserID
+ */
+export function blockUser( userID, blockUserID ) {
+  let data = {
+    userID,
+    blockUserID,
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: BLOCK_USER,
+      payload: axios.post( 'blocked-user/block', data ),
+      meta: blockUserID,
+    })
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
+      }
+    });
+  }
+}
+
+/**
+ * Unblock user
+ *
+ * @param {string} userID
+ * @param {string} unblockUserID
+ */
+export function unblockUser( userID, unblockUserID ) {
+  let data = {
+    userID,
+    unblockUserID,
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: UNBLOCK_USER,
+      payload: axios.post( 'blocked-user/unblock', data ),
+      meta: unblockUserID,
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {

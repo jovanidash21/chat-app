@@ -1,10 +1,12 @@
 import {
   FETCH_ACTIVE_USER,
-  BLOCK_USER,
-  UNBLOCK_USER,
 } from '../constants/user';
 import { FETCH_MEMBERS } from '../constants/member';
 import { CHANGE_CHAT_ROOM } from '../constants/chat-room';
+import {
+  BLOCK_USER,
+  UNBLOCK_USER,
+} from '../constants/blocked-user';
 import {
   SOCKET_BROADCAST_USER_LOGIN,
   SOCKET_BROADCAST_USER_LOGOUT,
@@ -78,6 +80,12 @@ const member = ( state = initialState, action ) => {
         activeUser: action.payload.data.user,
       };
     }
+    case CHANGE_CHAT_ROOM: {
+      return {
+        ...state,
+        activeChatRoom: action.chatRoom,
+      };
+    }
     case `${BLOCK_USER}_SUCCESS`: {
       const blockedUserID = action.meta;
       const members = [...state.all];
@@ -111,12 +119,6 @@ const member = ( state = initialState, action ) => {
         ...state,
         all: [ ...members ],
       }
-    }
-    case CHANGE_CHAT_ROOM: {
-      return {
-        ...state,
-        activeChatRoom: action.chatRoom,
-      };
     }
     case SOCKET_BROADCAST_USER_LOGIN: {
       const user = action.user;
