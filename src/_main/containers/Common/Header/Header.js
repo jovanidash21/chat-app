@@ -139,6 +139,15 @@ class Header extends Component {
       editActiveUser(activeUser._id, username, name, email, profilePicture);
     }
   }
+  handleFetchBlockedUsers() {
+    const {
+      user,
+      fetchBlockedUsers,
+    } = this.props;
+    const activeUser = user.active;
+
+    fetchBlockedUsers(activeUser._id);
+  }
   handleRequestVideoCall(event) {
     event.preventDefault();
 
@@ -163,6 +172,7 @@ class Header extends Component {
     const {
       user,
       chatRoom,
+      blockedUser,
       upload,
       uploadImage,
       children,
@@ -230,6 +240,9 @@ class Header extends Component {
             {
               blockedUsersListModalOpen &&
               <UserDropdown.BlockedUsersListModal
+                handleFetchBlockedUsers={::this.handleFetchBlockedUsers}
+                blockedUsers={blockedUser.all}
+                blockedUserFetch={blockedUser.fetch}
                 open={blockedUsersListModalOpen}
                 onClose={::this.handleCloseBlockedUsersListModal}
               />
@@ -252,6 +265,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     chatRoom: state.chatRoom,
+    blockedUser: state.blockedUser,
     upload: state.upload,
   }
 }

@@ -1,3 +1,20 @@
 .blocked-users-list-modal {
-
+  .blocked-user {
+    align-items: center;
+    display: flex;
+    font-size: 16px;
+    padding: 7px 0;
+    &:not(:last-child) {
+      border-bottom: 1px solid $color-alto;
+    }
+    .avatar {
+      margin-right: 12px;
+    }
+    .user-name {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
 }
