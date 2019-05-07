@@ -49,6 +49,7 @@ import {
   fetchBlockedUsers,
   blockUser,
   unblockUser,
+  unblockAllUsers,
 } from './blocked-user';
 import { uploadImage } from './upload';
 
@@ -89,6 +90,7 @@ const actions = ( dispatch ) => {
     fetchBlockedUsers,
     blockUser,
     unblockUser,
+    unblockAllUsers,
     uploadImage,
   }, dispatch);
 }

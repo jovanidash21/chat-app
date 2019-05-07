@@ -6,6 +6,7 @@ import { Modal } from '../../Modal';
 import { Skeleton } from '../../Skeleton';
 import { SearchFilter } from '../../SearchFilter';
 import { Avatar } from '../../Avatar';
+import { UnblockAllUsersModal } from './UnblockAllUsersModal';
 import './styles.scss';
 
 class BlockedUsersListModal extends Component {
@@ -15,6 +16,7 @@ class BlockedUsersListModal extends Component {
     this.state = {
       blockedUsers: [],
       searchFilter: '',
+      unblockAllUsersModalOpen: false,
     }
   }
   componentWillMount() {
@@ -50,110 +52,143 @@ class BlockedUsersListModal extends Component {
 
     ::this.handleBlockedUsersListFilter(searchFilter);
   }
+  handleOpenUnblockAllUsersModal(event) {
+    event.preventDefault();
+
+    this.setState({unblockAllUsersModalOpen: true});
+  }
+  handleCloseUnblockAllUsersModal() {
+    this.setState({unblockAllUsersModalOpen: false});
+  }
   render() {
     const {
       blockedUserFetch,
+      handleUnblockAllUsers,
+      blockedUserUnblockAll,
       open,
       onClose,
     } = this.props;
     const {
       blockedUsers,
       searchFilter,
+      unblockAllUsersModalOpen,
     } = this.state;
     const loading = blockedUserFetch.loading;
 
     return (
-      <Modal
-        className="blocked-users-list-modal"
-        open={open}
-        onClose={onClose}
-        center={false}
-      >
-        <Modal.Header>
-          <h3 className="modal-title">Blocked Users</h3>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="list-header">
-            {
-              loading
-                ?
-                <Fragment>
-                  <div className="search-filter">
-                    <Skeleton
-                      height="37px"
-                      width="241px"
-                    />
-                  </div>
-                  <Skeleton
-                    height="31px"
-                    width="120px"
-                  />
-                </Fragment>
-                :
-                <Fragment>
-                  <SearchFilter
-                    value={searchFilter}
-                    onChange={::this.onSearchFilterChange}
-                    handleClearSearchFilter={::this.handleClearSearchFilter}
-                  />
-                  <Button className="button button-danger" size="small">
-                    Unblock All
-                  </Button>
-                </Fragment>
-            }
-          </div>
-          {
-            loading &&
-            <Fragment>
+      <Fragment>
+        <Modal
+          className="blocked-users-list-modal"
+          open={open}
+          onClose={onClose}
+          center={false}
+        >
+          <Modal.Header>
+            <h3 className="modal-title">Blocked Users</h3>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="list-header">
               {
-                Array.from(Array(5).keys()).map((i) =>
-                  <div key={i} className="blocked-user">
-                    <Skeleton
-                      className="avatar"
-                      height="40px"
-                      width="40px"
-                      circle
-                    />
-                    <div className="user-name">
+                loading
+                  ?
+                  <Fragment>
+                    <div className="search-filter">
                       <Skeleton
-                        height="22px"
-                        width={(i === 0 ? '110px' : '80px')}
+                        height="37px"
+                        width="241px"
                       />
                     </div>
                     <Skeleton
                       height="31px"
-                      width="93px"
+                      width="120px"
                     />
-                  </div>
-                )
+                  </Fragment>
+                  :
+                  <Fragment>
+                    <SearchFilter
+                      value={searchFilter}
+                      onChange={::this.onSearchFilterChange}
+                      handleClearSearchFilter={::this.handleClearSearchFilter}
+                    />
+                    <Button
+                      className="button button-danger"
+                      size="small"
+                      onClick={::this.handleOpenUnblockAllUsersModal}
+                    >
+                      Unblock All
+                    </Button>
+                  </Fragment>
               }
-            </Fragment>
-          }
-          {
-            ! loading &&
-            blockedUsers.length > 0 &&
-            blockedUsers.map((blockedUser, i) =>
-              <div key={i} className="blocked-user">
-                <Avatar
-                  image={blockedUser.profilePicture}
-                  size="40px"
-                  name={blockedUser.name}
-                  username={blockedUser.username}
-                  roleChatType={blockedUser.role}
-                  accountType={blockedUser.accountType}
-                  badgeCloser
-                />
-                <div className="user-name">
-                  {blockedUser.name}
+            </div>
+            {
+              loading &&
+              <Fragment>
+                {
+                  Array.from(Array(5).keys()).map((i) =>
+                    <div key={i} className="blocked-user">
+                      <Skeleton
+                        className="avatar"
+                        height="40px"
+                        width="40px"
+                        circle
+                      />
+                      <div className="user-name">
+                        <Skeleton
+                          height="22px"
+                          width={(i === 0 ? '110px' : '80px')}
+                        />
+                      </div>
+                      <Skeleton
+                        height="31px"
+                        width="93px"
+                      />
+                    </div>
+                  )
+                }
+              </Fragment>
+            }
+            {
+              ! loading &&
+              blockedUsers.length > 0 &&
+              blockedUsers.map((blockedUser, i) =>
+                <div key={i} className="blocked-user">
+                  <Avatar
+                    image={blockedUser.profilePicture}
+                    size="40px"
+                    name={blockedUser.name}
+                    username={blockedUser.username}
+                    roleChatType={blockedUser.role}
+                    accountType={blockedUser.accountType}
+                    badgeCloser
+                  />
+                  <div className="user-name">
+                    {blockedUser.name}
+                  </div>
+                  <Button className="button button-primary" size="small">
+                    {blockedUser.blocked ? 'Unblock' : 'Block'}
+                  </Button>
                 </div>
-                <Button className="button button-primary" size="small">
-                  Unblock
-                </Button>
+              )
+            }
+            {
+              ! loading &&
+              blockedUsers.length === 0 &&
+              <div className="no-results">
+                No {searchFilter.length > 0 ? 'results found' : 'blocked users'}
               </div>
-            )
-          }
-        </Modal.Body>
-      </Modal>
+            }
+          </Modal.Body>
+        </Modal>
+        {
+          unblockAllUsersModalOpen &&
+          <UnblockAllUsersModal
+            handleUnblockAllUsers={handleUnblockAllUsers}
+            blockedUserUnblockAll={blockedUserUnblockAll}
+            open={unblockAllUsersModalOpen}
+            onClose={::this.handleCloseUnblockAllUsersModal}
+          />
+        }
+      </Fragment>
     )
   }
 }
@@ -162,6 +197,8 @@ BlockedUsersListModal.propTypes = {
   handleFetchBlockedUsers: PropTypes.func.isRequired,
   blockedUsers: PropTypes.array,
   blockedUserFetch: PropTypes.object.isRequired,
+  handleUnblockAllUsers: PropTypes.func.isRequired,
+  blockedUserUnblockAll: PropTypes.object.isRequired,
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
 }

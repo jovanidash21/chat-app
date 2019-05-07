@@ -13,8 +13,13 @@ router.post('/', (req, res, next) => {
 
     User.findById(userID)
       .populate('blockedUsers', '-chatRooms -blockedUsers -socketID')
+      .lean()
       .exec()
       .then((user) => {
+        for (var i = 0; i < user.blockedUsers.length; i++) {
+          user.blockedUsers[i].blocked = true;
+        }
+
         res.status(200).send({
           success: true,
           message: 'Blocked Users Fetched',
@@ -81,6 +86,35 @@ router.post('/unblock', (req, res, next) => {
       res.status(200).send({
         success: true,
         message: 'User Unblocked'
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({
+        success: false,
+        message: 'Server Error!'
+      });
+    });
+  }
+});
+
+router.post('/unblock-all', (req, res, next) => {
+  var userID = req.body.userID;
+
+  if (req.user === undefined || req.user._id != userID) {
+    res.status(401).send({
+      success: false,
+      message: 'Unauthorized'
+    });
+  } else {
+    User.findByIdAndUpdate(
+      userID,
+      { $set: { blockedUsers: [] }},
+      { new: true, upsert: true, select: '-chatRooms -blockedUsers -socketID' }
+    )
+    .then((user) => {
+      res.status(200).send({
+        success: true,
+        message: 'All Users Unblocked'
       });
     })
     .catch((error) => {

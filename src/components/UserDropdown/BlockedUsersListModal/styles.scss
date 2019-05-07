@@ -1,4 +1,8 @@
 .blocked-users-list-modal {
+  max-width: 750px;
+  @media screen and (max-width: $screen-mobile-max) {
+    max-width: 500px;
+  }
   .list-header {
     align-items: center;
     display: flex;
@@ -23,5 +27,10 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+  }
+  .no-results {
+    font-size: 16px;
+    padding: 5px;
+    text-align: center;
   }
 }

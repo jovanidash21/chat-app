@@ -3,6 +3,7 @@ import {
   FETCH_BLOCKED_USERS,
   BLOCK_USER,
   UNBLOCK_USER,
+  UNBLOCK_ALL_USERS,
 } from '../constants/blocked-user';
 
 /**
@@ -71,6 +72,29 @@ export function unblockUser( userID, unblockUserID ) {
       type: UNBLOCK_USER,
       payload: axios.post( 'blocked-user/unblock', data ),
       meta: unblockUserID,
+    })
+    .catch(( error ) => {
+      if ( error instanceof Error ) {
+        console.log( error );
+      }
+    });
+  }
+}
+
+/**
+ * Unblock all users
+ *
+ * @param {string} userID
+ */
+export function unblockAllUsers( userID, unblockUserID ) {
+  let data = {
+    userID,
+  };
+
+  return dispatch => {
+    return dispatch({
+      type: UNBLOCK_ALL_USERS,
+      payload: axios.post( 'blocked-user/unblock-all', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
