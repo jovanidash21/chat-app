@@ -58,6 +58,21 @@ class Header extends Component {
 
     unblockAllUsers(activeUser._id);
   }
+  handleBlockUnblockUser(selectedUser) {
+    const {
+      user,
+      blockUser,
+      unblockUser,
+    } = this.props;
+    const activeUser = user.active;
+    const isBlocked = selectedUser.blocked;
+
+    if ( ! isBlocked ) {
+      blockUser( activeUser._id, selectedUser._id );
+    } else {
+      unblockUser( activeUser._id, selectedUser._id );
+    }
+  }
   handleVideoCamRender() {
     const {
       user,
@@ -254,6 +269,9 @@ class Header extends Component {
                 blockedUserFetch={blockedUser.fetch}
                 handleUnblockAllUsers={::this.handleUnblockAllUsers}
                 blockedUserUnblockAll={blockedUser.unblockAll}
+                handleBlockUnblockUser={::this.handleBlockUnblockUser}
+                blockedUserBlock={blockedUser.block}
+                blockedUserUnblock={blockedUser.unblock}
                 open={blockedUsersListModalOpen}
                 onClose={::this.handleCloseBlockedUsersListModal}
               />

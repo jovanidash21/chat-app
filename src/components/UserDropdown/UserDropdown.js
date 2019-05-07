@@ -81,6 +81,9 @@ class UserDropdown extends Component {
             </a>
           </li>
           <li>
+            <div className="divider" />
+          </li>
+          <li>
             <a href="/logout">
               <div className="option-icon">
                 <FontAwesomeIcon icon="sign-out-alt" />

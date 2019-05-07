@@ -60,11 +60,20 @@ class BlockedUsersListModal extends Component {
   handleCloseUnblockAllUsersModal() {
     this.setState({unblockAllUsersModalOpen: false});
   }
+  handleBlockUnblockUser(event, selectedUser) {
+    event.preventDefault();
+
+    const { handleBlockUnblockUser } = this.props;
+
+    handleBlockUnblockUser(selectedUser);
+  }
   render() {
     const {
       blockedUserFetch,
       handleUnblockAllUsers,
       blockedUserUnblockAll,
+      blockedUserBlock,
+      blockedUserUnblock,
       open,
       onClose,
     } = this.props;
@@ -74,6 +83,7 @@ class BlockedUsersListModal extends Component {
       unblockAllUsersModalOpen,
     } = this.state;
     const loading = blockedUserFetch.loading;
+    const disabled = blockedUserBlock.loading || blockedUserUnblock.loading;
 
     return (
       <Fragment>
@@ -110,13 +120,17 @@ class BlockedUsersListModal extends Component {
                       onChange={::this.onSearchFilterChange}
                       handleClearSearchFilter={::this.handleClearSearchFilter}
                     />
-                    <Button
-                      className="button button-danger"
-                      size="small"
-                      onClick={::this.handleOpenUnblockAllUsersModal}
-                    >
-                      Unblock All
-                    </Button>
+                    {
+                      this.props.blockedUsers.length > 0 &&
+                      <Button
+                        className="button button-danger"
+                        size="small"
+                        onClick={::this.handleOpenUnblockAllUsersModal}
+                        disabled={disabled}
+                      >
+                        Unblock All
+                      </Button>
+                    }
                   </Fragment>
               }
             </div>
@@ -164,7 +178,12 @@ class BlockedUsersListModal extends Component {
                   <div className="user-name">
                     {blockedUser.name}
                   </div>
-                  <Button className="button button-primary" size="small">
+                  <Button
+                    className={"button button-" + (blockedUser.blocked ? 'default' : 'primary')}
+                    size="small"
+                    onClick={(e) => {::this.handleBlockUnblockUser(e, blockedUser)}}
+                    disabled={disabled}
+                  >
                     {blockedUser.blocked ? 'Unblock' : 'Block'}
                   </Button>
                 </div>
@@ -199,6 +218,9 @@ BlockedUsersListModal.propTypes = {
   blockedUserFetch: PropTypes.object.isRequired,
   handleUnblockAllUsers: PropTypes.func.isRequired,
   blockedUserUnblockAll: PropTypes.object.isRequired,
+  handleBlockUnblockUser: PropTypes.func.isRequired,
+  blockedUserBlock: PropTypes.object.isRequired,
+  blockedUserUnblock: PropTypes.object.isRequired,
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
 }
