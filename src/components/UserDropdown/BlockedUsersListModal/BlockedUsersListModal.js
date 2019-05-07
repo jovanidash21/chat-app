@@ -4,23 +4,62 @@ import { connect } from 'react-redux';
 import { Button } from 'muicss/react';
 import { Modal } from '../../Modal';
 import { Skeleton } from '../../Skeleton';
+import { SearchFilter } from '../../SearchFilter';
 import { Avatar } from '../../Avatar';
 import './styles.scss';
 
 class BlockedUsersListModal extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      blockedUsers: [],
+      searchFilter: '',
+    }
   }
   componentWillMount() {
     this.props.handleFetchBlockedUsers();
   }
+  componentDidUpdate(prevProps) {
+    if ( prevProps.blockedUserFetch.loading && ! this.props.blockedUserFetch.loading ) {
+      ::this.handleBlockedUsersListFilter();
+    }
+  }
+  handleBlockedUsersListFilter(searchFilter = '') {
+    const { blockedUsers } = this.props;
+    let allBlockedUsers = [...blockedUsers];
+
+    if ( searchFilter.length > 0 ) {
+      allBlockedUsers = allBlockedUsers.filter((blockedUser) => {
+        return blockedUser.name.toLowerCase().match(searchFilter.toLowerCase());
+      });
+    } else {
+      allBlockedUsers = [...blockedUsers];
+    }
+
+    this.setState({blockedUsers: allBlockedUsers});
+  }
+  handleClearSearchFilter() {
+    this.setState({searchFilter: ''});
+    ::this.handleBlockedUsersListFilter();
+  }
+  onSearchFilterChange(event) {
+    const searchFilter = event.target.value;
+
+    this.setState({searchFilter: searchFilter});
+
+    ::this.handleBlockedUsersListFilter(searchFilter);
+  }
   render() {
     const {
-      blockedUsers,
       blockedUserFetch,
       open,
       onClose,
     } = this.props;
+    const {
+      blockedUsers,
+      searchFilter,
+    } = this.state;
     const loading = blockedUserFetch.loading;
 
     return (
@@ -33,11 +72,40 @@ class BlockedUsersListModal extends Component {
           <h3 className="modal-title">Blocked Users</h3>
         </Modal.Header>
         <Modal.Body>
+          <div className="list-header">
+            {
+              loading
+                ?
+                <Fragment>
+                  <div className="search-filter">
+                    <Skeleton
+                      height="37px"
+                      width="241px"
+                    />
+                  </div>
+                  <Skeleton
+                    height="31px"
+                    width="120px"
+                  />
+                </Fragment>
+                :
+                <Fragment>
+                  <SearchFilter
+                    value={searchFilter}
+                    onChange={::this.onSearchFilterChange}
+                    handleClearSearchFilter={::this.handleClearSearchFilter}
+                  />
+                  <Button className="button button-danger" size="small">
+                    Unblock All
+                  </Button>
+                </Fragment>
+            }
+          </div>
           {
             loading &&
             <Fragment>
               {
-                Array.from(Array(2).keys()).map((i) =>
+                Array.from(Array(5).keys()).map((i) =>
                   <div key={i} className="blocked-user">
                     <Skeleton
                       className="avatar"
@@ -61,7 +129,6 @@ class BlockedUsersListModal extends Component {
             </Fragment>
           }
           {
-
             ! loading &&
             blockedUsers.length > 0 &&
             blockedUsers.map((blockedUser, i) =>
@@ -84,7 +151,6 @@ class BlockedUsersListModal extends Component {
               </div>
             )
           }
-
         </Modal.Body>
       </Modal>
     )

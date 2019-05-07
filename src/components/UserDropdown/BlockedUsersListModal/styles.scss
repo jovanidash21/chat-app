@@ -1,12 +1,19 @@
 .blocked-users-list-modal {
+  .list-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    .search-filter {
+      margin: 0;
+    }
+  }
   .blocked-user {
     align-items: center;
+    border-top: 1px solid $color-alto;
     display: flex;
     font-size: 16px;
     padding: 7px 0;
-    &:not(:last-child) {
-      border-bottom: 1px solid $color-alto;
-    }
     .avatar {
       margin-right: 12px;
     }
