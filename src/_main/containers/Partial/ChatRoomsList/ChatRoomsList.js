@@ -58,7 +58,7 @@ class ChatRoomsList extends Component {
       this.setState({isChatBoxRoomsListScrolled: false});
     }
   }
-  handleChatRoomsListFilter(searchFilter='') {
+  handleChatRoomsListFilter(searchFilter = '') {
     const { chatRoom } = this.props;
     const { selectedChatRoomIndex } = this.state;
     var allChatRooms = [...chatRoom.all];
@@ -94,7 +94,7 @@ class ChatRoomsList extends Component {
   handleCloseModal() {
     this.setState({isModalOpen: false});
   }
-  onChatRoomNameChange(event) {
+  onSearchFilterChange(event) {
     const searchFilter = event.target.value;
 
     this.setState({searchFilter: searchFilter});
@@ -212,7 +212,7 @@ class ChatRoomsList extends Component {
                       :
                       <SearchFilter
                         value={searchFilter}
-                        onChange={::this.onChatRoomNameChange}
+                        onChange={::this.onSearchFilterChange}
                         onKeyDown={(e) => {::this.onChatRoomNameKeyDown(e, matches)}}
                         handleClearSearchFilter={::this.handleClearSearchFilter}
                         light

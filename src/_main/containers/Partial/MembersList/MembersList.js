@@ -52,7 +52,7 @@ class MembersList extends Component {
       this.setState({isMembersListScrolled: false});
     }
   }
-  handleMembersListFilter(searchFilter='') {
+  handleMembersListFilter(searchFilter = '') {
     const { member } = this.props;
     const { selectedMemberIndex } = this.state;
     let allMembers = [...member.all];
@@ -80,7 +80,7 @@ class MembersList extends Component {
     this.setState({searchFilter: ''});
     ::this.handleMembersListFilter();
   }
-  onMemberNameChange(event) {
+  onSearchFilterChange(event) {
     const searchFilter = event.target.value;
 
     this.setState({searchFilter: searchFilter});
@@ -229,7 +229,7 @@ class MembersList extends Component {
                       :
                       <SearchFilter
                         value={searchFilter}
-                        onChange={::this.onMemberNameChange}
+                        onChange={::this.onSearchFilterChange}
                         onKeyDown={(e) => {::this.onMemberNameKeyDown(e, matches)}}
                         handleClearSearchFilter={::this.handleClearSearchFilter}
                         light
