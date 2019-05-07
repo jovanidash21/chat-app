@@ -252,8 +252,8 @@ class Header extends Component {
         {
           muteUnmuteModalOpen &&
           <MuteUnmuteChatRoomModal
-            isModalOpen={muteUnmuteModalOpen}
-            handleCloseModal={::this.handleCloseMuteUnmuteModal}
+            open={muteUnmuteModalOpen}
+            onClose={::this.handleCloseMuteUnmuteModal}
           />
         }
       </Appbar>

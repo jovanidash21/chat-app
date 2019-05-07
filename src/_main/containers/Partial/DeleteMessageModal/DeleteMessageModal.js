@@ -15,7 +15,7 @@ class DeleteMessageModal extends Component {
   }
   componentDidUpdate(prevProps) {
     if ( prevProps.message.delete.loading && this.props.message.delete.success ) {
-      this.props.handleCloseModal();
+      this.props.onClose();
     }
   }
   handleDeleteMessage(event) {
@@ -35,15 +35,15 @@ class DeleteMessageModal extends Component {
   render() {
     const {
       message,
-      isModalOpen,
-      handleCloseModal
+      open,
+      onClose
     } = this.props;
 
     return (
       <Modal
         className="delete-message-modal"
-        open={isModalOpen}
-        onClose={handleCloseModal}
+        open={open}
+        onClose={onClose}
         danger
       >
         <Form>
@@ -60,7 +60,7 @@ class DeleteMessageModal extends Component {
           <Modal.Footer>
             <Button
               className="button button-default"
-              onClick={handleCloseModal}
+              onClick={onClose}
               disabled={message.delete.loading}
             >
               Cancel
@@ -82,22 +82,22 @@ class DeleteMessageModal extends Component {
 const mapStateToProps = (state) => {
   return {
     chatRoom: state.chatRoom,
-    message: state.message
+    message: state.message,
   }
 }
 
 DeleteMessageModal.propTypes = {
-  isModalOpen: PropTypes.bool,
+  open: PropTypes.bool,
   selectedMessageID: PropTypes.string,
-  handleCloseModal: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 }
 
 DeleteMessageModal.defaultProps = {
-  isModalOpen: false,
-  selectedMessageID: ''
+  open: false,
+  selectedMessageID: '',
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(DeleteMessageModal);

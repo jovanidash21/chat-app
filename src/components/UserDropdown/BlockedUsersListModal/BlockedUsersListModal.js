@@ -67,6 +67,7 @@ class BlockedUsersListModal extends Component {
         className="blocked-users-list-modal"
         open={open}
         onClose={onClose}
+        center={false}
       >
         <Modal.Header>
           <h3 className="modal-title">Blocked Users</h3>

@@ -292,8 +292,8 @@ class ChatRoomsList extends Component {
         {
           isModalOpen &&
           <CreateChatRoomModal
-            isModalOpen={isModalOpen}
-            handleCloseModal={::this.handleCloseModal}
+            open={isModalOpen}
+            onClose={::this.handleCloseModal}
             handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
           />
         }

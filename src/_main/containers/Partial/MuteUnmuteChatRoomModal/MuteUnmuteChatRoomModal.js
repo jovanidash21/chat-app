@@ -18,7 +18,7 @@ class MuteUnmuteChatRoomModal extends Component {
       ( prevProps.chatRoom.mute.loading && this.props.chatRoom.mute.success ) ||
       ( prevProps.chatRoom.unmute.loading && this.props.chatRoom.unmute.success  )
     ) {
-      this.props.handleCloseModal();
+      this.props.onClose();
     }
   }
   handleMuteUnmuteChatRoom(event) {
@@ -43,8 +43,8 @@ class MuteUnmuteChatRoomModal extends Component {
   render() {
     const {
       chatRoom,
-      isModalOpen,
-      handleCloseModal
+      open,
+      onClose,
     } = this.props;
     const activeChatRoom = chatRoom.active;
     const isMuted = activeChatRoom.mute.data;
@@ -52,8 +52,8 @@ class MuteUnmuteChatRoomModal extends Component {
     return (
       <Modal
         className="mute-message-modal"
-        open={isModalOpen}
-        onClose={handleCloseModal}
+        open={open}
+        onClose={onClose}
       >
         <Form onSubmit={::this.handleMuteUnmuteChatRoom}>
           <Modal.Header>
@@ -71,7 +71,7 @@ class MuteUnmuteChatRoomModal extends Component {
           <Modal.Footer>
             <Button
               className="button button-default"
-              onClick={handleCloseModal}
+              onClick={onClose}
               disabled={chatRoom.mute.loading || chatRoom.unmute.loading}
             >
               Cancel
@@ -93,20 +93,20 @@ class MuteUnmuteChatRoomModal extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
   }
 }
 
 MuteUnmuteChatRoomModal.propTypes = {
-  isModalOpen: PropTypes.bool,
-  handleCloseModal: PropTypes.func.isRequired
+  open: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
 }
 
 MuteUnmuteChatRoomModal.defaultProps = {
-  isModalOpen: false
+  open: false,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(MuteUnmuteChatRoomModal);

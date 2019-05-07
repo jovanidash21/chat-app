@@ -400,9 +400,9 @@ class ChatBox extends Component {
           {
             isModalOpen &&
             <DeleteMessageModal
-              isModalOpen={isModalOpen}
+              open={isModalOpen}
               selectedMessageID={selectedMessageID}
-              handleCloseModal={::this.handleCloseModal}
+              onClose={::this.handleCloseModal}
             />
           }
         </div>

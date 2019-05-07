@@ -26,11 +26,11 @@ class CreateChatRoomModal extends Component {
   componentDidUpdate(prevProps) {
     if ( prevProps.chatRoom.create.loading && this.props.chatRoom.create.success ) {
       const {
-        handleCloseModal,
+        onClose,
         handleLeftSideDrawerToggleEvent
       } = this.props;
 
-      handleCloseModal();
+      onClose();
       handleLeftSideDrawerToggleEvent();
     }
   }
@@ -98,12 +98,12 @@ class CreateChatRoomModal extends Component {
       user,
       chatRoom,
       searchUser,
-      isModalOpen,
-      handleCloseModal
+      open,
+      onClose,
     } = this.props;
     const {
       chatRoomName,
-      members
+      members,
     } = this.state;
     const searchedUsers = user.searched.filter((singleUser) => {
       return !members.some((singleMember) => singleMember._id === singleUser._id);
@@ -116,8 +116,8 @@ class CreateChatRoomModal extends Component {
     return (
       <Modal
         className="create-chat-room-modal"
-        open={isModalOpen}
-        onClose={handleCloseModal}
+        open={open}
+        onClose={onClose}
       >
         <Form onSubmit={::this.handleAddGroupChatRoom}>
           <Modal.Header>
@@ -151,7 +151,7 @@ class CreateChatRoomModal extends Component {
           <Modal.Footer>
             <Button
               className="button button-default"
-              onClick={handleCloseModal}
+              onClick={onClose}
               disabled={chatRoom.create.loading}
             >
               Cancel
@@ -173,21 +173,21 @@ class CreateChatRoomModal extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
   }
 }
 
 CreateChatRoomModal.propTypes = {
-  isModalOpen: PropTypes.bool,
-  handleCloseModal: PropTypes.func.isRequired,
-  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired
+  open: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
 }
 
 CreateChatRoomModal.defaultProps = {
-  isModalOpen: false
+  open: false,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(CreateChatRoomModal);

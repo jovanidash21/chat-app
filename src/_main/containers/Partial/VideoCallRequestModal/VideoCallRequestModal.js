@@ -31,7 +31,7 @@ class VideoCallRequestModal extends Component {
   }
   render() {
     const {
-      isModalOpen,
+      open,
       videoCall
     } = this.props;
     const peerUser = videoCall.peerUser;
@@ -39,7 +39,7 @@ class VideoCallRequestModal extends Component {
     return (
       <Modal
         className="video-call-request-modal"
-        open={isModalOpen}
+        open={open}
         showCloseIcon={false}
       >
         <Modal.Body>
@@ -79,13 +79,13 @@ const mapStateToProps = (state) => {
 }
 
 VideoCallRequestModal.propTypes = {
-  isModalOpen: PropTypes.bool,
+  open: PropTypes.bool,
   handleAcceptVideoCall: PropTypes.func.isRequired,
   handleRejectVideoCall: PropTypes.func.isRequired
 }
 
 VideoCallRequestModal.defaultProps = {
-  isModalOpen: false
+  open: false
 }
 
 export default connect(
