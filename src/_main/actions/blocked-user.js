@@ -86,7 +86,7 @@ export function unblockUser( userID, unblockUserID ) {
  *
  * @param {string} userID
  */
-export function unblockAllUsers( userID, unblockUserID ) {
+export function unblockAllUsers( userID ) {
   let data = {
     userID,
   };

@@ -49,30 +49,6 @@ class Header extends Component {
   handleCloseBlockedUsersListModal() {
     this.setState({blockedUsersListModalOpen: false});
   }
-  handleUnblockAllUsers() {
-    const {
-      user,
-      unblockAllUsers,
-    } = this.props;
-    const activeUser = user.active;
-
-    unblockAllUsers(activeUser._id);
-  }
-  handleBlockUnblockUser(selectedUser) {
-    const {
-      user,
-      blockUser,
-      unblockUser,
-    } = this.props;
-    const activeUser = user.active;
-    const isBlocked = selectedUser.blocked;
-
-    if ( ! isBlocked ) {
-      blockUser( activeUser._id, selectedUser._id );
-    } else {
-      unblockUser( activeUser._id, selectedUser._id );
-    }
-  }
   handleVideoCamRender() {
     const {
       user,
@@ -171,6 +147,30 @@ class Header extends Component {
     const activeUser = user.active;
 
     fetchBlockedUsers(activeUser._id);
+  }
+  handleUnblockAllUsers() {
+    const {
+      user,
+      unblockAllUsers,
+    } = this.props;
+    const activeUser = user.active;
+
+    unblockAllUsers(activeUser._id);
+  }
+  handleBlockUnblockUser(selectedUser) {
+    const {
+      user,
+      blockUser,
+      unblockUser,
+    } = this.props;
+    const activeUser = user.active;
+    const isBlocked = selectedUser.blocked;
+
+    if ( ! isBlocked ) {
+      blockUser( activeUser._id, selectedUser._id );
+    } else {
+      unblockUser( activeUser._id, selectedUser._id );
+    }
   }
   handleRequestVideoCall(event) {
     event.preventDefault();
