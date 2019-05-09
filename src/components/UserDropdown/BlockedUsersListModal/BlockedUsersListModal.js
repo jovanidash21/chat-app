@@ -69,6 +69,7 @@ class BlockedUsersListModal extends Component {
   }
   render() {
     const {
+      blockedUsers: allBlockedUsers,
       blockedUserFetch,
       handleUnblockAllUsers,
       blockedUserUnblockAll,
@@ -115,21 +116,25 @@ class BlockedUsersListModal extends Component {
                   </Fragment>
                   :
                   <Fragment>
-                    <SearchFilter
-                      value={searchFilter}
-                      onChange={::this.onSearchFilterChange}
-                      handleClearSearchFilter={::this.handleClearSearchFilter}
-                    />
                     {
-                      this.props.blockedUsers.length > 0 &&
-                      <Button
-                        className="button button-danger"
-                        size="small"
-                        onClick={::this.handleOpenUnblockAllUsersModal}
-                        disabled={disabled}
-                      >
-                        Unblock All
-                      </Button>
+                      allBlockedUsers.length > 0 &&
+                      <Fragment>
+                        <SearchFilter
+                          value={searchFilter}
+                          onChange={::this.onSearchFilterChange}
+                          handleClearSearchFilter={::this.handleClearSearchFilter}
+                        />
+                        {
+                          <Button
+                            className="button button-danger"
+                            size="small"
+                            onClick={::this.handleOpenUnblockAllUsersModal}
+                            disabled={disabled}
+                          >
+                            Unblock All
+                          </Button>
+                        }
+                      </Fragment>
                     }
                   </Fragment>
               }
