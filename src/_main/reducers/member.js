@@ -6,6 +6,7 @@ import { CHANGE_CHAT_ROOM } from '../constants/chat-room';
 import {
   BLOCK_USER,
   UNBLOCK_USER,
+  UNBLOCK_ALL_USERS,
 } from '../constants/blocked-user';
 import {
   SOCKET_BROADCAST_USER_LOGIN,
@@ -119,6 +120,18 @@ const member = ( state = initialState, action ) => {
         ...state,
         all: [ ...members ],
       }
+    }
+    case `${UNBLOCK_ALL_USERS}_SUCCESS`: {
+      const members = [...state.all];
+
+      for ( let i = 0; i < members.length; i += 1 ) {
+        members[i].blocked = false;
+      }
+
+      return {
+        ...state,
+        all: [ ...members ],
+      };
     }
     case SOCKET_BROADCAST_USER_LOGIN: {
       const user = action.user;

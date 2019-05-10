@@ -148,7 +148,6 @@ const blockedUser = ( state = initialState, action ) => {
           error: true,
           message: action.payload.response.data.message,
         },
-        all: [],
       };
     }
     case `${BLOCK_USER}_ERROR`: {
