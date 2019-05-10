@@ -98,47 +98,50 @@ class BlockedUsersListModal extends Component {
             <h3 className="modal-title">Blocked Users</h3>
           </Modal.Header>
           <Modal.Body>
-            <div className="list-header">
-              {
-                loading
-                  ?
-                  <Fragment>
-                    <div className="search-filter">
-                      <Skeleton
-                        height="37px"
-                        width="241px"
-                      />
-                    </div>
-                    <Skeleton
-                      height="31px"
-                      width="120px"
-                    />
-                  </Fragment>
-                  :
-                  <Fragment>
-                    {
-                      allBlockedUsers.length > 0 &&
-                      <Fragment>
-                        <SearchFilter
-                          value={searchFilter}
-                          onChange={::this.onSearchFilterChange}
-                          handleClearSearchFilter={::this.handleClearSearchFilter}
+            {
+              ( loading || ! loading && allBlockedUsers.length > 0 ) &&
+              <div className="list-header">
+                {
+                  loading
+                    ?
+                    <Fragment>
+                      <div className="search-filter">
+                        <Skeleton
+                          height="37px"
+                          width="241px"
                         />
-                        {
-                          <Button
-                            className="button button-danger"
-                            size="small"
-                            onClick={::this.handleOpenUnblockAllUsersModal}
-                            disabled={disabled}
-                          >
-                            Unblock All
-                          </Button>
-                        }
-                      </Fragment>
-                    }
-                  </Fragment>
-              }
-            </div>
+                      </div>
+                      <Skeleton
+                        height="31px"
+                        width="120px"
+                      />
+                    </Fragment>
+                    :
+                    <Fragment>
+                      {
+                        allBlockedUsers.length > 0 &&
+                        <Fragment>
+                          <SearchFilter
+                            value={searchFilter}
+                            onChange={::this.onSearchFilterChange}
+                            handleClearSearchFilter={::this.handleClearSearchFilter}
+                          />
+                          {
+                            <Button
+                              className="button button-danger"
+                              size="small"
+                              onClick={::this.handleOpenUnblockAllUsersModal}
+                              disabled={disabled}
+                            >
+                              Unblock All
+                            </Button>
+                          }
+                        </Fragment>
+                      }
+                    </Fragment>
+                }
+              </div>
+            }
             {
               loading &&
               <Fragment>
