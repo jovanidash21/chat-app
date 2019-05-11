@@ -14,7 +14,7 @@ import {
   ChatBubble,
   ChatTyper,
   ChatImageLightBox,
-  ChatDragDropBox
+  ChatDragDropBox,
 } from '../../../components/Chat';
 import { DeleteMessageModal } from '../DeleteMessageModal';
 import './styles.scss';
@@ -34,7 +34,7 @@ class ChatBox extends Component {
       imageIndex: -1,
       audioIndex: -1,
       isModalOpen: false,
-      selectedMessageID: ''
+      selectedMessageID: '',
     };
   }
   componentDidMount() {
@@ -56,7 +56,7 @@ class ChatBox extends Component {
       const {
         scrollPosition,
         oldestMessageQuery,
-        oldestMessageOffsetTop
+        oldestMessageOffsetTop,
       } = this.state;
       const newOldestMessageOffsetTop = oldestMessageQuery.offsetTop;
 
@@ -71,10 +71,10 @@ class ChatBox extends Component {
 
     if (
       ( prevProps.fetchNewLoading &&
-        !this.props.fetchNewLoading &&
+        ! this.props.fetchNewLoading &&
         this.props.messages.length < 50 ) ||
       ( prevProps.fetchOldLoading &&
-        !this.props.fetchOldLoading &&
+        ! this.props.fetchOldLoading &&
         this.props.messages.length - prevProps.messages.length < 50 )
     ) {
       this.setState({hasLoadedAllMessages: true});
@@ -104,7 +104,7 @@ class ChatBox extends Component {
       messages,
       typers,
       fetchNewLoading,
-      small
+      small,
     } = this.props;
     const { hasLoadedAllMessages } = this.state;
     const isActiveUserAdmin = user.active.role === 'admin';
@@ -193,12 +193,12 @@ class ChatBox extends Component {
 
     if ( !fetchNewLoading ) {
       const imagesArray = [];
-      const imageMessages = messages.filter(imageMessage =>
-        imageMessage.messageType === 'image'
-      );
+      const imageMessages = messages.filter((imageMessage) => {
+        return imageMessage.messageType === 'image';
+      });
 
-      for (var i = 0; i < imageMessages.length; i++) {
-        var imageMessage = imageMessages[i];
+      for ( let i = 0; i < imageMessages.length; i += 1 ) {
+        const imageMessage = imageMessages[i];
 
         imagesArray[i] = {
           id: imageMessage._id,
@@ -276,25 +276,19 @@ class ChatBox extends Component {
     sendTextMessage(newMessageID, text, user.active, chatRoom.data._id);
   }
   handleImageLightboxToggle(messageID) {
-    const { message } = this.props;
-    var index = -1;
+    const { messages } = this.props;
 
-    const imageMessages = messages.filter(imageMessage =>
-      imageMessage.messageType === 'image'
-    );
+    const imageMessages = messages.filter((imageMessage) => {
+      return imageMessage.messageType === 'image';
+    });
 
-    for (var i = 0; i < imageMessages.length; i++) {
-      var imageMessage = imageMessages[i];
-
-      if (imageMessage._id === messageID) {
-        index = i;
-        break;
-      }
-    }
+    const imageMessageIndex = imageMessages.findIndex((singleImageMessage) => {
+      return singleImageMessage._id === messageID;
+    });
 
     this.setState({
       isImageLightboxOpen: !this.state.isImageLightboxOpen,
-      imageIndex: index
+      imageIndex: imageMessageIndex,
     });
   }
   handlePrevImage(imageIndex) {
@@ -320,7 +314,7 @@ class ChatBox extends Component {
     } else {
       handleDragDropBoxToggle();
 
-      for (var i = 0; i < acceptedFiles.length; i++) {
+      for ( let i = 0; i < acceptedFiles.length; i+= 1 ) {
         const file = acceptedFiles[i];
         const newMessageID = uuidv4();
         const fileName = file.name;
@@ -344,7 +338,7 @@ class ChatBox extends Component {
     const { audioIndex } = this.state;
 
     if ( audioIndex > -1 && audioIndex !== audioPlayingIndex ) {
-      var previousAudio = this.chatBox.getElementsByClassName('react-plyr-' + audioIndex)[0];
+      const previousAudio = this.chatBox.getElementsByClassName('react-plyr-' + audioIndex)[0];
 
       if (
         previousAudio.currentTime > 0  &&
@@ -413,7 +407,7 @@ class ChatBox extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   }
 }
 
@@ -425,7 +419,7 @@ ChatBox.propTypes = {
   isDragDropBoxOpen: PropTypes.bool,
   fetchNewLoading: PropTypes.bool,
   fetchOldLoading: PropTypes.bool,
-  small: PropTypes.bool
+  small: PropTypes.bool,
 }
 
 ChatBox.defaultProps = {
@@ -433,10 +427,10 @@ ChatBox.defaultProps = {
   isDragDropBoxOpen: false,
   fetchNewLoading: false,
   fetchOldLoading: false,
-  small: false
+  small: false,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ChatBox);
