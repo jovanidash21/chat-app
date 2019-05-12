@@ -11,7 +11,7 @@ import { Avatar } from '../../../../components/Avatar';
 import { ChatBox } from '../ChatBox';
 import {
   ChatInput,
-  ChatAudioRecorder
+  ChatAudioRecorder,
 } from '../../../components/Chat';
 import './styles.scss';
 
@@ -21,7 +21,7 @@ class ChatPopUpWindow extends Component {
 
     this.state = {
       isAudioRecorderOpen: false,
-      isDragDropBoxOpen: false
+      isDragDropBoxOpen: false,
     };
   }
   handleActiveChatPopUpWindow(event) {
@@ -29,7 +29,7 @@ class ChatPopUpWindow extends Component {
 
     const {
       index,
-      handleActiveChatPopUpWindow
+      handleActiveChatPopUpWindow,
     } = this.props;
 
     handleActiveChatPopUpWindow(index);
@@ -43,7 +43,7 @@ class ChatPopUpWindow extends Component {
 
     const {
       popUpChatRoom,
-      handleRequestVideoCall
+      handleRequestVideoCall,
     } = this.props;
 
     if ( popUpChatRoom.data.chatType === 'direct' ) {
@@ -55,7 +55,7 @@ class ChatPopUpWindow extends Component {
 
     const {
       popUpChatRoom,
-      closePopUpChatRoom
+      closePopUpChatRoom,
     } = this.props;
 
     closePopUpChatRoom(popUpChatRoom.data._id);
@@ -78,11 +78,11 @@ class ChatPopUpWindow extends Component {
       popUpChatRoom,
       handleSendTextMessage,
       handleSendAudioMessage,
-      active
+      active,
     } = this.props;
     const {
       isAudioRecorderOpen,
-      isDragDropBoxOpen
+      isDragDropBoxOpen,
     } = this.state;
     const activeUser = user.active;
     const isChatInputDisabled = popUpChatRoom.message.fetchNew.loading;
@@ -172,7 +172,7 @@ class ChatPopUpWindow extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    typer: state.typer
+    typer: state.typer,
   }
 }
 
@@ -183,14 +183,14 @@ ChatPopUpWindow.propTypes = {
   handleSendAudioMessage: PropTypes.func.isRequired,
   handleRequestVideoCall: PropTypes.func.isRequired,
   handleActiveChatPopUpWindow: PropTypes.func.isRequired,
-  active: PropTypes.bool
+  active: PropTypes.bool,
 }
 
 ChatPopUpWindow.defaultProps = {
-  active: false
+  active: false,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ChatPopUpWindow);
