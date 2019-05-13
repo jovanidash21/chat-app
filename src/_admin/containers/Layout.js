@@ -9,7 +9,7 @@ import { Menu } from './Partial';
 import {
   Header,
   LeftSideDrawer,
-  Footer
+  Footer,
 } from './Common';
 import '../styles/Admin.scss';
 
@@ -18,7 +18,7 @@ class Layout extends Component {
     super(props);
 
     this.state = {
-      isLeftSideDrawerOpen: false
+      isLeftSideDrawerOpen: false,
     };
   }
   componentWillMount() {
@@ -58,7 +58,7 @@ class Layout extends Component {
   handleComponentRender(matchProps) {
     const {
       component: Content,
-      title
+      title,
     } = this.props;
 
     return (
@@ -92,14 +92,14 @@ const mapStateToProps = (state) => {
 
 Layout.propTypes = {
   component: PropTypes.func.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
 }
 
 Layout.defaultProps = {
-  title: ''
+  title: '',
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Layout);

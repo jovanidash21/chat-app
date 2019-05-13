@@ -22,7 +22,7 @@ class Layout extends Component {
   handleComponentRender(matchProps) {
     const {
       component: Content,
-      title
+      title,
     } = this.props;
 
     return (
@@ -43,20 +43,20 @@ class Layout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   }
 }
 
 Layout.propTypes = {
   component: PropTypes.func.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
 }
 
 Layout.defaultProps = {
-  title: ''
+  title: '',
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Layout);
