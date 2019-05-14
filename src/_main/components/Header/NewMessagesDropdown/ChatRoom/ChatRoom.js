@@ -16,7 +16,7 @@ class NewMessagesDropdownChatRoom extends Component {
 
     const {
       chatRoom,
-      handleOpenPopUpChatRoom
+      handleOpenPopUpChatRoom,
     } = this.props;
 
     handleOpenPopUpChatRoom(chatRoom);
@@ -28,7 +28,7 @@ class NewMessagesDropdownChatRoom extends Component {
       user,
       chatRoom,
       activeChatRoom,
-      handleChangeChatRoom
+      handleChangeChatRoom,
     } = this.props;
 
     handleChangeChatRoom(chatRoom, user._id, activeChatRoom.data._id);
@@ -42,7 +42,7 @@ class NewMessagesDropdownChatRoom extends Component {
 
     const {
       chatRoom,
-      handleClearChatRoomUnreadMessages
+      handleClearChatRoomUnreadMessages,
     } = this.props;
 
     handleClearChatRoomUnreadMessages([chatRoom.data._id]);
@@ -50,7 +50,7 @@ class NewMessagesDropdownChatRoom extends Component {
   render() {
     const {
       user,
-      chatRoom
+      chatRoom,
     } = this.props;
 
     return (
@@ -99,7 +99,7 @@ NewMessagesDropdownChatRoom.propTypes = {
   activeChatRoom: PropTypes.object.isRequired,
   handleOpenPopUpChatRoom: PropTypes.func.isRequired,
   handleChangeChatRoom: PropTypes.func.isRequired,
-  handleClearChatRoomUnreadMessages: PropTypes.func.isRequired
+  handleClearChatRoomUnreadMessages: PropTypes.func.isRequired,
 }
 
 export default NewMessagesDropdownChatRoom;

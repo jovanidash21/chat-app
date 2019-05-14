@@ -14,7 +14,7 @@ class NewMessagesDropdown extends Component {
 
     const {
       chatRooms,
-      handleClearChatRoomUnreadMessages
+      handleClearChatRoomUnreadMessages,
     } = this.props;
     var chatRoomIDs = [];
 
@@ -33,7 +33,7 @@ class NewMessagesDropdown extends Component {
       activeChatRoom,
       handleOpenPopUpChatRoom,
       handleChangeChatRoom,
-      handleClearChatRoomUnreadMessages
+      handleClearChatRoomUnreadMessages,
     } = this.props;
 
     return (
@@ -95,11 +95,11 @@ NewMessagesDropdown.propTypes = {
   activeChatRoom: PropTypes.object.isRequired,
   handleOpenPopUpChatRoom: PropTypes.func.isRequired,
   handleChangeChatRoom: PropTypes.func.isRequired,
-  handleClearChatRoomUnreadMessages: PropTypes.func.isRequired
+  handleClearChatRoomUnreadMessages: PropTypes.func.isRequired,
 }
 
 NewMessagesDropdown.defaultProps = {
-  count: 0
+  count: 0,
 }
 
 export default NewMessagesDropdown;
