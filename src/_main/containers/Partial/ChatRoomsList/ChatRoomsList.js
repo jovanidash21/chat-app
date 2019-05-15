@@ -20,7 +20,7 @@ class ChatRoomsList extends Component {
       isModalOpen: false,
       chatRooms: [],
       searchFilter: '',
-      selectedChatRoomIndex: -1
+      selectedChatRoomIndex: -1,
     }
   }
   componentDidUpdate(prevProps) {
@@ -28,10 +28,10 @@ class ChatRoomsList extends Component {
       const {
         user,
         chatRoom,
-        changeChatRoom
+        changeChatRoom,
       } = this.props;
       const allChatRooms = chatRoom.all.sort((a, b) => {
-        var n = a.priority - b.priority;
+        const n = a.priority - b.priority;
 
         if (n !== 0) {
           return n;
@@ -61,8 +61,8 @@ class ChatRoomsList extends Component {
   handleChatRoomsListFilter(searchFilter = '') {
     const { chatRoom } = this.props;
     const { selectedChatRoomIndex } = this.state;
-    var allChatRooms = [...chatRoom.all];
-    var chatRoomIndex = selectedChatRoomIndex;
+    let allChatRooms = [...chatRoom.all];
+    let chatRoomIndex = selectedChatRoomIndex;
 
     if ( searchFilter.length > 0 ) {
       allChatRooms = allChatRooms.filter((singleChatRoom) => {
@@ -107,7 +107,7 @@ class ChatRoomsList extends Component {
       chatRoom,
       changeChatRoom,
       handleLeftSideDrawerToggleEvent,
-      handleOpenPopUpChatRoom
+      handleOpenPopUpChatRoom,
     } = this.props;
     const {
       chatRooms,
@@ -151,14 +151,14 @@ class ChatRoomsList extends Component {
       chatRoom,
       changeChatRoom,
       handleLeftSideDrawerToggleEvent,
-      handleOpenPopUpChatRoom
+      handleOpenPopUpChatRoom,
     } = this.props;
     const {
       isChatBoxRoomsListScrolled,
       isModalOpen,
       chatRooms,
       searchFilter,
-      selectedChatRoomIndex
+      selectedChatRoomIndex,
     } = this.state;
     const activeChatRoom = chatRoom.active;
     const loading = user.fetchActive.loading || chatRoom.fetch.loading;
@@ -255,9 +255,9 @@ class ChatRoomsList extends Component {
               ! loading &&
               chatRooms.length > 0 &&
               chatRooms.sort((a, b) => {
-                var priority = a.priority - b.priority;
-                var name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
-                var date = new Date(b.data.createdAt) - new Date(a.data.createdAt);
+                const priority = a.priority - b.priority;
+                const name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
+                const date = new Date(b.data.createdAt) - new Date(a.data.createdAt);
 
                 if (priority !== 0) {
                   return priority;
@@ -305,16 +305,16 @@ class ChatRoomsList extends Component {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    chatRoom: state.chatRoom
+    chatRoom: state.chatRoom,
   }
 }
 
 ChatRoomsList.propTypes = {
   handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
-  handleOpenPopUpChatRoom: PropTypes.func.isRequired
+  handleOpenPopUpChatRoom: PropTypes.func.isRequired,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ChatRoomsList);
