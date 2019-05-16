@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import NotificationSystem from 'react-notification-system';
 import {
   SOCKET_BROADCAST_NOTIFY_MESSAGE,
-  SOCKET_BROADCAST_NOTIFY_MESSAGE_MENTION
+  SOCKET_BROADCAST_NOTIFY_MESSAGE_MENTION,
 } from '../../constants/message';
 import {
   SOCKET_BROADCAST_REJECT_VIDEO_CALL,
-  SOCKET_BROADCAST_ACCEPT_VIDEO_CALL
+  SOCKET_BROADCAST_ACCEPT_VIDEO_CALL,
 } from '../../constants/video-call';
 import socket from '../../../socket';
 import './styles.scss';
@@ -22,13 +22,13 @@ class NotificationPopUp extends Component {
   handleNotifyMessage() {
     const {
       handleViewMessage,
-      mobile
+      mobile,
     } = this.props;
 
     socket.on('action', (action) => {
       switch (action.type) {
         case SOCKET_BROADCAST_NOTIFY_MESSAGE:
-          var chatRoom =  {...action.chatRoom};
+          const chatRoom =  {...action.chatRoom};
 
           if ( ! chatRoom.mute.data ) {
             this.notificationSystem.addNotification({
@@ -46,7 +46,7 @@ class NotificationPopUp extends Component {
           }
           break;
         case SOCKET_BROADCAST_NOTIFY_MESSAGE_MENTION:
-          var chatRoom =  {...action.chatRoom};
+          const chatRoom =  {...action.chatRoom};
 
           if ( ! chatRoom.mute.data ) {
             this.notificationSystem.addNotification({
@@ -87,11 +87,11 @@ class NotificationPopUp extends Component {
 
 NotificationPopUp.propTypes = {
   handleViewMessage: PropTypes.func.isRequired,
-  mobile: PropTypes.bool
+  mobile: PropTypes.bool,
 }
 
 NotificationPopUp.defaultProps = {
-  mobile: false
+  mobile: false,
 }
 
 export default NotificationPopUp;

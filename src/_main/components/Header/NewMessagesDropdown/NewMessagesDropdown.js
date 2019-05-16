@@ -16,10 +16,10 @@ class NewMessagesDropdown extends Component {
       chatRooms,
       handleClearChatRoomUnreadMessages,
     } = this.props;
-    var chatRoomIDs = [];
+    const chatRoomIDs = [];
 
-    for (var i = 0; i < chatRooms.length; i++) {
-      var chatRoom = chatRooms[i];
+    for ( let i = 0; i < chatRooms.length; i += 1 ) {
+      const chatRoom = chatRooms[i];
 
       chatRoomIDs.push(chatRoom.data._id);
     }
