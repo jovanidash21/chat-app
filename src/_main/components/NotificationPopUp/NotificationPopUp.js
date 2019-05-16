@@ -27,7 +27,7 @@ class NotificationPopUp extends Component {
 
     socket.on('action', (action) => {
       switch (action.type) {
-        case SOCKET_BROADCAST_NOTIFY_MESSAGE:
+        case SOCKET_BROADCAST_NOTIFY_MESSAGE: {
           const chatRoom =  {...action.chatRoom};
 
           if ( ! chatRoom.mute.data ) {
@@ -45,7 +45,8 @@ class NotificationPopUp extends Component {
             });
           }
           break;
-        case SOCKET_BROADCAST_NOTIFY_MESSAGE_MENTION:
+        }
+        case SOCKET_BROADCAST_NOTIFY_MESSAGE_MENTION: {
           const chatRoom =  {...action.chatRoom};
 
           if ( ! chatRoom.mute.data ) {
@@ -63,18 +64,21 @@ class NotificationPopUp extends Component {
             });
           }
           break;
-        case SOCKET_BROADCAST_REJECT_VIDEO_CALL:
+        }
+        case SOCKET_BROADCAST_REJECT_VIDEO_CALL: {
           this.notificationSystem.addNotification({
             title: 'Your video call is not accepted',
             level: 'error'
           });
           break;
-        case SOCKET_BROADCAST_ACCEPT_VIDEO_CALL:
+        }
+        case SOCKET_BROADCAST_ACCEPT_VIDEO_CALL: {
           this.notificationSystem.addNotification({
             title: 'Your video call is accepted',
             level: 'success'
           });
           break;
+        }
       }
     });
   }

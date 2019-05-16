@@ -25,9 +25,9 @@ class ChatBubble extends Component {
     const {
       message,
       isSender,
-      small
+      small,
     } = this.props;
-    var messageText = message.text;
+    let messageText = message.text;
 
     switch (message.messageType) {
       case 'text':
@@ -35,16 +35,16 @@ class ChatBubble extends Component {
         const options = {
           style: {
             height: emojiSize,
-            width: emojiSize
-          }
+            width: emojiSize,
+          },
         };
 
         messageText = messageText.replace(/ /g, "\u00a0");
         messageText = messageText.split(/(\<@[A-z0-9\s\.\,\:\(\)\-\_\^]+\>|\*[A-z0-9\s\.\,\:\(\)\-\_\^]+\*|\_[A-z0-9\s\.\,\:\(\)\-\_\^]+\_|\~[A-z0-9\s\.\,\:\(\)\-\_\^]+\~|\`\`\`[A-z0-9\s\.\,\:\(\)\-\_\^]+\`\`\`|\`[A-z0-9\s\.\,\:\(\)\-\_\^]+\`)/);
 
-        for (var i = 0; i < messageText.length; i++) {
-          var tag = '';
-          var slice = 1;
+        for ( let i = 0; i < messageText.length; i += 1 ) {
+          let tag = '';
+          let slice = 1;
 
           if ( /\<@[A-z0-9\s\.\,\:\(\)\-\_\^]+\>/gi.test(messageText[i]) ) {
             tag = 'b';
@@ -92,7 +92,7 @@ class ChatBubble extends Component {
       index,
       message,
       isSender,
-      isActiveUserAdmin
+      isActiveUserAdmin,
     } = this.props;
 
     if ( message.messageType !== 'text' && message.fileLink.length === 0 ) {
@@ -169,7 +169,7 @@ class ChatBubble extends Component {
 
     const {
       message,
-      handleImageLightboxToggle
+      handleImageLightboxToggle,
     } = this.props;
 
     handleImageLightboxToggle(message._id);
@@ -177,7 +177,7 @@ class ChatBubble extends Component {
   handleAudioOnPlay(event) {
     const {
       index,
-      handleAudioPlayingToggle
+      handleAudioPlayingToggle,
     } = this.props;
 
     handleAudioPlayingToggle(index);
@@ -188,7 +188,7 @@ class ChatBubble extends Component {
     const {
       message,
       isActiveUserAdmin,
-      handleOpenModal
+      handleOpenModal,
     } = this.props;
 
     if ( isActiveUserAdmin ) {
@@ -203,7 +203,7 @@ class ChatBubble extends Component {
       nextMessageSenderID,
       previousMessageDate,
       nextMessageDate,
-      small
+      small,
     } = this.props;
     const isThisAndPreviousDatesSameDay = isDatesSameDay(message.createdAt, previousMessageDate);
     const isThisAndNextDatesSameDay = isDatesSameDay(message.createdAt, nextMessageDate);
@@ -266,13 +266,13 @@ ChatBubble.propTypes = {
   handleAudioPlayingToggle: PropTypes.func.isRequired,
   isActiveUserAdmin: PropTypes.bool,
   handleOpenModal: PropTypes.func,
-  small: PropTypes.bool
+  small: PropTypes.bool,
 }
 
 ChatBubble.defaultProps = {
   isActiveUserAdmin: false,
   handleOpenModal: () => {},
-  small: false
+  small: false,
 }
 
 export default ChatBubble;
