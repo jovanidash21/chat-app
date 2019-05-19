@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Form,
-  Button
+  Button,
 } from 'muicss/react';
 import Popup from 'react-popup';
 import { isEmailValid } from '../../../utils/form';
@@ -10,7 +10,7 @@ import { Modal } from '../../Modal';
 import { Alert } from '../../Alert';
 import {
   AvatarUploader,
-  Input
+  Input,
 } from '../../Form';
 import './styles.scss';
 
@@ -27,7 +27,7 @@ class EditProfileModal extends Component {
       nameValid: true,
       emailValid: true,
       errorMessage: '',
-      successMessage: ''
+      successMessage: '',
     };
   }
   componentWillMount() {
@@ -70,7 +70,7 @@ class EditProfileModal extends Component {
       username: user.username,
       name: user.name,
       email: user.email,
-      profilePicture: user.profilePicture
+      profilePicture: user.profilePicture,
     });
   }
   handleImageUpload(image) {
@@ -98,12 +98,12 @@ class EditProfileModal extends Component {
     const {
       username,
       name,
-      email
+      email,
     } = this.state;
-    var usernameValid = true;
-    var nameValid = true;
-    var emailValid = true;
-    var errorMessage = '';
+    let usernameValid = true;
+    let nameValid = true;
+    let emailValid = true;
+    let errorMessage = '';
 
     if ( username.trim().length === 0 ) {
       usernameValid = false;
@@ -127,7 +127,7 @@ class EditProfileModal extends Component {
       usernameValid: usernameValid,
       nameValid: nameValid,
       emailValid: emailValid,
-      errorMessage: errorMessage
+      errorMessage: errorMessage,
     });
 
     if ( usernameValid && nameValid && emailValid && errorMessage.length === 0 ) {
@@ -140,7 +140,7 @@ class EditProfileModal extends Component {
       username,
       name,
       email,
-      profilePicture
+      profilePicture,
     } = this.state;
 
     handleEditProfile(username, name, email, profilePicture);
@@ -150,7 +150,7 @@ class EditProfileModal extends Component {
       user,
       userEdit,
       open,
-      onClose
+      onClose,
     } = this.props;
     const {
       username,
@@ -161,7 +161,7 @@ class EditProfileModal extends Component {
       nameValid,
       emailValid,
       errorMessage,
-      successMessage
+      successMessage,
     } = this.state;
     const isLocalUser = user.accountType === 'local';
 
@@ -258,7 +258,7 @@ EditProfileModal.propTypes = {
   handleEditProfile: PropTypes.func.isRequired,
   userEdit: PropTypes.object.isRequired,
   open: PropTypes.bool,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 }
 
 EditProfileModal.defaultProps = {
