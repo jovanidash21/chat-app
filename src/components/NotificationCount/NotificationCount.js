@@ -16,13 +16,13 @@ const NotificationCount = (props) => {
 NotificationCount.propTypes = {
   count: PropTypes.number,
   title: PropTypes.string,
-  small: PropTypes.bool
+  small: PropTypes.bool,
 }
 
 NotificationCount.defaultProps = {
   count: 0,
   title: '',
-  small: false
+  small: false,
 }
 
 export default NotificationCount;

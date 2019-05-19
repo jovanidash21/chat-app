@@ -14,12 +14,12 @@ const LoadingAnimation = (props) => {
 LoadingAnimation.propTypes = {
   name: PropTypes.string.isRequired,
   color: PropTypes.string,
-  fullScreen: PropTypes.bool
+  fullScreen: PropTypes.bool,
 }
 
 LoadingAnimation.defaultProps = {
   color: '#000',
-  fullScreen: false
+  fullScreen: false,
 }
 
 export default LoadingAnimation;

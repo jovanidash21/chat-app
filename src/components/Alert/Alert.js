@@ -23,13 +23,13 @@ const Alert = (props) => {
 Alert.propTypes = {
   type: PropTypes.string,
   label: PropTypes.string,
-  center: PropTypes.bool
+  center: PropTypes.bool,
 }
 
 Alert.defaultProps = {
   type: 'danger',
   label: '',
-  center: false
+  center: false,
 }
 
 export default Alert;
