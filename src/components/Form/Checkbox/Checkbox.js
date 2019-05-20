@@ -26,7 +26,7 @@ Checkbox.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   checked: PropTypes.bool,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 }
 
 Checkbox.defaultProps = {
@@ -34,7 +34,7 @@ Checkbox.defaultProps = {
   name: '',
   onChange: () => {},
   checked: false,
-  disabled: false
+  disabled: false,
 }
 
 export default Checkbox;

@@ -26,7 +26,7 @@ RadioButton.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   checked: PropTypes.bool,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 }
 
 RadioButton.defaultProps = {
@@ -34,7 +34,7 @@ RadioButton.defaultProps = {
   name: '',
   onChange: () => {},
   checked: false,
-  disabled: false
+  disabled: false,
 }
 
 export default RadioButton;

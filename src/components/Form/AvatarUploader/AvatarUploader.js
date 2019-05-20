@@ -29,7 +29,7 @@ class AvatarUploader extends Component {
       name,
       roleChatType,
       accountType,
-      disabled
+      disabled,
     } = this.props;
 
     return (
@@ -119,7 +119,7 @@ AvatarUploader.propTypes = {
   accountType: PropTypes.string,
   handleImageUpload: PropTypes.func.isRequired,
   handleRemoveImage: PropTypes.func.isRequired,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 }
 
 AvatarUploader.defaultProps = {
@@ -128,7 +128,7 @@ AvatarUploader.defaultProps = {
   name: '',
   roleChatType: '',
   accountType: '',
-  disabled: false
+  disabled: false,
 }
 
 export default AvatarUploader;

@@ -101,17 +101,17 @@ class UserSelect extends Component {
       searchedUsers,
       listDisabled,
       inputDisabled,
-      loading
+      loading,
     } = this.props;
     const {
       searchSelect,
-      suggestions
+      suggestions,
     } = this.state;
     const inputProps = {
       placeholder: placeholder,
       value: searchSelect,
       onChange: ::this.onSearchSelect,
-      disabled: inputDisabled
+      disabled: inputDisabled,
     };
 
     return (
@@ -203,7 +203,7 @@ UserSelect.propTypes = {
   handleDeselectUser: PropTypes.func,
   listDisabled: PropTypes.bool,
   inputDisabled: PropTypes.bool,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
 }
 
 UserSelect.defaultProps = {
@@ -215,7 +215,7 @@ UserSelect.defaultProps = {
   handleDeselectUser: () => {},
   listDisabled: false,
   inputDisabled: false,
-  loading: false
+  loading: false,
 }
 
 export default UserSelect

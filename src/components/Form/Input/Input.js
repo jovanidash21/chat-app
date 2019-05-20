@@ -26,7 +26,7 @@ InputComponent.propTypes = {
   name: PropTypes.string,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
-  invalid: PropTypes.bool
+  invalid: PropTypes.bool,
 }
 
 InputComponent.defaultProps = {
@@ -36,7 +36,7 @@ InputComponent.defaultProps = {
   name: '',
   onChange: () => {},
   disabled: false,
-  invalid: false
+  invalid: false,
 }
 
 export default InputComponent;
