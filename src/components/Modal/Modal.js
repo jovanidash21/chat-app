@@ -19,11 +19,11 @@ class Modal extends Component {
       center,
       showCloseIcon,
       danger,
-      children
+      children,
     } = this.props;
     const modalClassNames = {
       modal: "modal " + ( danger ? 'modal-danger ' : '' ) + className,
-      closeButton: "close-button"
+      closeButton: "close-button",
     };
 
     return (
@@ -48,7 +48,7 @@ Modal.propTypes = {
   onClose: PropTypes.func,
   center: PropTypes.bool,
   showCloseIcon: PropTypes.bool,
-  danger: PropTypes.bool
+  danger: PropTypes.bool,
 }
 
 Modal.defaultProps = {
@@ -57,7 +57,7 @@ Modal.defaultProps = {
   onClose: () => {},
   center: true,
   showCloseIcon: true,
-  danger: false
+  danger: false,
 }
 
 Modal.Header = Header;
