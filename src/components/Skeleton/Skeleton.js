@@ -5,7 +5,7 @@ import './styles.scss';
 const Skeleton = (props) => {
   const skeletonStyles = {
     height: props.height,
-    width: props.width
+    width: props.width,
   };
 
   return (
@@ -24,14 +24,14 @@ Skeleton.propTypes = {
   className: PropTypes.string,
   height: PropTypes.string,
   width: PropTypes.string,
-  cirlce: PropTypes.bool
+  cirlce: PropTypes.bool,
 }
 
 Skeleton.defaultProps = {
   className: '',
   height: '20px',
   width: '100px',
-  circle: false
+  circle: false,
 }
 
 export default Skeleton;

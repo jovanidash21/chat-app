@@ -13,7 +13,7 @@ class SearchFilter extends Component {
 
     const {
       value,
-      handleClearSearchFilter
+      handleClearSearchFilter,
     } = this.props;
 
     if ( value.length > 0 ) {
@@ -28,7 +28,7 @@ class SearchFilter extends Component {
       placeholder,
       onChange,
       onKeyDown,
-      light
+      light,
     } = this.props;
 
     return (
@@ -66,7 +66,7 @@ SearchFilter.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   handleClearSearchFilter: PropTypes.func.isRequired,
-  light: PropTypes.bool
+  light: PropTypes.bool,
 }
 
 SearchFilter.defaultProps = {
@@ -74,7 +74,7 @@ SearchFilter.defaultProps = {
   placeholder: 'Search',
   onChange: () => {},
   onKeyDown: () => {},
-  light: false
+  light: false,
 }
 
 export default SearchFilter;
