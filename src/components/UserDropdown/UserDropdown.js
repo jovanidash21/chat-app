@@ -27,7 +27,7 @@ class UserDropdown extends Component {
   render() {
     const {
       user,
-      children
+      children,
     } = this.props;
     const isLocalUser = user.accountType === 'local';
 

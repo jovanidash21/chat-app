@@ -1,51 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Avatar } from '../Avatar';
 import './styles.scss';
 
-class UserTooltip extends Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    const {
-      image,
-      name,
-      username,
-      roleChatType,
-      accountType,
-      small,
-      right
-    } = this.props;
-
-    return (
-      <ul className={"user-tooltip-wrapper mui-dropdown__menu " + (right ? 'mui-dropdown__menu--right' : '')}>
-        <div className={"user-tooltip " + (small ? 'small' : '')}>
-          <Avatar
-            image={image}
-            size={!small ? "70px" : "40px"}
-            name={name}
-            roleChatType={roleChatType}
-            accountType={accountType}
-            badgeBigger={!small ? true : false}
-            badgeCloser
-          />
-          <div className="user-detail">
-            <div className="user-full-name">
-              {name}
-            </div>
-            <div className="user-username">
-              {
-                accountType === 'local'
-                  ? '@' + username
-                  : accountType
-              }
-            </div>
+const NotificationCount = (props) => {
+  return (
+    <ul className={"user-tooltip-wrapper mui-dropdown__menu " + (props.right ? 'mui-dropdown__menu--right' : '')}>
+      <div className={"user-tooltip " + (props.small ? 'small' : '')}>
+        <Avatar
+          image={props.image}
+          size={!props.small ? "70px" : "40px"}
+          name={props.name}
+          roleChatType={props.roleChatType}
+          accountType={props.accountType}
+          badgeBigger={!props.small ? true : false}
+          badgeCloser
+        />
+        <div className="user-detail">
+          <div className="user-full-name">
+            {props.name}
+          </div>
+          <div className="user-username">
+            {
+              props.accountType === 'local'
+                ? '@' + props.username
+                : props.accountType
+            }
           </div>
         </div>
-      </ul>
-    )
-  }
+      </div>
+    </ul>
+  );
 }
 
 UserTooltip.propTypes = {
@@ -55,7 +40,7 @@ UserTooltip.propTypes = {
   roleChatType: PropTypes.string,
   accountType: PropTypes.string,
   small: PropTypes.bool,
-  right: PropTypes.bool
+  right: PropTypes.bool,
 }
 
 UserTooltip.defaultProps = {
@@ -65,7 +50,7 @@ UserTooltip.defaultProps = {
   roleChatType: '',
   accountType: '',
   small: false,
-  right: false
+  right: false,
 }
 
 export default UserTooltip;

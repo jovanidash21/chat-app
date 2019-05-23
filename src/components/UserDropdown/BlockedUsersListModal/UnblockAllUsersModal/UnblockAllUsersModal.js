@@ -28,7 +28,7 @@ class UnblockAllUsersModal extends Component {
     const {
       blockedUserUnblockAll,
       open,
-      onClose
+      onClose,
     } = this.props;
 
     return (
