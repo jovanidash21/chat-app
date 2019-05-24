@@ -11,7 +11,7 @@ var sockets = function(io) {
 
     socket.on('action', (action) => {
       switch(action.type) {
-        case 'SOCKET_USER_LOGIN':
+        case 'SOCKET_USER_LOGIN': {
           User.findByIdAndUpdate(
             action.userID,
             { $set: { isOnline: true, socketID: socket.id } },
@@ -29,29 +29,34 @@ var sockets = function(io) {
             console.log(error);
           });
           break;
-        case 'SOCKET_JOIN_CHAT_ROOM':
+        }
+        case 'SOCKET_JOIN_CHAT_ROOM': {
           socket.join(action.chatRoomID);
           break;
-        case 'SOCKET_LEAVE_CHAT_ROOM':
+        }
+        case 'SOCKET_LEAVE_CHAT_ROOM': {
           socket.leave(action.chatRoomID);
           break;
-        case 'SOCKET_IS_TYPING':
+        }
+        case 'SOCKET_IS_TYPING': {
           socket.broadcast.to(action.chatRoomID).emit('action', {
             type: 'SOCKET_BROADCAST_IS_TYPING',
             typer: action.typer,
             chatRoomID: action.chatRoomID
           });
           break;
-        case 'SOCKET_IS_NOT_TYPING':
+        }
+        case 'SOCKET_IS_NOT_TYPING': {
           socket.broadcast.to(action.chatRoomID).emit('action', {
             type: 'SOCKET_BROADCAST_IS_NOT_TYPING',
             typer: action.typer,
             chatRoomID: action.chatRoomID
           });
           break;
-        case 'SOCKET_CREATE_CHAT_ROOM':
-          for (var i = 0; i < action.members.length; i++) {
-            var chatRoomMember = action.members[i];
+        }
+        case 'SOCKET_CREATE_CHAT_ROOM': {
+          for (let i = 0; i < action.members.length; i += 1) {
+            const chatRoomMember = action.members[i];
 
             User.findById(chatRoomMember)
               .then((user) => {
@@ -65,9 +70,10 @@ var sockets = function(io) {
               });
           }
           break;
-        case 'SOCKET_SEND_MESSAGE':
-          var chatRoomClients = [];
-          var blockedUsers = [];
+        }
+        case 'SOCKET_SEND_MESSAGE': {
+          let chatRoomClients = [];
+          let blockedUsers = [];
 
           io.in(action.chatRoomID).clients((err, clients) => {
             if (!err) {
@@ -90,14 +96,14 @@ var sockets = function(io) {
                 const taggedUsernames = action.message.text.match(/<@(\w+)>/ig);
 
                 if (taggedUsernames !== null && taggedUsernames.length > 0) {
-                  for (var i = 0; i < taggedUsernames.length; i++) {
+                  for (let i = 0; i < taggedUsernames.length; i += 1) {
                     usernames.push(taggedUsernames[i].slice(2, -1));
                   }
                 }
               }
 
-              for (var i = 0; i < chatRoom.members.length; i++) {
-                var chatRoomMember = chatRoom.members[i];
+              for (let i = 0; i < chatRoom.members.length; i += 1) {
+                const chatRoomMember = chatRoom.members[i];
 
                 if (blockedUsers.indexOf(chatRoomMember._id) === -1) {
                   User.findById(chatRoomMember._id)
@@ -120,13 +126,13 @@ var sockets = function(io) {
                             message: action.message
                           });
                         } else {
-                          var chatRoomIndex = user.chatRooms.findIndex(singleChatRoom => {
+                          const chatRoomIndex = user.chatRooms.findIndex(singleChatRoom => {
                             return singleChatRoom.data._id == action.chatRoomID && !singleChatRoom.mute.data;
                           });
 
                           if (chatRoomIndex > -1) {
-                            var singleChatRoom = user.chatRooms[chatRoomIndex];
-                            var socketNotifyType = 'SOCKET_BROADCAST_NOTIFY_MESSAGE';
+                            const singleChatRoom = user.chatRooms[chatRoomIndex];
+                            let socketNotifyType = 'SOCKET_BROADCAST_NOTIFY_MESSAGE';
 
                             if (singleChatRoom.data.chatType === 'direct') {
                               singleChatRoom.data.name = action.message.user.name;
@@ -159,8 +165,9 @@ var sockets = function(io) {
               console.log(error);
             });
           break;
-        case 'SOCKET_DELETE_MESSAGE':
-          var chatRoomClients = [];
+        }
+        case 'SOCKET_DELETE_MESSAGE': {
+          let chatRoomClients = [];
 
           io.in(action.chatRoomID).clients((err, clients) => {
             if (!err) {
@@ -172,8 +179,8 @@ var sockets = function(io) {
             .populate('members')
             .exec()
             .then((chatRoom) => {
-              for (var i = 0; i < chatRoom.members.length; i++) {
-                var chatRoomMember = chatRoom.members[i];
+              for (let i = 0; i < chatRoom.members.length; i += 1) {
+                const chatRoomMember = chatRoom.members[i];
 
                 User.findById(chatRoomMember._id)
                   .then((user) => {
@@ -194,8 +201,9 @@ var sockets = function(io) {
               console.log(error);
             });
           break;
-        case 'SOCKET_REQUEST_VIDEO_CALL':
-          var callerUser = {};
+        }  
+        case 'SOCKET_REQUEST_VIDEO_CALL': {
+          let callerUser = {};
 
           User.findById(action.callerID, '-chatRooms -blockedUsers -socketID')
             .then((user) => {
@@ -214,7 +222,8 @@ var sockets = function(io) {
               console.log(error);
             });
           break;
-        case 'SOCKET_CANCEL_REQUEST_VIDEO_CALL':
+        }  
+        case 'SOCKET_CANCEL_REQUEST_VIDEO_CALL':{
           User.findById(action.receiverID)
             .then((user) => {
               socket.broadcast.to(user.socketID).emit('action', {
@@ -225,7 +234,8 @@ var sockets = function(io) {
               console.log(error);
             });
           break;
-        case 'SOCKET_REJECT_VIDEO_CALL':
+        }  
+        case 'SOCKET_REJECT_VIDEO_CALL': {
           User.findById(action.callerID)
             .then((user) => {
               socket.broadcast.to(user.socketID).emit('action', {
@@ -236,7 +246,8 @@ var sockets = function(io) {
               console.log(error);
             });
           break;
-        case 'SOCKET_ACCEPT_VIDEO_CALL':
+        }  
+        case 'SOCKET_ACCEPT_VIDEO_CALL': {
           User.findById(action.callerID)
             .then((user) => {
               socket.broadcast.to(user.socketID).emit('action', {
@@ -248,7 +259,8 @@ var sockets = function(io) {
               console.log(error);
             });
           break;
-        case 'SOCKET_END_VIDEO_CALL':
+        }  
+        case 'SOCKET_END_VIDEO_CALL': {
           User.findById(action.callerID)
             .then((user) => {
               socket.broadcast.to(user.socketID).emit('action', {
@@ -259,6 +271,7 @@ var sockets = function(io) {
               console.log(error);
             });
           break;
+        }  
         default:
           break;
       }
@@ -287,8 +300,8 @@ var sockets = function(io) {
 
     User.find({_id: {$ne: null}})
       .then((users) => {
-        for (var i = 0; i < users.length; i++) {
-          var user = users[i];
+        for (let i = 0; i < users.length; i += 1) {
+          const user = users[i];
 
           if (!(user.socketID in connectedUsers) && connectedUsers[user.socketID] != user._id) {
             User.findByIdAndUpdate(
