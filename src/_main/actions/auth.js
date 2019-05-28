@@ -44,7 +44,7 @@ export function localLogin( username, password ) {
 
     return dispatch({
       type: LOGIN,
-      payload: axios.post( 'login/local', data ),
+      payload: axios.post( '/login/local', data ),
     })
     .then(() => {
       dispatch( hideLoading() );

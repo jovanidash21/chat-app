@@ -24,7 +24,7 @@ export function fetchChatRooms( userID ) {
   return dispatch => {
     return dispatch({
       type: FETCH_CHAT_ROOMS,
-      payload: axios.post( 'chat-room', data ),
+      payload: axios.post( '/chat-room', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
@@ -124,7 +124,7 @@ export function createGroupChatRoom( name, members, userID, activeChatRoomID ) {
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post( 'chat-room/create', data ),
+      payload: axios.post( '/chat-room/create', data ),
     })
     .then(( response ) => {
       dispatch( createChatRoom( userID, response.action.payload.data.chatRoom, activeChatRoomID ) );
@@ -155,7 +155,7 @@ export function createDirectChatRoom( userID, memberID, activeChatRoomID, noChan
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post( 'chat-room/create', data ),
+      payload: axios.post( '/chat-room/create', data ),
     })
     .then(( response ) => {
       const chatRoom = response.action.payload.data.chatRoom;
@@ -211,7 +211,7 @@ export function clearChatRoomUnreadMessages( userID, chatRoomIDs ) {
   return dispatch => {
     return dispatch({
       type: CLEAR_CHAT_ROOM_UNREAD_MESSAGES,
-      payload: axios.post( 'chat-room/clear-unread', data ),
+      payload: axios.post( '/chat-room/clear-unread', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
@@ -236,7 +236,7 @@ export function muteChatRoom( userID, chatRoomID ) {
   return dispatch => {
     return dispatch({
       type: MUTE_CHAT_ROOM,
-      payload: axios.post( 'chat-room/mute', data ),
+      payload: axios.post( '/chat-room/mute', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
@@ -261,7 +261,7 @@ export function unmuteChatRoom(userID, chatRoomID) {
   return dispatch => {
     return dispatch({
       type: UNMUTE_CHAT_ROOM,
-      payload: axios.post( 'chat-room/unmute', data ),
+      payload: axios.post( '/chat-room/unmute', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {

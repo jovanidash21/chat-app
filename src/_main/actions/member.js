@@ -16,7 +16,7 @@ export function fetchMembers( chatRoomID, userID ) {
   return dispatch => {
     return dispatch({
       type: FETCH_MEMBERS,
-      payload: axios.post( 'member', data ),
+      payload: axios.post( '/member', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {

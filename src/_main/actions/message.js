@@ -24,7 +24,7 @@ export function fetchNewMessages( chatRoomID, userID ) {
   return dispatch => {
     return dispatch({
       type: FETCH_NEW_MESSAGES,
-      payload: axios.post( 'message', data ),
+      payload: axios.post( '/message', data ),
       meta: chatRoomID,
     })
     .catch(( error ) => {
@@ -52,7 +52,7 @@ export function fetchOldMessages( chatRoomID, userID, skipCount ) {
   return dispatch => {
     return dispatch({
       type: FETCH_OLD_MESSAGES,
-      payload: axios.post( 'message', data ),
+      payload: axios.post( '/message', data ),
       meta: chatRoomID,
     })
     .catch(( error ) => {
@@ -102,7 +102,7 @@ export function sendTextMessage( newMessageID, text, user, chatRoomID ) {
     });
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post( 'message/text', data ),
+      payload: axios.post( '/message/text', data ),
       meta: newMessageID,
     })
     .then(( response ) => {
@@ -175,7 +175,7 @@ export function sendFileMessage( newMessageID, text, file, user, chatRoomID ) {
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post( 'message/file', data, config ),
+      payload: axios.post( '/message/file', data, config ),
       meta: newMessageID,
     })
     .then(( response ) => {
@@ -244,7 +244,7 @@ export function sendAudioMessage( newMessageID, text, audioBlob, user, chatRoomI
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post( 'message/audio', data, config ),
+      payload: axios.post( '/message/audio', data, config ),
       meta: newMessageID,
     })
     .then(( response ) => {
@@ -278,7 +278,7 @@ export function deleteMessage( messageID, chatRoomID ) {
   return dispatch => {
     return dispatch({
       type: DELETE_MESSAGE,
-      payload: axios.post( 'message/delete', data ),
+      payload: axios.post( '/message/delete', data ),
       meta: {
         messageID,
         chatRoomID,

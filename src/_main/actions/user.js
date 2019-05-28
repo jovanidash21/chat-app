@@ -15,7 +15,7 @@ export function fetchActiveUser() {
   return dispatch => {
     return dispatch({
       type: FETCH_ACTIVE_USER,
-      payload: axios.get( 'user' ),
+      payload: axios.get( '/user' ),
     })
     .then((response) => {
       dispatch( fetchChatRooms( response.value.data.user._id ) );
@@ -49,7 +49,7 @@ export function editActiveUser( userID, username, name, email, profilePicture ) 
   return dispatch => {
     return dispatch({
       type: EDIT_ACTIVE_USER,
-      payload: axios.post( 'user/edit-profile', data ),
+      payload: axios.post( '/user/edit-profile', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
@@ -74,7 +74,7 @@ export function searchUser( query, chatRoomID = '' ) {
   return dispatch => {
     return dispatch({
       type: SEARCH_USER,
-      payload: axios.post( 'user/search', data ),
+      payload: axios.post( '/user/search', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {

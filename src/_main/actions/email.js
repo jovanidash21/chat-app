@@ -16,7 +16,7 @@ export function sendEmail( email, name ) {
   return dispatch => {
     return dispatch({
       type: SEND_EMAIL,
-      payload: axios.post( 'email', data ),
+      payload: axios.post( '/email', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {

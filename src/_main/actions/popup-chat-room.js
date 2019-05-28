@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   OPEN_POPUP_CHAT_ROOM,
   CLOSE_POPUP_CHAT_ROOM,

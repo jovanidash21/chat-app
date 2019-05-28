@@ -19,7 +19,7 @@ export function fetchBlockedUsers( userID ) {
   return dispatch => {
     return dispatch({
       type: FETCH_BLOCKED_USERS,
-      payload: axios.post( 'blocked-user', data ),
+      payload: axios.post( '/blocked-user', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
@@ -44,7 +44,7 @@ export function blockUser( userID, blockUserID ) {
   return dispatch => {
     return dispatch({
       type: BLOCK_USER,
-      payload: axios.post( 'blocked-user/block', data ),
+      payload: axios.post( '/blocked-user/block', data ),
       meta: blockUserID,
     })
     .catch(( error ) => {
@@ -70,7 +70,7 @@ export function unblockUser( userID, unblockUserID ) {
   return dispatch => {
     return dispatch({
       type: UNBLOCK_USER,
-      payload: axios.post( 'blocked-user/unblock', data ),
+      payload: axios.post( '/blocked-user/unblock', data ),
       meta: unblockUserID,
     })
     .catch(( error ) => {
@@ -94,7 +94,7 @@ export function unblockAllUsers( userID ) {
   return dispatch => {
     return dispatch({
       type: UNBLOCK_ALL_USERS,
-      payload: axios.post( 'blocked-user/unblock-all', data ),
+      payload: axios.post( '/blocked-user/unblock-all', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
