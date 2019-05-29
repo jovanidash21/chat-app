@@ -15,7 +15,7 @@ export function fetchChatRoomsCount() {
   return dispatch => {
     return dispatch({
       type: FETCH_CHAT_ROOMS_COUNT,
-      payload: axios.get( 'chat-room/count' ),
+      payload: axios.get( '/chat-room/count' ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
@@ -36,7 +36,7 @@ export function fetchSelectedChatRoom( chatRoomID ) {
   return dispatch => {
     return dispatch({
       type: FETCH_SELECTED_CHAT_ROOM,
-      payload: axios.post( 'chat-room/select', data ),
+      payload: axios.post( '/chat-room/select', data ),
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -53,7 +53,7 @@ export function fetchChatRooms() {
   return dispatch => {
     return dispatch({
       type: FETCH_CHAT_ROOMS,
-      payload: axios.get( 'chat-room/all' ),
+      payload: axios.get( '/chat-room/all' ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
@@ -82,7 +82,7 @@ export function createChatRoom( chatType, name, members, chatIcon ) {
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post( 'chat-room/create', data ),
+      payload: axios.post( '/chat-room/create', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
@@ -113,7 +113,7 @@ export function editChatRoom( chatRoomID, chatType, name, members, chatIcon ) {
   return dispatch => {
     return dispatch({
       type: EDIT_CHAT_ROOM,
-      payload: axios.post( 'chat-room/edit', data ),
+      payload: axios.post( '/chat-room/edit', data ),
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {
@@ -134,7 +134,7 @@ export function deleteChatRoom( chatRoomID ) {
   return dispatch => {
     return dispatch({
       type: DELETE_CHAT_ROOM,
-      payload: axios.post( 'chat-room/delete', data ),
+      payload: axios.post( '/chat-room/delete', data ),
       meta: chatRoomID,
     })
     .catch(( error ) => {
