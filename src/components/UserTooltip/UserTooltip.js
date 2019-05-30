@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Avatar } from '../Avatar';
 import './styles.scss';
 
-const NotificationCount = (props) => {
+const UserTooltip = (props) => {
   return (
     <ul className={"user-tooltip-wrapper mui-dropdown__menu " + (props.right ? 'mui-dropdown__menu--right' : '')}>
       <div className={"user-tooltip " + (props.small ? 'small' : '')}>
