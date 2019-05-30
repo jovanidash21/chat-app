@@ -1,27 +1,27 @@
 require('dotenv').config();
 
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cookieSession = require('cookie-session');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var flash = require('connect-flash');
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const flash = require('connect-flash');
+const mongoose = require('mongoose');
+const Promise = require('bluebird');
 
-var index = require('./routes/index');
-var api = require('./routes/api');
-var admin = require('./routes/admin');
+const index = require('./routes/index');
+const api = require('./routes/api');
+const admin = require('./routes/admin');
 
-var app = express();
+const app = express();
 
 // browserSync setup
 if ( process.env.NODE_ENV != 'production' ) {
-  var browserSync = require('browser-sync');
+  const browserSync = require('browser-sync');
   browserSync({
     files: ['./**/*'],
     online: false,
