@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var ChatRoom = require('../models/ChatRoom');
+const express = require('express');
+const router = express.Router();
+const ChatRoom = require('../models/ChatRoom');
 
 router.get('/admin', (req, res, next) => {
   if (req.user && req.user.role == 'admin') {
