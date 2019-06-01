@@ -60,7 +60,7 @@ router.get('/create-chat-room', (req, res, next) => {
 
 router.get('/edit-chat-room/:chatRoomID', (req, res, next) => {
   if (req.user && req.user.role == 'admin') {
-    var chatRoomID = req.params.chatRoomID;
+    const chatRoomID = req.params.chatRoomID;
 
     ChatRoom.findById(chatRoomID)
       .exec()

@@ -1,11 +1,11 @@
-var User = require('../models/User');
-var ChatRoom = require('../models/ChatRoom');
-var Message = require('../models/Message');
-var cron = require('../cron');
+const User = require('../models/User');
+const ChatRoom = require('../models/ChatRoom');
+const Message = require('../models/Message');
+const cron = require('../cron');
 
-var connectedUsers = {};
+const connectedUsers = {};
 
-var sockets = function(io) {
+const sockets = function(io) {
   io.sockets.on('connection', function (socket) {
     cron(socket);
 
