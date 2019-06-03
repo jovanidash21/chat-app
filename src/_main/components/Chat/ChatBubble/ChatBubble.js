@@ -6,8 +6,6 @@ import Linkify from 'react-linkify';
 import ReactHtmlParser from 'react-html-parser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Plyr from 'react-plyr';
-import TimeAgo from 'react-timeago';
-import moment from 'moment';
 import { isDatesSameDay } from '../../../../utils/date';
 import { Avatar } from '../../../../components/Avatar';
 import './styles.scss';

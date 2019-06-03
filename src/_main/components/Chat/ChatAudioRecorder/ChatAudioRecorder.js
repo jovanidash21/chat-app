@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'muicss/react';
 import { ReactMic } from 'react-mic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuidv4 from 'uuid/v4';
@@ -12,7 +11,7 @@ class ChatAudioRecorder extends Component {
 
     this.state = {
       isAudioRecording: false,
-      isSendAudioClick: false
+      isSendAudioClick: false,
     };
   }
   handleStartAudioRecording(event) {
@@ -20,7 +19,7 @@ class ChatAudioRecorder extends Component {
 
     this.setState({
       isAudioRecording: true,
-      isSendAudioClick: false
+      isSendAudioClick: false,
     });
   }
   handleStopAudioRecording(event) {
@@ -28,7 +27,7 @@ class ChatAudioRecorder extends Component {
 
     this.setState({
       isAudioRecording: false,
-      isSendAudioClick: false
+      isSendAudioClick: false,
     });
   }
   handleSendAudioMessageOnClick() {
@@ -37,14 +36,14 @@ class ChatAudioRecorder extends Component {
     if ( isAudioRecording ) {
       this.setState({
         isAudioRecording: false,
-        isSendAudioClick: true
+        isSendAudioClick: true,
       });
     }
   }
   handleAudioUploadRecord(audio) {
     const {
       chatRoomID,
-      handleSendAudioMessage
+      handleSendAudioMessage,
     } = this.props;
     const { isSendAudioClick } = this.state;
     const newMessageID = uuidv4();
@@ -126,11 +125,11 @@ ChatAudioRecorder.propTypes = {
   chatRoomID: PropTypes.string.isRequired,
   handleAudioRecorderToggle: PropTypes.func.isRequired,
   handleSendAudioMessage: PropTypes.func.isRequired,
-  small: PropTypes.bool
+  small: PropTypes.bool,
 }
 
 ChatAudioRecorder.defaultProps = {
-  small: false
+  small: false,
 }
 
 export default ChatAudioRecorder;
