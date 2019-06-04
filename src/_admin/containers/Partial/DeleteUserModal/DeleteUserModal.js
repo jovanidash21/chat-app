@@ -22,13 +22,11 @@ class DeleteUserModal extends Component {
   }
   componentDidUpdate(prevProps) {
     if ( prevProps.user.fetchSelect.loading && !this.props.user.fetchSelect.loading ) {
-      this.setState({
-        loading: false,
-      });
+      this.setState({loading: false});
     }
 
     if ( prevProps.user.delete.loading && this.props.user.delete.success ) {
-      this.props.handleCloseModal();
+      this.props.onClose();
     }
   }
   handleDeleteUser(event) {
@@ -45,8 +43,8 @@ class DeleteUserModal extends Component {
   render() {
     const {
       user,
-      isModalOpen,
-      handleCloseModal,
+      open,
+      onClose,
     } = this.props;
     const { loading } = this.state;
     const selectedUser = user.selected;
@@ -54,8 +52,8 @@ class DeleteUserModal extends Component {
     return (
       <Modal
         className="delete-user-modal"
-        open={isModalOpen}
-        onClose={handleCloseModal}
+        open={open}
+        onClose={onClose}
         danger
       >
         <Form onSubmit={::this.handleDeleteUser}>
@@ -136,7 +134,7 @@ class DeleteUserModal extends Component {
                 <Fragment>
                   <Button
                     className="button button-default"
-                    onClick={handleCloseModal}
+                    onClick={onClose}
                     disabled={user.delete.loading}
                   >
                     Cancel
@@ -164,12 +162,12 @@ const mapStateToProps = (state) => {
 }
 
 DeleteUserModal.propTypes = {
-  isModalOpen: PropTypes.bool,
-  handleCloseModal: PropTypes.func.isRequired,
+  open: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
 }
 
 DeleteUserModal.defaultProps = {
-  isModalOpen: false,
+  open: false,
 }
 
 export default connect(

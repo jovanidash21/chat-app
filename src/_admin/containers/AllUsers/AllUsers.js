@@ -98,8 +98,8 @@ class AllUsers extends Component {
       plural: 'users',
     };
     const modal = (<DeleteUserModal
-        isModalOpen={isModalOpen}
-        handleCloseModal={::this.handleCloseModal}
+        open={isModalOpen}
+        onClose={::this.handleCloseModal}
       />);
 
     return (
