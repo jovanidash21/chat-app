@@ -29,7 +29,7 @@ class DeleteChatRoomModal extends Component {
     }
 
     if ( prevProps.chatRoom.delete.loading && this.props.chatRoom.delete.success ) {
-      this.props.handleCloseModal();
+      this.props.onClose();
     }
   }
   handleDeleteChatRoom(event) {
@@ -46,8 +46,8 @@ class DeleteChatRoomModal extends Component {
   render() {
     const {
       chatRoom,
-      isModalOpen,
-      handleCloseModal,
+      open,
+      onClose,
     } = this.props;
     const { loading } = this.state;
     const selectedChatRoom = chatRoom.selected;
@@ -55,8 +55,8 @@ class DeleteChatRoomModal extends Component {
     return (
       <Modal
         className="delete-chat-room-modal"
-        open={isModalOpen}
-        onClose={handleCloseModal}
+        open={open}
+        onClose={onClose}
         danger
       >
         <Form onSubmit={::this.handleDeleteChatRoom}>
@@ -135,7 +135,7 @@ class DeleteChatRoomModal extends Component {
                 <Fragment>
                   <Button
                     className="button button-default"
-                    onClick={handleCloseModal}
+                    onClick={onClose}
                     disabled={chatRoom.delete.loading}
                   >
                     Cancel
@@ -163,12 +163,12 @@ const mapStateToProps = (state) => {
 }
 
 DeleteChatRoomModal.propTypes = {
-  isModalOpen: PropTypes.bool,
-  handleCloseModal: PropTypes.func.isRequired,
+  open: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
 }
 
 DeleteChatRoomModal.defaultProps = {
-  isModalOpen: false,
+  open: false,
 }
 
 export default connect(

@@ -97,8 +97,8 @@ class AllChatRooms extends Component {
       plural: 'chat rooms',
     };
     const modal = (<DeleteChatRoomModal
-        isModalOpen={isModalOpen}
-        handleCloseModal={::this.handleCloseModal}
+        open={isModalOpen}
+        onClose={::this.handleCloseModal}
       />);
 
     return (
