@@ -22,7 +22,7 @@ class AllChatRooms extends Component {
 
     this.state = {
       loading: true,
-      isModalOpen: false,
+      deleteModalOpen: false,
       columns: [
         { key: 'name', label: 'Name' },
         { key: 'members', label: 'Members' },
@@ -74,15 +74,15 @@ class AllChatRooms extends Component {
       rows: chatRoomRows,
     });
   }
-  handleOpenModal(selecedtChatRoomID) {
+  handleOpenDeleteModal(selecedtChatRoomID) {
     const { fetchSelectedChatRoom } = this.props;
 
-    this.setState({isModalOpen: true});
+    this.setState({deleteModalOpen: true});
 
     fetchSelectedChatRoom(selecedtChatRoomID);
   }
-  handleCloseModal() {
-    this.setState({isModalOpen: false});
+  handleCloseDeleteModal() {
+    this.setState({deleteModalOpen: false});
   }
   render() {
     const { chatRoom } = this.props;
@@ -90,15 +90,15 @@ class AllChatRooms extends Component {
       loading,
       columns,
       rows,
-      isModalOpen,
+      deleteModalOpen,
     } = this.state;
     const label = {
       singular: 'chat room',
       plural: 'chat rooms',
     };
     const modal = (<DeleteChatRoomModal
-        open={isModalOpen}
-        onClose={::this.handleCloseModal}
+        open={deleteModalOpen}
+        onClose={::this.handleCloseDeleteModal}
       />);
 
     return (
@@ -126,9 +126,9 @@ class AllChatRooms extends Component {
                 loading={loading}
                 editLink="/edit-chat-room"
                 deleteModal={modal}
-                isDeleteModalOpen={isModalOpen}
-                handleOpenDeleteModal={::this.handleOpenModal}
-                handleCloseDeleteModal={::this.handleCloseModal}
+                deleteModalOpen={deleteModalOpen}
+                handleOpenDeleteModal={::this.handleOpenDeleteModal}
+                handleCloseDeleteModal={::this.handleCloseDeleteModal}
               />
             </Col>
           </Row>

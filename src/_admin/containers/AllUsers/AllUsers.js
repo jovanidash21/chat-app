@@ -21,7 +21,7 @@ class AllUsers extends Component {
 
     this.state = {
       loading: true,
-      isModalOpen: false,
+      deleteModalOpen: false,
       columns: [
         { key: 'name', label: 'Name' },
         { key: 'email', label: 'Email' },
@@ -75,15 +75,15 @@ class AllUsers extends Component {
       rows: userRows
     });
   }
-  handleOpenModal(selecedtUserID) {
+  handleOpenDeleteModal(selecedtUserID) {
     const { fetchSelectedUser } = this.props;
 
-    this.setState({isModalOpen: true});
+    this.setState({deleteModalOpen: true});
 
     fetchSelectedUser(selecedtUserID);
   }
-  handleCloseModal() {
-    this.setState({isModalOpen: false});
+  handleCloseDeleteModal() {
+    this.setState({deleteModalOpen: false});
   }
   render() {
     const { user } = this.props;
@@ -91,15 +91,15 @@ class AllUsers extends Component {
       loading,
       columns,
       rows,
-      isModalOpen,
+      deleteModalOpen,
     } = this.state;
     const label = {
       singular: 'user',
       plural: 'users',
     };
     const modal = (<DeleteUserModal
-        open={isModalOpen}
-        onClose={::this.handleCloseModal}
+        open={deleteModalOpen}
+        onClose={::this.handleCloseDeleteModal}
       />);
 
     return (
@@ -127,9 +127,9 @@ class AllUsers extends Component {
                 loading={loading}
                 editLink="/edit-user"
                 deleteModal={modal}
-                isDeleteModalOpen={isModalOpen}
-                handleOpenDeleteModal={::this.handleOpenModal}
-                handleCloseDeleteModal={::this.handleCloseModal}
+                deleteModalOpen={deleteModalOpen}
+                handleOpenDeleteModal={::this.handleOpenDeleteModal}
+                handleCloseDeleteModal={::this.handleCloseDeleteModal}
               />
             </Col>
           </Row>

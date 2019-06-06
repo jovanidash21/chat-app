@@ -178,7 +178,7 @@ class Table extends Component {
       loading,
       editLink,
       deleteModal,
-      isDeleteModalOpen
+      deleteModalOpen
     } = this.props;
     const {
       totalRows,
@@ -374,7 +374,7 @@ class Table extends Component {
           }
         </div>
         {
-          isDeleteModalOpen &&
+          deleteModalOpen &&
           deleteModal
         }
       </Panel>
@@ -393,7 +393,7 @@ Table.propTypes = {
   loading: PropTypes.bool,
   editLink: PropTypes.string,
   deleteModal: PropTypes.element,
-  isDeleteModalOpen: PropTypes.bool,
+  deleteModalOpen: PropTypes.bool,
   handleOpenDeleteModal: PropTypes.func,
   handleCloseDeleteModal: PropTypes.func,
 }
@@ -406,7 +406,7 @@ Table.defaultProps = {
   loading: false,
   editLink: '',
   deleteModal: React.createElement('div'),
-  isDeleteModalOpen: false,
+  deleteModalOpen: false,
   handleOpenDeleteModal: () => {},
   handleCloseDeleteModal: () => {},
 }
