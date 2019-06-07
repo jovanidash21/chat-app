@@ -93,12 +93,12 @@ class DeleteUserModal extends Component {
                 <Fragment>
                   {
                     Array.from(Array(2).keys()).map((i) =>
-                      <p key={i}>
+                      <div key={i} style={{marginBottom: '0.625rem'}}>
                         <Skeleton
                           height="20px"
                           width={(i === 0 ? '100%' : '75%')}
                         />
-                      </p>
+                      </div>
                     )
                   }
                 </Fragment>
