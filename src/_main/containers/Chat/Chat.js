@@ -47,7 +47,7 @@ class Chat extends Component {
       isRightSideDrawerOpen: false,
       activeChatPopUpWindow: -1,
       isAudioRecorderOpen: false,
-      isDragDropBoxOpen: false,
+      dragDropBoxOpen: false,
       localVideoSource: {},
       remoteVideoSource: {},
       isVideoCallRequestModalOpen: false,
@@ -159,7 +159,7 @@ class Chat extends Component {
     this.setState({isAudioRecorderOpen: ! this.state.isAudioRecorderOpen});
   }
   handleDragDropBoxToggle(openTheDragDropBox = false) {
-    this.setState({isDragDropBoxOpen: openTheDragDropBox});
+    this.setState({dragDropBoxOpen: openTheDragDropBox});
   }
   handleSendTextMessage(newMessageID, text, chatRoomID) {
     const {
@@ -313,7 +313,7 @@ class Chat extends Component {
       isRightSideDrawerOpen,
       activeChatPopUpWindow,
       isAudioRecorderOpen,
-      isDragDropBoxOpen,
+      dragDropBoxOpen,
       localVideoSource,
       remoteVideoSource,
       isVideoCallRequestModalOpen,
@@ -321,7 +321,7 @@ class Chat extends Component {
     } = this.state;
     const activeChatRoom = chatRoom.active;
     const loading = user.fetchActive.loading || chatRoom.fetch.loading;
-    const isChatInputDisabled = message.fetchNew.loading || isDragDropBoxOpen;
+    const isChatInputDisabled = message.fetchNew.loading || dragDropBoxOpen;
 
     return (
       <div className="chat-section" ref={(element) => { this.chatSection = element; }}>
@@ -372,7 +372,7 @@ class Chat extends Component {
             messages={message.all}
             typers={typer.all}
             handleDragDropBoxToggle={(::this.handleDragDropBoxToggle)}
-            isDragDropBoxOpen={isDragDropBoxOpen}
+            dragDropBoxOpen={dragDropBoxOpen}
             fetchNewLoading={message.fetchNew.loading}
             fetchOldLoading={message.fetchOld.loading}
           />

@@ -21,7 +21,7 @@ class ChatPopUpWindow extends Component {
 
     this.state = {
       isAudioRecorderOpen: false,
-      isDragDropBoxOpen: false,
+      dragDropBoxOpen: false,
     };
   }
   handleActiveChatPopUpWindow(event) {
@@ -66,7 +66,7 @@ class ChatPopUpWindow extends Component {
     this.setState({isAudioRecorderOpen: !this.state.isAudioRecorderOpen});
   }
   handleDragDropBoxToggle(openTheDragDropBox=false) {
-    this.setState({isDragDropBoxOpen: openTheDragDropBox});
+    this.setState({dragDropBoxOpen: openTheDragDropBox});
   }
   render() {
     const {
@@ -82,7 +82,7 @@ class ChatPopUpWindow extends Component {
     } = this.props;
     const {
       isAudioRecorderOpen,
-      isDragDropBoxOpen,
+      dragDropBoxOpen,
     } = this.state;
     const activeUser = user.active;
     const isChatInputDisabled = popUpChatRoom.message.fetchNew.loading;
@@ -129,7 +129,7 @@ class ChatPopUpWindow extends Component {
               messages={popUpChatRoom.message.all}
               typers={popUpChatRoom.typer.all}
               handleDragDropBoxToggle={(::this.handleDragDropBoxToggle)}
-              isDragDropBoxOpen={isDragDropBoxOpen}
+              dragDropBoxOpen={dragDropBoxOpen}
               fetchNewLoading={popUpChatRoom.message.fetchNew.loading}
               fetchOldLoading={popUpChatRoom.message.fetchOld.loading}
               small

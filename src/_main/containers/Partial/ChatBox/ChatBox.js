@@ -33,7 +33,7 @@ class ChatBox extends Component {
       isImageLightboxOpen: false,
       imageIndex: -1,
       audioIndex: -1,
-      isModalOpen: false,
+      deleteMessageModalOpen: false,
       selectedMessageID: '',
     };
   }
@@ -139,7 +139,7 @@ class ChatBox extends Component {
                     handleImageLightboxToggle={::this.handleImageLightboxToggle}
                     handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
                     isActiveUserAdmin={isActiveUserAdmin}
-                    handleOpenModal={::this.handleOpenModal}
+                    handleOpenDeleteMessageModal={::this.handleOpenDeleteMessageModal}
                     small={small}
                   />
                 </div>
@@ -225,10 +225,10 @@ class ChatBox extends Component {
   handleDragDropBoxRender() {
     const {
       handleDragDropBoxToggle,
-      isDragDropBoxOpen
+      dragDropBoxOpen
     } = this.props;
 
-    if ( isDragDropBoxOpen ) {
+    if ( dragDropBoxOpen ) {
       return (
         <ChatDragDropBox
           handleDragDropBoxToggle={handleDragDropBoxToggle}
@@ -352,15 +352,15 @@ class ChatBox extends Component {
 
     this.setState({audioIndex: audioPlayingIndex});
   }
-  handleOpenModal(selectedMessageID) {
+  handleOpenDeleteMessageModal(selectedMessageID) {
     this.setState({
-      isModalOpen: true,
+      deleteMessageModalOpen: true,
       selectedMessageID: selectedMessageID
     });
   }
-  handleCloseModal() {
+  handleCloseDeleteMessageModal() {
     this.setState({
-      isModalOpen: false,
+      deleteMessageModalOpen: false,
       selectedMessageID: ''
     });
   }
@@ -374,7 +374,7 @@ class ChatBox extends Component {
       small
     } = this.props;
     const {
-      isModalOpen,
+      deleteMessageModalOpen,
       selectedMessageID
     } = this.state;
 
@@ -392,11 +392,11 @@ class ChatBox extends Component {
           {::this.handleImageLightboxRender()}
           {::this.handleDragDropBoxRender()}
           {
-            isModalOpen &&
+            deleteMessageModalOpen &&
             <DeleteMessageModal
-              open={isModalOpen}
+              open={deleteMessageModalOpen}
               selectedMessageID={selectedMessageID}
-              onClose={::this.handleCloseModal}
+              onClose={::this.handleCloseDeleteMessageModal}
             />
           }
         </div>
@@ -416,7 +416,7 @@ ChatBox.propTypes = {
   messages: PropTypes.array.isRequired,
   typers: PropTypes.array,
   handleDragDropBoxToggle: PropTypes.func.isRequired,
-  isDragDropBoxOpen: PropTypes.bool,
+  dragDropBoxOpen: PropTypes.bool,
   fetchNewLoading: PropTypes.bool,
   fetchOldLoading: PropTypes.bool,
   small: PropTypes.bool,
@@ -424,7 +424,7 @@ ChatBox.propTypes = {
 
 ChatBox.defaultProps = {
   typers: [],
-  isDragDropBoxOpen: false,
+  dragDropBoxOpen: false,
   fetchNewLoading: false,
   fetchOldLoading: false,
   small: false,
