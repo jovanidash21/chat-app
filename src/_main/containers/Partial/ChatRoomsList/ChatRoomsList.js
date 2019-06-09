@@ -17,7 +17,7 @@ class ChatRoomsList extends Component {
 
     this.state = {
       isChatBoxRoomsListScrolled: false,
-      isModalOpen: false,
+      createChatRoomModalOpen: false,
       chatRooms: [],
       searchFilter: '',
       selectedChatRoomIndex: -1,
@@ -86,13 +86,13 @@ class ChatRoomsList extends Component {
     this.setState({searchFilter: ''});
     ::this.handleChatRoomsListFilter();
   }
-  handleOpenModal(event) {
+  handleOpenCreateChatRoomModal(event) {
     event.preventDefault();
 
-    this.setState({isModalOpen: true});
+    this.setState({createChatRoomModalOpen: true});
   }
-  handleCloseModal() {
-    this.setState({isModalOpen: false});
+  handleCloseCreateChatRoomModal() {
+    this.setState({createChatRoomModalOpen: false});
   }
   onSearchFilterChange(event) {
     const searchFilter = event.target.value;
@@ -155,7 +155,7 @@ class ChatRoomsList extends Component {
     } = this.props;
     const {
       isChatBoxRoomsListScrolled,
-      isModalOpen,
+      createChatRoomModalOpen,
       chatRooms,
       searchFilter,
       selectedChatRoomIndex,
@@ -188,7 +188,7 @@ class ChatRoomsList extends Component {
                   </div>
                   <h3>Chat Rooms</h3>
                   <div className="plus-icon"
-                    onClick={::this.handleOpenModal}
+                    onClick={::this.handleOpenCreateChatRoomModal}
                     title="Create Chat Room"
                   >
                     <FontAwesomeIcon icon="plus" />
@@ -290,10 +290,10 @@ class ChatRoomsList extends Component {
           </div>
         </div>
         {
-          isModalOpen &&
+          createChatRoomModalOpen &&
           <CreateChatRoomModal
-            open={isModalOpen}
-            onClose={::this.handleCloseModal}
+            open={createChatRoomModalOpen}
+            onClose={::this.handleCloseCreateChatRoomModal}
             handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
           />
         }
