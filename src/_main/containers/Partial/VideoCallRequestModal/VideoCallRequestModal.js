@@ -16,7 +16,7 @@ class VideoCallRequestModal extends Component {
 
     const {
       videoCall,
-      handleAcceptVideoCall
+      handleAcceptVideoCall,
     } = this.props;
     const peerUser = videoCall.peerUser;
 
@@ -32,7 +32,7 @@ class VideoCallRequestModal extends Component {
   render() {
     const {
       open,
-      videoCall
+      videoCall,
     } = this.props;
     const peerUser = videoCall.peerUser;
 
@@ -74,21 +74,21 @@ class VideoCallRequestModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    videoCall: state.videoCall
+    videoCall: state.videoCall,
   }
 }
 
 VideoCallRequestModal.propTypes = {
   open: PropTypes.bool,
   handleAcceptVideoCall: PropTypes.func.isRequired,
-  handleRejectVideoCall: PropTypes.func.isRequired
+  handleRejectVideoCall: PropTypes.func.isRequired,
 }
 
 VideoCallRequestModal.defaultProps = {
-  open: false
+  open: false,
 }
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(VideoCallRequestModal);

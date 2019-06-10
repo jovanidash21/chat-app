@@ -419,7 +419,7 @@ class Chat extends Component {
         {
           isVideoCallRequestModalOpen &&
           <VideoCallRequestModal
-            isModalOpen={isVideoCallRequestModalOpen}
+            open={isVideoCallRequestModalOpen}
             handleAcceptVideoCall={::this.handleAcceptVideoCall}
             handleRejectVideoCall={::this.handleRejectVideoCall}
           />
