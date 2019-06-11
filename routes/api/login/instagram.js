@@ -1,20 +1,20 @@
-var express = require('express');
-var router = express.Router({mergeParams: true});
-var passport = require('passport');
-var Strategy = require('passport-instagram').Strategy;
-var User = require('../../../models/User');
-var ChatRoom = require('../../../models/ChatRoom');
-var popupTools = require('popup-tools');
+const express = require('express');
+const router = express.Router({mergeParams: true});
+const passport = require('passport');
+const Strategy = require('passport-instagram').Strategy;
+const User = require('../../../models/User');
+const ChatRoom = require('../../../models/ChatRoom');
+const popupTools = require('popup-tools');
 
 passport.use(new Strategy({
   clientID: process.env.INSTAGRAM_CLIENT_ID,
   clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
   callbackURL: '/api/login/instagram/callback'
 }, (accessToken, refreshToken, profile, done) => {
-  var username = 'instagram/' + profile.id;
-  var name = profile.displayName;
-  var profilePicture = profile._json.data.profile_picture.replace('s150x150', 's200x200');
-  var userData = {
+  const username = 'instagram/' + profile.id;
+  const name = profile.displayName;
+  const profilePicture = profile._json.data.profile_picture.replace('s150x150', 's200x200');
+  const userData = {
     username: username,
     name: name,
     email: '',
@@ -33,19 +33,19 @@ passport.use(new Strategy({
           }
         });
       } else {
-        var newUser = new User(userData);
+        const newUser = new User(userData);
 
         newUser.save()
           .then((userData) => {
-            var chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
-            var userID = userData._id;
-            var chatRoomData = {
+            const chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
+            const userID = userData._id;
+            const chatRoomData = {
               name: newUser.name,
               chatIcon: '',
               members: [userID],
               chatType: 'private'
             };
-            var chatRoom = new ChatRoom(chatRoomData);
+            const chatRoom = new ChatRoom(chatRoomData);
 
             if (chatLoungeID) {
               ChatRoom.findByIdAndUpdate(
@@ -64,7 +64,7 @@ passport.use(new Strategy({
             return chatRoom.save();
           })
           .then((chatRoomData) => {
-            var chatRoomID = chatRoomData._id;
+            const chatRoomID = chatRoomData._id;
 
             User.findByIdAndUpdate(
               newUser._id,

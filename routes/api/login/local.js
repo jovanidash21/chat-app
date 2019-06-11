@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router({mergeParams: true});
-var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
-var User = require('../../../models/User');
+const express = require('express');
+const router = express.Router({mergeParams: true});
+const passport = require('passport');
+const Strategy = require('passport-local').Strategy;
+const User = require('../../../models/User');
 
 passport.use(new Strategy(
   User.authenticate()

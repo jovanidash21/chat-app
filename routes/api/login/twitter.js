@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router({mergeParams: true});
-var passport = require('passport');
-var Strategy = require('passport-twitter').Strategy;
-var User = require('../../../models/User');
-var ChatRoom = require('../../../models/ChatRoom');
-var popupTools = require('popup-tools');
+const express = require('express');
+const router = express.Router({mergeParams: true});
+const passport = require('passport');
+const Strategy = require('passport-twitter').Strategy;
+const User = require('../../../models/User');
+const ChatRoom = require('../../../models/ChatRoom');
+const popupTools = require('popup-tools');
 
 passport.use(new Strategy({
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
@@ -12,10 +12,10 @@ passport.use(new Strategy({
   callbackURL: '/api/login/twitter/callback',
   includeEmail: true
 }, (token, tokenSecret, profile, done) => {
-  var username = 'twitter/' + profile.id;
-  var name = profile.displayName;
-  var email;
-  var profilePicture;
+  const username = 'twitter/' + profile.id;
+  const name = profile.displayName;
+  let email;
+  let profilePicture;
 
   if (profile.emails !== undefined) {
     email = profile.emails[0].value;
@@ -30,7 +30,7 @@ passport.use(new Strategy({
     profilePicture = '';
   }
 
-  var userData = {
+  const userData = {
     username: username,
     name: name,
     email: email,
@@ -49,19 +49,19 @@ passport.use(new Strategy({
           }
         });
       } else {
-        var newUser = new User(userData);
+        const newUser = new User(userData);
 
         newUser.save()
           .then((userData) => {
-            var chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
-            var userID = userData._id;
-            var chatRoomData = {
+            const chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
+            const userID = userData._id;
+            const chatRoomData = {
               name: newUser.name,
               chatIcon: '',
               members: [userID],
               chatType: 'private'
             };
-            var chatRoom = new ChatRoom(chatRoomData);
+            const chatRoom = new ChatRoom(chatRoomData);
 
             if (chatLoungeID) {
               ChatRoom.findByIdAndUpdate(
@@ -80,7 +80,7 @@ passport.use(new Strategy({
             return chatRoom.save();
           })
           .then((chatRoomData) => {
-            var chatRoomID = chatRoomData._id;
+            const chatRoomID = chatRoomData._id;
 
             User.findByIdAndUpdate(
               newUser._id,
