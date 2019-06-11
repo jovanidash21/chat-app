@@ -10,33 +10,33 @@ class ChatAudioRecorder extends Component {
     super(props);
 
     this.state = {
-      isAudioRecording: false,
-      isSendAudioClick: false,
+      audioRecording: false,
+      sendAudioClick: false,
     };
   }
   handleStartAudioRecording(event) {
     event.preventDefault();
 
     this.setState({
-      isAudioRecording: true,
-      isSendAudioClick: false,
+      audioRecording: true,
+      sendAudioClick: false,
     });
   }
   handleStopAudioRecording(event) {
     event.preventDefault();
 
     this.setState({
-      isAudioRecording: false,
-      isSendAudioClick: false,
+      audioRecording: false,
+      sendAudioClick: false,
     });
   }
   handleSendAudioMessageOnClick() {
-    const { isAudioRecording } = this.state;
+    const { audioRecording } = this.state;
 
-    if ( isAudioRecording ) {
+    if ( audioRecording ) {
       this.setState({
-        isAudioRecording: false,
-        isSendAudioClick: true,
+        audioRecording: false,
+        sendAudioClick: true,
       });
     }
   }
@@ -45,11 +45,11 @@ class ChatAudioRecorder extends Component {
       chatRoomID,
       handleSendAudioMessage,
     } = this.props;
-    const { isSendAudioClick } = this.state;
+    const { sendAudioClick } = this.state;
     const newMessageID = uuidv4();
     const audioName = 'voice message';
 
-    if ( isSendAudioClick ) {
+    if ( sendAudioClick ) {
       handleSendAudioMessage(newMessageID, audioName, audio, chatRoomID);
     }
   }
@@ -58,13 +58,13 @@ class ChatAudioRecorder extends Component {
       handleAudioRecorderToggle,
       small
     } = this.props;
-    const { isAudioRecording } = this.state;
+    const { audioRecording } = this.state;
 
     return (
       <div className={"chat-audio-recorder " + (small ? 'small' : '')}>
         <ReactMic
           className="sound-wave"
-          record={isAudioRecording}
+          record={audioRecording}
           onStop={::this.handleAudioUploadRecord}
           strokeColor="#000000"
           backgroundColor="#eee"
@@ -81,7 +81,7 @@ class ChatAudioRecorder extends Component {
             <span>Close</span>
           </div>
           {
-            !isAudioRecording
+            !audioRecording
               ?
               <div className="control-wrapper">
                 <div
@@ -107,8 +107,8 @@ class ChatAudioRecorder extends Component {
           }
           <div className="control-wrapper">
             <div
-              className={"send-button control " + (isAudioRecording ? 'active' : '')}
-              onClick={(e) => {isAudioRecording ? ::this.handleSendAudioMessageOnClick(e) : false}}
+              className={"send-button control " + (audioRecording ? 'active' : '')}
+              onClick={(e) => {audioRecording ? ::this.handleSendAudioMessageOnClick(e) : false}}
               title="Send"
             >
               <FontAwesomeIcon icon="check" size="2x" />
