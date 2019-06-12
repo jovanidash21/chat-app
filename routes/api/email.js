@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router({mergeParams: true});
-var nodemailer = require('nodemailer');
+const express = require('express');
+const router = express.Router({mergeParams: true});
+const nodemailer = require('nodemailer');
 
 router.post('/', (req, res, next) => {
-  var transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       type: 'OAuth2',
@@ -14,7 +14,7 @@ router.post('/', (req, res, next) => {
       accessToken: process.env.GMAIL_ACCESS_TOKEN,
     }
   });
-  var mailOptions = {
+  const mailOptions = {
     from: 'Chat App <noreply@chatapp.com>',
     to: req.body.email,
     subject: 'Welcome to Chat App',

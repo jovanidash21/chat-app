@@ -1,9 +1,9 @@
-var express = require('express');
-var router = express.Router({mergeParams: true});
-var multer = require('multer');
-var slash = require('slash');
+const express = require('express');
+const router = express.Router({mergeParams: true});
+const multer = require('multer');
+const slash = require('slash');
 
-var imageStorage = multer.diskStorage({
+const imageStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './uploads/');
   },
@@ -12,7 +12,7 @@ var imageStorage = multer.diskStorage({
   }
 });
 
-var imageFilter = (req, file, cb) => {
+const imageFilter = (req, file, cb) => {
   if ( file.mimetype.indexOf('image/') > -1 ) {
     cb(null, true);
   } else {
@@ -20,7 +20,7 @@ var imageFilter = (req, file, cb) => {
   }
 };
 
-var imageUpload = multer({
+const imageUpload = multer({
   storage: imageStorage,
   fileFilter: imageFilter,
   limits: {
@@ -35,7 +35,7 @@ router.post('/image', imageUpload.single('image'), (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var imageLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
+    const imageLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
 
     res.status(200).send({
       success: true,
