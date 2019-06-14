@@ -247,7 +247,7 @@ export function register( email, name, username, password ) {
 
     return dispatch({
       type: REGISTER,
-      payload: axios.post( 'register', data ),
+      payload: axios.post( '/register', data ),
     })
     .then(() => {
       dispatch( hideLoading() );
