@@ -1,11 +1,11 @@
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
-var Schema = mongoose.Schema;
-var timestamps = require('mongoose-timestamp');
+const mongoose = require('mongoose');
+const Promise = require('bluebird');
+const Schema = mongoose.Schema;
+const timestamps = require('mongoose-timestamp');
 
 mongoose.Promise = Promise;
 
-var messageSchema = new Schema (
+const messageSchema = new Schema (
   {
     text: String,
     user: {

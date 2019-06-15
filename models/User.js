@@ -1,12 +1,12 @@
-var mongoose = require('mongoose');
-var Promise = require('bluebird');
-var Schema = mongoose.Schema;
-var passportLocalMongoose = require('passport-local-mongoose');
-var timestamps = require('mongoose-timestamp');
+const mongoose = require('mongoose');
+const Promise = require('bluebird');
+const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose');
+const timestamps = require('mongoose-timestamp');
 
 mongoose.Promise = Promise;
 
-var userEndDateSchema = new Schema (
+const userEndDateSchema = new Schema (
   {
     data: {
       type: Boolean,
@@ -22,7 +22,7 @@ var userEndDateSchema = new Schema (
   },
 );
 
-var userChatRoomSchema = new Schema (
+const userChatRoomSchema = new Schema (
   {
     data: {
       type: Schema.Types.ObjectId,
@@ -39,7 +39,7 @@ var userChatRoomSchema = new Schema (
   },
 );
 
-var userSchema = new Schema (
+const userSchema = new Schema (
   {
     name: String,
     email: String,
