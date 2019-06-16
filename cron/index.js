@@ -1,8 +1,8 @@
-var CronJob = require('cron').CronJob;
-var User = require('../models/User');
+const CronJob = require('cron').CronJob;
+const User = require('../models/User');
 
-var cron = function(socket) {
-  var cronJob = new CronJob('0 */1 * * * *', function() {
+const cron = function(socket) {
+  const cronJob = new CronJob('0 */1 * * * *', function() {
     
   }, null, true);
 }
