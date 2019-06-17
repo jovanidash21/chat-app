@@ -1,10 +1,10 @@
-var express = require('express');
-var router = express.Router({mergeParams: true});
-var User = require('../../models/User');
-var ChatRoom = require('../../models/ChatRoom');
+const express = require('express');
+const router = express.Router({mergeParams: true});
+const User = require('../../models/User');
+const ChatRoom = require('../../models/ChatRoom');
 
 router.post('/', (req, res, next) => {
-  var userID = req.body.userID;
+  const userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
@@ -12,8 +12,8 @@ router.post('/', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var chatRoomID = req.body.chatRoomID;
-    var blockedUsers = [];
+    const chatRoomID = req.body.chatRoomID;
+    let blockedUsers = [];
 
     User.findById(userID, 'blockedUsers')
       .then((user) => {
@@ -25,9 +25,9 @@ router.post('/', (req, res, next) => {
           .exec();
       })
       .then((chatRoom) => {
-        for (var i = 0; i < chatRoom.members.length; i++) {
-          var member = chatRoom.members[i];
-          var blocked = false;
+        for (let i = 0; i < chatRoom.members.length; i += 1) {
+          const member = chatRoom.members[i];
+          let blocked = false;
 
           if (blockedUsers.indexOf(member._id) > -1) {
             blocked = true;

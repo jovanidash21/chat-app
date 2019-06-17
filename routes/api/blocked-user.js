@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router({mergeParams: true});
-var User = require('../../models/User');
+const express = require('express');
+const router = express.Router({mergeParams: true});
+const User = require('../../models/User');
 
 router.post('/', (req, res, next) => {
   if (req.user === undefined) {
@@ -9,14 +9,14 @@ router.post('/', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var userID = req.body.userID;
+    const userID = req.body.userID;
 
     User.findById(userID)
       .populate('blockedUsers', '-chatRooms -blockedUsers -socketID')
       .lean()
       .exec()
       .then((user) => {
-        for (var i = 0; i < user.blockedUsers.length; i++) {
+        for (let i = 0; i < user.blockedUsers.length; i += 1) {
           user.blockedUsers[i].blocked = true;
         }
 
@@ -36,7 +36,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/block', (req, res, next) => {
-  var userID = req.body.userID;
+  const userID = req.body.userID;
 
   if (req.user === undefined || req.user._id != userID) {
     res.status(401).send({
@@ -44,7 +44,7 @@ router.post('/block', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var blockUserID = req.body.blockUserID;
+    const blockUserID = req.body.blockUserID;
 
     User.findByIdAndUpdate(
       userID,
@@ -67,7 +67,7 @@ router.post('/block', (req, res, next) => {
 });
 
 router.post('/unblock', (req, res, next) => {
-  var userID = req.body.userID;
+  const userID = req.body.userID;
 
   if (req.user === undefined || req.user._id != userID) {
     res.status(401).send({
@@ -75,7 +75,7 @@ router.post('/unblock', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var unblockUserID = req.body.unblockUserID;
+    const unblockUserID = req.body.unblockUserID;
 
     User.findByIdAndUpdate(
       userID,
@@ -98,7 +98,7 @@ router.post('/unblock', (req, res, next) => {
 });
 
 router.post('/unblock-all', (req, res, next) => {
-  var userID = req.body.userID;
+  const userID = req.body.userID;
 
   if (req.user === undefined || req.user._id != userID) {
     res.status(401).send({
