@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router({mergeParams: true});
-var passport = require('passport');
-var User = require('../../models/User');
-var ChatRoom = require('../../models/ChatRoom');
+const express = require('express');
+const router = express.Router({mergeParams: true});
+const passport = require('passport');
+const User = require('../../models/User');
+const ChatRoom = require('../../models/ChatRoom');
 
 router.post('/', (req, res, next) => {
-  var userData = {
+  const userData = {
     username: req.body.username,
     name: req.body.name,
     email: req.body.email,
@@ -17,19 +17,19 @@ router.post('/', (req, res, next) => {
       passport.authenticate('local', (err, user) => {
         req.logIn(user, (err) => {
           if (!err ) {
-            var chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
-            var userID = user._id;
-            var chatRoomData = {
+            const chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
+            const userID = user._id;
+            const chatRoomData = {
               name: user.name,
               chatIcon: '',
               members: [userID],
               chatType: 'private'
             };
-            var chatRoom = new ChatRoom(chatRoomData);
+            const chatRoom = new ChatRoom(chatRoomData);
 
             chatRoom.save()
               .then((chatRoomData) => {
-                var chatRoomID = chatRoom._id;
+                const chatRoomID = chatRoom._id;
 
                 if (chatLoungeID) {
                   ChatRoom.findByIdAndUpdate(
