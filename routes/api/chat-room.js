@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router({mergeParams: true});
-var User = require('../../models/User');
-var ChatRoom = require('../../models/ChatRoom');
-var Message = require('../../models/Message');
+const express = require('express');
+const router = express.Router({mergeParams: true});
+const User = require('../../models/User');
+const ChatRoom = require('../../models/ChatRoom');
+const Message = require('../../models/Message');
 
 router.post('/', (req, res, next) => {
-  var userID = req.body.userID;
+  const userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
@@ -23,13 +23,13 @@ router.post('/', (req, res, next) => {
       })
       .exec()
       .then((user) => {
-        var userChatRooms = user.chatRooms;
+        const userChatRooms = user.chatRooms;
 
-        for (var i = 0; i < userChatRooms.length; i++) {
-          var chatRoom = userChatRooms[i].data;
+        for (let i = 0; i < userChatRooms.length; i += 1) {
+          const chatRoom = userChatRooms[i].data;
 
-          for (var j = 0; j < chatRoom.members.length; j++) {
-            var member = chatRoom.members[j];
+          for (let j = 0; j < chatRoom.members.length; j += 1) {
+            const member = chatRoom.members[j];
 
             if (chatRoom.chatType === 'private') {
               if (member._id == userID) {
@@ -67,10 +67,10 @@ router.post('/create', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var name = req.body.name;
-    var chatType = req.body.chatType;
-    var members = req.body.members;
-    var chatRoomData = {
+    const name = req.body.name;
+    const chatType = req.body.chatType;
+    const members = req.body.members;
+    const chatRoomData = {
       name,
       chatType,
       members
@@ -104,12 +104,12 @@ router.post('/create', (req, res, next) => {
               message: 'Chat room already exist'
             });
           } else {
-            var chatRoom = new ChatRoom(chatRoomData);
+            const chatRoom = new ChatRoom(chatRoomData);
 
             chatRoom.save()
               .then((chatRoomData) => {
-                for (var i = 0; i < chatRoomData.members.length; i++) {
-                  var chatRoomMember = chatRoomData.members[i];
+                for (let i = 0; i < chatRoomData.members.length; i += 1) {
+                  const chatRoomMember = chatRoomData.members[i];
 
                   User.findByIdAndUpdate(
                     chatRoomMember,
@@ -159,13 +159,13 @@ router.post('/clear-unread', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var userID = req.body.userID;
-    var chatRoomIDs = req.body.chatRoomIDs;
+    const userID = req.body.userID;
+    const chatRoomIDs = req.body.chatRoomIDs;
 
     User.findById(userID)
       .then((user) => {
-        for (var i = 0; i < chatRoomIDs.length; i++) {
-          var chatRoomID = chatRoomIDs[i];
+        for (let i = 0; i < chatRoomIDs.length; i += 1) {
+          const chatRoomID = chatRoomIDs[i];
 
           User.updateOne(
             { _id: userID, 'chatRooms.data': chatRoomID },
@@ -196,8 +196,8 @@ router.post('/mute', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var userID = req.body.userID;
-    var chatRoomID = req.body.chatRoomID;
+    const userID = req.body.userID;
+    const chatRoomID = req.body.chatRoomID;
 
     User.updateOne(
       { _id: userID, 'chatRooms.data': chatRoomID },
@@ -227,8 +227,8 @@ router.post('/unmute', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var userID = req.body.userID;
-    var chatRoomID = req.body.chatRoomID;
+    const userID = req.body.userID;
+    const chatRoomID = req.body.chatRoomID;
 
     User.updateOne(
       { _id: userID, 'chatRooms.data': chatRoomID },
@@ -282,14 +282,14 @@ router.post('/select', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var chatRoomID = req.body.chatRoomID;
+    const chatRoomID = req.body.chatRoomID;
 
     ChatRoom.findById(chatRoomID)
       .populate('members', '-chatRooms -blockedUsers -socketID')
       .exec()
       .then((chatRoom) => {
-        for (var i = 0; i < chatRoom.members.length; i++) {
-          var member = chatRoom.members[i];
+        for (let i = 0; i < chatRoom.members.length; i += 1) {
+          const member = chatRoom.members[i];
 
           if (chatRoom.chatType === 'private') {
             chatRoom.chatIcon = member.profilePicture;
@@ -331,11 +331,11 @@ router.get('/all', (req, res, next) => {
       .populate('members', '-chatRooms -blockedUsers -socketID')
       .exec()
       .then((chatRooms) => {
-        for (var i = 0; i < chatRooms.length; i++) {
-          var chatRoom = chatRooms[i];
+        for (let i = 0; i < chatRooms.length; i += 1) {
+          const chatRoom = chatRooms[i];
 
-          for (var j = 0; j < chatRoom.members.length; j++) {
-            var member = chatRoom.members[j];
+          for (let j = 0; j < chatRoom.members.length; j += 1) {
+            const member = chatRoom.members[j];
 
             if (chatRoom.chatType === 'private') {
               chatRoom.chatIcon = member.profilePicture;
@@ -370,7 +370,7 @@ router.get('/all', (req, res, next) => {
 });
 
 router.post('/edit', (req, res, next) => {
-  var chatRoomID = req.body.chatRoomID;
+  const chatRoomID = req.body.chatRoomID;
 
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
@@ -378,11 +378,11 @@ router.post('/edit', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var name = req.body.name;
-    var chatType = req.body.chatType;
-    var members = req.body.members;
-    var chatIcon = req.body.chatIcon;
-    var chatRoomData = {
+    const name = req.body.name;
+    const chatType = req.body.chatType;
+    const members = req.body.members;
+    const chatIcon = req.body.chatIcon;
+    const chatRoomData = {
       name: name,
       chatType: chatType,
       members: members,
@@ -402,8 +402,8 @@ router.post('/edit', (req, res, next) => {
     } else {
       ChatRoom.findById(chatRoomID)
         .then((chatRoom) => {
-          for (var i = 0; i < members.length; i++) {
-            var chatRoomMember = members[i];
+          for (let i = 0; i < members.length; i += 1) {
+            const chatRoomMember = members[i];
 
             if (!chatRoom.members.some((singleMember) => singleMember === chatRoomMember)) {
               User.findByIdAndUpdate(
@@ -414,8 +414,8 @@ router.post('/edit', (req, res, next) => {
             }
           }
 
-          for (var i = 0; i < chatRoom.members.length; i++) {
-            var chatRoomMember = chatRoom.members[i];
+          for (let i = 0; i < chatRoom.members.length; i += 1) {
+            const chatRoomMember = chatRoom.members[i];
 
             if (!members.some((singleMember) => singleMember === chatRoomMember)) {
               User.findByIdAndUpdate(
@@ -449,7 +449,7 @@ router.post('/edit', (req, res, next) => {
 });
 
 router.post('/delete', (req, res, next) => {
-  var chatRoomID = req.body.chatRoomID;
+  const chatRoomID = req.body.chatRoomID;
 
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
@@ -459,8 +459,8 @@ router.post('/delete', (req, res, next) => {
   } else {
     ChatRoom.findById(chatRoomID)
       .then((chatRoom) => {
-        for (var i = 0; i < chatRoom.members.length; i++) {
-          var memberID = chatRoom.members[i];
+        for (let i = 0; i < chatRoom.members.length; i += 1) {
+          const memberID = chatRoom.members[i];
 
           User.findByIdAndUpdate(
             memberID,
