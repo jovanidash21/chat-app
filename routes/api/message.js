@@ -1,12 +1,12 @@
-var express = require('express');
-var router = express.Router({mergeParams: true});
-var Message = require('../../models/Message');
-var ChatRoom = require('../../models/ChatRoom');
-var User = require('../../models/User');
-var multer = require('multer');
-var slash = require('slash');
+const express = require('express');
+const router = express.Router({mergeParams: true});
+const Message = require('../../models/Message');
+const ChatRoom = require('../../models/ChatRoom');
+const User = require('../../models/User');
+const multer = require('multer');
+const slash = require('slash');
 
-var fileStorage = multer.diskStorage({
+const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './uploads/');
   },
@@ -15,7 +15,7 @@ var fileStorage = multer.diskStorage({
   }
 });
 
-var audioStorage = multer.diskStorage({
+const audioStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './uploads/audio/');
   },
@@ -24,14 +24,14 @@ var audioStorage = multer.diskStorage({
   }
 });
 
-var fileUpload = multer({
+const fileUpload = multer({
   storage: fileStorage,
   limits: {
     fileSize: 1024 * 1024 * 2
   }
 });
 
-var audioFilter = (req, file, cb) => {
+const audioFilter = (req, file, cb) => {
   if ( file.mimetype === 'audio/webm' ) {
     cb(null, true);
   } else {
@@ -39,7 +39,7 @@ var audioFilter = (req, file, cb) => {
   }
 };
 
-var audioUpload = multer({
+const audioUpload = multer({
   storage: audioStorage,
   fileFilter: audioFilter,
   limits: {
@@ -48,7 +48,7 @@ var audioUpload = multer({
 });
 
 router.post('/', (req, res, next) => {
-  var userID = req.body.userID;
+  const userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
@@ -56,9 +56,9 @@ router.post('/', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var chatRoomID = req.body.chatRoomID;
-    var skipCount = req.body.skipCount;
-    var blockedUsers = [];
+    const chatRoomID = req.body.chatRoomID;
+    const skipCount = req.body.skipCount;
+    let blockedUsers = [];
 
     User.find({'chatRooms.data': chatRoomID, blockedUsers: {$eq: userID}})
       .distinct('_id')
@@ -80,7 +80,7 @@ router.post('/', (req, res, next) => {
           .exec();
       })
       .then((messages) => {
-        var chatRoomMessages = messages.reverse();
+        const chatRoomMessages = messages.reverse();
 
         User.updateOne(
           { _id: userID, 'chatRooms.data': chatRoomID },
@@ -104,7 +104,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/text', (req, res, next) => {
-  var userID = req.body.userID;
+  const userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
@@ -112,14 +112,14 @@ router.post('/text', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var chatRoomID = req.body.chatRoomID;
-    var messageData = {
+    const chatRoomID = req.body.chatRoomID;
+    const messageData = {
       text: req.body.text,
       user: userID,
       chatRoom: chatRoomID,
       messageType: 'text'
     };
-    var message = new Message(messageData);
+    const message = new Message(messageData);
 
     message.save()
       .then((messageData) => {
@@ -129,8 +129,8 @@ router.post('/text', (req, res, next) => {
         ).exec();
       })
       .then((chatRoom) => {
-        for (var i = 0; i < chatRoom.members.length; i++) {
-          var memberID = chatRoom.members[i];
+        for (let i = 0; i < chatRoom.members.length; i += 1) {
+          const memberID = chatRoom.members[i];
 
           if (memberID != userID) {
             User.updateOne(
@@ -163,7 +163,7 @@ router.post('/text', (req, res, next) => {
 });
 
 router.post('/file', fileUpload.single('file'), (req, res, next) => {
-  var userID = req.body.userID;
+  const userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
@@ -171,22 +171,22 @@ router.post('/file', fileUpload.single('file'), (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var chatRoomID = req.body.chatRoomID;
-    var messageType = 'file';
-    var fileLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
+    const chatRoomID = req.body.chatRoomID;
+    let messageType = 'file';
+    const fileLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
 
     if ( req.file.mimetype.indexOf('image/') > -1 ) {
       messageType = 'image';
     }
 
-    var messageData = {
+    const messageData = {
       text: req.file.originalname,
       user: userID,
       chatRoom: chatRoomID,
       messageType: messageType,
       fileLink: fileLink
     };
-    var message = new Message(messageData);
+    const message = new Message(messageData);
 
     message.save()
       .then((messageData) => {
@@ -196,8 +196,8 @@ router.post('/file', fileUpload.single('file'), (req, res, next) => {
         ).exec();
       })
       .then((chatRoom) => {
-        for (var i = 0; i < chatRoom.members.length; i++) {
-          var memberID = chatRoom.members[i];
+        for (let i = 0; i < chatRoom.members.length; i += 1) {
+          const memberID = chatRoom.members[i];
 
           if (memberID != userID) {
             User.updateOne(
@@ -230,8 +230,8 @@ router.post('/file', fileUpload.single('file'), (req, res, next) => {
 });
 
 router.post('/audio', audioUpload.single('audio'), (req, res, next) => {
-  var chatRoomID = req.body.chatRoomID;
-  var userID = req.body.userID;
+  const chatRoomID = req.body.chatRoomID;
+  const userID = req.body.userID;
 
   if ((req.user === undefined) || (req.user._id != userID)) {
     res.status(401).send({
@@ -239,15 +239,15 @@ router.post('/audio', audioUpload.single('audio'), (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var fileLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
-    var messageData = {
+    const fileLink = slash(req.protocol + '://' + req.get('host') + '/' + req.file.path);
+    const messageData = {
       text: req.file.originalname,
       user: userID,
       chatRoom: chatRoomID,
       messageType: 'audio',
       fileLink: fileLink
     };
-    var message = new Message(messageData);
+    const message = new Message(messageData);
 
     message.save()
       .then((messageData) => {
@@ -257,8 +257,8 @@ router.post('/audio', audioUpload.single('audio'), (req, res, next) => {
         ).exec();
       })
       .then((chatRoom) => {
-        for (var i = 0; i < chatRoom.members.length; i++) {
-          var memberID = chatRoom.members[i];
+        for (let i = 0; i < chatRoom.members.length; i += 1) {
+          const memberID = chatRoom.members[i];
 
           if (memberID != userID) {
             User.updateOne(
@@ -315,8 +315,8 @@ router.get('/count', (req, res, next) => {
 });
 
 router.post('/delete', (req, res, next) => {
-  var messageID = req.body.messageID;
-  var chatRoomID = req.body.chatRoomID;
+  const messageID = req.body.messageID;
+  const chatRoomID = req.body.chatRoomID;
 
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
