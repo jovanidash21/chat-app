@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router({mergeParams: true});
-var User = require('../../models/User');
-var ChatRoom = require('../../models/ChatRoom');
-var Message = require('../../models/Message');
+const express = require('express');
+const router = express.Router({mergeParams: true});
+const User = require('../../models/User');
+const ChatRoom = require('../../models/ChatRoom');
+const Message = require('../../models/Message');
 
 router.get('/', (req, res, next) => {
   if (req.user === undefined) {
@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var user = req.user.toObject();
+    const user = req.user.toObject();
 
     delete user['chatRooms'];
     delete user['blockedUsers'];
@@ -32,8 +32,8 @@ router.post('/search', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var query = req.body.query;
-    var userQuery = {
+    const query = req.body.query;
+    const userQuery = {
       _id: { $ne: null },
       $or: [
         { username: { $regex: '\\b' + query, $options: 'i' } },
@@ -95,7 +95,7 @@ router.get('/graph', (req, res, next) => {
   } else {
     User.find({_id: {$ne: null}})
       .then((users) => {
-        var usersGraphData = [
+        let usersGraphData = [
           {month: "Jan", users: 0},
           {month: "Feb", users: 0},
           {month: "Mar", users: 0},
@@ -109,21 +109,21 @@ router.get('/graph', (req, res, next) => {
           {month: "Nov", users: 0},
           {month: "Dec", users: 0},
         ];
-        var todayDate = new Date();
-        var todayMonth = todayDate.getMonth();
-        var nextMonth = todayMonth !== 11 ? todayMonth + 1 : 0;
-        var lastYear = todayDate.getFullYear() - 1;
-        var lastTwelveMonthsDate = new Date();
+        const todayDate = new Date();
+        const todayMonth = todayDate.getMonth();
+        const nextMonth = todayMonth !== 11 ? todayMonth + 1 : 0;
+        const lastYear = todayDate.getFullYear() - 1;
+        let lastTwelveMonthsDate = new Date();
         lastTwelveMonthsDate.setHours(0,0,0,0);
         lastTwelveMonthsDate.setDate(1);
         lastTwelveMonthsDate.setMonth(nextMonth);
         lastTwelveMonthsDate.setYear(lastYear);
         lastTwelveMonthsDate = new Date(lastTwelveMonthsDate);
 
-        for (var i = 0; i < users.length; i++) {
-          var user = users[i];
-          var userCreatedDate = new Date(user.createdAt);
-          var userCreatedDateMonth = usersGraphData[userCreatedDate.getMonth()];
+        for (let i = 0; i < users.length; i += 1) {
+          const user = users[i];
+          const userCreatedDate = new Date(user.createdAt);
+          const userCreatedDateMonth = usersGraphData[userCreatedDate.getMonth()];
 
           if (userCreatedDate >= lastTwelveMonthsDate) {
             userCreatedDateMonth["users"] = userCreatedDateMonth["users"] + 1;
@@ -131,7 +131,7 @@ router.get('/graph', (req, res, next) => {
         }
 
         if (todayMonth !== 11) {
-          var lastYearMonths = usersGraphData.splice(todayMonth + 1, usersGraphData.length - (todayMonth + 1));
+          const lastYearMonths = usersGraphData.splice(todayMonth + 1, usersGraphData.length - (todayMonth + 1));
 
           usersGraphData = lastYearMonths.concat(usersGraphData);
         }
@@ -157,7 +157,7 @@ router.post('/select', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var userID = req.body.userID;
+    const userID = req.body.userID;
 
     User.findById(userID, '-chatRooms -blockedUsers -socketID')
       .then((user) => {
@@ -207,7 +207,7 @@ router.post('/create', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var userData = {
+    const userData = {
       username: req.body.username,
       name: req.body.name,
       email: req.body.email,
@@ -215,23 +215,23 @@ router.post('/create', (req, res, next) => {
       accountType: 'local',
       profilePicture: req.body.profilePicture
     };
-    var user = new User(userData);
+    const user = new User(userData);
 
     User.register(user, req.body.password, (err) => {
       if (!err) {
-        var chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
-        var userID = user._id;
-        var chatRoomData = {
+        const chatLoungeID = process.env.MONGODB_CHAT_LOUNGE_ID;
+        const userID = user._id;
+        const chatRoomData = {
           name: user.name,
           chatIcon: '',
           members: [userID],
           chatType: 'private'
         };
-        var chatRoom = new ChatRoom(chatRoomData);
+        const chatRoom = new ChatRoom(chatRoomData);
 
         chatRoom.save()
           .then((chatRoomData) => {
-            var chatRoomID = chatRoom._id;
+            const chatRoomID = chatRoom._id;
 
             if (chatLoungeID) {
               ChatRoom.findByIdAndUpdate(
@@ -283,9 +283,9 @@ router.post('/edit', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var userID = req.body.userID;
-    var username = req.body.username;
-    var userData = {
+    const userID = req.body.userID;
+    const username = req.body.username;
+    const userData = {
       username: username,
       name: req.body.name,
       email: req.body.email,
@@ -335,7 +335,7 @@ router.post('/edit', (req, res, next) => {
 });
 
 router.post('/edit-profile', (req, res, next) => {
-  var userID = req.body.userID;
+  const userID = req.body.userID;
 
   if (
     req.user === undefined ||
@@ -347,8 +347,8 @@ router.post('/edit-profile', (req, res, next) => {
       message: 'Unauthorized'
     });
   } else {
-    var username = req.body.username;
-    var userData = {
+    const username = req.body.username;
+    const userData = {
       username: username,
       name: req.body.name,
       email: req.body.email,
@@ -393,7 +393,7 @@ router.post('/edit-profile', (req, res, next) => {
 });
 
 router.post('/delete', (req, res, next) => {
-  var userID = req.body.userID;
+  const userID = req.body.userID;
 
   if (req.user === undefined || req.user.role !== 'admin') {
     res.status(401).send({
@@ -403,12 +403,12 @@ router.post('/delete', (req, res, next) => {
   } else {
     ChatRoom.find({members: {$in: userID}, chatType: {$in: ["private", "direct"]}})
       .then((chatRooms) => {
-        for (var i = 0; i < chatRooms.length; i++) {
-          var chatRoom = chatRooms[i];
-          var chatRoomID = chatRoom._id;
+        for (let i = 0; i < chatRooms.length; i += 1) {
+          const chatRoom = chatRooms[i];
+          const chatRoomID = chatRoom._id;
 
-          for (var j = 0; j < chatRoom.members.length; j++) {
-            var memberID = chatRoom.members[j];
+          for (let j = 0; j < chatRoom.members.length; j += 1) {
+            const memberID = chatRoom.members[j];
 
             if (memberID != userID) {
               User.findByIdAndUpdate(
@@ -426,9 +426,9 @@ router.post('/delete', (req, res, next) => {
         return ChatRoom.find({members: {$in: userID}, chatType: {$in: ["group", "public"]}});
       })
       .then((chatRooms) => {
-        for (var i = 0; i < chatRooms.length; i++) {
-          var chatRoom = chatRooms[i];
-          var chatRoomID = chatRoom._id;
+        for (let i = 0; i < chatRooms.length; i += 1) {
+          const chatRoom = chatRooms[i];
+          const chatRoomID = chatRoom._id;
 
           Message.deleteMany({user: userID, chatRoom: chatRoomID}).exec();
           ChatRoom.findByIdAndUpdate(
