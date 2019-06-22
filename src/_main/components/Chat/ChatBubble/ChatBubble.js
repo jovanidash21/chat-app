@@ -22,7 +22,7 @@ class ChatBubble extends Component {
   handleMessageText() {
     const {
       message,
-      isSender,
+      sender,
       small,
     } = this.props;
     let messageText = message.text;
@@ -89,8 +89,8 @@ class ChatBubble extends Component {
     const {
       index,
       message,
-      isSender,
-      isActiveUserAdmin,
+      sender,
+      activeUserAdmin,
     } = this.props;
 
     if ( message.messageType !== 'text' && message.fileLink.length === 0 ) {
@@ -103,7 +103,7 @@ class ChatBubble extends Component {
       return (
         <div className="chat-message">
           {
-            isActiveUserAdmin &&
+            activeUserAdmin &&
             <div
               className="trash-icon"
               title="Delete Message"
@@ -113,7 +113,7 @@ class ChatBubble extends Component {
             </div>
           }
           <div
-            className={(message.messageType !== 'image' ? 'chat-bubble ' : 'chat-image ') + (isSender ? 'right' : '')}
+            className={(message.messageType !== 'image' ? 'chat-bubble ' : 'chat-image ') + (sender ? 'right' : '')}
             onClick={(e) => {message.messageType === 'image' ? ::this.handleImageClick(e) : false }}
           >
             <div className="chat-text">
@@ -137,7 +137,7 @@ class ChatBubble extends Component {
             </div>
           </div>
           {
-            isSender &&
+            sender &&
             <div className="sending-status">
               {
                 message.isSending !== undefined && (
@@ -185,18 +185,18 @@ class ChatBubble extends Component {
 
     const {
       message,
-      isActiveUserAdmin,
+      activeUserAdmin,
       handleOpenDeleteMessageModal,
     } = this.props;
 
-    if ( isActiveUserAdmin ) {
+    if ( activeUserAdmin ) {
       handleOpenDeleteMessageModal(message._id);
     }
   }
   render() {
     const {
       message,
-      isSender,
+      sender,
       previousMessageSenderID,
       nextMessageSenderID,
       previousMessageDate,
@@ -212,16 +212,16 @@ class ChatBubble extends Component {
       <div
         className={
           "chat-bubble-wrapper " +
-          (isSender ? 'reverse ' : '') +
+          (sender ? 'reverse ' : '') +
           (isPreviousMessageSameSender ? 'no-b-radius-top ' : '') +
           (isNextMessageSameSender ? 'no-b-radius-bottom ' : '') +
-          (!isSender && isPreviousMessageSameSender ? 'no-avatar ' : '') +
+          (!sender && isPreviousMessageSameSender ? 'no-avatar ' : '') +
           (small ? 'small' : '')
         }
       >
         {
-          !isSender &&
-          !isPreviousMessageSameSender &&
+          ! sender &&
+          ! isPreviousMessageSameSender &&
           <MediaQuery query="(max-width: 767px)">
             {(matches) => {
               return (
@@ -241,8 +241,8 @@ class ChatBubble extends Component {
         }
         <div className="chat-details">
           {
-            !isSender &&
-            !isPreviousMessageSameSender &&
+            ! sender &&
+            ! isPreviousMessageSameSender &&
             <div className="chat-user-name">{message.user.name}</div>
           }
           {::this.handleChatBubbleRender()}
@@ -255,20 +255,20 @@ class ChatBubble extends Component {
 ChatBubble.propTypes = {
   index: PropTypes.number.isRequired,
   message: PropTypes.object.isRequired,
-  isSender: PropTypes.bool.isRequired,
+  sender: PropTypes.bool.isRequired,
   previousMessageSenderID: PropTypes.string.isRequired,
   nextMessageSenderID: PropTypes.string.isRequired,
   previousMessageDate: PropTypes.string.isRequired,
   nextMessageDate: PropTypes.string.isRequired,
   handleImageLightboxToggle: PropTypes.func.isRequired,
   handleAudioPlayingToggle: PropTypes.func.isRequired,
-  isActiveUserAdmin: PropTypes.bool,
+  activeUserAdmin: PropTypes.bool,
   handleOpenDeleteMessageModal: PropTypes.func,
   small: PropTypes.bool,
 }
 
 ChatBubble.defaultProps = {
-  isActiveUserAdmin: false,
+  activeUserAdmin: false,
   handleOpenDeleteMessageModal: () => {},
   small: false,
 }

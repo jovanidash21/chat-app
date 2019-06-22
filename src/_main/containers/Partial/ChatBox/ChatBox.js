@@ -131,14 +131,14 @@ class ChatBox extends Component {
                   <ChatBubble
                     index={i}
                     message={singleMessage}
-                    isSender={(singleMessage.user._id === user.active._id) ? true : false }
+                    sender={(singleMessage.user._id === user.active._id) ? true : false }
                     previousMessageSenderID={i-1 !== -1 ? messages[i-1].user._id : ''}
                     nextMessageSenderID={i !== messages.length-1 ? messages[i+1].user._id : ''}
                     previousMessageDate={i-1 !== -1 ? messages[i-1].createdAt : ''}
                     nextMessageDate={i !== messages.length-1 ? messages[i+1].createdAt : ''}
                     handleImageLightboxToggle={::this.handleImageLightboxToggle}
                     handleAudioPlayingToggle={::this.handleAudioPlayingToggle}
-                    isActiveUserAdmin={isActiveUserAdmin}
+                    activeUserAdmin={isActiveUserAdmin}
                     handleOpenDeleteMessageModal={::this.handleOpenDeleteMessageModal}
                     small={small}
                   />
