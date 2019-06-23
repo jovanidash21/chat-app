@@ -17,7 +17,7 @@ class ChatRoom extends Component {
     const {
       chatRoom,
       handleOpenPopUpChatRoom,
-      handleLeftSideDrawerToggleEvent
+      handleLeftSideDrawerToggleEvent,
     } = this.props;
 
     if ( chatRoom.data.chatType !== 'public' ) {
@@ -33,7 +33,7 @@ class ChatRoom extends Component {
       chatRoom,
       activeChatRoom,
       handleChangeChatRoom,
-      handleLeftSideDrawerToggleEvent
+      handleLeftSideDrawerToggleEvent,
     } = this.props;
 
     handleChangeChatRoom(chatRoom, user._id, activeChatRoom.data._id);
@@ -43,8 +43,8 @@ class ChatRoom extends Component {
     const {
       user,
       chatRoom,
-      isActive,
-      isSelected
+      active,
+      selected,
     } = this.props;
 
     return (
@@ -54,8 +54,8 @@ class ChatRoom extends Component {
             <div
               className={
                 "chat-room " +
-                (isActive ? 'active ' : '') +
-                (isSelected ? 'selected ' : '') +
+                (active ? 'active ' : '') +
+                (selected ? 'selected ' : '') +
                 (!chatRoom.mute.data && chatRoom.unReadMessages > 0 ? 'new-message' : '')
               }
               onClick={!matches && chatRoom.data.chatType !== 'public' ? ::this.handleOpenPopUpChatRoom : ::this.handleChangeChatRoom}
@@ -100,16 +100,16 @@ ChatRoom.propTypes = {
   user: PropTypes.object.isRequired,
   chatRoom: PropTypes.object.isRequired,
   activeChatRoom: PropTypes.object.isRequired,
-  isActive: PropTypes.bool,
-  isSelected: PropTypes.bool,
   handleOpenPopUpChatRoom: PropTypes.func.isRequired,
   handleChangeChatRoom: PropTypes.func.isRequired,
-  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired
+  handleLeftSideDrawerToggleEvent: PropTypes.func.isRequired,
+  active: PropTypes.bool,
+  selected: PropTypes.bool,
 }
 
 ChatRoom.defaultProps = {
-  isActive: false,
-  isSelected: false
+  active: false,
+  selected: false,
 }
 
 export default ChatRoom;

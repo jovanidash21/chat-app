@@ -272,11 +272,11 @@ class ChatRoomsList extends Component {
                   user={user.active}
                   chatRoom={singleChatRoom}
                   activeChatRoom={activeChatRoom}
-                  isActive={(activeChatRoom.data._id === singleChatRoom.data._id) ? true : false}
-                  isSelected={selectedChatRoomIndex === i}
                   handleOpenPopUpChatRoom={handleOpenPopUpChatRoom}
                   handleChangeChatRoom={changeChatRoom}
                   handleLeftSideDrawerToggleEvent={handleLeftSideDrawerToggleEvent}
+                  active={activeChatRoom.data._id === singleChatRoom.data._id}
+                  selected={selectedChatRoomIndex === i}
                 />
               )
             }
