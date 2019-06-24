@@ -46,7 +46,7 @@ class ChatRoomMember extends Component {
         }
         title={chatRoomMember.name}
       >
-        <OnlineIndicator isOnline={chatRoomMember.isOnline} />
+        <OnlineIndicator online={chatRoomMember.isOnline} />
         <Avatar
           image={chatRoomMember.profilePicture}
           size="23px"

@@ -108,14 +108,14 @@ class ActiveChatRoom extends Component {
                 {
                   activeChatRoom.data.chatType === 'direct' &&
                   <div className="online-indicator-wrapper">
-                    <OnlineIndicator isOnline={isOtherMemberOnline} />
+                    <OnlineIndicator online={isOtherMemberOnline} />
                     {isOtherMemberOnline ? 'online' : 'offline'}
                   </div>
                 }
                 {
                   activeChatRoom.data.chatType === 'private' &&
                   <div className="online-indicator-wrapper">
-                    <OnlineIndicator isOnline />
+                    <OnlineIndicator online />
                     online
                   </div>
                 }

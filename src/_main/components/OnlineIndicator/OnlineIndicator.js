@@ -5,21 +5,21 @@ import './styles.scss';
 
 const OnlineIndicator = (props) => {
   return (
-    <div className={"online-indicator " + (props.isOnline ? 'online' : '')}>
+    <div className={"online-indicator " + (props.online ? 'online' : '')}>
       <FontAwesomeIcon
         className="circle-icon"
-        icon={props.isOnline ? 'circle' : ["far", "circle"]}
+        icon={props.online ? 'circle' : ["far", "circle"]}
       />
     </div>
   );
 }
 
 OnlineIndicator.propTypes = {
-  isOnline: PropTypes.bool
+  online: PropTypes.bool
 }
 
 OnlineIndicator.defaultProps = {
-  isOnline: false
+  online: false
 }
 
 export default OnlineIndicator;
