@@ -66,7 +66,7 @@ class ChatDragDropBox extends Component {
 ChatDragDropBox.propTypes = {
   handleDragDropBoxToggle: PropTypes.func.isRequired,
   handleFilesDrop: PropTypes.func.isRequired,
-  handleSelectFile: PropTypes.func.isRequired
+  handleSelectFile: PropTypes.func.isRequired,
 }
 
 export default ChatDragDropBox;

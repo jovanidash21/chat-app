@@ -39,7 +39,7 @@ class ChatRoomDropdown extends Component {
 
 ChatRoomDropdown.propTypes = {
   activeChatRoom: PropTypes.object.isRequired,
-  handleOpenMuteUnmuteModal: PropTypes.func.isRequired
+  handleOpenMuteUnmuteModal: PropTypes.func.isRequired,
 }
 
 export default ChatRoomDropdown;

@@ -84,14 +84,14 @@ class ChatInput extends Component {
       user,
       chatRoomID,
       handleIsTyping,
-      handleIsNotTyping
+      handleIsNotTyping,
     } = this.props;
     const {
       message,
       typing,
       userTagging,
       validMessage,
-      maxLengthReached
+      maxLengthReached,
     } = this.state;
     const chatInputText = document.getElementById(::this.handleDivID()).innerHTML;
 
@@ -103,7 +103,7 @@ class ChatInput extends Component {
     ) {
       this.setState({
         typing: true,
-        validMessage: true
+        validMessage: true,
       });
 
       handleIsTyping(user, chatRoomID);
@@ -117,7 +117,7 @@ class ChatInput extends Component {
     ) {
       this.setState({
         typing: false,
-        validMessage: false
+        validMessage: false,
       });
 
       handleIsNotTyping(user, chatRoomID);
@@ -178,7 +178,7 @@ class ChatInput extends Component {
   handleUserTaggingToggle() {
     const {
       chatRoomID,
-      handleSearchUser
+      handleSearchUser,
     } = this.props;
     const userTagQuery = getAutoCompleteTextQuery( document.getElementById(::this.handleDivID()) );
 
@@ -197,14 +197,14 @@ class ChatInput extends Component {
     const {
       user,
       chatRoomID,
-      handleIsTyping
+      handleIsTyping,
     } = this.props;
     const {
       caretPosition,
       message,
       typing,
       validMessage,
-      maxLengthReached
+      maxLengthReached,
     } = this.state;
     const messageTextLength = ::this.handleMessageText('length');
     const emojiSelect = emojione.toImage(emoji.shortname);
@@ -220,13 +220,13 @@ class ChatInput extends Component {
 
     this.setState({
       caretPosition: newCaretPosition,
-      message: newMessage
+      message: newMessage,
     });
 
     if ( !typing && !validMessage ) {
       this.setState({
         typing: true,
-        validMessage: true
+        validMessage: true,
       });
 
       handleIsTyping(user, chatRoomID);
@@ -236,14 +236,14 @@ class ChatInput extends Component {
     const {
       user,
       chatRoomID,
-      handleIsTyping
+      handleIsTyping,
     } = this.props;
     const {
       caretPosition,
       message,
       typing,
       validMessage,
-      maxLengthReached
+      maxLengthReached,
     } = this.state;
     const messageTextLength = ::this.handleMessageText('length');
     let newCaretPosition = caretPosition;
@@ -265,7 +265,7 @@ class ChatInput extends Component {
     if ( !typing && !validMessage ) {
       this.setState({
         typing: true,
-        validMessage: true
+        validMessage: true,
       });
 
       handleIsTyping(user, chatRoomID);
@@ -294,7 +294,7 @@ class ChatInput extends Component {
       user,
       chatRoomID,
       handleIsNotTyping,
-      handleSendTextMessage
+      handleSendTextMessage,
     } = this.props;
     const messageText = ::this.handleMessageText('text');
     const newMessageID = uuidv4();
@@ -310,11 +310,11 @@ class ChatInput extends Component {
       user,
       chatRoomID,
       handleIsNotTyping,
-      handleSendTextMessage
+      handleSendTextMessage,
     } = this.props;
     const {
       validMessage,
-      maxLengthReached
+      maxLengthReached,
     } = this.state;
     const messageText = ::this.handleMessageText('text');
     const newMessageID = uuidv4();
@@ -329,7 +329,7 @@ class ChatInput extends Component {
         message: '',
         typing: false,
         emojiPicker: false,
-        validMessage: false
+        validMessage: false,
       });
     }
   }
@@ -346,14 +346,14 @@ class ChatInput extends Component {
       userTagSuggestions,
       disabled,
       userTagLoading,
-      small
+      small,
     } = this.props;
     const {
       message,
       emojiPicker,
       userTagging,
       validMessage,
-      maxLengthReached
+      maxLengthReached,
     } = this.state;
 
     return (
@@ -473,7 +473,7 @@ ChatInput.propTypes = {
   userTagSuggestions: PropTypes.array,
   disabled: PropTypes.bool,
   userTagLoading: PropTypes.bool,
-  small: PropTypes.bool
+  small: PropTypes.bool,
 }
 
 ChatInput.defaultProps = {
@@ -481,7 +481,7 @@ ChatInput.defaultProps = {
   userTagSuggestions: [],
   disabled: false,
   userTagLoading: false,
-  small: false
+  small: false,
 }
 
 export default ChatInput;

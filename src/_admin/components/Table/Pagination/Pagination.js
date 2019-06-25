@@ -9,7 +9,7 @@ class Pagination extends Component {
     super(props);
 
     this.state = {
-      numberOfPages: 0
+      numberOfPages: 0,
     };
   }
   componentWillMount() {
@@ -92,7 +92,7 @@ class Pagination extends Component {
     const {
       activePage,
       totalCount,
-      itemsCountPerPage
+      itemsCountPerPage,
     } = this.props;
     const { numberOfPages } = this.state;
     const isPrevButtonDisabled = activePage === 1;
@@ -158,7 +158,7 @@ Pagination.propTypes = {
   handleChangePage:  PropTypes.func.isRequired,
   activePage: PropTypes.number.isRequired,
   totalCount: PropTypes.number.isRequired,
-  itemsCountPerPage: PropTypes.number.isRequired
+  itemsCountPerPage: PropTypes.number.isRequired,
 }
 
 export default Pagination;

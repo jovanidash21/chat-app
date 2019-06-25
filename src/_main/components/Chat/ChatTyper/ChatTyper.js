@@ -24,7 +24,7 @@ const ChatTyper = (props) => {
 }
 
 ChatTyper.propTypes = {
-  typer: PropTypes.object.isRequired
+  typer: PropTypes.object.isRequired,
 }
 
 export default ChatTyper;

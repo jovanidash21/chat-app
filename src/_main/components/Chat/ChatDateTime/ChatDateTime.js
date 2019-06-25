@@ -5,7 +5,7 @@ import {
   isDateToday,
   isDateYesterday,
   isDateThisYear,
-  isDatesSameDay
+  isDatesSameDay,
 } from '../../../../utils/date';
 import './styles.scss';
 
@@ -14,7 +14,7 @@ class ChatDateTime extends Component {
     super(props);
 
     this.state = {
-      dateTime: ''
+      dateTime: '',
     };
   }
   componentWillMount() {
@@ -72,11 +72,11 @@ class ChatDateTime extends Component {
 ChatDateTime.propTypes = {
   messageDate: PropTypes.string.isRequired,
   previousMessageDate: PropTypes.string.isRequired,
-  small: PropTypes.bool
+  small: PropTypes.bool,
 }
 
 ChatDateTime.defaultProps = {
-  small: false
+  small: false,
 }
 
 export default ChatDateTime;

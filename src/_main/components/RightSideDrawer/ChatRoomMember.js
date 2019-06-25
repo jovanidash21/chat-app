@@ -15,7 +15,7 @@ class ChatRoomMember extends Component {
 
     const {
       chatRoomMember,
-      handleAddDirectChatRoom
+      handleAddDirectChatRoom,
     } = this.props;
 
     handleAddDirectChatRoom(chatRoomMember._id, mobile);
@@ -34,7 +34,7 @@ class ChatRoomMember extends Component {
     const {
       user,
       chatRoomMember,
-      active
+      active,
     } = this.props;
 
     return (

@@ -33,12 +33,12 @@ const RegisterButton = (props) => {
 
 RegisterButton.propTypes = {
   link: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 }
 
 RegisterButton.defaultProps = {
   link: '',
-  disabled: false
+  disabled: false,
 }
 
 export default RegisterButton;

@@ -25,12 +25,12 @@ SocialButton.propTypes = {
   socialMediaIcon: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   handleSocialLogin: PropTypes.func,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 }
 
 SocialButton.defaultProps = {
   handleSocialLogin: () => {},
-  disabled: false
+  disabled: false,
 }
 
 export default SocialButton;

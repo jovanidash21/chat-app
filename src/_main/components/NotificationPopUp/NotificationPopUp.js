@@ -68,14 +68,14 @@ class NotificationPopUp extends Component {
         case SOCKET_BROADCAST_REJECT_VIDEO_CALL: {
           this.notificationSystem.addNotification({
             title: 'Your video call is not accepted',
-            level: 'error'
+            level: 'error',
           });
           break;
         }
         case SOCKET_BROADCAST_ACCEPT_VIDEO_CALL: {
           this.notificationSystem.addNotification({
             title: 'Your video call is accepted',
-            level: 'success'
+            level: 'success',
           });
           break;
         }

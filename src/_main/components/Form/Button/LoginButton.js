@@ -33,12 +33,12 @@ const LoginButton = (props) => {
 
 LoginButton.propTypes = {
   link: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 }
 
 LoginButton.defaultProps = {
   link: '',
-  disabled: false
+  disabled: false,
 }
 
 export default LoginButton;

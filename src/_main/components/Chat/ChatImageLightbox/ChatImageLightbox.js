@@ -55,7 +55,7 @@ ChatImageLightBox.propTypes = {
   imageIndex: PropTypes.number.isRequired,
   handleImageLightboxToggle: PropTypes.func.isRequired,
   handlePrevImage: PropTypes.func.isRequired,
-  handleNextImage: PropTypes.func.isRequired
+  handleNextImage: PropTypes.func.isRequired,
 }
 
 export default ChatImageLightBox;

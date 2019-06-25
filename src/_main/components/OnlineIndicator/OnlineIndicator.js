@@ -15,11 +15,11 @@ const OnlineIndicator = (props) => {
 }
 
 OnlineIndicator.propTypes = {
-  online: PropTypes.bool
+  online: PropTypes.bool,
 }
 
 OnlineIndicator.defaultProps = {
-  online: false
+  online: false,
 }
 
 export default OnlineIndicator;

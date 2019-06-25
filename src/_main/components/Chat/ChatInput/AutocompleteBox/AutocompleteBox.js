@@ -19,7 +19,7 @@ class AutocompleteBox extends Component {
   render() {
     const {
       suggestions,
-       loading,
+      loading,
     } = this.props;
 
     return (

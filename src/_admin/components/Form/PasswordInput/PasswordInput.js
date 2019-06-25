@@ -11,7 +11,7 @@ class PasswordInput extends Component {
     super(props);
 
     this.state = {
-      showPassword: false
+      showPassword: false,
     };
   }
   handleShowPassword(event) {
