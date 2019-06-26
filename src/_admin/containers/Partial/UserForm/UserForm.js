@@ -54,9 +54,7 @@ class UserForm extends Component {
       !this.props.upload.image.loading &&
       this.props.upload.image.success
     ) {
-      this.setState({
-        profilePicture: this.props.upload.imageLink
-      });
+      this.setState({profilePicture: this.props.upload.imageLink});
     }
 
     if ( this.props.mode === 'create' ) {
@@ -198,7 +196,7 @@ class UserForm extends Component {
       nameValid: nameValid,
       emailValid: emailValid,
       passwordValid: passwordValid,
-      errorMessage: errorMessage
+      errorMessage: errorMessage,
     });
 
     if ( usernameValid && nameValid && emailValid && passwordValid && errorMessage.length === 0 ) {

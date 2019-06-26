@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   Panel,
-  Button
+  Button,
 } from 'muicss/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import mapDispatchToProps from '../../../actions';
@@ -37,7 +37,7 @@ class Table extends Component {
       ::this.handleSortTable(this.props.columns[0].key);
     }
 
-    if ( !prevProps.loading && prevProps.rows.length !== this.props.rows.length ) {
+    if ( ! prevProps.loading && prevProps.rows.length !== this.props.rows.length ) {
       const {
         activePage,
         searchFilter,
@@ -97,7 +97,7 @@ class Table extends Component {
   onSearchFilterChange(event) {
     const {
       activePage,
-      sort
+      sort,
     } = this.state;
     const searchFilter = event.target.value.trim().toLowerCase();
 
@@ -108,7 +108,7 @@ class Table extends Component {
   handleClearSearchFilter() {
     const {
       activePage,
-      sort
+      sort,
     } = this.state;
     const searchFilter = '';
 
@@ -121,7 +121,7 @@ class Table extends Component {
     const {
       activePage,
       searchFilter,
-      sort
+      sort,
     } = this.state;
     let direction = 'desc';
 
@@ -142,7 +142,7 @@ class Table extends Component {
     this.setState({
       sort: {
         column,
-        direction
+        direction,
       }
     });
 
@@ -151,7 +151,7 @@ class Table extends Component {
   handleChangePage(page) {
     const {
       searchFilter,
-      sort
+      sort,
     } = this.state;
 
     this.setState({activePage: page});
@@ -178,7 +178,7 @@ class Table extends Component {
       loading,
       editLink,
       deleteModal,
-      deleteModalOpen
+      deleteModalOpen,
     } = this.props;
     const {
       totalRows,
@@ -186,7 +186,7 @@ class Table extends Component {
       itemsCountPerPage,
       searchFilter,
       sort,
-      dataRows
+      dataRows,
     } = this.state;
     const capitalizeSingularLabel = label.singular.charAt(0).toUpperCase() + label.singular.slice(1);
     const capitalizePluralLabel = label.plural.charAt(0).toUpperCase() + label.plural.slice(1);

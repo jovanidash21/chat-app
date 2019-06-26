@@ -22,9 +22,7 @@ class Layout extends Component {
     };
   }
   componentWillMount() {
-    const {
-      fetchActiveUser
-    } = this.props;
+    const { fetchActiveUser } = this.props;
 
     fetchActiveUser();
     document.body.className = '';
