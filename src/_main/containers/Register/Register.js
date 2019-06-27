@@ -5,14 +5,14 @@ import {
   Row,
   Col,
   Panel,
-  Divider
+  Divider,
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import { isEmailValid } from '../../../utils/form';
 import { Input } from '../../../components/Form';
 import {
   RegisterButton,
-  LoginButton
+  LoginButton,
 } from '../../components/Form';
 import { Alert } from '../../../components/Alert';
 
@@ -31,7 +31,7 @@ class Register extends Component {
       usernameValid: true,
       passwordValid: true,
       confirmPasswordValid: true,
-      errorMessage: ''
+      errorMessage: '',
     };
   }
   componentWillMount() {
@@ -56,7 +56,7 @@ class Register extends Component {
       name,
       username,
       password,
-      confirmPassword
+      confirmPassword,
     } = this.state;
     let emailValid = true;
     let nameValid = true;
@@ -99,7 +99,7 @@ class Register extends Component {
       usernameValid: usernameValid,
       passwordValid: passwordValid,
       confirmPasswordValid: confirmPasswordValid,
-      errorMessage: errorMessage
+      errorMessage: errorMessage,
     });
 
     if ( emailValid && nameValid && usernameValid && passwordValid && confirmPasswordValid && errorMessage.length === 0 ) {
@@ -112,7 +112,7 @@ class Register extends Component {
       email,
       name,
       username,
-      password
+      password,
     } = this.state;
 
     register(email, name, username, password);
@@ -130,7 +130,7 @@ class Register extends Component {
       usernameValid,
       passwordValid,
       confirmPasswordValid,
-      errorMessage
+      errorMessage,
     } = this.state;
 
     return (
@@ -207,7 +207,7 @@ class Register extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth
+    auth: state.auth,
   }
 }
 

@@ -5,14 +5,14 @@ import {
   Row,
   Col,
   Panel,
-  Divider
+  Divider,
 } from 'muicss/react';
 import mapDispatchToProps from '../../actions';
 import { Input } from '../../../components/Form';
 import {
   LoginButton,
   RegisterButton,
-  SocialButton
+  SocialButton,
 } from '../../components/Form';
 import { Alert } from '../../../components/Alert';
 
@@ -25,7 +25,7 @@ class Login extends Component {
       password: '',
       usernameValid: true,
       passwordValid: true,
-      errorMessage: ''
+      errorMessage: '',
     };
   }
   componentWillMount() {
@@ -47,7 +47,7 @@ class Login extends Component {
 
     const {
       username,
-      password
+      password,
     } = this.state;
     let usernameValid = true;
     let passwordValid = true;
@@ -72,7 +72,7 @@ class Login extends Component {
     this.setState({
       usernameValid: usernameValid,
       passwordValid: passwordValid,
-      errorMessage: errorMessage
+      errorMessage: errorMessage,
     });
 
     if ( usernameValid && passwordValid && errorMessage.length === 0 ) {
@@ -83,7 +83,7 @@ class Login extends Component {
     const { localLogin } = this.props;
     const {
       username,
-      password
+      password,
     } = this.state;
 
     localLogin(username, password);
@@ -96,14 +96,14 @@ class Login extends Component {
       instagramLogin,
       linkedinLogin,
       githubLogin,
-      auth
+      auth,
     } = this.props;
     const {
       username,
       password,
       usernameValid,
       passwordValid,
-      errorMessage
+      errorMessage,
     } = this.state;
 
     return (
@@ -208,7 +208,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.auth
+    auth: state.auth,
   }
 }
 
