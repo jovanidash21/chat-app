@@ -22,7 +22,7 @@ const sockets = function(io) {
 
             socket.broadcast.emit('action', {
               type: 'SOCKET_BROADCAST_USER_LOGIN',
-              user: user
+              user: user,
             });
           })
           .catch((error) => {
@@ -42,7 +42,7 @@ const sockets = function(io) {
           socket.broadcast.to(action.chatRoomID).emit('action', {
             type: 'SOCKET_BROADCAST_IS_TYPING',
             typer: action.typer,
-            chatRoomID: action.chatRoomID
+            chatRoomID: action.chatRoomID,
           });
           break;
         }
@@ -50,7 +50,7 @@ const sockets = function(io) {
           socket.broadcast.to(action.chatRoomID).emit('action', {
             type: 'SOCKET_BROADCAST_IS_NOT_TYPING',
             typer: action.typer,
-            chatRoomID: action.chatRoomID
+            chatRoomID: action.chatRoomID,
           });
           break;
         }
@@ -62,7 +62,7 @@ const sockets = function(io) {
               .then((user) => {
                 socket.broadcast.to(user.socketID).emit('action', {
                   type: 'SOCKET_BROADCAST_CREATE_CHAT_ROOM',
-                  chatRoom: action.chatRoomBroadcast
+                  chatRoom: action.chatRoomBroadcast,
                 });
               })
               .catch((error) => {
@@ -109,7 +109,7 @@ const sockets = function(io) {
                   User.findById(chatRoomMember._id)
                     .populate({
                       path: 'chatRooms.data',
-                      select: '-members'
+                      select: '-members',
                     })
                     .exec()
                     .then((user) => {
@@ -149,7 +149,7 @@ const sockets = function(io) {
                               chatRoom: singleChatRoom,
                               chatRoomID: action.chatRoomID,
                               chatRoomName: singleChatRoom.data.name,
-                              senderName: action.message.user.name
+                              senderName: action.message.user.name,
                             });
                           }
                         }
@@ -188,7 +188,7 @@ const sockets = function(io) {
                       socket.broadcast.to(user.socketID).emit('action', {
                         type: 'SOCKET_BROADCAST_DELETE_MESSAGE',
                         messageID: action.messageID,
-                        chatRoomID: action.chatRoomID
+                        chatRoomID: action.chatRoomID,
                       });
                     }
                   })
@@ -215,7 +215,7 @@ const sockets = function(io) {
               socket.broadcast.to(user.socketID).emit('action', {
                 type: 'SOCKET_BROADCAST_REQUEST_VIDEO_CALL',
                 user: callerUser,
-                peerID: action.peerID
+                peerID: action.peerID,
               });
             })
             .catch((error) => {
@@ -227,7 +227,7 @@ const sockets = function(io) {
           User.findById(action.receiverID)
             .then((user) => {
               socket.broadcast.to(user.socketID).emit('action', {
-                type: 'SOCKET_BROADCAST_CANCEL_REQUEST_VIDEO_CALL'
+                type: 'SOCKET_BROADCAST_CANCEL_REQUEST_VIDEO_CALL',
               });
             })
             .catch((error) => {
@@ -239,7 +239,7 @@ const sockets = function(io) {
           User.findById(action.callerID)
             .then((user) => {
               socket.broadcast.to(user.socketID).emit('action', {
-                type: 'SOCKET_BROADCAST_REJECT_VIDEO_CALL'
+                type: 'SOCKET_BROADCAST_REJECT_VIDEO_CALL',
               });
             })
             .catch((error) => {
@@ -252,7 +252,7 @@ const sockets = function(io) {
             .then((user) => {
               socket.broadcast.to(user.socketID).emit('action', {
                 type: 'SOCKET_BROADCAST_ACCEPT_VIDEO_CALL',
-                peerID: action.peerID
+                peerID: action.peerID,
               });
             })
             .catch((error) => {
@@ -264,7 +264,7 @@ const sockets = function(io) {
           User.findById(action.callerID)
             .then((user) => {
               socket.broadcast.to(user.socketID).emit('action', {
-                type: 'SOCKET_BROADCAST_END_VIDEO_CALL'
+                type: 'SOCKET_BROADCAST_END_VIDEO_CALL',
               });
             })
             .catch((error) => {
@@ -287,7 +287,7 @@ const sockets = function(io) {
         if ( user !== null && user._id !== null ) {
           socket.broadcast.emit('action', {
             type: 'SOCKET_BROADCAST_USER_LOGOUT',
-            userID: user._id
+            userID: user._id,
           });
         }
 
