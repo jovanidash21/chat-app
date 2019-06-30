@@ -20,6 +20,12 @@ import {
   deleteChatRoom,
 } from './chat-room';
 import { fetchMessagesCount } from './message';
+import {
+  fetchBlockedUsers,
+  blockUser,
+  unblockUser,
+  unblockAllUsers,
+} from './blocked-user';
 import { uploadImage } from './upload';
 
 const actions = (dispatch) => {
@@ -41,6 +47,10 @@ const actions = (dispatch) => {
     editChatRoom,
     deleteChatRoom,
     fetchMessagesCount,
+    fetchBlockedUsers,
+    blockUser,
+    unblockUser,
+    unblockAllUsers,
     uploadImage,
   }, dispatch);
 }
