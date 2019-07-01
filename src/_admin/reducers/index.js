@@ -5,6 +5,7 @@ import history from '../../history';
 import user from './user';
 import chatRoom from './chat-room';
 import message from './message';
+import blockedUser from './blocked-user';
 import upload from './upload';
 
 const appReducer = combineReducers({
@@ -13,6 +14,7 @@ const appReducer = combineReducers({
   user,
   chatRoom,
   message,
+  blockedUser,
   upload,
 });
 
