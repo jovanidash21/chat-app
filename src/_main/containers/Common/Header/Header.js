@@ -247,7 +247,6 @@ class Header extends Component {
             user={activeUser}
             handleOpenEditProfileModal={::this.handleOpenEditProfileModal}
             handleOpenBlockedUsersListModal={::this.handleOpenBlockedUsersListModal}
-            loading={loading}
           >
             {
               editProfileModalOpen &&
