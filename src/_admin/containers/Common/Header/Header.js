@@ -13,7 +13,8 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      editProfileModalOpen: false
+      editProfileModalOpen: false,
+      blockedUsersListModalOpen: false,
     }
   }
   handleLeftSideDrawerToggleEvent(event) {
@@ -29,6 +30,12 @@ class Header extends Component {
   handleCloseEditProfileModal() {
     this.setState({editProfileModalOpen: false});
   }
+  handleOpenBlockedUsersListModal() {
+    this.setState({blockedUsersListModalOpen: true});
+  }
+  handleCloseBlockedUsersListModal() {
+    this.setState({blockedUsersListModalOpen: false});
+  }
   handleEditProfile(username, name, email, profilePicture) {
     const {
       user,
@@ -40,14 +47,51 @@ class Header extends Component {
       editActiveUser(activeUser._id, username, name, email, profilePicture);
     }
   }
+  handleFetchBlockedUsers() {
+    const {
+      user,
+      fetchBlockedUsers,
+    } = this.props;
+    const activeUser = user.active;
+
+    fetchBlockedUsers(activeUser._id);
+  }
+  handleUnblockAllUsers() {
+    const {
+      user,
+      unblockAllUsers,
+    } = this.props;
+    const activeUser = user.active;
+
+    unblockAllUsers(activeUser._id);
+  }
+  handleBlockUnblockUser(selectedUser) {
+    const {
+      user,
+      blockUser,
+      unblockUser,
+    } = this.props;
+    const activeUser = user.active;
+    const isBlocked = selectedUser.blocked;
+
+    if ( ! isBlocked ) {
+      blockUser( activeUser._id, selectedUser._id );
+    } else {
+      unblockUser( activeUser._id, selectedUser._id );
+    }
+  }
   render() {
     const {
       user,
+      blockedUser,
       upload,
       uploadImage,
       children,
     } = this.props;
-    const { editProfileModalOpen } = this.state;
+    const {
+      editProfileModalOpen,
+      blockedUsersListModalOpen,
+    } = this.state;
     const activeUser = user.active;
     const activeUserEmpty = isObjectEmpty( activeUser );
     const loading = user.fetchActive.loading;
@@ -85,6 +129,7 @@ class Header extends Component {
           <UserDropdown
             user={activeUser}
             handleOpenEditProfileModal={::this.handleOpenEditProfileModal}
+            handleOpenBlockedUsersListModal={::this.handleOpenBlockedUsersListModal}
           >
             {
               editProfileModalOpen &&
@@ -98,6 +143,21 @@ class Header extends Component {
                 onClose={::this.handleCloseEditProfileModal}
               />
             }
+            {
+              blockedUsersListModalOpen &&
+              <UserDropdown.BlockedUsersListModal
+                handleFetchBlockedUsers={::this.handleFetchBlockedUsers}
+                blockedUsers={blockedUser.all}
+                blockedUserFetch={blockedUser.fetch}
+                handleUnblockAllUsers={::this.handleUnblockAllUsers}
+                blockedUserUnblockAll={blockedUser.unblockAll}
+                handleBlockUnblockUser={::this.handleBlockUnblockUser}
+                blockedUserBlock={blockedUser.block}
+                blockedUserUnblock={blockedUser.unblock}
+                open={blockedUsersListModalOpen}
+                onClose={::this.handleCloseBlockedUsersListModal}
+              />
+            }
           </UserDropdown>
         }
       </Appbar>
@@ -109,6 +169,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     upload: state.upload,
+    blockedUser: state.blockedUser,
   }
 }
 
