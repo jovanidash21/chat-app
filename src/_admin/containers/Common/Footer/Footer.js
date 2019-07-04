@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import moment from 'moment';
 import './styles.scss';
 
-const year = moment().format('YYYY');
-
 const Footer = (props) => {
+  const year = moment().format('YYYY');
+
   return (
     <footer className="footer">
       <div className="footer-copyright">
