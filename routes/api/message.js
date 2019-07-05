@@ -8,7 +8,7 @@ const slash = require('slash');
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './uploads/');
+    cb(null, './uploads/file/');
   },
   filename: (req, file, cb) => {
     cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
