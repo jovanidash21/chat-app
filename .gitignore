@@ -31,6 +31,9 @@ uploads/*
 !uploads/audio/
 uploads/audio/*
 !uploads/audio/.gitkeep
+!uploads/avatar/
+uploads/avatar/*
+!uploads/avatar/.gitkeep
 !uploads/file/
 uploads/file/*
 !uploads/file/.gitkeep
