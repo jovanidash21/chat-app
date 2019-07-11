@@ -146,7 +146,7 @@ class MembersList extends Component {
         });
     } else {
       if ( mobile ) {
-        changeChatRoom(existingChatRoomData, userID, activeChatRoom.data._id);
+        changeChatRoom(chatRooms[chatRoomIndex], userID, activeChatRoom.data._id);
       } else {
         handleOpenPopUpChatRoom(chatRooms[chatRoomIndex]);
       }
