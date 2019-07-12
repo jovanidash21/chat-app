@@ -84,7 +84,10 @@ class ChatBox extends Component {
     this.chatBox.scrollTop = this.chatBox.scrollHeight;
   }
   handleChatBoxScroll() {
-    if ( this.chatBox.scrollTop === (this.chatBox.scrollHeight - this.chatBox.offsetHeight) ) {
+    if ( 
+      (this.chatBox.scrollTop > (this.chatBox.scrollHeight - this.chatBox.offsetHeight - 30)) ||
+      (this.chatBox.offsetHeight >= this.chatBox.scrollHeight)
+    ) {
       this.setState({isChatBoxScrollToBottom: true});
     } else {
       this.setState({isChatBoxScrollToBottom: false});
