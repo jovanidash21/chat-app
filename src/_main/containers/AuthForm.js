@@ -11,7 +11,7 @@ class AuthForm extends Component {
   handleComponentRender(matchProps) {
     const {
       component: Content,
-      title
+      title,
     } = this.props;
 
     return (
@@ -32,11 +32,11 @@ class AuthForm extends Component {
 
 AuthForm.propTypes = {
   component: PropTypes.func.isRequired,
-  title: PropTypes.string
+  title: PropTypes.string,
 }
 
 AuthForm.defaultProps = {
-  title: ''
+  title: '',
 }
 
 export default AuthForm;

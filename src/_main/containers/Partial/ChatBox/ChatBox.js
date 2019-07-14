@@ -49,7 +49,10 @@ class ChatBox extends Component {
     }
 
     if ( prevProps.fetchNewLoading && !this.props.fetchNewLoading ) {
-      this.setState({hasLoadedAllMessages: false});
+      this.setState({
+        hasLoadedAllMessages: false,
+        isChatBoxScrollToBottom: true,
+      });
     }
 
     if ( prevProps.fetchOldLoading && !this.props.fetchOldLoading ) {
@@ -85,7 +88,7 @@ class ChatBox extends Component {
   }
   handleChatBoxScroll() {
     if ( 
-      (this.chatBox.scrollTop > (this.chatBox.scrollHeight - this.chatBox.offsetHeight - 30)) ||
+      (this.chatBox.scrollTop === (this.chatBox.scrollHeight - this.chatBox.offsetHeight)) ||
       (this.chatBox.offsetHeight >= this.chatBox.scrollHeight)
     ) {
       this.setState({isChatBoxScrollToBottom: true});
