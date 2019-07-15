@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   FETCH_ACTIVE_USER,
   EDIT_ACTIVE_USER,
+  SOCKET_EDIT_ACTIVE_USER,
   SEARCH_USER,
   BLOCK_USER,
   UNBLOCK_USER,
@@ -50,6 +51,12 @@ export function editActiveUser( userID, username, name, email, profilePicture ) 
     return dispatch({
       type: EDIT_ACTIVE_USER,
       payload: axios.post( '/user/edit-profile', data ),
+    })
+    .then((response) => {
+      dispatch({
+        type: SOCKET_EDIT_ACTIVE_USER,
+        user: response.action.payload.data.user,
+      });
     })
     .catch(( error ) => {
       if ( error instanceof Error ) {

@@ -30,6 +30,12 @@ const sockets = function(io) {
           });
           break;
         }
+        case 'SOCKET_EDIT_ACTIVE_USER':
+          socket.broadcast.emit('action', {
+            type: 'SOCKET_BROADCAST_EDIT_ACTIVE_USER',
+            user: action.user,
+          });
+          break;
         case 'SOCKET_JOIN_CHAT_ROOM': {
           socket.join(action.chatRoomID);
           break;
@@ -201,7 +207,7 @@ const sockets = function(io) {
               console.log(error);
             });
           break;
-        }  
+        }
         case 'SOCKET_REQUEST_VIDEO_CALL': {
           let callerUser = {};
 
@@ -222,7 +228,7 @@ const sockets = function(io) {
               console.log(error);
             });
           break;
-        }  
+        }
         case 'SOCKET_CANCEL_REQUEST_VIDEO_CALL':{
           User.findById(action.receiverID)
             .then((user) => {
@@ -234,7 +240,7 @@ const sockets = function(io) {
               console.log(error);
             });
           break;
-        }  
+        }
         case 'SOCKET_REJECT_VIDEO_CALL': {
           User.findById(action.callerID)
             .then((user) => {
@@ -246,7 +252,7 @@ const sockets = function(io) {
               console.log(error);
             });
           break;
-        }  
+        }
         case 'SOCKET_ACCEPT_VIDEO_CALL': {
           User.findById(action.callerID)
             .then((user) => {
@@ -259,7 +265,7 @@ const sockets = function(io) {
               console.log(error);
             });
           break;
-        }  
+        }
         case 'SOCKET_END_VIDEO_CALL': {
           User.findById(action.callerID)
             .then((user) => {
@@ -271,7 +277,7 @@ const sockets = function(io) {
               console.log(error);
             });
           break;
-        }  
+        }
         default:
           break;
       }
