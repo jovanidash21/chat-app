@@ -13,7 +13,7 @@ const UserTooltip = (props) => {
           name={props.name}
           roleChatType={props.roleChatType}
           accountType={props.accountType}
-          badgeBigger={!props.small ? true : false}
+          badgeBigger={!props.small}
           badgeCloser
         />
         <div className="user-detail">

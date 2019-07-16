@@ -137,7 +137,7 @@ class ChatBox extends Component {
                   <ChatBubble
                     index={i}
                     message={singleMessage}
-                    sender={(singleMessage.user._id === user.active._id) ? true : false }
+                    sender={singleMessage.user._id === user.active._id}
                     previousMessageSenderID={i-1 !== -1 ? messages[i-1].user._id : ''}
                     nextMessageSenderID={i !== messages.length-1 ? messages[i+1].user._id : ''}
                     previousMessageDate={i-1 !== -1 ? messages[i-1].createdAt : ''}
