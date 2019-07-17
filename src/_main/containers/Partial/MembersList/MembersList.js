@@ -42,7 +42,10 @@ class MembersList extends Component {
       ::this.handleMembersListFilter();
     }
 
-    if ( prevProps.member.all.length !== this.props.member.all.length ) {
+     if (
+      ( prevProps.member.all.length !== this.props.member.all.length ) ||
+      ( prevProps.user.editActive.loading && !this.props.user.editActive.loading )
+    ) {
       ::this.handleMembersListFilter(this.state.searchFilter);
     }
 

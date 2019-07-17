@@ -1,5 +1,6 @@
 import {
   FETCH_ACTIVE_USER,
+  EDIT_ACTIVE_USER,
   SOCKET_BROADCAST_EDIT_ACTIVE_USER,
 } from '../constants/user';
 import { FETCH_MEMBERS } from '../constants/member';
@@ -133,6 +134,27 @@ const member = ( state = initialState, action ) => {
         ...state,
         all: [ ...members ],
       };
+    }
+    case `${EDIT_ACTIVE_USER}_SUCCESS`: {
+      const user = action.payload.data.user;
+      const userID = user._id;
+      const members = [...state.all];
+
+      var memberIndex = members.findIndex(( singleMember ) => {
+        return singleMember._id === userID;
+      });
+
+      if ( memberIndex > -1 ) {
+        members[memberIndex] = {
+          ...members[memberIndex],
+          ...user,
+        };
+      }
+
+      return {
+        ...state,
+        all: [ ...members ],
+      }
     }
     case SOCKET_BROADCAST_EDIT_ACTIVE_USER: {
       const user = action.user;
