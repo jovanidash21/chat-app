@@ -46,12 +46,12 @@ class Chat extends Component {
       isLeftSideDrawerOpen: false,
       isRightSideDrawerOpen: false,
       activeChatPopUpWindow: -1,
-      isAudioRecorderOpen: false,
+      audioRecorderOpen: false,
       dragDropBoxOpen: false,
       localVideoSource: {},
       remoteVideoSource: {},
-      isVideoCallRequestModalOpen: false,
-      isVideoCallWindowOpen: false,
+      videoCallRequestModalOpen: false,
+      videoCallWindowOpen: false,
     };
   }
   componentWillMount() {
@@ -67,14 +67,14 @@ class Chat extends Component {
       switch ( action.type ) {
         case SOCKET_BROADCAST_REQUEST_VIDEO_CALL:
           this.callerPeerID = action.peerID;
-          this.setState({isVideoCallRequestModalOpen: true});
+          this.setState({videoCallRequestModalOpen: true});
           break;
         case SOCKET_BROADCAST_CANCEL_REQUEST_VIDEO_CALL:
-          this.setState({isVideoCallRequestModalOpen: false});
+          this.setState({videoCallRequestModalOpen: false});
           break;
         case SOCKET_BROADCAST_REJECT_VIDEO_CALL:
         case SOCKET_BROADCAST_END_VIDEO_CALL:
-          this.setState({isVideoCallWindowOpen: false});
+          this.setState({videoCallWindowOpen: false});
           break;
         case SOCKET_BROADCAST_ACCEPT_VIDEO_CALL:
           ::this.handleSignalPeer(action.peerID);
@@ -156,7 +156,7 @@ class Chat extends Component {
   handleAudioRecorderToggle(event) {
     event.preventDefault();
 
-    this.setState({isAudioRecorderOpen: ! this.state.isAudioRecorderOpen});
+    this.setState({audioRecorderOpen: ! this.state.audioRecorderOpen});
   }
   handleDragDropBoxToggle(openTheDragDropBox = false) {
     this.setState({dragDropBoxOpen: openTheDragDropBox});
@@ -223,7 +223,7 @@ class Chat extends Component {
             this.setState({
               localVideoSource: stream,
               remoteVideoSource: {},
-              isVideoCallWindowOpen: true,
+              videoCallWindowOpen: true,
             });
           },
           ::this.handleVideoCallError
@@ -235,7 +235,7 @@ class Chat extends Component {
     const { cancelRequestVideoCall } = this.props;
 
     cancelRequestVideoCall(receiverID);
-    this.setState({isVideoCallWindowOpen: false});
+    this.setState({videoCallWindowOpen: false});
   }
   handleAcceptVideoCall(callerID) {
     const { acceptVideoCall } = this.props;
@@ -256,8 +256,8 @@ class Chat extends Component {
 
         this.setState({
           localVideoSource: stream,
-          isVideoCallRequestModalOpen: false,
-          isVideoCallWindowOpen: true,
+          videoCallRequestModalOpen: false,
+          videoCallWindowOpen: true,
         });
       },
       () => {
@@ -274,13 +274,13 @@ class Chat extends Component {
     const peerUser = videoCall.peerUser;
 
     rejectVideoCall(peerUser._id);
-    this.setState({isVideoCallRequestModalOpen: false});
+    this.setState({videoCallRequestModalOpen: false});
   }
   handleEndVideoCall(peerUserID) {
     const { endVideoCall } = this.props;
 
     endVideoCall(peerUserID);
-    this.setState({isVideoCallWindowOpen: false});
+    this.setState({videoCallWindowOpen: false});
   }
   handleNotificationViewMessage(chatRoomObj, mobile) {
     const {
@@ -312,12 +312,12 @@ class Chat extends Component {
     const {
       isRightSideDrawerOpen,
       activeChatPopUpWindow,
-      isAudioRecorderOpen,
+      audioRecorderOpen,
       dragDropBoxOpen,
       localVideoSource,
       remoteVideoSource,
-      isVideoCallRequestModalOpen,
-      isVideoCallWindowOpen,
+      videoCallRequestModalOpen,
+      videoCallWindowOpen,
     } = this.state;
     const activeChatRoom = chatRoom.active;
     const loading = user.fetchActive.loading || chatRoom.fetch.loading;
@@ -344,7 +344,7 @@ class Chat extends Component {
             handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}
           />
         </Header>
-        <div className={"chat-box-wrapper " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
+        <div className={"chat-box-wrapper " + (audioRecorderOpen ? 'audio-recorder-open' : '')}>
           <MediaQuery query="(min-width: 768px)">
             {
               popUpChatRoom.all.length > 0 &&
@@ -382,7 +382,7 @@ class Chat extends Component {
           ! isObjectEmpty( activeChatRoom.data ) &&
           <Fragment>
             {
-              ! isAudioRecorderOpen
+              ! audioRecorderOpen
                 ?
                 <ChatInput
                   user={user.active}
@@ -417,15 +417,15 @@ class Chat extends Component {
           }}
         </MediaQuery>
         {
-          isVideoCallRequestModalOpen &&
+          videoCallRequestModalOpen &&
           <VideoCallRequestModal
-            open={isVideoCallRequestModalOpen}
+            open={videoCallRequestModalOpen}
             handleAcceptVideoCall={::this.handleAcceptVideoCall}
             handleRejectVideoCall={::this.handleRejectVideoCall}
           />
         }
         {
-          isVideoCallWindowOpen &&
+          videoCallWindowOpen &&
           <VideoCallWindow
             localVideoSource={localVideoSource}
             remoteVideoSource={remoteVideoSource}
