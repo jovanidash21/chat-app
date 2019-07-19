@@ -43,8 +43,8 @@ class Chat extends Component {
     this.callerPeerID = null;
 
     this.state = {
-      isLeftSideDrawerOpen: false,
-      isRightSideDrawerOpen: false,
+      leftSideDrawerOpen: false,
+      rightSideDrawerOpen: false,
       activeChatPopUpWindow: -1,
       audioRecorderOpen: false,
       dragDropBoxOpen: false,
@@ -90,7 +90,7 @@ class Chat extends Component {
     }
   }
   handleLeftSideDrawerRender() {
-    const { isLeftSideDrawerOpen } = this.state;
+    const { leftSideDrawerOpen } = this.state;
 
     return (
       <MediaQuery query="(min-width: 768px)">
@@ -98,7 +98,7 @@ class Chat extends Component {
           return (
             <LeftSideDrawer
               handleLeftSideDrawerToggleState={::this.handleLeftSideDrawerToggleState}
-              isLeftSideDrawerOpen={matches ? true : isLeftSideDrawerOpen}
+              open={matches ? true : leftSideDrawerOpen}
               noOverlay={matches}
             >
               <ChatRoomsList
@@ -112,16 +112,16 @@ class Chat extends Component {
     )
   }
   handleLeftSideDrawerToggleEvent(openTheDrawer = false) {
-    this.setState({isLeftSideDrawerOpen: openTheDrawer});
+    this.setState({leftSideDrawerOpen: openTheDrawer});
   }
   handleLeftSideDrawerToggleState(state) {
-    this.setState({isLeftSideDrawerOpen: state.isOpen});
+    this.setState({leftSideDrawerOpen: state.isOpen});
   }
   handleRightSideDrawerToggleEvent(openTheDrawer = false) {
-    this.setState({isRightSideDrawerOpen: openTheDrawer});
+    this.setState({rightSideDrawerOpen: openTheDrawer});
   }
   handleRightSideDrawerToggleState(state) {
-    this.setState({isRightSideDrawerOpen: state.isOpen});
+    this.setState({rightSideDrawerOpen: state.isOpen});
   }
   handleOpenPopUpChatRoom(selectedChatRoom) {
     const {
@@ -310,7 +310,7 @@ class Chat extends Component {
       isNotTyping,
     } = this.props;
     const {
-      isRightSideDrawerOpen,
+      rightSideDrawerOpen,
       activeChatPopUpWindow,
       audioRecorderOpen,
       dragDropBoxOpen,
@@ -328,7 +328,7 @@ class Chat extends Component {
         {::this.handleLeftSideDrawerRender()}
         <RightSideDrawer
           handleRightSideDrawerToggleState={::this.handleRightSideDrawerToggleState}
-          isRightSideDrawerOpen={isRightSideDrawerOpen}
+          open={rightSideDrawerOpen}
         >
           <MembersList
             handleRightSideDrawerToggleEvent={::this.handleRightSideDrawerToggleEvent}

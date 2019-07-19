@@ -12,7 +12,7 @@ class LeftSideDrawer extends Component {
   render() {
     const {
       handleLeftSideDrawerToggleState,
-      isLeftSideDrawerOpen,
+      open,
       noOverlay,
       children,
     } = this.props;
@@ -21,7 +21,7 @@ class LeftSideDrawer extends Component {
       <Menu
         overlayClassName={"left-side-drawer-overlay"}
         width="250px"
-        isOpen={isLeftSideDrawerOpen}
+        isOpen={open}
         onStateChange={handleLeftSideDrawerToggleState}
         noOverlay={noOverlay}
       >
@@ -39,12 +39,12 @@ const mapStateToProps = (state) => {
 
 LeftSideDrawer.propTypes = {
   handleLeftSideDrawerToggleState: PropTypes.func.isRequired,
-  isLeftSideDrawerOpen: PropTypes.bool,
+  open: PropTypes.bool,
   noOverlay: PropTypes.bool,
 }
 
 LeftSideDrawer.defaultProps = {
-  isLeftSideDrawerOpen: false,
+  open: false,
   noOverlay: false,
 }
 

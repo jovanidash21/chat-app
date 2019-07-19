@@ -18,7 +18,7 @@ class Layout extends Component {
     super(props);
 
     this.state = {
-      isLeftSideDrawerOpen: false,
+      leftSideDrawerOpen: false,
     };
   }
   componentWillMount() {
@@ -29,7 +29,7 @@ class Layout extends Component {
     document.body.classList.add('admin-page');
   }
   handleLeftSideDrawerRender() {
-    const { isLeftSideDrawerOpen } = this.state;
+    const { leftSideDrawerOpen } = this.state;
 
     return (
       <MediaQuery query="(max-width: 767px)">
@@ -37,7 +37,7 @@ class Layout extends Component {
           return (
             <LeftSideDrawer
               handleLeftSideDrawerToggleState={::this.handleLeftSideDrawerToggleState}
-              isLeftSideDrawerOpen={matches ? isLeftSideDrawerOpen : true}
+              open={matches ? leftSideDrawerOpen : true}
               noOverlay={matches ? false : true}
             >
               <Menu handleLeftSideDrawerToggleEvent={::this.handleLeftSideDrawerToggleEvent} />
@@ -48,10 +48,10 @@ class Layout extends Component {
     )
   }
   handleLeftSideDrawerToggleEvent(openTheDrawer=false) {
-    this.setState({isLeftSideDrawerOpen: openTheDrawer});
+    this.setState({leftSideDrawerOpen: openTheDrawer});
   }
   handleLeftSideDrawerToggleState(state) {
-    this.setState({isLeftSideDrawerOpen: state.isOpen});
+    this.setState({leftSideDrawerOpen: state.isOpen});
   }
   handleComponentRender(matchProps) {
     const {
