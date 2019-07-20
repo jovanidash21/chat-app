@@ -20,7 +20,7 @@ class ChatPopUpWindow extends Component {
     super(props);
 
     this.state = {
-      isAudioRecorderOpen: false,
+      audioRecorderOpen: false,
       dragDropBoxOpen: false,
     };
   }
@@ -63,7 +63,7 @@ class ChatPopUpWindow extends Component {
   handleAudioRecorderToggle(event) {
     event.preventDefault();
 
-    this.setState({isAudioRecorderOpen: !this.state.isAudioRecorderOpen});
+    this.setState({audioRecorderOpen: !this.state.audioRecorderOpen});
   }
   handleDragDropBoxToggle(openTheDragDropBox=false) {
     this.setState({dragDropBoxOpen: openTheDragDropBox});
@@ -81,7 +81,7 @@ class ChatPopUpWindow extends Component {
       active,
     } = this.props;
     const {
-      isAudioRecorderOpen,
+      audioRecorderOpen,
       dragDropBoxOpen,
     } = this.state;
     const activeUser = user.active;
@@ -123,7 +123,7 @@ class ChatPopUpWindow extends Component {
               <FontAwesomeIcon icon="times" />
             </div>
           </div>
-          <div className={"popup-body " + (isAudioRecorderOpen ? 'audio-recorder-open' : '')}>
+          <div className={"popup-body " + (audioRecorderOpen ? 'audio-recorder-open' : '')}>
             <ChatBox
               chatRoom={popUpChatRoom}
               messages={popUpChatRoom.message.all}
@@ -137,7 +137,7 @@ class ChatPopUpWindow extends Component {
           </div>
           <div className="popup-footer">
             {
-              !isAudioRecorderOpen
+              !audioRecorderOpen
                 ?
                 <ChatInput
                   id={"popup-" + index}

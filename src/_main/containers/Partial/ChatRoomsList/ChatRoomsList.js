@@ -16,7 +16,7 @@ class ChatRoomsList extends Component {
     super(props);
 
     this.state = {
-      isChatBoxRoomsListScrolled: false,
+      chatBoxRoomsListScrolled: false,
       createChatRoomModalOpen: false,
       chatRooms: [],
       searchFilter: '',
@@ -53,9 +53,9 @@ class ChatRoomsList extends Component {
   }
   handleChatRoomsListScroll() {
     if ( this.chatRoomsList.scrollTop > 10 ) {
-      this.setState({isChatBoxRoomsListScrolled: true});
+      this.setState({chatBoxRoomsListScrolled: true});
     } else {
-      this.setState({isChatBoxRoomsListScrolled: false});
+      this.setState({chatBoxRoomsListScrolled: false});
     }
   }
   handleChatRoomsListFilter(searchFilter = '') {
@@ -154,7 +154,7 @@ class ChatRoomsList extends Component {
       handleOpenPopUpChatRoom,
     } = this.props;
     const {
-      isChatBoxRoomsListScrolled,
+      chatBoxRoomsListScrolled,
       createChatRoomModalOpen,
       chatRooms,
       searchFilter,
@@ -222,7 +222,7 @@ class ChatRoomsList extends Component {
               )
             }}
           </MediaQuery>
-          <div className={"scroll-shadow " + (isChatBoxRoomsListScrolled ? 'scrolled' : '')} />
+          <div className={"scroll-shadow " + (chatBoxRoomsListScrolled ? 'scrolled' : '')} />
           <div
             className="chat-rooms-list"
             ref={(element) => { this.chatRoomsList = element; }}

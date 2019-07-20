@@ -25,12 +25,12 @@ class ChatBox extends Component {
 
     this.state = {
       hasLoadedAllMessages: false,
-      isChatBoxScrollToBottom: false,
-      isChatBoxScrollToTop: false,
+      chatBoxScrollToBottom: false,
+      chatBoxScrollToTop: false,
       scrollPosition: 0,
       oldestMessageQuery: false,
       oldestMessageOffsetTop: 0,
-      isImageLightboxOpen: false,
+      imageLightboxOpen: false,
       imageIndex: -1,
       audioIndex: -1,
       deleteMessageModalOpen: false,
@@ -43,7 +43,7 @@ class ChatBox extends Component {
   componentDidUpdate(prevProps) {
     if (
       ( prevProps.fetchNewLoading && !this.props.fetchNewLoading ) ||
-      this.state.isChatBoxScrollToBottom
+      this.state.chatBoxScrollToBottom
     ) {
       ::this.handleScrollToBottom();
     }
@@ -51,7 +51,7 @@ class ChatBox extends Component {
     if ( prevProps.fetchNewLoading && !this.props.fetchNewLoading ) {
       this.setState({
         hasLoadedAllMessages: false,
-        isChatBoxScrollToBottom: true,
+        chatBoxScrollToBottom: true,
       });
     }
 
@@ -91,16 +91,16 @@ class ChatBox extends Component {
       (this.chatBox.scrollTop === (this.chatBox.scrollHeight - this.chatBox.offsetHeight)) ||
       (this.chatBox.offsetHeight >= this.chatBox.scrollHeight)
     ) {
-      this.setState({isChatBoxScrollToBottom: true});
+      this.setState({chatBoxScrollToBottom: true});
     } else {
-      this.setState({isChatBoxScrollToBottom: false});
+      this.setState({chatBoxScrollToBottom: false});
     }
 
     if ( this.chatBox.scrollTop < 40 ) {
-      this.setState({isChatBoxScrollToTop: true});
+      this.setState({chatBoxScrollToTop: true});
       ::this.handleFetchOldMessages();
     } else {
-      this.setState({isChatBoxScrollToTop: false});
+      this.setState({chatBoxScrollToTop: false});
     }
   }
   handleChatBoxRender() {
@@ -193,7 +193,7 @@ class ChatBox extends Component {
       fetchNewLoading
     } = this.props;
     const {
-      isImageLightboxOpen,
+      imageLightboxOpen,
       imageIndex
     } = this.state;
 
@@ -215,7 +215,7 @@ class ChatBox extends Component {
       return (
         <Fragment>
           {
-            isImageLightboxOpen &&
+            imageLightboxOpen &&
             <ChatImageLightBox
               images={imagesArray}
               imageIndex={imageIndex}
@@ -255,10 +255,10 @@ class ChatBox extends Component {
     } = this.props;
     const {
       hasLoadedAllMessages,
-      isChatBoxScrollToTop
+      chatBoxScrollToTop
     } = this.state;
 
-    if ( !hasLoadedAllMessages && isChatBoxScrollToTop && !fetchNewLoading && !fetchOldLoading ) {
+    if ( !hasLoadedAllMessages && chatBoxScrollToTop && !fetchNewLoading && !fetchOldLoading ) {
       const scrollPosition = this.chatBox.scrollTop;
       const oldestMessageQuery = document.querySelectorAll(".chat-box .chat-bubble-wrapper")[0];
       const oldestMessageOffsetTop = oldestMessageQuery.offsetTop;
@@ -293,7 +293,7 @@ class ChatBox extends Component {
     });
 
     this.setState({
-      isImageLightboxOpen: !this.state.isImageLightboxOpen,
+      imageLightboxOpen: !this.state.imageLightboxOpen,
       imageIndex: imageMessageIndex,
     });
   }

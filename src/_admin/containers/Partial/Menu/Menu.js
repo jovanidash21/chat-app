@@ -34,7 +34,7 @@ class Menu extends Component {
     super(props);
 
     this.state = {
-      isMenusListScrolled: false,
+      menusListScrolled: false,
       openMenuItem: -1,
     };
   }
@@ -48,9 +48,9 @@ class Menu extends Component {
   }
   handleMenusListScroll() {
     if ( this.menusList.scrollTop > 10 ) {
-      this.setState({isMenusListScrolled: true});
+      this.setState({menusListScrolled: true});
     } else {
-      this.setState({isMenusListScrolled: false});
+      this.setState({menusListScrolled: false});
     }
   }
   handleOpenMenuItem(menuItemIndex) {
@@ -65,7 +65,7 @@ class Menu extends Component {
   render() {
     const { router } = this.props;
     const {
-      isMenusListScrolled,
+      menusListScrolled,
       openMenuItem,
     } = this.state;
 
@@ -75,7 +75,7 @@ class Menu extends Component {
           <h1 className="title">
             Admin Panel
           </h1>
-          <div className={"scroll-shadow " + (isMenusListScrolled ? 'scrolled' : '')} />
+          <div className={"scroll-shadow " + (menusListScrolled ? 'scrolled' : '')} />
           <div
             className="menus-list"
             ref={(element) => { this.menusList = element; }}

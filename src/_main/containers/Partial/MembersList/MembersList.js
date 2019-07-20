@@ -18,7 +18,7 @@ class MembersList extends Component {
     super(props);
 
     this.state = {
-      isMembersListScrolled: false,
+      membersListScrolled: false,
       members: [],
       searchFilter: '',
       selectedMemberIndex: -1,
@@ -61,9 +61,9 @@ class MembersList extends Component {
   }
   handleMembersListScroll() {
     if ( this.membersList.scrollTop > 10 ) {
-      this.setState({isMembersListScrolled: true});
+      this.setState({membersListScrolled: true});
     } else {
-      this.setState({isMembersListScrolled: false});
+      this.setState({membersListScrolled: false});
     }
   }
   handleMembersListFilter(searchFilter = '') {
@@ -188,7 +188,7 @@ class MembersList extends Component {
       member,
     } = this.props;
     const {
-      isMembersListScrolled,
+      membersListScrolled,
       members,
       searchFilter,
       selectedMemberIndex,
@@ -253,7 +253,7 @@ class MembersList extends Component {
               )
             }}
           </MediaQuery>
-          <div className={"scroll-shadow " + (isMembersListScrolled ? 'scrolled' : '')} />
+          <div className={"scroll-shadow " + (membersListScrolled ? 'scrolled' : '')} />
           <div
             className="members-list"
             ref={(element) => { this.membersList = element; }}
