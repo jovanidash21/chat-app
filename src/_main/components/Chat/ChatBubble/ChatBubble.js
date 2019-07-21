@@ -148,11 +148,7 @@ class ChatBubble extends Component {
                     </div>
                     :
                     <div title="Message is sent">
-                      <FontAwesomeIcon
-                        className="sent"
-                        icon="check-square"
-                        title="Message is sent"
-                      />
+                      <FontAwesomeIcon className="sent" icon="check-square" />
                     </div>
                 )
               }
