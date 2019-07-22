@@ -98,8 +98,4 @@ NewMessagesDropdown.propTypes = {
   handleClearChatRoomUnreadMessages: PropTypes.func.isRequired,
 }
 
-NewMessagesDropdown.defaultProps = {
-  count: 0,
-}
-
 export default NewMessagesDropdown;
