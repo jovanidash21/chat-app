@@ -83,14 +83,17 @@ class ChatRoomMember extends Component {
                             Direct messages
                           </a>
                         </li>
-                        <li>
-                          <a href="#" onClick={::this.handleOpenBlockUnblockUserModal}>
-                            <div className="option-icon">
-                              <FontAwesomeIcon icon="user-slash" />
-                            </div>
-                            {!chatRoomMember.blocked ? 'Block' : 'Unblock'} user
-                          </a>
-                        </li>
+                        {
+                          chatRoomMember.role !== 'admin' &&
+                          <li>
+                            <a href="#" onClick={::this.handleOpenBlockUnblockUserModal}>
+                              <div className="option-icon">
+                                <FontAwesomeIcon icon="user-slash" />
+                              </div>
+                              {!chatRoomMember.blocked ? 'Block' : 'Unblock'} user
+                            </a>
+                          </li>
+                        }
                       </Fragment>
                     )
                   }}
