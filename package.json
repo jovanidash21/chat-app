@@ -85,6 +85,7 @@
     "friendly-errors-webpack-plugin": "^1.7.0",
     "history": "^4.7.2",
     "initials": "^3.0.0",
+    "mini-css-extract-plugin": "^0.8.0",
     "muicss": "^0.9.38",
     "nodemon": "^1.11.0",
     "password-generator": "^2.2.0",
