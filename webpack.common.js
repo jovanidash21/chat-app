@@ -3,11 +3,10 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const postcssFlexbugsFixes = require('postcss-flexbugs-fixes');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const extractSassBundle = new ExtractTextPlugin({
+const extractSassBundle = new MiniCssExtractPlugin({
   filename: '[name].bundle.css',
-  disable: false,
 });
 
 module.exports = {
@@ -59,43 +58,46 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: extractSassBundle.extract({
-          use: [
-            {
-              loader: 'css-loader',
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development',
             },
-            {
-              loader: 'postcss-loader',
-              options: {
-                ident: 'postcss',
-                plugins: () => [
-                  postcssFlexbugsFixes,
-                  autoprefixer({
-                    browsers: [
-                      '>1%',
-                      'last 4 versions',
-                      'Firefox ESR',
-                      'not ie < 9',
-                    ],
-                    flexbox: 'no-2009',
-                  }),
-                ],
-              },
+          },
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                postcssFlexbugsFixes,
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9',
+                  ],
+                  flexbox: 'no-2009',
+                }),
+              ],
             },
-            {
-              loader: 'sass-loader',
+          },
+          {
+            loader: 'sass-loader',
+          },
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              resources: [
+                path.join(__dirname, '/sass/main.scss'),
+              ],
             },
-            {
-              loader: 'sass-resources-loader',
-              options: {
-                resources: [
-                  path.join(__dirname, '/sass/main.scss'),
-                ],
-              },
-            },
-          ],
-          fallback: 'style-loader',
-        }),
+          },
+        ],
       },
     ],
   },
