@@ -80,7 +80,6 @@
     "css-loader": "^1.0.1",
     "emojione": "2.2.7",
     "emojione-picker": "^2.2.2",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^2.0.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "history": "^4.7.2",
