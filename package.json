@@ -19,7 +19,8 @@
     "webpack:dev": "webpack --progress --colors --config webpack.dev.js --watch",
     "node:prod": "cross-env NODE_ENV=production node bin/www",
     "node:dev": "nodemon bin/www --watch build",
-    "clean": "rimraf public/build"
+    "clean": "rimraf public/build",
+    "test": "artillery run socket-io-load-test.yaml"
   },
   "dependencies": {
     "bluebird": "^3.5.0",

@@ -1,0 +1,14 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 500
+      arrivalRate: 5
+scenarios:
+  - engine: "socketio"
+    flow:
+      - loop:
+          - emit:
+              channel: "send message"
+              data: "hello world!"
+          - think: 1
+        count: 100
