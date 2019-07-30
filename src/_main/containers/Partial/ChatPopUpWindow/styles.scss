@@ -60,10 +60,7 @@
     }
   }
   .popup-body {
-    display: flex;
     flex: 1;
-    flex-direction: column;
-    justify-content: flex-end;
     max-height: 251px;
     position: relative;
     &.audio-recorder-open {

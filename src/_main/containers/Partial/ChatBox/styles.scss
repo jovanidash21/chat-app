@@ -1,6 +1,9 @@
 .chat-box {
   @include scrollbar($color-mine-shaft);
+  display: flex;
+  flex-direction: column;
   height: 100% !important;
+  justify-content: flex-end;
   overflow-x: hidden;
   overflow-y: auto;
   &.loading {
@@ -33,6 +36,7 @@
   }
   .mui-container-fluid {
     padding: 15px 5px 15px 15px;
+    width: 100%;
     @media screen and (max-width: $screen-mobile-max) {
       padding: 15px 5px;
     }

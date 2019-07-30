@@ -39,10 +39,7 @@ body.chat-page {
     flex-shrink: 0;
   }
   .chat-box-wrapper {
-    display: flex;
     flex: 1;
-    flex-direction: column;
-    justify-content: flex-end;
     max-height: calc(100vh - 129px);
     position: relative;
     @media screen and (max-width: $screen-mobile-max) {
