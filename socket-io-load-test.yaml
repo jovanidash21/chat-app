@@ -2,7 +2,7 @@ config:
   target: "http://localhost:3000"
   phases:
     - duration: 500
-      arrivalRate: 5
+      arrivalRate: 0.5
 scenarios:
   - engine: "socketio"
     flow:
@@ -11,4 +11,4 @@ scenarios:
               channel: "send message"
               data: "hello world!"
           - think: 1
-        count: 100
+        count: 200
