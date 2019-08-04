@@ -35,7 +35,13 @@ class ChatRoomMember extends Component {
       user,
       chatRoomMember,
       active,
+      dropdownUp,
     } = this.props;
+    let showDropdownMenu = false;
+
+    if ( user._id !== chatRoomMember._id ) {
+      showDropdownMenu = true;
+    }
 
     return (
       <div
@@ -63,9 +69,9 @@ class ChatRoomMember extends Component {
             <span className="you-label">(you)</span>
           }
         </div>
-        <div className="member-options-button">
+        <div className={"member-options-button " + (showDropdownMenu && dropdownUp ? 'mui-dropdown--up' : '')}>
           {
-            user._id !== chatRoomMember._id &&
+            showDropdownMenu &&
             <Fragment>
               <div className="ellipsis-icon" data-mui-toggle="dropdown">
                 <FontAwesomeIcon icon="ellipsis-v" />
@@ -113,10 +119,12 @@ ChatRoomMember.propTypes = {
   handleAddDirectChatRoom: PropTypes.func.isRequired,
   handleOpenBlockUnblockUserModal: PropTypes.func.isRequired,
   active: PropTypes.bool,
+  dropdownUp: PropTypes.bool,
 }
 
 ChatRoomMember.defaultProps = {
   active: false,
+  dropdownUp: false,
 }
 
 export default ChatRoomMember;

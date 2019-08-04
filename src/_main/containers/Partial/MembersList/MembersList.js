@@ -308,6 +308,7 @@ class MembersList extends Component {
                   handleAddDirectChatRoom={::this.handleAddDirectChatRoom}
                   handleOpenBlockUnblockUserModal={::this.handleOpenBlockUnblockUserModal}
                   active={selectedMemberIndex === i}
+                  dropdownUp={(members.length > 10) && (i >= (members.length - 5))}
                 />
               )
             }
