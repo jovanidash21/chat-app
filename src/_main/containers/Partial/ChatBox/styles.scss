@@ -1,9 +1,11 @@
-.chat-box {
-  @include scrollbar($color-mine-shaft);
+.chat-box-container {
   display: flex;
   flex-direction: column;
   height: 100% !important;
   justify-content: flex-end;
+}
+.chat-box {
+  @include scrollbar($color-mine-shaft);
   overflow-x: hidden;
   overflow-y: auto;
   &.loading {

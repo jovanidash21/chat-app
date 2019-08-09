@@ -386,25 +386,27 @@ class ChatBox extends Component {
 
     return (
       <ReactResizeDetector handleHeight onResize={::this.handleScrollToBottom}>
-        <div
-          className={
-            "chat-box" +
-            (fetchNewLoading ? ' loading' : '') +
-            (small ? ' small' : '')
-          }
-          ref={(element) => { this.chatBox = element; }}
-        >
-          {::this.handleChatBoxRender()}
-          {::this.handleImageLightboxRender()}
-          {::this.handleDragDropBoxRender()}
-          {
-            deleteMessageModalOpen &&
-            <DeleteMessageModal
-              open={deleteMessageModalOpen}
-              selectedMessageID={selectedMessageID}
-              onClose={::this.handleCloseDeleteMessageModal}
-            />
-          }
+        <div className="chat-box-container">
+          <div
+            className={
+              "chat-box" +
+              (fetchNewLoading ? ' loading' : '') +
+              (small ? ' small' : '')
+            }
+            ref={(element) => { this.chatBox = element; }}
+          >
+            {::this.handleChatBoxRender()}
+            {::this.handleImageLightboxRender()}
+            {::this.handleDragDropBoxRender()}
+            {
+              deleteMessageModalOpen &&
+              <DeleteMessageModal
+                open={deleteMessageModalOpen}
+                selectedMessageID={selectedMessageID}
+                onClose={::this.handleCloseDeleteMessageModal}
+              />
+            }
+          </div>
         </div>
       </ReactResizeDetector>
     )
