@@ -58,7 +58,7 @@ router.post('/block', (req, res, next) => {
             userID,
             { $addToSet: { blockedUsers: blockUserID }},
             { safe: true, upsert: true, new: true, select: '-chatRooms -blockedUsers -socketID' }
-          );
+          ).exec();
 
           res.status(200).send({
             success: true,
