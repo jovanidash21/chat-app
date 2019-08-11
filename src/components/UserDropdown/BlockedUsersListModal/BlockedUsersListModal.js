@@ -33,7 +33,7 @@ class BlockedUsersListModal extends Component {
 
     if ( searchFilter.length > 0 ) {
       allBlockedUsers = allBlockedUsers.filter((blockedUser) => {
-        return blockedUser.name.toLowerCase().match(searchFilter.toLowerCase());
+        return blockedUser.name && blockedUser.name.toLowerCase().match(searchFilter.toLowerCase());
       });
     } else {
       allBlockedUsers = [...blockedUsers];

@@ -74,7 +74,7 @@ class MembersList extends Component {
 
     if ( searchFilter.length > 0 ) {
       allMembers = allMembers.filter((singleMember) => {
-        return singleMember.name.toLowerCase().match(searchFilter.toLowerCase());
+        return singleMember.name && singleMember.name.toLowerCase().match(searchFilter.toLowerCase());
       });
 
       if ( selectedMemberIndex === -1 ) {
@@ -292,6 +292,9 @@ class MembersList extends Component {
               ! loading &&
               members.length > 0 &&
               members.sort((a, b) => {
+                a.name = a.name || '';
+                b.name = b.name || '';
+
                 const name = a.name.toLowerCase().localeCompare(b.name.toLowerCase());
                 const date = new Date(b.createdAt) - new Date(a.createdAt);
 

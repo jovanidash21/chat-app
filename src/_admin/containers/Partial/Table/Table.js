@@ -64,6 +64,7 @@ class Table extends Component {
         for ( let key in singleDataRow ) {
           if (
             columns.some((singleColumn) => singleColumn.key === key) &&
+            singleDataRow[key] &&
             singleDataRow[key].length > 0 &&
             singleDataRow[key].toLowerCase().match(filter)
           ) {
@@ -83,6 +84,9 @@ class Table extends Component {
     this.setState({totalRows: dataRows.length});
 
     dataRows = dataRows.sort((a, b) => {
+      a[column] = a[column] || '';
+      b[column] = b[column] || '';
+
       return a[column].toString().toLowerCase().localeCompare(b[column].toString().toLowerCase());
     });
 

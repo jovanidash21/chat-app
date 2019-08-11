@@ -85,6 +85,9 @@ class Header extends Component {
       !singleChatRoom.mute.data &&
       singleChatRoom.unReadMessages > 0
     ).sort((a, b) => {
+      a.data.name = a.data.name || '';
+      b.data.name = b.data.name || '';
+
       const date = new Date(b.data.latestMessageDate) - new Date(a.data.latestMessageDate);
       const name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
       const priority = a.priority - b.priority;

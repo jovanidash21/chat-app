@@ -31,6 +31,9 @@ class ChatRoomsList extends Component {
         changeChatRoom,
       } = this.props;
       const allChatRooms = chatRoom.all.sort((a, b) => {
+        a.data.name = a.data.name || '';
+        b.data.name = b.data.name || '';
+
         const n = a.priority - b.priority;
 
         if (n !== 0) {
@@ -66,7 +69,7 @@ class ChatRoomsList extends Component {
 
     if ( searchFilter.length > 0 ) {
       allChatRooms = allChatRooms.filter((singleChatRoom) => {
-        return singleChatRoom.data.name.toLowerCase().match(searchFilter.toLowerCase());
+        return singleChatRoom.data.name && singleChatRoom.data.name.toLowerCase().match(searchFilter.toLowerCase());
       });
 
       if ( selectedChatRoomIndex === -1 ) {
@@ -255,6 +258,9 @@ class ChatRoomsList extends Component {
               ! loading &&
               chatRooms.length > 0 &&
               chatRooms.sort((a, b) => {
+                a.data.name = a.data.name || '';
+                b.data.name = b.data.name || '';
+
                 const priority = a.priority - b.priority;
                 const name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
                 const date = new Date(b.data.createdAt) - new Date(a.data.createdAt);
