@@ -44,8 +44,10 @@ class Avatar extends Component {
     } else {
       let charCodeSum = 0;
 
-      for ( let i = 0; i < name.length; i += 1 ) {
-        charCodeSum += name.charCodeAt(i);
+      if ( name && name.length > 0 ) {
+        for ( let i = 0; i < name.length; i += 1 ) {
+          charCodeSum += name.charCodeAt(i);
+        }
       }
 
       const j = charCodeSum % colors.length;
