@@ -15,11 +15,11 @@ export function fetchChatRoomsCount() {
   return dispatch => {
     return dispatch({
       type: FETCH_CHAT_ROOMS_COUNT,
-      payload: axios.get( '/chat-room/count' ),
+      payload: axios.get('/chat-room/count'),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -30,13 +30,13 @@ export function fetchChatRoomsCount() {
  *
  * @param {string} chatRoomID
  */
-export function fetchSelectedChatRoom( chatRoomID ) {
-  let data = { chatRoomID };
+export function fetchSelectedChatRoom(chatRoomID) {
+  const data = { chatRoomID };
 
   return dispatch => {
     return dispatch({
       type: FETCH_SELECTED_CHAT_ROOM,
-      payload: axios.post( '/chat-room/select', data ),
+      payload: axios.post('/chat-room/select', data),
     })
     .catch((error) => {
       if (error instanceof Error) {
@@ -53,11 +53,11 @@ export function fetchChatRooms() {
   return dispatch => {
     return dispatch({
       type: FETCH_CHAT_ROOMS,
-      payload: axios.get( '/chat-room/all' ),
+      payload: axios.get('/chat-room/all'),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -71,7 +71,7 @@ export function fetchChatRooms() {
  * @param {string} members
  * @param {string} chatIcon
  */
-export function createChatRoom( chatType, name, members, chatIcon ) {
+export function createChatRoom(chatType, name, members, chatIcon) {
   let data = {
     chatType,
     name,
@@ -82,11 +82,11 @@ export function createChatRoom( chatType, name, members, chatIcon ) {
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post( '/chat-room/create', data ),
+      payload: axios.post('/chat-room/create', data),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -101,7 +101,7 @@ export function createChatRoom( chatType, name, members, chatIcon ) {
  * @param {string} members
  * @param {string} chatIcon
  */
-export function editChatRoom( chatRoomID, chatType, name, members, chatIcon ) {
+export function editChatRoom(chatRoomID, chatType, name, members, chatIcon) {
   let data = {
     chatRoomID,
     chatType,
@@ -113,11 +113,11 @@ export function editChatRoom( chatRoomID, chatType, name, members, chatIcon ) {
   return dispatch => {
     return dispatch({
       type: EDIT_CHAT_ROOM,
-      payload: axios.post( '/chat-room/edit', data ),
+      payload: axios.post('/chat-room/edit', data),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -128,18 +128,18 @@ export function editChatRoom( chatRoomID, chatType, name, members, chatIcon ) {
  *
  * @param {string} chatRoomID
  */
-export function deleteChatRoom( chatRoomID ) {
-  let data = { chatRoomID };
+export function deleteChatRoom(chatRoomID) {
+  const data = { chatRoomID };
 
   return dispatch => {
     return dispatch({
       type: DELETE_CHAT_ROOM,
-      payload: axios.post( '/chat-room/delete', data ),
+      payload: axios.post('/chat-room/delete', data),
       meta: chatRoomID,
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }

@@ -6,8 +6,8 @@ import { UPLOAD_IMAGE } from '../constants/upload';
  *
  * @param {Object} image
  */
-export function uploadImage( image ) {
-  let data = new FormData();
+export function uploadImage(image) {
+  const data = new FormData();
   data.append( 'image', image );
 
   let config = {
@@ -19,11 +19,11 @@ export function uploadImage( image ) {
   return dispatch => {
     return dispatch({
       type: UPLOAD_IMAGE,
-      payload: axios.post( '/upload/image', data, config ),
+      payload: axios.post('/upload/image', data, config),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
