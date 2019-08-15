@@ -20,7 +20,7 @@ const baseURL = `${localtionArr[0]}//${localtionArr[2]}`;
  *
  * @param {string} userID
  */
-export function socketUserLogin( userID ) {
+export function socketUserLogin(userID) {
   return {
     type: SOCKET_USER_LOGIN,
     userID,
@@ -33,26 +33,26 @@ export function socketUserLogin( userID ) {
  * @param {string} username
  * @param {string} password
  */
-export function localLogin( username, password ) {
-  let data = {
+export function localLogin(username, password) {
+  const data = {
     username,
     password,
   };
 
   return dispatch => {
-    dispatch( showLoading() );
+    dispatch(showLoading());
 
     return dispatch({
       type: LOGIN,
-      payload: axios.post( '/login/local', data ),
+      payload: axios.post('/login/local', data),
     })
     .then(() => {
-      dispatch( hideLoading() );
-      dispatch( push( '/chat' ) );
+      dispatch(hideLoading());
+      dispatch(push('/chat'));
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        dispatch( hideLoading() );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -65,22 +65,22 @@ export function facebookLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( `${baseURL}/api/login/facebook`, 'Facebook Login', {}, ( err, res ) => {
-          if ( ! err ) {
-            resolve( res );
+      payload: new Promise((resolve, reject) => {
+        popupTools.popup(`${baseURL}/api/login/facebook`, 'Facebook Login', {}, (err, res) => {
+          if (!err) {
+            resolve(res);
           } else {
-            reject( err );
+            reject(err);
           }
         });
       }),
     })
     .then(() => {
-      dispatch( push( '/chat' ) );
+      dispatch(push('/chat'));
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -93,22 +93,22 @@ export function googleLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( `${baseURL}/api/login/google`, 'Google Login', {}, ( err, res ) => {
-          if ( ! err ) {
-            resolve( res );
+      payload: new Promise((resolve, reject) => {
+        popupTools.popup(`${baseURL}/api/login/google`, 'Google Login', {}, (err, res) => {
+          if (!err) {
+            resolve(res);
           } else {
-            reject( err );
+            reject(err);
           }
         });
       }),
     })
     .then(() => {
-      dispatch( push( '/chat' ) );
+      dispatch(push('/chat'));
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -121,22 +121,22 @@ export function twitterLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( `${baseURL}/api/login/twitter`, 'Twitter Login', {}, ( err, res ) => {
-          if ( ! err ) {
-            resolve( res );
+      payload: new Promise((resolve, reject) => {
+        popupTools.popup( `${baseURL}/api/login/twitter`, 'Twitter Login', {}, (err, res) => {
+          if (!err) {
+            resolve(res);
           } else {
-            reject( err );
+            reject(err);
           }
         });
       }),
     })
     .then(() => {
-      dispatch( push( '/chat' ) );
+      dispatch(push('/chat'));
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -149,22 +149,22 @@ export function instagramLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( `${baseURL}/api/login/instagram`, 'Instagram Login', {}, ( err, res ) => {
-          if ( ! err ) {
-            resolve( res );
+      payload: new Promise((resolve, reject) => {
+        popupTools.popup( `${baseURL}/api/login/instagram`, 'Instagram Login', {}, (err, res) => {
+          if (!err) {
+            resolve(res);
           } else {
-            reject( err );
+            reject(err);
           }
         });
       }),
     })
     .then(() => {
-      dispatch( push( '/chat' ) );
+      dispatch(push('/chat'));
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -177,22 +177,22 @@ export function linkedinLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( `${baseURL}/api/login/linkedin`, 'LinkedIn Login', {}, ( err, res ) => {
-          if ( ! err ) {
-            resolve( res );
+      payload: new Promise((resolve, reject) => {
+        popupTools.popup( `${baseURL}/api/login/linkedin`, 'LinkedIn Login', {}, (err, res) => {
+          if (!err) {
+            resolve(res);
           } else {
-            reject( err );
+            reject(err);
           }
         });
       }),
     })
     .then(() => {
-      dispatch( push( '/chat' ) );
+      dispatch(push('/chat'));
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -205,22 +205,22 @@ export function githubLogin() {
   return dispatch => {
     return dispatch({
       type: LOGIN,
-      payload: new Promise(( resolve, reject ) => {
-        popupTools.popup( `${baseURL}/api/login/github]`, 'GitHub Login', {}, ( err, res ) => {
-          if ( ! err ) {
-            resolve( res );
+      payload: new Promise((resolve, reject) => {
+        popupTools.popup(`${baseURL}/api/login/github]`, 'GitHub Login', {}, (err, res) => {
+          if (!err) {
+            resolve(res);
           } else {
-            reject( err );
+            reject(err);
           }
         });
       }),
     })
     .then(() => {
-      dispatch( push( '/chat' ) );
+      dispatch(push('/chat'));
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -234,8 +234,8 @@ export function githubLogin() {
  * @param {string} username
  * @param {string} password
  */
-export function register( email, name, username, password ) {
-  let data = {
+export function register(email, name, username, password) {
+  const data = {
     email,
     name,
     username,
@@ -243,20 +243,20 @@ export function register( email, name, username, password ) {
   };
 
   return dispatch => {
-    dispatch( showLoading() );
+    dispatch(showLoading());
 
     return dispatch({
       type: REGISTER,
-      payload: axios.post( '/register', data ),
+      payload: axios.post('/register', data),
     })
     .then(() => {
-      dispatch( hideLoading() );
-      dispatch( sendEmail( email, name ) );
-      dispatch( push( '/chat' ) );
+      dispatch(hideLoading());
+      dispatch(sendEmail(email, name));
+      dispatch(push('/chat'));
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        dispatch( hideLoading() );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
