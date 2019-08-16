@@ -11,19 +11,17 @@ import {
  *
  * @param {string} userID
  */
-export function fetchBlockedUsers( userID ) {
-  let data = {
-    userID,
-  };
+export function fetchBlockedUsers(userID) {
+  const data = { userID };
 
   return dispatch => {
     return dispatch({
       type: FETCH_BLOCKED_USERS,
-      payload: axios.post( '/blocked-user', data ),
+      payload: axios.post('/blocked-user', data),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -35,8 +33,8 @@ export function fetchBlockedUsers( userID ) {
  * @param {string} userID
  * @param {string} blockUserID
  */
-export function blockUser( userID, blockUserID ) {
-  let data = {
+export function blockUser(userID, blockUserID) {
+  const data = {
     userID,
     blockUserID,
   };
@@ -44,12 +42,12 @@ export function blockUser( userID, blockUserID ) {
   return dispatch => {
     return dispatch({
       type: BLOCK_USER,
-      payload: axios.post( '/blocked-user/block', data ),
+      payload: axios.post('/blocked-user/block', data),
       meta: blockUserID,
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -61,8 +59,8 @@ export function blockUser( userID, blockUserID ) {
  * @param {string} userID
  * @param {string} unblockUserID
  */
-export function unblockUser( userID, unblockUserID ) {
-  let data = {
+export function unblockUser(userID, unblockUserID) {
+  const data = {
     userID,
     unblockUserID,
   };
@@ -70,12 +68,12 @@ export function unblockUser( userID, unblockUserID ) {
   return dispatch => {
     return dispatch({
       type: UNBLOCK_USER,
-      payload: axios.post( '/blocked-user/unblock', data ),
+      payload: axios.post('/blocked-user/unblock', data),
       meta: unblockUserID,
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -86,19 +84,17 @@ export function unblockUser( userID, unblockUserID ) {
  *
  * @param {string} userID
  */
-export function unblockAllUsers( userID ) {
-  let data = {
-    userID,
-  };
+export function unblockAllUsers(userID) {
+  const data = { userID };
 
   return dispatch => {
     return dispatch({
       type: UNBLOCK_ALL_USERS,
-      payload: axios.post( '/blocked-user/unblock-all', data ),
+      payload: axios.post('/blocked-user/unblock-all', data),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
