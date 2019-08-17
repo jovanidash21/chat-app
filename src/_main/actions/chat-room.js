@@ -18,17 +18,17 @@ import { fetchMembers } from './member';
  *
  * @param {string} userID
  */
-export function fetchChatRooms( userID ) {
-  let data = { userID };
+export function fetchChatRooms(userID) {
+  const data = { userID };
 
   return dispatch => {
     return dispatch({
       type: FETCH_CHAT_ROOMS,
-      payload: axios.post( '/chat-room', data ),
+      payload: axios.post('/chat-room', data),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -41,16 +41,16 @@ export function fetchChatRooms( userID ) {
  * @param {string} userID
  * @param {string} activeChatRoomID
  */
-export function changeChatRoom( chatRoom, userID, activeChatRoomID ) {
+export function changeChatRoom(chatRoom, userID, activeChatRoomID) {
   return dispatch => {
     dispatch({
       type: CHANGE_CHAT_ROOM,
       chatRoom,
     });
-    dispatch( leaveChatRoom( activeChatRoomID ) );
-    dispatch( joinChatRoom( chatRoom.data._id ) );
-    dispatch( fetchNewMessages( chatRoom.data._id, userID ) );
-    dispatch( fetchMembers( chatRoom.data._id, userID ) );
+    dispatch(leaveChatRoom(activeChatRoomID));
+    dispatch(joinChatRoom(chatRoom.data._id));
+    dispatch(fetchNewMessages(chatRoom.data._id, userID));
+    dispatch(fetchMembers(chatRoom.data._id, userID));
   }
 }
 
@@ -62,7 +62,7 @@ export function changeChatRoom( chatRoom, userID, activeChatRoomID ) {
  * @param {string} activeChatRoomID
  * @param {boolean} noChangeChatRoom
  */
-function createChatRoom( userID, chatRoom, activeChatRoomID, noChangeChatRoom = false ) {
+function createChatRoom(userID, chatRoom, activeChatRoomID, noChangeChatRoom = false) {
   return dispatch => {
     let chatRoomBroadcast = { ...chatRoom };
     let membersBroadcast = chatRoomBroadcast.data.members.slice();
@@ -75,10 +75,10 @@ function createChatRoom( userID, chatRoom, activeChatRoomID, noChangeChatRoom = 
     	membersBroadcast.splice( userIndex, 1 );
     }
 
-    let chatRoomData = { ...chatRoom.data };
+    const chatRoomData = { ...chatRoom.data };
 
-    if ( chatRoom.data.chatType === 'direct' ) {
-      for ( let j = 0; j < chatRoom.data.members.length; j++ ) {
+    if (chatRoom.data.chatType === 'direct') {
+      for (let j = 0; j < chatRoom.data.members.length; j++) {
         const member = chatRoom.data.members[j];
 
         if ( member._id != userID ) {
@@ -100,8 +100,8 @@ function createChatRoom( userID, chatRoom, activeChatRoomID, noChangeChatRoom = 
       members: membersBroadcast,
     });
 
-    if ( ! noChangeChatRoom ) {
-      dispatch( changeChatRoom( chatRoom, userID, activeChatRoomID ) );
+    if (!noChangeChatRoom) {
+      dispatch(changeChatRoom(chatRoom, userID, activeChatRoomID));
     }
   }
 }
@@ -114,8 +114,8 @@ function createChatRoom( userID, chatRoom, activeChatRoomID, noChangeChatRoom = 
  * @param {string} userID
  * @param {string} activeChatRoomID
  */
-export function createGroupChatRoom( name, members, userID, activeChatRoomID ) {
-  let data = {
+export function createGroupChatRoom(name, members, userID, activeChatRoomID) {
+  const data = {
     chatType: 'group',
     name,
     members,
@@ -124,14 +124,14 @@ export function createGroupChatRoom( name, members, userID, activeChatRoomID ) {
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post( '/chat-room/create', data ),
+      payload: axios.post('/chat-room/create', data),
     })
-    .then(( response ) => {
-      dispatch( createChatRoom( userID, response.action.payload.data.chatRoom, activeChatRoomID ) );
+    .then((response) => {
+      dispatch( createChatRoom(userID, response.action.payload.data.chatRoom, activeChatRoomID));
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -145,8 +145,8 @@ export function createGroupChatRoom( name, members, userID, activeChatRoomID ) {
  * @param {string} activeChatRoomID
  * @param {boolean} noChangeChatRoom
  */
-export function createDirectChatRoom( userID, memberID, activeChatRoomID, noChangeChatRoom = false ) {
-  let data = {
+export function createDirectChatRoom(userID, memberID, activeChatRoomID, noChangeChatRoom = false) {
+  const data = {
     chatType: 'direct',
     name: '',
     members: [userID, memberID],
@@ -155,18 +155,18 @@ export function createDirectChatRoom( userID, memberID, activeChatRoomID, noChan
   return dispatch => {
     return dispatch({
       type: CREATE_CHAT_ROOM,
-      payload: axios.post( '/chat-room/create', data ),
+      payload: axios.post('/chat-room/create', data),
     })
-    .then(( response ) => {
+    .then((response) => {
       const chatRoom = response.action.payload.data.chatRoom;
 
-      dispatch( createChatRoom( userID, chatRoom, activeChatRoomID, noChangeChatRoom ) );
+      dispatch(createChatRoom(userID, chatRoom, activeChatRoomID, noChangeChatRoom));
 
       return chatRoom;
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -177,7 +177,7 @@ export function createDirectChatRoom( userID, memberID, activeChatRoomID, noChan
  *
  * @param {string} chatRoomID
  */
-export function joinChatRoom( chatRoomID ) {
+export function joinChatRoom(chatRoomID) {
   return {
     type: SOCKET_JOIN_CHAT_ROOM,
     chatRoomID,
@@ -189,7 +189,7 @@ export function joinChatRoom( chatRoomID ) {
  *
  * @param {string} chatRoomID
  */
-export function leaveChatRoom( chatRoomID ) {
+export function leaveChatRoom(chatRoomID) {
   return {
     type: SOCKET_LEAVE_CHAT_ROOM,
     chatRoomID,
@@ -202,8 +202,8 @@ export function leaveChatRoom( chatRoomID ) {
  * @param {string} userID
  * @param {Array} chatRoomIDs
  */
-export function clearChatRoomUnreadMessages( userID, chatRoomIDs ) {
-  let data = {
+export function clearChatRoomUnreadMessages(userID, chatRoomIDs) {
+  const data = {
     userID,
     chatRoomIDs,
   };
@@ -211,11 +211,11 @@ export function clearChatRoomUnreadMessages( userID, chatRoomIDs ) {
   return dispatch => {
     return dispatch({
       type: CLEAR_CHAT_ROOM_UNREAD_MESSAGES,
-      payload: axios.post( '/chat-room/clear-unread', data ),
+      payload: axios.post('/chat-room/clear-unread', data),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -227,8 +227,8 @@ export function clearChatRoomUnreadMessages( userID, chatRoomIDs ) {
  * @param {string} userID
  * @param {string} chatRoomID
  */
-export function muteChatRoom( userID, chatRoomID ) {
-  let data = {
+export function muteChatRoom(userID, chatRoomID) {
+  const data = {
     userID,
     chatRoomID,
   };
@@ -236,11 +236,11 @@ export function muteChatRoom( userID, chatRoomID ) {
   return dispatch => {
     return dispatch({
       type: MUTE_CHAT_ROOM,
-      payload: axios.post( '/chat-room/mute', data ),
+      payload: axios.post('/chat-room/mute', data),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -253,7 +253,7 @@ export function muteChatRoom( userID, chatRoomID ) {
  * @param {string} chatRoomID
  */
 export function unmuteChatRoom(userID, chatRoomID) {
-  let data = {
+  const data = {
     userID,
     chatRoomID,
   };
@@ -261,11 +261,11 @@ export function unmuteChatRoom(userID, chatRoomID) {
   return dispatch => {
     return dispatch({
       type: UNMUTE_CHAT_ROOM,
-      payload: axios.post( '/chat-room/unmute', data ),
+      payload: axios.post('/chat-room/unmute', data),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
