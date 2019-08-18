@@ -7,8 +7,8 @@ import { FETCH_MEMBERS } from '../constants/member';
  * @param {string} chatRoomID
  * @param {string} userID
  */
-export function fetchMembers( chatRoomID, userID ) {
-  let data = {
+export function fetchMembers(chatRoomID, userID) {
+  const data = {
     chatRoomID,
     userID,
   };
@@ -16,11 +16,11 @@ export function fetchMembers( chatRoomID, userID ) {
   return dispatch => {
     return dispatch({
       type: FETCH_MEMBERS,
-      payload: axios.post( '/member', data ),
+      payload: axios.post('/member', data),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
