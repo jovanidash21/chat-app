@@ -19,11 +19,11 @@ export function fetchActiveUser() {
       payload: axios.get( '/user' ),
     })
     .then((response) => {
-      dispatch( fetchChatRooms( response.value.data.user._id ) );
+      dispatch(fetchChatRooms(response.value.data.user._id));
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -38,8 +38,8 @@ export function fetchActiveUser() {
  * @param {string} email
  * @param {string} profilePicture
  */
-export function editActiveUser( userID, username, name, email, profilePicture ) {
-  let data = {
+export function editActiveUser(userID, username, name, email, profilePicture) {
+  const data = {
     userID,
     username,
     name,
@@ -50,7 +50,7 @@ export function editActiveUser( userID, username, name, email, profilePicture ) 
   return dispatch => {
     return dispatch({
       type: EDIT_ACTIVE_USER,
-      payload: axios.post( '/user/edit-profile', data ),
+      payload: axios.post('/user/edit-profile', data),
     })
     .then((response) => {
       dispatch({
@@ -58,9 +58,9 @@ export function editActiveUser( userID, username, name, email, profilePicture ) 
         user: response.action.payload.data.user,
       });
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -72,8 +72,8 @@ export function editActiveUser( userID, username, name, email, profilePicture ) 
  * @param {string} query
  * @param {string} chatRoomID
  */
-export function searchUser( query, chatRoomID = '' ) {
-  let data = {
+export function searchUser(query, chatRoomID = '') {
+  const data = {
     query,
     chatRoomID,
   };
@@ -81,11 +81,11 @@ export function searchUser( query, chatRoomID = '' ) {
   return dispatch => {
     return dispatch({
       type: SEARCH_USER,
-      payload: axios.post( '/user/search', data ),
+      payload: axios.post('/user/search', data),
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
