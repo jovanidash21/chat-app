@@ -14,8 +14,8 @@ import {
  * @param {string} chatRoomID
  * @param {string} userID
  */
-export function fetchNewMessages( chatRoomID, userID ) {
-  let data = {
+export function fetchNewMessages(chatRoomID, userID) {
+  const data = {
     chatRoomID,
     userID,
     skipCount: 0,
@@ -24,12 +24,12 @@ export function fetchNewMessages( chatRoomID, userID ) {
   return dispatch => {
     return dispatch({
       type: FETCH_NEW_MESSAGES,
-      payload: axios.post( '/message', data ),
+      payload: axios.post('/message', data),
       meta: chatRoomID,
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -42,8 +42,8 @@ export function fetchNewMessages( chatRoomID, userID ) {
  * @param {string} userID
  * @param {number} skipCount
  */
-export function fetchOldMessages( chatRoomID, userID, skipCount ) {
-  let data = {
+export function fetchOldMessages(chatRoomID, userID, skipCount) {
+  const data = {
     chatRoomID,
     userID,
     skipCount,
@@ -52,12 +52,12 @@ export function fetchOldMessages( chatRoomID, userID, skipCount ) {
   return dispatch => {
     return dispatch({
       type: FETCH_OLD_MESSAGES,
-      payload: axios.post( '/message', data ),
+      payload: axios.post('/message', data),
       meta: chatRoomID,
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -71,8 +71,8 @@ export function fetchOldMessages( chatRoomID, userID, skipCount ) {
  * @param {Object} user
  * @param {string} chatRoomID
  */
-export function sendTextMessage( newMessageID, text, user, chatRoomID ) {
-  let data = {
+export function sendTextMessage(newMessageID, text, user, chatRoomID) {
+  const data = {
     text,
     userID: user._id,
     chatRoomID,
@@ -92,7 +92,7 @@ export function sendTextMessage( newMessageID, text, user, chatRoomID ) {
       type: SEND_MESSAGE,
       message: {
         _id: newMessageID,
-        createdAt: ( new Date() ).toString(),
+        createdAt: (new Date()).toString(),
         text: text,
         user: messageUser,
         chatRoom: chatRoomID,
@@ -102,7 +102,7 @@ export function sendTextMessage( newMessageID, text, user, chatRoomID ) {
     });
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post( '/message/text', data ),
+      payload: axios.post('/message/text', data),
       meta: newMessageID,
     })
     .then(( response ) => {
@@ -113,9 +113,9 @@ export function sendTextMessage( newMessageID, text, user, chatRoomID ) {
         chatRoomID: chatRoomID,
       });
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -130,12 +130,12 @@ export function sendTextMessage( newMessageID, text, user, chatRoomID ) {
  * @param {Object} user
  * @param {string} chatRoomID
  */
-export function sendFileMessage( newMessageID, text, file, user, chatRoomID ) {
-  let data = new FormData();
-  data.append( 'text', text );
-  data.append( 'file', file );
-  data.append( 'userID', user._id );
-  data.append( 'chatRoomID', chatRoomID );
+export function sendFileMessage(newMessageID, text, file, user, chatRoomID) {
+  const data = new FormData();
+  data.append('text', text);
+  data.append('file', file);
+  data.append('userID', user._id);
+  data.append('chatRoomID', chatRoomID);
 
   const messageUser = {
     _id: user._id,
@@ -146,7 +146,7 @@ export function sendFileMessage( newMessageID, text, file, user, chatRoomID ) {
     accountType: user.accountType,
   };
 
-  let config = {
+  const config = {
     headers: {
       'content-type': 'multipart/form-data',
     },
@@ -154,7 +154,7 @@ export function sendFileMessage( newMessageID, text, file, user, chatRoomID ) {
 
   let messageType = 'file';
 
-  if ( file.type.indexOf( 'image/' ) > -1 ) {
+  if (file.type.indexOf('image/') > -1) {
     messageType = 'image';
   }
 
@@ -175,10 +175,10 @@ export function sendFileMessage( newMessageID, text, file, user, chatRoomID ) {
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post( '/message/file', data, config ),
+      payload: axios.post('/message/file', data, config),
       meta: newMessageID,
     })
-    .then(( response ) => {
+    .then((response) => {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
@@ -186,9 +186,9 @@ export function sendFileMessage( newMessageID, text, file, user, chatRoomID ) {
         chatRoomID: chatRoomID,
       });
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -203,14 +203,14 @@ export function sendFileMessage( newMessageID, text, file, user, chatRoomID ) {
  * @param {Object} user
  * @param {string} chatRoomID
  */
-export function sendAudioMessage( newMessageID, text, audioBlob, user, chatRoomID ) {
+export function sendAudioMessage(newMessageID, text, audioBlob, user, chatRoomID) {
   let audio = new Blob([audioBlob], {type: "audio/webm"});
 
-  let data = new FormData();
-  data.append( 'text', text );
-  data.append( 'audio', audio );
-  data.append( 'userID', user._id );
-  data.append( 'chatRoomID', chatRoomID );
+  const data = new FormData();
+  data.append('text', text);
+  data.append('audio', audio);
+  data.append('userID', user._id);
+  data.append('chatRoomID', chatRoomID);
 
   const messageUser = {
     _id: user._id,
@@ -221,7 +221,7 @@ export function sendAudioMessage( newMessageID, text, audioBlob, user, chatRoomI
     accountType: user.accountType,
   };
 
-  let config = {
+  const config = {
     headers: {
       'content-type': 'multipart/form-data',
     },
@@ -232,7 +232,7 @@ export function sendAudioMessage( newMessageID, text, audioBlob, user, chatRoomI
       type: SEND_MESSAGE,
       message: {
         _id: newMessageID,
-        createdAt: ( new Date() ).toString(),
+        createdAt: (new Date()).toString(),
         text: text,
         user: messageUser,
         chatRoom: chatRoomID,
@@ -244,10 +244,10 @@ export function sendAudioMessage( newMessageID, text, audioBlob, user, chatRoomI
 
     dispatch({
       type: SEND_MESSAGE,
-      payload: axios.post( '/message/audio', data, config ),
+      payload: axios.post('/message/audio', data, config),
       meta: newMessageID,
     })
-    .then(( response ) => {
+    .then((response) => {
       dispatch({
         type: SOCKET_SEND_MESSAGE,
         message: response.action.payload.data.messageData,
@@ -255,9 +255,9 @@ export function sendAudioMessage( newMessageID, text, audioBlob, user, chatRoomI
         chatRoomID: chatRoomID,
       });
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }
@@ -270,7 +270,7 @@ export function sendAudioMessage( newMessageID, text, audioBlob, user, chatRoomI
  * @param {string} chatRoomID
  */
 export function deleteMessage( messageID, chatRoomID ) {
-  let data = {
+  const data = {
     messageID,
     chatRoomID,
   };
@@ -278,7 +278,7 @@ export function deleteMessage( messageID, chatRoomID ) {
   return dispatch => {
     return dispatch({
       type: DELETE_MESSAGE,
-      payload: axios.post( '/message/delete', data ),
+      payload: axios.post('/message/delete', data),
       meta: {
         messageID,
         chatRoomID,
@@ -291,9 +291,9 @@ export function deleteMessage( messageID, chatRoomID ) {
         chatRoomID,
       });
     })
-    .catch(( error ) => {
-      if ( error instanceof Error ) {
-        console.log( error );
+    .catch((error) => {
+      if (error instanceof Error) {
+        console.log(error);
       }
     });
   }

@@ -15,7 +15,7 @@ import { fetchNewMessages } from './message';
  * @param {string} userID
  * @param {string} activeChatRoomID
  */
-export function openPopUpChatRoom( chatRoom, userID, activeChatRoomID ) {
+export function openPopUpChatRoom(chatRoom, userID, activeChatRoomID) {
   const commonStateFlags = {
     loading: false,
     success: false,
@@ -44,8 +44,8 @@ export function openPopUpChatRoom( chatRoom, userID, activeChatRoomID ) {
         ...extraChatRoomData,
       },
     });
-    dispatch( joinChatRoom( chatRoom.data._id ) );
-    dispatch( fetchNewMessages( chatRoom.data._id, userID ) );
+    dispatch(joinChatRoom(chatRoom.data._id));
+    dispatch(fetchNewMessages(chatRoom.data._id, userID));
   }
 }
 
@@ -54,12 +54,12 @@ export function openPopUpChatRoom( chatRoom, userID, activeChatRoomID ) {
  *
  * @param {string} chatRoomID
  */
-export function closePopUpChatRoom( chatRoomID ) {
+export function closePopUpChatRoom(chatRoomID) {
   return dispatch => {
     dispatch({
       type: CLOSE_POPUP_CHAT_ROOM,
       chatRoomID,
     });
-    dispatch( leaveChatRoom( chatRoomID ) );
+    dispatch(leaveChatRoom(chatRoomID));
   }
 }
