@@ -12,8 +12,8 @@ const initialState = {
   count: 0,
 };
 
-const message = ( state = initialState, action ) => {
-  switch( action.type ) {
+const message = (state = initialState, action) => {
+  switch(action.type) {
     case `${FETCH_MESSAGES_COUNT}_LOADING`: {
       return {
         ...state,

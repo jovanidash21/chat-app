@@ -12,8 +12,8 @@ const initialState = {
   imageLink: '',
 };
 
-const upload = ( state = initialState, action ) => {
-  switch( action.type ) {
+const upload = (state = initialState, action) => {
+  switch(action.type) {
     case `${UPLOAD_IMAGE}_LOADING`: {
       return {
         ...state,

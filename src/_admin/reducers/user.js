@@ -37,8 +37,8 @@ const initialState = {
   searched: [],
 };
 
-const user = ( state = initialState, action ) => {
-  switch( action.type ) {
+const user = (state = initialState, action) => {
+  switch(action.type) {
     case `${FETCH_ACTIVE_USER}_LOADING`: {
       return {
         ...state,
@@ -249,7 +249,7 @@ const user = ( state = initialState, action ) => {
       let users = [ ...state.all ];
       const userID = action.meta;
 
-      users = users.filter(( user ) => {
+      users = users.filter((user) => {
         return user._id !== userID;
       });
 

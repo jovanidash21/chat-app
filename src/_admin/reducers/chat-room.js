@@ -26,8 +26,8 @@ const initialState = {
   selected: {},
 };
 
-const chatRoom = ( state = initialState, action ) => {
-  switch( action.type ) {
+const chatRoom = (state = initialState, action) => {
+  switch(action.type) {
     case `${FETCH_CHAT_ROOMS_COUNT}_LOADING`: {
       return {
         ...state,
