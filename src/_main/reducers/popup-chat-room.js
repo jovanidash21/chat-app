@@ -23,8 +23,8 @@ const initialState = {
   all: [],
 };
 
-const popUpChatRoom = ( state = initialState, action ) => {
-  switch( action.type ) {
+const popUpChatRoom = (state = initialState, action) => {
+  switch(action.type) {
     case OPEN_POPUP_CHAT_ROOM: {
       const chatRoom = action.chatRoom;
       const chatRooms = [ ...state.all ];

@@ -20,8 +20,8 @@ const initialState = {
   all: [],
 };
 
-const blockedUser = ( state = initialState, action ) => {
-  switch( action.type ) {
+const blockedUser = (state = initialState, action) => {
+  switch(action.type) {
     case `${FETCH_BLOCKED_USERS}_LOADING`: {
       return {
         ...state,

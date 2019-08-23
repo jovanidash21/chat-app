@@ -15,8 +15,8 @@ const initialState = {
   register: { ...commonStateFlags },
 };
 
-const auth = ( state = initialState, action ) => {
-  switch( action.type ) {
+const auth = (state = initialState, action) => {
+  switch(action.type) {
     case `${LOGIN}_LOADING`: {
       return {
         ...state,

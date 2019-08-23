@@ -18,7 +18,7 @@ import {
   SOCKET_BROADCAST_NOTIFY_MESSAGE_MENTION
 } from '../constants/message';
 
-const chatRoomPriority = ( chatRoom ) => {
+const chatRoomPriority = (chatRoom) => {
   let priority = -1;
 
   switch ( chatRoom.chatType ) {
@@ -55,8 +55,8 @@ const initialState = {
   all: [],
 };
 
-const chatRoom = ( state = initialState, action ) => {
-  switch( action.type ) {
+const chatRoom = (state = initialState, action) => {
+  switch(action.type) {
     case `${FETCH_CHAT_ROOMS}_LOADING`: {
       return {
         ...state,

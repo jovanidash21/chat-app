@@ -17,7 +17,7 @@ const initialState = {
   peerUser: {}
 };
 
-const videoCall = (state=initialState, action) => {
+const videoCall = (state = initialState, action) => {
   switch(action.type) {
     case SOCKET_REQUEST_VIDEO_CALL:
     case SOCKET_BROADCAST_REQUEST_VIDEO_CALL: {

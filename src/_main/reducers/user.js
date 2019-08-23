@@ -19,8 +19,8 @@ const initialState = {
   searched: [],
 };
 
-const user = ( state = initialState, action ) => {
-  switch( action.type ) {
+const user = (state = initialState, action) => {
+  switch(action.type) {
     case `${FETCH_ACTIVE_USER}_LOADING`: {
       return {
         ...state,

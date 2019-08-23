@@ -11,8 +11,8 @@ const initialState = {
   all: [],
 };
 
-const typer = ( state = initialState, action ) => {
-  switch( action.type ) {
+const typer = (state = initialState, action) => {
+  switch(action.type) {
     case SOCKET_BROADCAST_IS_TYPING: {
       const typer = action.typer;
       const chatRoomID = action.chatRoomID;

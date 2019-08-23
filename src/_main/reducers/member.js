@@ -31,8 +31,8 @@ const initialState = {
   all: [],
 };
 
-const member = ( state = initialState, action ) => {
-  switch( action.type ) {
+const member = (state = initialState, action) => {
+  switch(action.type) {
     case `${FETCH_MEMBERS}_LOADING`: {
       return {
         ...state,

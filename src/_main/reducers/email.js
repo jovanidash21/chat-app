@@ -11,8 +11,8 @@ const initialState = {
   send: { ...commonStateFlags },
 };
 
-const email = ( state = initialState, action ) => {
-  switch( action.type ) {
+const email = (state = initialState, action) => {
+  switch(action.type) {
     case `${SEND_EMAIL}_LOADING`: {
       return {
         ...state,
