@@ -13,10 +13,10 @@ const commonStateFlags = {
 };
 
 const initialState = {
-  fetch: { ...commonStateFlags },
-  block: { ...commonStateFlags },
-  unblock: { ...commonStateFlags },
-  unblockAll: { ...commonStateFlags },
+  fetch: {...commonStateFlags},
+  block: {...commonStateFlags},
+  unblock: {...commonStateFlags},
+  unblockAll: {...commonStateFlags},
   all: [],
 };
 
@@ -75,11 +75,11 @@ const blockedUser = (state = initialState, action) => {
       const blockedUserID = action.meta;
       const blockedUsers = [...state.all];
 
-      const blockedUserIndex = blockedUsers.findIndex(( blockedUser ) => {
+      const blockedUserIndex = blockedUsers.findIndex((blockedUser) => {
         return blockedUser._id === blockedUserID;
       });
 
-      if ( blockedUserIndex > -1 ) {
+      if (blockedUserIndex > -1 ) {
         blockedUsers[blockedUserIndex].blocked = true;
       }
 
@@ -92,18 +92,18 @@ const blockedUser = (state = initialState, action) => {
           error: false,
           message: action.payload.data.message,
         },
-        all: [ ...blockedUsers ],
+        all: [...blockedUsers],
       };
     }
     case `${UNBLOCK_USER}_SUCCESS`: {
       const unblockedUserID = action.meta;
       const blockedUsers = [...state.all];
 
-      const blockedUserIndex = blockedUsers.findIndex(( blockedUser ) => {
+      const blockedUserIndex = blockedUsers.findIndex((blockedUser) => {
         return blockedUser._id === unblockedUserID;
       });
 
-      if ( blockedUserIndex > -1 ) {
+      if (blockedUserIndex > -1) {
         blockedUsers[blockedUserIndex].blocked = false;
       }
 
@@ -116,13 +116,13 @@ const blockedUser = (state = initialState, action) => {
           error: false,
           message: action.payload.data.message,
         },
-        all: [ ...blockedUsers ],
+        all: [...blockedUsers],
       };
     }
     case `${UNBLOCK_ALL_USERS}_SUCCESS`: {
       const blockedUsers = [...state.all];
 
-      for ( let i = 0; i < blockedUsers.length; i += 1 ) {
+      for (let i = 0; i < blockedUsers.length; i += 1) {
         blockedUsers[i].blocked = false;
       }
 
@@ -135,7 +135,7 @@ const blockedUser = (state = initialState, action) => {
           error: false,
           message: action.payload.data.message,
         },
-        all: [ ...blockedUsers ],
+        all: [...blockedUsers],
       };
     }
     case `${FETCH_BLOCKED_USERS}_ERROR`: {

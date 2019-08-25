@@ -11,8 +11,8 @@ const commonStateFlags = {
 };
 
 const initialState = {
-  login: { ...commonStateFlags },
-  register: { ...commonStateFlags },
+  login: {...commonStateFlags},
+  register: {...commonStateFlags},
 };
 
 const auth = (state = initialState, action) => {
