@@ -8,7 +8,7 @@ const commonStateFlags = {
 };
 
 const initialState = {
-  send: { ...commonStateFlags },
+  send: {...commonStateFlags},
 };
 
 const email = (state = initialState, action) => {

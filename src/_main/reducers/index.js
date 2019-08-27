@@ -15,7 +15,7 @@ import blockedUser from './blocked-user';
 import upload from './upload';
 
 const appReducer = combineReducers({
-  router: connectRouter( history ),
+  router: connectRouter(history),
   loadingBar: loadingBarReducer,
   auth,
   user,
@@ -30,8 +30,8 @@ const appReducer = combineReducers({
   upload,
 });
 
-const rootReducer = ( state, action ) => {
-  return appReducer( state, action );
+const rootReducer = (state, action) => {
+  return appReducer(state, action);
 }
 
 export default rootReducer;
