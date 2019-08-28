@@ -23,7 +23,7 @@ const commonStateFlags = {
 };
 
 const initialState = {
-  fetch: { ...commonStateFlags },
+  fetch: {...commonStateFlags},
   activeUser: {},
   activeChatRoom: {
     data: {},
@@ -43,15 +43,15 @@ const member = (state = initialState, action) => {
       };
     }
     case `${FETCH_MEMBERS}_SUCCESS`: {
-      let members = [ ...action.payload.data.members ];
-      const activeUser = { ...state.activeUser };
+      let members = [...action.payload.data.members];
+      const activeUser = {...state.activeUser};
 
-      members = members.filter(( singleMember ) => {
+      members = members.filter((singleMember) => {
         return singleMember._id !== activeUser._id;
       });
 
       activeUser.isOnline = true;
-      members.push( activeUser );
+      members.push(activeUser);
 
       return {
         ...state,
@@ -93,46 +93,46 @@ const member = (state = initialState, action) => {
       const blockedUserID = action.meta;
       const members = [...state.all];
 
-      const memberIndex = members.findIndex(( singleMember ) => {
+      const memberIndex = members.findIndex((singleMember) => {
         return singleMember._id === blockedUserID;
       });
 
-      if ( memberIndex > -1 ) {
+      if (memberIndex > -1) {
         members[memberIndex].blocked = true;
       }
 
       return {
         ...state,
-        all: [ ...members ],
+        all: [...members],
       }
     }
     case `${UNBLOCK_USER}_SUCCESS`: {
       const unblockedUserID = action.meta;
       const members = [...state.all];
 
-      const memberIndex = members.findIndex(( singleMember ) => {
+      const memberIndex = members.findIndex((singleMember) => {
         return singleMember._id === unblockedUserID;
       });
 
-      if ( memberIndex > -1 ) {
+      if (memberIndex > -1) {
         members[memberIndex].blocked = false;
       }
 
       return {
         ...state,
-        all: [ ...members ],
+        all: [...members],
       }
     }
     case `${UNBLOCK_ALL_USERS}_SUCCESS`: {
       const members = [...state.all];
 
-      for ( let i = 0; i < members.length; i += 1 ) {
+      for (let i = 0; i < members.length; i += 1) {
         members[i].blocked = false;
       }
 
       return {
         ...state,
-        all: [ ...members ],
+        all: [...members],
       };
     }
     case `${EDIT_ACTIVE_USER}_SUCCESS`: {
@@ -140,11 +140,11 @@ const member = (state = initialState, action) => {
       const userID = user._id;
       const members = [...state.all];
 
-      var memberIndex = members.findIndex(( singleMember ) => {
+      var memberIndex = members.findIndex((singleMember) => {
         return singleMember._id === userID;
       });
 
-      if ( memberIndex > -1 ) {
+      if (memberIndex > -1) {
         members[memberIndex] = {
           ...members[memberIndex],
           ...user,
@@ -153,7 +153,7 @@ const member = (state = initialState, action) => {
 
       return {
         ...state,
-        all: [ ...members ],
+        all: [...members],
       }
     }
     case SOCKET_BROADCAST_EDIT_ACTIVE_USER: {
@@ -161,11 +161,11 @@ const member = (state = initialState, action) => {
       const userID = user._id;
       const members = [...state.all];
 
-      var memberIndex = members.findIndex(( singleMember ) => {
+      var memberIndex = members.findIndex((singleMember) => {
         return singleMember._id === userID;
       });
 
-      if ( memberIndex > -1 ) {
+      if (memberIndex > -1) {
         members[memberIndex] = {
           ...members[memberIndex],
           ...user,
@@ -174,48 +174,48 @@ const member = (state = initialState, action) => {
 
       return {
         ...state,
-        all: [ ...members ],
+        all: [...members],
       }
     }
     case SOCKET_BROADCAST_USER_LOGIN: {
       const user = action.user;
       const userID = user._id;
-      const activeChatRoom = { ...state.activeChatRoom };
+      const activeChatRoom = { ..state.activeChatRoom};
       const members = [...state.all];
 
-      const memberIndex = members.findIndex(( singleMember ) => {
+      const memberIndex = members.findIndex((singleMember) => {
         return singleMember._id === userID;
       });
 
-      if ( memberIndex > -1 ) {
+      if (memberIndex > -1) {
         members[memberIndex].isOnline = true;
       }
 
-      if ( activeChatRoom.data.chatType === 'public' && memberIndex === -1 ) {
+      if (activeChatRoom.data.chatType === 'public' && memberIndex === -1) {
         user.isOnline = true;
-        members.push( user );
+        members.push(user);
       }
 
       return {
         ...state,
-        all: [ ...members ],
+        all: [...members],
       }
     }
     case SOCKET_BROADCAST_USER_LOGOUT: {
       const userID = action.userID;
-      const members = [ ...state.all ];
+      const members = [...state.all];
 
-      const memberIndex = members.findIndex(( singleMember ) => {
+      const memberIndex = members.findIndex((singleMember) => {
         return singleMember._id === userID;
       });
 
-      if ( memberIndex > -1 ) {
+      if (memberIndex > -1) {
         members[memberIndex].isOnline = false;
       }
 
       return {
         ...state,
-        all: [ ...members ],
+        all: [...members],
       }
     }
     default:
