@@ -16,9 +16,9 @@ const commonStateFlags = {
 };
 
 const initialState = {
-  fetchNew: { ...commonStateFlags },
-  fetchOld: { ...commonStateFlags },
-  delete: { ...commonStateFlags },
+  fetchNew: {...commonStateFlags},
+  fetchOld: {...commonStateFlags},
+  delete: {...commonStateFlags},
   activeChatRoom: {
     data: {},
   },
@@ -28,10 +28,10 @@ const initialState = {
 const message = (state = initialState, action) => {
   switch(action.type) {
     case `${FETCH_NEW_MESSAGES}_LOADING`: {
-      const activeChatRoom = { ...state.activeChatRoom };
+      const activeChatRoom = { ..state.activeChatRoom};
       const chatRoomID = action.meta;
 
-      if ( chatRoomID === activeChatRoom.data._id ) {
+      if (chatRoomID === activeChatRoom.data._id) {
         return {
           ...state,
           fetchNew: {
@@ -46,10 +46,10 @@ const message = (state = initialState, action) => {
       };
     }
     case `${FETCH_OLD_MESSAGES}_LOADING`: {
-      const activeChatRoom = { ...state.activeChatRoom };
+      const activeChatRoom = {...state.activeChatRoom};
       const chatRoomID = action.meta;
 
-      if ( chatRoomID === activeChatRoom.data._id ) {
+      if (chatRoomID === activeChatRoom.data._id) {
         return {
           ...state,
           fetchOld: {
@@ -73,10 +73,10 @@ const message = (state = initialState, action) => {
       };
     }
     case `${FETCH_NEW_MESSAGES}_SUCCESS`: {
-      const activeChatRoom = { ...state.activeChatRoom };
+      const activeChatRoom = {...state.activeChatRoom};
       const chatRoomID = action.meta;
 
-      if ( chatRoomID === activeChatRoom.data._id ) {
+      if (chatRoomID === activeChatRoom.data._id) {
         return {
           ...state,
           fetchNew: {
@@ -95,10 +95,10 @@ const message = (state = initialState, action) => {
       };
     }
     case `${FETCH_OLD_MESSAGES}_SUCCESS`: {
-      const activeChatRoom = { ...state.activeChatRoom };
+      const activeChatRoom = {...state.activeChatRoom};
       const chatRoomID = action.meta;
 
-      if ( chatRoomID === activeChatRoom.data._id ) {
+      if (chatRoomID === activeChatRoom.data._id) {
         return {
           ...state,
           fetchOld: {
@@ -106,7 +106,7 @@ const message = (state = initialState, action) => {
             loading: false,
             success: true,
             error: false,
-            message: action.payload.data.message
+            message: action.payload.data.message,
           },
           all: [
             ...action.payload.data.messages,
@@ -120,17 +120,17 @@ const message = (state = initialState, action) => {
       };
     }
     case `${SEND_MESSAGE}_SUCCESS`: {
-      const messages = [ ...state.all ];
-      const activeChatRoom = { ...state.activeChatRoom };
+      const messages = [...state.all];
+      const activeChatRoom = {...state.activeChatRoom};
       const messageID = action.meta;
       const newMessage = action.payload.data.messageData;
 
-      if ( newMessage.chatRoom === activeChatRoom.data._id ) {
+      if (newMessage.chatRoom === activeChatRoom.data._id) {
         const messageIndex = messages.findIndex(( singleMessage ) => {
           return singleMessage._id === messageID;
         });
 
-        if ( messageIndex > -1 ) {
+        if (messageIndex > -1) {
           newMessage.isSending = false;
           messages[messageIndex] = newMessage;
         }
@@ -138,17 +138,17 @@ const message = (state = initialState, action) => {
 
       return {
         ...state,
-        all: [ ...messages ],
+        all: [...messages],
       };
     }
     case `${DELETE_MESSAGE}_SUCCESS`: {
-      let messages = [ ...state.all ];
-      const activeChatRoom = { ...state.activeChatRoom };
+      let messages = [...state.all];
+      const activeChatRoom = {...state.activeChatRoom};
       const messageID = action.meta.messageID;
       const chatRoomID = action.meta.chatRoomID;
 
-      if ( chatRoomID === activeChatRoom.data._id ) {
-        messages = messages.filter(( message ) => {
+      if (chatRoomID === activeChatRoom.data._id) {
+        messages = messages.filter((message) => {
           return message._id !== messageID;
         });
       }
@@ -162,14 +162,14 @@ const message = (state = initialState, action) => {
           error: false,
           message: action.payload.data.message,
         },
-        all: [ ...messages ],
+        all: [...messages],
       };
     }
     case `${FETCH_NEW_MESSAGES}_ERROR`: {
-      const activeChatRoom = { ...state.activeChatRoom };
+      const activeChatRoom = {...state.activeChatRoom};
       const chatRoomID = action.meta;
 
-      if ( chatRoomID === activeChatRoom.data._id ) {
+      if (chatRoomID === activeChatRoom.data._id) {
         return {
           ...state,
           fetchNew: {
@@ -187,10 +187,10 @@ const message = (state = initialState, action) => {
       };
     }
     case `${FETCH_OLD_MESSAGES}_ERROR`: {
-      const activeChatRoom = { ...state.activeChatRoom };
+      const activeChatRoom = {...state.activeChatRoom};
       const chatRoomID = action.meta;
 
-      if ( chatRoomID === activeChatRoom.data._id ) {
+      if (chatRoomID === activeChatRoom.data._id) {
         return {
           ...state,
           fetchOld: {
@@ -228,33 +228,33 @@ const message = (state = initialState, action) => {
     case SEND_MESSAGE:
     case SOCKET_BROADCAST_SEND_MESSAGE: {
       const message = action.message;
-      const activeChatRoom = { ...state.activeChatRoom };
-      const messages = [...state.all ];
+      const activeChatRoom = {...state.activeChatRoom};
+      const messages = [...state.all];
 
-      if ( message.chatRoom === activeChatRoom.data._id ) {
-        messages.push( message );
+      if (message.chatRoom === activeChatRoom.data._id) {
+        messages.push(message);
       }
 
       return {
         ...state,
-        all: [ ...messages ],
+        all: [...messages],
       };
     }
     case SOCKET_BROADCAST_DELETE_MESSAGE: {
       const messageID = action.messageID;
       const chatRoomID = action.chatRoomID;
-      const activeChatRoom = { ...state.activeChatRoom };
-      let messages = [ ...state.all ];
+      const activeChatRoom = {...state.activeChatRoom};
+      let messages = [...state.all];
 
-      if ( activeChatRoom.data._id === chatRoomID ) {
-        messages = messages.filter(( message ) => {
+      if (activeChatRoom.data._id === chatRoomID) {
+        messages = messages.filter((message) => {
           return message._id !== messageID;
         });
       }
 
       return {
         ...state,
-        all: [ ...messages ],
+        all: [...messages],
       };
     }
     default:
