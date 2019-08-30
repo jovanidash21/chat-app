@@ -14,7 +14,7 @@ import { isObjectEmpty } from '../../utils/object';
 
 const initialState = {
   active: false,
-  peerUser: {}
+  peerUser: {},
 };
 
 const videoCall = (state = initialState, action) => {
@@ -23,9 +23,9 @@ const videoCall = (state = initialState, action) => {
     case SOCKET_BROADCAST_REQUEST_VIDEO_CALL: {
       const user =  action.user;
       const active = state.active;
-      const peerUser = { ...state.peerUser };
+      const peerUser = {...state.peerUser};
 
-      if ( ! active && isObjectEmpty( peerUser ) ) {
+      if (!active && isObjectEmpty(peerUser)) {
         return {
           ...state,
           active: false,

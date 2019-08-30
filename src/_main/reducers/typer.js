@@ -19,34 +19,34 @@ const typer = (state = initialState, action) => {
       const activeChatRoom = {...state.activeChatRoom};
       const typers = [...state.all];
 
-      const typerIndex = typers.findIndex(( singleTyper ) => {
+      const typerIndex = typers.findIndex((singleTyper) => {
         return singleTyper._id === typer._id;
       });
 
-      if ( activeChatRoom.data._id === chatRoomID && typerIndex === -1  ) {
-        typers.push( typer );
+      if (activeChatRoom.data._id === chatRoomID && typerIndex === -1) {
+        typers.push(typer);
       }
 
       return {
         ...state,
-        all: [ ...typers ],
+        all: [...typers],
       };
     }
     case SOCKET_BROADCAST_IS_NOT_TYPING: {
       const typer = action.typer;
       const chatRoomID = action.chatRoomID;
-      const activeChatRoom = { ...state.activeChatRoom };
-      let typers = [ ...state.all ];
+      const activeChatRoom = {...state.activeChatRoom};
+      let typers = [...state.all];
 
-      if ( activeChatRoom.data._id === chatRoomID ) {
-        typers = typers.filter(( singleTyper ) => {
+      if (activeChatRoom.data._id === chatRoomID) {
+        typers = typers.filter((singleTyper) => {
           return singleTyper._id !== typer._id;
         });
       }
 
       return {
         ...state,
-        all: [ ...typers ],
+        all: [...typers],
       };
     }
     case CHANGE_CHAT_ROOM: {
