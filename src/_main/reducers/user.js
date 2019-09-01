@@ -12,9 +12,9 @@ const commonStateFlags = {
 };
 
 const initialState = {
-  fetchActive: { ...commonStateFlags },
-  editActive: { ...commonStateFlags },
-  search: { ...commonStateFlags },
+  fetchActive: {...commonStateFlags},
+  editActive: {...commonStateFlags},
+  search: {...commonStateFlags},
   active: {},
   searched: [],
 };
