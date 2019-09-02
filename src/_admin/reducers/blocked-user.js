@@ -13,10 +13,10 @@ const commonStateFlags = {
 };
 
 const initialState = {
-  fetch: { ...commonStateFlags },
-  block: { ...commonStateFlags },
-  unblock: { ...commonStateFlags },
-  unblockAll: { ...commonStateFlags },
+  fetch: {...commonStateFlags},
+  block: {...commonStateFlags},
+  unblock: {...commonStateFlags},
+  unblockAll: {...commonStateFlags},
   all: [],
 };
 
@@ -92,7 +92,7 @@ const blockedUser = (state = initialState, action) => {
           error: false,
           message: action.payload.data.message,
         },
-        all: [ ...blockedUsers ],
+        all: [...blockedUsers],
       };
     }
     case `${UNBLOCK_USER}_SUCCESS`: {
@@ -116,7 +116,7 @@ const blockedUser = (state = initialState, action) => {
           error: false,
           message: action.payload.data.message,
         },
-        all: [ ...blockedUsers ],
+        all: [...blockedUsers],
       };
     }
     case `${UNBLOCK_ALL_USERS}_SUCCESS`: {
@@ -135,7 +135,7 @@ const blockedUser = (state = initialState, action) => {
           error: false,
           message: action.payload.data.message,
         },
-        all: [ ...blockedUsers ],
+        all: [...blockedUsers],
       };
     }
     case `${FETCH_BLOCKED_USERS}_ERROR`: {
