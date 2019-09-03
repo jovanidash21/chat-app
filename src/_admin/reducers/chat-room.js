@@ -15,12 +15,12 @@ const commonStateFlags = {
 };
 
 const initialState = {
-  fetchCount: { ...commonStateFlags },
-  fetchSelect: { ...commonStateFlags },
-  fetchAll: { ...commonStateFlags },
-  create: { ...commonStateFlags },
-  edit: { ...commonStateFlags },
-  delete: { ...commonStateFlags },
+  fetchCount: {...commonStateFlags},
+  fetchSelect: {...commonStateFlags},
+  fetchAll: {...commonStateFlags},
+  create: {...commonStateFlags},
+  edit: {...commonStateFlags},
+  delete: {...commonStateFlags},
   count: 0,
   all: [],
   selected: {},
