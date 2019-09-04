@@ -8,7 +8,7 @@ const commonStateFlags = {
 };
 
 const initialState = {
-  fetchCount: { ...commonStateFlags },
+  fetchCount: {...commonStateFlags},
   count: 0,
 };
 
