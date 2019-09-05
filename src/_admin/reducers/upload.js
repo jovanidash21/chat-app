@@ -8,7 +8,7 @@ const commonStateFlags = {
 };
 
 const initialState = {
-  image: { ...commonStateFlags },
+  image: {...commonStateFlags},
   imageLink: '',
 };
 
