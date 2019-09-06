@@ -19,16 +19,16 @@ const commonStateFlags = {
 };
 
 const initialState = {
-  fetchActive: { ...commonStateFlags },
-  fetchCount: { ...commonStateFlags },
-  fetchGraph: { ...commonStateFlags },
-  fetchSelect: { ...commonStateFlags },
-  fetchAll: { ...commonStateFlags },
-  editActive: { ...commonStateFlags },
-  search: { ...commonStateFlags },
-  create: { ...commonStateFlags },
-  edit: { ...commonStateFlags },
-  delete: { ...commonStateFlags },
+  fetchActive: {...commonStateFlags},
+  fetchCount: {...commonStateFlags},
+  fetchGraph: {...commonStateFlags},
+  fetchSelect: {...commonStateFlags},
+  fetchAll: {...commonStateFlags},
+  editActive: {...commonStateFlags},
+  search: {...commonStateFlags},
+  create: {...commonStateFlags},
+  edit: {...commonStateFlags},
+  delete: {...commonStateFlags},
   count: 0,
   active: {},
   graph: [],
@@ -246,7 +246,7 @@ const user = (state = initialState, action) => {
       };
     }
     case `${DELETE_USER}_SUCCESS`: {
-      let users = [ ...state.all ];
+      let users = [...state.all];
       const userID = action.meta;
 
       users = users.filter((user) => {
@@ -262,7 +262,7 @@ const user = (state = initialState, action) => {
           error: false,
           message: action.payload.data.message,
         },
-        all: [ ...users ],
+        all: [...users],
       };
     }
     case `${FETCH_ACTIVE_USER}_ERROR`: {
