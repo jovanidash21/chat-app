@@ -8,15 +8,15 @@ import socket from '../../socket';
 import history from '../../history';
 import reducers from '../reducers';
 
-const optimisticExecute = ( action, emit, next ) => {
-  if ( action.type.indexOf( 'SOCKET_BROADCAST' ) === -1 ) {
-    emit( 'action', action );
+const optimisticExecute = (action, emit, next) => {
+  if (action.type.indexOf( 'SOCKET_BROADCAST_') === -1 ) {
+    emit('action', action);
   }
-  next( action );
+  next(action);
 }
 
-const reactRouterMiddleware = routerMiddleware( history );
-let socketIoMiddleware = createSocketIoMiddleware( socket, 'SOCKET_', { execute: optimisticExecute } );
+const reactRouterMiddleware = routerMiddleware(history);
+let socketIoMiddleware = createSocketIoMiddleware(socket, 'SOCKET_', {execute: optimisticExecute});
 
 const middlewares = [
   thunk,
@@ -31,12 +31,12 @@ const middlewares = [
 if ( process.env.NODE_ENV === 'development' ) {
   const { logger } = require('redux-logger');
 
-  middlewares.push( logger );
+  middlewares.push(logger);
 }
 
 const store = createStore(
   reducers,
-  applyMiddleware( ...middlewares ),
+  applyMiddleware(...middlewares),
 );
 
 export default store;
