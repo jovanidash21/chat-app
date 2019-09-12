@@ -3,19 +3,19 @@
  *
  * @param {object} element
  */
-export function getCaretPosition( element ) {
+export function getCaretPosition(element) {
   let caretPosition = null;
   const document = element.ownerDocument || element.document;
   const window = document.defaultView || document.parentWindow;
   let selection;
 
-  if ( typeof window.getSelection != 'undefined' ) {
+  if (typeof window.getSelection != 'undefined') {
     selection = window.getSelection();
 
-    if ( selection.rangeCount > 0 ) {
+    if (selection.rangeCount > 0) {
       caretPosition = window.getSelection().getRangeAt(0);
     }
-  } else if ( ( selection = document.selection ) && selection.type != 'Control' ) {
+  } else if ((selection = document.selection) && selection.type != 'Control') {
     caretPosition = selection.createRange();
   }
 
@@ -29,27 +29,27 @@ export function getCaretPosition( element ) {
  * @param {object} caretPosition
  * @param {string} html
  */
-export function insertHTML( element, caretPosition, html ) {
+export function insertHTML( lement, caretPosition, html) {
   const document = element.ownerDocument || element.document;
   const window = document.defaultView || document.parentWindow;
   let selection;
 
-  if ( caretPosition ) {
-    if ( typeof window.getSelection != 'undefined' ) {
+  if (caretPosition) {
+    if (typeof window.getSelection != 'undefined') {
       selection = window.getSelection();
       selection.removeAllRanges();
       selection.addRange(caretPosition);
-    } else if ( ( selection = document.selection ) && selection.type != 'Control' ) {
+    } else if ((selection = document.selection) && selection.type != 'Control') {
       caretPosition.select();
     }
   }
 
   element.focus();
 
-  if ( typeof window.getSelection != 'undefined' ) {
+  if (typeof window.getSelection != 'undefined') {
     selection = window.getSelection();
 
-    if ( selection.getRangeAt && selection.rangeCount ) {
+    if (selection.getRangeAt && selection.rangeCount  {
       let range = selection.getRangeAt(0);
       range.deleteContents();
 
@@ -59,13 +59,13 @@ export function insertHTML( element, caretPosition, html ) {
       const fragment = document.createDocumentFragment();
       let node;
       let lastNode;
-      while ( ( node = el.firstChild ) ) {
+      while ((node = el.firstChild)) {
         lastNode = fragment.appendChild(node);
       }
 
       range.insertNode(fragment);
 
-      if ( lastNode ) {
+      if (lastNode) {
         range = range.cloneRange();
         range.setStartAfter(lastNode);
         range.collapse(true);
@@ -75,7 +75,7 @@ export function insertHTML( element, caretPosition, html ) {
 
       return selection.getRangeAt(0);
     }
-  } else if ( ( selection = document.selection ) && selection.type != 'Control' ) {
+  } else if ((selection = document.selection) && selection.type != 'Control') {
     const range = document.selection.createRange();
     range.pasteHTML(html);
     range.select();
@@ -89,25 +89,25 @@ export function insertHTML( element, caretPosition, html ) {
  *
  * @param {object} element
  */
-export function getAutoCompleteTextQuery( element ) {
+export function getAutoCompleteTextQuery(element) {
   let parentElement = null;
 
-  if ( window.getSelection ) {
+  if (window.getSelection) {
     parentElement = window.getSelection().anchorNode.parentNode;
-  } else if ( document.selection && document.selection.createRange ) {
+  } else if (document.selection && document.selection.createRange) {
     parentElement = document.selection.createRange().parentElement();
   }
 
-  if ( parentElement && ! parentElement.classList.contains( 'user-username-tag' ) ) {
-    const caretPosition = getCaretPosition( element );
+  if (parentElement && ! parentElement.classList.contains('user-username-tag')) {
+    const caretPosition = getCaretPosition(element);
 
-    if ( caretPosition ) {
+    if (caretPosition) {
       const caretWords = caretPosition.commonAncestorContainer.data;
       const offset = caretPosition.startOffset;
       const start = /@/ig;
       const word = /@(\w+)/ig;
 
-      if ( caretWords ) {
+      if (caretWords) {
         const leftCaretText = caretWords.substring(0, offset);
         const rightCaretText = caretWords.substring(offset);
         const leftCaretWords = leftCaretText.split(' ');
@@ -121,7 +121,7 @@ export function getAutoCompleteTextQuery( element ) {
         const go = selectedWord.match( start );
         const name = selectedWord.match( word );
 
-        if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
+        if (go !== null && go.length > 0 && name !== null && name.length > 0) {
           const textQuery = name[0].substr(1);
 
           return textQuery;
@@ -140,36 +140,36 @@ export function getAutoCompleteTextQuery( element ) {
  * @param {object} caretPosition
  * @param {string} html
  */
-export function insertAutocompleteHTML( element, caretPosition, html ) {
+export function insertAutocompleteHTML(element, caretPosition, html) {
   const document = element.ownerDocument || element.document;
   const window = document.defaultView || document.parentWindow;
   let selection;
 
-  if ( caretPosition ) {
-    if ( typeof window.getSelection != 'undefined' ) {
+  if (caretPosition) {
+    if (typeof window.getSelection != 'undefined') {
       selection = window.getSelection();
       selection.removeAllRanges();
       selection.addRange(caretPosition);
-    } else if ( ( selection = document.selection ) && selection.type != 'Control' ) {
+    } else if ((selection = document.selection) && selection.type != 'Control') {
       caretPosition.select();
     }
   }
 
   element.focus();
 
-  if ( typeof window.getSelection != 'undefined' ) {
+  if (typeof window.getSelection != 'undefined') {
     selection = window.getSelection();
 
-    if ( selection.getRangeAt && selection.rangeCount ) {
+    if (selection.getRangeAt && selection.rangeCount) {
       let range = selection.getRangeAt(0);
 
-      if ( caretPosition ) {
+      if (caretPosition) {
         const caretWords = range.commonAncestorContainer.data;
         const offset = range.startOffset;
         const start = /@/ig;
         const word = /@(\w+)/ig;
 
-        if ( caretWords ) {
+        if (caretWords) {
           const leftCaretText = caretWords.substring(0, offset);
           const rightCaretText = caretWords.substring(offset);
           const leftCaretWords = leftCaretText.split(' ');
@@ -183,21 +183,21 @@ export function insertAutocompleteHTML( element, caretPosition, html ) {
           const go = selectedWord.match( start );
           const name = selectedWord.match( word );
 
-          if ( go !== null && go.length > 0 && name !== null && name.length > 0 ) {
+          if (go !== null && go.length > 0 && name !== null && name.length > 0) {
             const textQuery = name[0];
             const textQueryIndeces = [];
             let startIndex = 0;
             let textFirstLetterIndex = 0;
             let textQueryIndex;
 
-            while ( ( textQueryIndex = caretWords.indexOf( textQuery, startIndex ) ) > -1 ) {
+            while ((textQueryIndex = caretWords.indexOf(textQuery, startIndex)) > -1) {
               textQueryIndeces.push(textQueryIndex);
               startIndex = textQueryIndex + textQuery.length;
             }
 
-            if ( textQueryIndeces.length > 0 ) {
-              for ( let i = 0; i < textQueryIndeces.length; i += 1 ) {
-                if ( textQueryIndeces[i] < offset ) {
+            if (textQueryIndeces.length > 0) {
+              for (let i = 0; i < textQueryIndeces.length; i += 1) {
+                if (textQueryIndeces[i] < offset) {
                   textFirstLetterIndex = textQueryIndeces[i];
                 } else {
                   break;
@@ -217,13 +217,13 @@ export function insertAutocompleteHTML( element, caretPosition, html ) {
             const fragment = document.createDocumentFragment();
             let node;
             let lastNode;
-            while ( ( node = el.firstChild ) ) {
+            while ((node = el.firstChild)) {
               lastNode = fragment.appendChild(node);
             }
 
             range.insertNode(fragment);
 
-            if ( lastNode ) {
+            if (lastNode) {
               range = range.cloneRange();
               range.setStartAfter(lastNode);
               range.collapse(true);
@@ -236,7 +236,7 @@ export function insertAutocompleteHTML( element, caretPosition, html ) {
         }
       }
     }
-  } else if ( ( selection = document.selection ) && selection.type != 'Control' ) {
+  } else if ((selection = document.selection) && selection.type != 'Control') {
     const range = document.selection.createRange();
     range.pasteHTML(html);
     range.select();
@@ -252,13 +252,13 @@ export function insertAutocompleteHTML( element, caretPosition, html ) {
 export function removeAutocompleteHTML() {
   let parentElement = null;
 
-  if ( window.getSelection ) {
+  if (window.getSelection) {
     parentElement = window.getSelection().anchorNode.parentNode;
-  } else if ( document.selection && document.selection.createRange ) {
+  } else if (document.selection && document.selection.createRange) {
     parentElement = document.selection.createRange().parentElement();
   }
 
-  if ( parentElement && parentElement.classList.contains( 'user-username-tag' ) ) {
+  if (parentElement && parentElement.classList.contains('user-username-tag')) {
     parentElement.outerHTML = parentElement.innerHTML;
 
     return true;
@@ -272,7 +272,7 @@ export function removeAutocompleteHTML() {
  *
  * @param {object} element
  */
-export function getPlainText( element ) {
+export function getPlainText(element) {
   const emojis = element.getElementsByClassName('emojione');
   const usernames = element.getElementsByClassName('user-username-tag');
   let inputText = element.innerHTML;
