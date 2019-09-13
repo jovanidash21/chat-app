@@ -4,12 +4,12 @@
  * @param {array} members
  * @param {string} activeUserID
  */
-export function isDirectChatRoomMemberOnline( members, activeUserID ) {
-  const memberIndex = members.findIndex(( singleMember ) => {
+export function isDirectChatRoomMemberOnline(members, activeUserID) {
+  const memberIndex = members.findIndex((singleMember) => {
     return singleMember._id !== activeUserID;
   });
 
-  if ( ( memberIndex > -1 ) && ( members[memberIndex].isOnline ) ) {
+  if ((memberIndex > -1) && (members[memberIndex].isOnline)) {
     return true;
   }
 
