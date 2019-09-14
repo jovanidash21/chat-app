@@ -8,7 +8,7 @@ import { UPLOAD_IMAGE } from '../constants/upload';
  */
 export function uploadImage(image) {
   const data = new FormData();
-  data.append( 'image', image );
+  data.append('image', image);
 
   let config = {
     headers: {
