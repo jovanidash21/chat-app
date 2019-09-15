@@ -15,7 +15,7 @@ class ChatBubble extends Component {
     super(props);
   }
   handleTextFormat(text, tag, slice = 1) {
-    if ( tag !== '' ) {
+    if (tag !== '') {
       return ReactHtmlParser('<' + tag + '>' + text.slice(slice, -slice) + '</' + tag + '>')[0];
     }
   }

@@ -33,7 +33,7 @@ class ChatAudioRecorder extends Component {
   handleSendAudioMessageOnClick() {
     const { audioRecording } = this.state;
 
-    if ( audioRecording ) {
+    if (audioRecording) {
       this.setState({
         audioRecording: false,
         sendAudioClick: true,
@@ -49,7 +49,7 @@ class ChatAudioRecorder extends Component {
     const newMessageID = uuidv4();
     const audioName = 'voice message';
 
-    if ( sendAudioClick ) {
+    if (sendAudioClick) {
       handleSendAudioMessage(newMessageID, audioName, audio, chatRoomID);
     }
   }
