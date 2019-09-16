@@ -51,11 +51,11 @@ class ChatInput extends Component {
     }
   }
   handleClick(event) {
-    if ( this.emojiPicker && ! this.emojiPicker.contains(event.target) ) {
+    if (this.emojiPicker && ! this.emojiPicker.contains(event.target)) {
       this.setState({emojiPicker: false});
     }
 
-    if ( this.autocompleteBox && ! this.autocompleteBox.contains(event.target) ) {
+    if (this.autocompleteBox && ! this.autocompleteBox.contains(event.target)) {
       this.setState({userTagging: false});
     }
   }
@@ -130,7 +130,7 @@ class ChatInput extends Component {
       });
     }
 
-    if ( (event.key === 'Enter') && validMessage && !maxLengthReached ) {
+    if ((event.key === 'Enter') && validMessage && !maxLengthReached) {
       ::this.handleSendTextMessageOnChange(event);
 
       this.setState({
@@ -141,7 +141,7 @@ class ChatInput extends Component {
       });
     }
 
-    if ( removeAutocompleteHTML() ) {
+    if (removeAutocompleteHTML()) {
       this.setState({message: document.getElementById(::this.handleDivID()).innerHTML});
     }
 
@@ -211,7 +211,7 @@ class ChatInput extends Component {
     let newCaretPosition = caretPosition;
     let newMessage = message;
 
-    if ( maxLengthReached || messageTextLength >= 159 ) {
+    if (maxLengthReached || messageTextLength >= 159) {
       Popup.alert('Sorry, maximum of 160 characters only!');
     } else {
       newCaretPosition = insertHTML(document.getElementById(::this.handleDivID()), caretPosition, emojiSelect);
@@ -262,7 +262,7 @@ class ChatInput extends Component {
       userTagging: false,
     });
 
-    if ( !typing && !validMessage ) {
+    if (!typing && !validMessage) {
       this.setState({
         typing: true,
         validMessage: true,
@@ -274,7 +274,7 @@ class ChatInput extends Component {
   handleMessageTextLength() {
     const messageTextLength = ::this.handleMessageText('length');
 
-    if ( messageTextLength > 160 ) {
+    if (messageTextLength > 160) {
       this.setState({maxLengthReached: true});
     } else {
       this.setState({maxLengthReached: false});
@@ -283,9 +283,9 @@ class ChatInput extends Component {
   handleMessageText(type) {
     const messageText = getPlainText( document.getElementById(::this.handleDivID()) );
 
-    if ( type === 'text' ) {
+    if (type === 'text') {
       return messageText;
-    } else if ( type === 'length' ) {
+    } else if (type === 'length') {
       return messageText.length;
     }
   }
@@ -319,7 +319,7 @@ class ChatInput extends Component {
     const messageText = ::this.handleMessageText('text');
     const newMessageID = uuidv4();
 
-    if ( validMessage && !maxLengthReached ) {
+    if (validMessage && !maxLengthReached) {
       document.getElementById(::this.handleDivID()).innerHTML = '';
       document.getElementById(::this.handleDivID()).focus();
       handleIsNotTyping(user, chatRoomID);

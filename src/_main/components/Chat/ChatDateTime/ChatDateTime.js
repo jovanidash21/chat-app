@@ -38,13 +38,13 @@ class ChatDateTime extends Component {
       const isMessageDateYesterday = isDateYesterday(messageDate);
       const isMessageDateThisYear = isDateThisYear(messageDate);
 
-      if ( previousMessageDate.length > 0 && isDatesSameDay(messageDate, previousMessageDate) ) {
+      if (previousMessageDate.length > 0 && isDatesSameDay(messageDate, previousMessageDate)) {
         this.setState({dateTime: false});
-      } else if ( isMessageDateToday ) {
+      } else if (isMessageDateToday) {
         this.setState({dateTime: 'Today'});
-      } else if ( isMessageDateYesterday ) {
+      } else if (isMessageDateYesterday) {
         this.setState({dateTime: 'Yesterday'});
-      } else if ( isMessageDateThisYear ) {
+      } else if (isMessageDateThisYear) {
         this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do")});
       } else {
         this.setState({dateTime: moment(messageDate).format("dddd, MMMM Do YYYY")});
