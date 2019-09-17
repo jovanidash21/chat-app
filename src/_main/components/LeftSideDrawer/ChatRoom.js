@@ -20,7 +20,7 @@ class ChatRoom extends Component {
       handleLeftSideDrawerToggleEvent,
     } = this.props;
 
-    if ( chatRoom.data.chatType !== 'public' ) {
+    if (chatRoom.data.chatType !== 'public') {
       handleOpenPopUpChatRoom(chatRoom);
       handleLeftSideDrawerToggleEvent();
     }

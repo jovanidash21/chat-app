@@ -18,7 +18,7 @@ class NewMessagesDropdown extends Component {
     } = this.props;
     const chatRoomIDs = [];
 
-    for ( let i = 0; i < chatRooms.length; i += 1 ) {
+    for (let i = 0; i < chatRooms.length; i += 1) {
       const chatRoom = chatRooms[i];
 
       chatRoomIDs.push(chatRoom.data._id);
