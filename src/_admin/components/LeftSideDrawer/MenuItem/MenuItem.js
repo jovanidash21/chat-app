@@ -10,12 +10,12 @@ class MenuItem extends Component {
     super(props);
   }
   componentDidUpdate(prevProps) {
-    if ( this.props.children.length > 0 ) {
-      if ( !prevProps.open && this.props.open ) {
+    if (this.props.children.length > 0) {
+      if (!prevProps.open && this.props.open) {
         this.subMenuItems.style.maxHeight = this.subMenuItems.scrollHeight + 'px';
       }
 
-      if ( prevProps.open && !this.props.open ) {
+      if (prevProps.open && !this.props.open) {
         this.subMenuItems.style.maxHeight = 0;
       }
     }
