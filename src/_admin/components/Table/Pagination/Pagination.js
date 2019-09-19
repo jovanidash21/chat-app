@@ -16,7 +16,7 @@ class Pagination extends Component {
     ::this.handleNumberOfPages();
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.totalCount !== this.props.totalCount ) {
+    if (prevProps.totalCount !== this.props.totalCount) {
       ::this.handleNumberOfPages();
     }
   }
@@ -50,17 +50,17 @@ class Pagination extends Component {
     const right = activePage + delta + 1;
     let j;
 
-    for ( let i = 1; i <= numberOfPages; i += 1 ) {
+    for (let i = 1; i <= numberOfPages; i += 1) {
       if (i == 1 || i == numberOfPages || i >= left && i < right) {
         pageNumbers.push(i);
       }
     }
 
-    for ( let i of pageNumbers ) {
-      if ( j ) {
-        if  (i - j === 2 ) {
+    for (let i of pageNumbers) {
+      if (j)  {
+        if  (i - j === 2) {
           pageNumbersWithDots.push(j + 1);
-        } else if ( i - j !== 1 ) {
+        } else if (i - j !== 1) {
           pageNumbersWithDots.push('...');
         }
       }

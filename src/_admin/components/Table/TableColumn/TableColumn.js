@@ -13,9 +13,9 @@ class TableColumn extends Component {
       sortOrder,
     } = this.props;
 
-    if ( !sortActive ) {
+    if (!sortActive) {
       return "exchange-alt";
-    } else if ( sortOrder === 'asc' ) {
+    } else if (sortOrder === 'asc') {
       return "sort-amount-down";
     } else {
       return "sort-amount-up";
@@ -30,7 +30,7 @@ class TableColumn extends Component {
       disabled,
     } = this.props;
 
-    if ( ! disabled ) {
+    if (!disabled) {
       handleSortTable(columnKey);
     }
   }
@@ -43,9 +43,9 @@ class TableColumn extends Component {
     } = this.props;
     let sortTitle = '';
 
-    if ( sortActive && sortOrder === 'asc' ) {
+    if (sortActive && sortOrder === 'asc') {
       sortTitle = 'Ascending';
-    } else if ( sortActive && sortOrder === 'desc' ) {
+    } else if (sortActive && sortOrder === 'desc') {
       sortTitle = 'Descending';
     }
 
