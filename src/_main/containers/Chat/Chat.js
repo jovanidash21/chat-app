@@ -63,8 +63,8 @@ class Chat extends Component {
     window.addEventListener( 'onorientationchange', ::this.calculateViewportHeight, true );
     window.addEventListener( 'resize', ::this.calculateViewportHeight, true );
 
-    socket.on( 'action', ( action ) => {
-      switch ( action.type ) {
+    socket.on('action', (action) => {
+      switch (action.type) {
         case SOCKET_BROADCAST_REQUEST_VIDEO_CALL:
           this.callerPeerID = action.peerID;
           this.setState({videoCallRequestModalOpen: true});
@@ -83,10 +83,10 @@ class Chat extends Component {
     });
   }
   calculateViewportHeight() {
-    if ( this.chatSection ) {
-      const viewportHeight = Math.max( document.documentElement.clientHeight, window.innerHeight || 0 );
+    if (this.chatSection) {
+      const viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-      this.chatSection.setAttribute( 'style', 'height:' + viewportHeight + 'px;' );
+      this.chatSection.setAttribute('style', 'height:' + viewportHeight + 'px;');
     }
   }
   handleLeftSideDrawerRender() {
