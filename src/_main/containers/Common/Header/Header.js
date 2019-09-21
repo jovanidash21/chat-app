@@ -92,9 +92,9 @@ class Header extends Component {
       const name = a.data.name.toLowerCase().localeCompare(b.data.name.toLowerCase());
       const priority = a.priority - b.priority;
 
-      if ( date !== 0 ) {
+      if (date !== 0) {
         return date;
-      } else if ( name !== 0 ) {
+      } else if (name !== 0) {
         return name;
       } else {
         return priority;
@@ -138,7 +138,7 @@ class Header extends Component {
     } = this.props;
     const activeUser = user.active;
 
-    if ( activeUser.accountType === 'local' ) {
+    if (activeUser.accountType === 'local') {
       editActiveUser(activeUser._id, username, name, email, profilePicture);
     }
   }
@@ -169,7 +169,7 @@ class Header extends Component {
     const activeUser = user.active;
     const isBlocked = selectedUser.blocked;
 
-    if ( ! isBlocked ) {
+    if (!isBlocked) {
       blockUser( activeUser._id, selectedUser._id );
     } else {
       unblockUser( activeUser._id, selectedUser._id );
@@ -183,7 +183,7 @@ class Header extends Component {
       handleRequestVideoCall,
     } = this.props;
 
-    if ( chatRoom.active.data.chatType === 'direct' ) {
+    if (chatRoom.active.data.chatType === 'direct') {
       handleRequestVideoCall(chatRoom.active);
     }
   }
