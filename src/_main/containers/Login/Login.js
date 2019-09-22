@@ -33,7 +33,7 @@ class Login extends Component {
     document.body.classList.add('login-page');
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.auth.login.loading && ! this.props.auth.login.loading && this.props.auth.login.error ) {
+    if (prevProps.auth.login.loading && ! this.props.auth.login.loading && this.props.auth.login.error) {
       this.setState({errorMessage: this.props.auth.login.message});
     }
   }
@@ -53,19 +53,19 @@ class Login extends Component {
     let passwordValid = true;
     let errorMessage = '';
 
-    if ( username.trim().length === 0 ) {
+    if (username.trim().length === 0) {
       usernameValid = false;
     }
 
-    if ( password.trim().length === 0 ) {
+    if (password.trim().length === 0) {
       passwordValid = false;
     }
 
-    if ( ! usernameValid && ! passwordValid ) {
+    if (!usernameValid && !passwordValid) {
       errorMessage = 'Username and password are required';
-    } else if ( ! usernameValid ) {
+    } else if (!usernameValid) {
       errorMessage = 'Username is required';
-    } else if ( ! passwordValid ) {
+    } else if (!passwordValid) {
       errorMessage = 'Password is required';
     }
 
@@ -75,7 +75,7 @@ class Login extends Component {
       errorMessage: errorMessage,
     });
 
-    if ( usernameValid && passwordValid && errorMessage.length === 0 ) {
+    if (usernameValid && passwordValid && errorMessage.length === 0) {
       ::this.handleLocalLogin();
     }
   }

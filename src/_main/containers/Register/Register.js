@@ -39,7 +39,7 @@ class Register extends Component {
     document.body.classList.add('register-page');
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.auth.register.loading && ! this.props.auth.register.loading && this.props.auth.register.error ) {
+    if (prevProps.auth.register.loading && !this.props.auth.register.loading && this.props.auth.register.error) {
       this.setState({errorMessage: this.props.auth.register.message});
     }
   }
@@ -65,31 +65,31 @@ class Register extends Component {
     let confirmPasswordValid = true;
     let errorMessage = '';
 
-    if ( ! isEmailValid( email ) ) {
+    if (!isEmailValid(email)) {
       emailValid = false;
     }
 
-    if ( name.trim().length === 0 ) {
+    if (name.trim().length === 0) {
       nameValid = false;
     }
 
-    if ( username.trim().length === 0 ) {
+    if (username.trim().length === 0) {
       usernameValid = false;
     }
 
-    if ( password.trim().length === 0 ) {
+    if (password.trim().length === 0) {
       passwordValid = false;
     }
 
-    if ( password.trim().length > 0 && password !== confirmPassword ) {
+    if (password.trim().length > 0 && password !== confirmPassword  {
       confirmPasswordValid = false;
     }
 
-    if ( ! nameValid || ! usernameValid || ! passwordValid ) {
+    if (!nameValid || !usernameValid || !passwordValid) {
       errorMessage = 'All fields are required. Please check and try again.';
     } else if ( ! emailValid ) {
       errorMessage = 'Please enter a valid email address';
-    } else if ( ! confirmPasswordValid ) {
+    } else if (!confirmPasswordValid) {
       errorMessage = 'Password do not match';
     }
 
@@ -102,7 +102,7 @@ class Register extends Component {
       errorMessage: errorMessage,
     });
 
-    if ( emailValid && nameValid && usernameValid && passwordValid && confirmPasswordValid && errorMessage.length === 0 ) {
+    if (emailValid && nameValid && usernameValid && passwordValid && confirmPasswordValid && errorMessage.length === 0) {
       ::this.handleRegister();
     }
   }
