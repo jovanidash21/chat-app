@@ -39,9 +39,9 @@ class ActiveChatRoom extends Component {
     } = this.props;
     const activeUser = user.active;
     const activeChatRoom = chatRoom.active;
-    const activeChatRoomEmpty = isObjectEmpty( activeChatRoom );
+    const activeChatRoomEmpty = isObjectEmpty(activeChatRoom);
     const loading = user.fetchActive.loading || chatRoom.fetch.loading;
-    const isOtherMemberOnline = ! activeChatRoomEmpty &&
+    const isOtherMemberOnline = !activeChatRoomEmpty &&
       activeChatRoom.data.chatType === 'direct' &&
       isDirectChatRoomMemberOnline(activeChatRoom.data.members, activeUser._id);
 
@@ -58,8 +58,8 @@ class ActiveChatRoom extends Component {
             />
           }
           {
-            ! loading &&
-            ! activeChatRoomEmpty &&
+            !loading &&
+            !activeChatRoomEmpty &&
             <Avatar
               image={activeChatRoom.data.chatIcon}
               size="32px"
@@ -79,21 +79,21 @@ class ActiveChatRoom extends Component {
               />
             }
             {
-              ! loading &&
-              ! activeChatRoomEmpty &&
+              !loading &&
+              !activeChatRoomEmpty &&
               <h2 className="chat-room-name" title={activeChatRoom.data.name}>
                 {activeChatRoom.data.name}
               </h2>
             }
             {
-              ! loading &&
-              ! activeChatRoomEmpty &&
-              ! member.fetch.loading &&
+              !loading &&
+              !activeChatRoomEmpty &&
+              !member.fetch.loading &&
               member.fetch.success &&
               <div className="chat-room-info">
                 {
-                  ( activeChatRoom.data.chatType === 'public' ||
-                  activeChatRoom.data.chatType === 'group' ) &&
+                  (activeChatRoom.data.chatType === 'public' ||
+                  activeChatRoom.data.chatType === 'group') &&
                   <div
                     className="members-count"
                     onClick={::this.handleRightSideDrawerToggleEvent}
@@ -132,12 +132,12 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     chatRoom: state.chatRoom,
-    member: state.member
+    member: state.member,
   }
 }
 
 ActiveChatRoom.propTypes = {
-  handleRightSideDrawerToggleEvent: PropTypes.func.isRequired
+  handleRightSideDrawerToggleEvent: PropTypes.func.isRequired,
 }
 
 export default connect(
