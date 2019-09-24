@@ -17,8 +17,8 @@ class BlockUnblockUserModal extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.blockedUser.block.loading && this.props.blockedUser.block.success ) ||
-      ( prevProps.blockedUser.unblock.loading && this.props.blockedUser.unblock.success  )
+      (prevProps.blockedUser.block.loading && this.props.blockedUser.block.success) ||
+      (prevProps.blockedUser.unblock.loading && this.props.blockedUser.unblock.success)
     ) {
       this.props.onClose();
     }
@@ -35,10 +35,10 @@ class BlockUnblockUserModal extends Component {
     const activeUser = user.active;
     const isBlocked = selectedUser.blocked;
 
-    if ( ! isBlocked ) {
-      blockUser( activeUser._id, selectedUser._id );
+    if (!isBlocked) {
+      blockUser(activeUser._id, selectedUser._id);
     } else {
-      unblockUser( activeUser._id, selectedUser._id );
+      unblockUser(activeUser._id, selectedUser._id);
     }
   }
   render() {

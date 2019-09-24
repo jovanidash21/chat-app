@@ -24,7 +24,7 @@ class CreateChatRoomModal extends Component {
     }
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.chatRoom.create.loading && this.props.chatRoom.create.success ) {
+    if (prevProps.chatRoom.create.loading && this.props.chatRoom.create.success) {
       const {
         onClose,
         handleLeftSideDrawerToggleEvent
@@ -46,7 +46,7 @@ class CreateChatRoomModal extends Component {
     const { members } = this.state;
     const selectedMember = suggestion.suggestion;
 
-    if ( selectedMember._id !== user.active._id ) {
+    if (selectedMember._id !== user.active._id) {
       if (members.some((singleMember) => singleMember._id === selectedMember._id)) {
         this.setState({
           members: [
@@ -67,7 +67,7 @@ class CreateChatRoomModal extends Component {
     const { user } = this.props;
     const { members } = this.state;
 
-    if ( member._id !== user.active._id ) {
+    if (member._id !== user.active._id) {
       this.setState({
         members: [
           ...members.filter((singleMember) => singleMember._id !== member._id)
@@ -89,7 +89,7 @@ class CreateChatRoomModal extends Component {
     } = this.state;
     const activeChatRoom = chatRoom.active;
 
-    if ( chatRoomName.length > 0 && members.length > 2 ) {
+    if (chatRoomName.length > 0 && members.length > 2) {
       createGroupChatRoom(chatRoomName, members, user.active._id, activeChatRoom.data._id);
     }
   }
