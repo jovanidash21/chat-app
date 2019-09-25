@@ -42,20 +42,20 @@ class ChatBox extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.fetchNewLoading && !this.props.fetchNewLoading ) ||
+      (prevProps.fetchNewLoading && !this.props.fetchNewLoading) ||
       this.state.chatBoxScrollToBottom
     ) {
       ::this.handleScrollToBottom();
     }
 
-    if ( prevProps.fetchNewLoading && !this.props.fetchNewLoading ) {
+    if (prevProps.fetchNewLoading && !this.props.fetchNewLoading) {
       this.setState({
         hasLoadedAllMessages: false,
         chatBoxScrollToBottom: true,
       });
     }
 
-    if ( prevProps.fetchOldLoading && !this.props.fetchOldLoading ) {
+    if (prevProps.fetchOldLoading && !this.props.fetchOldLoading) {
       const {
         scrollPosition,
         oldestMessageQuery,
@@ -64,8 +64,8 @@ class ChatBox extends Component {
       const newOldestMessageOffsetTop = oldestMessageQuery.offsetTop;
 
       if (
-        ( this.chatBox.scrollTop < 40 ||
-        scrollPosition === this.chatBox.scrollTop ) &&
+        (this.chatBox.scrollTop < 40 ||
+        scrollPosition === this.chatBox.scrollTop) &&
         oldestMessageQuery
       ) {
         this.chatBox.scrollTop = newOldestMessageOffsetTop - oldestMessageOffsetTop;
@@ -73,12 +73,12 @@ class ChatBox extends Component {
     }
 
     if (
-      ( prevProps.fetchNewLoading &&
-        ! this.props.fetchNewLoading &&
-        this.props.messages.length < 50 ) ||
-      ( prevProps.fetchOldLoading &&
-        ! this.props.fetchOldLoading &&
-        this.props.messages.length - prevProps.messages.length < 50 )
+      (prevProps.fetchNewLoading &&
+        !this.props.fetchNewLoading &&
+        this.props.messages.length < 50) ||
+      (prevProps.fetchOldLoading &&
+        !this.props.fetchOldLoading &&
+        this.props.messages.length - prevProps.messages.length < 50)
     ) {
       this.setState({hasLoadedAllMessages: true});
     }
@@ -87,7 +87,7 @@ class ChatBox extends Component {
     this.chatBox.scrollTop = this.chatBox.scrollHeight;
   }
   handleChatBoxScroll() {
-    if ( 
+    if (
       (this.chatBox.scrollTop === (this.chatBox.scrollHeight - this.chatBox.offsetHeight)) ||
       (this.chatBox.offsetHeight >= this.chatBox.scrollHeight)
     ) {
@@ -96,7 +96,7 @@ class ChatBox extends Component {
       this.setState({chatBoxScrollToBottom: false});
     }
 
-    if ( this.chatBox.scrollTop < 40 ) {
+    if (this.chatBox.scrollTop < 40) {
       this.setState({chatBoxScrollToTop: true});
       ::this.handleFetchOldMessages();
     } else {
@@ -115,7 +115,7 @@ class ChatBox extends Component {
     const { hasLoadedAllMessages } = this.state;
     const isActiveUserAdmin = user.active.role === 'admin';
 
-    if ( ! isObjectEmpty( chatRoom.data ) && ! fetchNewLoading ) {
+    if (!isObjectEmpty(chatRoom.data) && !fetchNewLoading) {
       return (
         <Container fluid>
           {
@@ -197,13 +197,13 @@ class ChatBox extends Component {
       imageIndex
     } = this.state;
 
-    if ( !fetchNewLoading ) {
+    if (!fetchNewLoading) {
       const imagesArray = [];
       const imageMessages = messages.filter((imageMessage) => {
         return imageMessage.messageType === 'image';
       });
 
-      for ( let i = 0; i < imageMessages.length; i += 1 ) {
+      for (let i = 0; i < imageMessages.length; i += 1) {
         const imageMessage = imageMessages[i];
 
         imagesArray[i] = {
@@ -234,7 +234,7 @@ class ChatBox extends Component {
       dragDropBoxOpen
     } = this.props;
 
-    if ( dragDropBoxOpen ) {
+    if (dragDropBoxOpen) {
       return (
         <ChatDragDropBox
           handleDragDropBoxToggle={handleDragDropBoxToggle}
@@ -315,12 +315,12 @@ class ChatBox extends Component {
   handleFilesDrop(acceptedFiles, rejectedFiles) {
     const { handleDragDropBoxToggle } = this.props;
 
-    if ( rejectedFiles.length > 0 ) {
+    if (rejectedFiles.length > 0) {
       Popup.alert('Maximum file size upload is 2MB only');
     } else {
       handleDragDropBoxToggle();
 
-      for ( let i = 0; i < acceptedFiles.length; i+= 1 ) {
+      for (let i = 0; i < acceptedFiles.length; i+= 1) {
         const file = acceptedFiles[i];
         const newMessageID = uuidv4();
         const fileName = file.name;
@@ -333,7 +333,7 @@ class ChatBox extends Component {
     const { handleDragDropBoxToggle } = this.props;
     const newMessageID = uuidv4();
 
-    if ( file.size > 1024 * 1024 * 2 ) {
+    if (file.size > 1024 * 1024 * 2) {
       Popup.alert('Maximum file size upload is 2MB only');
     } else {
       handleDragDropBoxToggle();
@@ -343,7 +343,7 @@ class ChatBox extends Component {
   handleAudioPlayingToggle(audioPlayingIndex) {
     const { audioIndex } = this.state;
 
-    if ( audioIndex > -1 && audioIndex !== audioPlayingIndex ) {
+    if (audioIndex > -1 && audioIndex !== audioPlayingIndex) {
       const previousAudio = this.chatBox.getElementsByClassName('react-plyr-' + audioIndex)[0];
 
       if (
@@ -440,5 +440,5 @@ ChatBox.defaultProps = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(ChatBox);
