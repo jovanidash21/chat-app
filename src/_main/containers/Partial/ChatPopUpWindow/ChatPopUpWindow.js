@@ -37,7 +37,7 @@ class ChatPopUpWindow extends Component {
   handleRequestVideoCall(event) {
     event.preventDefault();
 
-    if ( event.stopPropagation ) {
+    if (event.stopPropagation) {
       event.stopPropagation();
     }
 
@@ -46,7 +46,7 @@ class ChatPopUpWindow extends Component {
       handleRequestVideoCall,
     } = this.props;
 
-    if ( popUpChatRoom.data.chatType === 'direct' ) {
+    if (popUpChatRoom.data.chatType === 'direct') {
       handleRequestVideoCall(popUpChatRoom);
     }
   }
@@ -192,5 +192,5 @@ ChatPopUpWindow.defaultProps = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(ChatPopUpWindow);

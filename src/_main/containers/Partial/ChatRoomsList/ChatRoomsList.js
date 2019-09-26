@@ -24,7 +24,7 @@ class ChatRoomsList extends Component {
     }
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.chatRoom.fetch.loading && !this.props.chatRoom.fetch.loading ) {
+    if (prevProps.chatRoom.fetch.loading && !this.props.chatRoom.fetch.loading) {
       const {
         user,
         chatRoom,
@@ -55,7 +55,7 @@ class ChatRoomsList extends Component {
     }
   }
   handleChatRoomsListScroll() {
-    if ( this.chatRoomsList.scrollTop > 10 ) {
+    if (this.chatRoomsList.scrollTop > 10) {
       this.setState({chatBoxRoomsListScrolled: true});
     } else {
       this.setState({chatBoxRoomsListScrolled: false});
@@ -67,7 +67,7 @@ class ChatRoomsList extends Component {
     let allChatRooms = [...chatRoom.all];
     let chatRoomIndex = selectedChatRoomIndex;
 
-    if ( searchFilter.length > 0 ) {
+    if (searchFilter.length > 0) {
       allChatRooms = allChatRooms.filter((singleChatRoom) => {
         return singleChatRoom.data.name && singleChatRoom.data.name.toLowerCase().match(searchFilter.toLowerCase());
       });
@@ -117,8 +117,8 @@ class ChatRoomsList extends Component {
       selectedChatRoomIndex
     } = this.state;
 
-    if ( chatRooms.length > 0 ) {
-      if ( event.key === 'ArrowUp' ) {
+    if (chatRooms.length > 0) {
+      if (event.key === 'ArrowUp') {
         if ( selectedChatRoomIndex === -1 ) {
           this.setState({selectedChatRoomIndex: chatRooms.length - 1});
         } else {
@@ -126,8 +126,8 @@ class ChatRoomsList extends Component {
         }
       }
 
-      if ( event.key === 'ArrowDown' ) {
-        if ( selectedChatRoomIndex === chatRooms.length - 1 ) {
+      if (event.key === 'ArrowDown') {
+        if (selectedChatRoomIndex === chatRooms.length - 1) {
           this.setState({selectedChatRoomIndex: -1});
         } else {
           this.setState({selectedChatRoomIndex: selectedChatRoomIndex + 1});
@@ -137,7 +137,7 @@ class ChatRoomsList extends Component {
       if ( event.key === 'Enter' && selectedChatRoomIndex !== -1 ) {
         const selectedChatRoom = chatRooms[selectedChatRoomIndex];
 
-        if ( mobile ) {
+        if (mobile) {
           changeChatRoom(selectedChatRoom, user.active._id, chatRoom.active.data._id);
           handleLeftSideDrawerToggleEvent();
         } else {
@@ -255,7 +255,7 @@ class ChatRoomsList extends Component {
               </Fragment>
             }
             {
-              ! loading &&
+              !loading &&
               chatRooms.length > 0 &&
               chatRooms.sort((a, b) => {
                 a.data.name = a.data.name || '';
@@ -287,7 +287,7 @@ class ChatRoomsList extends Component {
               )
             }
             {
-              ! loading &&
+              !loading &&
               chatRooms.length === 0 &&
               <div className="no-results">
                 No results found
@@ -322,5 +322,5 @@ ChatRoomsList.propTypes = {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(ChatRoomsList);
