@@ -15,8 +15,8 @@ class MuteUnmuteChatRoomModal extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.chatRoom.mute.loading && this.props.chatRoom.mute.success ) ||
-      ( prevProps.chatRoom.unmute.loading && this.props.chatRoom.unmute.success  )
+      (prevProps.chatRoom.mute.loading && this.props.chatRoom.mute.success) ||
+      (prevProps.chatRoom.unmute.loading && this.props.chatRoom.unmute.success)
     ) {
       this.props.onClose();
     }
@@ -34,7 +34,7 @@ class MuteUnmuteChatRoomModal extends Component {
     const activeChatRoom = chatRoom.active;
     const isMuted = activeChatRoom.mute.data;
 
-    if ( !isMuted ) {
+    if (!isMuted) {
       muteChatRoom(activeUser._id, activeChatRoom.data._id);
     } else {
       unmuteChatRoom(activeUser._id, activeChatRoom.data._id);

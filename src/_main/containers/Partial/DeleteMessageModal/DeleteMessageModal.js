@@ -14,7 +14,7 @@ class DeleteMessageModal extends Component {
     super(props);
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.message.delete.loading && this.props.message.delete.success ) {
+    if (prevProps.message.delete.loading && this.props.message.delete.success) {
       this.props.onClose();
     }
   }
@@ -28,7 +28,7 @@ class DeleteMessageModal extends Component {
     } = this.props;
     const activeChatRoom = chatRoom.active;
 
-    if ( selectedMessageID.length > 0 ) {
+    if (selectedMessageID.length > 0) {
       deleteMessage(selectedMessageID, activeChatRoom.data._id);
     }
   }
