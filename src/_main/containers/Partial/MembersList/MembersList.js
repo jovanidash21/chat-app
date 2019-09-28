@@ -36,20 +36,20 @@ class MembersList extends Component {
     });
   }
   componentDidUpdate(prevProps) {
-    if ( prevProps.member.fetch.loading && !this.props.member.fetch.loading ) {
+    if (prevProps.member.fetch.loading && !this.props.member.fetch.loading) {
       this.membersList.addEventListener('scroll', ::this.handleMembersListScroll, true);
 
       ::this.handleMembersListFilter();
     }
 
      if (
-      ( prevProps.member.all.length !== this.props.member.all.length ) ||
-      ( prevProps.user.editActive.loading && !this.props.user.editActive.loading )
+      (prevProps.member.all.length !== this.props.member.all.length) ||
+      (prevProps.user.editActive.loading && !this.props.user.editActive.loading)
     ) {
       ::this.handleMembersListFilter(this.state.searchFilter);
     }
 
-    if ( prevProps.chatRoom.create.loading && this.props.chatRoom.create.success ) {
+    if (prevProps.chatRoom.create.loading && this.props.chatRoom.create.success) {
       const { handleRightSideDrawerToggleEvent } = this.props;
 
       handleRightSideDrawerToggleEvent();
@@ -60,7 +60,7 @@ class MembersList extends Component {
     }
   }
   handleMembersListScroll() {
-    if ( this.membersList.scrollTop > 10 ) {
+    if (this.membersList.scrollTop > 10) {
       this.setState({membersListScrolled: true});
     } else {
       this.setState({membersListScrolled: false});
@@ -72,12 +72,12 @@ class MembersList extends Component {
     let allMembers = [...member.all];
     let memberIndex = selectedMemberIndex;
 
-    if ( searchFilter.length > 0 ) {
+    if (searchFilter.length > 0) {
       allMembers = allMembers.filter((singleMember) => {
         return singleMember.name && singleMember.name.toLowerCase().match(searchFilter.toLowerCase());
       });
 
-      if ( selectedMemberIndex === -1 ) {
+      if (selectedMemberIndex === -1) {
         memberIndex = 0;
       }
     } else {
@@ -107,24 +107,24 @@ class MembersList extends Component {
       selectedMemberIndex,
     } = this.state;
 
-    if ( members.length > 0 ) {
-      if ( event.key === 'ArrowUp' ) {
-        if ( selectedMemberIndex === -1 ) {
+    if (members.length > 0) {
+      if (event.key === 'ArrowUp') {
+        if (selectedMemberIndex === -1) {
           this.setState({selectedMemberIndex: members.length - 1});
         } else {
           this.setState({selectedMemberIndex: selectedMemberIndex - 1});
         }
       }
 
-      if ( event.key === 'ArrowDown' ) {
-        if ( selectedMemberIndex === members.length - 1 ) {
+      if (event.key === 'ArrowDown') {
+        if (selectedMemberIndex === members.length - 1) {
           this.setState({selectedMemberIndex: -1});
         } else {
           this.setState({selectedMemberIndex: selectedMemberIndex + 1});
         }
       }
 
-      if ( event.key === 'Enter' && selectedMemberIndex !== -1 ) {
+      if (event.key === 'Enter' && selectedMemberIndex !== -1) {
         const selectedMember = members[selectedMemberIndex];
 
         ::this.handleAddDirectChatRoom(selectedMember._id, mobile);
@@ -146,12 +146,12 @@ class MembersList extends Component {
 
     const chatRoomIndex = chatRooms.findIndex(( singleChatRoom ) => {
       return (
-        ( singleChatRoom.data.chatType === 'private' && userID === memberID ) ||
-        ( singleChatRoom.data.chatType === 'direct' && singleChatRoom.data.members.some(member => member._id === memberID) )
+        (singleChatRoom.data.chatType === 'private' && userID === memberID) ||
+        (singleChatRoom.data.chatType === 'direct' && singleChatRoom.data.members.some(member => member._id === memberID))
       );
     });
 
-    if ( chatRoomIndex === -1 ) {
+    if (chatRoomIndex === -1) {
       createDirectChatRoom(userID, memberID, activeChatRoom.data._id, !mobile)
         .then((chatRoom) => {
           if ( ! mobile ) {
@@ -159,7 +159,7 @@ class MembersList extends Component {
           }
         });
     } else {
-      if ( mobile ) {
+      if (mobile) {
         changeChatRoom(chatRooms[chatRoomIndex], userID, activeChatRoom.data._id);
       } else {
         handleOpenPopUpChatRoom(chatRooms[chatRoomIndex]);
@@ -289,7 +289,7 @@ class MembersList extends Component {
               </Fragment>
             }
             {
-              ! loading &&
+              !loading &&
               members.length > 0 &&
               members.sort((a, b) => {
                 a.name = a.name || '';
@@ -316,7 +316,7 @@ class MembersList extends Component {
               )
             }
             {
-              ! loading &&
+              !loading &&
               members.length === 0 &&
               <div className="no-results">
                 No results found
