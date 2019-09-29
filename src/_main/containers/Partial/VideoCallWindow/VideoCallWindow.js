@@ -14,12 +14,12 @@ class VideoCallWindow extends Component {
     ::this.handleLocalVideoSource();
   }
   componentDidUpdate() {
-    if ( !isObjectEmpty(this.props.remoteVideoSource) && !this.remoteVideo.srcObject ) {
+    if (!isObjectEmpty(this.props.remoteVideoSource) && !this.remoteVideo.srcObject) {
       this.remoteVideo.srcObject = this.props.remoteVideoSource;
     }
   }
   componentWillUnmount() {
-    if ( this.localVideo && this.localVideo.srcObject ) {
+    if (this.localVideo && this.localVideo.srcObject) {
       this.localVideo.srcObject.getTracks().forEach((track) => {
         track.stop();
       });
@@ -28,7 +28,7 @@ class VideoCallWindow extends Component {
   handleLocalVideoSource() {
     const { localVideoSource } = this.props;
 
-    if ( !isObjectEmpty(localVideoSource) && !this.localVideo.srcObject ) {
+    if (!isObjectEmpty(localVideoSource) && !this.localVideo.srcObject) {
       this.localVideo.srcObject = localVideoSource;
     }
   }
