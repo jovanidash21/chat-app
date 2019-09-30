@@ -38,8 +38,8 @@ class AllUsers extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.user.fetchAll.loading && !this.props.user.fetchAll.loading ) ||
-      ( prevProps.user.delete.loading && !this.props.user.delete.loading )
+      (prevProps.user.fetchAll.loading && !this.props.user.fetchAll.loading) ||
+      (prevProps.user.delete.loading && !this.props.user.delete.loading)
     ) {
       ::this.handleUserRows();
     }
@@ -48,7 +48,7 @@ class AllUsers extends Component {
     const { user } = this.props;
     const userRows = [];
 
-    for ( let i = 0; i < user.all.length; i += 1 ) {
+    for (let i = 0; i < user.all.length; i += 1) {
       const singleUser = user.all[i];
       const image = (<Avatar
           image={singleUser.profilePicture}

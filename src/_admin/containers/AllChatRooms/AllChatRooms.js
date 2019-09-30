@@ -38,8 +38,8 @@ class AllChatRooms extends Component {
   }
   componentDidUpdate(prevProps) {
     if (
-      ( prevProps.chatRoom.fetchAll.loading && !this.props.chatRoom.fetchAll.loading ) ||
-      ( prevProps.chatRoom.delete.loading && !this.props.chatRoom.delete.loading )
+      (prevProps.chatRoom.fetchAll.loading && !this.props.chatRoom.fetchAll.loading) ||
+      (prevProps.chatRoom.delete.loading && !this.props.chatRoom.delete.loading)
     ) {
       ::this.handleChatRoomRows();
     }
@@ -48,7 +48,7 @@ class AllChatRooms extends Component {
     const { chatRoom } = this.props;
     const chatRoomRows = [];
 
-    for ( let i = 0; i < chatRoom.all.length; i += 1 ) {
+    for (let i = 0; i < chatRoom.all.length; i += 1) {
       const singleChatRoom = chatRoom.all[i];
       const image = (<Avatar
           image={singleChatRoom.chatIcon}
