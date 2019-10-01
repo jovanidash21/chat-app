@@ -13,15 +13,15 @@ class CreateChatRoom extends Component {
     };
   }
   componentDidUpdate(prevProps) {
-    if ( ! prevProps.chatRoom.create.loading && this.props.chatRoom.create.loading ) {
+    if (!prevProps.chatRoom.create.loading && this.props.chatRoom.create.loading) {
       this.setState({
         errorMessage: '',
         successMessage: '',
       });
     }
 
-    if ( prevProps.chatRoom.create.loading && ! this.props.chatRoom.create.loading ) {
-      if ( this.props.chatRoom.create.error ) {
+    if (prevProps.chatRoom.create.loading && ! this.props.chatRoom.create.loading) {
+      if (this.props.chatRoom.create.error) {
         this.setState({
           errorMessage: this.props.chatRoom.create.message,
           successMessage: '',

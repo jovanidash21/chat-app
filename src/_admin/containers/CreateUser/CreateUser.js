@@ -13,15 +13,15 @@ class CreateUser extends Component {
     };
   }
   componentDidUpdate(prevProps) {
-    if ( ! prevProps.user.create.loading && this.props.user.create.loading ) {
+    if (!prevProps.user.create.loading && this.props.user.create.loading) {
       this.setState({
         errorMessage: '',
         successMessage: '',
       });
     }
 
-    if ( prevProps.user.create.loading && ! this.props.user.create.loading ) {
-      if ( this.props.user.create.error ) {
+    if (prevProps.user.create.loading && !this.props.user.create.loading) {
+      if (this.props.user.create.error) {
         this.setState({
           errorMessage: this.props.user.create.message,
           successMessage: '',
