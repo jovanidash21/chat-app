@@ -17,20 +17,20 @@ class EditChatRoom extends Component {
     ::this.handleFetchSelectedtChatRoom();
   }
   componentDidUpdate(prevProps) {
-    if ( ! prevProps.chatRoom.edit.loading && this.props.chatRoom.edit.loading ) {
+    if (!prevProps.chatRoom.edit.loading && this.props.chatRoom.edit.loading) {
       this.setState({
         errorMessage: '',
         successMessage: '',
       });
     }
 
-    if ( prevProps.chatRoom.edit.loading && ! this.props.chatRoom.edit.loading ) {
-      if ( this.props.chatRoom.edit.error ) {
+    if (prevProps.chatRoom.edit.loading && !this.props.chatRoom.edit.loading) {
+      if (this.props.chatRoom.edit.error) {
         this.setState({
           errorMessage: this.props.chatRoom.edit.message,
           successMessage: '',
         });
-      } else if ( this.props.chatRoom.edit.success ) {
+      } else if (this.props.chatRoom.edit.success) {
         this.setState({
           errorMessage: '',
           successMessage: this.props.chatRoom.edit.message,

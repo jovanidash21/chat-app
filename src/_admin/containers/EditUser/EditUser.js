@@ -17,20 +17,20 @@ class EditUser extends Component {
     ::this.handleFetchSelectedUser();
   }
   componentDidUpdate(prevProps) {
-    if ( ! prevProps.user.edit.loading && this.props.user.edit.loading ) {
+    if (!prevProps.user.edit.loading && this.props.user.edit.loading) {
       this.setState({
         errorMessage: '',
         successMessage: '',
       });
     }
 
-    if ( prevProps.user.edit.loading && ! this.props.user.edit.loading ) {
-      if ( this.props.user.edit.error ) {
+    if (prevProps.user.edit.loading && ! this.props.user.edit.loading) {
+      if (this.props.user.edit.error) {
         this.setState({
           errorMessage: this.props.user.edit.message,
           successMessage: '',
         });
-      } else if ( this.props.user.edit.success ) {
+      } else if (this.props.user.edit.success) {
         this.setState({
           errorMessage: '',
           successMessage: this.props.user.edit.message,
