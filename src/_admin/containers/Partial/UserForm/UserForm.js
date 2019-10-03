@@ -44,7 +44,7 @@ class UserForm extends Component {
     };
   }
   componentWillMount() {
-    if ( this.props.mode === 'create' ) {
+    if (this.props.mode === 'create') {
       this.setState({loading: false});
     }
   }
@@ -57,7 +57,7 @@ class UserForm extends Component {
       this.setState({profilePicture: this.props.upload.imageLink});
     }
 
-    if ( this.props.mode === 'create' ) {
+    if (this.props.mode === 'create') {
       if (
         prevProps.user.create.loading &&
         !this.props.user.create.loading &&
@@ -117,7 +117,7 @@ class UserForm extends Component {
       mode,
     } = this.props;
 
-    if ( mode === 'edit' ) {
+    if (mode === 'edit') {
       const selectedUser = user.selected;
 
       this.setState({
@@ -141,9 +141,9 @@ class UserForm extends Component {
   handleImageUpload(image) {
     const { uploadImage } = this.props;
 
-    if ( image.type.indexOf('image/') === -1 ) {
+    if (image.type.indexOf('image/') === -1) {
       Popup.alert('Please select an image file');
-    } else if ( image.size > 1024 * 1024 * 2 ) {
+    } else if (image.size > 1024 * 1024 * 2) {
       Popup.alert('Maximum upload file size is 2MB only');
     } else {
       uploadImage(image);
@@ -169,25 +169,25 @@ class UserForm extends Component {
     let passwordValid = true;
     let errorMessage = '';
 
-    if ( username.trim().length === 0 ) {
+    if (username.trim().length === 0) {
       usernameValid = false;
     }
 
-    if ( name.trim().length === 0 ) {
+    if (name.trim().length === 0) {
       nameValid = false;
     }
 
-    if ( ! isEmailValid( email ) ) {
+    if (!isEmailValid(email)) {
       emailValid = false;
     }
 
-    if ( mode === 'create' && password.trim().length === 0 ) {
+    if (mode === 'create' && password.trim().length === 0) {
       passwordValid = false;
     }
 
-    if ( ! usernameValid || ! nameValid || ! passwordValid ) {
+    if (!usernameValid || !nameValid || !passwordValid) {
       errorMessage = 'All fields are required. Please check and try again.';
-    } else if ( ! emailValid ) {
+    } else if (!emailValid) {
       errorMessage = 'Please enter a valid email address';
     }
 
@@ -199,7 +199,7 @@ class UserForm extends Component {
       errorMessage: errorMessage,
     });
 
-    if ( usernameValid && nameValid && emailValid && passwordValid && errorMessage.length === 0 ) {
+    if (usernameValid && nameValid && emailValid && passwordValid && errorMessage.length === 0) {
       ::this.handleSubmitUserForm();
     }
   }
@@ -283,7 +283,7 @@ class UserForm extends Component {
     const selectedUser = user.selected;
     let errorMessage = this.props.errorMessage;
 
-    if ( this.state.errorMessage.length > 0 ) {
+    if (this.state.errorMessage.length > 0) {
       errorMessage = this.state.errorMessage;
     }
 
@@ -363,7 +363,7 @@ class UserForm extends Component {
                           </Fragment>
                       }
                       {
-                        ! loading &&
+                        !loading &&
                         mode === 'create' &&
                         <PasswordInput
                           value={password}

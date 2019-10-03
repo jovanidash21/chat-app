@@ -39,7 +39,7 @@ class ChatRoomForm extends Component {
     };
   }
   componentWillMount() {
-    if ( this.props.mode === 'create' ) {
+    if (this.props.mode === 'create') {
       this.setState({
         loading: false,
       });
@@ -85,7 +85,7 @@ class ChatRoomForm extends Component {
       }
     }
 
-    if ( this.props.mode === 'edit' ) {
+    if (this.props.mode === 'edit') {
       if (
         prevProps.chatRoom.fetchSelect.loading &&
         !this.props.chatRoom.fetchSelect.loading
@@ -176,7 +176,7 @@ class ChatRoomForm extends Component {
       mode,
     } = this.props;
 
-    if ( mode === 'edit' ) {
+    if (mode === 'edit') {
       const selectedChatRoom = chatRoom.selected;
 
       this.setState({
@@ -199,9 +199,9 @@ class ChatRoomForm extends Component {
   handleImageUpload(image) {
     const { uploadImage } = this.props;
 
-    if ( image.type.indexOf('image/') === -1 ) {
+    if (image.type.indexOf('image/') === -1) {
       Popup.alert('Please select an image file');
-    } else if ( image.size > 1024 * 1024 * 2 ) {
+    } else if (image.size > 1024 * 1024 * 2) {
       Popup.alert('Maximum upload file size is 2MB only');
     } else {
       uploadImage(image);
@@ -222,15 +222,15 @@ class ChatRoomForm extends Component {
     let nameValid = true;
     let errorMessage = '';
 
-    if ( chatType === 'group' && name.trim().length === 0 ) {
+    if (chatType === 'group' && name.trim().length === 0) {
       nameValid = false;
     }
 
-    if ( ! nameValid ) {
+    if (!nameValid) {
       errorMessage = 'Name is required';
-    } else if ( chatType === 'direct' && members.length !== 2 ) {
+    } else if (chatType === 'direct' && members.length !== 2) {
       errorMessage = 'Please select 2 members on Direct Chat Room';
-    } else if ( chatType === 'group' && members.length < 3 ) {
+    } else if (chatType === 'group' && members.length < 3) {
       errorMessage = 'Please select at least 3 members';
     }
 
@@ -239,7 +239,7 @@ class ChatRoomForm extends Component {
       errorMessage: errorMessage
     });
 
-    if ( nameValid && errorMessage.length === 0 ) {
+    if (nameValid && errorMessage.length === 0) {
       ::this.handleSubmitChatRoomForm();
     }
   }
@@ -319,7 +319,7 @@ class ChatRoomForm extends Component {
     const inputDisabled = (chatType === 'direct' && members.length === 2) || chatRoom.create.loading;
     let errorMessage = this.props.errorMessage;
 
-    if ( this.state.errorMessage.length > 0 ) {
+    if (this.state.errorMessage.length > 0) {
       errorMessage = this.state.errorMessage;
     }
 
