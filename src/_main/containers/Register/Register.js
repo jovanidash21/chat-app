@@ -81,7 +81,7 @@ class Register extends Component {
       passwordValid = false;
     }
 
-    if (password.trim().length > 0 && password !== confirmPassword  {
+    if (password.trim().length > 0 && password !== confirmPassword) {
       confirmPasswordValid = false;
     }
 

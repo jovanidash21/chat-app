@@ -28,7 +28,7 @@ const initialState = {
 const message = (state = initialState, action) => {
   switch(action.type) {
     case `${FETCH_NEW_MESSAGES}_LOADING`: {
-      const activeChatRoom = { ..state.activeChatRoom};
+      const activeChatRoom = {...state.activeChatRoom};
       const chatRoomID = action.meta;
 
       if (chatRoomID === activeChatRoom.data._id) {

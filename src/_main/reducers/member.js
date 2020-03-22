@@ -180,7 +180,7 @@ const member = (state = initialState, action) => {
     case SOCKET_BROADCAST_USER_LOGIN: {
       const user = action.user;
       const userID = user._id;
-      const activeChatRoom = { ..state.activeChatRoom};
+      const activeChatRoom = {...state.activeChatRoom};
       const members = [...state.all];
 
       const memberIndex = members.findIndex((singleMember) => {

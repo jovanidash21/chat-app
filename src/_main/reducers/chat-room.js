@@ -216,7 +216,7 @@ const chatRoom = (state = initialState, action) => {
           message: action.payload.data.message,
         },
         active: {...activeChatRoom},
-        all: [ ..chatRooms],
+        all: [...chatRooms],
       };
     }
     case `${FETCH_CHAT_ROOMS}_ERROR`: {

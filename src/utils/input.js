@@ -49,7 +49,7 @@ export function insertHTML( lement, caretPosition, html) {
   if (typeof window.getSelection != 'undefined') {
     selection = window.getSelection();
 
-    if (selection.getRangeAt && selection.rangeCount  {
+    if (selection.getRangeAt && selection.rangeCount) {
       let range = selection.getRangeAt(0);
       range.deleteContents();
 
