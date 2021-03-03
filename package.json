@@ -53,7 +53,7 @@
     "passport-remember-me": "0.0.1",
     "passport-twitter": "^1.0.4",
     "popup-tools": "^1.0.2",
-    "pug": "^2.0.3",
+    "pug": "^3.0.1",
     "rimraf": "^2.6.2",
     "serve-favicon": "~2.4.3",
     "slash": "^2.0.0",
