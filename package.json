@@ -121,7 +121,7 @@
     "react-spinkit": "^3.0.0",
     "react-svg": "^7.1.0",
     "react-timeago": "^4.1.9",
-    "recharts": "^1.5.0",
+    "recharts": "^2.1.14",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^5.1.1",
